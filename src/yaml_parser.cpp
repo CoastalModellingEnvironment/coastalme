@@ -22,19 +22,25 @@
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 ==============================================================================================================================*/
-#include "yaml_parser.h"
 #include <iostream>
-#include <sstream>
-#include <algorithm>
-#include <cctype>
-
 using std::cerr;
 using std::endl;
+
+#include <string>
 using std::getline;
-using std::isspace;
 using std::stod;
 using std::stoi;
+
+#include <sstream>
 using std::stringstream;
+
+#include <algorithm>
+
+#include <cctype>
+using std::isspace;
+
+#include "yaml_parser.h"
+#include "simulation.h"
 
 //===============================================================================================================================
 // CYamlNode implementation
@@ -124,7 +130,7 @@ unsigned long CYamlNode::GetULongValue(unsigned long nDefault) const
    return nDefault;
 }
 
-double CYamlNode::GetDoubleValue(double dDefault) const
+double CYamlNode::dGetDoubleValue(double dDefault) const
 {
    try
    {
@@ -138,13 +144,12 @@ double CYamlNode::GetDoubleValue(double dDefault) const
    return dDefault;
 }
 
-bool CYamlNode::GetBoolValue(bool bDefault) const
+bool CYamlNode::bGetBoolValue(bool bDefault) const
 {
    if (m_strValue.empty())
       return bDefault;
 
-   string strLower = m_strValue;
-   std::transform(strLower.begin(), strLower.end(), strLower.begin(), ::tolower);
+   string strLower = CSimulation::strToLower(&m_strValue);
 
    if (strLower == "true" || strLower == "yes" || strLower == "y" || strLower == "1")
       return true;

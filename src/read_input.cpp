@@ -4339,7 +4339,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
             config.SetLogFileDetail(runInfo.GetChild("log_file_detail").GetIntValue());
          if (runInfo.HasChild("csv_per_timestep_results"))
             config.SetCSVPerTimestepResults(
-               runInfo.GetChild("csv_per_timestep_results").GetBoolValue());
+               runInfo.GetChild("csv_per_timestep_results").bGetBoolValue());
       }
 
       // simulation
@@ -4391,9 +4391,9 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          if (gis.HasChild("raster_format"))
             config.SetRasterFormat(*gis.GetChild("raster_format").pstrGetValue());
          if (gis.HasChild("world_file"))
-            config.SetWorldFile(gis.GetChild("world_file").GetBoolValue());
+            config.SetWorldFile(gis.GetChild("world_file").bGetBoolValue());
          if (gis.HasChild("scale_values"))
-            config.SetScaleValues(gis.GetChild("scale_values").GetBoolValue());
+            config.SetScaleValues(gis.GetChild("scale_values").bGetBoolValue());
       }
 
       // Hydrology
@@ -4410,13 +4410,13 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          }
          if (hydro.HasChild("seawater_density"))
             config.SetSeawaterDensity(
-               hydro.GetChild("seawater_density").GetDoubleValue());
+               hydro.GetChild("seawater_density").dGetDoubleValue());
          if (hydro.HasChild("initial_water_level"))
             config.SetInitialWaterLevel(
-               hydro.GetChild("initial_water_level").GetDoubleValue());
+               hydro.GetChild("initial_water_level").dGetDoubleValue());
          if (hydro.HasChild("final_water_level"))
             config.SetFinalWaterLevel(
-               hydro.GetChild("final_water_level").GetDoubleValue());
+               hydro.GetChild("final_water_level").dGetDoubleValue());
 
          // Wave data configuration - read wave_input_mode first
          string strWaveInputMode = "fixed";      // default
@@ -4442,12 +4442,12 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
             // Read fixed wave condition inputs
             if (hydro.HasChild("wave_height"))
                config.SetDeepWaterWaveHeight(
-                  hydro.GetChild("wave_height").GetDoubleValue());
+                  hydro.GetChild("wave_height").dGetDoubleValue());
             if (hydro.HasChild("wave_orientation"))
                config.SetDeepWaterWaveOrientation(
-                  hydro.GetChild("wave_orientation").GetDoubleValue());
+                  hydro.GetChild("wave_orientation").dGetDoubleValue());
             if (hydro.HasChild("wave_period"))
-               config.SetWavePeriod(hydro.GetChild("wave_period").GetDoubleValue());
+               config.SetWavePeriod(hydro.GetChild("wave_period").dGetDoubleValue());
          }
          else
       {
@@ -4460,7 +4460,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
             config.SetTideDataFile(processFilePath(*hydro.GetChild("tide_data_file").pstrGetValue()));
          if (hydro.HasChild("breaking_wave_ratio"))
             config.SetBreakingWaveRatio(
-               hydro.GetChild("breaking_wave_ratio").GetDoubleValue());
+               hydro.GetChild("breaking_wave_ratio").dGetDoubleValue());
       }
 
       // Grid and Coastline
@@ -4493,10 +4493,10 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
                grid.GetChild("profile_smoothing_window").GetIntValue());
          if (grid.HasChild("max_local_slope"))
             config.SetMaxLocalSlope(
-               grid.GetChild("max_local_slope").GetDoubleValue());
+               grid.GetChild("max_local_slope").dGetDoubleValue());
          if (grid.HasChild("max_beach_elevation"))
             config.SetMaxBeachElevation(
-               grid.GetChild("max_beach_elevation").GetDoubleValue());
+               grid.GetChild("max_beach_elevation").dGetDoubleValue());
       }
 
       // Layers and Files
@@ -4551,13 +4551,13 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          CYamlNode sed = root.GetChild("sediment_and_erosion");
          if (sed.HasChild("coast_platform_erosion"))
             config.SetCoastPlatformErosion(
-               sed.GetChild("coast_platform_erosion").GetBoolValue());
+               sed.GetChild("coast_platform_erosion").bGetBoolValue());
          if (sed.HasChild("platform_erosion_resistance"))
             config.SetPlatformErosionResistance(
-               sed.GetChild("platform_erosion_resistance").GetDoubleValue());
+               sed.GetChild("platform_erosion_resistance").dGetDoubleValue());
          if (sed.HasChild("beach_sediment_transport"))
             config.SetBeachSedimentTransport(
-               sed.GetChild("beach_sediment_transport").GetBoolValue());
+               sed.GetChild("beach_sediment_transport").bGetBoolValue());
          if (sed.HasChild("beach_transport_at_edges"))
             config.SetBeachTransportAtEdges(
                sed.GetChild("beach_transport_at_edges").GetIntValue());
@@ -4568,37 +4568,37 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          }
          if (sed.HasChild("sediment_density"))
             config.SetSedimentDensity(
-               sed.GetChild("sediment_density").GetDoubleValue());
+               sed.GetChild("sediment_density").dGetDoubleValue());
          if (sed.HasChild("beach_sediment_porosity"))
             config.SetBeachSedimentPorosity(
-               sed.GetChild("beach_sediment_porosity").GetDoubleValue());
+               sed.GetChild("beach_sediment_porosity").dGetDoubleValue());
          if (sed.HasChild("transport_kls"))
-            config.SetTransportKLS(sed.GetChild("transport_kls").GetDoubleValue());
+            config.SetTransportKLS(sed.GetChild("transport_kls").dGetDoubleValue());
          if (sed.HasChild("kamphuis_parameter"))
-            config.SetKamphuis(sed.GetChild("kamphuis_parameter").GetDoubleValue());
+            config.SetKamphuis(sed.GetChild("kamphuis_parameter").dGetDoubleValue());
          if (sed.HasChild("berm_height"))
-            config.SetBermHeight(sed.GetChild("berm_height").GetDoubleValue());
+            config.SetBermHeight(sed.GetChild("berm_height").dGetDoubleValue());
 
          // Handle nested median_sizes and erosivity sections
          if (sed.HasChild("median_sizes"))
          {
             CYamlNode sizes = sed.GetChild("median_sizes");
             if (sizes.HasChild("fine"))
-               config.SetFineMedianSize(sizes.GetChild("fine").GetDoubleValue());
+               config.SetFineMedianSize(sizes.GetChild("fine").dGetDoubleValue());
             if (sizes.HasChild("sand"))
-               config.SetSandMedianSize(sizes.GetChild("sand").GetDoubleValue());
+               config.SetSandMedianSize(sizes.GetChild("sand").dGetDoubleValue());
             if (sizes.HasChild("coarse"))
-               config.SetCoarseMedianSize(sizes.GetChild("coarse").GetDoubleValue());
+               config.SetCoarseMedianSize(sizes.GetChild("coarse").dGetDoubleValue());
          }
          if (sed.HasChild("erosivity"))
          {
             CYamlNode eros = sed.GetChild("erosivity");
             if (eros.HasChild("fine"))
-               config.SetFineErosivity(eros.GetChild("fine").GetDoubleValue());
+               config.SetFineErosivity(eros.GetChild("fine").dGetDoubleValue());
             if (eros.HasChild("sand"))
-               config.SetSandErosivity(eros.GetChild("sand").GetDoubleValue());
+               config.SetSandErosivity(eros.GetChild("sand").dGetDoubleValue());
             if (eros.HasChild("coarse"))
-               config.SetCoarseErosivity(eros.GetChild("coarse").GetDoubleValue());
+               config.SetCoarseErosivity(eros.GetChild("coarse").dGetDoubleValue());
          }
       }
 
@@ -4608,26 +4608,26 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          CYamlNode cliff = root.GetChild("cliff_parameters");
          if (cliff.HasChild("cliff_collapse"))
             config.SetCliffCollapse(
-               cliff.GetChild("cliff_collapse").GetBoolValue());
+               cliff.GetChild("cliff_collapse").bGetBoolValue());
          if (cliff.HasChild("cliff_erosion_resistance"))
             config.SetCliffErosionResistance(
-               cliff.GetChild("cliff_erosion_resistance").GetDoubleValue());
+               cliff.GetChild("cliff_erosion_resistance").dGetDoubleValue());
          if (cliff.HasChild("notch_overhang"))
             config.SetNotchOverhang(
-               cliff.GetChild("notch_overhang").GetDoubleValue());
+               cliff.GetChild("notch_overhang").dGetDoubleValue());
          if (cliff.HasChild("notch_base"))
-            config.SetNotchBase(cliff.GetChild("notch_base").GetDoubleValue());
+            config.SetNotchBase(cliff.GetChild("notch_base").dGetDoubleValue());
          if (cliff.HasChild("deposition_scale_parameter_a"))
             config.SetCliffDepositionA(
-               cliff.GetChild("deposition_scale_parameter_a").GetDoubleValue());
+               cliff.GetChild("deposition_scale_parameter_a").dGetDoubleValue());
          if (cliff.HasChild("talus_width"))
-            config.SetTalusWidth(cliff.GetChild("talus_width").GetDoubleValue());
+            config.SetTalusWidth(cliff.GetChild("talus_width").dGetDoubleValue());
          if (cliff.HasChild("min_talus_length"))
             config.SetMinTalusLength(
-               cliff.GetChild("min_talus_length").GetDoubleValue());
+               cliff.GetChild("min_talus_length").dGetDoubleValue());
          if (cliff.HasChild("min_talus_height"))
             config.SetMinTalusHeight(
-               cliff.GetChild("min_talus_height").GetDoubleValue());
+               cliff.GetChild("min_talus_height").dGetDoubleValue());
       }
 
       // Flood Parameters
@@ -4635,7 +4635,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
       {
          CYamlNode flood = root.GetChild("flood_parameters");
          if (flood.HasChild("flood_input"))
-            config.SetFloodInput(flood.GetChild("flood_input").GetBoolValue());
+            config.SetFloodInput(flood.GetChild("flood_input").bGetBoolValue());
          if (flood.HasChild("flood_coastline"))
             config.SetFloodCoastline(*flood.GetChild("flood_coastline").pstrGetValue());
          if (flood.HasChild("runup_equation"))
@@ -4652,7 +4652,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          CYamlNode sedInput = root.GetChild("sediment_input_parameters");
          if (sedInput.HasChild("sediment_input"))
             config.SetSedimentInput(
-               sedInput.GetChild("sediment_input").GetBoolValue());
+               sedInput.GetChild("sediment_input").bGetBoolValue());
          if (sedInput.HasChild("location"))
             config.SetSedimentInputLocation(*sedInput.GetChild("location").pstrGetValue());
          if (sedInput.HasChild("type"))
@@ -4667,22 +4667,22 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          CYamlNode physics = root.GetChild("physics_and_geometry");
          if (physics.HasChild("gravitational_acceleration"))
             config.SetGravitationalAcceleration(
-               physics.GetChild("gravitational_acceleration").GetDoubleValue());
+               physics.GetChild("gravitational_acceleration").dGetDoubleValue());
          if (physics.HasChild("normal_spacing"))
             config.SetNormalSpacing(
-               physics.GetChild("normal_spacing").GetDoubleValue());
+               physics.GetChild("normal_spacing").dGetDoubleValue());
          if (physics.HasChild("random_factor"))
             config.SetRandomFactor(
-               physics.GetChild("random_factor").GetDoubleValue());
+               physics.GetChild("random_factor").dGetDoubleValue());
          if (physics.HasChild("normal_length"))
             config.SetNormalLength(
-               physics.GetChild("normal_length").GetDoubleValue());
+               physics.GetChild("normal_length").dGetDoubleValue());
          if (physics.HasChild("start_depth_ratio"))
             config.SetStartDepthRatio(
-               physics.GetChild("start_depth_ratio").GetDoubleValue());
+               physics.GetChild("start_depth_ratio").dGetDoubleValue());
          if (physics.HasChild("synthetic_transect_spacing"))
             config.SetSyntheticTransectSpacing(
-               physics.GetChild("synthetic_transect_spacing").GetDoubleValue());
+               physics.GetChild("synthetic_transect_spacing").dGetDoubleValue());
       }
 
       // Profile and Output
@@ -4691,13 +4691,13 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          CYamlNode profile = root.GetChild("profile_and_output");
          if (profile.HasChild("save_profile_data"))
             config.SetSaveProfileData(
-               profile.GetChild("save_profile_data").GetBoolValue());
+               profile.GetChild("save_profile_data").bGetBoolValue());
          if (profile.HasChild("save_parallel_profiles"))
             config.SetSaveParallelProfiles(
-               profile.GetChild("save_parallel_profiles").GetBoolValue());
+               profile.GetChild("save_parallel_profiles").bGetBoolValue());
          if (profile.HasChild("output_erosion_potential"))
             config.SetOutputErosionPotential(
-               profile.GetChild("output_erosion_potential").GetBoolValue());
+               profile.GetChild("output_erosion_potential").bGetBoolValue());
          if (profile.HasChild("curvature_window"))
             config.SetCurvatureWindow(
                profile.GetChild("curvature_window").GetIntValue());
@@ -4754,7 +4754,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
                cliffEdge.GetChild("cliff_edge_polynomial_order").GetIntValue());
          if (cliffEdge.HasChild("cliff_slope_limit"))
             config.SetCliffSlopeLimit(
-               cliffEdge.GetChild("cliff_slope_limit").GetDoubleValue());
+               cliffEdge.GetChild("cliff_slope_limit").dGetDoubleValue());
       }
    }
    catch (std::exception const &e)
@@ -5381,14 +5381,12 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    // Case 30: Basic simulation input files
    m_strInitialLandformFile = *config.pstrGetLandformFile();
 
-   // Case 31: Initial Intervention class GIS file
-   // (can be blank: if so then intervention height file must also be blank)
+   // Case 31: Initial Intervention class GIS file (can be blank: if so then intervention height file must also be blank)
    string strInterventionClass = *config.pstrGetInterventionClassFile();
    if (! strInterventionClass.empty())
       m_strInterventionClassFile = strInterventionClass;
 
-   // Case 32: Initial Intervention height GIS file
-   // (can be blank: if so then intervention class file must also be blank)
+   // Case 32: Initial Intervention height GIS file (can be blank: if so then intervention class file must also be blank)
    string strInterventionHeight = *config.pstrGetInterventionHeightFile();
    if (! strInterventionHeight.empty())
       m_strInterventionHeightFile = strInterventionHeight;
@@ -5398,18 +5396,17 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
 
    // Case 34: Density of sea water (kg/m3), first check that this is a valid
    // double
-   m_dSeaWaterDensity = config.GetSeawaterDensity();
+   m_dSeaWaterDensity = config.dGetSeawaterDensity();
 
-   // Case 35: Initial mean still water level (m), first check that this is a
-   // valid double TODO 041 Make this a per-timestep SWL file
-   m_dInitialMeanSWL = config.GetInitialWaterLevel();
+   // Case 35: Initial mean still water level (m), first check that this is a valid double TODO 041 Make this a per-timestep SWL file
+   m_dInitialMeanSWL = config.dGetInitialWaterLevel();
 
    // Case 36: Final water level (optional)
    if (config.HasFinalWaterLevel())
    {
       if (! strInterventionHeight.empty())
       {
-         m_dFinalMeanSWL = config.GetFinalWaterLevel();
+         m_dFinalMeanSWL = config.dGetFinalWaterLevel();
       }
       else
       {
@@ -5417,22 +5414,20 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
       }
    }
    // Case 38-40 Parse Wave Data
-   // Case 38: Deep water wave height (m) or a file of point vectors giving deep
-   // Firstly has the user provided a filepath for wave data
+   // Case 38: Deep water wave height (m) or a file of point vectors giving deep  Firstly has the user provided a filepath for wave data
    if (config.pstrGetWaveHeightTimeSeries()->empty())
    {
       m_bSingleDeepWaterWaveValues = true;
       m_bHaveWaveStationData = false;
       // Case 37: Deep water wave height (m) or a file of point vectors giving deep water wave height (m) and orientation (for units, see below)
-      m_dAllCellsDeepWaterWaveHeight = config.GetDeepWaterWaveHeight();
+      m_dAllCellsDeepWaterWaveHeight = config.dGetDeepWaterWaveHeight();
 
       // Case 39: Deep water wave orientation in input CRS: this is the
-      // oceanographic convention i.e. direction TOWARDS which the waves move (in
-      // degrees clockwise from north)
-      m_dAllCellsDeepWaterWaveAngle = config.GetDeepWaterWaveOrientation();
+      // oceanographic convention i.e. direction TOWARDS which the waves move (in degrees clockwise from north)
+      m_dAllCellsDeepWaterWaveAngle = config.dGetDeepWaterWaveOrientation();
 
       // Case 40: Wave period (sec)
-      m_dAllCellsDeepWaterWavePeriod = config.GetWavePeriod();
+      m_dAllCellsDeepWaterWavePeriod = config.dGetWavePeriod();
    }
    else
    {
@@ -5445,89 +5440,79 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    // Case 41: Tide data file (can be blank). This is the change (m) from still water level for each timestep
    m_strTideDataFile = *config.pstrGetTideDataFile();
 
-   // Case 42: Breaking wave height-to-depth ratio, check that this is a valid
-   // double
-   m_dBreakingWaveHeightDepthRatio = config.GetBreakingWaveRatio();
+   // Case 42: Breaking wave height-to-depth ratio, check that this is a valid double
+   m_dBreakingWaveHeightDepthRatio = config.dGetBreakingWaveRatio();
 
    // Case 43: Simulate coast platform erosion?
-   m_bDoShorePlatformErosion = config.GetCoastPlatformErosion();
+   m_bDoShorePlatformErosion = config.bGetCoastPlatformErosion();
 
    // Case 44: If simulating coast platform erosion, R (coast platform resistance to erosion) values along profile, see Walkden & Hall, 2011
    if (m_bDoShorePlatformErosion)
    {
-      m_dR = config.GetPlatformErosionResistance();
+      m_dR = config.dGetPlatformErosionResistance();
    }
 
    // Case 45: Simulate beach sediment transport?
-   m_bDoBeachSedimentTransport = config.GetBeachSedimentTransport();
+   m_bDoBeachSedimentTransport = config.bGetBeachSedimentTransport();
 
-   // Case 46: If simulating beach sediment transport, beach sediment transport
-   // at grid edges [0 = closed, 1 = open, 2 = re-circulate]
+   // Case 46: If simulating beach sediment transport, beach sediment transport  at grid edges [0 = closed, 1 = open, 2 = re-circulate]
    m_nUnconsSedimentHandlingAtGridEdges = config.GetBeachTransportAtEdges();
 
-   // Case 47: If simulating beach sediment transport, beach erosion/deposition
-   // equation [0 = CERC, 1 = Kamphuis]
+   // Case 47: If simulating beach sediment transport, beach erosion/deposition equation [0 = CERC, 1 = Kamphuis]
    m_nBeachErosionDepositionEquation = config.GetBeachErosionEquation();
 
-   // Case 48: Median size of fine sediment (mm), always needed [0 = default,
-   // only for Kamphuis eqn]. First check that this is a valid double
-   m_dD50Fine = config.GetFineMedianSize();
+   // Case 48: Median size of fine sediment (mm), always needed [0 = default, only for Kamphuis eqn]. First check that this is a valid double
+   m_dD50Fine = config.dGetFineMedianSize();
 
-   // Case 49: Median size of sand sediment (mm), always needed [0 = default,
-   // only for Kamphuis eqn]. First check that this is a valid double
-   m_dD50Sand = config.GetSandMedianSize();
+   // Case 49: Median size of sand sediment (mm), always needed [0 = default, only for Kamphuis eqn]. First check that this is a valid double
+   m_dD50Sand = config.dGetSandMedianSize();
 
-   // Case 50: Median size of coarse sediment (mm), always needed [0 = default,
-   // only for Kamphuis eqn]. First check that this is a valid double
-   m_dD50Coarse = config.GetCoarseMedianSize();
+   // Case 50: Median size of coarse sediment (mm), always needed [0 = default, only for Kamphuis eqn]. First check that this is a valid double
+   m_dD50Coarse = config.dGetCoarseMedianSize();
 
    // Case 51: Density of unconsolidated beach sediment (kg/m3)
-   m_dBeachSedimentDensity = config.GetSedimentDensity();
+   m_dBeachSedimentDensity = config.dGetSedimentDensity();
 
    // Case 52: Beach sediment porosity
-   m_dBeachSedimentPorosity = config.GetBeachSedimentPorosity();
+   m_dBeachSedimentPorosity = config.dGetBeachSedimentPorosity();
 
-   // Case 53: Relative erodibility (0 - 1) of fine-sized sediment, always
-   // needed. First check that this is a valid double
-   m_dFineErodibility = config.GetFineErosivity();
+   // Case 53: Relative erodibility (0 - 1) of fine-sized sediment, always needed. First check that this is a valid double
+   m_dFineErodibility = config.dGetFineErosivity();
 
-   // Case 54: Relative erodibility (0 - 1) of sand-sized sediment, always
-   // needed. First check that this is a valid double
-   m_dSandErodibility = config.GetSandErosivity();
+   // Case 54: Relative erodibility (0 - 1) of sand-sized sediment, always needed. First check that this is a valid double
+   m_dSandErodibility = config.dGetSandErosivity();
 
-   // Case 55: Relative erodibility (0 - 1) of coarse-sized sediment, always
-   // needed. First check that this is a valid double
-   m_dCoarseErodibility = config.GetCoarseErosivity();
+   // Case 55: Relative erodibility (0 - 1) of coarse-sized sediment, always needed. First check that this is a valid double
+   m_dCoarseErodibility = config.dGetCoarseErosivity();
 
    // Case 56: Transport parameter KLS in CERC equation
-   m_dKLS = config.GetTransportKLS();
+   m_dKLS = config.dGetTransportKLS();
 
    // Case 57: Transport parameter for Kamphuis equation
-   m_dKamphuis = config.GetKamphuis();
+   m_dKamphuis = config.dGetKamphuis();
 
-   // Case 58: Berm height i.e. height above SWL of start of depositional Dean
-   // profile
-   m_dDeanProfileStartAboveSWL = config.GetBermHeight();
+   // Case 58: Berm height i.e. height above SWL of start of depositional Dean profile
+   m_dDeanProfileStartAboveSWL = config.dGetBermHeight();
 
    // Case 59: Simulate cliff collapse?
-   m_bDoCliffCollapse = config.GetCliffCollapse();
+   m_bDoCliffCollapse = config.bGetCliffCollapse();
 
    // Case 60: Cliff resistance to erosion
    if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
    {
-      m_dCliffErosionResistance = config.GetCliffErosionResistance();
+      m_dCliffErosionResistance = config.dGetCliffErosionResistance();
    }
 
    // Case 61: Notch overhang at collapse (m)
    if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
    {
-      m_dNotchIncisionAtCollapse = config.GetNotchOverhang();
+      m_dNotchIncisionAtCollapse = config.dGetNotchOverhang();
    }
 
    // Case 62: Notch base below still water level (m)
    if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
    {
-      m_dNotchApexAboveMHW = config.GetNotchBase();
+      m_dNotchApexAboveMHW = config.dGetNotchBase();
    }
 
    // Case 63: Scale parameter A for cliff deposition (m^(1/3)) [0 = auto]
@@ -5539,24 +5524,23 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    // Case 64: Approximate planview width of cliff collapse talus (in m)
    if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
    {
-      m_dCliffDepositionPlanviewWidth = config.GetTalusWidth();
+      m_dCliffDepositionPlanviewWidth = config.dGetTalusWidth();
    }
 
    // Case 65: Planview length of cliff deposition talus (m)
    if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
    {
-      m_dCliffTalusMinDepositionLength = config.GetMinTalusLength();
+      m_dCliffTalusMinDepositionLength = config.dGetMinTalusLength();
    }
 
-   // Case 66: Minimum height of landward end of talus, as a fraction of cliff
-   // elevation
+   // Case 66: Minimum height of landward end of talus, as a fraction of cliff  elevation
    if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
    {
-      m_dMinCliffTalusHeightFrac = config.GetMinTalusHeight();
+      m_dMinCliffTalusHeightFrac = config.dGetMinTalusHeight();
    }
 
    // Case 67: Simulate riverine flooding?
-   if (config.GetFloodInput())
+   if (config.bGetFloodInput())
    {
       m_bRiverineFlooding = true;
       m_bSetupSurgeFloodMaskSave = true;
@@ -5565,7 +5549,7 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    }
 
    // Case 68: Output riverine flooding vector files
-   if (config.GetFloodInput())
+   if (config.bGetFloodInput())
    {
       // TODO: This is a guess, please check
       vector<string> floodFiles = config.VstrGetFloodFiles();
@@ -5583,7 +5567,7 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    }
 
    // Case 69: Flooding runup equation?
-   if (config.GetFloodInput())
+   if (config.bGetFloodInput())
    {
       // TODO: This is a guess, please check
       m_nRunUpEquation = config.GetRunupEquation();
@@ -5604,7 +5588,7 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    }
 
    // Case 72: Simulate sediment input?
-   if (config.GetSedimentInput())
+   if (config.bGetSedimentInput())
    {
       m_bSedimentInput = true;
       m_bSedimentInputEventSave = true;
@@ -5637,29 +5621,28 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    }
 
    // Case 76: Gravitational acceleration (m2/s). First check that this is a valid double
-   m_dG = config.GetGravitationalAcceleration();
+   m_dG = config.dGetGravitationalAcceleration();
 
    // Case 77: Spacing of coastline normals (m)
-   m_dCoastNormalSpacing = config.GetNormalSpacing();
+   m_dCoastNormalSpacing = config.dGetNormalSpacing();
    if (bFPIsEqual(m_dCoastNormalSpacing, 0.0, TOLERANCE))
       m_nCoastNormalSpacing = DEFAULT_PROFILE_SPACING;      // In cells, we will set m_dCoastNormalSpacing later when we know m_dCellSide
 
    // Case 78: Random factor for spacing of normals  [0 to 1, 0 = deterministic], check that this is a valid double
-   m_dCoastNormalRandSpacingFactor = config.GetRandomFactor();
+   m_dCoastNormalRandSpacingFactor = config.dGetRandomFactor();
 
    // Case 79: Length of coastline normals (m), check that this is a valid double
-   m_dCoastNormalLength = config.GetNormalLength();
+   m_dCoastNormalLength = config.dGetNormalLength();
 
    // Approximate minimum spacing (m) between wave transects for interpolation densification
-   m_dSyntheticTransectSpacing = config.GetSyntheticTransectSpacing();
+   m_dSyntheticTransectSpacing = config.dGetSyntheticTransectSpacing();
 
-   // Case 80: Start depth for wave calcs (ratio to deep water wave height)check
-   // that this is a valid double
-   m_dWaveDepthRatioForWaveCalcs = config.GetBreakingWaveRatio();
+   // Case 80: Start depth for wave calcs (ratio to deep water wave height) check that this is a valid double
+   m_dWaveDepthRatioForWaveCalcs = config.dGetBreakingWaveRatio();
 
    // Case 81: Output profile data?
    // ISSUE: Why are we now only outputing consolidated, this feels like a bodge
-   m_bOutputConsolidatedProfileData = config.GetSaveProfileData();
+   m_bOutputConsolidatedProfileData = config.bGetSaveProfileData();
 
    // Case 82: Numbers of profiles to be saved
    if (m_bOutputConsolidatedProfileData)
@@ -5674,25 +5657,22 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    }
 
    // Case 84: Output parallel profile data?
-   m_bOutputParallelProfileData = config.GetSaveParallelProfiles();
+   m_bOutputParallelProfileData = config.bGetSaveParallelProfiles();
 
    // Case 85: Output erosion potential look-up data?
-   m_bOutputErosionPotentialData = config.GetOutputErosionPotential();
+   m_bOutputErosionPotentialData = config.bGetOutputErosionPotential();
 
-   // Case 86: Cliff toe location? approach [0 = none, 1 = by slope threshold]
-   //TODO: Finish migration
+   // Case 86: Cliff toe location? approach [0 = none, 1 = by slope threshold] TODO: Finish migration
    m_bCliffToeLocate = false;
 
-   // Case 87: Cliff edge smoothing algorithm: 0 = none, 1 = running mean, 2 =
-   // Savitzky-Golay
+   // Case 87: Cliff edge smoothing algorithm: 0 = none, 1 = running mean, 2 = Savitzky-Golay
    m_nCliffEdgeSmooth = config.GetCliffEdgeSmoothing();
 
-   // Case 89: Size of moving window for coastline curvature calculation (must be
-   // odd)
+   // Case 89: Size of moving window for coastline curvature calculation (must be odd)
    m_nCliffEdgeSmoothWindow = config.GetCurvatureWindow();
 
    // Case 90: Cliff slope limit for cliff toe detection
-   m_dSlopeThresholdForCliffToe = config.GetCliffSlopeLimit();
+   m_dSlopeThresholdForCliffToe = config.dGetCliffSlopeLimit();
 
    return true;
 }

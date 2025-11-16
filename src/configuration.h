@@ -783,15 +783,15 @@ class CConfiguration
    {
       return m_nWavePropagationModel;
    }
-   double GetSeawaterDensity() const
+   double dGetSeawaterDensity() const
    {
       return m_dSeawaterDensity;
    }
-   double GetInitialWaterLevel() const
+   double dGetInitialWaterLevel() const
    {
       return m_dInitialWaterLevel;
    }
-   double GetFinalWaterLevel() const
+   double dGetFinalWaterLevel() const
    {
       return m_dFinalWaterLevel;
    }
@@ -815,15 +815,15 @@ class CConfiguration
       return &m_strWaveStationDataFile;
    }
 
-   double GetDeepWaterWaveHeight() const
+   double dGetDeepWaterWaveHeight() const
    {
       return m_dDeepWaterWaveHeight;
    }
-   double GetDeepWaterWaveOrientation() const
+   double dGetDeepWaterWaveOrientation() const
    {
       return m_dDeepWaterWaveOrientation;
    }
-   double GetWavePeriod() const
+   double dGetWavePeriod() const
    {
       return m_dWavePeriod;
    }
@@ -833,21 +833,21 @@ class CConfiguration
       return &m_strTideDataFile;
    }
 
-   double GetBreakingWaveRatio() const
+   double dGetBreakingWaveRatio() const
    {
       return m_dBreakingWaveRatio;
    }
 
    // Sediment and Erosion parameters
-   bool GetCoastPlatformErosion() const
+   bool bGetCoastPlatformErosion() const
    {
       return m_bCoastPlatformErosion;
    }
-   double GetPlatformErosionResistance() const
+   double dGetPlatformErosionResistance() const
    {
       return m_dPlatformErosionResistance;
    }
-   bool GetBeachSedimentTransport() const
+   bool bGetBeachSedimentTransport() const
    {
       return m_bBeachSedimentTransport;
    }
@@ -859,61 +859,61 @@ class CConfiguration
    {
       return m_nBeachErosionEquation;
    }
-   double GetFineMedianSize() const
+   double dGetFineMedianSize() const
    {
       return m_dFineMedianSize;
    }
-   double GetSandMedianSize() const
+   double dGetSandMedianSize() const
    {
       return m_dSandMedianSize;
    }
-   double GetCoarseMedianSize() const
+   double dGetCoarseMedianSize() const
    {
       return m_dCoarseMedianSize;
    }
-   double GetSedimentDensity() const
+   double dGetSedimentDensity() const
    {
       return m_dSedimentDensity;
    }
-   double GetBeachSedimentPorosity() const
+   double dGetBeachSedimentPorosity() const
    {
       return m_dBeachSedimentPorosity;
    }
-   double GetFineErosivity() const
+   double dGetFineErosivity() const
    {
       return m_dFineErosivity;
    }
-   double GetSandErosivity() const
+   double dGetSandErosivity() const
    {
       return m_dSandErosivity;
    }
-   double GetCoarseErosivity() const
+   double dGetCoarseErosivity() const
    {
       return m_dCoarseErosivity;
    }
-   double GetTransportKLS() const
+   double dGetTransportKLS() const
    {
       return m_dTransportKLS;
    }
-   double GetKamphuis() const
+   double dGetKamphuis() const
    {
       return m_dKamphuis;
    }
-   double GetBermHeight() const
+   double dGetBermHeight() const
    {
       return m_dBermHeight;
    }
 
    // Cliff parameters
-   bool GetCliffCollapse() const
+   bool bGetCliffCollapse() const
    {
       return m_bCliffCollapse;
    }
-   double GetCliffErosionResistance() const
+   double dGetCliffErosionResistance() const
    {
       return m_dCliffErosionResistance;
    }
-   double GetNotchOverhang() const
+   double dGetNotchOverhang() const
    {
       return m_dNotchOverhang;
    }
@@ -923,29 +923,29 @@ class CConfiguration
       return m_dCliffDepositionA;
    }
 
-   double GetNotchBase() const
+   double dGetNotchBase() const
    {
       return m_dNotchBase;
    }
-   double GetCliffDepositionA() const
+   double dGetCliffDepositionA() const
    {
       return m_dCliffDepositionA;
    }
-   double GetTalusWidth() const
+   double dGetTalusWidth() const
    {
       return m_dTalusWidth;
    }
-   double GetMinTalusLength() const
+   double dGetMinTalusLength() const
    {
       return m_dMinTalusLength;
    }
-   double GetMinTalusHeight() const
+   double dGetMinTalusHeight() const
    {
       return m_dMinTalusHeight;
    }
 
    // Flood parameters
-   bool GetFloodInput() const
+   bool bGetFloodInput() const
    {
       return m_bFloodInput;
    }
@@ -971,7 +971,7 @@ class CConfiguration
    }
 
    // Sediment Input parameters
-   bool GetSedimentInput() const
+   bool bGetSedimentInput() const
    {
       return m_bSedimentInput;
    }
@@ -991,36 +991,42 @@ class CConfiguration
    }
 
    // Physics and geometry parameters
-   double GetGravitationalAcceleration() const
+   double dGetGravitationalAcceleration() const
    {
       return m_dGravitationalAcceleration;
    }
-   double GetNormalSpacing() const
+
+   double dGetNormalSpacing() const
    {
       return m_dNormalSpacing;
    }
-   double GetRandomFactor() const
+
+   double dGetRandomFactor() const
    {
       return m_dRandomFactor;
    }
-   double GetNormalLength() const
+
+   double dGetNormalLength() const
    {
       return m_dNormalLength;
    }
-   double GetStartDepthRatio() const
+
+   double dGetStartDepthRatio() const
    {
       return m_dStartDepthRatio;
    }
-   double GetSyntheticTransectSpacing() const
+
+   double dGetSyntheticTransectSpacing() const
    {
       return m_dSyntheticTransectSpacing;
    }
 
    // Profile and Output Options
-   bool GetSaveProfileData() const
+   bool bGetSaveProfileData() const
    {
       return m_bSaveProfileData;
    }
+
    vector<int> GetProfileNumbers() const
    {
       return m_VstrProfileNumbers;
@@ -1029,11 +1035,11 @@ class CConfiguration
    {
       return m_VstrProfileTimesteps;
    }
-   bool GetSaveParallelProfiles() const
+   bool bGetSaveParallelProfiles() const
    {
       return m_bSaveParallelProfiles;
    }
-   bool GetOutputErosionPotential() const
+   bool bGetOutputErosionPotential() const
    {
       return m_bOutputErosionPotential;
    }
@@ -1055,7 +1061,7 @@ class CConfiguration
    {
       return m_nCliffEdgePolynomialOrder;
    }
-   double GetCliffSlopeLimit() const
+   double dGetCliffSlopeLimit() const
    {
       return m_dCliffSlopeLimit;
    }

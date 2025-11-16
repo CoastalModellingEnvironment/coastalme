@@ -62,8 +62,8 @@ class CYamlNode
    // Convenience methods for common types
    int GetIntValue(int nDefault = 0) const;
    unsigned long GetULongValue(unsigned long nDefault = 0) const;
-   double GetDoubleValue(double dDefault = 0.0) const;
-   bool GetBoolValue(bool bDefault = false) const;
+   double dGetDoubleValue(double dDefault = 0.0) const;
+   bool bGetBoolValue(bool bDefault = false) const;
    vector<string> VstrGetStringSequence() const;
 };
 
