@@ -1606,6 +1606,7 @@ class CSimulation
    bool bConfigureFromDatFile(CConfiguration& config);
    bool bConfigureFromYamlFile(CConfiguration& config);
    bool bApplyConfiguration(CConfiguration const& config);
+   string const* processFilePath(string*);
    bool bOpenLogFile(void);
    bool bSetUpTSFiles(void);
    void WriteStartRunDetails(void);

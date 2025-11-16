@@ -52,7 +52,7 @@ class CYamlNode
    void AddChild(string const*, CYamlNode const*);
    void AddSequenceItem(CYamlNode const*);
 
-   string const* pstrGetValue() const;
+   string* pstrGetValue() const;
    bool bHasChild(const char[]) const;
    CYamlNode GetChild(string const& strKey) const;
    vector<CYamlNode> GetSequence() const;
@@ -64,7 +64,7 @@ class CYamlNode
    unsigned long GetULongValue(unsigned long nDefault = 0) const;
    double dGetDoubleValue(double dDefault = 0.0) const;
    bool bGetBoolValue(bool bDefault = false) const;
-   vector<string> const* pVstrGetStringSequence() const;
+   vector<string> const VstrGetStringSequence() const;
 };
 
 //! Simple YAML parser class

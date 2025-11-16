@@ -69,9 +69,9 @@ void CYamlNode::AddSequenceItem(CYamlNode const* pNode)
    m_bIsSequence = true;
 }
 
-string const* CYamlNode::pstrGetValue() const
+string* CYamlNode::pstrGetValue() const
 {
-   return &m_strValue;
+   return const_cast<string*>(&m_strValue);
 }
 
 bool CYamlNode::bHasChild(const char chKey[]) const
@@ -159,14 +159,14 @@ bool CYamlNode::bGetBoolValue(bool bDefault) const
    return bDefault;
 }
 
-vector<string> const* CYamlNode::pVstrGetStringSequence() const
+vector<string> const CYamlNode::VstrGetStringSequence() const
 {
-   vector<string> vecResult;
+   vector<string> VstrResult;
    for (auto const& node : m_VYamlChildren)
    {
-      vecResult.push_back(*node.pstrGetValue());
+      VstrResult.push_back(*node.pstrGetValue());
    }
-   return &vecResult;
+   return VstrResult;
 }
 
 //===============================================================================================================================
