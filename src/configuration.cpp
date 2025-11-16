@@ -145,7 +145,7 @@ void CConfiguration::InitializeDefaults()
    // Flood parameters
    m_bFloodInput = false;
    m_strFloodCoastline = "";
-   m_strRunupEquation = 0;
+   m_nRunupEquation = 0;
    m_strFloodLocations = "";
    m_strFloodInputLocation = "";
 
@@ -165,8 +165,8 @@ void CConfiguration::InitializeDefaults()
 
    // Profile and Output Options
    m_bSaveProfileData = false;
-   m_VstrProfileNumbers.clear();
-   m_VstrProfileTimesteps.clear();
+   m_VnProfileNumbers.clear();
+   m_VulProfileTimesteps.clear();
    m_bSaveParallelProfiles = false;
    m_bOutputErosionPotential = false;
    m_nCurvatureWindow = 11;

@@ -1,5 +1,4 @@
 /*!
-
    \file yaml_parser.h
    \brief Simple YAML parser for CoastalME configuration files
    \details A lightweight YAML parser using only standard C++ library, designed specifically for CoastalME configuration needs
@@ -8,7 +7,6 @@
    \author Andres Payo
    \date 2025
    \copyright GNU General Public License
-
 */
 
 /* ==============================================================================================================================
@@ -26,14 +24,16 @@
 #define YAML_PARSER_H
 
 #include <string>
-#include <map>
-#include <vector>
-#include <fstream>
-
-using std::ifstream;
-using std::map;
 using std::string;
+
+#include <map>
+using std::map;
+
+#include <vector>
 using std::vector;
+
+#include <fstream>
+using std::ifstream;
 
 //! Simple YAML node class to represent parsed values
 class CYamlNode
@@ -41,14 +41,14 @@ class CYamlNode
    private:
    string m_strValue;
    map<string, CYamlNode> m_mapChildren;
-   vector<CYamlNode> m_vecChildren;
+   vector<CYamlNode> m_VYamlChildren;
    bool m_bIsSequence;
 
    public:
    CYamlNode();
    ~CYamlNode();
 
-   void SetValue(string const& strValue);
+   void SetValue(string const*);
    void AddChild(string const& strKey, CYamlNode const& node);
    void AddSequenceItem(CYamlNode const& node);
 
@@ -57,14 +57,14 @@ class CYamlNode
    CYamlNode GetChild(string const& strKey) const;
    vector<CYamlNode> GetSequence() const;
    bool IsSequence() const;
-   int GetSequenceSize() const;
+   int nGetSequenceSize() const;
 
    // Convenience methods for common types
-   int GetIntValue(int nDefault = 0) const;
+   int nGetIntValue(int nDefault = 0) const;
    unsigned long GetULongValue(unsigned long nDefault = 0) const;
    double dGetDoubleValue(double dDefault = 0.0) const;
    bool bGetBoolValue(bool bDefault = false) const;
-   vector<string> VstrGetStringSequence() const;
+   vector<string> const* pVstrGetStringSequence() const;
 };
 
 //! Simple YAML parser class

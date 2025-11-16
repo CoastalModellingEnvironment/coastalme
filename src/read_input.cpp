@@ -4299,10 +4299,10 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
    CYamlNode root = parser.GetRoot();
 
    // Helper function to process file paths with base path
-   auto processFilePath = [&](string const &filePath) -> string
+   auto processFilePath = [&](string const &filePath) -> const string*
    {
       if (filePath.empty())
-         return filePath;
+         return &filePath;
 
       // Check if base_path is specified in YAML
       string basePath;
@@ -4316,15 +4316,14 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
       }
 
       // If no base path or file path is absolute, return as-is
-      if (basePath.empty() || (filePath[0] == PATH_SEPARATOR) ||
-          (filePath[0] == TILDE) ||
-          (filePath.length() > 1 && filePath[1] == COLON))
+      if (basePath.empty() || (filePath[0] == PATH_SEPARATOR) || (filePath[0] == TILDE) || (filePath.length() > 1 && filePath[1] == COLON))
       {
-         return filePath;
+         return &filePath;
       }
 
       // Prepend base path to relative file path
-      return basePath + filePath;
+      string strTmp = basePath + filePath;
+      return &strTmp;
    };
 
    try
@@ -4334,9 +4333,9 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
       {
          CYamlNode runInfo = root.GetChild("run_information");
          if (runInfo.HasChild("output_file_names"))
-            config.SetRunName(*runInfo.GetChild("output_file_names").pstrGetValue());
+            config.SetRunName(runInfo.GetChild("output_file_names").pstrGetValue());
          if (runInfo.HasChild("log_file_detail"))
-            config.SetLogFileDetail(runInfo.GetChild("log_file_detail").GetIntValue());
+            config.SetLogFileDetail(runInfo.GetChild("log_file_detail").nGetIntValue());
          if (runInfo.HasChild("csv_per_timestep_results"))
             config.SetCSVPerTimestepResults(
                runInfo.GetChild("csv_per_timestep_results").bGetBoolValue());
@@ -4344,22 +4343,21 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
 
       // simulation
       if (root.HasChild("simulation"))
-
       {
          CYamlNode sim = root.GetChild("simulation");
-         config.SetStartDateTime(*sim.GetChild("start_date_time").pstrGetValue());
+         config.SetStartDateTime(sim.GetChild("start_date_time").pstrGetValue());
          if (sim.HasChild("duration"))
-            config.SetDuration(*sim.GetChild("duration").pstrGetValue());
+            config.SetDuration(sim.GetChild("duration").pstrGetValue());
          if (sim.HasChild("timestep"))
-            config.SetTimestep(*sim.GetChild("timestep").pstrGetValue());
+            config.SetTimestep(sim.GetChild("timestep").pstrGetValue());
          if (sim.HasChild("save_times"))
          {
             CYamlNode saveTimes = sim.GetChild("save_times");
             if (saveTimes.IsSequence())
-               config.SetSaveTimes(saveTimes.VstrGetStringSequence());
+               config.SetSaveTimes(saveTimes.pVstrGetStringSequence());
          }
          if (sim.HasChild("random_seed"))
-            config.SetRandomSeed(sim.GetChild("random_seed").GetIntValue());
+            config.SetRandomSeed(sim.GetChild("random_seed").nGetIntValue());
       }
 
       // GIS Output
@@ -4367,29 +4365,29 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
       {
          CYamlNode gis = root.GetChild("gis_output");
          if (gis.HasChild("max_save_digits"))
-            config.SetMaxSaveDigits(gis.GetChild("max_save_digits").GetIntValue());
+            config.SetMaxSaveDigits(gis.GetChild("max_save_digits").nGetIntValue());
          if (gis.HasChild("save_digits_mode"))
-            config.SetSaveDigitsMode(*gis.GetChild("save_digits_mode").pstrGetValue());
+            config.SetSaveDigitsMode(gis.GetChild("save_digits_mode").pstrGetValue());
          if (gis.HasChild("raster_files"))
          {
             CYamlNode rasterFiles = gis.GetChild("raster_files");
             if (rasterFiles.IsSequence()){
-               config.SetRasterFiles(rasterFiles.VstrGetStringSequence());
+               config.SetRasterFiles(rasterFiles.pVstrGetStringSequence());
             }
             else {
                //Allow the user to supply single entries not in list form
                std::vector<std::string> tempVec{*rasterFiles.pstrGetValue()};
-               config.SetRasterFiles(tempVec);
+               config.SetRasterFiles(&tempVec);
             }
          }
          if (gis.HasChild("vector_files"))
          {
             CYamlNode VstrFiles = gis.GetChild("vector_files");
             if (VstrFiles.IsSequence())
-               config.SetVectorFiles(VstrFiles.VstrGetStringSequence());
+               config.SetVectorFiles(VstrFiles.pVstrGetStringSequence());
          }
          if (gis.HasChild("raster_format"))
-            config.SetRasterFormat(*gis.GetChild("raster_format").pstrGetValue());
+            config.SetRasterFormat(gis.GetChild("raster_format").pstrGetValue());
          if (gis.HasChild("world_file"))
             config.SetWorldFile(gis.GetChild("world_file").bGetBoolValue());
          if (gis.HasChild("scale_values"))
@@ -4423,7 +4421,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          if (hydro.HasChild("wave_input_mode"))
          {
             strWaveInputMode = *hydro.GetChild("wave_input_mode").pstrGetValue();
-            config.SetWaveInputMode(strWaveInputMode);
+            config.SetWaveInputMode(&strWaveInputMode);
          }
 
          // Conditionally read wave parameters based on input mode
@@ -4431,11 +4429,9 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          {
             // Read time series wave inputs
             if (hydro.HasChild("wave_height_time_series"))
-               config.SetWaveHeightTimeSeries(
-                  processFilePath(*hydro.GetChild("wave_height_time_series").pstrGetValue()));
+               config.SetWaveHeightTimeSeries(processFilePath(*hydro.GetChild("wave_height_time_series").pstrGetValue()));
             if (hydro.HasChild("wave_height_shape_file"))
-               config.SetWaveStationDataFile(
-                  processFilePath(*hydro.GetChild("wave_height_shape_file").pstrGetValue()));
+               config.SetWaveStationDataFile(processFilePath(*hydro.GetChild("wave_height_shape_file").pstrGetValue()));
          }
          else if (strWaveInputMode == "fixed")
          {
@@ -4478,19 +4474,19 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
                config.SetCoastlineSmoothing(2);
             else
                config.SetCoastlineSmoothing(
-                  grid.GetChild("coastline_smoothing").GetIntValue());
+                  grid.GetChild("coastline_smoothing").nGetIntValue());
          }
          if (grid.HasChild("coastline_smoothing_window"))
             config.SetCoastlineSmoothingWindow(
-               grid.GetChild("coastline_smoothing_window").GetIntValue());
+               grid.GetChild("coastline_smoothing_window").nGetIntValue());
          if (grid.HasChild("polynomial_order"))
             config.SetPolynomialOrder(
-               grid.GetChild("polynomial_order").GetIntValue());
+               grid.GetChild("polynomial_order").nGetIntValue());
          if (grid.HasChild("omit_grid_edges"))
-            config.SetOmitGridEdges(*grid.GetChild("omit_grid_edges").pstrGetValue());
+            config.SetOmitGridEdges(grid.GetChild("omit_grid_edges").pstrGetValue());
          if (grid.HasChild("profile_smoothing_window"))
             config.SetProfileSmoothingWindow(
-               grid.GetChild("profile_smoothing_window").GetIntValue());
+               grid.GetChild("profile_smoothing_window").nGetIntValue());
          if (grid.HasChild("max_local_slope"))
             config.SetMaxLocalSlope(
                grid.GetChild("max_local_slope").dGetDoubleValue());
@@ -4504,7 +4500,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
       {
          CYamlNode layers = root.GetChild("layers_and_files");
          if (layers.HasChild("num_layers"))
-            config.SetNumLayers(layers.GetChild("num_layers").GetIntValue());
+            config.SetNumLayers(layers.GetChild("num_layers").nGetIntValue());
          if (layers.HasChild("basement_dem_file"))
             config.SetBasementDEMFile(processFilePath(*layers.GetChild("basement_dem_file").pstrGetValue()));
          if (layers.HasChild("suspended_sediment_file"))
@@ -4520,28 +4516,32 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          if (layers.HasChild("layer_0"))
          {
             CYamlNode layer0 = layers.GetChild("layer_0");
-            vector<string> unconsFine, unconsSand, unconsCoarse;
-            vector<string> consFine, consSand, consCoarse;
+            vector<string> VstrUnconsFine;
+            vector<string> VstrUnconsSand;
+            vector<string> VstrUnconsCoarse;
+            vector<string> VstrConsFine;
+            vector<string> VstrConsSand;
+            vector<string> VstrConsCoarse;
 
             if (layer0.HasChild("unconsolidated_fine"))
-               unconsFine.push_back(processFilePath(*layer0.GetChild("unconsolidated_fine").pstrGetValue()));
+               VstrUnconsFine.push_back(*processFilePath(*layer0.GetChild("unconsolidated_fine").pstrGetValue()));
             if (layer0.HasChild("unconsolidated_sand"))
-               unconsSand.push_back(processFilePath(*layer0.GetChild("unconsolidated_sand").pstrGetValue()));
+               VstrUnconsSand.push_back(*processFilePath(*layer0.GetChild("unconsolidated_sand").pstrGetValue()));
             if (layer0.HasChild("unconsolidated_coarse"))
-               unconsCoarse.push_back(processFilePath(*layer0.GetChild("unconsolidated_coarse").pstrGetValue()));
+               VstrUnconsCoarse.push_back(*processFilePath(*layer0.GetChild("unconsolidated_coarse").pstrGetValue()));
             if (layer0.HasChild("consolidated_fine"))
-               consFine.push_back(processFilePath(*layer0.GetChild("consolidated_fine").pstrGetValue()));
+               VstrConsFine.push_back(*processFilePath(*layer0.GetChild("consolidated_fine").pstrGetValue()));
             if (layer0.HasChild("consolidated_sand"))
-               consSand.push_back(processFilePath(*layer0.GetChild("consolidated_sand").pstrGetValue()));
+               VstrConsSand.push_back(*processFilePath(*layer0.GetChild("consolidated_sand").pstrGetValue()));
             if (layer0.HasChild("consolidated_coarse"))
-               consCoarse.push_back(processFilePath(*layer0.GetChild("consolidated_coarse").pstrGetValue()));
+               VstrConsCoarse.push_back(*processFilePath(*layer0.GetChild("consolidated_coarse").pstrGetValue()));
 
-            config.SetUnconsFineFiles(unconsFine);
-            config.SetUnconsSandFiles(unconsSand);
-            config.SetUnconsCoarseFiles(unconsCoarse);
-            config.SetConsFineFiles(consFine);
-            config.SetConsSandFiles(consSand);
-            config.SetConsCoarseFiles(consCoarse);
+            config.SetUnconsFineFiles(VstrUnconsFine);
+            config.SetUnconsSandFiles(VstrUnconsSand);
+            config.SetUnconsCoarseFiles(VstrUnconsCoarse);
+            config.SetConsFineFiles(VstrConsFine);
+            config.SetConsSandFiles(VstrConsSand);
+            config.SetConsCoarseFiles(VstrConsCoarse);
          }
       }
 
@@ -4560,7 +4560,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
                sed.GetChild("beach_sediment_transport").bGetBoolValue());
          if (sed.HasChild("beach_transport_at_edges"))
             config.SetBeachTransportAtEdges(
-               sed.GetChild("beach_transport_at_edges").GetIntValue());
+               sed.GetChild("beach_transport_at_edges").nGetIntValue());
          if (sed.HasChild("beach_erosion_equation"))
          {
             string strEqn = *sed.GetChild("beach_erosion_equation").pstrGetValue();
@@ -4637,13 +4637,13 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          if (flood.HasChild("flood_input"))
             config.SetFloodInput(flood.GetChild("flood_input").bGetBoolValue());
          if (flood.HasChild("flood_coastline"))
-            config.SetFloodCoastline(*flood.GetChild("flood_coastline").pstrGetValue());
+            config.SetFloodCoastline(flood.GetChild("flood_coastline").pstrGetValue());
          if (flood.HasChild("runup_equation"))
-            config.SetRunupEquation(*flood.GetChild("runup_equation").pstrGetValue());
+            config.SetRunupEquation(flood.GetChild("runup_equation").pstrGetValue());
          if (flood.HasChild("characteristic_locations"))
-            config.SetFloodLocations(*flood.GetChild("characteristic_locations").pstrGetValue());
+            config.SetFloodLocations(flood.GetChild("characteristic_locations").pstrGetValue());
          if (flood.HasChild("flood_input_location"))
-            config.SetFloodInputLocation(*flood.GetChild("flood_input_location").pstrGetValue());
+            config.SetFloodInputLocation(flood.GetChild("flood_input_location").pstrGetValue());
       }
 
       // Sediment Input Parameters
@@ -4654,11 +4654,11 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
             config.SetSedimentInput(
                sedInput.GetChild("sediment_input").bGetBoolValue());
          if (sedInput.HasChild("location"))
-            config.SetSedimentInputLocation(*sedInput.GetChild("location").pstrGetValue());
+            config.SetSedimentInputLocation(sedInput.GetChild("location").pstrGetValue());
          if (sedInput.HasChild("type"))
-            config.SetSedimentInputType(*sedInput.GetChild("type").pstrGetValue());
+            config.SetSedimentInputType(sedInput.GetChild("type").pstrGetValue());
          if (sedInput.HasChild("details_file"))
-            config.SetSedimentInputDetails(*sedInput.GetChild("details_file").pstrGetValue());
+            config.SetSedimentInputDetails(sedInput.GetChild("details_file").pstrGetValue());
       }
 
       // Physics and Geometry
@@ -4700,7 +4700,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
                profile.GetChild("output_erosion_potential").bGetBoolValue());
          if (profile.HasChild("curvature_window"))
             config.SetCurvatureWindow(
-               profile.GetChild("curvature_window").GetIntValue());
+               profile.GetChild("curvature_window").nGetIntValue());
 
          // Handle numeric lists
          if (profile.HasChild("profile_numbers"))
@@ -4711,7 +4711,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
                vector<int> vecNums;
                vector<CYamlNode> seq = profileNums.GetSequence();
                for (auto const &node : seq)
-                  vecNums.push_back(node.GetIntValue());
+                  vecNums.push_back(node.nGetIntValue());
                config.SetProfileNumbers(vecNums);
             }
          }
@@ -4744,14 +4744,14 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
                config.SetCliffEdgeSmoothing(2);
             else
                config.SetCliffEdgeSmoothing(
-                  cliffEdge.GetChild("cliff_edge_smoothing").GetIntValue());
+                  cliffEdge.GetChild("cliff_edge_smoothing").nGetIntValue());
          }
          if (cliffEdge.HasChild("cliff_edge_smoothing_window"))
             config.SetCliffEdgeSmoothingWindow(
-               cliffEdge.GetChild("cliff_edge_smoothing_window").GetIntValue());
+               cliffEdge.GetChild("cliff_edge_smoothing_window").nGetIntValue());
          if (cliffEdge.HasChild("cliff_edge_polynomial_order"))
             config.SetCliffEdgePolynomialOrder(
-               cliffEdge.GetChild("cliff_edge_polynomial_order").GetIntValue());
+               cliffEdge.GetChild("cliff_edge_polynomial_order").nGetIntValue());
          if (cliffEdge.HasChild("cliff_slope_limit"))
             config.SetCliffSlopeLimit(
                cliffEdge.GetChild("cliff_slope_limit").dGetDoubleValue());
@@ -5392,7 +5392,7 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
       m_strInterventionHeightFile = strInterventionHeight;
 
    // Case 33: Wave propagation model [0 = COVE, 1 = CShore]
-   m_nWavePropagationModel = config.GetWavePropagationModel();
+   m_nWavePropagationModel = config.nGetWavePropagationModel();
 
    // Case 34: Density of sea water (kg/m3), first check that this is a valid
    // double
@@ -5456,10 +5456,10 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    m_bDoBeachSedimentTransport = config.bGetBeachSedimentTransport();
 
    // Case 46: If simulating beach sediment transport, beach sediment transport  at grid edges [0 = closed, 1 = open, 2 = re-circulate]
-   m_nUnconsSedimentHandlingAtGridEdges = config.GetBeachTransportAtEdges();
+   m_nUnconsSedimentHandlingAtGridEdges = config.nGetBeachTransportAtEdges();
 
    // Case 47: If simulating beach sediment transport, beach erosion/deposition equation [0 = CERC, 1 = Kamphuis]
-   m_nBeachErosionDepositionEquation = config.GetBeachErosionEquation();
+   m_nBeachErosionDepositionEquation = config.nGetBeachErosionEquation();
 
    // Case 48: Median size of fine sediment (mm), always needed [0 = default, only for Kamphuis eqn]. First check that this is a valid double
    m_dD50Fine = config.dGetFineMedianSize();
@@ -5570,7 +5570,7 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    if (config.bGetFloodInput())
    {
       // TODO: This is a guess, please check
-      m_nRunUpEquation = config.GetRunupEquation();
+      m_nRunUpEquation = config.nGetRunupEquation();
    }
 
    // Case 70: Somthing unknown relating to riverine flooding
@@ -5653,7 +5653,7 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    // Case 83: Timesteps to save profiles
    if (m_bOutputConsolidatedProfileData)
    {
-      m_VulProfileTimestep = config.GetProfileTimesteps();
+      m_VulProfileTimestep = config.VulGetProfileTimesteps();
    }
 
    // Case 84: Output parallel profile data?
@@ -5666,10 +5666,10 @@ bool CSimulation::bApplyConfiguration(CConfiguration const &config)
    m_bCliffToeLocate = false;
 
    // Case 87: Cliff edge smoothing algorithm: 0 = none, 1 = running mean, 2 = Savitzky-Golay
-   m_nCliffEdgeSmooth = config.GetCliffEdgeSmoothing();
+   m_nCliffEdgeSmooth = config.nGetCliffEdgeSmoothing();
 
    // Case 89: Size of moving window for coastline curvature calculation (must be odd)
-   m_nCliffEdgeSmoothWindow = config.GetCurvatureWindow();
+   m_nCliffEdgeSmoothWindow = config.nGetCurvatureWindow();
 
    // Case 90: Cliff slope limit for cliff toe detection
    m_dSlopeThresholdForCliffToe = config.dGetCliffSlopeLimit();

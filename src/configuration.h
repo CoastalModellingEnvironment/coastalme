@@ -10,7 +10,6 @@
 */
 
 /* ==============================================================================================================================
-
    This file is part of CoastalME, the Coastal Modelling Environment.
 
    CoastalME is free software; you can redistribute it and/or modify it under the terms of the GNU General Public  License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
@@ -18,7 +17,6 @@
    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
 ==============================================================================================================================*/
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
@@ -35,7 +33,7 @@ using std::vector;
 //! Unified configuration class for CoastalME simulation parameters
 class CConfiguration
 {
-   private:
+private:
    // Run Information
    string m_strRunName;
    int m_nLogFileDetail;
@@ -134,7 +132,7 @@ class CConfiguration
    // Flood parameters
    bool m_bFloodInput;
    string m_strFloodCoastline;
-   int m_strRunupEquation;
+   int m_nRunupEquation;
    string m_strFloodLocations;
    string m_strFloodInputLocation;
    vector<string> m_VstrFloodFiles;
@@ -155,8 +153,8 @@ class CConfiguration
 
    // Profile and Output Options
    bool m_bSaveProfileData;
-   vector<int> m_VstrProfileNumbers;
-   vector<unsigned long> m_VstrProfileTimesteps;
+   vector<int> m_VnProfileNumbers;
+   vector<unsigned long> m_VulProfileTimesteps;
    bool m_bSaveParallelProfiles;
    bool m_bOutputErosionPotential;
    int m_nCurvatureWindow;
@@ -167,14 +165,14 @@ class CConfiguration
    int m_nCliffEdgePolynomialOrder;
    double m_dCliffSlopeLimit;
 
-   public:
+public:
    CConfiguration();
    ~CConfiguration();
 
    // Setters for all parameters
-   void SetRunName(string const &str)
+   void SetRunName(string const* pStr)
    {
-      m_strRunName = str;
+      m_strRunName = *pStr;
    }
 
    void SetLogFileDetail(int n)
@@ -186,22 +184,27 @@ class CConfiguration
    {
       m_bCSVPerTimestepResults = b;
    }
-   void SetStartDateTime(string const &str)
+
+   void SetStartDateTime(string const* pStr)
    {
-      m_strStartDateTime = str;
+      m_strStartDateTime = *pStr;
    }
-   void SetDuration(string const &str)
+
+   void SetDuration(string const* pStr)
    {
-      m_strDuration = str;
+      m_strDuration = *pStr;
    }
-   void SetTimestep(string const &str)
+
+   void SetTimestep(string const* pStr)
    {
-      m_strTimestep = str;
+      m_strTimestep = *pStr;
    }
-   void SetSaveTimes(vector<string> const &vec)
+
+   void SetSaveTimes(vector<string> const* pVStr)
    {
-      m_VstrSaveTimes = vec;
+      m_VstrSaveTimes = *pVStr;
    }
+
    void SetRandomSeed(int n)
    {
       m_nRandomSeed = n;
@@ -216,38 +219,47 @@ class CConfiguration
    {
       m_nMaxSaveDigits = n;
    }
-   void SetSaveDigitsMode(string const &str)
+
+   void SetSaveDigitsMode(string const* pStr)
    {
-      m_strSaveDigitsMode = str;
+      m_strSaveDigitsMode = *pStr;
    }
-   void SetRasterFiles(vector<string> const &vec)
+
+   void SetRasterFiles(vector<string> const* pVStr)
    {
-      m_VstrRasterFiles = vec;
+      m_VstrRasterFiles = *pVStr;
    }
-   void SetRasterFormat(string const &str)
+
+   void SetRasterFormat(string const* pStr)
    {
-      m_strRasterFormat = str;
+      m_strRasterFormat = *pStr;
    }
+
    void SetWorldFile(bool b)
    {
       m_bWorldFile = b;
    }
+
    void SetScaleValues(bool b)
    {
       m_bScaleValues = b;
    }
-   void SetSliceElevations(vector<double> const &vec)
+
+   void SetSliceElevations(vector<double> const* pVStr)
    {
-      m_VdSliceElevations = vec;
+      m_VdSliceElevations = *pVStr;
    }
-   void SetVectorFiles(vector<string> const &vec)
+
+   void SetVectorFiles(vector<string> const* pVStr)
    {
-      m_VstrVectorFiles = vec;
+      m_VstrVectorFiles = *pVStr;
    }
-   void SetVectorFormat(string const &str)
+
+   void SetVectorFormat(string const* pStr)
    {
-      m_strVectorFormat = str;
+      m_strVectorFormat = *pStr;
    }
+
    void SetTimeSeriesFiles(vector<string> const &vec)
    {
       m_VstrTimeSeriesFiles = vec;
@@ -265,9 +277,9 @@ class CConfiguration
    {
       m_nPolynomialOrder = n;
    }
-   void SetOmitGridEdges(string const &str)
+   void SetOmitGridEdges(string const* pStr)
    {
-      m_strOmitGridEdges = str;
+      m_strOmitGridEdges = *pStr;
    }
    void SetProfileSmoothingWindow(int n)
    {
@@ -285,9 +297,9 @@ class CConfiguration
    {
       m_nNumLayers = n;
    }
-   void SetBasementDEMFile(string const &str)
+   void SetBasementDEMFile(string const* pStr)
    {
-      m_strBasementDEMFile = str;
+      m_strBasementDEMFile = *pStr;
    }
    void SetUnconsFineFiles(vector<string> const &vec)
    {
@@ -313,21 +325,21 @@ class CConfiguration
    {
       m_VstrConsCoarseFiles = vec;
    }
-   void SetSuspendedSedFile(string const &str)
+   void SetSuspendedSedFile(string const* pStr)
    {
-      m_strSuspendedSedFile = str;
+      m_strSuspendedSedFile = *pStr;
    }
-   void SetLandformFile(string const &str)
+   void SetLandformFile(string const* pStr)
    {
-      m_strLandformFile = str;
+      m_strLandformFile = *pStr;
    }
-   void SetInterventionClassFile(string const &str)
+   void SetInterventionClassFile(string const* pStr)
    {
-      m_strInterventionClassFile = str;
+      m_strInterventionClassFile = *pStr;
    }
-   void SetInterventionHeightFile(string const &str)
+   void SetInterventionHeightFile(string const* pStr)
    {
-      m_strInterventionHeightFile = str;
+      m_strInterventionHeightFile = *pStr;
    }
 
    void SetWavePropagationModel(int n)
@@ -350,18 +362,18 @@ class CConfiguration
 
    // Wave height Data
    // Wave height Data
-   void SetWaveInputMode(string const &str)
+   void SetWaveInputMode(string const* pStr)
    {
-      m_strWaveInputMode = str;
+      m_strWaveInputMode = *pStr;
    }
 
-   void SetWaveHeightTimeSeries(string const &str)
+   void SetWaveHeightTimeSeries(string const* pStr)
    {
-      m_strWaveHeightTimeSeries = str;
+      m_strWaveHeightTimeSeries = *pStr;
    }
-   void SetWaveStationDataFile(string const &str)
+   void SetWaveStationDataFile(string const* pStr)
    {
-      m_strWaveStationDataFile = str;
+      m_strWaveStationDataFile = *pStr;
    }
    void SetDeepWaterWaveHeight(double d)
    {
@@ -376,9 +388,9 @@ class CConfiguration
       m_dWavePeriod = d;
    }
 
-   void SetTideDataFile(string const &str)
+   void SetTideDataFile(string const* pStr)
    {
-      m_strTideDataFile = str;
+      m_strTideDataFile = *pStr;
    }
    void SetBreakingWaveRatio(double d)
    {
@@ -492,45 +504,45 @@ class CConfiguration
    {
       m_VstrFloodFiles = v;
    }
-   void SetFloodCoastline(string const &str)
+   void SetFloodCoastline(string const* pStr)
    {
-      m_strFloodCoastline = str;
+      m_strFloodCoastline = *pStr;
    }
-   void SetRunupEquation(string const &str)
+   void SetRunupEquation(string const* pStr)
    {
-      if (str == "" or str == " ")
+      if ((*pStr == "") or (*pStr == " "))
       {
-         m_strRunupEquation = 0;
+         m_nRunupEquation = 0;
       }
       else
       {
-         m_strRunupEquation = std::stoi(str);
+         m_nRunupEquation = stoi(*pStr);
       }
    }
-   void SetFloodLocations(string const &str)
+   void SetFloodLocations(string const* pStr)
    {
-      m_strFloodLocations = str;
+      m_strFloodLocations = *pStr;
    }
-   void SetFloodInputLocation(string const &str)
+   void SetFloodInputLocation(string const* pStr)
    {
-      m_strFloodInputLocation = str;
+      m_strFloodInputLocation = *pStr;
    }
 
    void SetSedimentInput(bool b)
    {
       m_bSedimentInput = b;
    }
-   void SetSedimentInputLocation(string const &str)
+   void SetSedimentInputLocation(string const* pStr)
    {
-      m_strSedimentInputLocation = str;
+      m_strSedimentInputLocation = *pStr;
    }
-   void SetSedimentInputType(string const &str)
+   void SetSedimentInputType(string const* pStr)
    {
-      m_strSedimentInputType = str;
+      m_strSedimentInputType = *pStr;
    }
-   void SetSedimentInputDetails(string const &str)
+   void SetSedimentInputDetails(string const* pStr)
    {
-      m_strSedimentInputDetails = str;
+      m_strSedimentInputDetails = *pStr;
    }
 
    void SetGravitationalAcceleration(double d)
@@ -564,11 +576,11 @@ class CConfiguration
    }
    void SetProfileNumbers(vector<int> const &vec)
    {
-      m_VstrProfileNumbers = vec;
+      m_VnProfileNumbers = vec;
    }
    void SetProfileTimesteps(vector<unsigned long> const &vec)
    {
-      m_VstrProfileTimesteps = vec;
+      m_VulProfileTimesteps = vec;
    }
    void SetSaveParallelProfiles(bool b)
    {
@@ -779,7 +791,7 @@ class CConfiguration
       return &m_strInterventionHeightFile;
    }
 
-   int GetWavePropagationModel() const
+   int nGetWavePropagationModel() const
    {
       return m_nWavePropagationModel;
    }
@@ -851,11 +863,11 @@ class CConfiguration
    {
       return m_bBeachSedimentTransport;
    }
-   int GetBeachTransportAtEdges() const
+   int nGetBeachTransportAtEdges() const
    {
       return m_nBeachTransportAtEdges;
    }
-   int GetBeachErosionEquation() const
+   int nGetBeachErosionEquation() const
    {
       return m_nBeachErosionEquation;
    }
@@ -956,9 +968,9 @@ class CConfiguration
       return &m_strFloodCoastline;
    }
 
-   int GetRunupEquation() const
+   int nGetRunupEquation() const
    {
-      return m_strRunupEquation;
+      return m_nRunupEquation;
    }
    string const* pstrGetFloodLocations() const
    {
@@ -1029,42 +1041,49 @@ class CConfiguration
 
    vector<int> GetProfileNumbers() const
    {
-      return m_VstrProfileNumbers;
+      return m_VnProfileNumbers;
    }
-   vector<unsigned long> GetProfileTimesteps() const
+   vector<unsigned long> VulGetProfileTimesteps() const
    {
-      return m_VstrProfileTimesteps;
+      return m_VulProfileTimesteps;
    }
+
    bool bGetSaveParallelProfiles() const
    {
       return m_bSaveParallelProfiles;
    }
+
    bool bGetOutputErosionPotential() const
    {
       return m_bOutputErosionPotential;
    }
-   int GetCurvatureWindow() const
+
+   int nGetCurvatureWindow() const
    {
       return m_nCurvatureWindow;
    }
 
    // Cliff Edge Processing
-   int GetCliffEdgeSmoothing() const
+   int nGetCliffEdgeSmoothing() const
    {
       return m_nCliffEdgeSmoothing;
    }
-   int GetCliffEdgeSmoothingWindow() const
+
+   int nGetCliffEdgeSmoothingWindow() const
    {
       return m_nCliffEdgeSmoothingWindow;
    }
-   int GetCliffEdgePolynomialOrder() const
+
+   int nGetCliffEdgePolynomialOrder() const
    {
       return m_nCliffEdgePolynomialOrder;
    }
+
    double dGetCliffSlopeLimit() const
    {
       return m_dCliffSlopeLimit;
    }
+
    // Initialize with default values
    void InitializeDefaults();
 };

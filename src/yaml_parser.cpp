@@ -53,9 +53,9 @@ CYamlNode::~CYamlNode()
 {
 }
 
-void CYamlNode::SetValue(string const& strValue)
+void CYamlNode::SetValue(string const* pstrValue)
 {
-   m_strValue = strValue;
+   m_strValue = *pstrValue;
 }
 
 void CYamlNode::AddChild(string const& strKey, CYamlNode const& node)
@@ -65,7 +65,7 @@ void CYamlNode::AddChild(string const& strKey, CYamlNode const& node)
 
 void CYamlNode::AddSequenceItem(CYamlNode const& node)
 {
-   m_vecChildren.push_back(node);
+   m_VYamlChildren.push_back(node);
    m_bIsSequence = true;
 }
 
@@ -89,7 +89,7 @@ CYamlNode CYamlNode::GetChild(string const& strKey) const
 
 vector<CYamlNode> CYamlNode::GetSequence() const
 {
-   return m_vecChildren;
+   return m_VYamlChildren;
 }
 
 bool CYamlNode::IsSequence() const
@@ -97,12 +97,12 @@ bool CYamlNode::IsSequence() const
    return m_bIsSequence;
 }
 
-int CYamlNode::GetSequenceSize() const
+int CYamlNode::nGetSequenceSize() const
 {
-   return static_cast<int>(m_vecChildren.size());
+   return static_cast<int>(m_VYamlChildren.size());
 }
 
-int CYamlNode::GetIntValue(int nDefault) const
+int CYamlNode::nGetIntValue(int nDefault) const
 {
    try
    {
@@ -159,14 +159,14 @@ bool CYamlNode::bGetBoolValue(bool bDefault) const
    return bDefault;
 }
 
-vector<string> CYamlNode::VstrGetStringSequence() const
+vector<string> const* CYamlNode::pVstrGetStringSequence() const
 {
    vector<string> vecResult;
-   for (auto const& node : m_vecChildren)
+   for (auto const& node : m_VYamlChildren)
    {
       vecResult.push_back(*node.pstrGetValue());
    }
-   return vecResult;
+   return &vecResult;
 }
 
 //===============================================================================================================================
@@ -343,7 +343,8 @@ CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
          break;
       }
 
-      string strKey, strValue;
+      string strKey;
+      string strValue;
       bool bIsSequence;
 
       if (bParseLine(strLine, strKey, strValue, bIsSequence))
@@ -354,7 +355,7 @@ CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
             CYamlNode itemNode;
             if (! strValue.empty())
             {
-               itemNode.SetValue(strValue);
+               itemNode.SetValue(&strValue);
             }
             else
             {
@@ -369,7 +370,7 @@ CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
             CYamlNode childNode;
             if (! strValue.empty())
             {
-               childNode.SetValue(strValue);
+               childNode.SetValue(&strValue);
             }
             else
             {
