@@ -22,9 +22,12 @@
 #define CONFIGURATION_H
 
 #include <algorithm>
+
 #include <cctype>
+
 #include <string>
 using std::string;
+
 #include <vector>
 using std::vector;
 
@@ -87,7 +90,7 @@ private:
    double m_dSeawaterDensity;
    double m_dInitialWaterLevel;
    double m_dFinalWaterLevel;
-   bool m_bHasFinalWaterLevel;
+   bool m_bbHasFinalWaterLevel;
 
    // Waves
    string m_strWaveInputMode;
@@ -357,7 +360,7 @@ public:
    void SetFinalWaterLevel(double d)
    {
       m_dFinalWaterLevel = d;
-      m_bHasFinalWaterLevel = true;
+      m_bbHasFinalWaterLevel = true;
    }
 
    // Wave height Data
@@ -536,10 +539,12 @@ public:
    {
       m_strSedimentInputLocation = *pStr;
    }
+
    void SetSedimentInputType(string const* pStr)
    {
       m_strSedimentInputType = *pStr;
    }
+
    void SetSedimentInputDetails(string const* pStr)
    {
       m_strSedimentInputDetails = *pStr;
@@ -549,10 +554,12 @@ public:
    {
       m_dGravitationalAcceleration = d;
    }
+
    void SetNormalSpacing(double d)
    {
       m_dNormalSpacing = d;
    }
+
    void SetRandomFactor(double d)
    {
       m_dRandomFactor = d;
@@ -561,10 +568,12 @@ public:
    {
       m_dNormalLength = d;
    }
+
    void SetStartDepthRatio(double d)
    {
       m_dStartDepthRatio = d;
    }
+
    void SetSyntheticTransectSpacing(double d)
    {
       m_dSyntheticTransectSpacing = d;
@@ -574,22 +583,27 @@ public:
    {
       m_bSaveProfileData = b;
    }
+
    void SetProfileNumbers(vector<int> const &vec)
    {
       m_VnProfileNumbers = vec;
    }
+
    void SetProfileTimesteps(vector<unsigned long> const &vec)
    {
       m_VulProfileTimesteps = vec;
    }
+
    void SetSaveParallelProfiles(bool b)
    {
       m_bSaveParallelProfiles = b;
    }
+
    void SetOutputErosionPotential(bool b)
    {
       m_bOutputErosionPotential = b;
    }
+
    void SetCurvatureWindow(int n)
    {
       m_nCurvatureWindow = n;
@@ -603,10 +617,12 @@ public:
    {
       m_nCliffEdgeSmoothingWindow = n;
    }
+
    void SetCliffEdgePolynomialOrder(int n)
    {
       m_nCliffEdgePolynomialOrder = n;
    }
+
    void SetCliffSlopeLimit(double d)
    {
       m_dCliffSlopeLimit = d;
@@ -795,22 +811,27 @@ public:
    {
       return m_nWavePropagationModel;
    }
+
    double dGetSeawaterDensity() const
    {
       return m_dSeawaterDensity;
    }
+
    double dGetInitialWaterLevel() const
    {
       return m_dInitialWaterLevel;
    }
+
    double dGetFinalWaterLevel() const
    {
       return m_dFinalWaterLevel;
    }
-   bool HasFinalWaterLevel() const
+
+   bool bHasFinalWaterLevel() const
    {
-      return m_bHasFinalWaterLevel;
+      return m_bbHasFinalWaterLevel;
    }
+
    string const* pstrGetWaveInputMode() const
    {
       return &m_strWaveInputMode;
@@ -831,10 +852,12 @@ public:
    {
       return m_dDeepWaterWaveHeight;
    }
+
    double dGetDeepWaterWaveOrientation() const
    {
       return m_dDeepWaterWaveOrientation;
    }
+
    double dGetWavePeriod() const
    {
       return m_dWavePeriod;
@@ -855,62 +878,77 @@ public:
    {
       return m_bCoastPlatformErosion;
    }
+
    double dGetPlatformErosionResistance() const
    {
       return m_dPlatformErosionResistance;
    }
+
    bool bGetBeachSedimentTransport() const
    {
       return m_bBeachSedimentTransport;
    }
+
    int nGetBeachTransportAtEdges() const
    {
       return m_nBeachTransportAtEdges;
    }
+
    int nGetBeachErosionEquation() const
    {
       return m_nBeachErosionEquation;
    }
+
    double dGetFineMedianSize() const
    {
       return m_dFineMedianSize;
    }
+
    double dGetSandMedianSize() const
    {
       return m_dSandMedianSize;
    }
+
    double dGetCoarseMedianSize() const
    {
       return m_dCoarseMedianSize;
    }
+
    double dGetSedimentDensity() const
    {
       return m_dSedimentDensity;
    }
+
    double dGetBeachSedimentPorosity() const
    {
       return m_dBeachSedimentPorosity;
    }
+
    double dGetFineErosivity() const
    {
       return m_dFineErosivity;
    }
+
    double dGetSandErosivity() const
    {
       return m_dSandErosivity;
    }
+
    double dGetCoarseErosivity() const
    {
       return m_dCoarseErosivity;
    }
+
    double dGetTransportKLS() const
    {
       return m_dTransportKLS;
    }
+
    double dGetKamphuis() const
    {
       return m_dKamphuis;
    }
+
    double dGetBermHeight() const
    {
       return m_dBermHeight;
@@ -921,10 +959,12 @@ public:
    {
       return m_bCliffCollapse;
    }
+
    double dGetCliffErosionResistance() const
    {
       return m_dCliffErosionResistance;
    }
+
    double dGetNotchOverhang() const
    {
       return m_dNotchOverhang;
@@ -939,18 +979,22 @@ public:
    {
       return m_dNotchBase;
    }
+
    double dGetCliffDepositionA() const
    {
       return m_dCliffDepositionA;
    }
+
    double dGetTalusWidth() const
    {
       return m_dTalusWidth;
    }
+
    double dGetMinTalusLength() const
    {
       return m_dMinTalusLength;
    }
+
    double dGetMinTalusHeight() const
    {
       return m_dMinTalusHeight;
@@ -961,6 +1005,7 @@ public:
    {
       return m_bFloodInput;
    }
+
    vector<string> VstrGetFloodFiles() const;
 
    string const* pstrGetFloodCoastline() const
@@ -972,6 +1017,7 @@ public:
    {
       return m_nRunupEquation;
    }
+
    string const* pstrGetFloodLocations() const
    {
       return &m_strFloodLocations;
@@ -987,6 +1033,7 @@ public:
    {
       return m_bSedimentInput;
    }
+
    string const* pstrGetSedimentInputLocation() const
    {
       return &m_strSedimentInputLocation;
@@ -1039,10 +1086,11 @@ public:
       return m_bSaveProfileData;
    }
 
-   vector<int> GetProfileNumbers() const
+   vector<int> VnGetProfileNumbers() const
    {
       return m_VnProfileNumbers;
    }
+
    vector<unsigned long> VulGetProfileTimesteps() const
    {
       return m_VulProfileTimesteps;

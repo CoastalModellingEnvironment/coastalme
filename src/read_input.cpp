@@ -51,6 +51,9 @@ using std::transform;
 #include <random>
 using std::random_device;
 
+#include <exception>
+using std::exception;
+
 #include "cme.h"
 #include "configuration.h"
 #include "sediment_input_event.h"
@@ -4379,7 +4382,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
             else
             {
                // Allow the user to supply single entries not in list form
-               std::vector<std::string> tempVec{*rasterFiles.pstrGetValue()};
+               vector<string> tempVec{*rasterFiles.pstrGetValue()};
                config.SetRasterFiles(&tempVec);
             }
          }
@@ -4724,7 +4727,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
             config.SetCliffSlopeLimit(cliffEdge.GetChild("cliff_slope_limit").dGetDoubleValue());
       }
    }
-   catch (std::exception const &e)
+   catch (exception const &e)
    {
       cerr << ERR << "Error processing YAML configuration: " << e.what() << endl;
       return false;
@@ -4815,7 +4818,7 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
       if (static_cast<int>(dTimestepMult) != TIME_UNKNOWN)
       {
          // Extract numeric part and multiply
-         std::string strNumeric = strTimestepLower;
+         string strNumeric = strTimestepLower;
          // Remove the unit part to get just the number
          if (strNumeric.find("hour") != string::npos)
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
@@ -5245,7 +5248,7 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
    m_nSavGolCoastPoly = config.nGetPolynomialOrder();
 
    // Case 22: Omit grid edges from search (north/south/east/west)
-   std::string strRH = config.strGetOmitGridEdges();
+   string strRH = config.strGetOmitGridEdges();
    if (strRH.find('n') != string::npos)
    {
       m_bOmitSearchNorthEdge = true;
@@ -5362,7 +5365,7 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
    m_dInitialMeanSWL = config.dGetInitialWaterLevel();
 
    // Case 36: Final water level (optional)
-   if (config.HasFinalWaterLevel())
+   if (config.bHasFinalWaterLevel())
    {
       if (! strInterventionHeight.empty())
       {
@@ -5606,7 +5609,7 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
    // Case 82: Numbers of profiles to be saved
    if (m_bOutputConsolidatedProfileData)
    {
-      m_VnProfileToSave = config.GetProfileNumbers();
+      m_VnProfileToSave = config.VnGetProfileNumbers();
    }
 
    // Case 83: Timesteps to save profiles

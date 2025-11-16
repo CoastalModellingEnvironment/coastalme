@@ -1,5 +1,4 @@
 /*!
-
    \file yaml_parser.cpp
    \brief Simple YAML parser implementation for CoastalME
    \details A lightweight YAML parser using only standard C++ library
@@ -8,11 +7,9 @@
    \author Andres Payo
    \date 2025
    \copyright GNU General Public License
-
 */
 
 /* ==============================================================================================================================
-
    This file is part of CoastalME, the Coastal Modelling Environment.
 
    CoastalME is free software; you can redistribute it and/or modify it under the terms of the GNU General Public  License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
@@ -20,7 +17,6 @@
    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
 ==============================================================================================================================*/
 #include <iostream>
 using std::cerr;
@@ -30,6 +26,7 @@ using std::endl;
 using std::getline;
 using std::stod;
 using std::stoi;
+using std::to_string;
 
 #include <sstream>
 using std::stringstream;
@@ -38,6 +35,9 @@ using std::stringstream;
 
 #include <cctype>
 using std::isspace;
+
+#include <exception>
+using std::exception;
 
 #include "yaml_parser.h"
 #include "simulation.h"
@@ -197,9 +197,9 @@ bool CYamlParser::bParseFile(string const& strFileName)
    {
       m_RootNode = ParseSection(fileStream, -1);
    }
-   catch (std::exception const& e)
+   catch (exception const& e)
    {
-      m_strError = "Parse error at line " + std::to_string(m_nCurrentLine) + ": " + e.what();
+      m_strError = "Parse error at line " + to_string(m_nCurrentLine) + ": " + e.what();
       return false;
    }
 

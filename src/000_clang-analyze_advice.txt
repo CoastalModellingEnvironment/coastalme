@@ -42,11 +42,11 @@
 /home/dave/coast/CoastalME/src/calc_waves.cpp:373:39: warning: no header providing "std::move" is directly included [misc-include-cleaner]
    25 |          VAllTransects.push_back(std::move(transect));
       |                                       ^
-/home/dave/coast/CoastalME/src/cme.h:1242:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
- 1242 |    char chFill;
+/home/dave/coast/CoastalME/src/cme.h:1241:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
+ 1241 |    char chFill;
       |         ^
-/home/dave/coast/CoastalME/src/cme.h:1243:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
- 1243 |    int nWidth;
+/home/dave/coast/CoastalME/src/cme.h:1242:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
+ 1242 |    int nWidth;
       |        ^
 /home/dave/coast/CoastalME/src/coast.h:27:10: warning: circular header file dependency detected while including 'coast_landform.h', please check the include path [misc-header-include-cycle]
    27 | #include "coast_landform.h"
@@ -81,72 +81,109 @@
 /home/dave/coast/CoastalME/src/coast_landform.h:47:14: warning: member variable 'pCoast' has protected visibility [misc-non-private-member-variables-in-classes]
    47 |    CRWCoast* pCoast;
       |              ^
-/home/dave/coast/CoastalME/src/configuration.h:44:7: warning: Excessive padding in 'class CConfiguration' (91 padding bytes, where 3 is optimal). Optimal fields order: m_dMaxLocalSlope, m_dMaxBeachElevation, m_dSeawaterDensity, m_dInitialWaterLevel, m_dFinalWaterLevel, m_dDeepWaterWaveHeight, m_dDeepWaterWaveOrientation, m_dWavePeriod, m_dBreakingWaveRatio, m_dPlatformErosionResistance, m_dFineMedianSize, m_dSandMedianSize, m_dCoarseMedianSize, m_dSedimentDensity, m_dBeachSedimentPorosity, m_dFineErosivity, m_dSandErosivity, m_dCoarseErosivity, m_dTransportKLS, m_dKamphuis, m_dBermHeight, m_dCliffErosionResistance, m_dNotchOverhang, m_dNotchBase, m_dCliffDepositionA, m_dTalusWidth, m_dMinTalusLength, m_dMinTalusHeight, m_dGravitationalAcceleration, m_dNormalSpacing, m_dRandomFactor, m_dNormalLength, m_dStartDepthRatio, m_dSyntheticTransectSpacing, m_dCliffSlopeLimit, m_vecSaveTimes, m_vecRasterFiles, m_VdSliceElevations, m_vecVectorFiles, m_vecTimeSeriesFiles, m_vecUnconsFineFiles, m_vecUnconsSandFiles, m_vecUnconsCoarseFiles, m_vecConsFineFiles, m_vecConsSandFiles, m_vecConsCoarseFiles, m_vecFloodFiles, m_vecProfileNumbers, m_vecProfileTimesteps, m_strRunName, m_strStartDateTime, m_strDuration, m_strTimestep, m_strSaveDigitsMode, m_strRasterFormat, m_strVectorFormat, m_strOmitGridEdges, m_strBasementDEMFile, m_strSuspendedSedFile, m_strLandformFile, m_strInterventionClassFile, m_strInterventionHeightFile, m_strWaveInputMode, m_strWaveHeightTimeSeries, m_strWaveStationDataFile, m_strTideDataFile, m_strFloodCoastline, m_strFloodLocations, m_strFloodInputLocation, m_strSedimentInputLocation, m_strSedimentInputType, m_strSedimentInputDetails, m_nLogFileDetail, m_nRandomSeed, m_nMaxSaveDigits, m_nCoastlineSmoothing, m_nCoastlineSmoothingWindow, m_nPolynomialOrder, m_nProfileSmoothingWindow, m_nNumLayers, m_nWavePropagationModel, m_nBeachTransportAtEdges, m_nBeachErosionEquation, m_strRunupEquation, m_nCurvatureWindow, m_nCliffEdgeSmoothing, m_nCliffEdgeSmoothingWindow, m_nCliffEdgePolynomialOrder, m_bCSVPerTimestepResults, m_bUseSystemTimeForSeed, m_bWorldFile, m_bScaleValues, m_bHasFinalWaterLevel, m_bCoastPlatformErosion, m_bBeachSedimentTransport, m_bCliffCollapse, m_bFloodInput, m_bSedimentInput, m_bSaveProfileData, m_bSaveParallelProfiles, m_bOutputErosionPotential, consider reordering the fields or adding explicit padding members [clang-analyzer-optin.performance.Padding]
-   44 | class CConfiguration
+/home/dave/coast/CoastalME/src/configuration.cpp:21:1: warning: included header algorithm is not used directly [misc-include-cleaner]
+   21 | #include <algorithm>
+      | ^~~~~~~~~~~~~~~~~~~~
+   22 | #include <string>
+/home/dave/coast/CoastalME/src/configuration.cpp:22:1: warning: included header string is not used directly [misc-include-cleaner]
+   22 | #include <string>
+      | ^~~~~~~~~~~~~~~~~
+   23 | #include <cctype>
+/home/dave/coast/CoastalME/src/configuration.cpp:23:1: warning: included header cctype is not used directly [misc-include-cleaner]
+   23 | #include <cctype>
+      | ^~~~~~~~~~~~~~~~~
+   24 | 
+/home/dave/coast/CoastalME/src/configuration.cpp:191:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+  191 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
+      |       ^
+      |              const 
+/home/dave/coast/CoastalME/src/configuration.cpp:351:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+  351 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
+      |       ^
+      |              const 
+/home/dave/coast/CoastalME/src/configuration.cpp:392:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+  392 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
+      |       ^
+      |              const 
+/home/dave/coast/CoastalME/src/configuration.cpp:422:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+  422 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
+      |       ^
+      |              const 
+/home/dave/coast/CoastalME/src/configuration.h:34:10: warning: circular header file dependency detected while including 'simulation.h', please check the include path [misc-header-include-cycle]
+   34 | #include "simulation.h"
+      |          ^
+/home/dave/coast/CoastalME/src/simulation.h:53:10: note: 'configuration.h' included from here
+   53 | #include "configuration.h"
+      |          ^
+/home/dave/coast/CoastalME/src/assign_landforms.cpp:30:10: note: 'simulation.h' included from here
+   30 | #include "simulation.h"
+      |          ^
+/home/dave/coast/CoastalME/src/configuration.h:37:7: warning: Excessive padding in 'class CConfiguration' (91 padding bytes, where 3 is optimal). Optimal fields order: m_dMaxLocalSlope, m_dMaxBeachElevation, m_dSeawaterDensity, m_dInitialWaterLevel, m_dFinalWaterLevel, m_dDeepWaterWaveHeight, m_dDeepWaterWaveOrientation, m_dWavePeriod, m_dBreakingWaveRatio, m_dPlatformErosionResistance, m_dFineMedianSize, m_dSandMedianSize, m_dCoarseMedianSize, m_dSedimentDensity, m_dBeachSedimentPorosity, m_dFineErosivity, m_dSandErosivity, m_dCoarseErosivity, m_dTransportKLS, m_dKamphuis, m_dBermHeight, m_dCliffErosionResistance, m_dNotchOverhang, m_dNotchBase, m_dCliffDepositionA, m_dTalusWidth, m_dMinTalusLength, m_dMinTalusHeight, m_dGravitationalAcceleration, m_dNormalSpacing, m_dRandomFactor, m_dNormalLength, m_dStartDepthRatio, m_dSyntheticTransectSpacing, m_dCliffSlopeLimit, m_VstrSaveTimes, m_VstrRasterFiles, m_VdSliceElevations, m_VstrVectorFiles, m_VstrTimeSeriesFiles, m_VstrUnconsFineFiles, m_VstrUnconsSandFiles, m_VStrUnconsCoarseFiles, m_VstrConsFineFiles, m_VstrConsSandFiles, m_VstrConsCoarseFiles, m_VstrFloodFiles, m_VnProfileNumbers, m_VulProfileTimesteps, m_strRunName, m_strStartDateTime, m_strDuration, m_strTimestep, m_strSaveDigitsMode, m_strRasterFormat, m_strVectorFormat, m_strOmitGridEdges, m_strBasementDEMFile, m_strSuspendedSedFile, m_strLandformFile, m_strInterventionClassFile, m_strInterventionHeightFile, m_strWaveInputMode, m_strWaveHeightTimeSeries, m_strWaveStationDataFile, m_strTideDataFile, m_strFloodCoastline, m_strFloodLocations, m_strFloodInputLocation, m_strSedimentInputLocation, m_strSedimentInputType, m_strSedimentInputDetails, m_nLogFileDetail, m_nRandomSeed, m_nMaxSaveDigits, m_nCoastlineSmoothing, m_nCoastlineSmoothingWindow, m_nPolynomialOrder, m_nProfileSmoothingWindow, m_nNumLayers, m_nWavePropagationModel, m_nBeachTransportAtEdges, m_nBeachErosionEquation, m_nRunupEquation, m_nCurvatureWindow, m_nCliffEdgeSmoothing, m_nCliffEdgeSmoothingWindow, m_nCliffEdgePolynomialOrder, m_bCSVPerTimestepResults, m_bUseSystemTimeForSeed, m_bWorldFile, m_bScaleValues, m_bbHasFinalWaterLevel, m_bCoastPlatformErosion, m_bBeachSedimentTransport, m_bCliffCollapse, m_bFloodInput, m_bSedimentInput, m_bSaveProfileData, m_bSaveParallelProfiles, m_bOutputErosionPotential, consider reordering the fields or adding explicit padding members [clang-analyzer-optin.performance.Padding]
+   37 | class CConfiguration
       | ~~~~~~^~~~~~~~~~~~~~
-   45 | {
+   38 | {
       | ~
-   46 |    private:
-      |    ~~~~~~~~
-   47 |    // Run Information
+   39 | private:
+      | ~~~~~~~~
+   40 |    // Run Information
       |    ~~~~~~~~~~~~~~~~~~
-   48 |    string m_strRunName;
+   41 |    string m_strRunName;
       |    ~~~~~~~~~~~~~~~~~~~~
-   49 |    int m_nLogFileDetail;
+   42 |    int m_nLogFileDetail;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   50 |    bool m_bCSVPerTimestepResults;
+   43 |    bool m_bCSVPerTimestepResults;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   51 | 
-   52 |    // Simulation timing
+   44 | 
+   45 |    // Simulation timing
       |    ~~~~~~~~~~~~~~~~~~~~
-   53 |    string m_strStartDateTime;
+   46 |    string m_strStartDateTime;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-   54 |    string m_strDuration;
+   47 |    string m_strDuration;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   55 |    string m_strTimestep;
+   48 |    string m_strTimestep;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   56 |    vector<string> m_vecSaveTimes;
-      |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   57 |    int m_nRandomSeed;
+   49 |    vector<string> m_VstrSaveTimes;
+      |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   50 |    int m_nRandomSeed;
       |    ~~~~~~~~~~~~~~~~~~
-   58 |    bool m_bUseSystemTimeForSeed;
+   51 |    bool m_bUseSystemTimeForSeed;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   59 | 
-/home/dave/coast/CoastalME/src/configuration.h:44:7: note: Excessive padding in 'class CConfiguration' (91 padding bytes, where 3 is optimal). Optimal fields order: m_dMaxLocalSlope, m_dMaxBeachElevation, m_dSeawaterDensity, m_dInitialWaterLevel, m_dFinalWaterLevel, m_dDeepWaterWaveHeight, m_dDeepWaterWaveOrientation, m_dWavePeriod, m_dBreakingWaveRatio, m_dPlatformErosionResistance, m_dFineMedianSize, m_dSandMedianSize, m_dCoarseMedianSize, m_dSedimentDensity, m_dBeachSedimentPorosity, m_dFineErosivity, m_dSandErosivity, m_dCoarseErosivity, m_dTransportKLS, m_dKamphuis, m_dBermHeight, m_dCliffErosionResistance, m_dNotchOverhang, m_dNotchBase, m_dCliffDepositionA, m_dTalusWidth, m_dMinTalusLength, m_dMinTalusHeight, m_dGravitationalAcceleration, m_dNormalSpacing, m_dRandomFactor, m_dNormalLength, m_dStartDepthRatio, m_dSyntheticTransectSpacing, m_dCliffSlopeLimit, m_vecSaveTimes, m_vecRasterFiles, m_VdSliceElevations, m_vecVectorFiles, m_vecTimeSeriesFiles, m_vecUnconsFineFiles, m_vecUnconsSandFiles, m_vecUnconsCoarseFiles, m_vecConsFineFiles, m_vecConsSandFiles, m_vecConsCoarseFiles, m_vecFloodFiles, m_vecProfileNumbers, m_vecProfileTimesteps, m_strRunName, m_strStartDateTime, m_strDuration, m_strTimestep, m_strSaveDigitsMode, m_strRasterFormat, m_strVectorFormat, m_strOmitGridEdges, m_strBasementDEMFile, m_strSuspendedSedFile, m_strLandformFile, m_strInterventionClassFile, m_strInterventionHeightFile, m_strWaveInputMode, m_strWaveHeightTimeSeries, m_strWaveStationDataFile, m_strTideDataFile, m_strFloodCoastline, m_strFloodLocations, m_strFloodInputLocation, m_strSedimentInputLocation, m_strSedimentInputType, m_strSedimentInputDetails, m_nLogFileDetail, m_nRandomSeed, m_nMaxSaveDigits, m_nCoastlineSmoothing, m_nCoastlineSmoothingWindow, m_nPolynomialOrder, m_nProfileSmoothingWindow, m_nNumLayers, m_nWavePropagationModel, m_nBeachTransportAtEdges, m_nBeachErosionEquation, m_strRunupEquation, m_nCurvatureWindow, m_nCliffEdgeSmoothing, m_nCliffEdgeSmoothingWindow, m_nCliffEdgePolynomialOrder, m_bCSVPerTimestepResults, m_bUseSystemTimeForSeed, m_bWorldFile, m_bScaleValues, m_bHasFinalWaterLevel, m_bCoastPlatformErosion, m_bBeachSedimentTransport, m_bCliffCollapse, m_bFloodInput, m_bSedimentInput, m_bSaveProfileData, m_bSaveParallelProfiles, m_bOutputErosionPotential, consider reordering the fields or adding explicit padding members
-   44 | class CConfiguration
+   52 | 
+/home/dave/coast/CoastalME/src/configuration.h:37:7: note: Excessive padding in 'class CConfiguration' (91 padding bytes, where 3 is optimal). Optimal fields order: m_dMaxLocalSlope, m_dMaxBeachElevation, m_dSeawaterDensity, m_dInitialWaterLevel, m_dFinalWaterLevel, m_dDeepWaterWaveHeight, m_dDeepWaterWaveOrientation, m_dWavePeriod, m_dBreakingWaveRatio, m_dPlatformErosionResistance, m_dFineMedianSize, m_dSandMedianSize, m_dCoarseMedianSize, m_dSedimentDensity, m_dBeachSedimentPorosity, m_dFineErosivity, m_dSandErosivity, m_dCoarseErosivity, m_dTransportKLS, m_dKamphuis, m_dBermHeight, m_dCliffErosionResistance, m_dNotchOverhang, m_dNotchBase, m_dCliffDepositionA, m_dTalusWidth, m_dMinTalusLength, m_dMinTalusHeight, m_dGravitationalAcceleration, m_dNormalSpacing, m_dRandomFactor, m_dNormalLength, m_dStartDepthRatio, m_dSyntheticTransectSpacing, m_dCliffSlopeLimit, m_VstrSaveTimes, m_VstrRasterFiles, m_VdSliceElevations, m_VstrVectorFiles, m_VstrTimeSeriesFiles, m_VstrUnconsFineFiles, m_VstrUnconsSandFiles, m_VStrUnconsCoarseFiles, m_VstrConsFineFiles, m_VstrConsSandFiles, m_VstrConsCoarseFiles, m_VstrFloodFiles, m_VnProfileNumbers, m_VulProfileTimesteps, m_strRunName, m_strStartDateTime, m_strDuration, m_strTimestep, m_strSaveDigitsMode, m_strRasterFormat, m_strVectorFormat, m_strOmitGridEdges, m_strBasementDEMFile, m_strSuspendedSedFile, m_strLandformFile, m_strInterventionClassFile, m_strInterventionHeightFile, m_strWaveInputMode, m_strWaveHeightTimeSeries, m_strWaveStationDataFile, m_strTideDataFile, m_strFloodCoastline, m_strFloodLocations, m_strFloodInputLocation, m_strSedimentInputLocation, m_strSedimentInputType, m_strSedimentInputDetails, m_nLogFileDetail, m_nRandomSeed, m_nMaxSaveDigits, m_nCoastlineSmoothing, m_nCoastlineSmoothingWindow, m_nPolynomialOrder, m_nProfileSmoothingWindow, m_nNumLayers, m_nWavePropagationModel, m_nBeachTransportAtEdges, m_nBeachErosionEquation, m_nRunupEquation, m_nCurvatureWindow, m_nCliffEdgeSmoothing, m_nCliffEdgeSmoothingWindow, m_nCliffEdgePolynomialOrder, m_bCSVPerTimestepResults, m_bUseSystemTimeForSeed, m_bWorldFile, m_bScaleValues, m_bbHasFinalWaterLevel, m_bCoastPlatformErosion, m_bBeachSedimentTransport, m_bCliffCollapse, m_bFloodInput, m_bSedimentInput, m_bSaveProfileData, m_bSaveParallelProfiles, m_bOutputErosionPotential, consider reordering the fields or adding explicit padding members
+   37 | class CConfiguration
       | ~~~~~~^~~~~~~~~~~~~~
-   45 | {
+   38 | {
       | ~
-   46 |    private:
-      |    ~~~~~~~~
-   47 |    // Run Information
+   39 | private:
+      | ~~~~~~~~
+   40 |    // Run Information
       |    ~~~~~~~~~~~~~~~~~~
-   48 |    string m_strRunName;
+   41 |    string m_strRunName;
       |    ~~~~~~~~~~~~~~~~~~~~
-   49 |    int m_nLogFileDetail;
+   42 |    int m_nLogFileDetail;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   50 |    bool m_bCSVPerTimestepResults;
+   43 |    bool m_bCSVPerTimestepResults;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   51 | 
-   52 |    // Simulation timing
+   44 | 
+   45 |    // Simulation timing
       |    ~~~~~~~~~~~~~~~~~~~~
-   53 |    string m_strStartDateTime;
+   46 |    string m_strStartDateTime;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-   54 |    string m_strDuration;
+   47 |    string m_strDuration;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   55 |    string m_strTimestep;
+   48 |    string m_strTimestep;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   56 |    vector<string> m_vecSaveTimes;
-      |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   57 |    int m_nRandomSeed;
+   49 |    vector<string> m_VstrSaveTimes;
+      |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   50 |    int m_nRandomSeed;
       |    ~~~~~~~~~~~~~~~~~~
-   58 |    bool m_bUseSystemTimeForSeed;
+   51 |    bool m_bUseSystemTimeForSeed;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   59 | 
-/home/dave/coast/CoastalME/src/configuration.h:501:25: warning: parameter 'v' is passed by value and only copied once; consider moving it to avoid unnecessary copies [performance-unnecessary-value-param]
-   38 |       m_vecFloodFiles = v;
-      |                         ^
-      |                         std::move( )
+   52 | 
+/home/dave/coast/CoastalME/src/configuration.h:508:26: warning: parameter 'v' is passed by value and only copied once; consider moving it to avoid unnecessary copies [performance-unnecessary-value-param]
+   31 |       m_VstrFloodFiles = v;
+      |                          ^
+      |                          std::move( )
 /home/dave/coast/CoastalME/src/do_cliff_collapse.cpp:24:12: warning: using decl 'cerr' is unused [misc-unused-using-decls]
    24 | using std::cerr;
       |            ^
@@ -440,42 +477,58 @@
    49 | using std::transform;
       | ~~~~~~~~~~~^~~~~~~~~~
    50 | 
-/home/dave/coast/CoastalME/src/read_input.cpp:66:4: warning: variable 'strOrigCMEDir' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
-   66 |    string strOrigCMEDir = m_strCMEDir;
+/home/dave/coast/CoastalME/src/read_input.cpp:69:4: warning: variable 'strOrigCMEDir' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+   69 |    string strOrigCMEDir = m_strCMEDir;
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:67:4: warning: variable 'strOrigCMEIni' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
-   67 |    string strOrigCMEIni = m_strCMEIni;
+/home/dave/coast/CoastalME/src/read_input.cpp:70:4: warning: variable 'strOrigCMEIni' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+   70 |    string strOrigCMEIni = m_strCMEIni;
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:75:4: warning: variable 'strYamlPath' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
-   75 |    string strYamlPath = m_strCMEIni + CME_YAML;
+/home/dave/coast/CoastalME/src/read_input.cpp:78:4: warning: variable 'strYamlPath' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+   78 |    string strYamlPath = m_strCMEIni + CME_YAML;
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4121:4: warning: variable 'nDotPos' of type 'size_t' (aka 'unsigned long') can be declared 'const' [misc-const-correctness]
- 4121 |    size_t nDotPos = strFileName.find_last_of('.');
+/home/dave/coast/CoastalME/src/read_input.cpp:4117:4: warning: variable 'nDotPos' of type 'size_t' (aka 'unsigned long') can be declared 'const' [misc-const-correctness]
+ 4117 |    size_t nDotPos = strFileName.find_last_of('.');
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4180:4: warning: variable 'root' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4180 |    CYamlNode root = parser.GetRoot();
+/home/dave/coast/CoastalME/src/read_input.cpp:4176:4: warning: variable 'root' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4176 |    CYamlNode root = parser.GetRoot();
       |    ^
       |              const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4251:7: warning: variable 'strRH' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4251 |       string strRH = root.GetChild("email_address").GetValue();
+/home/dave/coast/CoastalME/src/read_input.cpp:4247:7: warning: variable 'strRH' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4247 |       string strRH = *root.GetChild("email_address").pstrGetValue();
       |       ^
       |              const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4336:10: warning: variable 'runInfo' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4336 |          CYamlNode runInfo = root.GetChild("run_information");
+/home/dave/coast/CoastalME/src/read_input.cpp:4290:4: warning: variable 'parser' of type 'CYamlParser' can be declared 'const' [misc-const-correctness]
+ 4290 |    CYamlParser parser;
+      |    ^
+      |                const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4291:4: warning: variable 'root' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4291 |    CYamlNode root = parser.GetRoot();
+      |    ^
+      |              const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4328:4: warning: variable 'root' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4328 |    CYamlNode root = parser.GetRoot();
+      |    ^
+      |              const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4335:10: warning: variable 'runInfo' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4335 |          CYamlNode runInfo = root.GetChild("run_information");
       |          ^
       |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4350:10: warning: variable 'sim' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4350 |          CYamlNode sim = root.GetChild("simulation");
+/home/dave/coast/CoastalME/src/read_input.cpp:4347:10: warning: variable 'sim' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4347 |          CYamlNode sim = root.GetChild("simulation");
       |          ^
       |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4358:13: warning: variable 'saveTimes' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4358 |             CYamlNode saveTimes = sim.GetChild("save_times");
+/home/dave/coast/CoastalME/src/read_input.cpp:4355:13: warning: variable 'saveTimes' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4355 |             CYamlNode saveTimes = sim.GetChild("save_times");
       |             ^
       |                       const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4358:16: warning: variable 'strTmp' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
+ 4358 |                vector<string> strTmp = saveTimes.VstrGetStringSequence();
+      |                ^
+      |                               const 
 /home/dave/coast/CoastalME/src/read_input.cpp:4369:10: warning: variable 'gis' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
  4369 |          CYamlNode gis = root.GetChild("gis_output");
       |          ^
@@ -484,208 +537,226 @@
  4376 |             CYamlNode rasterFiles = gis.GetChild("raster_files");
       |             ^
       |                       const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4382:16: warning: variable 'tempVec' of type 'std::vector<std::string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 4382 |                std::vector<std::string> tempVec{rasterFiles.GetValue()};
-      |                ^
-      |                                         const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4382:21: warning: no header providing "std::vector" is directly included [misc-include-cleaner]
-   24 |                std::vector<std::string> tempVec{rasterFiles.GetValue()};
-      |                     ^
-/home/dave/coast/CoastalME/src/read_input.cpp:4388:13: warning: variable 'VstrFiles' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4388 |             CYamlNode VstrFiles = gis.GetChild("vector_files");
-      |             ^
-      |                       const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4403:10: warning: variable 'hydro' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4403 |          CYamlNode hydro = root.GetChild("hydrology");
-      |          ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4406:13: warning: variable 'strModel' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4406 |             string strModel = hydro.GetChild("wave_propagation_model").GetValue();
-      |             ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4470:10: warning: variable 'grid' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4470 |          CYamlNode grid = root.GetChild("grid_and_coastline");
-      |          ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4473:13: warning: variable 'strSmoothing' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4473 |             string strSmoothing = grid.GetChild("coastline_smoothing").GetValue();
-      |             ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4506:10: warning: variable 'layers' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4506 |          CYamlNode layers = root.GetChild("layers_and_files");
-      |          ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4528:13: warning: variable 'layer0' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4528 |             CYamlNode layer0 = layers.GetChild("layer_0");
-      |             ^
-      |                       const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4563:10: warning: variable 'sed' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4563 |          CYamlNode sed = root.GetChild("sediment_and_erosion");
-      |          ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4578:13: warning: variable 'strEqn' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4578 |             string strEqn = sed.GetChild("beach_erosion_equation").GetValue();
-      |             ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4597:13: warning: variable 'sizes' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4597 |             CYamlNode sizes = sed.GetChild("median_sizes");
-      |             ^
-      |                       const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4607:13: warning: variable 'eros' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4607 |             CYamlNode eros = sed.GetChild("erosivity");
-      |             ^
-      |                       const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4620:10: warning: variable 'cliff' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4620 |          CYamlNode cliff = root.GetChild("cliff_parameters");
-      |          ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4648:10: warning: variable 'flood' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4648 |          CYamlNode flood = root.GetChild("flood_parameters");
-      |          ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4666:10: warning: variable 'sedInput' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4666 |          CYamlNode sedInput = root.GetChild("sediment_input_parameters");
-      |          ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4683:10: warning: variable 'physics' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4683 |          CYamlNode physics = root.GetChild("physics_and_geometry");
-      |          ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4707:10: warning: variable 'profile' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4707 |          CYamlNode profile = root.GetChild("profile_and_output");
-      |          ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4724:13: warning: variable 'profileNums' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4724 |             CYamlNode profileNums = profile.GetChild("profile_numbers");
-      |             ^
-      |                       const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4728:16: warning: variable 'seq' of type 'vector<CYamlNode>' can be declared 'const' [misc-const-correctness]
- 4728 |                vector<CYamlNode> seq = profileNums.GetSequence();
-      |                ^
-      |                                  const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4730:19: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
- 4729 |                for (auto const &node : seq)
- 4730 |                   vecNums.push_back(node.GetIntValue());
-      |                   ^
-/home/dave/coast/CoastalME/src/read_input.cpp:4736:13: warning: variable 'profileTimes' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4736 |             CYamlNode profileTimes = profile.GetChild("profile_timesteps");
-      |             ^
-      |                       const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4740:16: warning: variable 'seq' of type 'vector<CYamlNode>' can be declared 'const' [misc-const-correctness]
- 4740 |                vector<CYamlNode> seq = profileTimes.GetSequence();
-      |                ^
-      |                                  const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4742:19: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
- 4741 |                for (auto const &node : seq)
- 4742 |                   vecTimes.push_back(node.GetULongValue());
-      |                   ^
-/home/dave/coast/CoastalME/src/read_input.cpp:4751:10: warning: variable 'cliffEdge' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
- 4751 |          CYamlNode cliffEdge = root.GetChild("cliff_edge_processing");
-      |          ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4754:13: warning: variable 'strSmoothing' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4754 |             string strSmoothing =
-      |             ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4777:16: warning: no header providing "std::exception" is directly included [misc-include-cleaner]
-   24 |    catch (std::exception const &e)
-      |                ^
-/home/dave/coast/CoastalME/src/read_input.cpp:4791:4: warning: variable 'strRec' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4791 |    string strRec;
-      |    ^
-      |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4810:4: warning: variable 'strStartDateTime' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4810 |    string strStartDateTime = *config.strGetStartDateTime();
-      |    ^
-      |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4833:4: warning: variable 'strDuration' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4833 |    string strDuration = *config.strGetDuration();
-      |    ^
-      |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4836:7: warning: variable 'strDurationLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4836 |       string strDurationLower = strToLower(&strDuration);
-      |       ^
-      |              const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4837:7: warning: variable 'dDurationMult' of type 'double' can be declared 'const' [misc-const-correctness]
- 4837 |       double dDurationMult = dGetTimeMultiplier(&strDurationLower);
-      |       ^
-      |              const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4860:4: warning: variable 'strTimestep' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4860 |    string strTimestep = *config.strGetTimestep();
-      |    ^
-      |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4863:7: warning: variable 'strTimestepLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4863 |       string strTimestepLower = strToLower(&strTimestep);
-      |       ^
-      |              const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4864:7: warning: variable 'dTimestepMult' of type 'double' can be declared 'const' [misc-const-correctness]
- 4864 |       double dTimestepMult = dGetTimeMultiplier(&strTimestepLower);
-      |       ^
-      |              const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4895:4: warning: variable 'vecSaveTimes' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 4895 |    vector<string> vecSaveTimes = config.VstrGetSaveTimes();
-      |    ^
-      |                   const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4906:10: warning: variable 'strSaveTimeLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4906 |          string strSaveTimeLower = strToLower(&strSaveTime);
-      |          ^
-      |                 const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4909:10: warning: variable 'dMult' of type 'double' can be declared 'const' [misc-const-correctness]
- 4909 |          double dMult = dGetTimeMultiplier(&strSaveTimeLower);
-      |          ^
-      |                 const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4913:13: warning: variable 'nLastSpace' of type 'size_t' (aka 'unsigned long') can be declared 'const' [misc-const-correctness]
- 4913 |             size_t nLastSpace = strSaveTimeLower.rfind(SPACE);
-      |             ^
-      |                    const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4920:16: warning: variable 'VstrNumbers' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 4920 |                vector<string> VstrNumbers = VstrSplit(&strNumbers, SPACE);
+/home/dave/coast/CoastalME/src/read_input.cpp:4379:16: warning: variable 'strTmp' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
+ 4379 |                vector<string> strTmp = rasterFiles.VstrGetStringSequence();
       |                ^
       |                               const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4927:25: warning: variable 'dValue' of type 'double' can be declared 'const' [misc-const-correctness]
- 4927 |                         double dValue = strtod(strNum.c_str(), NULL) * dMult;
-      |                         ^
-      |                                const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4964:7: warning: variable 'nSeed' of type 'int' can be declared 'const' [misc-const-correctness]
- 4964 |       int nSeed = config.nGetRandomSeed();
-      |       ^
-      |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4981:4: warning: variable 'strSaveDigitsMode' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4981 |    string strSaveDigitsMode = *config.strGetSaveDigitsMode();
+/home/dave/coast/CoastalME/src/read_input.cpp:4385:16: warning: variable 'tempVec' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
+ 4385 |                vector<string> tempVec{*rasterFiles.pstrGetValue()};
+      |                ^
+      |                               const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4391:13: warning: variable 'VstrFiles' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4391 |             CYamlNode VstrFiles = gis.GetChild("vector_files");
+      |             ^
+      |                       const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4394:16: warning: variable 'strTmp' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
+ 4394 |                vector<string> strTmp = VstrFiles.VstrGetStringSequence();
+      |                ^
+      |                               const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4409:10: warning: variable 'hydro' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4409 |          CYamlNode hydro = root.GetChild("hydrology");
+      |          ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4412:13: warning: variable 'strModel' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4412 |             string strModel = *hydro.GetChild("wave_propagation_model").pstrGetValue();
+      |             ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4467:10: warning: variable 'grid' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4467 |          CYamlNode grid = root.GetChild("grid_and_coastline");
+      |          ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4470:13: warning: variable 'strSmoothing' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4470 |             string strSmoothing = *grid.GetChild("coastline_smoothing").pstrGetValue();
+      |             ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4498:10: warning: variable 'layers' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4498 |          CYamlNode layers = root.GetChild("layers_and_files");
+      |          ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4515:13: warning: variable 'layer0' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4515 |             CYamlNode layer0 = layers.GetChild("layer_0");
+      |             ^
+      |                       const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4548:10: warning: variable 'sed' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4548 |          CYamlNode sed = root.GetChild("sediment_and_erosion");
+      |          ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4559:13: warning: variable 'strEqn' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4559 |             string strEqn = *sed.GetChild("beach_erosion_equation").pstrGetValue();
+      |             ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4576:13: warning: variable 'sizes' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4576 |             CYamlNode sizes = sed.GetChild("median_sizes");
+      |             ^
+      |                       const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4586:13: warning: variable 'eros' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4586 |             CYamlNode eros = sed.GetChild("erosivity");
+      |             ^
+      |                       const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4599:10: warning: variable 'cliff' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4599 |          CYamlNode cliff = root.GetChild("cliff_parameters");
+      |          ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4621:10: warning: variable 'flood' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4621 |          CYamlNode flood = root.GetChild("flood_parameters");
+      |          ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4637:10: warning: variable 'sedInput' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4637 |          CYamlNode sedInput = root.GetChild("sediment_input_parameters");
+      |          ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4651:10: warning: variable 'physics' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4651 |          CYamlNode physics = root.GetChild("physics_and_geometry");
+      |          ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4669:10: warning: variable 'profile' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4669 |          CYamlNode profile = root.GetChild("profile_and_output");
+      |          ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4682:13: warning: variable 'profileNums' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4682 |             CYamlNode profileNums = profile.GetChild("profile_numbers");
+      |             ^
+      |                       const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4686:16: warning: variable 'seq' of type 'vector<CYamlNode>' can be declared 'const' [misc-const-correctness]
+ 4686 |                vector<CYamlNode> seq = profileNums.GetSequence();
+      |                ^
+      |                                  const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4688:19: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
+ 4687 |                for (auto const &node : seq)
+ 4688 |                   vecNums.push_back(node.nGetIntValue());
+      |                   ^
+/home/dave/coast/CoastalME/src/read_input.cpp:4694:13: warning: variable 'profileTimes' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4694 |             CYamlNode profileTimes = profile.GetChild("profile_timesteps");
+      |             ^
+      |                       const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4698:16: warning: variable 'seq' of type 'vector<CYamlNode>' can be declared 'const' [misc-const-correctness]
+ 4698 |                vector<CYamlNode> seq = profileTimes.GetSequence();
+      |                ^
+      |                                  const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4700:19: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
+ 4699 |                for (auto const &node : seq)
+ 4700 |                   vecTimes.push_back(node.GetULongValue());
+      |                   ^
+/home/dave/coast/CoastalME/src/read_input.cpp:4709:10: warning: variable 'cliffEdge' of type 'CYamlNode' can be declared 'const' [misc-const-correctness]
+ 4709 |          CYamlNode cliffEdge = root.GetChild("cliff_edge_processing");
+      |          ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4712:13: warning: variable 'strSmoothing' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4712 |             string strSmoothing = *cliffEdge.GetChild("cliff_edge_smoothing").pstrGetValue();
+      |             ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4744:4: warning: variable 'strRec' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4744 |    string strRec;
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4984:7: warning: variable 'strSaveDigitsLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4984 |       string strSaveDigitsLower = strToLower(&strSaveDigitsMode);
+/home/dave/coast/CoastalME/src/read_input.cpp:4763:4: warning: variable 'strStartDateTime' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4763 |    string strStartDateTime = *config.pstrGetStartDateTime();
+      |    ^
+      |           const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4786:4: warning: variable 'strDuration' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4786 |    string strDuration = *config.pstrGetDuration();
+      |    ^
+      |           const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4789:7: warning: variable 'strDurationLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4789 |       string strDurationLower = strToLower(&strDuration);
       |       ^
       |              const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4992:4: warning: variable 'rasterFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 4992 |    vector<string> rasterFiles = config.VstrGetRasterFiles();
-      |    ^
-      |                   const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5172:4: warning: variable 'VstrFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 5172 |    vector<string> VstrFiles = config.VstrGetVectorFiles();
-      |    ^
-      |                   const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5253:4: warning: variable 'timeseriesFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 5253 |    vector<string> timeseriesFiles = config.GetTimeSeriesFiles();
-      |    ^
-      |                   const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5392:4: warning: variable 'strSuspendedSed' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 5392 |    string strSuspendedSed = config.GetSuspendedSedFile();
+/home/dave/coast/CoastalME/src/read_input.cpp:4790:7: warning: variable 'dDurationMult' of type 'double' can be declared 'const' [misc-const-correctness]
+ 4790 |       double dDurationMult = dGetTimeMultiplier(&strDurationLower);
+      |       ^
+      |              const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4813:4: warning: variable 'strTimestep' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4813 |    string strTimestep = *config.pstrGetTimestep();
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5403:4: warning: variable 'strInterventionClass' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 5403 |    string strInterventionClass = config.GetInterventionClassFile();
+/home/dave/coast/CoastalME/src/read_input.cpp:4816:7: warning: variable 'strTimestepLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4816 |       string strTimestepLower = strToLower(&strTimestep);
+      |       ^
+      |              const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4817:7: warning: variable 'dTimestepMult' of type 'double' can be declared 'const' [misc-const-correctness]
+ 4817 |       double dTimestepMult = dGetTimeMultiplier(&strTimestepLower);
+      |       ^
+      |              const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4845:4: warning: variable 'vecSaveTimes' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
+ 4845 |    vector<string> vecSaveTimes = config.VstrGetSaveTimes();
+      |    ^
+      |                   const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4856:10: warning: variable 'strSaveTimeLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4856 |          string strSaveTimeLower = strToLower(&strSaveTime);
+      |          ^
+      |                 const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4859:10: warning: variable 'dMult' of type 'double' can be declared 'const' [misc-const-correctness]
+ 4859 |          double dMult = dGetTimeMultiplier(&strSaveTimeLower);
+      |          ^
+      |                 const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4863:13: warning: variable 'nLastSpace' of type 'size_t' (aka 'unsigned long') can be declared 'const' [misc-const-correctness]
+ 4863 |             size_t nLastSpace = strSaveTimeLower.rfind(SPACE);
+      |             ^
+      |                    const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4870:16: warning: variable 'VstrNumbers' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
+ 4870 |                vector<string> VstrNumbers = VstrSplit(&strNumbers, SPACE);
+      |                ^
+      |                               const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4877:25: warning: variable 'dValue' of type 'double' can be declared 'const' [misc-const-correctness]
+ 4877 |                         double dValue = strtod(strNum.c_str(), NULL) * dMult;
+      |                         ^
+      |                                const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4914:7: warning: variable 'nSeed' of type 'int' can be declared 'const' [misc-const-correctness]
+ 4914 |       int nSeed = config.nGetRandomSeed();
+      |       ^
+      |           const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4931:4: warning: variable 'strSaveDigitsMode' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4931 |    string strSaveDigitsMode = *config.pstrGetSaveDigitsMode();
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5409:4: warning: variable 'strInterventionHeight' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 5409 |    string strInterventionHeight = config.GetInterventionHeightFile();
+/home/dave/coast/CoastalME/src/read_input.cpp:4934:7: warning: variable 'strSaveDigitsLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4934 |       string strSaveDigitsLower = strToLower(&strSaveDigitsMode);
+      |       ^
+      |              const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4942:4: warning: variable 'rasterFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
+ 4942 |    vector<string> rasterFiles = config.VstrGetRasterFiles();
+      |    ^
+      |                   const 
+/home/dave/coast/CoastalME/src/read_input.cpp:4999:10: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 4999 |          string code = strToLower(&rasterCode);
+      |          ^
+      |                 const 
+/home/dave/coast/CoastalME/src/read_input.cpp:5121:4: warning: variable 'VstrFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
+ 5121 |    vector<string> VstrFiles = config.VstrGetVectorFiles();
+      |    ^
+      |                   const 
+/home/dave/coast/CoastalME/src/read_input.cpp:5149:10: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5149 |          string code = strToLower(&vectorCode);
+      |          ^
+      |                 const 
+/home/dave/coast/CoastalME/src/read_input.cpp:5201:4: warning: variable 'timeseriesFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
+ 5201 |    vector<string> timeseriesFiles = config.VstrGetTimeSeriesFiles();
+      |    ^
+      |                   const 
+/home/dave/coast/CoastalME/src/read_input.cpp:5206:10: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5206 |          string code = strToLower(&timeseriesCode);
+      |          ^
+      |                 const 
+/home/dave/coast/CoastalME/src/read_input.cpp:5338:4: warning: variable 'strSuspendedSed' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5338 |    string strSuspendedSed = *config.pstrGetSuspendedSedFile();
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5591:7: warning: variable 'floodFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 5591 |       vector<string> floodFiles = config.GetFloodFiles();
+/home/dave/coast/CoastalME/src/read_input.cpp:5348:4: warning: variable 'strInterventionClass' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5348 |    string strInterventionClass = *config.pstrGetInterventionClassFile();
+      |    ^
+      |           const 
+/home/dave/coast/CoastalME/src/read_input.cpp:5353:4: warning: variable 'strInterventionHeight' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5353 |    string strInterventionHeight = *config.pstrGetInterventionHeightFile();
+      |    ^
+      |           const 
+/home/dave/coast/CoastalME/src/read_input.cpp:5518:7: warning: variable 'floodFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
+ 5518 |       vector<string> floodFiles = config.VstrGetFloodFiles();
       |       ^
       |                      const 
+/home/dave/coast/CoastalME/src/read_input.cpp:5523:13: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5523 |             string code = strToLower(&floodCode);
+      |             ^
+      |                    const 
 /home/dave/coast/CoastalME/src/sediment_input_event.cpp:22:1: warning: included header cme.h is not used directly [misc-include-cleaner]
    22 | #include "cme.h"
       | ^~~~~~~~~~~~~~~~
@@ -694,8 +765,26 @@
    55 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
    56 | 
-/home/dave/coast/CoastalME/src/simulation.h:1894:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
- 1894 |    ofstream LogStream;
+/home/dave/coast/CoastalME/src/simulation.h:53:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
+   53 | #include "configuration.h"
+      |          ^
+/home/dave/coast/CoastalME/src/configuration.h:34:10: note: 'simulation.h' included from here
+   34 | #include "simulation.h"
+      |          ^
+/home/dave/coast/CoastalME/src/configuration.cpp:26:10: note: 'configuration.h' included from here
+   26 | #include "configuration.h"
+      |          ^
+/home/dave/coast/CoastalME/src/simulation.h:59:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
+   59 | #include "configuration.h"
+      |          ^
+/home/dave/coast/CoastalME/src/configuration.h:34:10: note: 'simulation.h' included from here
+   34 | #include "simulation.h"
+      |          ^
+/home/dave/coast/CoastalME/src/configuration.cpp:26:10: note: 'configuration.h' included from here
+   26 | #include "configuration.h"
+      |          ^
+/home/dave/coast/CoastalME/src/simulation.h:1896:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
+ 1896 |    ofstream LogStream;
       |             ^
 /home/dave/coast/CoastalME/src/spatial_interpolation.cpp:79:47: warning: no header providing "std::vector" is directly included [misc-include-cleaner]
    63 | SpatialInterpolator::SpatialInterpolator(std::vector<Point2D> const& points,
@@ -777,66 +866,54 @@
    82 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
    83 | #include "2di_point.h"
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:31:12: warning: using decl 'cerr' is unused [misc-unused-using-decls]
-   31 | using std::cerr;
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:22:12: warning: using decl 'cerr' is unused [misc-unused-using-decls]
+   22 | using std::cerr;
       |            ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:31:12: note: remove the using
-   31 | using std::cerr;
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:22:12: note: remove the using
+   22 | using std::cerr;
       | ~~~~~~~~~~~^~~~~
-   32 | using std::endl;
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:32:12: warning: using decl 'endl' is unused [misc-unused-using-decls]
-   32 | using std::endl;
+   23 | using std::endl;
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:23:12: warning: using decl 'endl' is unused [misc-unused-using-decls]
+   23 | using std::endl;
       |            ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:32:12: note: remove the using
-   32 | using std::endl;
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:23:12: note: remove the using
+   23 | using std::endl;
       | ~~~~~~~~~~~^~~~~
-   33 | using std::getline;
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:35:12: warning: no header providing "std::stod" is directly included [misc-include-cleaner]
-   30 | 
-   31 | using std::cerr;
-   32 | using std::endl;
-   33 | using std::getline;
-   34 | using std::isspace;
-   35 | using std::stod;
-      |            ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:36:12: warning: no header providing "std::stoi" is directly included [misc-include-cleaner]
-   36 | using std::stoi;
-      |            ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:118:17: warning: no header providing "std::stoul" is directly included [misc-include-cleaner]
-  118 |          return stoul(m_strValue);
-      |                 ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:162:7: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
-  160 |    for (auto const& node : m_vecChildren)
-  161 |    {
-  162 |       vecResult.push_back(node.GetValue());
-      |       ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:195:16: warning: no header providing "std::exception" is directly included [misc-include-cleaner]
-   26 |    catch (std::exception const& e)
-      |                ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:197:50: warning: no header providing "std::to_string" is directly included [misc-include-cleaner]
-  197 |       m_strError = "Parse error at line " + std::to_string(m_nCurrentLine) + ": " + e.what();
-      |                                                  ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:223:9: warning: variable 'c' of type 'char' can be declared 'const' [misc-const-correctness]
-  223 |    for (char c : strLine)
-      |         ^
-      |              const 
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:283:4: warning: variable 'nColonPos' of type 'size_t' (aka 'unsigned long') can be declared 'const' [misc-const-correctness]
-  283 |    size_t nColonPos = strTrimmed.find(':');
+   24 | 
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:34:1: warning: included header algorithm is not used directly [misc-include-cleaner]
+   34 | #include <algorithm>
+      | ^~~~~~~~~~~~~~~~~~~~
+   35 | 
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:152:4: warning: variable 'strLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+  152 |    string strLower = CSimulation::strToLower(&m_strValue);
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:283:4: warning: no header providing "size_t" is directly included [misc-include-cleaner]
-   26 |    size_t nColonPos = strTrimmed.find(':');
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:167:7: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
+  165 |    for (auto const& node : m_VYamlChildren)
+  166 |    {
+  167 |       VstrResult.push_back(*node.pstrGetValue());
+      |       ^
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:228:9: warning: variable 'c' of type 'char' can be declared 'const' [misc-const-correctness]
+  228 |    for (char c : strLine)
+      |         ^
+      |              const 
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:288:4: warning: variable 'nColonPos' of type 'size_t' (aka 'unsigned long') can be declared 'const' [misc-const-correctness]
+  288 |    size_t nColonPos = strTrimmed.find(':');
       |    ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:317:24: warning: function 'ParseSection' is within a recursive call chain [misc-no-recursion]
-  317 | CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
+      |           const 
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:288:4: warning: no header providing "size_t" is directly included [misc-include-cleaner]
+   21 |    size_t nColonPos = strTrimmed.find(':');
+      |    ^
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:322:24: warning: function 'ParseSection' is within a recursive call chain [misc-no-recursion]
+  322 | CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
       |                        ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:317:24: note: example recursive call chain, starting from function 'ParseSection'
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:357:27: note: Frame #1: function 'ParseSection' calls function 'ParseSection' here:
-  357 |                itemNode = ParseSection(fileStream, nIndent);
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:322:24: note: example recursive call chain, starting from function 'ParseSection'
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:363:27: note: Frame #1: function 'ParseSection' calls function 'ParseSection' here:
+  363 |                itemNode = ParseSection(fileStream, nIndent);
       |                           ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:357:27: note: ... which was the starting point of the recursive call chain; there may be other cycles
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:330:7: warning: variable 'nIndent' of type 'int' can be declared 'const' [misc-const-correctness]
-  330 |       int nIndent = nGetIndentLevel(strLine);
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:363:27: note: ... which was the starting point of the recursive call chain; there may be other cycles
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:335:7: warning: variable 'nIndent' of type 'int' can be declared 'const' [misc-const-correctness]
+  335 |       int nIndent = nGetIndentLevel(strLine);
       |       ^
       |           const 
 /home/dave/coast/CoastalME/src/yaml_parser.h:39:7: warning: function 'CYamlNode' is within a recursive call chain [misc-no-recursion]
@@ -923,11 +1000,11 @@
    30 | #include "cme.h"
       | ^~~~~~~~~~~~~~~~
    31 | #include "raster_grid.h"
-/home/dave/coast/CoastalME/src/cme.h:1242:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
- 1242 |    char chFill;
+/home/dave/coast/CoastalME/src/cme.h:1241:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
+ 1241 |    char chFill;
       |         ^
-/home/dave/coast/CoastalME/src/cme.h:1243:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
- 1243 |    int nWidth;
+/home/dave/coast/CoastalME/src/cme.h:1242:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
+ 1242 |    int nWidth;
       |        ^
 /home/dave/coast/CoastalME/src/coast.h:27:10: warning: circular header file dependency detected while including 'coast_landform.h', please check the include path [misc-header-include-cycle]
    27 | #include "coast_landform.h"
@@ -956,80 +1033,89 @@
 /home/dave/coast/CoastalME/src/coast_landform.h:47:14: warning: member variable 'pCoast' has protected visibility [misc-non-private-member-variables-in-classes]
    47 |    CRWCoast* pCoast;
       |              ^
-/home/dave/coast/CoastalME/src/configuration.h:35:1: warning: included header algorithm is not used directly [misc-include-cleaner]
-   35 | #include <algorithm>
+/home/dave/coast/CoastalME/src/configuration.h:24:1: warning: included header algorithm is not used directly [misc-include-cleaner]
+   24 | #include <algorithm>
       | ^~~~~~~~~~~~~~~~~~~~
-   36 | #include <cctype>
-/home/dave/coast/CoastalME/src/configuration.h:36:1: warning: included header cctype is not used directly [misc-include-cleaner]
-   36 | #include <cctype>
+   25 | 
+/home/dave/coast/CoastalME/src/configuration.h:26:1: warning: included header cctype is not used directly [misc-include-cleaner]
+   26 | #include <cctype>
       | ^~~~~~~~~~~~~~~~~
-   37 | #include <string>
-/home/dave/coast/CoastalME/src/configuration.h:44:7: warning: Excessive padding in 'class CConfiguration' (91 padding bytes, where 3 is optimal). Optimal fields order: m_dMaxLocalSlope, m_dMaxBeachElevation, m_dSeawaterDensity, m_dInitialWaterLevel, m_dFinalWaterLevel, m_dDeepWaterWaveHeight, m_dDeepWaterWaveOrientation, m_dWavePeriod, m_dBreakingWaveRatio, m_dPlatformErosionResistance, m_dFineMedianSize, m_dSandMedianSize, m_dCoarseMedianSize, m_dSedimentDensity, m_dBeachSedimentPorosity, m_dFineErosivity, m_dSandErosivity, m_dCoarseErosivity, m_dTransportKLS, m_dKamphuis, m_dBermHeight, m_dCliffErosionResistance, m_dNotchOverhang, m_dNotchBase, m_dCliffDepositionA, m_dTalusWidth, m_dMinTalusLength, m_dMinTalusHeight, m_dGravitationalAcceleration, m_dNormalSpacing, m_dRandomFactor, m_dNormalLength, m_dStartDepthRatio, m_dSyntheticTransectSpacing, m_dCliffSlopeLimit, m_vecSaveTimes, m_vecRasterFiles, m_VdSliceElevations, m_vecVectorFiles, m_vecTimeSeriesFiles, m_vecUnconsFineFiles, m_vecUnconsSandFiles, m_vecUnconsCoarseFiles, m_vecConsFineFiles, m_vecConsSandFiles, m_vecConsCoarseFiles, m_vecFloodFiles, m_vecProfileNumbers, m_vecProfileTimesteps, m_strRunName, m_strStartDateTime, m_strDuration, m_strTimestep, m_strSaveDigitsMode, m_strRasterFormat, m_strVectorFormat, m_strOmitGridEdges, m_strBasementDEMFile, m_strSuspendedSedFile, m_strLandformFile, m_strInterventionClassFile, m_strInterventionHeightFile, m_strWaveInputMode, m_strWaveHeightTimeSeries, m_strWaveStationDataFile, m_strTideDataFile, m_strFloodCoastline, m_strFloodLocations, m_strFloodInputLocation, m_strSedimentInputLocation, m_strSedimentInputType, m_strSedimentInputDetails, m_nLogFileDetail, m_nRandomSeed, m_nMaxSaveDigits, m_nCoastlineSmoothing, m_nCoastlineSmoothingWindow, m_nPolynomialOrder, m_nProfileSmoothingWindow, m_nNumLayers, m_nWavePropagationModel, m_nBeachTransportAtEdges, m_nBeachErosionEquation, m_strRunupEquation, m_nCurvatureWindow, m_nCliffEdgeSmoothing, m_nCliffEdgeSmoothingWindow, m_nCliffEdgePolynomialOrder, m_bCSVPerTimestepResults, m_bUseSystemTimeForSeed, m_bWorldFile, m_bScaleValues, m_bHasFinalWaterLevel, m_bCoastPlatformErosion, m_bBeachSedimentTransport, m_bCliffCollapse, m_bFloodInput, m_bSedimentInput, m_bSaveProfileData, m_bSaveParallelProfiles, m_bOutputErosionPotential, consider reordering the fields or adding explicit padding members [clang-analyzer-optin.performance.Padding]
-   44 | class CConfiguration
+   27 | 
+/home/dave/coast/CoastalME/src/configuration.h:34:10: warning: circular header file dependency detected while including 'simulation.h', please check the include path [misc-header-include-cycle]
+   34 | #include "simulation.h"
+      |          ^
+/home/dave/coast/CoastalME/src/simulation.h:53:10: note: 'configuration.h' included from here
+   53 | #include "configuration.h"
+      |          ^
+/home/dave/coast/CoastalME/src/coast.h:24:10: note: 'simulation.h' included from here
+   24 | #include "simulation.h"
+      |          ^
+/home/dave/coast/CoastalME/src/configuration.h:37:7: warning: Excessive padding in 'class CConfiguration' (91 padding bytes, where 3 is optimal). Optimal fields order: m_dMaxLocalSlope, m_dMaxBeachElevation, m_dSeawaterDensity, m_dInitialWaterLevel, m_dFinalWaterLevel, m_dDeepWaterWaveHeight, m_dDeepWaterWaveOrientation, m_dWavePeriod, m_dBreakingWaveRatio, m_dPlatformErosionResistance, m_dFineMedianSize, m_dSandMedianSize, m_dCoarseMedianSize, m_dSedimentDensity, m_dBeachSedimentPorosity, m_dFineErosivity, m_dSandErosivity, m_dCoarseErosivity, m_dTransportKLS, m_dKamphuis, m_dBermHeight, m_dCliffErosionResistance, m_dNotchOverhang, m_dNotchBase, m_dCliffDepositionA, m_dTalusWidth, m_dMinTalusLength, m_dMinTalusHeight, m_dGravitationalAcceleration, m_dNormalSpacing, m_dRandomFactor, m_dNormalLength, m_dStartDepthRatio, m_dSyntheticTransectSpacing, m_dCliffSlopeLimit, m_VstrSaveTimes, m_VstrRasterFiles, m_VdSliceElevations, m_VstrVectorFiles, m_VstrTimeSeriesFiles, m_VstrUnconsFineFiles, m_VstrUnconsSandFiles, m_VStrUnconsCoarseFiles, m_VstrConsFineFiles, m_VstrConsSandFiles, m_VstrConsCoarseFiles, m_VstrFloodFiles, m_VnProfileNumbers, m_VulProfileTimesteps, m_strRunName, m_strStartDateTime, m_strDuration, m_strTimestep, m_strSaveDigitsMode, m_strRasterFormat, m_strVectorFormat, m_strOmitGridEdges, m_strBasementDEMFile, m_strSuspendedSedFile, m_strLandformFile, m_strInterventionClassFile, m_strInterventionHeightFile, m_strWaveInputMode, m_strWaveHeightTimeSeries, m_strWaveStationDataFile, m_strTideDataFile, m_strFloodCoastline, m_strFloodLocations, m_strFloodInputLocation, m_strSedimentInputLocation, m_strSedimentInputType, m_strSedimentInputDetails, m_nLogFileDetail, m_nRandomSeed, m_nMaxSaveDigits, m_nCoastlineSmoothing, m_nCoastlineSmoothingWindow, m_nPolynomialOrder, m_nProfileSmoothingWindow, m_nNumLayers, m_nWavePropagationModel, m_nBeachTransportAtEdges, m_nBeachErosionEquation, m_nRunupEquation, m_nCurvatureWindow, m_nCliffEdgeSmoothing, m_nCliffEdgeSmoothingWindow, m_nCliffEdgePolynomialOrder, m_bCSVPerTimestepResults, m_bUseSystemTimeForSeed, m_bWorldFile, m_bScaleValues, m_bbHasFinalWaterLevel, m_bCoastPlatformErosion, m_bBeachSedimentTransport, m_bCliffCollapse, m_bFloodInput, m_bSedimentInput, m_bSaveProfileData, m_bSaveParallelProfiles, m_bOutputErosionPotential, consider reordering the fields or adding explicit padding members [clang-analyzer-optin.performance.Padding]
+   37 | class CConfiguration
       | ~~~~~~^~~~~~~~~~~~~~
-   45 | {
+   38 | {
       | ~
-   46 |    private:
-      |    ~~~~~~~~
-   47 |    // Run Information
+   39 | private:
+      | ~~~~~~~~
+   40 |    // Run Information
       |    ~~~~~~~~~~~~~~~~~~
-   48 |    string m_strRunName;
+   41 |    string m_strRunName;
       |    ~~~~~~~~~~~~~~~~~~~~
-   49 |    int m_nLogFileDetail;
+   42 |    int m_nLogFileDetail;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   50 |    bool m_bCSVPerTimestepResults;
+   43 |    bool m_bCSVPerTimestepResults;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   51 | 
-   52 |    // Simulation timing
+   44 | 
+   45 |    // Simulation timing
       |    ~~~~~~~~~~~~~~~~~~~~
-   53 |    string m_strStartDateTime;
+   46 |    string m_strStartDateTime;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-   54 |    string m_strDuration;
+   47 |    string m_strDuration;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   55 |    string m_strTimestep;
+   48 |    string m_strTimestep;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   56 |    vector<string> m_vecSaveTimes;
-      |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   57 |    int m_nRandomSeed;
+   49 |    vector<string> m_VstrSaveTimes;
+      |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   50 |    int m_nRandomSeed;
       |    ~~~~~~~~~~~~~~~~~~
-   58 |    bool m_bUseSystemTimeForSeed;
+   51 |    bool m_bUseSystemTimeForSeed;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   59 | 
-/home/dave/coast/CoastalME/src/configuration.h:44:7: note: Excessive padding in 'class CConfiguration' (91 padding bytes, where 3 is optimal). Optimal fields order: m_dMaxLocalSlope, m_dMaxBeachElevation, m_dSeawaterDensity, m_dInitialWaterLevel, m_dFinalWaterLevel, m_dDeepWaterWaveHeight, m_dDeepWaterWaveOrientation, m_dWavePeriod, m_dBreakingWaveRatio, m_dPlatformErosionResistance, m_dFineMedianSize, m_dSandMedianSize, m_dCoarseMedianSize, m_dSedimentDensity, m_dBeachSedimentPorosity, m_dFineErosivity, m_dSandErosivity, m_dCoarseErosivity, m_dTransportKLS, m_dKamphuis, m_dBermHeight, m_dCliffErosionResistance, m_dNotchOverhang, m_dNotchBase, m_dCliffDepositionA, m_dTalusWidth, m_dMinTalusLength, m_dMinTalusHeight, m_dGravitationalAcceleration, m_dNormalSpacing, m_dRandomFactor, m_dNormalLength, m_dStartDepthRatio, m_dSyntheticTransectSpacing, m_dCliffSlopeLimit, m_vecSaveTimes, m_vecRasterFiles, m_VdSliceElevations, m_vecVectorFiles, m_vecTimeSeriesFiles, m_vecUnconsFineFiles, m_vecUnconsSandFiles, m_vecUnconsCoarseFiles, m_vecConsFineFiles, m_vecConsSandFiles, m_vecConsCoarseFiles, m_vecFloodFiles, m_vecProfileNumbers, m_vecProfileTimesteps, m_strRunName, m_strStartDateTime, m_strDuration, m_strTimestep, m_strSaveDigitsMode, m_strRasterFormat, m_strVectorFormat, m_strOmitGridEdges, m_strBasementDEMFile, m_strSuspendedSedFile, m_strLandformFile, m_strInterventionClassFile, m_strInterventionHeightFile, m_strWaveInputMode, m_strWaveHeightTimeSeries, m_strWaveStationDataFile, m_strTideDataFile, m_strFloodCoastline, m_strFloodLocations, m_strFloodInputLocation, m_strSedimentInputLocation, m_strSedimentInputType, m_strSedimentInputDetails, m_nLogFileDetail, m_nRandomSeed, m_nMaxSaveDigits, m_nCoastlineSmoothing, m_nCoastlineSmoothingWindow, m_nPolynomialOrder, m_nProfileSmoothingWindow, m_nNumLayers, m_nWavePropagationModel, m_nBeachTransportAtEdges, m_nBeachErosionEquation, m_strRunupEquation, m_nCurvatureWindow, m_nCliffEdgeSmoothing, m_nCliffEdgeSmoothingWindow, m_nCliffEdgePolynomialOrder, m_bCSVPerTimestepResults, m_bUseSystemTimeForSeed, m_bWorldFile, m_bScaleValues, m_bHasFinalWaterLevel, m_bCoastPlatformErosion, m_bBeachSedimentTransport, m_bCliffCollapse, m_bFloodInput, m_bSedimentInput, m_bSaveProfileData, m_bSaveParallelProfiles, m_bOutputErosionPotential, consider reordering the fields or adding explicit padding members
-   44 | class CConfiguration
+   52 | 
+/home/dave/coast/CoastalME/src/configuration.h:37:7: note: Excessive padding in 'class CConfiguration' (91 padding bytes, where 3 is optimal). Optimal fields order: m_dMaxLocalSlope, m_dMaxBeachElevation, m_dSeawaterDensity, m_dInitialWaterLevel, m_dFinalWaterLevel, m_dDeepWaterWaveHeight, m_dDeepWaterWaveOrientation, m_dWavePeriod, m_dBreakingWaveRatio, m_dPlatformErosionResistance, m_dFineMedianSize, m_dSandMedianSize, m_dCoarseMedianSize, m_dSedimentDensity, m_dBeachSedimentPorosity, m_dFineErosivity, m_dSandErosivity, m_dCoarseErosivity, m_dTransportKLS, m_dKamphuis, m_dBermHeight, m_dCliffErosionResistance, m_dNotchOverhang, m_dNotchBase, m_dCliffDepositionA, m_dTalusWidth, m_dMinTalusLength, m_dMinTalusHeight, m_dGravitationalAcceleration, m_dNormalSpacing, m_dRandomFactor, m_dNormalLength, m_dStartDepthRatio, m_dSyntheticTransectSpacing, m_dCliffSlopeLimit, m_VstrSaveTimes, m_VstrRasterFiles, m_VdSliceElevations, m_VstrVectorFiles, m_VstrTimeSeriesFiles, m_VstrUnconsFineFiles, m_VstrUnconsSandFiles, m_VStrUnconsCoarseFiles, m_VstrConsFineFiles, m_VstrConsSandFiles, m_VstrConsCoarseFiles, m_VstrFloodFiles, m_VnProfileNumbers, m_VulProfileTimesteps, m_strRunName, m_strStartDateTime, m_strDuration, m_strTimestep, m_strSaveDigitsMode, m_strRasterFormat, m_strVectorFormat, m_strOmitGridEdges, m_strBasementDEMFile, m_strSuspendedSedFile, m_strLandformFile, m_strInterventionClassFile, m_strInterventionHeightFile, m_strWaveInputMode, m_strWaveHeightTimeSeries, m_strWaveStationDataFile, m_strTideDataFile, m_strFloodCoastline, m_strFloodLocations, m_strFloodInputLocation, m_strSedimentInputLocation, m_strSedimentInputType, m_strSedimentInputDetails, m_nLogFileDetail, m_nRandomSeed, m_nMaxSaveDigits, m_nCoastlineSmoothing, m_nCoastlineSmoothingWindow, m_nPolynomialOrder, m_nProfileSmoothingWindow, m_nNumLayers, m_nWavePropagationModel, m_nBeachTransportAtEdges, m_nBeachErosionEquation, m_nRunupEquation, m_nCurvatureWindow, m_nCliffEdgeSmoothing, m_nCliffEdgeSmoothingWindow, m_nCliffEdgePolynomialOrder, m_bCSVPerTimestepResults, m_bUseSystemTimeForSeed, m_bWorldFile, m_bScaleValues, m_bbHasFinalWaterLevel, m_bCoastPlatformErosion, m_bBeachSedimentTransport, m_bCliffCollapse, m_bFloodInput, m_bSedimentInput, m_bSaveProfileData, m_bSaveParallelProfiles, m_bOutputErosionPotential, consider reordering the fields or adding explicit padding members
+   37 | class CConfiguration
       | ~~~~~~^~~~~~~~~~~~~~
-   45 | {
+   38 | {
       | ~
-   46 |    private:
-      |    ~~~~~~~~
-   47 |    // Run Information
+   39 | private:
+      | ~~~~~~~~
+   40 |    // Run Information
       |    ~~~~~~~~~~~~~~~~~~
-   48 |    string m_strRunName;
+   41 |    string m_strRunName;
       |    ~~~~~~~~~~~~~~~~~~~~
-   49 |    int m_nLogFileDetail;
+   42 |    int m_nLogFileDetail;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   50 |    bool m_bCSVPerTimestepResults;
+   43 |    bool m_bCSVPerTimestepResults;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   51 | 
-   52 |    // Simulation timing
+   44 | 
+   45 |    // Simulation timing
       |    ~~~~~~~~~~~~~~~~~~~~
-   53 |    string m_strStartDateTime;
+   46 |    string m_strStartDateTime;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-   54 |    string m_strDuration;
+   47 |    string m_strDuration;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   55 |    string m_strTimestep;
+   48 |    string m_strTimestep;
       |    ~~~~~~~~~~~~~~~~~~~~~
-   56 |    vector<string> m_vecSaveTimes;
-      |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   57 |    int m_nRandomSeed;
+   49 |    vector<string> m_VstrSaveTimes;
+      |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   50 |    int m_nRandomSeed;
       |    ~~~~~~~~~~~~~~~~~~
-   58 |    bool m_bUseSystemTimeForSeed;
+   51 |    bool m_bUseSystemTimeForSeed;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   59 | 
-/home/dave/coast/CoastalME/src/configuration.h:501:25: warning: parameter 'v' is passed by value and only copied once; consider moving it to avoid unnecessary copies [performance-unnecessary-value-param]
-   38 |       m_vecFloodFiles = v;
-      |                         ^
-      |                         std::move( )
+   52 | 
+/home/dave/coast/CoastalME/src/configuration.h:508:26: warning: parameter 'v' is passed by value and only copied once; consider moving it to avoid unnecessary copies [performance-unnecessary-value-param]
+   31 |       m_VstrFloodFiles = v;
+      |                          ^
+      |                          std::move( )
 /home/dave/coast/CoastalME/src/nanoflann.hpp:188:18: warning: member variable 'first' has public visibility [misc-non-private-member-variables-in-classes]
   188 |     IndexType    first;  //!< Index of the sample in the dataset
       |                  ^
@@ -1180,8 +1266,14 @@
 /home/dave/coast/CoastalME/src/nanoflann.hpp:2680:52: warning: member variable 'm_data_matrix' has public visibility [misc-non-private-member-variables-in-classes]
  2680 |     const std::reference_wrapper<const MatrixType> m_data_matrix;
       |                                                    ^
-/home/dave/coast/CoastalME/src/simulation.h:1894:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
- 1894 |    ofstream LogStream;
+/home/dave/coast/CoastalME/src/simulation.h:53:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
+   53 | #include "configuration.h"
+      |          ^
+/home/dave/coast/CoastalME/src/simulation.h:59:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
+   59 | #include "configuration.h"
+      |          ^
+/home/dave/coast/CoastalME/src/simulation.h:1896:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
+ 1896 |    ofstream LogStream;
       |             ^
 /home/dave/coast/CoastalME/src/spatial_interpolation.h:61:1: warning: included header cmath is not used directly [misc-include-cleaner]
    61 | #include <cmath>

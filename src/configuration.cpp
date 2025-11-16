@@ -102,7 +102,7 @@ void CConfiguration::InitializeDefaults()
    m_dSeawaterDensity = 1029.0;
    m_dInitialWaterLevel = 0.0;
    // m_dFinalWaterLevel = 0.0;
-   m_bHasFinalWaterLevel = false;
+   m_bbHasFinalWaterLevel = false;
 
    m_strWaveInputMode = "fixed";
    m_strWaveHeightTimeSeries = "";
