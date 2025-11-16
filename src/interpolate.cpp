@@ -130,7 +130,7 @@ int CSimulation::nFindIndex(vector<double> const* pVdX, double const dValueIn)
 }
 
 //===============================================================================================================================
-//! Returns a linearly interpolated vector of doubles, to make CShore profile output compatible with CME. The array pVdY has been output by CShore and so always has length CSHOREARRAYOUTSIZE, whereas all other arrays have sizes which depend on CME at runtime
+//! Returns a linearly interpolated vector of doubles, to make CShore profile output compatible with CME. The array pVdY has been output by CShore and so always has length CSHORE_ARRAY_OUT_SIZE, whereas all other arrays have sizes which depend on CME at runtime
 //===============================================================================================================================
 vector<double> CSimulation::VdInterpolateCShoreProfileOutput(vector<double> const* pVdX, vector<double> const* pVdY, vector<double> const* pVdXNew)
 {

@@ -63,9 +63,9 @@ void CYamlNode::AddSequenceItem(CYamlNode const& node)
    m_bIsSequence = true;
 }
 
-string CYamlNode::GetValue() const
+string const* CYamlNode::pstrGetValue() const
 {
-   return m_strValue;
+   return &m_strValue;
 }
 
 bool CYamlNode::HasChild(string const& strKey) const
@@ -154,12 +154,12 @@ bool CYamlNode::GetBoolValue(bool bDefault) const
    return bDefault;
 }
 
-vector<string> CYamlNode::GetStringSequence() const
+vector<string> CYamlNode::VstrGetStringSequence() const
 {
    vector<string> vecResult;
    for (auto const& node : m_vecChildren)
    {
-      vecResult.push_back(node.GetValue());
+      vecResult.push_back(*node.pstrGetValue());
    }
    return vecResult;
 }
@@ -207,9 +207,9 @@ CYamlNode CYamlParser::GetRoot() const
    return m_RootNode;
 }
 
-string CYamlParser::GetError() const
+string const* CYamlParser::pstrGetError() const
 {
-   return m_strError;
+   return &m_strError;
 }
 
 bool CYamlParser::bHasError() const

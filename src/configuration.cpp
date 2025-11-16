@@ -55,24 +55,24 @@ void CConfiguration::InitializeDefaults()
    m_strStartDateTime = "00-00-00 01/01/2000";
    m_strDuration = "1 hour";
    m_strTimestep = "1 hour";
-   m_vecSaveTimes.clear();
+   m_VstrSaveTimes.clear();
    m_nRandomSeed = 0;
    m_bUseSystemTimeForSeed = true;
 
    // GIS Output
    m_nMaxSaveDigits = 3;
    m_strSaveDigitsMode = "sequential";
-   m_vecRasterFiles.clear();
-   m_vecRasterFiles.push_back("");
+   m_VstrRasterFiles.clear();
+   m_VstrRasterFiles.push_back("");
    m_strRasterFormat = "";
    m_bWorldFile = false;
    m_bScaleValues = false;
    m_VdSliceElevations.clear();
-   m_vecVectorFiles.clear();
-   m_vecVectorFiles.push_back("");
+   m_VstrVectorFiles.clear();
+   m_VstrVectorFiles.push_back("");
    m_strVectorFormat = "ESRI Shapefile";
-   m_vecTimeSeriesFiles.clear();
-   m_vecTimeSeriesFiles.push_back("");
+   m_VstrTimeSeriesFiles.clear();
+   m_VstrTimeSeriesFiles.push_back("");
 
    // Grid and Coastline
    m_nCoastlineSmoothing = 0;
@@ -86,12 +86,12 @@ void CConfiguration::InitializeDefaults()
    // Layers and Files
    m_nNumLayers = 1;
    m_strBasementDEMFile = "";
-   m_vecUnconsFineFiles.clear();
-   m_vecUnconsSandFiles.clear();
-   m_vecUnconsCoarseFiles.clear();
-   m_vecConsFineFiles.clear();
-   m_vecConsSandFiles.clear();
-   m_vecConsCoarseFiles.clear();
+   m_VstrUnconsFineFiles.clear();
+   m_VstrUnconsSandFiles.clear();
+   m_VStrUnconsCoarseFiles.clear();
+   m_VstrConsFineFiles.clear();
+   m_VstrConsSandFiles.clear();
+   m_VstrConsCoarseFiles.clear();
    m_strSuspendedSedFile = "";
    m_strLandformFile = "";
    m_strInterventionClassFile = "";
@@ -165,8 +165,8 @@ void CConfiguration::InitializeDefaults()
 
    // Profile and Output Options
    m_bSaveProfileData = false;
-   m_vecProfileNumbers.clear();
-   m_vecProfileTimesteps.clear();
+   m_VstrProfileNumbers.clear();
+   m_VstrProfileTimesteps.clear();
    m_bSaveParallelProfiles = false;
    m_bOutputErosionPotential = false;
    m_nCurvatureWindow = 11;
@@ -186,7 +186,7 @@ vector<string> CConfiguration::VstrGetRasterFiles() const
    // Case 11: Raster GIS files to output - expand "all" and "usual" keywords
    vector<string> expandedFiles;
 
-   for (string const &fileSpec : m_vecRasterFiles)
+   for (string const &fileSpec : m_VstrRasterFiles)
    {
       string fileSpecLower = CSimulation::strToLower(&fileSpec);
 
@@ -346,7 +346,7 @@ vector<string> CConfiguration::VstrGetVectorFiles() const
    // Case 16: Vector GIS files to output - expand "all" and "usual" keywords
    vector<string> expandedFiles;
 
-   for (string const &fileSpec : m_vecVectorFiles)
+   for (string const &fileSpec : m_VstrVectorFiles)
    {
       string fileSpecLower = CSimulation::strToLower(&fileSpec);
 
@@ -387,7 +387,7 @@ vector<string> CConfiguration::VstrGetTimeSeriesFiles() const
    // Case 18: Timeseries files to output - expand "all" and "usual" keywords
    vector<string> expandedFiles;
 
-   for (string const &fileSpec : m_vecVectorFiles)
+   for (string const &fileSpec : m_VstrVectorFiles)
    {
       string fileSpecLower = CSimulation::strToLower(&fileSpec);
 
@@ -412,12 +412,12 @@ vector<string> CConfiguration::VstrGetTimeSeriesFiles() const
 
 //! Get time series files with keyword expansion support
 //===============================================================================================================================
-vector<string> CConfiguration::GetFloodFiles() const
+vector<string> CConfiguration::VstrGetFloodFiles() const
 {
    // Case 18: Timeseries files to output - expand "all" and "usual" keywords
    vector<string> expandedFiles;
 
-   for (string const &fileSpec : m_vecVectorFiles)
+   for (string const &fileSpec : m_VstrVectorFiles)
    {
       string fileSpecLower = CSimulation::strToLower(&fileSpec);
 

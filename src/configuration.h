@@ -45,21 +45,21 @@ class CConfiguration
    string m_strStartDateTime;
    string m_strDuration;
    string m_strTimestep;
-   vector<string> m_vecSaveTimes;
+   vector<string> m_VstrSaveTimes;
    int m_nRandomSeed;
    bool m_bUseSystemTimeForSeed;
 
    // GIS Output
    int m_nMaxSaveDigits;
    string m_strSaveDigitsMode;
-   vector<string> m_vecRasterFiles;
+   vector<string> m_VstrRasterFiles;
    string m_strRasterFormat;
    bool m_bWorldFile;
    bool m_bScaleValues;
    vector<double> m_VdSliceElevations;
-   vector<string> m_vecVectorFiles;
+   vector<string> m_VstrVectorFiles;
    string m_strVectorFormat;
-   vector<string> m_vecTimeSeriesFiles;
+   vector<string> m_VstrTimeSeriesFiles;
 
    // Grid and Coastline
    int m_nCoastlineSmoothing;
@@ -73,12 +73,12 @@ class CConfiguration
    // Layers and Files
    int m_nNumLayers;
    string m_strBasementDEMFile;
-   vector<string> m_vecUnconsFineFiles;
-   vector<string> m_vecUnconsSandFiles;
-   vector<string> m_vecUnconsCoarseFiles;
-   vector<string> m_vecConsFineFiles;
-   vector<string> m_vecConsSandFiles;
-   vector<string> m_vecConsCoarseFiles;
+   vector<string> m_VstrUnconsFineFiles;
+   vector<string> m_VstrUnconsSandFiles;
+   vector<string> m_VStrUnconsCoarseFiles;
+   vector<string> m_VstrConsFineFiles;
+   vector<string> m_VstrConsSandFiles;
+   vector<string> m_VstrConsCoarseFiles;
    string m_strSuspendedSedFile;
    string m_strLandformFile;
    string m_strInterventionClassFile;
@@ -137,7 +137,7 @@ class CConfiguration
    int m_strRunupEquation;
    string m_strFloodLocations;
    string m_strFloodInputLocation;
-   vector<string> m_vecFloodFiles;
+   vector<string> m_VstrFloodFiles;
 
    // Sediment input parameters
    bool m_bSedimentInput;
@@ -155,8 +155,8 @@ class CConfiguration
 
    // Profile and Output Options
    bool m_bSaveProfileData;
-   vector<int> m_vecProfileNumbers;
-   vector<unsigned long> m_vecProfileTimesteps;
+   vector<int> m_VstrProfileNumbers;
+   vector<unsigned long> m_VstrProfileTimesteps;
    bool m_bSaveParallelProfiles;
    bool m_bOutputErosionPotential;
    int m_nCurvatureWindow;
@@ -200,7 +200,7 @@ class CConfiguration
    }
    void SetSaveTimes(vector<string> const &vec)
    {
-      m_vecSaveTimes = vec;
+      m_VstrSaveTimes = vec;
    }
    void SetRandomSeed(int n)
    {
@@ -222,7 +222,7 @@ class CConfiguration
    }
    void SetRasterFiles(vector<string> const &vec)
    {
-      m_vecRasterFiles = vec;
+      m_VstrRasterFiles = vec;
    }
    void SetRasterFormat(string const &str)
    {
@@ -242,7 +242,7 @@ class CConfiguration
    }
    void SetVectorFiles(vector<string> const &vec)
    {
-      m_vecVectorFiles = vec;
+      m_VstrVectorFiles = vec;
    }
    void SetVectorFormat(string const &str)
    {
@@ -250,7 +250,7 @@ class CConfiguration
    }
    void SetTimeSeriesFiles(vector<string> const &vec)
    {
-      m_vecTimeSeriesFiles = vec;
+      m_VstrTimeSeriesFiles = vec;
    }
 
    void SetCoastlineSmoothing(int n)
@@ -291,27 +291,27 @@ class CConfiguration
    }
    void SetUnconsFineFiles(vector<string> const &vec)
    {
-      m_vecUnconsFineFiles = vec;
+      m_VstrUnconsFineFiles = vec;
    }
    void SetUnconsSandFiles(vector<string> const &vec)
    {
-      m_vecUnconsSandFiles = vec;
+      m_VstrUnconsSandFiles = vec;
    }
    void SetUnconsCoarseFiles(vector<string> const &vec)
    {
-      m_vecUnconsCoarseFiles = vec;
+      m_VStrUnconsCoarseFiles = vec;
    }
    void SetConsFineFiles(vector<string> const &vec)
    {
-      m_vecConsFineFiles = vec;
+      m_VstrConsFineFiles = vec;
    }
    void SetConsSandFiles(vector<string> const &vec)
    {
-      m_vecConsSandFiles = vec;
+      m_VstrConsSandFiles = vec;
    }
    void SetConsCoarseFiles(vector<string> const &vec)
    {
-      m_vecConsCoarseFiles = vec;
+      m_VstrConsCoarseFiles = vec;
    }
    void SetSuspendedSedFile(string const &str)
    {
@@ -490,7 +490,7 @@ class CConfiguration
    }
    void SetFloodFiles(vector<string> v)
    {
-      m_vecFloodFiles = v;
+      m_VstrFloodFiles = v;
    }
    void SetFloodCoastline(string const &str)
    {
@@ -564,11 +564,11 @@ class CConfiguration
    }
    void SetProfileNumbers(vector<int> const &vec)
    {
-      m_vecProfileNumbers = vec;
+      m_VstrProfileNumbers = vec;
    }
    void SetProfileTimesteps(vector<unsigned long> const &vec)
    {
-      m_vecProfileTimesteps = vec;
+      m_VstrProfileTimesteps = vec;
    }
    void SetSaveParallelProfiles(bool b)
    {
@@ -633,7 +633,7 @@ class CConfiguration
 
    vector<string> VstrGetSaveTimes() const
    {
-      return m_vecSaveTimes;
+      return m_VstrSaveTimes;
    }
 
    int nGetRandomSeed() const
@@ -729,45 +729,54 @@ class CConfiguration
       return &m_strBasementDEMFile;
    }
 
-   vector<string> GetUnconsFineFiles() const
+   vector<string> VstrGetUnconsFineFiles() const
    {
-      return m_vecUnconsFineFiles;
+      return m_VstrUnconsFineFiles;
    }
-   vector<string> GetUnconsSandFiles() const
+
+   vector<string> VstrGetUnconsSandFiles() const
    {
-      return m_vecUnconsSandFiles;
+      return m_VstrUnconsSandFiles;
    }
-   vector<string> GetUnconsCoarseFiles() const
+
+   vector<string> VstrGetUnconsCoarseFiles() const
    {
-      return m_vecUnconsCoarseFiles;
+      return m_VStrUnconsCoarseFiles;
    }
-   vector<string> GetConsFineFiles() const
+
+   vector<string> VstrGetConsFineFiles() const
    {
-      return m_vecConsFineFiles;
+      return m_VstrConsFineFiles;
    }
-   vector<string> GetConsSandFiles() const
+
+   vector<string> VstrGetConsSandFiles() const
    {
-      return m_vecConsSandFiles;
+      return m_VstrConsSandFiles;
    }
-   vector<string> GetConsCoarseFiles() const
+
+   vector<string> VstrGetConsCoarseFiles() const
    {
-      return m_vecConsCoarseFiles;
+      return m_VstrConsCoarseFiles;
    }
-   string GetSuspendedSedFile() const
+
+   string const* pstrGetSuspendedSedFile() const
    {
-      return m_strSuspendedSedFile;
+      return &m_strSuspendedSedFile;
    }
-   string GetLandformFile() const
+
+   string const* pstrGetLandformFile() const
    {
-      return m_strLandformFile;
+      return &m_strLandformFile;
    }
-   string GetInterventionClassFile() const
+
+   string const* pstrGetInterventionClassFile() const
    {
-      return m_strInterventionClassFile;
+      return &m_strInterventionClassFile;
    }
-   string GetInterventionHeightFile() const
+
+   string const* pstrGetInterventionHeightFile() const
    {
-      return m_strInterventionHeightFile;
+      return &m_strInterventionHeightFile;
    }
 
    int GetWavePropagationModel() const
@@ -790,20 +799,22 @@ class CConfiguration
    {
       return m_bHasFinalWaterLevel;
    }
-   string GetWaveInputMode() const
+   string const* pstrGetWaveInputMode() const
    {
-      return m_strWaveInputMode;
+      return &m_strWaveInputMode;
    }
 
    // Wave data configuration getters (Cases 37-40)
-   string GetWaveHeightTimeSeries() const
+   string const* pstrGetWaveHeightTimeSeries() const
    {
-      return m_strWaveHeightTimeSeries;
+      return &m_strWaveHeightTimeSeries;
    }
-   string GetWaveStationDataFile() const
+
+   string const* pstrGetWaveStationDataFile() const
    {
-      return m_strWaveStationDataFile;
+      return &m_strWaveStationDataFile;
    }
+
    double GetDeepWaterWaveHeight() const
    {
       return m_dDeepWaterWaveHeight;
@@ -817,10 +828,11 @@ class CConfiguration
       return m_dWavePeriod;
    }
 
-   string GetTideDataFile() const
+   string const* pstrGetTideDataFile() const
    {
-      return m_strTideDataFile;
+      return &m_strTideDataFile;
    }
+
    double GetBreakingWaveRatio() const
    {
       return m_dBreakingWaveRatio;
@@ -937,23 +949,25 @@ class CConfiguration
    {
       return m_bFloodInput;
    }
-   vector<string> GetFloodFiles() const;
+   vector<string> VstrGetFloodFiles() const;
 
-   string GetFloodCoastline() const
+   string const* pstrGetFloodCoastline() const
    {
-      return m_strFloodCoastline;
+      return &m_strFloodCoastline;
    }
+
    int GetRunupEquation() const
    {
       return m_strRunupEquation;
    }
-   string GetFloodLocations() const
+   string const* pstrGetFloodLocations() const
    {
-      return m_strFloodLocations;
+      return &m_strFloodLocations;
    }
-   string GetFloodInputLocation() const
+
+   string const* pstrGetFloodInputLocation() const
    {
-      return m_strFloodInputLocation;
+      return &m_strFloodInputLocation;
    }
 
    // Sediment Input parameters
@@ -961,20 +975,22 @@ class CConfiguration
    {
       return m_bSedimentInput;
    }
-   string GetSedimentInputLocation() const
+   string const* pstrGetSedimentInputLocation() const
    {
-      return m_strSedimentInputLocation;
-   }
-   string GetSedimentInputType() const
-   {
-      return m_strSedimentInputType;
-   }
-   string GetSedimentInputDetails() const
-   {
-      return m_strSedimentInputDetails;
+      return &m_strSedimentInputLocation;
    }
 
-   // Physics and Geometry parameters
+   string const* pstrGetSedimentInputType() const
+   {
+      return &m_strSedimentInputType;
+   }
+
+   string const* pstrGetSedimentInputDetails() const
+   {
+      return &m_strSedimentInputDetails;
+   }
+
+   // Physics and geometry parameters
    double GetGravitationalAcceleration() const
    {
       return m_dGravitationalAcceleration;
@@ -1007,11 +1023,11 @@ class CConfiguration
    }
    vector<int> GetProfileNumbers() const
    {
-      return m_vecProfileNumbers;
+      return m_VstrProfileNumbers;
    }
    vector<unsigned long> GetProfileTimesteps() const
    {
-      return m_vecProfileTimesteps;
+      return m_VstrProfileTimesteps;
    }
    bool GetSaveParallelProfiles() const
    {

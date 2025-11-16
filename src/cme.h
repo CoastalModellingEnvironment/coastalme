@@ -360,7 +360,7 @@ char const TILDE = '~';
 // TESTING options
 bool const ACCEPT_TRUNCATED_PROFILES = true;
 bool const CREATE_SHADOW_ZONE_IF_HITS_GRID_EDGE = true;  // If shadow line tracing hits grid edge, create shadow zone?
-bool const SAVE_CSHORE_OUTPUT = true;                    // #ifdef CSHORE_FILE_INOUT || CSHORE_BOTH, append all CShore output files to a whole-run master
+bool const SAVE_CSHORE_OUTPUT = true;                    // If CSHORE_FILE_INOUT or CSHORE_BOTH, append all CShore output files to a whole-run master
 bool const USE_DEEP_WATER_FOR_SHADOW_LINE = true;        // Use deep water wave orientation in determining shadow line orientation?
 
 // Not likely that user will need to change these
@@ -369,11 +369,11 @@ int const SAVEMAX = 100000;                              // Maximum number of sa
 int const BUF_SIZE = 2048;                               // Max length (inc. terminating NULL) of any C-type string
 int const CAPE_POINT_MIN_SPACING = 10;                   // In cells: for shadow zone stuff, cape points must not be closer than this
 int const CLOCK_CHECK_ITERATION = 5000;                  // If have done this many timesteps then reset the CPU time running total
-int const COAST_LENGTH_MAX = 100;                        // For safety check when tracing coast
-int const COAST_LENGTH_MIN_X_PROF_SPACE = 20;            // Ignore very short coasts less than this x profile spacing
+int const COAST_LENGTH_MAX_CONST = 100;                  // When tracing coast, quit if coast length > this * smallest grid size
+int const COAST_LENGTH_MIN_CONST = 3;                    // Ignore very short coasts less than this * profile spacing
 
 //! The size of the arrays output by CShore. If this is changed, then must also set the same value on line 12 of cshore_wrapper.f03 (integer, parameter :: NN = 1000, NL = 1) and recompile CShore. Eventually we should move to dynamically allocated arrays TODO 070
-int const CSHOREARRAYOUTSIZE = 1000;
+int const CSHORE_ARRAY_OUT_SIZE = 1000;
 
 int const FLOOD_FILL_START_OFFSET = 2;                   // In cells: cell-by-cell fill starts this distance inside polygon
 int const GRID_MARGIN = 10;                              // Ignore this many along-coast grid-edge points re. shadow zone calcs
@@ -689,8 +689,7 @@ int const WAVE_MODEL_CSHORE = 1;
 int const UNCONS_SEDIMENT_EQUATION_CERC = 0;
 int const UNCONS_SEDIMENT_EQUATION_KAMPHUIS = 1;
 
-int const CLIFF_COLLAPSE_LENGTH_INCREMENT = 10;             // Increment the planview length of the cliff talus Dean profile, if we have not been able to deposit enough
-int const PROFILE_CHECK_DIST_FROM_COAST = 20;               // TEST TODO Used in checking shoreline-normal profiles for intersection
+int const PROFILE_CHECK_DIST_FROM_COAST = 5;                // Used in checking shoreline-normal profiles for intersection
 int const GAP_BETWEEN_DIFFERENT_COAST_PROFILES = 30;        // In cells, is the gap between profile ends belonging to different coasts
 
 int const NUM_DAYS_FOR_MEAN_HIGH_WATER_CALC = 30;           // Number of days to average daily high water elevation

@@ -875,9 +875,8 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
    AnnounceFinalInitialization();
 
    // Misc initialisation calcs
-   m_nCoastMax = COAST_LENGTH_MAX * tMax(m_nXGridSize, m_nYGridSize);                           // Arbitrary but probably OK
-   // m_nCoastMin = tMin(m_nXGridSize, m_nYGridSize);
-   m_nCoastMin = nRound(COAST_LENGTH_MIN_X_PROF_SPACE * m_dCoastNormalSpacing / m_dCellSide);   // Arbitrary but probably OK
+   m_nCoastMax = COAST_LENGTH_MAX_CONST * tMax(m_nXGridSize, m_nYGridSize);                     // Arbitrary but probably OK
+   m_nCoastMin = COAST_LENGTH_MIN_CONST * nRound(m_dCoastNormalSpacing);                        // Arbitrary but probably OK
    m_nCoastCurvatureInterval = tMax(nRound(m_dCoastNormalSpacing / (m_dCellSide * 2)), 2);      // Arbitrary but probably OK
 
    // For beach erosion/deposition, conversion from immersed weight to bulk volumetric (sand and voids) transport rate (Leo Van Rijn) TODO 007 need full reference

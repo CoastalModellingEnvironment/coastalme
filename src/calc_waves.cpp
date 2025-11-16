@@ -1158,20 +1158,20 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
       // Set the error flag: this will be changed within CShore if there is a problem
       nRet = 0;
 
-      vector<double> VdInitTime = {dWaveInitTime, dCShoreTimeStep};                         // Size is nNwave+1, value 1 is for the start of the CShore run, value 2 for end of CShore run
-      vector<double> VdTPIn = {dDeepWaterWavePeriod, dDeepWaterWavePeriod};                 // Ditto
-      vector<double> VdHrmsIn = {dProfileDeepWaterWaveHeight, dProfileDeepWaterWaveHeight}; // Ditto
-      vector<double> VdWangIn = {dWaveToNormalAngle, dWaveToNormalAngle};                   // Ditto
-      vector<double> VdTSurg = {dSurgeInitTime, dCShoreTimeStep};                           // Ditto
-      vector<double> VdSWLin = {dSurgeLevel, dSurgeLevel};                                  // Ditto
-      vector<double> VdFPInp = VdProfileFrictionFactor;                                     // Set the value for wave friction at every point of the normal profile
-      vector<double> VdXYDistFromCShoreOut(CSHOREARRAYOUTSIZE, 0);                          // Output from CShore
-      vector<double> VdFreeSurfaceStdOut(CSHOREARRAYOUTSIZE, 0);                            // Ditto
-      vector<double> VdWaveSetupSurgeOut(CSHOREARRAYOUTSIZE, 0);                            // Ditto
-      // vector<double> VdStormSurgeOut(CSHOREARRAYOUTSIZE, 0);                             // Ditto
-      vector<double> const VdWaveSetupRunUpOut(CSHOREARRAYOUTSIZE, 0);  // Ditto
-      vector<double> VdSinWaveAngleRadiansOut(CSHOREARRAYOUTSIZE, 0);   // Ditto
-      vector<double> VdFractionBreakingWavesOut(CSHOREARRAYOUTSIZE, 0); // Ditto
+      vector<double> VdInitTime = {dWaveInitTime, dCShoreTimeStep};                          // Size is nNwave+1, value 1 is for the start of the CShore run, value 2 for end of CShore run
+      vector<double> VdTPIn = {dDeepWaterWavePeriod, dDeepWaterWavePeriod};                  // Ditto
+      vector<double> VdHrmsIn = {dProfileDeepWaterWaveHeight, dProfileDeepWaterWaveHeight};  // Ditto
+      vector<double> VdWangIn = {dWaveToNormalAngle, dWaveToNormalAngle};                    // Ditto
+      vector<double> VdTSurg = {dSurgeInitTime, dCShoreTimeStep};                            // Ditto
+      vector<double> VdSWLin = {dSurgeLevel, dSurgeLevel};                                   // Ditto
+      vector<double> VdFPInp = VdProfileFrictionFactor;                                      // Set the value for wave friction at every point of the normal profile
+      vector<double> VdXYDistFromCShoreOut(CSHORE_ARRAY_OUT_SIZE, 0);                        // Output from CShore
+      vector<double> VdFreeSurfaceStdOut(CSHORE_ARRAY_OUT_SIZE, 0);                          // Ditto
+      vector<double> VdWaveSetupSurgeOut(CSHORE_ARRAY_OUT_SIZE, 0);                          // Ditto
+      // vector<double> VdStormSurgeOut(CSHORE_ARRAY_OUT_SIZE, 0);                           // Ditto
+      vector<double> const VdWaveSetupRunUpOut(CSHORE_ARRAY_OUT_SIZE, 0);                    // Ditto
+      vector<double> VdSinWaveAngleRadiansOut(CSHORE_ARRAY_OUT_SIZE, 0);                     // Ditto
+      vector<double> VdFractionBreakingWavesOut(CSHORE_ARRAY_OUT_SIZE, 0);                   // Ditto
 
       // Call CShore using the argument-passing wrapper
       // long lIter = static_cast<long>(m_ulIter);    // Bodge to get round compiler 'invalid conversion' error
