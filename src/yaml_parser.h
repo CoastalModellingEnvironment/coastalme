@@ -49,11 +49,11 @@ class CYamlNode
    ~CYamlNode();
 
    void SetValue(string const*);
-   void AddChild(string const& strKey, CYamlNode const& node);
-   void AddSequenceItem(CYamlNode const& node);
+   void AddChild(string const*, CYamlNode const*);
+   void AddSequenceItem(CYamlNode const*);
 
    string const* pstrGetValue() const;
-   bool HasChild(string const& strKey) const;
+   bool bHasChild(const char[]) const;
    CYamlNode GetChild(string const& strKey) const;
    vector<CYamlNode> GetSequence() const;
    bool IsSequence() const;

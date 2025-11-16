@@ -53,19 +53,19 @@ CYamlNode::~CYamlNode()
 {
 }
 
-void CYamlNode::SetValue(string const* pstrValue)
+void CYamlNode::SetValue(string const* pStrValue)
 {
-   m_strValue = *pstrValue;
+   m_strValue = *pStrValue;
 }
 
-void CYamlNode::AddChild(string const& strKey, CYamlNode const& node)
+void CYamlNode::AddChild(string const* pStrKey, CYamlNode const* pNode)
 {
-   m_mapChildren[strKey] = node;
+   m_mapChildren[*pStrKey] = *pNode;
 }
 
-void CYamlNode::AddSequenceItem(CYamlNode const& node)
+void CYamlNode::AddSequenceItem(CYamlNode const* pNode)
 {
-   m_VYamlChildren.push_back(node);
+   m_VYamlChildren.push_back(*pNode);
    m_bIsSequence = true;
 }
 
@@ -74,9 +74,9 @@ string const* CYamlNode::pstrGetValue() const
    return &m_strValue;
 }
 
-bool CYamlNode::HasChild(string const& strKey) const
+bool CYamlNode::bHasChild(const char chKey[]) const
 {
-   return m_mapChildren.find(strKey) != m_mapChildren.end();
+   return m_mapChildren.find(chKey) != m_mapChildren.end();
 }
 
 CYamlNode CYamlNode::GetChild(string const& strKey) const
@@ -362,7 +362,7 @@ CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
                // Multi-line sequence item
                itemNode = ParseSection(fileStream, nIndent);
             }
-            currentNode.AddSequenceItem(itemNode);
+            currentNode.AddSequenceItem(&itemNode);
          }
          else
          {
@@ -377,7 +377,7 @@ CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
                // Multi-line value
                childNode = ParseSection(fileStream, nIndent);
             }
-            currentNode.AddChild(strKey, childNode);
+            currentNode.AddChild(&strKey, &childNode);
          }
       }
    }
