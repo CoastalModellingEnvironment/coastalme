@@ -659,9 +659,9 @@ public:
       return &m_strTimestep;
    }
 
-   vector<string> VstrGetSaveTimes() const
+   vector<string> const* pVstrGetSaveTimes() const
    {
-      return m_VstrSaveTimes;
+      return &m_VstrSaveTimes;
    }
 
    int nGetRandomSeed() const
@@ -684,7 +684,7 @@ public:
       return &m_strSaveDigitsMode;
    }
 
-   vector<string> VstrGetRasterFiles() const;
+   void GetRasterFiles(vector<string>*) const;
 
    string const* pstrGetRasterFormat() const
    {
@@ -701,19 +701,19 @@ public:
       return m_bScaleValues;
    }
 
-   vector<double> VdGetSliceElevations() const
+   vector<double> const* pVdGetSliceElevations() const
    {
-      return m_VdSliceElevations;
+      return &m_VdSliceElevations;
    }
 
-   vector<string> VstrGetVectorFiles() const;
+   void GetVectorFiles(vector<string>*) const;
 
    string const* pstrGetVectorFormat() const
    {
       return &m_strVectorFormat;
    }
 
-   vector<string> VstrGetTimeSeriesFiles() const;
+   void GetTimeSeriesFiles(vector<string>*) const;
 
    int nGetCoastlineSmoothing() const
    {
@@ -757,34 +757,34 @@ public:
       return &m_strBasementDEMFile;
    }
 
-   vector<string> VstrGetUnconsFineFiles() const
+   vector<string> const* pVstrGetUnconsFineFiles() const
    {
-      return m_VstrUnconsFineFiles;
+      return &m_VstrUnconsFineFiles;
    }
 
-   vector<string> VstrGetUnconsSandFiles() const
+   vector<string> const* pVstrGetUnconsSandFiles() const
    {
-      return m_VstrUnconsSandFiles;
+      return &m_VstrUnconsSandFiles;
    }
 
-   vector<string> VstrGetUnconsCoarseFiles() const
+   vector<string> const* pVstrGetUnconsCoarseFiles() const
    {
-      return m_VStrUnconsCoarseFiles;
+      return &m_VStrUnconsCoarseFiles;
    }
 
-   vector<string> VstrGetConsFineFiles() const
+   vector<string> const* pVstrGetConsFineFiles() const
    {
-      return m_VstrConsFineFiles;
+      return &m_VstrConsFineFiles;
    }
 
-   vector<string> VstrGetConsSandFiles() const
+   vector<string> const* pVstrGetConsSandFiles() const
    {
-      return m_VstrConsSandFiles;
+      return &m_VstrConsSandFiles;
    }
 
-   vector<string> VstrGetConsCoarseFiles() const
+   vector<string> const* pVstrGetConsCoarseFiles() const
    {
-      return m_VstrConsCoarseFiles;
+      return &m_VstrConsCoarseFiles;
    }
 
    string const* pstrGetSuspendedSedFile() const
@@ -1006,7 +1006,7 @@ public:
       return m_bFloodInput;
    }
 
-   vector<string> VstrGetFloodFiles() const;
+   void GetFloodFiles(vector<string>*) const;
 
    string const* pstrGetFloodCoastline() const
    {

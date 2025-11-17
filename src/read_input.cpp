@@ -4842,7 +4842,7 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
    }
 
    // Case 7: Save intervals - can handle multiple groups with different units
-   vector<string> vecSaveTimes = config.VstrGetSaveTimes();
+   vector<string> vecSaveTimes = *config.pVstrGetSaveTimes();
    if (! vecSaveTimes.empty())
    {
       m_nUSave = 0;
@@ -4939,7 +4939,8 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
    }
 
    // Case 11: Raster GIS files to output
-   vector<string> rasterFiles = config.VstrGetRasterFiles();
+   vector<string> rasterFiles;
+   config.GetRasterFiles(&rasterFiles);
    if (! rasterFiles.empty())
    {
       // Reset all raster output flags
@@ -5111,14 +5112,15 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
    m_bWorldFile = config.bGetWorldFile();
 
    // Case 15: Elevations for raster slice output, if desired
-   if (! config.VdGetSliceElevations().empty())
+   if (! config.pVdGetSliceElevations()->empty())
    {
       m_bSliceSave = true;
-      m_VdSliceElev = config.VdGetSliceElevations();
+      m_VdSliceElev = *config.pVdGetSliceElevations();
    }
 
    // Case 16: Vector GIS files to output
-   vector<string> VstrFiles = config.VstrGetVectorFiles();
+   vector<string> VstrFiles;
+   config.GetVectorFiles(&VstrFiles);
    if (! VstrFiles.empty())
    {
       // Reset all vector output flags
@@ -5198,7 +5200,8 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
 
    // Case 18: Time series files to output
    // TODO: Migrate from bReadRunDataFile()
-   vector<string> timeseriesFiles = config.VstrGetTimeSeriesFiles();
+   vector<string> timeseriesFiles;
+   config.GetTimeSeriesFiles(&timeseriesFiles);
    if (! timeseriesFiles.empty())
    {
       for (string const &timeseriesCode : timeseriesFiles)
@@ -5320,18 +5323,18 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
    m_strInitialBasementDEMFile = *config.pstrGetBasementDEMFile();
 
    // Cases 28: Initial sediment thickness files (unconsolidated and consolidated)
-   m_VstrInitialFineUnconsSedimentFile = config.VstrGetUnconsFineFiles();
+   m_VstrInitialFineUnconsSedimentFile = *config.pVstrGetUnconsFineFiles();
    m_bHaveFineSediment = true;
-   m_VstrInitialSandUnconsSedimentFile = config.VstrGetUnconsSandFiles();
+   m_VstrInitialSandUnconsSedimentFile = *config.pVstrGetUnconsSandFiles();
    m_bHaveSandSediment = true;
-   m_VstrInitialCoarseUnconsSedimentFile = config.VstrGetUnconsCoarseFiles();
+   m_VstrInitialCoarseUnconsSedimentFile = *config.pVstrGetUnconsCoarseFiles();
    m_bHaveCoarseSediment = true;
-   m_VstrInitialFineConsSedimentFile = config.VstrGetConsFineFiles();
+   m_VstrInitialFineConsSedimentFile = *config.pVstrGetConsFineFiles();
    m_bHaveConsolidatedSediment = true;
    m_bHaveFineSediment = true;
-   m_VstrInitialSandConsSedimentFile = config.VstrGetConsSandFiles();
+   m_VstrInitialSandConsSedimentFile = *config.pVstrGetConsSandFiles();
    m_bHaveSandSediment = true;
-   m_VstrInitialCoarseConsSedimentFile = config.VstrGetConsCoarseFiles();
+   m_VstrInitialCoarseConsSedimentFile = *config.pVstrGetConsCoarseFiles();
    m_bHaveCoarseSediment = true;
 
    // Case 29: Initial suspended sediment depth GIS file (can be blank)
@@ -5515,7 +5518,8 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
    if (config.bGetFloodInput())
    {
       // TODO: This is a guess, please check
-      vector<string> floodFiles = config.VstrGetFloodFiles();
+      vector<string> floodFiles;
+      config.GetFloodFiles(&floodFiles);
       if (! floodFiles.empty())
       {
          for (string const &floodCode : floodFiles)

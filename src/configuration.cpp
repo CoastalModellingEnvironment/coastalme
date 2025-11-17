@@ -181,11 +181,9 @@ void CConfiguration::InitializeDefaults()
 //===============================================================================================================================
 //! Get raster files with keyword expansion support
 //===============================================================================================================================
-vector<string> CConfiguration::VstrGetRasterFiles() const
+void CConfiguration::GetRasterFiles(vector<string>* pVStrIn) const
 {
    // Case 11: Raster GIS files to output - expand "all" and "usual" keywords
-   vector<string> expandedFiles;
-
    for (string const &fileSpec : m_VstrRasterFiles)
    {
       string fileSpecLower = CSimulation::strToLower(&fileSpec);
@@ -193,7 +191,7 @@ vector<string> CConfiguration::VstrGetRasterFiles() const
       if (fileSpecLower == "all")
       {
          // Add all possible raster outputs (Case 11 "all" mode)
-         expandedFiles.insert(expandedFiles.end(),
+         pVStrIn->insert(pVStrIn->end(),
                               {"suspended_sediment",
                                "avg_suspended_sediment",
                                "fine_uncons",
@@ -248,7 +246,7 @@ vector<string> CConfiguration::VstrGetRasterFiles() const
       else if (fileSpecLower == "usual")
       {
          // Add usual/standard raster outputs (Case 11 "usual" mode)
-         expandedFiles.insert(expandedFiles.end(),
+         pVStrIn->insert(pVStrIn->end(),
                               {"suspended_sediment",
                                "avg_suspended_sediment",
                                "fine_uncons",
@@ -300,7 +298,7 @@ vector<string> CConfiguration::VstrGetRasterFiles() const
       else if (fileSpecLower == "cmetools")
       {
          // Add usual/standard raster outputs (Case 11 "usual" mode)
-         expandedFiles.insert(expandedFiles.end(),
+         pVStrIn->insert(pVStrIn->end(),
                               {"fine_uncons",
                                "fine_cons",
                                "sand_uncons",
@@ -326,26 +324,22 @@ vector<string> CConfiguration::VstrGetRasterFiles() const
       }
       else if (fileSpecLower == "" or fileSpecLower == "none")
       {
-         return expandedFiles;
+         // Do nothing
       }
       else
       {
          // Regular file specification - add as-is
-         expandedFiles.push_back(fileSpec);
+         pVStrIn->push_back(fileSpec);
       }
    }
-
-   return expandedFiles;
 }
 
 //===============================================================================================================================
 //! Get vector files with keyword expansion support
 //===============================================================================================================================
-vector<string> CConfiguration::VstrGetVectorFiles() const
+void CConfiguration::GetVectorFiles(vector<string>* pVStrIn) const
 {
    // Case 16: Vector GIS files to output - expand "all" and "usual" keywords
-   vector<string> expandedFiles;
-
    for (string const &fileSpec : m_VstrVectorFiles)
    {
       string fileSpecLower = CSimulation::strToLower(&fileSpec);
@@ -353,40 +347,31 @@ vector<string> CConfiguration::VstrGetVectorFiles() const
       if (fileSpecLower == "all")
       {
          // Add all possible vector outputs (Case 16 "all" mode)
-         expandedFiles.insert(expandedFiles.end(), {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals", "avg_wave_angle", "wave_energy", "mean_wave_energy", "breaking_wave_height", "coast_curvature", "polygon_node", "polygon", "cliff_notch", "wave_transect_points", "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle", "wave_setup", "storm_surge", "run_up", "flood_line"});
+         pVStrIn->insert(pVStrIn->end(), {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals", "avg_wave_angle", "wave_energy", "mean_wave_energy", "breaking_wave_height", "coast_curvature", "polygon_node", "polygon", "cliff_notch", "wave_transect_points", "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle", "wave_setup", "storm_surge", "run_up", "flood_line"});
       }
       else if (fileSpecLower == "usual")
       {
          // Add usual/standard vector outputs (Case 16 "usual" mode)
-         expandedFiles.insert(
-            expandedFiles.end(),
-            {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals",
-             "avg_wave_angle", "wave_energy", "mean_wave_energy",
-             "breaking_wave_height", "polygon", "cliff_notch",
-             "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle"});
+         pVStrIn->insert(pVStrIn->end(), {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals", "avg_wave_angle", "wave_energy", "mean_wave_energy", "breaking_wave_height", "polygon", "cliff_notch",            "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle"});
       }
-      else if (fileSpecLower == "" or fileSpecLower == "none")
+      else if ((fileSpecLower == "") or (fileSpecLower == "none"))
       {
-         return expandedFiles;
+         // Do nothing
       }
       else
       {
          // Regular file specification - add as-is
-         expandedFiles.push_back(fileSpec);
+         pVStrIn->push_back(fileSpec);
       }
    }
-
-   return expandedFiles;
 }
-//===============================================================================================================================
 
+//===============================================================================================================================
 //! Get time series files with keyword expansion support
 //===============================================================================================================================
-vector<string> CConfiguration::VstrGetTimeSeriesFiles() const
+void CConfiguration::GetTimeSeriesFiles(vector<string>* pVStrIn) const
 {
    // Case 18: Timeseries files to output - expand "all" and "usual" keywords
-   vector<string> expandedFiles;
-
    for (string const &fileSpec : m_VstrVectorFiles)
    {
       string fileSpecLower = CSimulation::strToLower(&fileSpec);
@@ -394,29 +379,26 @@ vector<string> CConfiguration::VstrGetTimeSeriesFiles() const
       if (fileSpecLower == "all")
       {
          // Add all possible vector outputs (Case 16 "all" mode)
-         expandedFiles.insert(expandedFiles.end(), {"wave_setup", "wave_runup", "beach_change_net", "beach_deposition", "beach_erosion", "cliff_collapse_deposition", "cliff_collapse_erosion", "cliff_collapse_net", "platform_erosion", "sea_area", "suspended", "water_level"});
+         pVStrIn->insert(pVStrIn->end(), {"wave_setup", "wave_runup", "beach_change_net", "beach_deposition", "beach_erosion", "cliff_collapse_deposition", "cliff_collapse_erosion", "cliff_collapse_net", "platform_erosion", "sea_area", "suspended", "water_level"});
       }
       else if (fileSpecLower == "" or fileSpecLower == "none")
       {
-         return expandedFiles;
+         // Do nothing
       }
       else
       {
          // Regular file specification - add as-is
-         expandedFiles.push_back(fileSpec);
+         pVStrIn->push_back(fileSpec);
       }
    }
-
-   return expandedFiles;
 }
 
+//===============================================================================================================================
 //! Get time series files with keyword expansion support
 //===============================================================================================================================
-vector<string> CConfiguration::VstrGetFloodFiles() const
+void CConfiguration::GetFloodFiles(vector<string>* pVStrIn) const
 {
    // Case 18: Timeseries files to output - expand "all" and "usual" keywords
-   vector<string> expandedFiles;
-
    for (string const &fileSpec : m_VstrVectorFiles)
    {
       string fileSpecLower = CSimulation::strToLower(&fileSpec);
@@ -424,20 +406,18 @@ vector<string> CConfiguration::VstrGetFloodFiles() const
       if (fileSpecLower == "all")
       {
          // Add all possible vector outputs (Case 16 "all" mode)
-         expandedFiles.insert(expandedFiles.end(), {});
+         pVStrIn->insert(pVStrIn->end(), {});
       }
       else if (fileSpecLower == "" or fileSpecLower == "none")
       {
-         return expandedFiles;
+         // Do nothing
       }
       else
       {
          // Regular file specification - add as-is
-         expandedFiles.push_back(fileSpec);
+         pVStrIn->push_back(fileSpec);
       }
    }
-
-   return expandedFiles;
 }
 
 string const CConfiguration::strGetOmitGridEdges() const
