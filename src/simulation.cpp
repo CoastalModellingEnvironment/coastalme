@@ -127,6 +127,7 @@ CSimulation::CSimulation(void)
    m_bPolygonNodeSave = false;
    m_bPolygonBoundarySave = false;
    m_bCliffNotchSave = false;
+   m_bWaveTransectPointsSave = false;
    m_bShadowBoundarySave = false;
    m_bShadowDowndriftBoundarySave = false;
    m_bDeepWaterWaveAngleSave = false;
@@ -324,6 +325,7 @@ CSimulation::CSimulation(void)
    m_dCoastNormalSpacing = 0;
    m_dCoastNormalInterventionSpacing = 0;
    m_dCoastNormalLength = 0;
+   m_dSyntheticTransectSpacing = 0;
    m_dThisIterTotSeaDepth = 0;
    m_dThisIterPotentialSedLostBeachErosion = 0;
    m_dThisIterLeftGridUnconsFine = 0;        // TODO067

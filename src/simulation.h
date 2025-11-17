@@ -1602,10 +1602,10 @@ class CSimulation
    bool bReadIniYamlFile(void);
    bool bReadRunDataFile(void);
    bool bReadYamlFile(void);
-   bool bDetectFileFormat(string const& strFileName, bool& bIsYaml);
+   bool bFileIsYamlFormat(string const& strFileName);
    bool bConfigureFromDatFile(CConfiguration& config);
    bool bConfigureFromYamlFile(CConfiguration& config);
-   bool bApplyConfiguration(CConfiguration const& config);
+   void ApplyConfiguration(CConfiguration const& config);
    string const* processFilePath(string*);
    bool bOpenLogFile(void);
    bool bSetUpTSFiles(void);

@@ -1,18 +1,6 @@
 calc_waves.cpp:508:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-configuration.h:1089:16: performance: Function 'VnGetProfileNumbers()' should return member 'm_VnProfileNumbers' by const reference. [returnByReference]
-   vector<int> VnGetProfileNumbers() const
-               ^
-configuration.h:1094:26: performance: Function 'VulGetProfileTimesteps()' should return member 'm_VulProfileTimesteps' by const reference. [returnByReference]
-   vector<unsigned long> VulGetProfileTimesteps() const
-                         ^
-configuration.h:506:38: performance: Function parameter 'v' should be passed by const reference. [passedByValue]
-   void SetFloodFiles(vector<string> v)
-                                     ^
-configuration.cpp:32:17: warning: Member variable 'CConfiguration::m_dFinalWaterLevel' is not initialized in the constructor. [uninitMemberVar]
-CConfiguration::CConfiguration()
-                ^
 nanoflann.hpp:2507:9: performance: Variable 'treeCount_' is assigned in constructor body. Consider performing initialization in initialization list. [useInitializationList]
         treeCount_  = static_cast<size_t>(std::log2(maximumPointCount)) + 1;
         ^
@@ -82,101 +70,47 @@ gis_raster.cpp:2173:13: style: Consider using std::accumulate algorithm instead 
 nanoflann.hpp:2554:13: performance: Prefer prefix ++/-- operators for non-primitive types. [postfixOperator]
             pointCount_++;
             ^
-read_input.cpp:5231:19: style: The if condition is the same as the previous if condition [duplicateCondition]
-         if (code == "suspended")
-                  ^
-read_input.cpp:5229:19: note: First condition
-         if (code == "suspended")
-                  ^
-read_input.cpp:5231:19: note: Second condition
-         if (code == "suspended")
-                  ^
-read_input.cpp:5518:29: style: The if condition is the same as the previous if condition [duplicateCondition]
-   if (config.bGetFloodInput())
-                            ^
-read_input.cpp:5509:29: note: First condition
-   if (config.bGetFloodInput())
-                            ^
-read_input.cpp:5518:29: note: Second condition
-   if (config.bGetFloodInput())
-                            ^
-read_input.cpp:5536:29: style: The if condition is the same as the previous if condition [duplicateCondition]
-   if (config.bGetFloodInput())
-                            ^
-read_input.cpp:5518:29: note: First condition
-   if (config.bGetFloodInput())
-                            ^
-read_input.cpp:5536:29: note: Second condition
-   if (config.bGetFloodInput())
-                            ^
-read_input.cpp:277:8: style: Condition '!bDetectFileFormat(m_strDataPathName,bIsYaml)' is always false [knownConditionTrueFalse]
-   if (! bDetectFileFormat(m_strDataPathName, bIsYaml))
-       ^
-read_input.cpp:277:27: note: Calling function 'bDetectFileFormat' returns 1
-   if (! bDetectFileFormat(m_strDataPathName, bIsYaml))
-                          ^
-read_input.cpp:277:8: note: Condition '!bDetectFileFormat(m_strDataPathName,bIsYaml)' is always false
-   if (! bDetectFileFormat(m_strDataPathName, bIsYaml))
-       ^
-read_input.cpp:4276:8: style: Condition '!bApplyConfiguration(config)' is always false [knownConditionTrueFalse]
-   if (! bApplyConfiguration(config))
-       ^
-read_input.cpp:4276:29: note: Calling function 'bApplyConfiguration' returns 1
-   if (! bApplyConfiguration(config))
-                            ^
-read_input.cpp:4276:8: note: Condition '!bApplyConfiguration(config)' is always false
-   if (! bApplyConfiguration(config))
-       ^
-read_input.cpp:4769:33: style: The scope of the variable 'nDay' can be reduced. [variableScope]
+read_input.cpp:4746:33: style: The scope of the variable 'nDay' can be reduced. [variableScope]
          int nHour, nMin, nSec, nDay, nMonth, nYear;
                                 ^
-read_input.cpp:4769:39: style: The scope of the variable 'nMonth' can be reduced. [variableScope]
+read_input.cpp:4746:39: style: The scope of the variable 'nMonth' can be reduced. [variableScope]
          int nHour, nMin, nSec, nDay, nMonth, nYear;
                                       ^
-read_input.cpp:4769:47: style: The scope of the variable 'nYear' can be reduced. [variableScope]
+read_input.cpp:4746:47: style: The scope of the variable 'nYear' can be reduced. [variableScope]
          int nHour, nMin, nSec, nDay, nMonth, nYear;
                                               ^
-read_input.cpp:4797:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4774:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
                          ^
-read_input.cpp:4799:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4776:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
+                         ^
+read_input.cpp:4778:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+            strNumeric = strNumeric.substr(0, strNumeric.find("month"));
+                         ^
+read_input.cpp:4780:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+            strNumeric = strNumeric.substr(0, strNumeric.find("year"));
                          ^
 read_input.cpp:4801:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
-            strNumeric = strNumeric.substr(0, strNumeric.find("month"));
-                         ^
-read_input.cpp:4803:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
-            strNumeric = strNumeric.substr(0, strNumeric.find("year"));
-                         ^
-read_input.cpp:4824:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
                          ^
-read_input.cpp:4826:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4803:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
                          ^
-read_input.cpp:4828:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4805:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("month"));
                          ^
-read_input.cpp:4830:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4807:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("year"));
                          ^
-read_input.cpp:4688:27: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:4664:27: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
                   vecNums.push_back(node.nGetIntValue());
                           ^
-read_input.cpp:4700:28: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:4676:28: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
                   vecTimes.push_back(node.GetULongValue());
                            ^
-read_input.cpp:4928:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
+read_input.cpp:4905:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
       strErr = "max save digits for GIS output file names must be > 1";
-             ^
-read_input.cpp:4744:11: style: Unused variable: strRec [unusedVariable]
-   string strRec;
-          ^
-simulation.cpp:60:14: warning: Member variable 'CSimulation::m_bWaveTransectPointsSave' is not initialized in the constructor. [uninitMemberVar]
-CSimulation::CSimulation(void)
-             ^
-simulation.cpp:60:14: warning: Member variable 'CSimulation::m_dSyntheticTransectSpacing' is not initialized in the constructor. [uninitMemberVar]
-CSimulation::CSimulation(void)
              ^
 spatial_interpolation.cpp:96:4: warning: Class 'SpatialInterpolator' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
    m_kdtree = new KDTree(2, m_cloud, {10 /* max leaf size */});
@@ -280,31 +214,31 @@ configuration.h:261:0: style: The function 'SetVectorFormat' is never used. [unu
 configuration.h:266:0: style: The function 'SetTimeSeriesFiles' is never used. [unusedFunction]
    void SetTimeSeriesFiles(vector<string> const &vec)
 ^
-configuration.h:506:0: style: The function 'SetFloodFiles' is never used. [unusedFunction]
-   void SetFloodFiles(vector<string> v)
+configuration.h:553:0: style: The function 'SetFloodFiles' is never used. [unusedFunction]
+   void SetFloodFiles(vector<string> const*v)
 ^
-configuration.h:835:0: style: The function 'pstrGetWaveInputMode' is never used. [unusedFunction]
+configuration.h:889:0: style: The function 'pstrGetWaveInputMode' is never used. [unusedFunction]
    string const* pstrGetWaveInputMode() const
 ^
-configuration.h:983:0: style: The function 'dGetCliffDepositionA' is never used. [unusedFunction]
+configuration.h:1037:0: style: The function 'dGetCliffDepositionA' is never used. [unusedFunction]
    double dGetCliffDepositionA() const
 ^
-configuration.h:1011:0: style: The function 'pstrGetFloodCoastline' is never used. [unusedFunction]
+configuration.h:1065:0: style: The function 'pstrGetFloodCoastline' is never used. [unusedFunction]
    string const* pstrGetFloodCoastline() const
 ^
-configuration.h:1026:0: style: The function 'pstrGetFloodInputLocation' is never used. [unusedFunction]
+configuration.h:1080:0: style: The function 'pstrGetFloodInputLocation' is never used. [unusedFunction]
    string const* pstrGetFloodInputLocation() const
 ^
-configuration.h:1047:0: style: The function 'pstrGetSedimentInputDetails' is never used. [unusedFunction]
+configuration.h:1101:0: style: The function 'pstrGetSedimentInputDetails' is never used. [unusedFunction]
    string const* pstrGetSedimentInputDetails() const
 ^
-configuration.h:1073:0: style: The function 'dGetStartDepthRatio' is never used. [unusedFunction]
+configuration.h:1127:0: style: The function 'dGetStartDepthRatio' is never used. [unusedFunction]
    double dGetStartDepthRatio() const
 ^
-configuration.h:1120:0: style: The function 'nGetCliffEdgeSmoothingWindow' is never used. [unusedFunction]
+configuration.h:1174:0: style: The function 'nGetCliffEdgeSmoothingWindow' is never used. [unusedFunction]
    int nGetCliffEdgeSmoothingWindow() const
 ^
-configuration.h:1125:0: style: The function 'nGetCliffEdgePolynomialOrder' is never used. [unusedFunction]
+configuration.h:1179:0: style: The function 'nGetCliffEdgePolynomialOrder' is never used. [unusedFunction]
    int nGetCliffEdgePolynomialOrder() const
 ^
 gis_utils.cpp:1971:0: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]

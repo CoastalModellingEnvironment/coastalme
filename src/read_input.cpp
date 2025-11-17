@@ -273,19 +273,8 @@ bool CSimulation::bReadIniFile(void)
 bool CSimulation::bReadRunDataFile(void)
 {
    // Detect file format
-   bool bIsYaml;
-   if (! bDetectFileFormat(m_strDataPathName, bIsYaml))
-   {
-      cerr << ERR << "failed to detect file format for " << m_strDataPathName
-           << endl;
-      return false;
-   }
-
-   // Use appropriate parser based on format
-   if (bIsYaml)
-   {
+   if (bFileIsYamlFormat(m_strDataPathName))
       return bReadYamlFile();
-   }
 
    // Continue with original .dat file parsing: create an ifstream object
    ifstream InStream;
@@ -4100,18 +4089,13 @@ int CSimulation::nReadSedimentInputEventFile(void)
 }
 
 //===============================================================================================================================
-//! Detects whether the input file is in YAML or .dat format
+//! Returns true if the input file is in YAML format, false if .dat format or ambiguous
 //===============================================================================================================================
-bool CSimulation::bDetectFileFormat(string const &strFileName, bool &bIsYaml)
+bool CSimulation::bFileIsYamlFormat(string const &strFileName)
 {
-   bIsYaml = false;
-
    // First check command-line flag
    if (m_bYamlInputFormat)
-   {
-      bIsYaml = true;
       return true;
-   }
 
    // Check file extension
    size_t nDotPos = strFileName.find_last_of('.');
@@ -4121,19 +4105,12 @@ bool CSimulation::bDetectFileFormat(string const &strFileName, bool &bIsYaml)
       strExt = strToLower(&strExt);
 
       if (strExt == "yaml" || strExt == "yml")
-      {
-         bIsYaml = true;
          return true;
-      }
       else if (strExt == "dat")
-      {
-         bIsYaml = false;
-         return true;
-      }
+         return false;
    }
 
    // Default to .dat format if extension is ambiguous
-   bIsYaml = false;
    return true;
 }
 
@@ -4273,8 +4250,7 @@ bool CSimulation::bReadYamlFile(void)
       return false;
 
    // Apply configuration values to simulation object
-   if (! bApplyConfiguration(config))
-      return false;
+   ApplyConfiguration(config);
 
    return true;
 }
@@ -4739,10 +4715,11 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
 //===============================================================================================================================
 //! Applies configuration values to simulation member variables
 //===============================================================================================================================
-bool CSimulation::bApplyConfiguration(CConfiguration const& config)
+void CSimulation::ApplyConfiguration(CConfiguration const& config)
 {
-   string strRec;
+   // string strRec;
    string strErr;
+
    // Case 1: Text output file names, don't change case
    m_strRunName = *config.pstrGetRunName();
    m_strOutFile = m_strOutPath;
@@ -5228,8 +5205,6 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
             m_bBeachSedimentChangeNetTSSave = true;
          if (code == "suspended")
             m_bSuspSedTSSave = true;
-         if (code == "suspended")
-            m_bSuspSedTSSave = true;
          if (code == "wave_setup")
             m_bFloodSetupSurgeTSSave = true;
          if (code == "wave_runup")
@@ -5505,18 +5480,16 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
       m_dMinCliffTalusHeightFrac = config.dGetMinTalusHeight();
    }
 
-   // Case 67: Simulate riverine flooding?
+   // Cases 67-71
    if (config.bGetFloodInput())
    {
+      // Case 67: Simulate riverine flooding?
       m_bRiverineFlooding = true;
       m_bSetupSurgeFloodMaskSave = true;
       m_bSetupSurgeRunupFloodMaskSave = true;
       m_bRasterWaveFloodLineSave = true;
-   }
 
-   // Case 68: Output riverine flooding vector files
-   if (config.bGetFloodInput())
-   {
+      // Case 68: Output riverine flooding vector files
       // TODO: This is a guess, please check
       vector<string> floodFiles;
       config.GetFloodFiles(&floodFiles);
@@ -5530,25 +5503,20 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
                m_bSeaAreaTSSave = true;
          }
       }
-   }
 
-   // Case 69: Flooding runup equation?
-   if (config.bGetFloodInput())
-   {
+      // Case 69: Flooding runup equation?
       // TODO: This is a guess, please check
       m_nRunUpEquation = config.nGetRunupEquation();
-   }
 
-   // Case 70: Somthing unknown relating to riverine flooding
-   if (m_bRiverineFlooding && m_bVectorWaveFloodLineSave)
-   {
-      // TODO: This is a guess, please check
-      // m_bFloodLocationSave =! *config.pstrGetFloodInputLocation()->empty();
-   }
 
-   // Case 71: Somthing unknown relating to riverine flooding
-   if (m_bRiverineFlooding)
-   {
+      // Case 70: Somthing unknown relating to riverine flooding
+      if (m_bVectorWaveFloodLineSave)
+      {
+         // TODO: This is a guess, please check
+         // m_bFloodLocationSave =! *config.pstrGetFloodInputLocation()->empty();
+      }
+
+      // Case 71: Somthing unknown relating to riverine flooding
       // TODO: This is a guess, please check
       m_strFloodLocationShapefile = *config.pstrGetFloodLocations();
    }
@@ -5635,6 +5603,4 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
 
    // Case 90: Cliff slope limit for cliff toe detection
    m_dSlopeThresholdForCliffToe = config.dGetCliffSlopeLimit();
-
-   return true;
 }
