@@ -1,30 +1,6 @@
 calc_waves.cpp:508:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-configuration.h:662:19: performance: Function 'VstrGetSaveTimes()' should return member 'm_VstrSaveTimes' by const reference. [returnByReference]
-   vector<string> VstrGetSaveTimes() const
-                  ^
-configuration.h:704:19: performance: Function 'VdGetSliceElevations()' should return member 'm_VdSliceElevations' by const reference. [returnByReference]
-   vector<double> VdGetSliceElevations() const
-                  ^
-configuration.h:760:19: performance: Function 'VstrGetUnconsFineFiles()' should return member 'm_VstrUnconsFineFiles' by const reference. [returnByReference]
-   vector<string> VstrGetUnconsFineFiles() const
-                  ^
-configuration.h:765:19: performance: Function 'VstrGetUnconsSandFiles()' should return member 'm_VstrUnconsSandFiles' by const reference. [returnByReference]
-   vector<string> VstrGetUnconsSandFiles() const
-                  ^
-configuration.h:770:19: performance: Function 'VstrGetUnconsCoarseFiles()' should return member 'm_VStrUnconsCoarseFiles' by const reference. [returnByReference]
-   vector<string> VstrGetUnconsCoarseFiles() const
-                  ^
-configuration.h:775:19: performance: Function 'VstrGetConsFineFiles()' should return member 'm_VstrConsFineFiles' by const reference. [returnByReference]
-   vector<string> VstrGetConsFineFiles() const
-                  ^
-configuration.h:780:19: performance: Function 'VstrGetConsSandFiles()' should return member 'm_VstrConsSandFiles' by const reference. [returnByReference]
-   vector<string> VstrGetConsSandFiles() const
-                  ^
-configuration.h:785:19: performance: Function 'VstrGetConsCoarseFiles()' should return member 'm_VstrConsCoarseFiles' by const reference. [returnByReference]
-   vector<string> VstrGetConsCoarseFiles() const
-                  ^
 configuration.h:1089:16: performance: Function 'VnGetProfileNumbers()' should return member 'm_VnProfileNumbers' by const reference. [returnByReference]
    vector<int> VnGetProfileNumbers() const
                ^
@@ -106,31 +82,31 @@ gis_raster.cpp:2173:13: style: Consider using std::accumulate algorithm instead 
 nanoflann.hpp:2554:13: performance: Prefer prefix ++/-- operators for non-primitive types. [postfixOperator]
             pointCount_++;
             ^
-read_input.cpp:5228:19: style: The if condition is the same as the previous if condition [duplicateCondition]
+read_input.cpp:5231:19: style: The if condition is the same as the previous if condition [duplicateCondition]
          if (code == "suspended")
                   ^
-read_input.cpp:5226:19: note: First condition
+read_input.cpp:5229:19: note: First condition
          if (code == "suspended")
                   ^
-read_input.cpp:5228:19: note: Second condition
+read_input.cpp:5231:19: note: Second condition
          if (code == "suspended")
                   ^
-read_input.cpp:5515:29: style: The if condition is the same as the previous if condition [duplicateCondition]
+read_input.cpp:5518:29: style: The if condition is the same as the previous if condition [duplicateCondition]
    if (config.bGetFloodInput())
                             ^
-read_input.cpp:5506:29: note: First condition
+read_input.cpp:5509:29: note: First condition
    if (config.bGetFloodInput())
                             ^
-read_input.cpp:5515:29: note: Second condition
+read_input.cpp:5518:29: note: Second condition
    if (config.bGetFloodInput())
                             ^
-read_input.cpp:5532:29: style: The if condition is the same as the previous if condition [duplicateCondition]
+read_input.cpp:5536:29: style: The if condition is the same as the previous if condition [duplicateCondition]
    if (config.bGetFloodInput())
                             ^
-read_input.cpp:5515:29: note: First condition
+read_input.cpp:5518:29: note: First condition
    if (config.bGetFloodInput())
                             ^
-read_input.cpp:5532:29: note: Second condition
+read_input.cpp:5536:29: note: Second condition
    if (config.bGetFloodInput())
                             ^
 read_input.cpp:277:8: style: Condition '!bDetectFileFormat(m_strDataPathName,bIsYaml)' is always false [knownConditionTrueFalse]

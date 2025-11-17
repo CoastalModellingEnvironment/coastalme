@@ -5612,15 +5612,11 @@ bool CSimulation::bApplyConfiguration(CConfiguration const& config)
 
    // Case 82: Numbers of profiles to be saved
    if (m_bOutputConsolidatedProfileData)
-   {
-      m_VnProfileToSave = config.VnGetProfileNumbers();
-   }
+      m_VnProfileToSave = *config.pVnGetProfileNumbers();
 
    // Case 83: Timesteps to save profiles
    if (m_bOutputConsolidatedProfileData)
-   {
-      m_VulProfileTimestep = config.VulGetProfileTimesteps();
-   }
+      m_VulProfileTimestep = *config.pVulGetProfileTimesteps();
 
    // Case 84: Output parallel profile data?
    m_bOutputParallelProfileData = config.bGetSaveParallelProfiles();

@@ -272,22 +272,27 @@ public:
    {
       m_nCoastlineSmoothing = n;
    }
+
    void SetCoastlineSmoothingWindow(int n)
    {
       m_nCoastlineSmoothingWindow = n;
    }
+
    void SetPolynomialOrder(int n)
    {
       m_nPolynomialOrder = n;
    }
+
    void SetOmitGridEdges(string const* pStr)
    {
       m_strOmitGridEdges = *pStr;
    }
+
    void SetProfileSmoothingWindow(int n)
    {
       m_nProfileSmoothingWindow = n;
    }
+
    void SetMaxLocalSlope(double d)
    {
       m_dMaxLocalSlope = d;
@@ -296,50 +301,62 @@ public:
    {
       m_dMaxBeachElevation = d;
    }
+
    void SetNumLayers(int n)
    {
       m_nNumLayers = n;
    }
+
    void SetBasementDEMFile(string const* pStr)
    {
       m_strBasementDEMFile = *pStr;
    }
+
    void SetUnconsFineFiles(vector<string> const &vec)
    {
       m_VstrUnconsFineFiles = vec;
    }
+
    void SetUnconsSandFiles(vector<string> const &vec)
    {
       m_VstrUnconsSandFiles = vec;
    }
+
    void SetUnconsCoarseFiles(vector<string> const &vec)
    {
       m_VStrUnconsCoarseFiles = vec;
    }
+
    void SetConsFineFiles(vector<string> const &vec)
    {
       m_VstrConsFineFiles = vec;
    }
+
    void SetConsSandFiles(vector<string> const &vec)
    {
       m_VstrConsSandFiles = vec;
    }
+
    void SetConsCoarseFiles(vector<string> const &vec)
    {
       m_VstrConsCoarseFiles = vec;
    }
+
    void SetSuspendedSedFile(string const* pStr)
    {
       m_strSuspendedSedFile = *pStr;
    }
+
    void SetLandformFile(string const* pStr)
    {
       m_strLandformFile = *pStr;
    }
+
    void SetInterventionClassFile(string const* pStr)
    {
       m_strInterventionClassFile = *pStr;
    }
+
    void SetInterventionHeightFile(string const* pStr)
    {
       m_strInterventionHeightFile = *pStr;
@@ -349,14 +366,17 @@ public:
    {
       m_nWavePropagationModel = n;
    }
+
    void SetSeawaterDensity(double d)
    {
       m_dSeawaterDensity = d;
    }
+
    void SetInitialWaterLevel(double d)
    {
       m_dInitialWaterLevel = d;
    }
+
    void SetFinalWaterLevel(double d)
    {
       m_dFinalWaterLevel = d;
@@ -374,18 +394,22 @@ public:
    {
       m_strWaveHeightTimeSeries = *pStr;
    }
+
    void SetWaveStationDataFile(string const* pStr)
    {
       m_strWaveStationDataFile = *pStr;
    }
+
    void SetDeepWaterWaveHeight(double d)
    {
       m_dDeepWaterWaveHeight = d;
    }
+
    void SetDeepWaterWaveOrientation(double d)
    {
       m_dDeepWaterWaveOrientation = d;
    }
+
    void SetWavePeriod(double d)
    {
       m_dWavePeriod = d;
@@ -395,6 +419,7 @@ public:
    {
       m_strTideDataFile = *pStr;
    }
+
    void SetBreakingWaveRatio(double d)
    {
       m_dBreakingWaveRatio = d;
@@ -405,50 +430,62 @@ public:
    {
       m_bCoastPlatformErosion = b;
    }
+
    void SetPlatformErosionResistance(double d)
    {
       m_dPlatformErosionResistance = d;
    }
+
    void SetBeachSedimentTransport(bool b)
    {
       m_bBeachSedimentTransport = b;
    }
+
    void SetBeachTransportAtEdges(int n)
    {
       m_nBeachTransportAtEdges = n;
    }
+
    void SetBeachErosionEquation(int n)
    {
       m_nBeachErosionEquation = n;
    }
+
    void SetFineMedianSize(double d)
    {
       m_dFineMedianSize = d;
    }
+
    void SetSandMedianSize(double d)
    {
       m_dSandMedianSize = d;
    }
+
    void SetCoarseMedianSize(double d)
    {
       m_dCoarseMedianSize = d;
    }
+
    void SetSedimentDensity(double d)
    {
       m_dSedimentDensity = d;
    }
+
    void SetBeachSedimentPorosity(double d)
    {
       m_dBeachSedimentPorosity = d;
    }
+
    void SetFineErosivity(double d)
    {
       m_dFineErosivity = d;
    }
+
    void SetSandErosivity(double d)
    {
       m_dSandErosivity = d;
    }
+
    void SetCoarseErosivity(double d)
    {
       m_dCoarseErosivity = d;
@@ -457,10 +494,12 @@ public:
    {
       m_dTransportKLS = d;
    }
+
    void SetKamphuis(double d)
    {
       m_dKamphuis = d;
    }
+
    void SetBermHeight(double d)
    {
       m_dBermHeight = d;
@@ -470,30 +509,37 @@ public:
    {
       m_bCliffCollapse = b;
    }
+
    void SetCliffErosionResistance(double d)
    {
       m_dCliffErosionResistance = d;
    }
+
    void SetNotchOverhang(double d)
    {
       m_dNotchOverhang = d;
    }
+
    void SetNotchBase(double d)
    {
       m_dNotchBase = d;
    }
+
    void SetCliffDepositionA(double d)
    {
       m_dCliffDepositionA = d;
    }
+
    void SetTalusWidth(double d)
    {
       m_dTalusWidth = d;
    }
+
    void SetMinTalusLength(double d)
    {
       m_dMinTalusLength = d;
    }
+
    void SetMinTalusHeight(double d)
    {
       m_dMinTalusHeight = d;
@@ -503,14 +549,17 @@ public:
    {
       m_bFloodInput = b;
    }
-   void SetFloodFiles(vector<string> v)
+
+   void SetFloodFiles(vector<string> const*v)
    {
-      m_VstrFloodFiles = v;
+      m_VstrFloodFiles = *v;
    }
+
    void SetFloodCoastline(string const* pStr)
    {
       m_strFloodCoastline = *pStr;
    }
+
    void SetRunupEquation(string const* pStr)
    {
       if ((*pStr == "") or (*pStr == " "))
@@ -522,10 +571,12 @@ public:
          m_nRunupEquation = stoi(*pStr);
       }
    }
+
    void SetFloodLocations(string const* pStr)
    {
       m_strFloodLocations = *pStr;
    }
+
    void SetFloodInputLocation(string const* pStr)
    {
       m_strFloodInputLocation = *pStr;
@@ -535,6 +586,7 @@ public:
    {
       m_bSedimentInput = b;
    }
+
    void SetSedimentInputLocation(string const* pStr)
    {
       m_strSedimentInputLocation = *pStr;
@@ -564,6 +616,7 @@ public:
    {
       m_dRandomFactor = d;
    }
+
    void SetNormalLength(double d)
    {
       m_dNormalLength = d;
@@ -613,6 +666,7 @@ public:
    {
       m_nCliffEdgeSmoothing = n;
    }
+
    void SetCliffEdgeSmoothingWindow(int n)
    {
       m_nCliffEdgeSmoothingWindow = n;
@@ -1086,14 +1140,14 @@ public:
       return m_bSaveProfileData;
    }
 
-   vector<int> VnGetProfileNumbers() const
+   vector<int> const* pVnGetProfileNumbers() const
    {
-      return m_VnProfileNumbers;
+      return &m_VnProfileNumbers;
    }
 
-   vector<unsigned long> VulGetProfileTimesteps() const
+   vector<unsigned long> const* pVulGetProfileTimesteps() const
    {
-      return m_VulProfileTimesteps;
+      return &m_VulProfileTimesteps;
    }
 
    bool bGetSaveParallelProfiles() const

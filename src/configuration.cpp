@@ -101,7 +101,7 @@ void CConfiguration::InitializeDefaults()
    m_nWavePropagationModel = 1;      // CShore
    m_dSeawaterDensity = 1029.0;
    m_dInitialWaterLevel = 0.0;
-   // m_dFinalWaterLevel = 0.0;
+   m_dFinalWaterLevel = 0.0;
    m_bbHasFinalWaterLevel = false;
 
    m_strWaveInputMode = "fixed";

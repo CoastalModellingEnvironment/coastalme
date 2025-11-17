@@ -93,20 +93,20 @@
    23 | #include <cctype>
       | ^~~~~~~~~~~~~~~~~
    24 | 
-/home/dave/coast/CoastalME/src/configuration.cpp:191:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
-  191 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
+/home/dave/coast/CoastalME/src/configuration.cpp:189:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+  189 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
       |       ^
       |              const 
-/home/dave/coast/CoastalME/src/configuration.cpp:351:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
-  351 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
+/home/dave/coast/CoastalME/src/configuration.cpp:345:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+  345 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
       |       ^
       |              const 
-/home/dave/coast/CoastalME/src/configuration.cpp:392:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
-  392 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
+/home/dave/coast/CoastalME/src/configuration.cpp:377:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+  377 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
       |       ^
       |              const 
-/home/dave/coast/CoastalME/src/configuration.cpp:422:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
-  422 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
+/home/dave/coast/CoastalME/src/configuration.cpp:404:7: warning: variable 'fileSpecLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+  404 |       string fileSpecLower = CSimulation::strToLower(&fileSpec);
       |       ^
       |              const 
 /home/dave/coast/CoastalME/src/configuration.h:34:10: warning: circular header file dependency detected while including 'simulation.h', please check the include path [misc-header-include-cycle]
@@ -678,7 +678,7 @@
       |       ^
       |              const 
 /home/dave/coast/CoastalME/src/read_input.cpp:4845:4: warning: variable 'vecSaveTimes' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 4845 |    vector<string> vecSaveTimes = config.VstrGetSaveTimes();
+ 4845 |    vector<string> vecSaveTimes = *config.pVstrGetSaveTimes();
       |    ^
       |                   const 
 /home/dave/coast/CoastalME/src/read_input.cpp:4856:10: warning: variable 'strSaveTimeLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
@@ -713,48 +713,32 @@
  4934 |       string strSaveDigitsLower = strToLower(&strSaveDigitsMode);
       |       ^
       |              const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4942:4: warning: variable 'rasterFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 4942 |    vector<string> rasterFiles = config.VstrGetRasterFiles();
-      |    ^
-      |                   const 
-/home/dave/coast/CoastalME/src/read_input.cpp:4999:10: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 4999 |          string code = strToLower(&rasterCode);
+/home/dave/coast/CoastalME/src/read_input.cpp:5000:10: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5000 |          string code = strToLower(&rasterCode);
       |          ^
       |                 const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5121:4: warning: variable 'VstrFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 5121 |    vector<string> VstrFiles = config.VstrGetVectorFiles();
-      |    ^
-      |                   const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5149:10: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 5149 |          string code = strToLower(&vectorCode);
+/home/dave/coast/CoastalME/src/read_input.cpp:5151:10: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5151 |          string code = strToLower(&vectorCode);
       |          ^
       |                 const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5201:4: warning: variable 'timeseriesFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 5201 |    vector<string> timeseriesFiles = config.VstrGetTimeSeriesFiles();
-      |    ^
-      |                   const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5206:10: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 5206 |          string code = strToLower(&timeseriesCode);
+/home/dave/coast/CoastalME/src/read_input.cpp:5209:10: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5209 |          string code = strToLower(&timeseriesCode);
       |          ^
       |                 const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5338:4: warning: variable 'strSuspendedSed' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 5338 |    string strSuspendedSed = *config.pstrGetSuspendedSedFile();
+/home/dave/coast/CoastalME/src/read_input.cpp:5341:4: warning: variable 'strSuspendedSed' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5341 |    string strSuspendedSed = *config.pstrGetSuspendedSedFile();
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5348:4: warning: variable 'strInterventionClass' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 5348 |    string strInterventionClass = *config.pstrGetInterventionClassFile();
+/home/dave/coast/CoastalME/src/read_input.cpp:5351:4: warning: variable 'strInterventionClass' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5351 |    string strInterventionClass = *config.pstrGetInterventionClassFile();
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5353:4: warning: variable 'strInterventionHeight' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 5353 |    string strInterventionHeight = *config.pstrGetInterventionHeightFile();
+/home/dave/coast/CoastalME/src/read_input.cpp:5356:4: warning: variable 'strInterventionHeight' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5356 |    string strInterventionHeight = *config.pstrGetInterventionHeightFile();
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5518:7: warning: variable 'floodFiles' of type 'vector<string>' (aka 'vector<basic_string<char>>') can be declared 'const' [misc-const-correctness]
- 5518 |       vector<string> floodFiles = config.VstrGetFloodFiles();
-      |       ^
-      |                      const 
-/home/dave/coast/CoastalME/src/read_input.cpp:5523:13: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 5523 |             string code = strToLower(&floodCode);
+/home/dave/coast/CoastalME/src/read_input.cpp:5527:13: warning: variable 'code' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 5527 |             string code = strToLower(&floodCode);
       |             ^
       |                    const 
 /home/dave/coast/CoastalME/src/sediment_input_event.cpp:22:1: warning: included header cme.h is not used directly [misc-include-cleaner]
