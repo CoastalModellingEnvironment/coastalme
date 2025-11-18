@@ -19,6 +19,16 @@
 ==============================================================================================================================*/
 #include <assert.h>
 
+#include <cstdlib>
+using std::exit;
+
+#include <string>
+using std::to_string;
+
+#include <gdal.h>
+#include <gdal_priv.h>
+#include <cpl_string.h>
+
 #include <iostream>
 using std::cerr;
 using std::endl;
@@ -98,28 +108,172 @@ int CSimulation::nLocateSeaAndCoasts(void)
 //===============================================================================================================================
 void CSimulation::FindAllSeaCells(void)
 {
-   // Go along the list of edge cells
-   for (unsigned int n = 0; n < m_VEdgeCell.size(); n++)
+   // TEST ================================================
+   int DUMMY_COAST = 99;
+
+   bool bIgnoreFirst = true;        // Flag used to ignore the first x value in each x row
+   bool bLastCellIsSea = false;
+   bool bThisCellIsSea = false;
+
+   for (int nY = 0; nY < m_nYGridSize; nY++)
    {
-      if (m_bOmitSearchNorthEdge && m_VEdgeCellEdge[n] == NORTH)
-         continue;
+      for (int nX = 0; nX < m_nXGridSize; nX++)
+      {
+         if (m_pRasterGrid->m_Cell[nX][nY].bIsInundated())
+         {
+            m_pRasterGrid->m_Cell[nX][nY].SetInContiguousSea();
 
-      if (m_bOmitSearchSouthEdge && m_VEdgeCellEdge[n] == SOUTH)
-         continue;
+            // Set this sea cell to have deep water (off-shore) wave orientation and height, will change this later for cells closer to the shoreline if we have on-shore waves
+            m_pRasterGrid->m_Cell[nX][nY].SetWaveValuesToDeepWaterWaveValues();
 
-      if (m_bOmitSearchWestEdge && m_VEdgeCellEdge[n] == WEST)
-         continue;
+            bThisCellIsSea = true;
+         }
+         else
+            bThisCellIsSea = false;
 
-      if (m_bOmitSearchEastEdge && m_VEdgeCellEdge[n] == EAST)
-         continue;
+         if (bIgnoreFirst)
+         {
+            // We are at the start of the x row, so ignore the last "Is it sea?" value
+            bIgnoreFirst = false;
+            bLastCellIsSea = bThisCellIsSea;
+            continue;
+         }
 
-      int const nX = m_VEdgeCell[n].nGetX();
-      int const nY = m_VEdgeCell[n].nGetY();
+         // We are at the end of x row, so set the switch ready for the next x value read
+         if (nX == m_nXGridSize-1)
+            bIgnoreFirst = true;
 
-      if ((m_pRasterGrid->m_Cell[nX][nY].bIsInundated()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(), 0.0, TOLERANCE)))
-         // This edge cell is below SWL and sea depth remains set to zero
-         CellByCellFillSea(nX, nY);
+
+         if (bThisCellIsSea && (! bLastCellIsSea))
+         {
+            // This cell is sea and the previous cell was not sea, so flag the previous cell to be coast
+            m_pRasterGrid->m_Cell[nX-1][nY].SetAsCoastline(DUMMY_COAST);
+
+            LogStream << "Set as coast [" << nX-1 << "][" << nY << "] 1" << endl;
+         }
+
+         if ((! bThisCellIsSea) && bLastCellIsSea)
+         {
+            // This cell is not sea, the previous cell was sea: so flag this cell as coast
+            m_pRasterGrid->m_Cell[nX][nY].SetAsCoastline(DUMMY_COAST);
+
+            LogStream << "Set as coast [" << nX << "][" << nY << "] 2" << endl;
+         }
+
+         bLastCellIsSea = bThisCellIsSea;
+      }
    }
+
+   bIgnoreFirst = true;        // Now used to ignore the first y value in each y column
+   bLastCellIsSea = false;
+   bThisCellIsSea = false;
+
+   for (int nX = 0; nX < m_nXGridSize; nX++)
+   {
+      for (int nY = 0; nY < m_nYGridSize; nY++)
+      {
+         if (m_pRasterGrid->m_Cell[nX][nY].bIsInundated())
+            bThisCellIsSea = true;
+         else
+            bThisCellIsSea = false;
+
+         if (bIgnoreFirst)
+         {
+            // We are at the start of the x row, so ignore the last "Is it sea?" value
+            bIgnoreFirst = false;
+            bLastCellIsSea = bThisCellIsSea;
+            continue;
+         }
+
+         // We are at the end of y row, so set the switch ready for the next y value read
+         if (nY == m_nYGridSize-1)
+            bIgnoreFirst = true;
+
+
+         if (bThisCellIsSea && (! bLastCellIsSea))
+         {
+            // This cell is sea and the previous cell was not sea, so flag the previous cell to be coast
+            m_pRasterGrid->m_Cell[nX][nY-1].SetAsCoastline(DUMMY_COAST);
+
+            LogStream << "Set as coast [" << nX << "][" << nY-1 << "] 3" << endl;
+         }
+
+         if ((! bThisCellIsSea) && bLastCellIsSea)
+         {
+            // This cell is not sea, the previous cell was sea: so flag this cell as coast
+            m_pRasterGrid->m_Cell[nX][nY].SetAsCoastline(DUMMY_COAST);
+
+            LogStream << "Set as coast [" << nX << "][" << nY << "] 2" << endl;
+         }
+
+         bLastCellIsSea = bThisCellIsSea;
+      }
+   }
+
+   // DEBUG CODE ===========================================================================================================
+   // string strOutFile1 = m_strOutPath + "is_contiguous_sea_";
+   // string strOutFile1 = m_strOutPath + "is_inundated_";
+   string strOutFile1 = m_strOutPath + "is_coastline_";
+   strOutFile1 += to_string(m_ulIter);
+   strOutFile1 += ".tif";
+
+   GDALDriver* pDriver1 = GetGDALDriverManager()->GetDriverByName("gtiff");
+   GDALDataset* pDataSet1 = pDriver1->Create(strOutFile1.c_str(), m_nXGridSize, m_nYGridSize, 1, GDT_Float64, m_papszGDALRasterOptions);
+   pDataSet1->SetProjection(m_strGDALBasementDEMProjection.c_str());
+   pDataSet1->SetGeoTransform(m_dGeoTransform);
+   double* pdRaster1 = new double[m_nXGridSize * m_nYGridSize];
+   int n = 0;
+   for (int nY = 0; nY < m_nYGridSize; nY++)
+   {
+      for (int nX = 0; nX < m_nXGridSize; nX++)
+      {
+         // pdRaster1[n++] = m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea();
+         // pdRaster1[n++] = m_pRasterGrid->m_Cell[nX][nY].bIsInundated();
+         pdRaster1[n++] = m_pRasterGrid->m_Cell[nX][nY].nGetCoastline();
+      }
+   }
+
+   GDALRasterBand* pBand1 = pDataSet1->GetRasterBand(1);
+   pBand1->SetNoDataValue(m_dMissingValue);
+   int nRet1 = pBand1->RasterIO(GF_Write, 0, 0, m_nXGridSize, m_nYGridSize, pdRaster1, m_nXGridSize, m_nYGridSize, GDT_Float64, 0, 0, NULL);
+   if (nRet1 == CE_Failure)
+      exit(1);
+
+   GDALClose(pDataSet1);
+   delete[] pdRaster1;
+   // DEBUG CODE ===========================================================================================================
+
+
+   exit(0);
+   // TEST ================================================
+
+
+
+
+
+
+   // // Go along the list of edge cells
+   // for (unsigned int n = 0; n < m_VEdgeCell.size(); n++)
+   // {
+   //    if (m_bOmitSearchNorthEdge && m_VEdgeCellEdge[n] == NORTH)
+   //       continue;
+   //
+   //    if (m_bOmitSearchSouthEdge && m_VEdgeCellEdge[n] == SOUTH)
+   //       continue;
+   //
+   //    if (m_bOmitSearchWestEdge && m_VEdgeCellEdge[n] == WEST)
+   //       continue;
+   //
+   //    if (m_bOmitSearchEastEdge && m_VEdgeCellEdge[n] == EAST)
+   //       continue;
+   //
+   //    int const nX = m_VEdgeCell[n].nGetX();
+   //    int const nY = m_VEdgeCell[n].nGetY();
+   //
+   //    if ((m_pRasterGrid->m_Cell[nX][nY].bIsInundated()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(), 0.0, TOLERANCE)))
+   //       // This edge cell is below SWL and sea depth remains set to zero
+   //       CellByCellFillSea(nX, nY);
+   // }
 }
 
 //===============================================================================================================================
@@ -127,6 +281,17 @@ void CSimulation::FindAllSeaCells(void)
 //===============================================================================================================================
 void CSimulation::CellByCellFillSea(int const nXStart, int const nYStart)
 {
+
+
+
+
+
+
+
+
+
+
+
    // For safety check
    int const nRoundLoopMax = m_nXGridSize * m_nYGridSize;
 
@@ -228,70 +393,6 @@ void CSimulation::CellByCellFillSea(int const nXStart, int const nYStart)
       }
    }
 
-   // // DEBUG CODE ===========================================================================================================
-   // string strOutFile = m_strOutPath + "is_contiguous_sea_";
-   // strOutFile += to_string(m_ulIter);
-   // strOutFile += ".tif";
-   //
-   // GDALDriver* pDriver = GetGDALDriverManager()->GetDriverByName("gtiff");
-   // GDALDataset* pDataSet = pDriver->Create(strOutFile.c_str(), m_nXGridSize, m_nYGridSize, 1, GDT_Float64, m_papszGDALRasterOptions);
-   // pDataSet->SetProjection(m_strGDALBasementDEMProjection.c_str());
-   // pDataSet->SetGeoTransform(m_dGeoTransform);
-   // double* pdRaster = new double[m_nXGridSize * m_nYGridSize];
-   // int n = 0;
-   // for (int nY = 0; nY < m_nYGridSize; nY++)
-   // {
-   //    for (int nX = 0; nX < m_nXGridSize; nX++)
-   //    {
-   //    pdRaster[n++] = m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea();
-   //    }
-   // }
-   //
-   // GDALRasterBand* pBand = pDataSet->GetRasterBand(1);
-   // pBand->SetNoDataValue(m_dMissingValue);
-   // int nRet = pBand->RasterIO(GF_Write, 0, 0, m_nXGridSize, m_nYGridSize, pdRaster, m_nXGridSize, m_nYGridSize, GDT_Float64, 0, 0, NULL);
-   // if (nRet == CE_Failure)
-   // return;
-   //
-   // GDALClose(pDataSet);
-   // delete[] pdRaster;
-   // // DEBUG CODE ===========================================================================================================
-
-   // // DEBUG CODE ===========================================================================================================
-   // string strOutFile = m_strOutPath + "is_inundated_";
-   // strOutFile += to_string(m_ulIter);
-   // strOutFile += ".tif";
-   //
-   // GDALDriver* pDriver = GetGDALDriverManager()->GetDriverByName("gtiff");
-   // GDALDataset* pDataSet = pDriver->Create(strOutFile.c_str(), m_nXGridSize, m_nYGridSize, 1, GDT_Float64, m_papszGDALRasterOptions);
-   // pDataSet->SetProjection(m_strGDALBasementDEMProjection.c_str());
-   // pDataSet->SetGeoTransform(m_dGeoTransform);
-   // double* pdRaster = new double[m_nXGridSize * m_nYGridSize];
-   //
-   // pDataSet = pDriver->Create(strOutFile.c_str(), m_nXGridSize, m_nYGridSize, 1, GDT_Float64, m_papszGDALRasterOptions);
-   // pDataSet->SetProjection(m_strGDALBasementDEMProjection.c_str());
-   // pDataSet->SetGeoTransform(m_dGeoTransform);
-   //
-   // pdRaster = new double[m_nXGridSize * m_nYGridSize];
-   // int n = 0;
-   // for (int nY = 0; nY < m_nYGridSize; nY++)
-   // {
-   //    for (int nX = 0; nX < m_nXGridSize; nX++)
-   //    {
-   //       pdRaster[n++] = m_pRasterGrid->m_Cell[nX][nY].bIsInundated();
-   //    }
-   // }
-   //
-   // GDALRasterBand* pBand = pDataSet->GetRasterBand(1);
-   // pBand = pDataSet->GetRasterBand(1);
-   // pBand->SetNoDataValue(m_dMissingValue);
-   // int nRet = pBand->RasterIO(GF_Write, 0, 0, m_nXGridSize, m_nYGridSize, pdRaster, m_nXGridSize, m_nYGridSize, GDT_Float64, 0, 0, NULL);
-   // if (nRet == CE_Failure)
-   // return;
-   //
-   // GDALClose(pDataSet);
-   // delete[] pdRaster;
-   // // DEBUG CODE ===========================================================================================================
 
    // // DEBUG CODE ===========================================================================================================
    // LogStream << m_ulIter << ": cell-by-cell fill of sea from [" << nXStart << "][" << nYStart << "] = {" << dGridCentroidXToExtCRSX(nXStart) << ", " << dGridCentroidYToExtCRSY(nYStart) << "} with SWL = " << m_dThisIterSWL << ", " << m_ulThisIterNumSeaCells << " of " << m_ulNumCells << " cells now marked as sea (" <<  fixed << setprecision(3) << 100.0 * m_ulThisIterNumSeaCells / m_ulNumCells << " %)" << endl;

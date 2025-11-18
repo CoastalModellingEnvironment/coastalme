@@ -115,7 +115,7 @@ if(CMAKE_BUILD_TYPE_LC STREQUAL "debug")
   message("Applying universal debug flags")
   add_compile_options(
       -march=native
-      # -O2
+      -O0
       -fno-inline
       -W
       -Wall
@@ -146,7 +146,6 @@ if(CMAKE_BUILD_TYPE_LC STREQUAL "debug")
     add_compile_options(-Wuseless-cast)
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "13.0")
       add_compile_options(
-        -O2
         -Wformat
         -Wformat=2
         -Wimplicit-fallthrough
