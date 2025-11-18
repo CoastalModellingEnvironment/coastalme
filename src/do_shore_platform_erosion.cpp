@@ -34,6 +34,7 @@ using std::array;
 using std::shuffle;
 
 #include "cme.h"
+#include "cell.h"
 #include "hermite_cubic.h"
 #include "simulation.h"
 #include "coast.h"
@@ -139,13 +140,20 @@ int CSimulation::nDoAllShorePlatFormErosion(void)
    FillInBeachProtectionHolesAndRemoveLegacyCliffs();
 
    // Finally calculate actual platform erosion on all sea cells (both on profiles, and between profiles)
+   #pragma omp parallel for schedule(dynamic) collapse(2) \
+      reduction(+:m_dThisIterActualPlatformErosionFineCons, m_dThisIterFineSedimentToSuspension, \
+                   m_dThisIterActualPlatformErosionSandCons, m_dThisIterActualPlatformErosionCoarseCons, \
+                   m_ulThisIterNumActualPlatformErosionCells, m_dDepositionSandDiff, m_dDepositionCoarseDiff)
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {
       for (int nY = 0; nY < m_nYGridSize; nY++)
       {
-         if (m_pRasterGrid->m_Cell[nX][nY].bPotentialPlatformErosion())
+         // Cache cell reference to avoid repeated array lookups
+         auto& rCell = m_pRasterGrid->m_Cell[nX][nY];
+
+         if (rCell.bPotentialPlatformErosion())
             // Calculate actual (supply-limited) shore platform erosion on each cell that has potential platform erosion, also add the eroded sand/coarse sediment to that cell's polygon, ready to be redistributed within the polygon during beach erosion/deposition
-            DoActualPlatformErosionOnCell(nX, nY);
+            DoActualPlatformErosionOnCell(nX, nY, rCell);
       }
    }
 
@@ -733,22 +741,22 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
 //===============================================================================================================================
 //! Calculates actual (constrained by available sediment) erosion of the consolidated shore platform on a single sea cell
 //===============================================================================================================================
-void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
+void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY, CGeomCell& rCell)
 {
    // LogStream << m_ulIter << ": doing platform erosion on cell [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
 
    // Get the beach protection factor, which quantifies the extent to which unconsolidated sediment on the shore platform (beach) protects the shore platform
-   double const dBeachProtectionFactor = m_pRasterGrid->m_Cell[nX][nY].dGetBeachProtectionFactor();
+   double const dBeachProtectionFactor = rCell.dGetBeachProtectionFactor();
 
    if (bFPIsEqual(dBeachProtectionFactor, 0.0, TOLERANCE))
       // The beach is sufficiently thick to prevent any platform erosion (or we are down to basement)
       return;
 
    // Get the potential depth of potential erosion, considering beach protection
-   double const dThisPotentialErosion = m_pRasterGrid->m_Cell[nX][nY].dGetPotentialPlatformErosion() * dBeachProtectionFactor;
+   double const dThisPotentialErosion = rCell.dGetPotentialPlatformErosion() * dBeachProtectionFactor;
 
    // We will be eroding the topmost layer that has non-zero thickness
-   int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
+   int const nThisLayer = rCell.nGetTopNonZeroLayerAboveBasement();
 
    // Safety check
    if (nThisLayer == INT_NODATA)
@@ -762,9 +770,9 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
       return;
 
    // OK, we have a layer that can be eroded so find out how much consolidated sediment we have available on this cell
-   double const dExistingAvailableFine = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->dGetFineDepth();
-   double const dExistingAvailableSand = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->dGetSandDepth();
-   double const dExistingAvailableCoarse = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->dGetCoarseDepth();
+   double const dExistingAvailableFine = rCell.pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->dGetFineDepth();
+   double const dExistingAvailableSand = rCell.pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->dGetSandDepth();
+   double const dExistingAvailableCoarse = rCell.pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->dGetCoarseDepth();
 
    // Now partition the total lowering for this cell between the three size fractions: do this by relative erodibility
    int const nFineWeight = (dExistingAvailableFine > 0 ? 1 : 0);
@@ -788,7 +796,7 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
       dTotActualErosion += dFineEroded;
 
       // Set the value for this layer
-      m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->SetFineDepth(dRemaining);
+      rCell.pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->SetFineDepth(dRemaining);
 
       // And set the changed-this-timestep switch
       m_bConsChangedThisIter[nThisLayer] = true;
@@ -810,10 +818,10 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
       dTotActualErosion += dSandEroded;
 
       // Set the new value of sand consolidated sediment depth for this layer
-      m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->SetSandDepth(dRemaining);
+      rCell.pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->SetSandDepth(dRemaining);
 
       // And add this to the depth of sand unconsolidated sediment for this layer
-      m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nThisLayer)->pGetUnconsolidatedSediment()->AddSandDepth(dSandEroded);
+      rCell.pGetLayerAboveBasement(nThisLayer)->pGetUnconsolidatedSediment()->AddSandDepth(dSandEroded);
 
       // Set the changed-this-timestep switch
       m_bConsChangedThisIter[nThisLayer] = true;
@@ -834,10 +842,10 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
       dTotActualErosion += dCoarseEroded;
 
       // Set the new value of coarse consolidated sediment depth for this layer
-      m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->SetCoarseDepth(dRemaining);
+      rCell.pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->SetCoarseDepth(dRemaining);
 
       // And add this to the depth of coarse unconsolidated sediment for this layer
-      m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nThisLayer)->pGetUnconsolidatedSediment()->AddCoarseDepth(dCoarseEroded);
+      rCell.pGetLayerAboveBasement(nThisLayer)->pGetUnconsolidatedSediment()->AddCoarseDepth(dCoarseEroded);
 
       // Set the changed-this-timestep switch
       m_bConsChangedThisIter[nThisLayer] = true;
@@ -850,26 +858,31 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
    if (dTotActualErosion > 0)
    {
       // We did, so set the actual erosion value for this cell
-      m_pRasterGrid->m_Cell[nX][nY].SetActualPlatformErosion(dTotActualErosion);
+      rCell.SetActualPlatformErosion(dTotActualErosion);
 
       // Recalculate the elevation of every layer
-      m_pRasterGrid->m_Cell[nX][nY].CalcAllLayerElevsAndD50();
+      rCell.CalcAllLayerElevsAndD50();
 
       // And update the cell's sea depth
-      m_pRasterGrid->m_Cell[nX][nY].SetSeaDepth();
+      rCell.SetSeaDepth();
 
       // Update per-timestep totals
       m_ulThisIterNumActualPlatformErosionCells++;
 
       // Add eroded sand/coarse sediment for this cell to the polygon that contains the cell, ready for redistribution during beach erosion/deposition (fine sediment has already been dealt with)
-      int nPolyID = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID();
-      int nPolyCoastID = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonCoastID();
+      int nPolyID = rCell.nGetPolygonID();
+      int nPolyCoastID = rCell.nGetPolygonCoastID();
 
       if (nPolyID == INT_NODATA)
       {
          // Can get occasional problems with polygon rasterization near the coastline, so also search the eight adjacent cells
          array<int, 8> nDirection = {NORTH, NORTH_EAST, EAST, SOUTH_EAST, SOUTH, SOUTH_WEST, WEST, NORTH_WEST};
-         shuffle(nDirection.begin(), nDirection.end(), m_Rand[0]);
+
+         // Thread-safe: protect RNG access in parallel region
+         #pragma omp critical(rng_shuffle)
+         {
+            shuffle(nDirection.begin(), nDirection.end(), m_Rand[0]);
+         }
 
          for (int n = 0; n < 8; n++)
          {
@@ -1024,8 +1037,12 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
       }
 
       // All OK, so add this to the polygon's total of unconsolidated sand/coarse sediment, to be deposited or moved later. These values are +ve (deposition)
-      m_VCoast[nPolyCoastID].pGetPolygon(nPolyID)->AddPlatformErosionUnconsSand(dSandEroded);
-      m_VCoast[nPolyCoastID].pGetPolygon(nPolyID)->AddPlatformErosionUnconsCoarse(dCoarseEroded);
+      // Thread-safe: protect polygon updates in parallel region
+      #pragma omp critical(polygon_updates)
+      {
+         m_VCoast[nPolyCoastID].pGetPolygon(nPolyID)->AddPlatformErosionUnconsSand(dSandEroded);
+         m_VCoast[nPolyCoastID].pGetPolygon(nPolyID)->AddPlatformErosionUnconsCoarse(dCoarseEroded);
+      }
    }
 }
 

@@ -64,6 +64,7 @@ class CGeomCoastPolygon;
 class CRWCliff;
 class CRWSedInputEvent;
 class CRWCellLandform;
+class CGeomCell;
 
 class CSimulation
 {
@@ -1694,7 +1695,7 @@ class CSimulation
    double dCalcBeachProtectionFactor(int const, int const, double const);
    void FillInBeachProtectionHolesAndRemoveLegacyCliffs(void);
    void FillPotentialPlatformErosionHoles(void);
-   void DoActualPlatformErosionOnCell(int const, int const);
+   void DoActualPlatformErosionOnCell(int const, int const, CGeomCell&);
    double dLookUpErosionPotential(double const);
    static CGeom2DPoint PtChooseEndPoint(int const, CGeom2DPoint const*, CGeom2DPoint const*, double const, double const, double const, double const);
    int nGetCoastNormalEndPoint(int const, int const, int const, CGeom2DPoint const*, double const, CGeom2DPoint *, CGeom2DIPoint *, bool const);
