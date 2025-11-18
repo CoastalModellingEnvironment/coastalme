@@ -1668,12 +1668,11 @@ class CSimulation
    void nRemoveSmallCliffIslands(int const);
 
    // Lower-level simulation routines
-   void FindAllSeaCells(void);
+   void FindAllSeaCellsAndMarkCoastCells(void);
    int FindAllInundatedCells(void);
-   void CellByCellFillSea(int const, int const);
    void FloodFillLand(int const, int const);
    int nTraceCoastLine(unsigned int const, int const, int const, vector<bool>*, vector<CGeom2DIPoint> const*);
-   int nTraceAllCoasts(void);
+   int nTraceAllVectorCoasts(void);
    int nTraceFloodCoastLine(unsigned int const, int const, int const, vector<bool>*, vector<CGeom2DIPoint> const*);
    int nTraceAllFloodCoasts(void);
    void DoCoastCurvature(int const, int const);
