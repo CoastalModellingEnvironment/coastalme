@@ -227,21 +227,18 @@ void CSimulation::KeepWithinValidGrid(CGeom2DIPoint const* Pti0, CGeom2DIPoint* 
 }
 
 //===============================================================================================================================
-//! Given two points in the grid CRS (the points assumed not to be coincident), this routine modifies the value of the second point so that it is on a line joining the original two points and is a valid cell within the raster grid. However in some cases (e.g. if the first point is at the edge of the valid part of the raster grid) then the second cell will be coincident with the
-//! first cell, and the line joining them is thus of zero length. The calling routine has to be able to handle this
+//! Given two points in the grid CRS (the points assumed not to be coincident), this routine modifies the value of the second point so that it is on a line joining the original two points and is a valid cell within the raster grid. However in some cases (e.g. if the first point is at the edge of the valid part of the raster grid) then the second cell will be coincident with the first cell, and the line joining them is thus of zero length. The calling routine has to be able to handle this
 //===============================================================================================================================
 void CSimulation::KeepWithinValidGrid(int nX0, int nY0, int& nX1, int& nY1) const
 {
    // Safety check: make sure that the first point is within the valid grid
    if (nX0 >= m_nXGridSize)
       nX0 = m_nXGridSize - 1;
-
    else if (nX0 < 0)
       nX0 = 0;
 
    if (nY0 >= m_nYGridSize)
       nY0 = m_nYGridSize - 1;
-
    else if (nY0 < 0)
       nY0 = 0;
 
@@ -624,10 +621,8 @@ CGeom2DIPoint CSimulation::PtiGetPerpendicular(CGeom2DIPoint const* PtiStart, CG
 
    if (bFPIsEqual(dXLen, 0.0, TOLERANCE))
       dLength = dYLen;
-
    else if (bFPIsEqual(dYLen, 0.0, TOLERANCE))
       dLength = dXLen;
-
    else
       dLength = hypot(dXLen, dYLen);
 
@@ -641,7 +636,6 @@ CGeom2DIPoint CSimulation::PtiGetPerpendicular(CGeom2DIPoint const* PtiStart, CG
       EndPti.SetX(PtiStart->nGetX() + nRound(dScaleFactor * dYLen));
       EndPti.SetY(PtiStart->nGetY() - nRound(dScaleFactor * dXLen));
    }
-
    else
    {
       EndPti.SetX(PtiStart->nGetX() - nRound(dScaleFactor * dYLen));
@@ -665,7 +659,6 @@ CGeom2DIPoint CSimulation::PtiGetPerpendicular(int const nStartX, int const nSta
 
    else if (bFPIsEqual(dYLen, 0.0, TOLERANCE))
       dLength = dXLen;
-
    else
       dLength = hypot(dXLen, dYLen);
 
@@ -679,7 +672,6 @@ CGeom2DIPoint CSimulation::PtiGetPerpendicular(int const nStartX, int const nSta
       EndPti.SetX(nStartX + nRound(dScaleFactor * dYLen));
       EndPti.SetY(nStartY - nRound(dScaleFactor * dXLen));
    }
-
    else
    {
       EndPti.SetX(nStartX - nRound(dScaleFactor * dYLen));
@@ -756,7 +748,6 @@ bool CSimulation::bCheckRasterGISOutputFormat(void)
       // No space i.e. just one extension
       m_strGDALRasterOutputDriverExtension = strTmp;
    }
-
    else
    {
       // There's a space, so we must have more than one extension
@@ -901,12 +892,10 @@ bool CSimulation::bCheckVectorGISOutputFormat(void)
       // Set this, so that just a single dataset-with-one-layer shapefile is created, rather than a directory (see http://www.gdal.org/ogr/drv_shapefile.html)
       m_strOGRVectorOutputExtension = ".shp";
    }
-
    else if (m_strVectorGISOutFormat == "geojson")
    {
       m_strOGRVectorOutputExtension = ".geojson";
    }
-
    else if (m_strVectorGISOutFormat == "gpkg")
    {
       m_strOGRVectorOutputExtension = ".gpkg";
@@ -1566,7 +1555,6 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
          case (RASTER_PLOT_WAVE_ORIENTATION):
             if (! m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea())
                dTmp = m_dMissingValue;
-
             else
                dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetWaveAngle();
 

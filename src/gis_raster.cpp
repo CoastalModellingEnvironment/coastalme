@@ -318,16 +318,11 @@ int CSimulation::nReadRasterBasementDEM(void)
 }
 
 //===============================================================================================================================
-//! Mark cells which are at the edge of a bounding box which represents the
-//! valid part of the grid, as defined by the basement layer. The valid part of
-//! the grid may be the whole grid, or only part of the whole grid. The bounding
-//! box may be an irregular shape (but may not have re-entrant edges): simple
-//! shapes are more likely to work correctly
+//! Mark cells which are at the edge of a bounding box which represents the valid part of the grid, as defined by the basement layer. The valid part of the grid may be the whole grid, or only part of the whole grid. The bounding box may be an irregular shape (but may not have re-entrant edges): simple  shapes are more likely to work correctly
 //===============================================================================================================================
-int CSimulation::nMarkBoundingBoxEdgeCells(void) {
-  // The bounding box must touch the edge of the grid at least once on each side
-  // of the grid, so store these points. Search in a clockwise direction around
-  // the edge of the grid
+int CSimulation::nMarkBoundingBoxEdgeCells(void)
+{
+  // The bounding box must touch the edge of the grid at least once on each side of the grid, so store these points. Search in a clockwise direction around the edge of the grid
   vector<CGeom2DIPoint> VPtiBoundingBoxCorner;
 
   // Start with the top (north) edge
@@ -337,8 +332,10 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
     if (bFound)
       break;
 
-    for (int nY = 0; nY < m_nYGridSize; nY++) {
-      if (!m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue()) {
+    for (int nY = 0; nY < m_nYGridSize; nY++)
+    {
+      if (!m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
+      {
         CGeom2DIPoint const PtiTmp(nX, nY);
         VPtiBoundingBoxCorner.push_back(PtiTmp);
         bFound = true;
@@ -347,10 +344,10 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
     }
   }
 
-  if (!bFound) {
+  if (! bFound)
+  {
     if (m_nLogFileDetail >= LOG_FILE_ALL)
-      LogStream << m_ulIter << ": north (top) edge of bounding box not found"
-                << endl;
+      LogStream << m_ulIter << ": north (top) edge of bounding box not found" << endl;
 
     return RTN_ERR_BOUNDING_BOX;
   }
@@ -358,12 +355,15 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
   // Do the same for the right (east) edge
   bFound = false;
 
-  for (int nY = 0; nY < m_nYGridSize; nY++) {
+  for (int nY = 0; nY < m_nYGridSize; nY++)
+  {
     if (bFound)
       break;
 
-    for (int nX = m_nXGridSize - 1; nX >= 0; nX--) {
-      if (!m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue()) {
+    for (int nX = m_nXGridSize - 1; nX >= 0; nX--)
+    {
+      if (!m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
+      {
         CGeom2DIPoint const PtiTmp(nX, nY);
         VPtiBoundingBoxCorner.push_back(PtiTmp);
         bFound = true;
@@ -372,10 +372,10 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
     }
   }
 
-  if (!bFound) {
+  if (! bFound)
+  {
     if (m_nLogFileDetail >= LOG_FILE_ALL)
-      LogStream << m_ulIter << ": east (right) edge of bounding box not found"
-                << endl;
+      LogStream << m_ulIter << ": east (right) edge of bounding box not found" << endl;
 
     return RTN_ERR_BOUNDING_BOX;
   }
@@ -387,8 +387,10 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
     if (bFound)
       break;
 
-    for (int nY = m_nYGridSize - 1; nY >= 0; nY--) {
-      if (!m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue()) {
+    for (int nY = m_nYGridSize - 1; nY >= 0; nY--)
+    {
+      if (!m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
+      {
         CGeom2DIPoint const PtiTmp(nX, nY);
         VPtiBoundingBoxCorner.push_back(PtiTmp);
         bFound = true;
@@ -397,10 +399,10 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
     }
   }
 
-  if (!bFound) {
+  if (!bFound)
+  {
     if (m_nLogFileDetail >= LOG_FILE_ALL)
-      LogStream << m_ulIter << ": south (bottom) edge of bounding box not found"
-                << endl;
+      LogStream << m_ulIter << ": south (bottom) edge of bounding box not found" << endl;
 
     return RTN_ERR_BOUNDING_BOX;
   }
@@ -408,11 +410,13 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
   // And finally repeat for the west (left) edge
   bFound = false;
 
-  for (int nY = m_nYGridSize - 1; nY >= 0; nY--) {
+  for (int nY = m_nYGridSize - 1; nY >= 0; nY--)
+  {
     if (bFound)
       break;
 
-    for (int nX = 0; nX < m_nXGridSize; nX++) {
+    for (int nX = 0; nX < m_nXGridSize; nX++)
+    {
       if (!m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue()) {
         CGeom2DIPoint const PtiTmp(nX, nY);
         VPtiBoundingBoxCorner.push_back(PtiTmp);
@@ -422,23 +426,23 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
     }
   }
 
-  if (!bFound) {
+  if (! bFound)
+  {
     if (m_nLogFileDetail >= LOG_FILE_ALL)
-      LogStream << m_ulIter << ": west (left) edge of bounding box not found"
-                << endl;
+      LogStream << m_ulIter << ": west (left) edge of bounding box not found" << endl;
 
     return RTN_ERR_BOUNDING_BOX;
   }
 
-  // OK, so we have a point on each side of the grid, so start at this point and
-  // find the edges of the bounding box. Go round in a clockwise direction: top
-  // (north) edge first
-  for (int nX = VPtiBoundingBoxCorner[0].nGetX();
-       nX <= VPtiBoundingBoxCorner[1].nGetX(); nX++) {
+  // OK, so we have a point on each side of the grid, so start at this point and find the edges of the bounding box. Go round in a clockwise direction: top (north) edge first
+  for (int nX = VPtiBoundingBoxCorner[0].nGetX(); nX <= VPtiBoundingBoxCorner[1].nGetX(); nX++)
+   {
     bFound = false;
 
-    for (int nY = VPtiBoundingBoxCorner[0].nGetY(); nY < m_nYGridSize; nY++) {
-      if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue()) {
+    for (int nY = VPtiBoundingBoxCorner[0].nGetY(); nY < m_nYGridSize; nY++)
+    {
+      if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
+      {
         m_ulMissingValueBasementCells++;
         continue;
       }
@@ -453,24 +457,24 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
       break;
     }
 
-    if (!bFound) {
+    if (!bFound)
+    {
       if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-        LogStream
-            << m_ulIter
-            << ": could not find a bounding box edge cell for grid column "
-            << nX << endl;
+        LogStream << m_ulIter << ": could not find a bounding box edge cell for grid column " << nX << endl;
 
       return RTN_ERR_BOUNDING_BOX;
     }
   }
 
   // Right (east) edge
-  for (int nY = VPtiBoundingBoxCorner[1].nGetY();
-       nY <= VPtiBoundingBoxCorner[2].nGetY(); nY++) {
+   for (int nY = VPtiBoundingBoxCorner[1].nGetY(); nY <= VPtiBoundingBoxCorner[2].nGetY(); nY++)
+   {
     bFound = false;
 
-    for (int nX = VPtiBoundingBoxCorner[1].nGetX(); nX >= 0; nX--) {
-      if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue()) {
+    for (int nX = VPtiBoundingBoxCorner[1].nGetX(); nX >= 0; nX--)
+    {
+      if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
+      {
         m_ulMissingValueBasementCells++;
         continue;
       }
@@ -487,21 +491,21 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
 
     if (!bFound) {
       if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-        LogStream << m_ulIter
-                  << ": could not find a bounding box edge cell for grid row "
-                  << nY << endl;
+        LogStream << m_ulIter << ": could not find a bounding box edge cell for grid row " << nY << endl;
 
       return RTN_ERR_BOUNDING_BOX;
     }
   }
 
   // Bottom (south) edge
-  for (int nX = VPtiBoundingBoxCorner[2].nGetX();
-       nX >= VPtiBoundingBoxCorner[3].nGetX(); nX--) {
+  for (int nX = VPtiBoundingBoxCorner[2].nGetX(); nX >= VPtiBoundingBoxCorner[3].nGetX(); nX--)
+  {
     bFound = false;
 
-    for (int nY = VPtiBoundingBoxCorner[2].nGetY(); nY >= 0; nY--) {
-      if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue()) {
+    for (int nY = VPtiBoundingBoxCorner[2].nGetY(); nY >= 0; nY--)
+    {
+      if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
+      {
         m_ulMissingValueBasementCells++;
         continue;
       }
@@ -516,25 +520,23 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
       break;
     }
 
-    if (!bFound) {
+    if (! bFound)
+    {
       if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-        LogStream
-            << m_ulIter
-            << ": could not find a bounding box edge cell for grid column "
-            << nX << endl;
+        LogStream << m_ulIter << ": could not find a bounding box edge cell for grid column " << nX << endl;
 
       return RTN_ERR_BOUNDING_BOX;
     }
   }
 
   // Left (west) edge
-  for (int nY = VPtiBoundingBoxCorner[3].nGetY();
-       nY >= VPtiBoundingBoxCorner[0].nGetY(); nY--) {
+  for (int nY = VPtiBoundingBoxCorner[3].nGetY(); nY >= VPtiBoundingBoxCorner[0].nGetY(); nY--)
+  {
     for (int nX = VPtiBoundingBoxCorner[3].nGetX(); nX < m_nXGridSize - 1; nX++)
-    // for (int nX = VPtiBoundingBoxCorner[3].nGetX(); nX <
-    // VPtiBoundingBoxCorner[3].nGetX(); nX++)
+    // for (int nX = VPtiBoundingBoxCorner[3].nGetX(); nX < VPtiBoundingBoxCorner[3].nGetX(); nX++)
     {
-      if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue()) {
+      if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
+      {
         m_ulMissingValueBasementCells++;
         continue;
       }
@@ -549,11 +551,10 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void) {
       break;
     }
 
-    if (!bFound) {
+    if (!bFound)
+    {
       if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-        LogStream << m_ulIter
-                  << ": could not find a bounding box edge cell for grid row "
-                  << nY << endl;
+        LogStream << m_ulIter << ": could not find a bounding box edge cell for grid row " << nY << endl;
 
       return RTN_ERR_BOUNDING_BOX;
     }
@@ -572,7 +573,8 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer) {
   string strProjection;
   string strDataType;
 
-  switch (nDataItem) {
+  switch (nDataItem)
+  {
   case (LANDFORM_RASTER):
     // Initial Landform Class GIS data
     strGISFile = m_strInitialLandformFile;
@@ -628,7 +630,8 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer) {
   GDALDataset *pGDALDataset =
       static_cast<GDALDataset *>(GDALOpen(strGISFile.c_str(), GA_ReadOnly));
 
-  if (NULL == pGDALDataset) {
+  if (NULL == pGDALDataset)
+  {
     // Can't open file (note will already have sent GDAL error message to
     // stdout)
     cerr << ERR << "cannot open " << strGISFile

@@ -655,15 +655,14 @@ int const RTN_ERR_TRACING_FLOOD = 71;
 int const RTN_ERR_NO_START_FINISH_POINTS_TRACING_COAST = 72;
 int const RTN_ERR_NO_VALID_COAST = 73;
 int const RTN_ERR_REPEATING_WHEN_TRACING_COAST = 74;
-int const RTN_ERR_ZERO_LENGTH_COAST = 75;
-int const RTN_ERR_COAST_TOO_SMALL = 77;
-int const RTN_ERR_IGNORING_COAST = 78;
-int const RTN_ERR_TOO_LONG_TRACING_COAST = 79;
-int const RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE_DIFFERENT_COASTS = 80;
-int const RTN_ERR_POINT_NOT_FOUND_IN_MULTILINE_DIFFERENT_COASTS = 81;
-int const RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE = 82;
-int const RTN_ERR_CELL_IN_POLY_BUT_NO_POLY_COAST = 83;
-int const RTN_ERR_CLIFF_TALUS_TO_UNCONS = 84;
+int const RTN_ERR_COAST_TOO_SMALL = 75;
+int const RTN_ERR_IGNORING_COAST = 76;
+int const RTN_ERR_TOO_LONG_TRACING_COAST = 77;
+int const RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE_DIFFERENT_COASTS = 78;
+int const RTN_ERR_POINT_NOT_FOUND_IN_MULTILINE_DIFFERENT_COASTS = 79;
+int const RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE = 80;
+int const RTN_ERR_CELL_IN_POLY_BUT_NO_POLY_COAST = 81;
+int const RTN_ERR_CLIFF_TALUS_TO_UNCONS = 82;
 int const RTN_ERR_UNKNOWN = 999;
 
 // Elevation and 'slice' codes
@@ -736,7 +735,7 @@ double const INTERVENTION_PROFILE_SPACING_FACTOR = 0.5;     // Profile spacing o
 double const CLIFF_NOTCH_CUTOFF_DISTANCE = 2;               // Cut-off SWL distance (m), measured downwards from the cliff notch apex: below this there is no notch incision
 double const DBL_NODATA = -9999;
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (19 Nov 2025)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (21 Nov 2025)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

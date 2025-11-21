@@ -301,7 +301,7 @@ int CSimulation::nDoAllPropagateWaves(void)
    // Set up vector to hold wave data for each transect/profile
    vector<TransectWaveData> VAllTransects;
    // DEBUG CODE ============================================================================================================
-   LogStream << m_ulIter << ":\t At start of nDoAllPropagateWaves()" << endl;
+   LogStream << m_ulIter << ": \t At start of nDoAllPropagateWaves()" << endl;
    // DEBUG CODE ============================================================================================================
 
    // Set up all-profile vectors to hold the wave attribute data at every profile point on all profiles
@@ -379,7 +379,7 @@ int CSimulation::nDoAllPropagateWaves(void)
    // OK, do we have some profiles other than start of coast or end of coast profiles in the all-profile vectors? We need to check this, because GDALGridCreate() in nInterpolateWavePropertiesToWithinPolygonCells() does not work if we give it only a start-of-coast or an end-of-coast profile to work with TODO 006 Is this still true?
    if (! bSomeNonStartOrEndOfCoastProfiles)
    {
-      LogStream << m_ulIter << ":\t waves are on-shore only, for start and/or end of coast profiles" << endl;
+      LogStream << m_ulIter << ": \t waves are on-shore only, for start and/or end of coast profiles" << endl;
 
       return RTN_OK;
    }
@@ -449,7 +449,7 @@ int CSimulation::nDoAllPropagateWaves(void)
    }
 
    // DEBUG CODE ============================================================================================================
-   LogStream << m_ulIter << ":\t starting loop" << endl;
+   LogStream << m_ulIter << ": \t starting loop" << endl;
    // DEBUG CODE ============================================================================================================
 
    for (int nY = 0; nY < m_nYGridSize; nY++)

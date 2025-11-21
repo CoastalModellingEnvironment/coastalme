@@ -77,6 +77,25 @@ bool CGeomILine::bIsPresent(int const nX, int const nY)
    return false;
 }
 
+//! Returns true if the point is present in the line
+bool CGeomILine::bIsPresent(CGeom2DIPoint const* pPti)
+{
+   int const nSize = static_cast<int>(m_VPoints.size());
+
+   if (nSize == 0)
+      return false;
+
+   for (int n = 0; n < nSize; n++)
+   {
+      if (m_VPoints[n] == *pPti)
+         return true;
+   }
+
+   return false;
+
+}
+
+
 //! Instantiates the pure virtual function in the abstract parent class, so that CGeomILine is not an abstract class
 void CGeomILine::Display(void)
 {

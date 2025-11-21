@@ -820,8 +820,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                switch (nSearchDirection)
                {
                case NORTH:
-                  nXAdj = nX - 1;
-                  nYAdj = nY;
+                  nXAdj = nX;
+                  nYAdj = nY - 1;
 
                   if (bIsWithinValidGrid(nXAdj, nYAdj))
                   {
@@ -837,7 +837,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                   break;
 
                case NORTH_EAST:
-                  nXAdj = nX;
+                  nXAdj = nX + 1;
                   nYAdj = nY - 1;
 
                   if (bIsWithinValidGrid(nXAdj, nYAdj))
@@ -854,8 +854,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                   break;
 
                case EAST:
-                  nXAdj = nX;
-                  nYAdj = nY - 1;
+                  nXAdj = nX + 1;
+                  nYAdj = nY;
 
                   if (bIsWithinValidGrid(nXAdj, nYAdj))
                   {
@@ -872,7 +872,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
 
                case SOUTH_EAST:
                   nXAdj = nX + 1;
-                  nYAdj = nY;
+                  nYAdj = nY + 1;
 
                   if (bIsWithinValidGrid(nXAdj, nYAdj))
                   {
@@ -888,8 +888,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                   break;
 
                case SOUTH:
-                  nXAdj = nX + 1;
-                  nYAdj = nY;
+                  nXAdj = nX;
+                  nYAdj = nY + 1;
 
                   if (bIsWithinValidGrid(nXAdj, nYAdj))
                   {
@@ -905,8 +905,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                   break;
 
                case SOUTH_WEST:
-                  nXAdj = nX + 1;
-                  nYAdj = nY;
+                  nXAdj = nX - 1;
+                  nYAdj = nY + 1;
 
                   if (bIsWithinValidGrid(nXAdj, nYAdj))
                   {
@@ -922,8 +922,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                   break;
 
                case WEST:
-                  nXAdj = nX;
-                  nYAdj = nY + 1;
+                  nXAdj = nX - 1;
+                  nYAdj = nY;
 
                   if (bIsWithinValidGrid(nXAdj, nYAdj))
                   {
@@ -939,8 +939,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                   break;
 
                case NORTH_WEST:
-                  nXAdj = nX;
-                  nYAdj = nY + 1;
+                  nXAdj = nX - 1;
+                  nYAdj = nY - 1;
 
                   if (bIsWithinValidGrid(nXAdj, nYAdj))
                   {

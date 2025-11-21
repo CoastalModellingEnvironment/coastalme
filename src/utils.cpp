@@ -2290,10 +2290,6 @@ string CSimulation::strGetErrorText(int const nErr)
       strErr = "error tracing coastline on grid, coast search just repeats";
       break;
 
-   case RTN_ERR_ZERO_LENGTH_COAST:
-      strErr = "error tracing coastline on grid, zero-length coast found";
-      break;
-
    case RTN_ERR_COAST_TOO_SMALL:
       strErr = "error tracing coastline on grid, coast below minimum permitted length";
       break;
