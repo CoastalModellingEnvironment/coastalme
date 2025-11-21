@@ -1,0 +1,32 @@
+#======================================================================================================================
+#
+# CoastalME initialization file (YAML format)
+#
+# Copyright (C) 2024 David Favis-Mortlock and Andres Payo
+#
+#=====================================================================================================================
+#
+# This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
+# License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later
+# version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program; if not, write to the Free
+# Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#======================================================================================================================
+
+# Path to the main input configuration file (.dat or .yaml)
+# Can be absolute or relative to the directory containing this file
+input_data_file: /home/wilfchun/CoastalME/CoastalME_data_local/Typology/Cliff/in/cliff.yaml
+
+# Path for output files
+# Can be absolute or relative to the directory containing this file
+# IMPORTANT: A trailing slash is required
+output_path: /home/wilfchun/CoastalME/CoastalME_data_local/Typology/Cliff/out/
+
+# Email address for notification messages (optional, Linux only)
+# Uncomment to enable email notifications
+# email_address: user@example.com
