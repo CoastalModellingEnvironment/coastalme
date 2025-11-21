@@ -447,7 +447,7 @@ int CSimulation::nTraceAllVectorCoasts(void)
 //===============================================================================================================================
 int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedness, CGeom2DIPoint const* pPtiStartCell, CGeom2DIPoint* pPtiEndCell)
 {
-   LogStream << m_ulIter << ": \ttracing coastline from ";
+   // LogStream << m_ulIter << ": \ttracing coastline from ";
    switch(nStartEdge)
    {
       case NORTH:
@@ -529,7 +529,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
                      nX = nXAdj;
                      nY = nYAdj;
                      bFound = true;
-                     LogStream << m_ulIter << ": \tcell to NORTH marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+                     // LogStream << m_ulIter << ": \tcell to NORTH marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
                      break;
                   }
                }
@@ -553,7 +553,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
                      nX = nXAdj;
                      nY = nYAdj;
                      bFound = true;
-                     LogStream << m_ulIter << ": \tcell to NORTH EAST marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+                     // LogStream << m_ulIter << ": \tcell to NORTH EAST marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
                      break;
                   }
                }
@@ -577,7 +577,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
                      nX = nXAdj;
                      nY = nYAdj;
                      bFound = true;
-                     LogStream << m_ulIter << ": \tcell to EAST marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+                     // LogStream << m_ulIter << ": \tcell to EAST marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
                      break;
                   }
                }
@@ -601,7 +601,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
                      nX = nXAdj;
                      nY = nYAdj;
                      bFound = true;
-                     LogStream << m_ulIter << ": \tcell to SOUTH EAST marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+                     // LogStream << m_ulIter << ": \tcell to SOUTH EAST marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
                      break;
                   }
                }
@@ -625,7 +625,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
                      nX = nXAdj;
                      nY = nYAdj;
                      bFound = true;
-                     LogStream << m_ulIter << ": \tcell to SOUTH marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+                     // LogStream << m_ulIter << ": \tcell to SOUTH marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
                      break;
                   }
                }
@@ -649,7 +649,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
                      nX = nXAdj;
                      nY = nYAdj;
                      bFound = true;
-                     LogStream << m_ulIter << ": \tcell to SOUTH WEST marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+                     // LogStream << m_ulIter << ": \tcell to SOUTH WEST marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
                      break;
                   }
                }
@@ -673,7 +673,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
                      nX = nXAdj;
                      nY = nYAdj;
                      bFound = true;
-                     LogStream << m_ulIter << ": \tcell to WEST marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+                     // LogStream << m_ulIter << ": \tcell to WEST marked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
                      break;
                   }
                }
@@ -697,7 +697,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
                      nX = nXAdj;
                      nY = nYAdj;
                      bFound = true;
-                     LogStream << m_ulIter << ": \tmarked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+                     // LogStream << m_ulIter << ": \tmarked as coastline [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
                      break;
                   }
                }
@@ -710,14 +710,14 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
       if (m_pRasterGrid->m_Cell[nX][nY].bIsBoundingBoxEdge())
       {
           bHitEdge = true;
-          LogStream << m_ulIter << ": \thit edge at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+          // LogStream << m_ulIter << ": \thit edge at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
 
           break;
       }
 
       if (! bFound)
       {
-         LogStream << m_ulIter << ": \tnot found at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+         LogStream << m_ulIter << ": \tcoastline at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} ends incorrectly, abandoned" << endl;
 
          break;
       }
@@ -726,7 +726,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
       if (++nRoundLoop > m_nCoastMax)
       {
          bTooLong = true;
-         LogStream << m_ulIter << ": \ttoo long [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+         LogStream << m_ulIter << ": \tcoastline at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} is too long (" << nRoundLoop << " points), abandoned"  << endl;
 
          break;
       }
@@ -736,7 +736,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
       {
          // We've been 10 times round the loop but the coast is still less than 2 coastline points in length, so we must be repeating
          bRepeating = true;
-         LogStream << m_ulIter << ": \trepeating at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+         LogStream << m_ulIter << ": \tcoastline at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} is looping, abandoned" << endl;
 
          break;
       }
@@ -752,7 +752,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
       // This coastline is a loop, returning to the start cell
       if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
       {
-         LogStream << m_ulIter << ": \tabandoning possible coastline from [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "} since returned to start point after looping " << nRoundLoop << " times, coastline size is " << nCoastSize << endl;
+         LogStream << m_ulIter << ": \tcoastline from [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "} abandoned since returned to start point after looping " << nRoundLoop << " times, coastline size is " << nCoastSize << endl;
       }
 
       // Unmark the cells

@@ -291,12 +291,12 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
       // This convex point on the coastline is a potential location for a normal
       int const nNormalPoint = prVCurvature->at(n).first;
 
-      // DEBUG CODE =================================
-      CGeom2DIPoint* pPtiTmp = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nNormalPoint);
-      int nXTmp = pPtiTmp->nGetX();
-      int nYTmp = pPtiTmp->nGetY();
-      LogStream << m_ulIter << ":\t **** nNormalPoint = " << nNormalPoint << " at [" << nXTmp << "][" << nYTmp << "]" << endl;
-      // DEBUG CODE =================================
+      // // DEBUG CODE =================================
+      // CGeom2DIPoint* pPtiTmp = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nNormalPoint);
+      // int nXTmp = pPtiTmp->nGetX();
+      // int nYTmp = pPtiTmp->nGetY();
+      // LogStream << m_ulIter << ": \t**** nNormalPoint = " << nNormalPoint << " at [" << nXTmp << "][" << nYTmp << "]" << endl;
+      // // DEBUG CODE =================================
 
       // Ignore each end of the coastline
       if ((nNormalPoint == 0) || (nNormalPoint == nCoastSize - 1))
@@ -342,7 +342,7 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
          if (nRet != RTN_OK)
          {
             // This potential profile is no good (too short for depth of closure, has hit coast, or hit dry land, etc.) so forget about it
-            LogStream << m_ulIter << ":\t profile at [" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] is no good" << endl;
+            // LogStream << m_ulIter << ": \tprofile at [" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] is no good" << endl;
 
             continue;
          }
@@ -460,7 +460,7 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    if (nRet == RTN_ERR_NO_SOLUTION_FOR_ENDPOINT)
    {
       // Could not solve end-point equation, so forget about this profile
-      LogStream << m_ulIter << ":\t could not solve end-point equation for possible profile starting at [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiStart->nGetY()) << "}" << endl;
+      LogStream << m_ulIter << ": \tcould not solve end-point equation for possible profile starting at [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiStart->nGetY()) << "}" << endl;
 
       return nRet;
    }
@@ -472,7 +472,7 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    if (! m_pRasterGrid->m_Cell[nXEnd][nYEnd].bIsInContiguousSea())
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ":\t coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " at [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiStart->nGetY()) << "} has inland end point at [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
+         LogStream << m_ulIter << ": \tcoast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " at [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiStart->nGetY()) << "} has inland end point at [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
 
       return RTN_ERR_PROFILE_ENDPOINT_IS_INLAND;
    }
@@ -481,7 +481,7 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    if (m_pRasterGrid->m_Cell[nXEnd][nYEnd].dGetSeaDepth() < m_dDepthOfClosure)
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ":\t coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " at [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiStart->nGetY()) << "} has sea depth " << m_pRasterGrid->m_Cell[nXEnd][nYEnd].dGetSeaDepth() << " which is less than the depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
+         LogStream << m_ulIter << ": \tcoast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " at [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiStart->nGetY()) << "} has sea depth " << m_pRasterGrid->m_Cell[nXEnd][nYEnd].dGetSeaDepth() << " which is less than the depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
 
       return RTN_ERR_PROFILE_END_INSUFFICIENT_DEPTH;
    }
