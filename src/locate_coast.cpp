@@ -119,14 +119,35 @@ void CSimulation::FindAllSeaCellsAndMarkCoastCells(void)
       {
          if (m_pRasterGrid->m_Cell[nX][nY].bIsInundated())
          {
+            // This is a sea cell
             m_pRasterGrid->m_Cell[nX][nY].SetInContiguousSea();
 
-            // Set this sea cell to have deep water (off-shore) wave orientation and height, will change this later for cells closer to the shoreline if we have on-shore waves
+            // Set the cell's sea depth
+            m_pRasterGrid->m_Cell[nX][nY].SetSeaDepth();
+
+            // And give the cell deep water (off-shore) wave orientation and height (will change this later for cells closer to the shoreline if we have on-shore waves)
             m_pRasterGrid->m_Cell[nX][nY].SetWaveValuesToDeepWaterWaveValues();
 
             bThisCellIsSea = true;
+
+            // Increment count
+            m_ulThisIterNumSeaCells++;
+
+            // Check the x-y extremities of the contiguous sea for the bounding box (used later in wave propagation)
+            if (nX < m_nXMinBoundingBox)
+               m_nXMinBoundingBox = nX;
+
+            if (nX > m_nXMaxBoundingBox)
+               m_nXMaxBoundingBox = nX;
+
+            if (nY < m_nYMinBoundingBox)
+               m_nYMinBoundingBox = nY;
+
+            if (nY > m_nYMaxBoundingBox)
+               m_nYMaxBoundingBox = nY;
          }
          else
+            // This is not a sea cell
             bThisCellIsSea = false;
 
          if (bIgnoreFirst)
@@ -828,14 +849,14 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
    else if (m_nCoastSmooth == SMOOTH_SAVITZKY_GOLAY)
       LTempExtCRS = LSmoothCoastSavitzkyGolay(&LTempExtCRS, nStartEdge, nEndEdge);
 
-   // DEBUG CODE ==================================================================================================
-   LogStream << "DEBUG CODE ==================================" << endl;
-   for (int j = 0; j < nCoastSize; j++)
-   {
-      LogStream << "ILTempGridCRS[" << j << "] = {" << dGridCentroidXToExtCRSX(ILTempGridCRS[j].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILTempGridCRS[j].nGetY()) << "}" << "\t{" << LTempExtCRS.dGetXAt(j) << ", " << LTempExtCRS.dGetYAt(j) << "}" << endl;
-   }
-   LogStream << "DEBUG CODE ==================================" << endl;
-   // DEBUG CODE ==================================================================================================
+   // // DEBUG CODE ==================================================================================================
+   // LogStream << "DEBUG CODE ==================================" << endl;
+   // for (int j = 0; j < nCoastSize; j++)
+   // {
+   //    LogStream << "ILTempGridCRS[" << j << "] = {" << dGridCentroidXToExtCRSX(ILTempGridCRS[j].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILTempGridCRS[j].nGetY()) << "}" << "\t{" << LTempExtCRS.dGetXAt(j) << ", " << LTempExtCRS.dGetYAt(j) << "}" << endl;
+   // }
+   // LogStream << "DEBUG CODE ==================================" << endl;
+   // // DEBUG CODE ==================================================================================================
 
    // Create a new coastline object and append to it the vector of coastline objects
    CRWCoast const CoastTmp(this);
@@ -894,9 +915,6 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
 
    // Calculate values for the coast's flux orientation vector
    CalcCoastTangents(nCoast);
-
-   // And create the vector of pointers to coastline-normal objects
-   m_VCoast[nCoast].CreateProfilesAtCoastPoints();
 
    return RTN_OK;
 }

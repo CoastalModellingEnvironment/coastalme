@@ -66,6 +66,9 @@ int CSimulation::nCreateAllProfiles(void)
 
    for (unsigned int nCoast = 0; nCoast < m_VCoast.size(); nCoast++)
    {
+      // Create an empty vector of pointers to coastline-normal objects
+      m_VCoast[nCoast].CreateProfilesAtCoastPoints();
+
       int nProfile = 0;
       int const nCoastSize = m_VCoast[nCoast].nGetCoastlineSize();
 
@@ -97,18 +100,18 @@ int CSimulation::nCreateAllProfiles(void)
       // Sort this pair vector in descending order, so that the most convex curvature points are first
       sort(prVCurvature.begin(), prVCurvature.end(), bCurvaturePairCompareDescending);
 
-      // DEBUG CODE =======================================================================================================================
-      for (int n = 0; n < prVCurvature.size(); n++)
-      {
-         int nTmpPoint = prVCurvature[n].first;
-         CGeom2DIPoint* pPtiTmp = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nTmpPoint);
-         int nXTmp = pPtiTmp->nGetX();
-         int nYTmp = pPtiTmp->nGetY();
-
-         LogStream << "**** coast point = " << prVCurvature[n].first << " at [" << nXTmp << "][" << nYTmp << "] has curvature = " << prVCurvature[n].second << endl;
-      }
-      LogStream << endl << endl;
-      // DEBUG CODE =======================================================================================================================
+      // // DEBUG CODE =======================================================================================================================
+      // for (int n = 0; n < prVCurvature.size(); n++)
+      // {
+      //    int nTmpPoint = prVCurvature[n].first;
+      //    CGeom2DIPoint* pPtiTmp = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nTmpPoint);
+      //    int nXTmp = pPtiTmp->nGetX();
+      //    int nYTmp = pPtiTmp->nGetY();
+      //
+      //    LogStream << "**** coast point = " << prVCurvature[n].first << " at [" << nXTmp << "][" << nYTmp << "] has curvature = " << prVCurvature[n].second << endl;
+      // }
+      // LogStream << endl << endl;
+      // // DEBUG CODE =======================================================================================================================
 
       // And mark points at and near the start and end of the coastline so that they don't get searched (will be creating 'special' start- and end-of-coast profiles at these end points later)
       for (int n = 0; n < m_nCoastNormalSpacing; n++)
@@ -287,6 +290,13 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
 
       // This convex point on the coastline is a potential location for a normal
       int const nNormalPoint = prVCurvature->at(n).first;
+
+      // DEBUG CODE =================================
+      CGeom2DIPoint* pPtiTmp = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nNormalPoint);
+      int nXTmp = pPtiTmp->nGetX();
+      int nYTmp = pPtiTmp->nGetY();
+      LogStream << m_ulIter << ":\t **** nNormalPoint = " << nNormalPoint << " at [" << nXTmp << "][" << nYTmp << "]" << endl;
+      // DEBUG CODE =================================
 
       // Ignore each end of the coastline
       if ((nNormalPoint == 0) || (nNormalPoint == nCoastSize - 1))
@@ -471,7 +481,7 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    if (m_pRasterGrid->m_Cell[nXEnd][nYEnd].dGetSeaDepth() < m_dDepthOfClosure)
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ":\t coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " at [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiStart->nGetY()) << "} is too short for depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
+         LogStream << m_ulIter << ":\t coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " at [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiStart->nGetY()) << "} has sea depth " << m_pRasterGrid->m_Cell[nXEnd][nYEnd].dGetSeaDepth() << " which is less than the depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
 
       return RTN_ERR_PROFILE_END_INSUFFICIENT_DEPTH;
    }

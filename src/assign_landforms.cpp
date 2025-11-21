@@ -343,18 +343,6 @@ int CSimulation::nLandformToGrid(int const nCoast, int const nPoint)
       //    // // The cliff has collapsed: all sediment above the base of the erosional notch is gone from this cliff object via cliff collapse, so this cell is no longer a cliff
       //    // m_pRasterGrid->m_Cell[nX][nY].SetInContiguousSea();
       //    //
-      //    // // Check the x-y extremities of the contiguous sea for the bounding box (used later in wave propagation)
-      //    // if (nX < m_nXMinBoundingBox)
-      //    //    m_nXMinBoundingBox = nX;
-      //    //
-      //    // if (nX > m_nXMaxBoundingBox)
-      //    //    m_nXMaxBoundingBox = nX;
-      //    //
-      //    // if (nY < m_nYMinBoundingBox)
-      //    //    m_nYMinBoundingBox = nY;
-      //    //
-      //    // if (nY > m_nYMaxBoundingBox)
-      //    //    m_nYMaxBoundingBox = nY;
       //
       //    int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetNumOfTopLayerAboveBasement();
       //
