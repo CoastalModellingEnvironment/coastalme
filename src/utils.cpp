@@ -271,19 +271,18 @@ int CSimulation::nHandleCommandLineParams(int nArg, char const* pcArgv[])
 //===============================================================================================================================
 void CSimulation::AnnounceStart(void)
 {
-   cout << endl
-        << PROGRAM_NAME << " for " << PLATFORM << " " << strGetBuild() << endl;
-  #ifdef _OPENMP
-   cout << "OpenMP is ENABLED" << endl;
-   cout << "Max threads available: " << omp_get_max_threads() << endl;
-    #pragma omp parallel
-    {
-        #pragma omp single
-        std::cout << "Actually running with " << omp_get_num_threads() << " threads" << std::endl;
-    }
-  #else
-    std::cout << "OpenMP is NOT ENABLED - code will run serially!" << std::endl;
-  #endif // !_OPENMP
+   cout << endl << PROGRAM_NAME << " for " << PLATFORM << " " << strGetBuild() << endl;
+
+#ifdef _OPENMP
+   cout << "OpenMP is enabled: " << omp_get_max_threads() << " threads available";
+   #pragma omp parallel
+   {
+      #pragma omp single
+      cout << ", " << omp_get_num_threads() << " threads used." << endl;
+   }
+#else
+   cout << "OpenMP is not enabled." << endl;
+#endif // !_OPENMP
 }
 
 //===============================================================================================================================
@@ -298,7 +297,6 @@ void CSimulation::StartClock(void)
       LogStream << NOTE << "CPU time not available" << endl;
       m_dCPUClock = -1;
    }
-
    else
    {
       // All OK, so get the time in m_dClkLast (this is needed to check for clock rollover on long runs)
@@ -322,17 +320,14 @@ bool CSimulation::bFindExeDir(char const* pcArg)
 
    if (0 != GetModuleFileName(NULL, szBuf, BUF_SIZE))
       strTmp = szBuf;
-
    else
       // It failed, so try another approach
       strTmp = pcArg;
-
 #else
    // char* pResult = getcwd(szBuf, BUF_SIZE);          // Used to use this, but what if cwd is not the same as the CoastalME dir?
 
    if (-1 != readlink("/proc/self/exe", szBuf, BUF_SIZE))
       strTmp = szBuf;
-
    else
       // It failed, so try another approach
       strTmp = pcArg;
@@ -349,13 +344,13 @@ bool CSimulation::bFindExeDir(char const* pcArg)
 
    return true;
 }
+
 //===============================================================================================================================
 //! Tells the user about the licence
 //===============================================================================================================================
 void CSimulation::AnnounceLicence(void)
 {
-   cout << COPYRIGHT << endl
-        << endl;
+   cout << COPYRIGHT << endl << endl;
    cout << LINE << endl;
    cout << DISCLAIMER1 << endl;
    cout << DISCLAIMER2 << endl;
@@ -363,8 +358,7 @@ void CSimulation::AnnounceLicence(void)
    cout << DISCLAIMER4 << endl;
    cout << DISCLAIMER5 << endl;
    cout << DISCLAIMER6 << endl;
-   cout << LINE << endl
-        << endl;
+   cout << LINE << endl << endl;
 
    cout << START_NOTICE << strGetComputerName() << " at " << put_time(localtime(&m_tSysStartTime), "%T on %A %d %B %Y") << endl;
    cout << INITIALIZING_NOTICE << endl;
@@ -421,12 +415,12 @@ int CSimulation::nDoSimulationTimeMultiplier(string const* strIn)
       break;
 
    case TIME_HOURS:
-      m_dDurationUnitsMult = 1; // Multiplier for hours
+      m_dDurationUnitsMult = 1;              // Multiplier for hours
       m_strDurationUnits = "hours";
       break;
 
    case TIME_DAYS:
-      m_dDurationUnitsMult = 24; // Multiplier for days -> hours
+      m_dDurationUnitsMult = 24;             // Multiplier for days -> hours
       m_strDurationUnits = "days";
       break;
 
@@ -436,7 +430,7 @@ int CSimulation::nDoSimulationTimeMultiplier(string const* strIn)
       break;
 
    case TIME_YEARS:
-      m_dDurationUnitsMult = 24 * 365.25; // Multiplier for years -> hours
+      m_dDurationUnitsMult = 24 * 365.25;    // Multiplier for years -> hours
       m_strDurationUnits = "years";
       break;
    }
@@ -451,16 +445,12 @@ int CSimulation::nDoTimeUnits(string const* strIn)
 {
    if (strIn->find("hour") != string::npos)
       return TIME_HOURS;
-
    else if (strIn->find("day") != string::npos)
       return TIME_DAYS;
-
    else if (strIn->find("month") != string::npos)
       return TIME_MONTHS;
-
    else if (strIn->find("year") != string::npos)
       return TIME_YEARS;
-
    else
       return TIME_UNKNOWN;
 }
@@ -475,7 +465,6 @@ bool CSimulation::bOpenLogFile(void)
       LogStream.open("/dev/null", ios::out | ios::trunc);
       cout << "Warning: log file is not writting" << endl;
    }
-
    else
       LogStream.open(m_strLogFile.c_str(), ios::out | ios::trunc);
 
@@ -544,7 +533,6 @@ void CSimulation::AnnounceReadLGIS(void) const
    if (! m_strInitialLandformFile.empty())
 #ifdef _WIN32
       cout << READING_LANDFORM_FILE << pstrChangeToForwardSlash(&m_strInitialLandformFile) << endl;
-
 #else
       cout << READING_LANDFORM_FILE << m_strInitialLandformFile << endl;
 #endif
@@ -559,7 +547,6 @@ void CSimulation::AnnounceReadICGIS(void) const
    if (! m_strInterventionClassFile.empty())
 #ifdef _WIN32
       cout << READING_INTERVENTION_CLASS_FILE << pstrChangeToForwardSlash(&m_strInterventionClassFile) << endl;
-
 #else
       cout << READING_INTERVENTION_CLASS_FILE << m_strInterventionClassFile << endl;
 #endif
@@ -574,7 +561,6 @@ void CSimulation::AnnounceReadIHGIS(void) const
    if (! m_strInterventionHeightFile.empty())
 #ifdef _WIN32
       cout << READING_INTERVENTION_HEIGHT_FILE << pstrChangeToForwardSlash(&m_strInterventionHeightFile) << endl;
-
 #else
       cout << READING_INTERVENTION_HEIGHT_FILE << m_strInterventionHeightFile << endl;
 #endif
@@ -589,7 +575,6 @@ void CSimulation::AnnounceReadDeepWaterWaveValuesGIS(void) const
    if (! m_strDeepWaterWavesInputFile.empty())
 #ifdef _WIN32
       cout << READING_DEEP_WATER_WAVE_FILE << pstrChangeToForwardSlash(&m_strDeepWaterWavesInputFile) << endl;
-
 #else
       cout << READING_DEEP_WATER_WAVE_FILE << m_strDeepWaterWavesInputFile << endl;
 #endif
@@ -604,7 +589,6 @@ void CSimulation::AnnounceReadSedimentEventInputValuesGIS(void) const
    if (! m_strSedimentInputEventFile.empty())
 #ifdef _WIN32
       cout << READING_SED_INPUT_EVENT_FILE << pstrChangeToForwardSlash(&m_strSedimentInputEventFile) << endl;
-
 #else
       cout << READING_SED_INPUT_EVENT_FILE << m_strSedimentInputEventFile << endl;
 #endif
@@ -619,7 +603,6 @@ void CSimulation::AnnounceReadFloodLocationGIS(void) const
    if (! m_strFloodLocationShapefile.empty())
 #ifdef _WIN32
       cout << READING_FLOOD_LOCATION << pstrChangeToForwardSlash(&m_strFloodLocationShapefile) << endl;
-
 #else
       cout << READING_FLOOD_LOCATION << m_strFloodLocationShapefile << endl;
 #endif
