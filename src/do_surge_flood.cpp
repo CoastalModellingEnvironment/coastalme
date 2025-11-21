@@ -24,6 +24,7 @@
 using std::isnan;
 
 #include <iostream>
+using std::cerr;
 using std::endl;
 using std::ios;
 
@@ -906,6 +907,92 @@ int CSimulation::nTraceFloodCoastLine(unsigned int const nTraceFromStartCellInde
       m_VFloodWaveSetupSurgeRunup.push_back(CoastTmp);
       nCoast = static_cast<int>(m_VFloodWaveSetupSurgeRunup.size()) - 1;
       m_VFloodWaveSetupSurgeRunup[nCoast].SetCoastlineExtCRS(&LTempExtCRS);
+   }
+
+   return RTN_OK;
+}
+
+//===============================================================================================================================
+//! First find all connected sea areas, then locate the vector coastline(s), then put these onto the raster grid
+//===============================================================================================================================
+int CSimulation::nLocateFloodAndCoasts(void)
+{
+   // Find all connected sea cells
+   FindAllInundatedCells();
+
+   // Find every coastline on the raster grid, mark raster cells, then create the vector coastline
+   int const nRet = nTraceAllFloodCoasts();
+
+   if (nRet != RTN_OK)
+      return nRet;
+
+   // Have we created any coasts?
+   switch (m_nLevel)
+   {
+   case 0: // WAVESETUP + SURGE:
+   {
+      if (m_VFloodWaveSetupSurge.empty())
+      {
+         cerr << m_ulIter << ": " << ERR << "no flood coastline located: this iteration SWL = " << m_dThisIterSWL << ", maximum DEM top surface elevation = " << m_dThisIterTopElevMax << ", minimum DEM top surface elevation = " << m_dThisIterTopElevMin << endl;
+         return RTN_ERR_NO_COAST;
+      }
+
+      break;
+   }
+
+   case 1: // WAVESETUP + SURGE + RUNUP:
+   {
+      if (m_VFloodWaveSetupSurgeRunup.empty())
+      {
+         cerr << m_ulIter << ": " << ERR << "no flood coastline located: this iteration SWL = " << m_dThisIterSWL << ", maximum DEM top surface elevation = " << m_dThisIterTopElevMax << ", minimum DEM top surface elevation = " << m_dThisIterTopElevMin << endl;
+         return RTN_ERR_NO_COAST;
+      }
+
+      break;
+   }
+   }
+
+   return RTN_OK;
+}
+
+//===============================================================================================================================
+//! Finds and flags all sea areas which have at least one cell at a grid edge (i.e. does not flag 'inland' seas)
+//===============================================================================================================================
+int CSimulation::FindAllInundatedCells(void)
+{
+   for (int nX = 0; nX < m_nXGridSize; nX++)
+   {
+      for (int nY = 0; nY < m_nYGridSize; nY++)
+      {
+         m_pRasterGrid->m_Cell[nX][nY].UnSetCheckFloodCell();
+         m_pRasterGrid->m_Cell[nX][nY].UnSetInContiguousFlood();
+         m_pRasterGrid->m_Cell[nX][nY].SetAsFloodline(false);
+      }
+   }
+
+   // Go along the list of edge cells
+   for (unsigned int n = 0; n < m_VEdgeCell.size(); n++)
+   {
+      if (m_bOmitSearchNorthEdge && m_VEdgeCellEdge[n] == NORTH)
+         continue;
+
+      if (m_bOmitSearchSouthEdge && m_VEdgeCellEdge[n] == SOUTH)
+         continue;
+
+      if (m_bOmitSearchWestEdge && m_VEdgeCellEdge[n] == WEST)
+         continue;
+
+      if (m_bOmitSearchEastEdge && m_VEdgeCellEdge[n] == EAST)
+         continue;
+
+      int const nX = m_VEdgeCell[n].nGetX();
+      int const nY = m_VEdgeCell[n].nGetY();
+
+      if ((! m_pRasterGrid->m_Cell[nX][nY].bIsCellFloodCheck()) && (m_pRasterGrid->m_Cell[nX][nY].bIsInundated()))
+      {
+         // This edge cell is below SWL and sea depth remains set to zero
+         FloodFillLand(nX, nY);
+      }
    }
 
    return RTN_OK;

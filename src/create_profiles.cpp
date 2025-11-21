@@ -97,13 +97,18 @@ int CSimulation::nCreateAllProfiles(void)
       // Sort this pair vector in descending order, so that the most convex curvature points are first
       sort(prVCurvature.begin(), prVCurvature.end(), bCurvaturePairCompareDescending);
 
-      // // DEBUG CODE =======================================================================================================================
-      // for (int n = 0; n < prVCurvature.size(); n++)
-      // {
-      // LogStream << prVCurvature[n].first << "\t" << prVCurvature[n].second << endl;
-      // }
-      // LogStream << endl << endl;
-      // // DEBUG CODE =======================================================================================================================
+      // DEBUG CODE =======================================================================================================================
+      for (int n = 0; n < prVCurvature.size(); n++)
+      {
+         int nTmpPoint = prVCurvature[n].first;
+         CGeom2DIPoint* pPtiTmp = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nTmpPoint);
+         int nXTmp = pPtiTmp->nGetX();
+         int nYTmp = pPtiTmp->nGetY();
+
+         LogStream << "**** coast point = " << prVCurvature[n].first << " at [" << nXTmp << "][" << nYTmp << "] has curvature = " << prVCurvature[n].second << endl;
+      }
+      LogStream << endl << endl;
+      // DEBUG CODE =======================================================================================================================
 
       // And mark points at and near the start and end of the coastline so that they don't get searched (will be creating 'special' start- and end-of-coast profiles at these end points later)
       for (int n = 0; n < m_nCoastNormalSpacing; n++)
@@ -267,8 +272,7 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
    int const nCoastSize = m_VCoast[nCoast].nGetCoastlineSize();
 
    // Work along the vector of curvature pairs starting at the convex end
-   for (int n = nCoastSize - 1; n >= 0;
-        n--)
+   for (int n = nCoastSize - 1; n >= 0; n--)
    {
       // Have we searched all the coastline points?
       int nStillToSearch = 0;
@@ -327,8 +331,9 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
 
          if (nRet != RTN_OK)
          {
-            // This potential profile is no good (has hit coast, or hit dry land, etc.) so forget about it
-            // LogStream << "Profile is no good" << endl;
+            // This potential profile is no good (too short for depth of closure, has hit coast, or hit dry land, etc.) so forget about it
+            LogStream << m_ulIter << ":\t profile at [" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] is no good" << endl;
+
             continue;
          }
 
@@ -445,6 +450,8 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    if (nRet == RTN_ERR_NO_SOLUTION_FOR_ENDPOINT)
    {
       // Could not solve end-point equation, so forget about this profile
+      LogStream << m_ulIter << ":\t could not solve end-point equation for possible profile starting at [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiStart->nGetY()) << "}" << endl;
+
       return nRet;
    }
 
@@ -454,8 +461,8 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    // Safety check: is the end point in the contiguous sea?
    if (! m_pRasterGrid->m_Cell[nXEnd][nYEnd].bIsInContiguousSea())
    {
-      // if (m_nLogFileDetail >= LOG_FILE_ALL)
-      // LogStream << m_ulIter << ": coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " has inland end point at [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ":\t coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " at [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiStart->nGetY()) << "} has inland end point at [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
 
       return RTN_ERR_PROFILE_ENDPOINT_IS_INLAND;
    }
@@ -463,8 +470,8 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    // Safety check: is the water depth at the end point less than the depth of closure?
    if (m_pRasterGrid->m_Cell[nXEnd][nYEnd].dGetSeaDepth() < m_dDepthOfClosure)
    {
-      // if (m_nLogFileDetail >= LOG_FILE_ALL)
-      // LogStream << m_ulIter << ": coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " is too short for depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ":\t coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " at [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiStart->nGetY()) << "} is too short for depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
 
       return RTN_ERR_PROFILE_END_INSUFFICIENT_DEPTH;
    }

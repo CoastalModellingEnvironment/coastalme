@@ -828,14 +828,14 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
    else if (m_nCoastSmooth == SMOOTH_SAVITZKY_GOLAY)
       LTempExtCRS = LSmoothCoastSavitzkyGolay(&LTempExtCRS, nStartEdge, nEndEdge);
 
-   //    // DEBUG CODE ==================================================================================================
-   // LogStream << "==================================" << endl;
-   // for (int j = 0; j < nCoastSize; j++)
-   // {
-   // LogStream << "{" << dGridCentroidXToExtCRSX(ILTempGridCRS[j].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILTempGridCRS[j].nGetY()) << "}" << "\t{" << LTempExtCRS.dGetXAt(j) << ", " << LTempExtCRS.dGetYAt(j) << "}" << endl;
-   // }
-   // LogStream << "==================================" << endl;
-   //    // DEBUG CODE ==================================================================================================
+   // DEBUG CODE ==================================================================================================
+   LogStream << "DEBUG CODE ==================================" << endl;
+   for (int j = 0; j < nCoastSize; j++)
+   {
+      LogStream << "ILTempGridCRS[" << j << "] = {" << dGridCentroidXToExtCRSX(ILTempGridCRS[j].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILTempGridCRS[j].nGetY()) << "}" << "\t{" << LTempExtCRS.dGetXAt(j) << ", " << LTempExtCRS.dGetYAt(j) << "}" << endl;
+   }
+   LogStream << "DEBUG CODE ==================================" << endl;
+   // DEBUG CODE ==================================================================================================
 
    // Create a new coastline object and append to it the vector of coastline objects
    CRWCoast const CoastTmp(this);
@@ -851,21 +851,6 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
 
    // Set the coastline (Grid CRS)
    m_VCoast[nCoast].SetCoastlineGridCRS(&ILTempGridCRS);
-
-   // CGeom2DPoint PtLast(DBL_MIN, DBL_MIN);
-   // for (int j = 0; j < nCoastSize; j++)
-   // {
-   //       // Store the smoothed points (in external CRS) in the coast's m_LCoastlineExtCRS object, also append dummy values to the other attribute vectors
-   // if (PtLast != &LTempExtCRS[j])        // Avoid duplicate points
-   // {
-   // m_VCoast[nCoast].AppendPointToCoastlineExtCRS(LTempExtCRS[j].dGetX(), LTempExtCRS[j].dGetY());
-   //
-   //          // Also store the locations of the corresponding unsmoothed points (in raster grid CRS) in the coast's m_ILCellsMarkedAsCoastline vector
-   // m_VCoast[nCoast].AppendCellMarkedAsCoastline(&ILTempGridCRS[j]);
-   // }
-   //
-   // PtLast = LTempExtCRS[j];
-   // }
 
    // Set values for the coast's other attributes: set the coast's handedness, and start and end edges
    m_VCoast[nCoast].SetSeaHandedness(nHandedness);
@@ -899,10 +884,10 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
       LogStream << " edge" << endl;
    }
 
-   // LogStream << "-----------------" << endl;
+   // LogStream << "DEBUG CODE -----------------" << endl;
    // for (int kk = 0; kk < m_VCoast.back().nGetCoastlineSize(); kk++)
-   // LogStream << kk << " [" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX() << "][" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY()) << "}" << endl;
-   // LogStream << "-----------------" << endl;
+   //    LogStream << kk << " [" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX() << "][" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY()) << "}" << endl;
+   // LogStream << "DEBUG CODE -----------------" << endl;
 
    // Next calculate the curvature of the vector coastline
    DoCoastCurvature(nCoast, nHandedness);
@@ -916,88 +901,3 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
    return RTN_OK;
 }
 
-//===============================================================================================================================
-//! First find all connected sea areas, then locate the vector coastline(s), then put these onto the raster grid
-//===============================================================================================================================
-int CSimulation::nLocateFloodAndCoasts(void)
-{
-   // Find all connected sea cells
-   FindAllInundatedCells();
-
-   // Find every coastline on the raster grid, mark raster cells, then create the vector coastline
-   int const nRet = nTraceAllFloodCoasts();
-
-   if (nRet != RTN_OK)
-      return nRet;
-
-   // Have we created any coasts?
-   switch (m_nLevel)
-   {
-   case 0: // WAVESETUP + SURGE:
-   {
-      if (m_VFloodWaveSetupSurge.empty())
-      {
-         cerr << m_ulIter << ": " << ERR << "no flood coastline located: this iteration SWL = " << m_dThisIterSWL << ", maximum DEM top surface elevation = " << m_dThisIterTopElevMax << ", minimum DEM top surface elevation = " << m_dThisIterTopElevMin << endl;
-         return RTN_ERR_NO_COAST;
-      }
-
-      break;
-   }
-
-   case 1: // WAVESETUP + SURGE + RUNUP:
-   {
-      if (m_VFloodWaveSetupSurgeRunup.empty())
-      {
-         cerr << m_ulIter << ": " << ERR << "no flood coastline located: this iteration SWL = " << m_dThisIterSWL << ", maximum DEM top surface elevation = " << m_dThisIterTopElevMax << ", minimum DEM top surface elevation = " << m_dThisIterTopElevMin << endl;
-         return RTN_ERR_NO_COAST;
-      }
-
-      break;
-   }
-   }
-
-   return RTN_OK;
-}
-
-//===============================================================================================================================
-//! Finds and flags all sea areas which have at least one cell at a grid edge (i.e. does not flag 'inland' seas)
-//===============================================================================================================================
-int CSimulation::FindAllInundatedCells(void)
-{
-   for (int nX = 0; nX < m_nXGridSize; nX++)
-   {
-      for (int nY = 0; nY < m_nYGridSize; nY++)
-      {
-         m_pRasterGrid->m_Cell[nX][nY].UnSetCheckFloodCell();
-         m_pRasterGrid->m_Cell[nX][nY].UnSetInContiguousFlood();
-         m_pRasterGrid->m_Cell[nX][nY].SetAsFloodline(false);
-      }
-   }
-
-   // Go along the list of edge cells
-   for (unsigned int n = 0; n < m_VEdgeCell.size(); n++)
-   {
-      if (m_bOmitSearchNorthEdge && m_VEdgeCellEdge[n] == NORTH)
-         continue;
-
-      if (m_bOmitSearchSouthEdge && m_VEdgeCellEdge[n] == SOUTH)
-         continue;
-
-      if (m_bOmitSearchWestEdge && m_VEdgeCellEdge[n] == WEST)
-         continue;
-
-      if (m_bOmitSearchEastEdge && m_VEdgeCellEdge[n] == EAST)
-         continue;
-
-      int const nX = m_VEdgeCell[n].nGetX();
-      int const nY = m_VEdgeCell[n].nGetY();
-
-      if ((! m_pRasterGrid->m_Cell[nX][nY].bIsCellFloodCheck()) && (m_pRasterGrid->m_Cell[nX][nY].bIsInundated()))
-      {
-         // This edge cell is below SWL and sea depth remains set to zero
-         FloodFillLand(nX, nY);
-      }
-   }
-
-   return RTN_OK;
-}

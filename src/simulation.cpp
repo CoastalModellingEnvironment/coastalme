@@ -328,7 +328,7 @@ CSimulation::CSimulation(void)
    m_dSyntheticTransectSpacing = 0;
    m_dThisIterTotSeaDepth = 0;
    m_dThisIterPotentialSedLostBeachErosion = 0;
-   m_dThisIterLeftGridUnconsFine = 0;        // TODO067
+   m_dThisIterLeftGridUnconsFine = 0;        // TODO 067
    m_dThisIterLeftGridUnconsSand = 0;
    m_dThisIterLeftGridUnconsCoarse = 0;
    m_dThisIterPotentialPlatformErosion = 0;
