@@ -371,14 +371,13 @@ int CSimulation::nTraceAllVectorCoasts(void)
 
             // Find the end cell in the list of edge cells
             auto it = find(m_VEdgeCell.begin(), m_VEdgeCell.end(), &PtiEnd);
-
             if (it == m_VEdgeCell.end())
             {
-               // Not found. This can happen because of rounding problems, i.e. the cell which was stored as the first cell of the raster coastline
+               // Not found, however this is not serious
                if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-                  LogStream << m_ulIter << ": " << ERR << " when tracing coast, [" << PtiEnd.nGetX() << "][" << PtiEnd.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiEnd.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiEnd.nGetY()) << "} not found in list of edge cells" << endl;
+                  LogStream << m_ulIter << ": " << WARN << " when tracing coast, [" << PtiEnd.nGetX() << "][" << PtiEnd.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiEnd.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiEnd.nGetY()) << "} not found in list of edge cells" << endl;
 
-               return RTN_ERR_COAST_CANT_FIND_EDGE_CELL;
+               // return RTN_ERR_COAST_CANT_FIND_EDGE_CELL;
             }
 
             // Found
@@ -447,41 +446,6 @@ int CSimulation::nTraceAllVectorCoasts(void)
 //===============================================================================================================================
 int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedness, CGeom2DIPoint const* pPtiStartCell, CGeom2DIPoint* pPtiEndCell)
 {
-   // LogStream << m_ulIter << ": \ttracing coastline from ";
-   switch(nStartEdge)
-   {
-      case NORTH:
-         LogStream << "NORTH";
-         break;
-      case NORTH_EAST:
-         LogStream << "NORTH EAST";
-         break;
-      case EAST:
-         LogStream << "EAST";
-         break;
-      case SOUTH_EAST:
-         LogStream << "SOUTH EAST";
-         break;
-      case SOUTH:
-         LogStream << "SOUTH";
-         break;
-      case SOUTH_WEST:
-         LogStream << "SOUTH WEST";
-         break;
-      case WEST:
-         LogStream << "WEST";
-         break;
-      case NORTH_WEST:
-         LogStream << "NORTH WEST";
-         break;
-   }
-   LogStream << " edge, handedness = ";
-   if (nHandedness == LEFT_HANDED)
-      LogStream << "LEFT-HANDED";
-   else
-      LogStream << "RIGHT HANDED";
-   LogStream << endl;
-
    // Temporary coastline as integer points (grid CRS)
    CGeomILine ILTempGridCRS;
 
@@ -489,8 +453,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
    ILTempGridCRS.Append(pPtiStartCell);
 
    bool bHitEdge = false;
-   bool bTooLong = false;
-   bool bRepeating = false;
+   bool bError = false;
 
    int nRoundLoop = -1;
    int nX = pPtiStartCell->nGetX();
@@ -709,6 +672,7 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
       // Did we hit an edge?
       if (m_pRasterGrid->m_Cell[nX][nY].bIsBoundingBoxEdge())
       {
+         // We did, so this could be a valid coastline
           bHitEdge = true;
           // LogStream << m_ulIter << ": \thit edge at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
 
@@ -717,7 +681,9 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
 
       if (! bFound)
       {
+         // The coastline ends, but not at an edge
          LogStream << m_ulIter << ": \tcoastline at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} ends incorrectly, abandoned" << endl;
+         bError = true;
 
          break;
       }
@@ -725,8 +691,8 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
       // Safety check
       if (++nRoundLoop > m_nCoastMax)
       {
-         bTooLong = true;
          LogStream << m_ulIter << ": \tcoastline at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} is too long (" << nRoundLoop << " points), abandoned"  << endl;
+         bError = true;
 
          break;
       }
@@ -735,18 +701,26 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
       if ((nRoundLoop > 10) && (ILTempGridCRS.nGetSize() < 2))
       {
          // We've been 10 times round the loop but the coast is still less than 2 coastline points in length, so we must be repeating
-         bRepeating = true;
          LogStream << m_ulIter << ": \tcoastline at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} is looping, abandoned" << endl;
+         bError = true;
 
          break;
       }
 
    } while (true);
 
-   // OK, we have a coastline. But is it any good?
    int nCoastSize = ILTempGridCRS.nGetSize();
 
-   // Now check this possible coastline
+   if (bError)
+   {
+      // This coastline is no good, so unmark the cells
+      for (int nCell = 0; nCell < nCoastSize; nCell++)
+         m_pRasterGrid->m_Cell[nX][nY].SetAsCoastline(INT_NODATA);
+
+      return RTN_ERR_IGNORING_COAST;
+   }
+
+   // OK, the coastline may be OK, but we still need to do more checks
    if (bHitEdge && (*pPtiStartCell == ILTempGridCRS.Back()))
    {
       // This coastline is a loop, returning to the start cell
@@ -760,45 +734,6 @@ int CSimulation::nTraceVectorCoastLine(int const nStartEdge, int const nHandedne
          m_pRasterGrid->m_Cell[nX][nY].SetAsCoastline(INT_NODATA);
 
       return RTN_ERR_IGNORING_COAST;
-   }
-
-   if (bTooLong)
-   {
-      // Around loop too many times, so abandon this coastline
-      if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-      {
-         LogStream << m_ulIter << ": \tabandoning possible coastline from [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "} since round loop " << nRoundLoop << " times, coastline size is " << nCoastSize;
-
-         if (nCoastSize > 0)
-            LogStream << ", ended at [" << ILTempGridCRS[nCoastSize - 1].nGetX() << "][" << ILTempGridCRS[nCoastSize - 1].nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILTempGridCRS[nCoastSize - 1].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILTempGridCRS[nCoastSize - 1].nGetY()) << "}";
-
-         LogStream << endl;
-      }
-
-      // Unmark the cells
-      for (int nCell = 0; nCell < nCoastSize; nCell++)
-         m_pRasterGrid->m_Cell[nX][nY].SetAsCoastline(INT_NODATA);
-
-      return RTN_ERR_TOO_LONG_TRACING_COAST;
-   }
-
-   if (bRepeating)
-   {
-      if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-      {
-         LogStream << m_ulIter << ": abandon possible coastline from [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "} since repeating, coastline size is " << nCoastSize;
-
-         if (nCoastSize > 0)
-            LogStream << ", it ended at [" << ILTempGridCRS[nCoastSize - 1].nGetX() << "][" << ILTempGridCRS[nCoastSize - 1].nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILTempGridCRS[nCoastSize - 1].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILTempGridCRS[nCoastSize - 1].nGetY()) << "}";
-
-         LogStream << endl;
-      }
-
-      // Unmark the cells
-      for (int nCell = 0; nCell < nCoastSize; nCell++)
-         m_pRasterGrid->m_Cell[nX][nY].SetAsCoastline(INT_NODATA);
-
-      return RTN_ERR_REPEATING_WHEN_TRACING_COAST;
    }
 
    if (nCoastSize < m_nCoastMin)

@@ -300,9 +300,6 @@ int CSimulation::nDoAllPropagateWaves(void)
 {
    // Set up vector to hold wave data for each transect/profile
    vector<TransectWaveData> VAllTransects;
-   // DEBUG CODE ============================================================================================================
-   LogStream << m_ulIter << ": \t At start of nDoAllPropagateWaves()" << endl;
-   // DEBUG CODE ============================================================================================================
 
    // Set up all-profile vectors to hold the wave attribute data at every profile point on all profiles
    vector<bool> VbBreakingAll;
@@ -447,10 +444,6 @@ int CSimulation::nDoAllPropagateWaves(void)
          }
       }
    }
-
-   // DEBUG CODE ============================================================================================================
-   LogStream << m_ulIter << ": \t starting loop" << endl;
-   // DEBUG CODE ============================================================================================================
 
    for (int nY = 0; nY < m_nYGridSize; nY++)
    {
@@ -1261,7 +1254,7 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
          }
 
          // OK, give up for this profile
-         LogStream << m_ulIter << ": " << strErr << endl;
+         LogStream << strErr << endl;
          return RTN_ERR_CSHORE_ERROR;
       }
 
