@@ -123,7 +123,10 @@ subroutine BOTTOM
       if (JMAX(L) < JDUM) goto 130
       JDUM = JMAX(L)
       
-      do 141 J = 1, JMAX(L)
+      ! DFM bodge ===============
+      if (JDUM > 1001) JDUM = 1001
+      do 141 J = 1, JDUM
+!      do 141 J = 1, JMAX(L)
          XB(J) = DX * DBLE(J-1)
 141   end do
 

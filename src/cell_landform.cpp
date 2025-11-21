@@ -29,9 +29,7 @@ CRWCellLandform::CRWCellLandform()
 {
    m_uLFData.m_sCliffData.m_dNotchApexElev = DBL_NODATA;
    m_uLFData.m_sCliffData.m_dNotchIncision = DBL_NODATA;
-#ifdef _DEBUG
    m_uLFData.m_sCliffData.m_ulCollapseTimestep = UNSIGNED_LONG_NODATA;
-#endif
 }
 
 //! Destructor
@@ -129,7 +127,6 @@ double CRWCellLandform::dGetCliffNotchIncisionDepth(void) const
 //    m_uLFData.m_sCliffData.m_dRemaining = dLenIn;
 // }
 
-#ifdef _DEBUG
 //! Set the timestep at which cliff collapse occurred
 void CRWCellLandform::SetCliffCollapseTimestep(unsigned long const ulTimestep)
 {
@@ -141,5 +138,4 @@ unsigned long CRWCellLandform::ulGetCliffCollapseTimestep(void) const
 {
    return m_uLFData.m_sCliffData.m_ulCollapseTimestep;
 }
-#endif
 

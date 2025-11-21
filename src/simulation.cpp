@@ -570,8 +570,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       {
          // Running with stdout and stderr as a tty, so ask the user if they wish to create it
          char ch;
-         cerr << endl
-              << "Output folder '" << m_strOutPath << "' does not exist. Create it? (Y/N) ";
+         cerr << endl << "Output folder '" << m_strOutPath << "' does not exist. Create it? (Y/N) ";
          cerr.flush();
          cin.get(ch);
 

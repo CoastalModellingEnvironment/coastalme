@@ -53,10 +53,8 @@ class CRWCellLandform
          //! Cliff notch, horizontal depth of incision
          double m_dNotchIncision;
 
-#ifdef _DEBUG
          //! Timestep at which cliff collapse occurred
          unsigned long m_ulCollapseTimestep;
-#endif
       } m_sCliffData;
 
    } m_uLFData;
@@ -87,9 +85,7 @@ class CRWCellLandform
    // void SetCliffRemaining(double const);
    // double dGetCliffRemaining(void) const;
 
-#ifdef _DEBUG
    void SetCliffCollapseTimestep(unsigned long const);
    unsigned long ulGetCliffCollapseTimestep(void) const;
-#endif
 };
 #endif // CELL_LANDFORM_H

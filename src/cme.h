@@ -500,9 +500,7 @@ int const RASTER_PLOT_CLIFF_COLLAPSE_DEPOSITION_SAND = 13;
 int const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_COARSE = 14;
 int const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_FINE = 15;
 int const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_SAND = 16;
-#ifdef _DEBUG
 int const RASTER_PLOT_CLIFF_COLLAPSE_TIMESTEP = 17;
-#endif
 int const RASTER_PLOT_CLIFF_NOTCH_ALL = 18;
 int const RASTER_PLOT_CLIFF_TOE = 19;
 int const RASTER_PLOT_COARSE_CONSOLIDATED_SEDIMENT = 20;
@@ -987,9 +985,7 @@ string const RASTER_PLOT_CLIFF_COLLAPSE_DEPOSITION_SAND_TITLE = "Depth of sand t
 string const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_COARSE_TITLE = "Cliff collapse depth of erosion, coarse sediment";
 string const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_FINE_TITLE = "Cliff collapse depth of erosion, fine sediment";
 string const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_SAND_TITLE = "Cliff collapse depth of erosion, sand sediment";
-#ifdef _DEBUG
 string const RASTER_PLOT_CLIFF_COLLAPSE_TIMESTEP_TITLE = "Timestep at which cliff collapse occurred";
-#endif
 string const RASTER_PLOT_CLIFF_NOTCH_ALL_TITLE = "All cliff notch incision";
 string const RASTER_PLOT_CLIFF_TOE_TITLE = "Cliff toe cells";
 string const RASTER_PLOT_COARSE_CONSOLIDATED_SEDIMENT_TITLE = "Consolidated coarse sediment depth";

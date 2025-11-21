@@ -1172,13 +1172,11 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
                return false;
          }
 
-#ifdef _DEBUG
          if (m_bCliffCollapseTimestepSave)
          {
             if (! bWriteRasterGISFile(RASTER_PLOT_CLIFF_COLLAPSE_TIMESTEP, &RASTER_PLOT_CLIFF_COLLAPSE_TIMESTEP_TITLE))
                return false;
          }
-#endif
       }
 
       if (m_bTotCliffCollapseSave)
