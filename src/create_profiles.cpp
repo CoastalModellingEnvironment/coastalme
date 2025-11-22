@@ -307,20 +307,20 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
          // Create a profile here
          int const nRet = nCreateProfile(nCoast, nCoastSize, nNormalPoint, nProfile, bIntervention, &PtiThis);
 
-         // // DEBUG CODE =================
-         // LogStream << "After nCreateProfile() ===========" << endl;
-         // CGeomProfile* pProfile = m_VCoast[nCoast].pGetProfile(nProfile);
-         // LogStream << pProfile->nGetProfileID() << "\t";
-         //
-         // int nPointsInProfile = pProfile->nGetProfileSize();
-         //
-         // for (int nPoint = 0; nPoint < nPointsInProfile; nPoint++)
-         // {
-         // CGeom2DPoint Pt = *pProfile->pPtGetPointInProfile(nPoint);
-         // LogStream << " {" << Pt.dGetX() << ", " << Pt.dGetY() << "}";
-         // }
-         // LogStream << endl << "===========" << endl;
-         // // DEBUG CODE =================
+         // DEBUG CODE =================
+         LogStream << "After nCreateProfile() ===========" << endl;
+         CGeomProfile* pProfile = m_VCoast[nCoast].pGetProfile(nProfile);
+         LogStream << pProfile->nGetProfileID() << "\t";
+
+         int nPointsInProfile = pProfile->nGetProfileSize();
+
+         for (int nPoint = 0; nPoint < nPointsInProfile; nPoint++)
+         {
+            CGeom2DPoint Pt = *pProfile->pPtGetPointInProfile(nPoint);
+            LogStream << " {" << Pt.dGetX() << ", " << Pt.dGetY() << "}";
+         }
+         LogStream << endl << "===========" << endl;
+         // DEBUG CODE =================
 
          // Mark this coast point as searched
          pbVCoastPointDone->at(nNormalPoint) = true;
@@ -328,53 +328,53 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
          if (nRet != RTN_OK)
          {
             // This potential profile is no good (has hit coast, or hit dry land, etc.) so forget about it
-            // LogStream << "Profile is no good" << endl;
+            LogStream << "Profile is no good" << endl;
             continue;
          }
 
-         // // DEBUG CODE ===================================================================================================
-         // LogStream << endl << "===========================================================================================" << endl;
-         // LogStream << "PROFILES JUST AFTER CREATION" << endl;
-         // int nNumProfiles = m_VCoast[nCoast].nGetNumProfiles();
-         // for (int nn = 0; nn < nNumProfiles; nn++)
-         // {
-         // CGeomProfile* pProfile = m_VCoast[nCoast].pGetProfile(nn);
-         //
-         // LogStream << nn << " nCoastID = " << pProfile->nGetProfileID() << " nGlobalID = " << pProfile->nGetProfileID() << " nGetCoastPoint = " << pProfile->nGetCoastPoint() << " pGetUpCoastAdjacentProfile = " << pProfile->pGetUpCoastAdjacentProfile() << " pGetDownCoastAdjacentProfile = " << pProfile->pGetDownCoastAdjacentProfile() << endl;
-         // }
-         // LogStream << "===================================================================================================" << endl << endl;
-         // // DEBUG CODE ===================================================================================================
-         //
-         // // DEBUG CODE ===================================================================================================
-         // LogStream << "++++++++++++++++++++++" << endl;
-         // LogStream << endl << "Just created profile " << nProfile << endl;
-         // int nProf = 0;
-         // for (int nnn = 0; nnn < nCoastSize; nnn++)
-         // {
-         // if (m_VCoast[nCoast].bIsProfileAtCoastPoint(nnn))
-         // {
-         // CGeomProfile* pProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nnn);
-         //
-         // LogStream << "profile " << pProfile->nGetProfileID() << " at coast point " << nnn << " adjacent up-coast profile = " << pProfile->pGetUpCoastAdjacentProfile() << " adjacent down-coast profile = " << pProfile->pGetDownCoastAdjacentProfile() << endl;
-         //
-         // nProf++;
-         // }
-         // }
-         // LogStream << endl;
-         // LogStream << "nProf = " << nProf << endl;
-         // LogStream << "++++++++++++++++++++++" << endl;
-         // // DEBUG CODE ===================================================================================================
+//          // DEBUG CODE ===================================================================================================
+//          LogStream << endl << "===========================================================================================" << endl;
+//          LogStream << "PROFILES JUST AFTER CREATION" << endl;
+//          int nNumProfiles = m_VCoast[nCoast].nGetNumProfiles();
+//          for (int nn = 0; nn < nNumProfiles; nn++)
+//          {
+//             CGeomProfile* pProfile = m_VCoast[nCoast].pGetProfile(nn);
+//
+//             LogStream << nn << " nCoastID = " << pProfile->nGetProfileID() << " nGlobalID = " << pProfile->nGetProfileID() << " nGetCoastPoint = " << pProfile->nGetCoastPoint() << " pGetUpCoastAdjacentProfile = " << pProfile->pGetUpCoastAdjacentProfile() << " pGetDownCoastAdjacentProfile = " << pProfile->pGetDownCoastAdjacentProfile() << endl;
+//          }
+//          LogStream << "===================================================================================================" << endl << endl;
+//          // DEBUG CODE ===================================================================================================
+//
+//          // DEBUG CODE ===================================================================================================
+//          LogStream << "++++++++++++++++++++++" << endl;
+//          LogStream << endl << "Just created profile " << nProfile << endl;
+//          int nProf = 0;
+//          for (int nnn = 0; nnn < nCoastSize; nnn++)
+//          {
+//             if (m_VCoast[nCoast].bIsProfileAtCoastPoint(nnn))
+//             {
+//                CGeomProfile* pProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nnn);
+//
+//                LogStream << "profile " << pProfile->nGetProfileID() << " at coast point " << nnn << " adjacent up-coast profile = " << pProfile->pGetUpCoastAdjacentProfile() << " adjacent down-coast profile = " << pProfile->pGetDownCoastAdjacentProfile() << endl;
+//
+//                nProf++;
+//             }
+//          }
+//          LogStream << endl;
+//          LogStream << "nProf = " << nProf << endl;
+//          LogStream << "++++++++++++++++++++++" << endl;
+//          // DEBUG CODE ===================================================================================================
 
-         // CGeom2DPoint PtThis = *m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nNormalPoint);
-         // if (m_nLogFileDetail >= LOG_FILE_ALL)
-         // LogStream << m_ulIter << ": \tcoast " << nCoast << " profile " << nProfile << " created at coast point " << nNormalPoint << " [" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] = {" << PtThis.dGetX() << ", " << PtThis.dGetY() << "} (smoothed curvature = " << m_VCoast[nCoast].dGetSmoothCurvature(nNormalPoint) << ", detailed curvature = " << m_VCoast[nCoast].dGetDetailedCurvature(nNormalPoint) << ")" << endl;
+         CGeom2DPoint PtThis = *m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nNormalPoint);
+         if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": \tcoast " << nCoast << " profile " << nProfile << " created at coast point " << nNormalPoint << " [" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] = {" << PtThis.dGetX() << ", " << PtThis.dGetY() << "} (smoothed curvature = " << m_VCoast[nCoast].dGetSmoothCurvature(nNormalPoint) << ", detailed curvature = " << m_VCoast[nCoast].dGetDetailedCurvature(nNormalPoint) << ")" << endl;
 
-         // // DEBUG CODE =================================================================================
-         // if (m_pRasterGrid->m_Cell[PtiThis.nGetX()][PtiThis.nGetY()].bIsCoastline())
-         // LogStream << m_ulIter << ": cell[" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] IS coastline, coast number = " << m_pRasterGrid->m_Cell[PtiThis.nGetX()][PtiThis.nGetY()].nGetCoastline() << endl;
-         // else
-         // LogStream << m_ulIter << ": ******* cell[" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] IS NOT coastline" << endl;
-         // // DEBUG CODE =================================================================================
+         // DEBUG CODE =================================================================================
+         if (m_pRasterGrid->m_Cell[PtiThis.nGetX()][PtiThis.nGetY()].bIsCoastline())
+         LogStream << m_ulIter << ": cell[" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] IS coastline, coast number = " << m_pRasterGrid->m_Cell[PtiThis.nGetX()][PtiThis.nGetY()].nGetCoastline() << endl;
+         else
+         LogStream << m_ulIter << ": ******* cell[" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] IS NOT coastline" << endl;
+         // DEBUG CODE =================================================================================
 
          // This profile is fine
          nProfile++;

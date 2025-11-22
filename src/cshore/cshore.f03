@@ -348,6 +348,9 @@ subroutine CShore(NRET)
          JP1 = J + 1
          ITE = 0
 
+         ! DFM bodge =====================
+         if (JP1 > 1000) JP1 = 1000
+
          DUM = DFSTA(J) + DBSTA(J)
          
          if (IPERM == 1) DUM = DUM + DPSTA(J)
@@ -392,6 +395,7 @@ subroutine CShore(NRET)
          endif
          
          SIGITE = DSQRT(DUM)
+
          SXXSTA(JP1) = FSX * SIGITE ** 2.D0
          
          if (IROLL == 1) SXXSTA(JP1) = SXXSTA(JP1) + RX(J) * RQ(J)
