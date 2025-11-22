@@ -20,12 +20,12 @@
 
 # Path to the main input configuration file (.dat or .yaml)
 # Can be absolute or relative to the directory containing this file
-input_data_file: in/CSE/0_Typology/Cliff/in/cliff.yaml
+input_data_file: in/CSE/Thorpness/in/thorpness.yaml
 
 # Path for output files
 # Can be absolute or relative to the directory containing this file
 # IMPORTANT: A trailing slash is required
-output_path: out/CSE/Typology/Cliff/
+output_path: out/CSE/Thorpness/
 
 # Email address for notification messages (optional, Linux only)
 # Uncomment to enable email notifications

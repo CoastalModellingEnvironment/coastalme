@@ -313,7 +313,7 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
          if (nRet != RTN_OK)
          {
             // This potential profile is no good (has hit coast, or hit dry land, etc.) so forget about it
-            LogStream << "Profile is no good" << endl;
+            LogStream << m_ulIter << ": \tprofile at coastpoint " << nNormalPoint << " is no good" << endl;
             continue;
          }
 

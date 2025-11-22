@@ -83,7 +83,7 @@ subroutine BOTTOM
       
       IF (CROSS > 0.D0) goto 900
 
-      ! DFM safety check
+      ! DFM safety check =======================
       if (SLOPE(K) == 0.D0) SLOPE(K) = 1.0D-6
    
       XS(L) = XBINP(K+1,L) - ZBINP(K+1,L) / SLOPE(K)      
@@ -124,9 +124,9 @@ subroutine BOTTOM
       JDUM = JMAX(L)
       
       ! DFM bodge ===============
-      if (JDUM > 1001) JDUM = 1001
+      if (JDUM > 1000) JDUM = 1000
       do 141 J = 1, JDUM
-!      do 141 J = 1, JMAX(L)
+!      do 141 J = 1, JMAX(L)     ! DFM
          XB(J) = DX * DBLE(J-1)
 141   end do
 
@@ -135,7 +135,12 @@ subroutine BOTTOM
       FB2(1,L) = 0.5D0 * FBINP(1,L)
       RCREST(L) = ZBRAW(1)
       
-      do 142 J = 2, JMAX(L)
+      ! DFM bodge ===============
+      JDUM = JMAX(L)
+      if (JDUM > 1000) JDUM = 1000
+
+      do 142 J = 2, JDUM
+!      do 142 J = 2, JMAX(L)     ! DFM
          do 143 K = 1, NBINP(L)-1
             if ((XB(J) > XBINP(K,L)) .and. (XB(J) <= XBINP(K+1,L))) then
                ZBRAW(J) = ZBINP(K,L) + (XB(J) - XBINP(K,L)) * SLOPE(K)
