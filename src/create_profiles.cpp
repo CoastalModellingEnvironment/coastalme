@@ -307,21 +307,6 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
          // Create a profile here
          int const nRet = nCreateProfile(nCoast, nCoastSize, nNormalPoint, nProfile, bIntervention, &PtiThis);
 
-         // DEBUG CODE =================
-         LogStream << "After nCreateProfile() ===========" << endl;
-         CGeomProfile* pProfile = m_VCoast[nCoast].pGetProfile(nProfile);
-         LogStream << pProfile->nGetProfileID() << "\t";
-
-         int nPointsInProfile = pProfile->nGetProfileSize();
-
-         for (int nPoint = 0; nPoint < nPointsInProfile; nPoint++)
-         {
-            CGeom2DPoint Pt = *pProfile->pPtGetPointInProfile(nPoint);
-            LogStream << " {" << Pt.dGetX() << ", " << Pt.dGetY() << "}";
-         }
-         LogStream << endl << "===========" << endl;
-         // DEBUG CODE =================
-
          // Mark this coast point as searched
          pbVCoastPointDone->at(nNormalPoint) = true;
 
@@ -331,6 +316,21 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
             LogStream << "Profile is no good" << endl;
             continue;
          }
+
+         // // DEBUG CODE =================
+         // LogStream << "After nCreateProfile() ===========" << endl;
+         // CGeomProfile* pProfile = m_VCoast[nCoast].pGetProfile(nProfile);
+         // LogStream << pProfile->nGetProfileID() << "\t";
+         //
+         // int nPointsInProfile = pProfile->nGetProfileSize();
+         //
+         // for (int nPoint = 0; nPoint < nPointsInProfile; nPoint++)
+         // {
+         //    CGeom2DPoint Pt = *pProfile->pPtGetPointInProfile(nPoint);
+         //    LogStream << " {" << Pt.dGetX() << ", " << Pt.dGetY() << "}";
+         // }
+         // LogStream << endl << "===========" << endl;
+         // // DEBUG CODE =================
 
 //          // DEBUG CODE ===================================================================================================
 //          LogStream << endl << "===========================================================================================" << endl;
@@ -445,6 +445,8 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    if (nRet == RTN_ERR_NO_SOLUTION_FOR_ENDPOINT)
    {
       // Could not solve end-point equation, so forget about this profile
+      LogStream << m_ulIter << ": \t could not solve end-point equation for profile" << endl;
+
       return nRet;
    }
 
@@ -454,8 +456,8 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    // Safety check: is the end point in the contiguous sea?
    if (! m_pRasterGrid->m_Cell[nXEnd][nYEnd].bIsInContiguousSea())
    {
-      // if (m_nLogFileDetail >= LOG_FILE_ALL)
-      // LogStream << m_ulIter << ": coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " has inland end point at [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " has inland end point at [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
 
       return RTN_ERR_PROFILE_ENDPOINT_IS_INLAND;
    }
@@ -463,8 +465,8 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    // Safety check: is the water depth at the end point less than the depth of closure?
    if (m_pRasterGrid->m_Cell[nXEnd][nYEnd].dGetSeaDepth() < m_dDepthOfClosure)
    {
-      // if (m_nLogFileDetail >= LOG_FILE_ALL)
-      // LogStream << m_ulIter << ": coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " is too short for depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " is too short for depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
 
       return RTN_ERR_PROFILE_END_INSUFFICIENT_DEPTH;
    }
