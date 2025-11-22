@@ -349,6 +349,9 @@ subroutine CShore(NRET)
          ITE = 0
 
          ! DFM bodge =====================
+         if (J > 1000) J = 1000
+
+         ! DFM bodge =====================
          if (JP1 > 1000) JP1 = 1000
 
          DUM = DFSTA(J) + DBSTA(J)
