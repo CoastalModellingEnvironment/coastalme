@@ -264,11 +264,11 @@ int CSimulation::nCreateAllProfiles(void)
 //===============================================================================================================================
 void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vector<bool>* pbVCoastPointDone, vector<pair<int, double>> const* prVCurvature)
 {
+   LogStream << m_ulIter << "\t in LocateAndCreateProfiles() nCoast = " << nCoast << " nProfile = " << nProfile << endl;
    int const nCoastSize = m_VCoast[nCoast].nGetCoastlineSize();
 
    // Work along the vector of curvature pairs starting at the convex end
-   for (int n = nCoastSize - 1; n >= 0;
-        n--)
+   for (int n = nCoastSize - 1; n >= 0; n--)
    {
       // Have we searched all the coastline points?
       int nStillToSearch = 0;
@@ -278,15 +278,21 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
             nStillToSearch++;
 
       if (nStillToSearch == 0)
+      {
          // OK we are done here
+         LogStream << "nStillToSearch = " << nStillToSearch << endl;
          return;
+      }
 
       // This convex point on the coastline is a potential location for a normal
       int const nNormalPoint = prVCurvature->at(n).first;
 
       // Ignore each end of the coastline
       if ((nNormalPoint == 0) || (nNormalPoint == nCoastSize - 1))
+      {
+         LogStream <<"Ignoring start on end of coastline, nNormalPoint = " << nNormalPoint << endl;
          continue;
+      }
 
       // TODO 089 When choosing locations for profiles, do coast first then interventions
 
@@ -305,6 +311,7 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
          CGeom2DIPoint const PtiThis = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nNormalPoint);
 
          // Create a profile here
+         LogStream << "Creating profile at nNormalPoint = " << nNormalPoint << endl;
          int const nRet = nCreateProfile(nCoast, nCoastSize, nNormalPoint, nProfile, bIntervention, &PtiThis);
 
          // Mark this coast point as searched
@@ -434,6 +441,8 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
 //===============================================================================================================================
 int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int const nProfileStartPoint, int const nProfile, bool const bIntervention, CGeom2DIPoint const* pPtiStart)
 {
+   LogStream << "In nCreateProfile() nProfileStartPoint = " << nProfileStartPoint << " nProfile = " << nProfile << " start point [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "]" << endl;
+
    // OK, we have flagged the start point of this new coastline-normal profile, so create it. Make the start of the profile the centroid of the actual cell that is marked as coast (not the cell under the smoothed vector coast, they may well be different)
    CGeom2DPoint PtStart;      // In external CRS
    PtStart.SetX(dGridCentroidXToExtCRSX(pPtiStart->nGetX()));
