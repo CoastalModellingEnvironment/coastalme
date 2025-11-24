@@ -1,0 +1,126 @@
+# CoastalME Configuration File - YAML Format
+# Converted from minimal.dat for testing YAML input support
+
+run_information:
+  output_file_names: "minimal"
+  log_file_detail: 4
+  csv_per_timestep_results: false
+
+simulation:
+  start_date_time: "00-00-00 01/01/1999"
+  duration: "365 days"
+  timestep: "6 hours"
+  save_times: ["6 hours", "12 hours", "24 hours", "120 hours", "250 hours", "500 hours", "1000 hours", "3000 hours", "5000 hours"]
+  random_seed: 280764
+
+gis_output:
+  max_save_digits: 3
+  save_digits_mode: "sequential"
+  raster_files: ["usual"]
+  raster_format: "gtiff"
+  world_file: true
+  scale_values: true
+  slice_elevations: []
+  vector_files: ["all"]
+  vector_format: "ESRI Shapefile"
+  time_series_files: ["all"]
+
+grid_and_coastline:
+  coastline_smoothing: 2  # Savitzky-Golay
+  coastline_smoothing_window: 7
+  polynomial_order: 4
+  omit_grid_edges: "W"
+  profile_smoothing_window: 0
+  max_local_slope: 1.18
+  max_beach_elevation: 10
+
+layers_and_files:
+  num_layers: 1
+  basement_dem_file: "in/test_suite/minimal_cons_wave_angle_270/basement.asc"
+  layer_0:
+    unconsolidated_fine: ""
+    unconsolidated_sand: ""
+    unconsolidated_coarse: ""
+    consolidated_fine: ""
+    consolidated_sand: "in/test_suite/minimal_cons_wave_angle_270/two_bays.tif"
+    consolidated_coarse: ""
+  suspended_sediment_file: ""
+  landform_file: ""
+  intervention_class_file: ""
+  intervention_height_file: ""
+
+hydrology:
+  wave_propagation_model: "CShore"  # 1 = CShore, 0 = COVE
+  seawater_density: 1029
+  initial_water_level: 29
+  final_water_level: null
+  wave_height: 3
+  wave_height_time_series: ""
+  wave_orientation: 270
+  wave_period: 10
+  tide_data_file: "in/test_suite/minimal_cons_wave_angle_270/tides.dat"
+  breaking_wave_ratio: 0.8
+
+sediment_and_erosion:
+  coast_platform_erosion: true
+  platform_erosion_resistance: 2e6
+  beach_sediment_transport: true
+  beach_transport_at_edges: 1  # 0=closed, 1=open, 2=recirculate
+  beach_erosion_equation: "CERC"  # 0=CERC, 1=Kamphuis
+  median_sizes:
+    fine: 0  # default
+    sand: 0  # default
+    coarse: 0  # default
+  sediment_density: 2650
+  beach_sediment_porosity: 0.4
+  erosivity:
+    fine: 1.0
+    sand: 0.7
+    coarse: 0.3
+  transport_kls: 0.4  # CERC equation parameter
+  kamphuis_parameter: 5.0
+  berm_height: 0.25
+
+cliff_parameters:
+  cliff_collapse: true
+  cliff_erosion_resistance: 2.5e8
+  notch_overhang: 0.5
+  notch_base: 0.3
+  deposition_scale_parameter_a: 0  # auto
+  talus_width: 15
+  min_talus_length: 10
+  min_talus_height: 0.5
+
+flood_parameters:
+  flood_input: false
+  flood_coastline: ""
+  runup_equation: ""
+  characteristic_locations: ""
+  flood_input_location: ""
+
+sediment_input_parameters:
+  sediment_input: false
+  location: ""
+  type: ""
+  details_file: ""
+
+physics_and_geometry:
+  gravitational_acceleration: 9.81
+  normal_spacing: 0  # default
+  random_factor: 0.25
+  normal_length: 130
+  start_depth_ratio: 30
+
+profile_and_output:
+  save_profile_data: false
+  profile_numbers: []
+  profile_timesteps: []
+  save_parallel_profiles: false
+  output_erosion_potential: false
+  curvature_window: 11
+
+cliff_edge_processing:
+  cliff_edge_smoothing: 1  # running mean
+  cliff_edge_smoothing_window: 33
+  cliff_edge_polynomial_order: 4
+  cliff_slope_limit: 0.3

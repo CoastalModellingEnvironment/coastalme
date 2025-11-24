@@ -4743,9 +4743,14 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
       vector<string> VstrTmp = VstrSplit(&strStartDateTime, SPACE);
       if (VstrTmp.size() >= 2)
       {
-         int nHour, nMin, nSec, nDay, nMonth, nYear;
+         int nHour;
+         int nMin;
+         int nSec;
          if (bParseTime(&VstrTmp[0], nHour, nMin, nSec))
          {
+            int nDay;
+            int nMonth;
+            int nYear;
             if (bParseDate(&VstrTmp[1], nDay, nMonth, nYear))
             {
                m_nSimStartSec = nSec;

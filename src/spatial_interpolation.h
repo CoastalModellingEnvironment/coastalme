@@ -68,7 +68,7 @@
 struct Point2D
 {
    double x, y;
-   Point2D(double x_ = 0, double y_ = 0) : x(x_), y(y_)
+   explicit Point2D(double x_ = 0, double y_ = 0) : x(x_), y(y_)
    {
    }
 };

@@ -1,0 +1,33 @@
+<PAMDataset>
+  <Subdataset name="_top_Unconsolidated">
+    <PAMDataset>
+      <Metadata>
+        <MDI key="NC_GLOBAL#description">CoastalME Output</MDI>
+        <MDI key="NC_GLOBAL#history">Created Thu Oct 23 15:22:37 2025</MDI>
+        <MDI key="NC_GLOBAL#source">CoastalME Run</MDI>
+        <MDI key="NC_GLOBAL#title">CoastalME Output</MDI>
+        <MDI key="NETCDF_DIM_EXTRA">{time}</MDI>
+        <MDI key="NETCDF_DIM_time_DEF">{1,6}</MDI>
+        <MDI key="NETCDF_DIM_time_VALUES">0</MDI>
+        <MDI key="time#axis">T</MDI>
+        <MDI key="time#calendar">gregorian</MDI>
+        <MDI key="time#long_name">time</MDI>
+        <MDI key="time#standard_name">time</MDI>
+        <MDI key="time#units">hours since 2000-01-01 00:00:00</MDI>
+        <MDI key="x#axis">X</MDI>
+        <MDI key="x#_FillValue">-9999</MDI>
+        <MDI key="y#axis">Y</MDI>
+        <MDI key="y#_FillValue">-9999</MDI>
+        <MDI key="_top_Unconsolidated#_FillValue">-9999</MDI>
+      </Metadata>
+      <PAMRasterBand band="1">
+        <Metadata>
+          <MDI key="STATISTICS_MINIMUM">0</MDI>
+          <MDI key="STATISTICS_MAXIMUM">58.476306915283</MDI>
+          <MDI key="STATISTICS_MEAN">22.889106557291</MDI>
+          <MDI key="STATISTICS_STDDEV">17.151209298242</MDI>
+        </Metadata>
+      </PAMRasterBand>
+    </PAMDataset>
+  </Subdataset>
+</PAMDataset>

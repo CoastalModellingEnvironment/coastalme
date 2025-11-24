@@ -20,6 +20,8 @@ You should have received a copy of the GNU General Public License along with thi
 
 #include <cmath>
 
+#include <vector>
+
 #include <queue>
 using std::priority_queue;
 

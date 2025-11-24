@@ -1,0 +1,153 @@
+# CoastalME Configuration File - YAML Format
+# Converted from .dat file format
+# 
+# This file contains all simulation parameters for CoastalME.
+# For parameter descriptions, see the original .dat file or CoastalME documentation.
+
+
+# Run Information Settings
+run_information:
+  output_file_names: minimal
+  log_file_detail: 4
+  csv_per_timestep_results: false
+
+# Simulation Timing and Control
+simulation:
+  start_date_time: 00-00-00 01/01/1999
+  duration: 365 days
+  timestep: 6 hours
+  save_times:
+  - 6 hours
+  - 12 hours
+  - 24 hours
+  - 120 hours
+  - 250 hours
+  - 500 hours
+  - 1000 hours
+  - 3000 hours
+  - 5000 hours
+  random_seed: 280764
+
+# GIS Output Configuration
+gis_output:
+  max_save_digits: 3
+  save_digits_mode: sequential
+  raster_files:
+  - usual
+  raster_format: gtiff
+  world_file: true
+  scale_values: true
+  slice_elevations:
+  vector_files:
+  - all
+  vector_format: ESRI Shapefile
+  time_series_files:
+  - all
+
+# Grid and Coastline Processing
+grid_and_coastline:
+  coastline_smoothing: savitzky_golay
+  coastline_smoothing_window: 7
+  polynomial_order: 4
+  omit_grid_edges: W
+  profile_smoothing_window: 0
+  max_local_slope: 1.18
+  max_beach_elevation: 10
+
+# Input Files and Layer Configuration
+layers_and_files:
+  num_layers: 1
+  basement_dem_file: in/test_suite/minimal_uncons_wave_angle_230/basement.asc
+  layer_0:
+    unconsolidated_fine:
+    unconsolidated_sand:
+    unconsolidated_coarse:
+    consolidated_fine:
+    consolidated_sand:
+    consolidated_coarse:
+  suspended_sediment_file:
+  landform_file:
+  intervention_class_file: 1
+  intervention_height_file: 1029
+
+# Hydrological Parameters
+hydrology:
+  wave_propagation_model: COVE
+  seawater_density:
+  initial_water_level: 3
+  final_water_level:
+  wave_height: 230
+  wave_height_time_series: 10
+  wave_orientation: in/test_suite/minimal_uncons_wave_angle_230/tides.dat
+  wave_period: 0.8
+  tide_data_file: y
+  breaking_wave_ratio: 2000000.0
+
+# Sediment Transport and Erosion
+sediment_and_erosion:
+  coast_platform_erosion: true
+  platform_erosion_resistance: 1
+  beach_sediment_transport: false
+  beach_transport_at_edges: 0
+  beach_erosion_equation: CERC
+  median_sizes:
+    fine: 0
+    sand: 2650
+    coarse: 0.4
+  sediment_density: 1
+  beach_sediment_porosity: 0.7
+  erosivity:
+    fine: 0.3
+    sand: 0.4
+    coarse: 5.0
+  transport_kls: 0.25
+  kamphuis_parameter: y
+  berm_height: 250000000.0
+
+# Cliff Collapse Parameters
+cliff_parameters:
+  cliff_collapse: false
+  cliff_erosion_resistance: 0.3
+  notch_overhang: 0
+  notch_base: 15
+  deposition_scale_parameter_a: 10
+  talus_width: 0.5
+  min_talus_length: n
+  min_talus_height:
+
+# Flood Modeling Parameters
+flood_parameters:
+  flood_input:
+  flood_coastline:
+  runup_equation:
+  characteristic_locations: n
+  flood_input_location:
+
+# Sediment Input Events
+sediment_input_parameters:
+  sediment_input:
+  location:
+  type: 9.81
+  details_file: 0
+
+# Physical Constants and Geometry
+physics_and_geometry:
+  gravitational_acceleration: 0.25
+  normal_spacing: 130
+  random_factor: 30
+  normal_length: n
+  start_depth_ratio:
+
+# Profile Analysis and Output
+profile_and_output:
+  save_profile_data:
+  profile_numbers: []
+  profile_timesteps: []
+  save_parallel_profiles: false
+  output_erosion_potential: true
+  curvature_window: 33
+
+# Cliff Edge Processing Parameters
+cliff_edge_processing:
+  cliff_edge_smoothing: 4
+  cliff_edge_smoothing_window: 0.3

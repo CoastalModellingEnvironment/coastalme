@@ -1,0 +1,24 @@
+; This is a LINE sediment input event data file
+;
+; If "Sediment input type" in the main input file is L ("Line"), then a mode then a line shapefile is required. Each line in this shapefile (there must be at least one) is tagged with a unique numeric ID.
+;
+; Each sediment input event (below) also has a numeric ID. Sediment (unconsolidated or consolidated) is deposited at the intersection of the shapefile line with the matching ID, and a coastline. In this line mode, values for the "coast-normal length L" and "along-coast-width W" are ignored.
+;
+; Note that more than one sediment input event can occur with the same line ID, at different times.
+;
+; Each row below contains data for a single sediment input event, and must include the following comma-separated values:
+;  * the ID of the sediment input event (same as the line ID in the shapefile). IDs start from 1 and run consecutively
+;  * the time of the sediment input event. This can be either relative (i.e. a number of hours or days after the simulation start) or absolute (i.e. a time/date in the format hh-mm-ss dd/mm/yyyy)
+;  * the volume (m3) of fine unconsolidated sediment in the sediment event
+;  * the volume (m3) of sand unconsolidated sediment in the sediment event
+;  * the volume (m3) of coarse unconsolidated sediment in the sediment event
+;
+; Rows should be in time sequence. If more than one sediment input event occurs simultaneously (i.e. events occur at the same time on more than one line), then list each event on its own line.
+1, 50 hours, 0, 150.8, 0
+1, 100 hours, 0, 625.9, 0
+1, 200 hours, 0, 917.7, 0
+1, 5 days, 0, 601.6, 0
+1, 20 days, 0, 741.2, 0
+1, 22 days, 0, 866.7, 0
+1, 34 days, 0, 937.8, 0
+
