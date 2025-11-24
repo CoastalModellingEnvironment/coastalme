@@ -226,6 +226,12 @@ class CGeomCell
    //! d50 of unconsolidated sediment on top layer with unconsolidated sediment depth > 0
    double m_dUnconsD50;
 
+      //! Depth of sediment moved by avalanching this timestep (depth in m)
+   double m_dSlumpingDepositionThisIter;
+
+   //! Total depth of sediment moved by avalanching
+   double m_dTotSlumpingDeposition;
+
    //! Height of intervention structure
    double m_dInterventionHeight;
 
@@ -420,6 +426,10 @@ class CGeomCell
    // bool bBeachDepositionThisIter(void) const;
 
    bool bBeachErosionOrDepositionThisIter(void) const;
+
+   void IncrSlumpDeposition(double const);
+   double dGetAvalancheDeposition(void) const;
+   double dGetTotAvalancheDeposition(void) const;
 
    double dGetUnconsD50(void) const;
 

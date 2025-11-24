@@ -920,6 +920,8 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
 
       LogStream << fixed << setprecision(3);
 
+      // Note: m_prSlumpDirtyCells is NOT cleared here - it accumulates across timesteps. It will be cleared after GIS output is written (when saving at intervals)
+
       // Check to see if there is a new intervention in place: if so, update it on the RasterGrid array
       nRet = nUpdateIntervention();
       if (nRet != RTN_OK)
@@ -1219,6 +1221,11 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
             WritePolygonSedimentInputEventTable();
       }
 
+      // Do slumping of unconsolidated sediment on dune areas, for cells that changed this timestep
+      nRet = nDoSedimentSlumping();
+      if (nRet != RTN_OK)
+         return nRet;
+
       //       // Add the fine sediment that was eroded this timestep (from the shore platform, from cliff collapse, from erosion of existing fine sediment during cliff collapse talus deposition, and from beach erosion; minus the fine sediment from beach erosion that went off-grid) to the suspended sediment load
       // double dFineThisIter = m_dThisIterActualPlatformErosionFineCons + m_dThisIterCliffCollapseErosionFineUncons + m_dThisIterCliffCollapseErosionFineCons + m_dThisIterCliffCollapseFineErodedDuringDeposition + m_dThisIterBeachErosionFine - m_dThisIterLeftGridUnconsFine;
       //
@@ -1333,6 +1340,9 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
          // Save the vector GIS files
          if (! bSaveAllVectorGISFiles())
             return (RTN_ERR_VECTOR_FILE_WRITE);
+
+         // Clear dirty cells now that GIS output has been written. This allows dirty cells to accumulate across timesteps when saving at intervals
+         m_prSlumpDirtyCells.clear();
 
          // Tell the user how the simulation is progressing
          AnnounceProgress();

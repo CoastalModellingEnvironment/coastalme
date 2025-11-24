@@ -36,6 +36,9 @@ using std::ofstream;
 #include <string>
 using std::string;
 
+#include <set>
+using std::set;
+
 #include <utility>
 using std::pair;
 
@@ -1589,6 +1592,9 @@ class CSimulation
    //! Sediment input events
    vector<CRWSedInputEvent*> m_pVSedInputEvent;
 
+   //! Cells that had sediment changes this timestep (for sediment slump processing)
+   set<pair<int, int>> m_prSlumpDirtyCells;
+
    //! The c++11 random number generators
    default_random_engine m_Rand[NUMBER_OF_RNGS];
 
@@ -1656,6 +1662,7 @@ class CSimulation
    int nDoCliffCollapse(int const, CRWCliff *, double&, double&, double&, int&, double&, double&);
    void DoCliffCollapseTalusDeposition(int const, CRWCliff const*, double const, double const, int const);
    int nMoveCliffTalusToUnconsolidated(void);
+   double dCalcSlopeForUnconsSlumping(int const, int const, int const, int const) const;
    int nUpdateGrid(void);
 
    // For cliff toe location
@@ -1751,6 +1758,10 @@ class CSimulation
    int nTruncateProfileMultiLineDifferentCoasts(CGeomProfile*, double const, double const);
    bool bIncreaseCliffNotchIncision(int const, int const, int const, CRWCliff*, double const);
    bool bCreateNotchInland(int const, int const, int const, int const, double const, double const);
+   double dCalculateSlumpInstability(int const, int const) const;
+   set<pair<int, int>> prDoSlumpRedistributeSediment(int const, int const);
+   void SlumpMarkCellDirty(int const, int const);
+   int nDoSedimentSlumping(void);
 
    // GIS utility routines
    int nMarkBoundingBoxEdgeCells(void);

@@ -134,8 +134,7 @@ int CSimulation::nInitGridAndCalcStillWaterLevel(void)
             {
                nZeroThickness++;
 
-               // Note: Logging from parallel regions can cause race conditions, but this is for debugging only
-               // In production, consider collecting problematic cells and logging after the parallel region
+               // Note: Logging from parallel regions can cause race conditions, but this is for debugging only. In production, consider collecting problematic cells and logging after the parallel region
                if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
                {
 #ifdef _OPENMP

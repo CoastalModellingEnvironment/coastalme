@@ -91,6 +91,8 @@ CGeomCell::CGeomCell()
      m_dBeachDepositionThisIter(0),
      m_dTotBeachDeposition(0),
      m_dUnconsD50(0),
+     m_dSlumpingDepositionThisIter(0),
+     m_dTotSlumpingDeposition(0),
      m_dInterventionHeight(0)
 {
    m_Landform.SetLFCategory(LF_UNKNOWN);
@@ -1222,6 +1224,25 @@ bool CGeomCell::bBeachErosionOrDepositionThisIter(void) const
 double CGeomCell::dGetUnconsD50(void) const
 {
    return m_dUnconsD50;
+}
+
+//! Increment this-timestep avalanche deposition, also increment total avalanche deposition
+void CGeomCell::IncrSlumpDeposition(double const dThisDeposition)
+{
+   m_dSlumpingDepositionThisIter += dThisDeposition;
+   m_dTotSlumpingDeposition += dThisDeposition;
+}
+
+//! Get avalanche deposition for this timestep
+double CGeomCell::dGetAvalancheDeposition(void) const
+{
+   return m_dSlumpingDepositionThisIter;
+}
+
+//! Get total avalanche deposition
+double CGeomCell::dGetTotAvalancheDeposition(void) const
+{
+   return m_dTotSlumpingDeposition;
 }
 
 //! Gets the intervention class for this cell, or returns INT_NODATA if there is not an intervention here

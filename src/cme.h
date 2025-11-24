@@ -697,11 +697,15 @@ int const RUNUP_EQUATION_NIELSEN_HANSLOW = 1;               // Runup equation is
 int const RUNUP_EQUATION_MASE = 2;                          // Runup equation is Mase, H. 1989. Random Wave Runup Height on Gentle Slope. Journal of Waterway, Port, Coastal, and Ocean Engineering, 115, 649-661.
 int const RUNUP_EQUATION_STOCKDON = 3;                      // Runup equation is Stockdon, H. F., Holman, R. A., Howd, P. A. & Sallenger JR, A. H. 2006. Empirical parameterization of setup, swash, and runup. Coastal Engineering, 53, 573-588.
 
+//! Maximum number of avalanche iterations per timestep. Safety limit to prevent infinite loops in case of numerical issues.
+int const MAX_SLUMP_ITERATIONS = 100;
+
 unsigned long const MASK = 0xfffffffful;
 unsigned long const SEDIMENT_INPUT_EVENT_ERROR = -1;
 unsigned long const UNSIGNED_LONG_NODATA = 9999;
 
 double const PI = 3.141592653589793238462643;
+double const SQRT2 = 1.414213562;
 
 double const D50_FINE_DEFAULT = 0.0625;                     // In mm
 double const D50_SAND_DEFAULT = 0.42;                       // In mm
@@ -731,6 +735,22 @@ double const INTERVENTION_PROFILE_SPACING_FACTOR = 0.5;     // Profile spacing o
 
 double const CLIFF_NOTCH_CUTOFF_DISTANCE = 2;               // Cut-off SWL distance (m), measured downwards from the cliff notch apex: below this there is no notch incision
 double const DBL_NODATA = -9999;
+
+//! Angle of repose for sediment (degrees). This is a typical value for sand. Finer sediments may have lower angles (~28°), coarser sediments higher (~37°).
+double const ANGLE_OF_REPOSE_DEG = 33.0;
+
+//! Angle of repose in radians (pre-calculated for efficiency)
+double const ANGLE_OF_REPOSE_RAD = 0.5759586531;  // 33° * π/180
+
+//! Tangent of angle of repose (pre-calculated for direct slope comparison)
+double const TAN_ANGLE_OF_REPOSE = 0.6494075931;  // tan(33°)
+
+//! Minimum sediment volume (m³) to trigger avalanche redistribution. Prevents processing of trivially small amounts that don't affect morphology.
+double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
+
+//! Fraction of excess sediment to redistribute per iteration. 0.5 = move 50% of unstable sediment each iteration. Lower values (0.2-0.3) are more stable but slower to converge.Higher values (0.6-0.8) converge faster but may overshoot.
+double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
+
 
 string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (24 Nov 2025)";
 string const PROGRAM_NAME_SHORT = "CME";
