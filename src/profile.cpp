@@ -544,7 +544,8 @@ int CGeomProfile::nGetNumCellsInProfile(void) const
 //! Returns the index of the cell on this profile which has a sea depth which is just less than a given depth. If every cell on the profile has a sea depth which is less than the given depth it returns INT_NODATA
 int CGeomProfile::nGetCellGivenDepth(CGeomRasterGrid const* pGrid, double const dDepthIn)
 {
-   int nIndex = INT_NODATA; // If not found, i.e. if every profile cell has sea depth less than dDepthIn
+   // int nIndex = INT_NODATA; // If not found, i.e. if every profile cell has sea depth less than dDepthIn
+   int nIndex = m_VCellInProfile.size();     // TODO bodge
 
    for (unsigned int n = 0; n < m_VCellInProfile.size(); n++)
    {

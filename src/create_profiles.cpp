@@ -471,13 +471,15 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
       return RTN_ERR_PROFILE_ENDPOINT_IS_INLAND;
    }
 
-   // Safety check: is the water depth at the end point less than the depth of closure?
+   // Warning: is the water depth at the end point less than the depth of closure?
    if (m_pRasterGrid->m_Cell[nXEnd][nYEnd].dGetSeaDepth() < m_dDepthOfClosure)
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ": coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " is too short for depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
+      {
+         LogStream << m_ulIter << ": coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " is too short for depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, continuing however. Suggest increasing the length of coastline normals" << endl;
+      }
 
-      return RTN_ERR_PROFILE_END_INSUFFICIENT_DEPTH;
+      // return RTN_ERR_PROFILE_END_INSUFFICIENT_DEPTH;
    }
 
    // No problems, so create the new profile
