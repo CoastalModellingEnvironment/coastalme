@@ -545,7 +545,7 @@ int CGeomProfile::nGetNumCellsInProfile(void) const
 int CGeomProfile::nGetCellGivenDepth(CGeomRasterGrid const* pGrid, double const dDepthIn)
 {
    // int nIndex = INT_NODATA; // If not found, i.e. if every profile cell has sea depth less than dDepthIn
-   int nIndex = m_VCellInProfile.size();     // TODO bodge
+   int nIndex = static_cast<int>(m_VCellInProfile.size())-1;      // TODO bodge. Note needs to be size()-1, see e.g. beach_within_polygon.cpp line 73
 
    for (unsigned int n = 0; n < m_VCellInProfile.size(); n++)
    {

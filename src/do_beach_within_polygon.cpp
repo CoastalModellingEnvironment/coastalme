@@ -70,7 +70,7 @@ int CSimulation::nDoUnconsErosionOnPolygon(int const nCoast, CGeomCoastPolygon* 
       return RTN_ERR_NO_SEAWARD_END_OF_PROFILE_BEACH_EROSION;
    }
 
-   // The part-profile length is one greater than nIndex, since pPtiGetCellGivenDepth() returns the index of the cell at the depth of closure
+   // The part-profile length is one greater than nIndex, since nGetCellGivenDepth() returns the index of the cell at the depth of closure
    int const nUpCoastPartProfileLen = nIndex + 1;
 
    // assert(bIsWithinValidGrid(&PtiUpCoastPartProfileSeawardEnd));
@@ -787,7 +787,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
       return RTN_ERR_NO_SEAWARD_END_OF_PROFILE_UPCOAST_BEACH_DEPOSITION;
    }
 
-   // The part-profile length is one greater than nIndex, since pPtiGetCellGivenDepth() returns the index of the cell at depth of closure. This will be the number of cells in the Dean profile portion of every parallel profile
+   // The part-profile length is one greater than nIndex, since nGetCellGivenDepth() returns the index of the cell at depth of closure. This will be the number of cells in the Dean profile portion of every parallel profile
    int const nUpCoastDeanLen = nIndex + 1;
 
    // assert(bIsWithinValidGrid(&PtiUpCoastPartProfileSeawardEnd));
@@ -1318,7 +1318,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
          return RTN_ERR_NO_SEAWARD_END_OF_PROFILE_DOWNCOAST_BEACH_DEPOSITION;
       }
 
-      // The part-profile length is one greater than nIndex1, since pPtiGetCellGivenDepth() returns the index of the cell at depth of closure. This will be the number of cells in the Dean profile portion of every parallel profile
+      // The part-profile length is one greater than nIndex1, since nGetCellGivenDepth() returns the index of the cell at depth of closure. This will be the number of cells in the Dean profile portion of every parallel profile
       int const nDownCoastDeanLen = nIndex1 + 1;
 
       // assert(bIsWithinValidGrid(&PtiDownCoastPartProfileSeawardEnd));

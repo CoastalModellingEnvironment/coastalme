@@ -2742,9 +2742,8 @@ double CSimulation::dSubtractProfiles(vector<double> const* pdVFirstProfile, vec
 //===============================================================================================================================
 void CSimulation::CalcDepthOfClosure(void)
 {
-   double
-       dDeepWaterWaveHeight,
-       dDeepWaterPeriod;
+   double dDeepWaterWaveHeight;
+   double dDeepWaterPeriod;
 
    if (m_bSingleDeepWaterWaveValues)
    {

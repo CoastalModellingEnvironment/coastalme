@@ -115,7 +115,7 @@ if(CMAKE_BUILD_TYPE_LC STREQUAL "debug")
   message("Applying universal debug flags")
   add_compile_options(
       -march=native
-      # -O2
+      -O0
       -fno-inline
       -W
       -Wall
@@ -139,9 +139,7 @@ if(CMAKE_BUILD_TYPE_LC STREQUAL "debug")
   if(CMAKE_CXX_COMPILER_ID MATCHES "^(GNU|LCC|QCC)$")
     message("Applying additional ${CMAKE_BUILD_TYPE_LC} flags for gcc")
     # ==========================================================================
-    # Also use these with debug builds to check for vulnerabilities at compile
-    # time, see
-    # https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
+    # Also use these with debug builds to check for vulnerabilities at compile time, see https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
     # ==========================================================================
     add_compile_options(-Wuseless-cast)
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "13.0")
@@ -210,11 +208,9 @@ elseif(CMAKE_BUILD_TYPE_LC STREQUAL "relwithdebinfo")
 elseif(CMAKE_BUILD_TYPE_LC STREQUAL "prerelease")
   if(CMAKE_CXX_COMPILER_ID MATCHES "^(GNU|LCC|QCC)$")
     message("Applying additional ${CMAKE_BUILD_TYPE_LC} flags for gcc")
-    # Pre-release build using gcc, do this before a release to check for
-    # memory access problems.
-    # Note that -fsanitize=address(and the other sanitize options?)
-    # DO NOT work if run under gdb
-    # # ========================================================================
+    # ========================================================================
+    # Pre-release build using gcc, do this before a release to check for  memory access problems. Note that -fsanitize=address(and the other sanitize options?) DO NOT work if run under gdb
+    # ========================================================================
     add_compile_options(-march=native)
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "5.0")
       add_compile_options(
@@ -236,10 +232,9 @@ elseif(CMAKE_BUILD_TYPE_LC STREQUAL "prerelease")
         -fsanitize=vptr
         -fsanitize=address
       )
-      # Note  -fsanitize-ignorelist=sanitize_ignorelist.txt not yet working
-      # for gcc, need this to hide GDAL errors
+      # Note  -fsanitize-ignorelist=sanitize_ignorelist.txt not yet working for gcc, need this to hide GDAL errors
     endif()
-    # # =======================================================================
+    # =======================================================================
   elseif(CMAKE_CXX_COMPILER_ID MATCHES "^(Apple)?Clang$")
     message("Applying additional ${CMAKE_BUILD_TYPE_LC} flags for Clang")
   endif()
@@ -335,8 +330,7 @@ endif()
 message("Finding libraries")
 
 ################################################################################
-# Find OpenMP for parallelization
-# First try to find OpenMP using the standard CMake module
+# Find OpenMP for parallelization. First try to find OpenMP using the standard CMake module
 find_package(OpenMP)
 
 if(OpenMP_CXX_FOUND)
@@ -488,6 +482,5 @@ message(STATUS "LIBS=${LIBS}")
 # message(STATUS "CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}")
 # message(STATUS "CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}")
 message(STATUS "CMAKE_INSTALL_RPATH=${CMAKE_INSTALL_RPATH}")
-
 ################################################################################
 
