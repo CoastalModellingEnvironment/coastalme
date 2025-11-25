@@ -98,54 +98,157 @@ int CSimulation::nLocateSeaAndCoasts(void)
 //===============================================================================================================================
 void CSimulation::FindAllSeaCells(void)
 {
-   // First get the elevation of each corner of the grid
-   double dElevNW = m_pRasterGrid->m_Cell[0][0].dGetAllSedTopElevIncTalus();
-   double dElevNE = m_pRasterGrid->m_Cell[m_nXGridSize-1][0].dGetAllSedTopElevIncTalus();
-   double dElevSW = m_pRasterGrid->m_Cell[0][m_nYGridSize-1].dGetAllSedTopElevIncTalus();
-   double dElevSE = m_pRasterGrid->m_Cell[m_nXGridSize-1][m_nYGridSize-1].dGetAllSedTopElevIncTalus();
-
-   // Edge cells were marked in clockwise direction: top (north) edge first
-   bool bNEdgeForward = false;
-   if (dElevNW > dElevNE)
-      bNEdgeForward = true;
-
-   bool bSEdgeForward = false;
-   if (dElevSE > dElevSW)
-      bSEdgeForward = true;
-
-   bool bEEdgeForward = false;
-   if (dElevNE > dElevSE)
-      bEEdgeForward = true;
-
-   bool bWEdgeForward = false;
-   if (dElevSW > dElevNW)
-      bWEdgeForward = true;
-   // TEST =========================================================
-
-
-
-   // Go along the list of edge cells
-   for (unsigned int n = 0; n < m_VEdgeCell.size(); n++)
+   // Go along each list of edge cells, north edge first
+   if (! m_bOmitSearchNorthEdge)
    {
-      if (m_bOmitSearchNorthEdge && m_VEdgeCellEdge[n] == NORTH)
-         continue;
+      if (bSearchNorthEdgeForward)
+      {
+         for (int n = 0; n < static_cast<int>(m_VNorthEdgeCell.size()); n++)
+         {
+            int const nX = m_VNorthEdgeCell[n].nGetX();
+            int const nY = m_VNorthEdgeCell[n].nGetY();
 
-      if (m_bOmitSearchSouthEdge && m_VEdgeCellEdge[n] == SOUTH)
-         continue;
+            if ((m_pRasterGrid->m_Cell[nX][nY].bIsInundated()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(), 0.0, TOLERANCE)))
+            {
+               // This edge cell is below SWL and sea depth remains set to zero
+               CellByCellFillSea(nX, nY);
 
-      if (m_bOmitSearchWestEdge && m_VEdgeCellEdge[n] == WEST)
-         continue;
+               return;
+            }
+         }
+      }
+      else
+      {
+         for (int n = static_cast<int>(m_VNorthEdgeCell.size())-1; n >= 0; n--)
+         {
+            int const nX = m_VNorthEdgeCell[n].nGetX();
+            int const nY = m_VNorthEdgeCell[n].nGetY();
 
-      if (m_bOmitSearchEastEdge && m_VEdgeCellEdge[n] == EAST)
-         continue;
+            if ((m_pRasterGrid->m_Cell[nX][nY].bIsInundated()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(), 0.0, TOLERANCE)))
+            {
+               // This edge cell is below SWL and sea depth remains set to zero
+               CellByCellFillSea(nX, nY);
 
-      int const nX = m_VEdgeCell[n].nGetX();
-      int const nY = m_VEdgeCell[n].nGetY();
-
-      if ((m_pRasterGrid->m_Cell[nX][nY].bIsInundated()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(), 0.0, TOLERANCE)))
-         // This edge cell is below SWL and sea depth remains set to zero
-         CellByCellFillSea(nX, nY);
+               return;
+            }
+         }
+      }
    }
+
+   // Now go along the south edge cells
+   if (! m_bOmitSearchSouthEdge)
+   {
+      if (bSearchSouthEdgeForward)
+      {
+         for (int n = 0; n < static_cast<int>(m_VSouthEdgeCell.size()); n++)
+         {
+            int const nX = m_VSouthEdgeCell[n].nGetX();
+            int const nY = m_VSouthEdgeCell[n].nGetY();
+
+            if ((m_pRasterGrid->m_Cell[nX][nY].bIsInundated()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(), 0.0, TOLERANCE)))
+            {
+               // This edge cell is below SWL and sea depth remains set to zero
+               CellByCellFillSea(nX, nY);
+
+               return;
+            }
+         }
+      }
+      else
+      {
+         for (int n = static_cast<int>(m_VSouthEdgeCell.size())-1; n >= 0; n--)
+         {
+            int const nX = m_VSouthEdgeCell[n].nGetX();
+            int const nY = m_VSouthEdgeCell[n].nGetY();
+
+            if ((m_pRasterGrid->m_Cell[nX][nY].bIsInundated()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(), 0.0, TOLERANCE)))
+            {
+               // This edge cell is below SWL and sea depth remains set to zero
+               CellByCellFillSea(nX, nY);
+
+               return;
+            }
+         }
+      }
+   }
+
+   // Now go along the west edge cells
+   if (! m_bOmitSearchWestEdge)
+   {
+      if (bSearchWestEdgeForward)
+      {
+         for (int n = 0; n < static_cast<int>(m_VWestEdgeCell.size()); n++)
+         {
+            int const nX = m_VWestEdgeCell[n].nGetX();
+            int const nY = m_VWestEdgeCell[n].nGetY();
+
+            if ((m_pRasterGrid->m_Cell[nX][nY].bIsInundated()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(), 0.0, TOLERANCE)))
+            {
+               // This edge cell is below SWL and sea depth remains set to zero
+               CellByCellFillSea(nX, nY);
+
+               return;
+            }
+         }
+      }
+      else
+      {
+         for (int n = static_cast<int>(m_VWestEdgeCell.size())-1; n >= 0; n--)
+         {
+            int const nX = m_VWestEdgeCell[n].nGetX();
+            int const nY = m_VWestEdgeCell[n].nGetY();
+
+            if ((m_pRasterGrid->m_Cell[nX][nY].bIsInundated()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(), 0.0, TOLERANCE)))
+            {
+               // This edge cell is below SWL and sea depth remains set to zero
+               CellByCellFillSea(nX, nY);
+
+               return;
+            }
+         }
+      }
+   }
+
+   // Finally go along the east edge cells
+   if (! m_bOmitSearchEastEdge)
+   {
+      if (bSearchEastEdgeForward)
+      {
+         for (int n = 0; n < static_cast<int>(m_VEastEdgeCell.size()); n++)
+         {
+            int const nX = m_VEastEdgeCell[n].nGetX();
+            int const nY = m_VEastEdgeCell[n].nGetY();
+
+            if ((m_pRasterGrid->m_Cell[nX][nY].bIsInundated()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(), 0.0, TOLERANCE)))
+            {
+               // This edge cell is below SWL and sea depth remains set to zero
+               CellByCellFillSea(nX, nY);
+
+               return;
+            }
+         }
+      }
+      else
+      {
+         for (int n = static_cast<int>(m_VEastEdgeCell.size())-1; n >= 0; n--)
+         {
+            int const nX = m_VEastEdgeCell[n].nGetX();
+            int const nY = m_VEastEdgeCell[n].nGetY();
+
+            if ((m_pRasterGrid->m_Cell[nX][nY].bIsInundated()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(), 0.0, TOLERANCE)))
+            {
+               // This edge cell is below SWL and sea depth remains set to zero
+               CellByCellFillSea(nX, nY);
+
+               return;
+            }
+         }
+      }
+   }
+
+
+
+
 }
 
 //===============================================================================================================================
