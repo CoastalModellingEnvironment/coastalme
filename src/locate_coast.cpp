@@ -454,7 +454,7 @@ int CSimulation::nTraceAllCoasts(void)
             int const nXNext = m_VPtiNorthEdgeCell[n + 1].nGetX();
             int const nYNext = m_VPtiNorthEdgeCell[n + 1].nGetY();
 
-            if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell, &))
+            if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
                VnPossibleStartCellHandedness.push_back(RIGHT_HANDED);
                break;
@@ -607,41 +607,13 @@ int CSimulation::nTraceAllCoasts(void)
 
 
    // All OK, now trace from each of these possible start/finish points
-   for (int n = static_cast<int>(V2DIPossibleStartCell.size())-1; n >= 0; n--)
+   for (int n = 0; n < static_cast<int>(V2DIPossibleStartCell.size()); n++)
    {
-      int nRet = nTraceCoastLine(n, V2DIPossibleStartCell[n], VnPossibleStartCellHandedness);
+      int nRet = nTraceCoastLine(n, &V2DIPossibleStartCell[n], VnPossibleStartCellHandedness[n]);
       if (nRet == RTN_OK)
       {
          // We have a valid coastline starting from this possible start cell
          nValidCoast++;
-      }
-      }
-   }
-
-   if (nValidCoast == 0)
-   {
-      // No valid coasts found so try again, this time working through the possible start/finish points in reverse order
-      for (int n = 0; n < static_cast<int>(VbTraced.size()); n++)
-         VbTraced[n] = false;
-
-      for (int n = 0; n < static_cast<int>(V2DIPossibleStartCell.size()); n++)
-      {
-         if (! VbTraced[n])
-         {
-            int nRet = 0;
-
-            if (VbPossibleStartCellLHEdge[n])
-               nRet = nTraceCoastLine(n, VnSearchDirection[n], LEFT_HANDED, &VbTraced, &V2DIPossibleStartCell);
-            else
-               nRet = nTraceCoastLine(n, VnSearchDirection[n], RIGHT_HANDED, &VbTraced, &V2DIPossibleStartCell);
-
-            if (nRet == RTN_OK)
-            {
-               // We have a valid coastline starting from this possible start cell
-               VbTraced[n] = true;
-               nValidCoast++;
-            }
-         }
       }
    }
 
@@ -685,7 +657,7 @@ bool CSimulation::bIdentifyPossibleCoastStart(int const nXThis, int const nYThis
 //===============================================================================================================================
 //! Traces a coastline (which is defined to be just above still water level) on the grid using the 'wall follower' rule for maze traversal (http://en.wikipedia.org/wiki/Maze_solving_algorithm#Wall_follower). The resulting vector coastline is then smoothed
 //===============================================================================================================================
-int CSimulation::nTraceCoastLine(unsigned int const nTraceFromStartCellIndex, int const nStartSearchDirection, int const nHandedness, vector<bool>* pVbTraced, vector<CGeom2DIPoint> const* pV2DIPossibleStartCell)
+int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, CGeom2DIPoint const* p2DIPossibleStartCell, /*int const nStartSearchDirection,*/ int const nHandedness)
 {
    bool bHitStartCell = false;
    bool bAtCoast = false;
