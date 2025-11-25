@@ -1780,6 +1780,7 @@ class CSimulation
    set<pair<int, int>> prDoSlumpRedistributeSediment(int const, int const);
    void SlumpMarkCellDirty(int const, int const);
    int nDoSedimentSlumping(void);
+   bool bIdentifyPossibleCoastStart(int const, int const, int const, int const, vector<CGeom2DIPoint>*);
 
    // GIS utility routines
    int nMarkBoundingBoxEdgeCells(void);

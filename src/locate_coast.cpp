@@ -437,7 +437,6 @@ int CSimulation::nTraceAllCoasts(void)
    if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
       LogStream << m_ulIter << ": Tracing coasts" << endl;
 
-
    int const TOOCLOSE = 1;
    int nValidCoast = 0;
    vector<bool> VbPossibleStartCellLHEdge;
@@ -445,144 +444,127 @@ int CSimulation::nTraceAllCoasts(void)
    vector<int> VnSearchDirection;
    vector<CGeom2DIPoint> V2DIPossibleStartCell;
 
-   // Go along the list of edge cells and look for possible coastline start/finish cells
-   for (unsigned int n = 0; n < m_VEdgeCell.size() - 1; n++)
+   // Go along each list of edge cells from low to high elevation, so that the most seaward possible coast point is found first. Start with north edge
+   if (! m_bOmitSearchNorthEdge)
    {
-      if (m_bOmitSearchNorthEdge && (m_VEdgeCellEdge[n] == NORTH || m_VEdgeCellEdge[n + 1] == NORTH))
-         continue;
-
-      if (m_bOmitSearchSouthEdge && (m_VEdgeCellEdge[n] == SOUTH || m_VEdgeCellEdge[n + 1] == SOUTH))
-         continue;
-
-      if (m_bOmitSearchWestEdge && (m_VEdgeCellEdge[n] == WEST || m_VEdgeCellEdge[n + 1] == WEST))
-         continue;
-
-      if (m_bOmitSearchEastEdge && (m_VEdgeCellEdge[n] == EAST || m_VEdgeCellEdge[n + 1] == EAST))
-         continue;
-
-      int const nXThis = m_VEdgeCell[n].nGetX();
-      int const nYThis = m_VEdgeCell[n].nGetY();
-      int const nXNext = m_VEdgeCell[n + 1].nGetX();
-      int const nYNext = m_VEdgeCell[n + 1].nGetY();
-
-      // Get "Is it sea?" information for 'this' and 'next' cells
-      bool const bThisCellIsSea = m_pRasterGrid->m_Cell[nXThis][nYThis].bIsInContiguousSea();
-      bool const bNextCellIsSea = m_pRasterGrid->m_Cell[nXNext][nYNext].bIsInContiguousSea();
-
-      // Is one cell land and the sea?
-      if ((! bThisCellIsSea) && bNextCellIsSea)
+      if (bSearchNorthEdgeForward)
       {
-         // Yes, we are at a possible coastline start cell with 'this' cell just above the sea. Has 'this' cell already been flagged as a possible start for a coastline (even if this subsequently 'failed' as a coastline)?
-         if (m_pRasterGrid->m_Cell[nXThis][nYThis].bIsPossibleCoastStartCell())
-            continue;
-
-         // Is 'this' cell too close to a cell that has previously been flagged as a possible coast start cell? Search first in one direction
-         bool bTooClose = false;
-         for (int nn = 1; nn <= TOOCLOSE; nn++)
+         for (int n = 0; n < static_cast<int>(m_VNorthEdgeCell.size())-1; n++)
          {
-            int const nTmp = n + nn;
-            if (nTmp == static_cast<int>(m_VEdgeCell.size()))
-               break;
+            int const nXThis = m_VNorthEdgeCell[n].nGetX();
+            int const nYThis = m_VNorthEdgeCell[n].nGetY();
+            int const nXNext = m_VNorthEdgeCell[n + 1].nGetX();
+            int const nYNext = m_VNorthEdgeCell[n + 1].nGetY();
 
-            int const nXTmp = m_VEdgeCell[nTmp].nGetX();
-            int const nYTmp = m_VEdgeCell[nTmp].nGetY();
-
-            if (m_pRasterGrid->m_Cell[nXTmp][nYTmp].bIsPossibleCoastStartCell())
-            {
-               bTooClose = true;
+            if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
                break;
-            }
          }
-         if (bTooClose)
-            continue;
-
-         // Now search in the other direction
-         for (int nn = 1; nn <= TOOCLOSE; nn++)
-         {
-            int const nTmp = n - nn;
-            if (nTmp < 0)
-               break;
-
-            int const nXTmp = m_VEdgeCell[nTmp].nGetX();
-            int const nYTmp = m_VEdgeCell[nTmp].nGetY();
-
-            if (m_pRasterGrid->m_Cell[nXTmp][nYTmp].bIsPossibleCoastStartCell())
-            {
-               bTooClose = true;
-               break;
-            }
-         }
-         if (bTooClose)
-            continue;
-
-         // All OK, so flag 'this' cell
-         m_pRasterGrid->m_Cell[nXThis][nYThis].SetPossibleCoastStartCell();
-
-         if (m_nLogFileDetail >= LOG_FILE_ALL)
-            LogStream << m_ulIter << ": \tflagging [" << nXThis << "][" << nYThis << "] = {" << dGridCentroidXToExtCRSX(nXThis) << ", " << dGridCentroidYToExtCRSY(nYThis) << "} as possible coast start cell (left_handed edge)" << endl;
-
-         // And save it as a possible coastline start cell
-         V2DIPossibleStartCell.push_back(CGeom2DIPoint(nXThis, nYThis));
-         VbPossibleStartCellLHEdge.push_back(true);
-         VnSearchDirection.push_back(nGetOppositeDirection(m_VEdgeCellEdge[n]));
-         VbTraced.push_back(false);
       }
-      else if (bThisCellIsSea && (! bNextCellIsSea))
+      else
       {
-         // We are at a possible coastline start cell with the 'next' cell just above the sea. Has the 'next' cell already been flagged as a possible start for a coastline (even if this subsequently 'failed' as a coastline)?
-         if (m_pRasterGrid->m_Cell[nXNext][nYNext].bIsPossibleCoastStartCell())
-            continue;
-
-         // Is the 'next' cell too close to a cell that has previously been flagged as a possible coast start cell? Search first in one direction
-         bool bTooClose = false;
-         for (int nn = 1; nn <= TOOCLOSE; nn++)
+         for (int n = static_cast<int>(m_VNorthEdgeCell.size())-1; n > 0; n--)
          {
-            int const nTmp = n + 1 + nn;
-            if (nTmp == static_cast<int>(m_VEdgeCell.size()))
-               break;
+            int const nXThis = m_VNorthEdgeCell[n].nGetX();
+            int const nYThis = m_VNorthEdgeCell[n].nGetY();
+            int const nXNext = m_VNorthEdgeCell[n + 1].nGetX();
+            int const nYNext = m_VNorthEdgeCell[n + 1].nGetY();
 
-            int const nXTmp = m_VEdgeCell[nTmp].nGetX();
-            int const nYTmp = m_VEdgeCell[nTmp].nGetY();
-
-            if (m_pRasterGrid->m_Cell[nXTmp][nYTmp].bIsPossibleCoastStartCell())
-            {
-               bTooClose = true;
+            if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
                break;
-            }
          }
-         if (bTooClose)
-            continue;
+      }
+   }
 
-         // Now search in the other direction
-         for (int nn = 1; nn <= TOOCLOSE; nn++)
+   // Now go along south edge
+   if (! m_bOmitSearchSouthEdge)
+   {
+      if (bSearchSouthEdgeForward)
+      {
+         for (int n = 0; n < static_cast<int>(m_VSouthEdgeCell.size())-1; n++)
          {
-            int const nTmp = n + 1 - nn;
-            if (nTmp < 0)
-               break;
+            int const nXThis = m_VSouthEdgeCell[n].nGetX();
+            int const nYThis = m_VSouthEdgeCell[n].nGetY();
+            int const nXNext = m_VSouthEdgeCell[n + 1].nGetX();
+            int const nYNext = m_VSouthEdgeCell[n + 1].nGetY();
 
-            int const nXTmp = m_VEdgeCell[nTmp].nGetX();
-            int const nYTmp = m_VEdgeCell[nTmp].nGetY();
-
-            if (m_pRasterGrid->m_Cell[nXTmp][nYTmp].bIsPossibleCoastStartCell())
-            {
-               bTooClose = true;
+            if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
                break;
-            }
          }
-         if (bTooClose)
-            continue;
+      }
+      else
+      {
+         for (int n = static_cast<int>(m_VSouthEdgeCell.size())-1; n > 0; n--)
+         {
+            int const nXThis = m_VSouthEdgeCell[n].nGetX();
+            int const nYThis = m_VSouthEdgeCell[n].nGetY();
+            int const nXNext = m_VSouthEdgeCell[n + 1].nGetX();
+            int const nYNext = m_VSouthEdgeCell[n + 1].nGetY();
 
-         // All OK, so flag the 'next' cell
-         m_pRasterGrid->m_Cell[nXNext][nYNext].SetPossibleCoastStartCell();
+            if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
+               break;
+         }
+      }
+   }
 
-         if (m_nLogFileDetail >= LOG_FILE_ALL)
-            LogStream << m_ulIter << ": \tflagging [" << nXNext << "][" << nYNext << "] = {" << dGridCentroidXToExtCRSX(nXNext) << ", " << dGridCentroidYToExtCRSY(nYNext) << "} as possible coast start cell (right_handed edge)" << endl;
+   // Now go along west edge
+   if (! m_bOmitSearchWestEdge)
+   {
+      if (bSearchWestEdgeForward)
+      {
+         for (int n = 0; n < static_cast<int>(m_VWestEdgeCell.size())-1; n++)
+         {
+            int const nXThis = m_VWestEdgeCell[n].nGetX();
+            int const nYThis = m_VWestEdgeCell[n].nGetY();
+            int const nXNext = m_VWestEdgeCell[n + 1].nGetX();
+            int const nYNext = m_VWestEdgeCell[n + 1].nGetY();
 
-         // And save it as a possible coastline start cell
-         V2DIPossibleStartCell.push_back(CGeom2DIPoint(nXNext, nYNext));
-         VbPossibleStartCellLHEdge.push_back(false);
-         VnSearchDirection.push_back(nGetOppositeDirection(m_VEdgeCellEdge[n + 1]));
-         VbTraced.push_back(false);
+            if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
+               break;
+         }
+      }
+      else
+      {
+         for (int n = static_cast<int>(m_VWestEdgeCell.size())-1; n > 0; n--)
+         {
+            int const nXThis = m_VWestEdgeCell[n].nGetX();
+            int const nYThis = m_VWestEdgeCell[n].nGetY();
+            int const nXNext = m_VWestEdgeCell[n + 1].nGetX();
+            int const nYNext = m_VWestEdgeCell[n + 1].nGetY();
+
+            if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
+               break;
+         }
+      }
+   }
+
+   // Finally go along east edge
+   if (! m_bOmitSearchEastEdge)
+   {
+      if (bSearchEastEdgeForward)
+      {
+         for (int n = 0; n < static_cast<int>(m_VEastEdgeCell.size())-1; n++)
+         {
+            int const nXThis = m_VEastEdgeCell[n].nGetX();
+            int const nYThis = m_VEastEdgeCell[n].nGetY();
+            int const nXNext = m_VEastEdgeCell[n + 1].nGetX();
+            int const nYNext = m_VEastEdgeCell[n + 1].nGetY();
+
+            if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
+               break;
+         }
+      }
+      else
+      {
+         for (int n = static_cast<int>(m_VEastEdgeCell.size())-1; n >= 0; n--)
+         {
+            int const nXThis = m_VEastEdgeCell[n].nGetX();
+            int const nYThis = m_VEastEdgeCell[n].nGetY();
+            int const nXNext = m_VEastEdgeCell[n + 1].nGetX();
+            int const nYNext = m_VEastEdgeCell[n + 1].nGetY();
+
+            if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
+               break;
+         }
       }
    }
 
@@ -686,6 +668,33 @@ int CSimulation::nTraceAllCoasts(void)
    }
 
    return RTN_OK;
+}
+
+//===============================================================================================================================
+//! Identifies a possible start- or end-of-coast edge cell, searching from low elevation (sea) towards high elevation (land)
+//===============================================================================================================================
+bool CSimulation::bIdentifyPossibleCoastStart(int const nXThis, int const nYThis, int const nXNext, int const nYNext, vector<CGeom2DIPoint>* pV2DIPossibleStartCell)
+{
+   // Get "Is it sea?" information for 'this' and 'next' cells
+   bool const bThisCellIsSea = m_pRasterGrid->m_Cell[nXThis][nYThis].bIsInContiguousSea();
+   bool const bNextCellIsSea = m_pRasterGrid->m_Cell[nXNext][nYNext].bIsInContiguousSea();
+
+   // Is this cell land and the next cell sea?
+   if ((! bThisCellIsSea) && bNextCellIsSea)
+   {
+      // All OK, so flag 'this' cell
+      m_pRasterGrid->m_Cell[nXThis][nYThis].SetPossibleCoastStartCell();
+
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": \tflagging [" << nXThis << "][" << nYThis << "] = {" << dGridCentroidXToExtCRSX(nXThis) << ", " << dGridCentroidYToExtCRSY(nYThis) << "} as possible coast start cell (left_handed edge)" << endl;
+
+      // And save it as a possible coastline start cell
+      pV2DIPossibleStartCell->push_back(CGeom2DIPoint(nXThis, nYThis));
+
+      return true;
+   }
+
+   return false;
 }
 
 //===============================================================================================================================
