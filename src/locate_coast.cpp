@@ -98,6 +98,32 @@ int CSimulation::nLocateSeaAndCoasts(void)
 //===============================================================================================================================
 void CSimulation::FindAllSeaCells(void)
 {
+   // First get the elevation of each corner of the grid
+   double dElevNW = m_pRasterGrid->m_Cell[0][0].dGetAllSedTopElevIncTalus();
+   double dElevNE = m_pRasterGrid->m_Cell[m_nXGridSize-1][0].dGetAllSedTopElevIncTalus();
+   double dElevSW = m_pRasterGrid->m_Cell[0][m_nYGridSize-1].dGetAllSedTopElevIncTalus();
+   double dElevSE = m_pRasterGrid->m_Cell[m_nXGridSize-1][m_nYGridSize-1].dGetAllSedTopElevIncTalus();
+
+   // Edge cells were marked in clockwise direction: top (north) edge first
+   bool bNEdgeForward = false;
+   if (dElevNW > dElevNE)
+      bNEdgeForward = true;
+
+   bool bSEdgeForward = false;
+   if (dElevSE > dElevSW)
+      bSEdgeForward = true;
+
+   bool bEEdgeForward = false;
+   if (dElevNE > dElevSE)
+      bEEdgeForward = true;
+
+   bool bWEdgeForward = false;
+   if (dElevSW > dElevNW)
+      bWEdgeForward = true;
+   // TEST =========================================================
+
+
+
    // Go along the list of edge cells
    for (unsigned int n = 0; n < m_VEdgeCell.size(); n++)
    {
@@ -307,32 +333,6 @@ int CSimulation::nTraceAllCoasts(void)
 {
    if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
       LogStream << m_ulIter << ": Tracing coasts" << endl;
-
-   // // TEST =========================================================
-   // // First get the elevation of each corner of the grid
-   // double dElevNW = m_pRasterGrid->m_Cell[0][0].dGetAllSedTopElevIncTalus();
-   // double dElevNE = m_pRasterGrid->m_Cell[m_nXGridSize-1][0].dGetAllSedTopElevIncTalus();
-   // double dElevSW = m_pRasterGrid->m_Cell[0][m_nYGridSize-1].dGetAllSedTopElevIncTalus();
-   // double dElevSE = m_pRasterGrid->m_Cell[m_nXGridSize-1][m_nYGridSize-1].dGetAllSedTopElevIncTalus();
-   //
-   // // Edge cells were marked in clockwise direction: top (north) edge first
-   // bool bNEdgeForward = false;
-   // if (dElevNW > dElevNE)
-   //    bNEdgeForward = true;
-   //
-   // bool bSEdgeForward = false;
-   // if (dElevSE > dElevSW)
-   //    bSEdgeForward = true;
-   //
-   // bool bEEdgeForward = false;
-   // if (dElevNE > dElevSE)
-   //    bEEdgeForward = true;
-   //
-   // bool bWEdgeForward = false;
-   // if (dElevSW > dElevNW)
-   //    bWEdgeForward = true;
-   // // TEST =========================================================
-
 
 
    int const TOOCLOSE = 1;

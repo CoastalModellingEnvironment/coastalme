@@ -266,7 +266,7 @@ int CSimulation::nReadRasterBasementDEM(void)
 
    if (! bFPIsEqual(dMissingValue, m_dMissingValue, TOLERANCE))
    {
-      cerr << "   " << NOTE << "NODATA value in " << m_strInitialBasementDEMFile << " is " << dMissingValue << "\n         instead using CoastalME's default floating-point NODATA value " << m_dMissingValue << endl;
+      cerr << NOTE << "NODATA value in " << m_strInitialBasementDEMFile << " is " << dMissingValue << "\n         instead using CoastalME's default floating-point NODATA value " << m_dMissingValue << endl;
    }
 
    // Next allocate memory for a 2D array of raster cell objects: tell the user what is happening
@@ -323,7 +323,7 @@ int CSimulation::nReadRasterBasementDEM(void)
 //===============================================================================================================================
 int CSimulation::nMarkBoundingBoxEdgeCells(void)
 {
-   // The bounding box must touch the edge of the grid at least once on each side of the grid, so store these points. Search in a clockwise direction around the edge of the grid
+   // The bounding box must touch the edge of the grid at least once on each side of the grid. Store these corner points in the sequence [N E S W]
    vector<CGeom2DIPoint> VPtiBoundingBoxCorner;
 
    // Start with the top (north) edge
@@ -438,7 +438,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
       return RTN_ERR_BOUNDING_BOX;
    }
 
-   // OK, so we have a point on each side of the grid, so start at this point and find the edges of the bounding box. Go round in a clockwise direction: top (north) edge first
+   // OK, so we have a point on each side of the grid, so start at this point and find the edges of the bounding box N E S W
    for (int nX = VPtiBoundingBoxCorner[0].nGetX(); nX <= VPtiBoundingBoxCorner[1].nGetX(); nX++)
    {
       bFound = false;
@@ -454,8 +454,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          // Found a bounding box edge cell
          m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(NORTH);
 
-         m_VEdgeCell.push_back(CGeom2DIPoint(nX, nY));
-         m_VEdgeCellEdge.push_back(NORTH);
+         m_VNorthEdgeCell.push_back(CGeom2DIPoint(nX, nY));
 
          bFound = true;
          break;
@@ -486,8 +485,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          // Found a bounding box edge cell
          m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(EAST);
 
-         m_VEdgeCell.push_back(CGeom2DIPoint(nX, nY));
-         m_VEdgeCellEdge.push_back(EAST);
+         m_VEastEdgeCell.push_back(CGeom2DIPoint(nX, nY));
 
          bFound = true;
          break;
@@ -518,8 +516,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          // Found a bounding box edge cell
          m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(SOUTH);
 
-         m_VEdgeCell.push_back(CGeom2DIPoint(nX, nY));
-         m_VEdgeCellEdge.push_back(SOUTH);
+         m_VSouthEdgeCell.push_back(CGeom2DIPoint(nX, nY));
 
          bFound = true;
          break;
@@ -550,8 +547,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          // Found a bounding box edge cell
          m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(WEST);
 
-         m_VEdgeCell.push_back(CGeom2DIPoint(nX, nY));
-         m_VEdgeCellEdge.push_back(WEST);
+         m_VWestEdgeCell.push_back(CGeom2DIPoint(nX, nY));
 
          bFound = true;
          break;
@@ -810,7 +806,7 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer)
 
       if (m_nGISMissingValue != m_nMissingValue)
       {
-         cerr << "   " << NOTE << "NODATA value in " << strGISFile << " is " << m_nGISMissingValue << "\n         instead using CoatalME's default integer NODATA value " << m_nMissingValue << endl;
+         cerr << NOTE << "NODATA value in " << strGISFile << " is " << m_nGISMissingValue << "\n         instead using CoatalME's default integer NODATA value " << m_nMissingValue << endl;
       }
    }
    else
@@ -822,7 +818,7 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer)
 
       if (! bFPIsEqual(m_dGISMissingValue, m_dMissingValue, TOLERANCE))
       {
-         cerr << "   " << NOTE << "NODATA value in " << strGISFile << " is " << m_dGISMissingValue << "\n         instead using CoastalME's default floating-point NODATA value " << m_dMissingValue << endl;
+         cerr << NOTE << "NODATA value in " << strGISFile << " is " << m_dGISMissingValue << "\n         instead using CoastalME's default floating-point NODATA value " << m_dMissingValue << endl;
       }
    }
 

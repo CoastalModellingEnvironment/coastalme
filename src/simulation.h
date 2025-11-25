@@ -472,6 +472,18 @@ class CSimulation
    //! Do we have the lowest SWL so far?
    bool m_bLowestSWLSoFar;
 
+   //! In order to go from low elevation (sea) to high elevation (land), process the north edge cells forward (i.e. ascending indices)?
+   bool bNorthEdgeForward = false;
+
+   //! In order to go from low elevation (sea) to high elevation (land), process the south edge cells forward (i.e. ascending indices)?
+   bool bSouthEdgeForward = false;
+
+   //! In order to go from low elevation (sea) to high elevation (land), process the east edge cells forward (i.e. ascending indices)?
+   bool bEastEdgeForward = false;
+
+   //! In order to go from low elevation (sea) to high elevation (land), process the west edge cells forward (i.e. ascending indices)?
+   bool bWestEdgeForward = false;
+
    //! Options for GDAL when handling raster files
    char **m_papszGDALRasterOptions;
 
@@ -1580,11 +1592,17 @@ class CSimulation
    //! TODO 007 Finish surge and runup stuff
    vector<CRWCoast> m_VFloodWaveSetupSurgeRunup;
 
-   //! Edge cells
-   vector<CGeom2DIPoint> m_VEdgeCell;
+   //! North edge cells
+   vector<CGeom2DIPoint> m_VNorthEdgeCell;
 
-   //! The grid edge that each edge cell belongs to
-   vector<int> m_VEdgeCellEdge;
+   //! South edge cells
+   vector<CGeom2DIPoint> m_VSouthEdgeCell;
+
+   //! West edge cells
+   vector<CGeom2DIPoint> m_VWestEdgeCell;
+
+   //! East edge cells
+   vector<CGeom2DIPoint> m_VEastEdgeCell;
 
    //! The location to compute the total water level for flooding
    vector<int> m_VCellFloodLocation;
