@@ -5368,8 +5368,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
       // Case 37: Deep water wave height (m) or a file of point vectors giving deep water wave height (m) and orientation (for units, see below)
       m_dAllCellsDeepWaterWaveHeight = config.dGetDeepWaterWaveHeight();
 
-      // Case 39: Deep water wave orientation in input CRS: this is the
-      // oceanographic convention i.e. direction TOWARDS which the waves move (in degrees clockwise from north)
+      // Case 39: Deep water wave orientation in input CRS: this is the oceanographic convention i.e. direction TOWARDS which the waves move (in degrees clockwise from north)
       m_dAllCellsDeepWaterWaveAngle = config.dGetDeepWaterWaveOrientation();
 
       // Case 40: Wave period (sec)

@@ -657,9 +657,9 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       return nRet;
 
    //    // DEBUG CODE =================================================================================================================
-   // for (int n = 0; n < m_VEdgeCell.size(); n++)
+   // for (int n = 0; n < m_VPtiAllEdgeCell.size(); n++)
    // {
-   // LogStream << "[" << m_VEdgeCell[n].nGetX() << "][" << m_VEdgeCell[n].nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VEdgeCell[n].nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VEdgeCell[n].nGetY()) << "} " << m_VEdgeCellEdge[n] << endl;
+   // LogStream << "[" << m_VPtiAllEdgeCell[n].nGetX() << "][" << m_VPtiAllEdgeCell[n].nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VPtiAllEdgeCell[n].nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VPtiAllEdgeCell[n].nGetY()) << "} " << m_VPtiAllEdgeCellEdge[n] << endl;
    // }
    //    // DEBUG CODE =================================================================================================================
 
@@ -1303,25 +1303,25 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       if (nRet != RTN_OK)
          return nRet;
 
-      // Make water level inundation on grid
-      if (m_bFloodSWLSetupSurgeLine || m_bSetupSurgeFloodMaskSave)
-      {
-         m_nLevel = 0;
-
-         nRet = nLocateFloodAndCoasts();
-         if (nRet != RTN_OK)
-            return nRet;
-      }
-
-      if (m_bFloodSWLSetupSurgeRunupLineSave || m_bSetupSurgeRunupFloodMaskSave)
-      {
-         // TODO 007 Finish surge and runup stuff
-         m_nLevel = 1;
-
-         nRet = nLocateFloodAndCoasts();
-         if (nRet != RTN_OK)
-            return nRet;
-      }
+      // // Make water level inundation on grid
+      // if (m_bFloodSWLSetupSurgeLine || m_bSetupSurgeFloodMaskSave)
+      // {
+      //    m_nLevel = 0;
+      //
+      //    nRet = nLocateFloodAndCoasts();
+      //    if (nRet != RTN_OK)
+      //       return nRet;
+      // }
+      //
+      // if (m_bFloodSWLSetupSurgeRunupLineSave || m_bSetupSurgeRunupFloodMaskSave)
+      // {
+      //    // TODO 007 Finish surge and runup stuff
+      //    m_nLevel = 1;
+      //
+      //    nRet = nLocateFloodAndCoasts();
+      //    if (nRet != RTN_OK)
+      //       return nRet;
+      // }
 
       // Now save results, first the raster and vector GIS files if required
       m_bSaveGISThisIter = false;

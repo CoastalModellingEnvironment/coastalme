@@ -324,7 +324,7 @@ int CSimulation::nReadRasterBasementDEM(void)
 int CSimulation::nMarkBoundingBoxEdgeCells(void)
 {
    // The bounding box must touch the edge of the grid at least once on each side of the grid. Store these corner points in the sequence [NW NE SW SE], also get the elevation of the corner points
-   vector<CGeom2DIPoint> VPtiBoundingBoxCorner;
+   m_VPtiBoundingBoxCorner.clear();
    vector<double> VdBoundingBoxCornerElev;
 
    // Start with the top (north) edge, search NW to NE (left to right)
@@ -340,7 +340,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          {
             // This is the NW corner
             CGeom2DIPoint const PtiTmp(nX, nY);
-            VPtiBoundingBoxCorner.push_back(PtiTmp);
+            m_VPtiBoundingBoxCorner.push_back(PtiTmp);
             VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
 
             bFound = true;
@@ -370,7 +370,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          {
             // This is the NE corner
             CGeom2DIPoint const PtiTmp(nX, nY);
-            VPtiBoundingBoxCorner.push_back(PtiTmp);
+            m_VPtiBoundingBoxCorner.push_back(PtiTmp);
             VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
 
             bFound = true;
@@ -401,7 +401,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          {
             // This is the SW corner
             CGeom2DIPoint const PtiTmp(nX, nY);
-            VPtiBoundingBoxCorner.push_back(PtiTmp);
+            m_VPtiBoundingBoxCorner.push_back(PtiTmp);
             VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
 
             bFound = true;
@@ -431,7 +431,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          {
             // This is the NE corner
             CGeom2DIPoint const PtiTmp(nX, nY);
-            VPtiBoundingBoxCorner.push_back(PtiTmp);
+            m_VPtiBoundingBoxCorner.push_back(PtiTmp);
             VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
 
             bFound = true;
@@ -494,11 +494,11 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    }
 
    // OK, so we have a point at each corner [NW NE SW SE] of the grid, so start at this point and find the edges of the bounding box
-   for (int nX = VPtiBoundingBoxCorner[0].nGetX(); nX <= VPtiBoundingBoxCorner[1].nGetX(); nX++)
+   for (int nX = m_VPtiBoundingBoxCorner[0].nGetX(); nX <= m_VPtiBoundingBoxCorner[1].nGetX(); nX++)
    {
       // Search left to right (W to E)
       bFound = false;
-      for (int nY = VPtiBoundingBoxCorner[0].nGetY(); nY < m_nYGridSize; nY++)
+      for (int nY = m_VPtiBoundingBoxCorner[0].nGetY(); nY < m_nYGridSize; nY++)
       {
          // Search top to bottom (N to S)
          if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
@@ -510,7 +510,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          // Found a bounding box edge cell
          m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(NORTH);
 
-         m_VNorthEdgeCell.push_back(CGeom2DIPoint(nX, nY));
+         m_VPtiNorthEdgeCell.push_back(CGeom2DIPoint(nX, nY));
 
          bFound = true;
          break;
@@ -526,11 +526,11 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    }
 
    // Right (east) edge
-   for (int nY = VPtiBoundingBoxCorner[1].nGetY(); nY <= VPtiBoundingBoxCorner[3].nGetY(); nY++)
+   for (int nY = m_VPtiBoundingBoxCorner[1].nGetY(); nY <= m_VPtiBoundingBoxCorner[3].nGetY(); nY++)
    {
       // Search top to bottom (N to S)
       bFound = false;
-      for (int nX = VPtiBoundingBoxCorner[1].nGetX(); nX >= 0; nX--)
+      for (int nX = m_VPtiBoundingBoxCorner[1].nGetX(); nX >= 0; nX--)
       {
          // Search right to left (E to W)
          if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
@@ -542,7 +542,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          // Found a bounding box edge cell
          m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(EAST);
 
-         m_VEastEdgeCell.push_back(CGeom2DIPoint(nX, nY));
+         m_VPtiEastEdgeCell.push_back(CGeom2DIPoint(nX, nY));
 
          bFound = true;
          break;
@@ -558,11 +558,11 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    }
 
    // Bottom (south) edge
-   for (int nX = VPtiBoundingBoxCorner[2].nGetX(); nX >= VPtiBoundingBoxCorner[3].nGetX(); nX--)
+   for (int nX = m_VPtiBoundingBoxCorner[2].nGetX(); nX >= m_VPtiBoundingBoxCorner[3].nGetX(); nX--)
    {
       // Searching left to right (W to E)
       bFound = false;
-      for (int nY = VPtiBoundingBoxCorner[2].nGetY(); nY >= 0; nY--)
+      for (int nY = m_VPtiBoundingBoxCorner[2].nGetY(); nY >= 0; nY--)
       {
          // Searching bottom to top (S to N)
          if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
@@ -574,7 +574,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          // Found a bounding box edge cell
          m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(SOUTH);
 
-         m_VSouthEdgeCell.push_back(CGeom2DIPoint(nX, nY));
+         m_VPtiSouthEdgeCell.push_back(CGeom2DIPoint(nX, nY));
 
          bFound = true;
          break;
@@ -590,11 +590,11 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    }
 
    // Left (west) edge
-   for (int nY = VPtiBoundingBoxCorner[0].nGetY(); nY >= VPtiBoundingBoxCorner[2].nGetY(); nY--)
+   for (int nY = m_VPtiBoundingBoxCorner[0].nGetY(); nY >= m_VPtiBoundingBoxCorner[2].nGetY(); nY--)
    {
       // Search top to bottom (N to S)
       bFound = false;
-      for (int nX = VPtiBoundingBoxCorner[0].nGetX(); nX < m_nXGridSize - 1; nX++)
+      for (int nX = m_VPtiBoundingBoxCorner[0].nGetX(); nX < m_nXGridSize - 1; nX++)
       {
          // Searching left to right (W to E)
          if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
@@ -606,7 +606,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          // Found a bounding box edge cell
          m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(WEST);
 
-         m_VWestEdgeCell.push_back(CGeom2DIPoint(nX, nY));
+         m_VPtiWestEdgeCell.push_back(CGeom2DIPoint(nX, nY));
 
          bFound = true;
          break;
@@ -620,6 +620,12 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          return RTN_ERR_BOUNDING_BOX;
       }
    }
+
+   // Finally concatenate the four edge cell vectors to make an all-edge-cells vector, in clockwise sequence
+   m_VPtiAllEdgeCell.insert(m_VPtiAllEdgeCell.end(), m_VPtiNorthEdgeCell.begin(), m_VPtiNorthEdgeCell.end());
+   m_VPtiAllEdgeCell.insert(m_VPtiAllEdgeCell.end(), m_VPtiEastEdgeCell.begin(), m_VPtiEastEdgeCell.end());
+   m_VPtiAllEdgeCell.insert(m_VPtiAllEdgeCell.end(), m_VPtiSouthEdgeCell.end(), m_VPtiSouthEdgeCell.begin());     // Reverse
+   m_VPtiAllEdgeCell.insert(m_VPtiAllEdgeCell.end(), m_VPtiWestEdgeCell.end(), m_VPtiWestEdgeCell.begin());       // Reverse
 
    return RTN_OK;
 }

@@ -1592,17 +1592,23 @@ class CSimulation
    //! TODO 007 Finish surge and runup stuff
    vector<CRWCoast> m_VFloodWaveSetupSurgeRunup;
 
+   //! Corners of the bounding box
+   vector<CGeom2DIPoint> m_VPtiBoundingBoxCorner;
+
    //! North edge cells
-   vector<CGeom2DIPoint> m_VNorthEdgeCell;
+   vector<CGeom2DIPoint> m_VPtiNorthEdgeCell;
 
    //! South edge cells
-   vector<CGeom2DIPoint> m_VSouthEdgeCell;
+   vector<CGeom2DIPoint> m_VPtiSouthEdgeCell;
 
    //! West edge cells
-   vector<CGeom2DIPoint> m_VWestEdgeCell;
+   vector<CGeom2DIPoint> m_VPtiWestEdgeCell;
 
    //! East edge cells
-   vector<CGeom2DIPoint> m_VEastEdgeCell;
+   vector<CGeom2DIPoint> m_VPtiEastEdgeCell;
+
+   //! All edge cells
+   vector<CGeom2DIPoint> m_VPtiAllEdgeCell;
 
    //! The location to compute the total water level for flooding
    vector<int> m_VCellFloodLocation;
@@ -1670,7 +1676,7 @@ class CSimulation
    int nCalcExternalForcing(void);
    int nInitGridAndCalcStillWaterLevel(void);
    int nLocateSeaAndCoasts(void);
-   int nLocateFloodAndCoasts(void);
+   // int nLocateFloodAndCoasts(void);
    int nAssignLandformsForAllCoasts(void);
    int nAssignLandformsForAllCells(void);
    int nDoAllPropagateWaves(void);
@@ -1699,8 +1705,8 @@ class CSimulation
    void FloodFillLand(int const, int const);
    int nTraceCoastLine(unsigned int const, int const, int const, vector<bool>*, vector<CGeom2DIPoint> const*);
    int nTraceAllCoasts(void);
-   int nTraceFloodCoastLine(unsigned int const, int const, int const, vector<bool>*, vector<CGeom2DIPoint> const*);
-   int nTraceAllFloodCoasts(void);
+   // int nTraceFloodCoastLine(unsigned int const, int const, int const, vector<bool>*, vector<CGeom2DIPoint> const*);
+   // int nTraceAllFloodCoasts(void);
    void DoCoastCurvature(int const, int const);
    int nCheckAndMarkAllProfiles(void);
    int nCreateAllProfiles(void);
