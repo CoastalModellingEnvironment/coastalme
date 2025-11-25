@@ -493,13 +493,14 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
       bSearchWestEdgeForward = true;
    }
 
-   // OK, so we have a point on each side of the grid, so start at this point and find the edges of the bounding box [NW NE SW SE]
+   // OK, so we have a point at each corner [NW NE SW SE] of the grid, so start at this point and find the edges of the bounding box
    for (int nX = VPtiBoundingBoxCorner[0].nGetX(); nX <= VPtiBoundingBoxCorner[1].nGetX(); nX++)
    {
+      // Search left to right (W to E)
       bFound = false;
-
       for (int nY = VPtiBoundingBoxCorner[0].nGetY(); nY < m_nYGridSize; nY++)
       {
+         // Search top to bottom (N to S)
          if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
          {
             m_ulMissingValueBasementCells++;
@@ -525,12 +526,13 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    }
 
    // Right (east) edge
-   for (int nY = VPtiBoundingBoxCorner[1].nGetY(); nY <= VPtiBoundingBoxCorner[2].nGetY(); nY++)
+   for (int nY = VPtiBoundingBoxCorner[1].nGetY(); nY <= VPtiBoundingBoxCorner[3].nGetY(); nY++)
    {
+      // Search top to bottom (N to S)
       bFound = false;
-
       for (int nX = VPtiBoundingBoxCorner[1].nGetX(); nX >= 0; nX--)
       {
+         // Search right to left (E to W)
          if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
          {
             m_ulMissingValueBasementCells++;
@@ -558,10 +560,11 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    // Bottom (south) edge
    for (int nX = VPtiBoundingBoxCorner[2].nGetX(); nX >= VPtiBoundingBoxCorner[3].nGetX(); nX--)
    {
+      // Searching left to right (W to E)
       bFound = false;
-
       for (int nY = VPtiBoundingBoxCorner[2].nGetY(); nY >= 0; nY--)
       {
+         // Searching bottom to top (S to N)
          if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
          {
             m_ulMissingValueBasementCells++;
@@ -587,12 +590,13 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    }
 
    // Left (west) edge
-   for (int nY = VPtiBoundingBoxCorner[3].nGetY(); nY >= VPtiBoundingBoxCorner[0].nGetY(); nY--)
+   for (int nY = VPtiBoundingBoxCorner[0].nGetY(); nY >= VPtiBoundingBoxCorner[2].nGetY(); nY--)
    {
-      for (int nX = VPtiBoundingBoxCorner[3].nGetX(); nX < m_nXGridSize - 1; nX++)
-      // for (int nX = VPtiBoundingBoxCorner[3].nGetX(); nX <
-      // VPtiBoundingBoxCorner[3].nGetX(); nX++)
+      // Search top to bottom (N to S)
+      bFound = false;
+      for (int nX = VPtiBoundingBoxCorner[0].nGetX(); nX < m_nXGridSize - 1; nX++)
       {
+         // Searching left to right (W to E)
          if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
          {
             m_ulMissingValueBasementCells++;
