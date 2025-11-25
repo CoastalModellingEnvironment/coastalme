@@ -473,16 +473,16 @@ class CSimulation
    bool m_bLowestSWLSoFar;
 
    //! In order to go from low elevation (sea) to high elevation (land), process the north edge cells forward (i.e. ascending indices)?
-   bool bNorthEdgeForward = false;
+   bool bSearchNorthEdgeForward = false;
 
    //! In order to go from low elevation (sea) to high elevation (land), process the south edge cells forward (i.e. ascending indices)?
-   bool bSouthEdgeForward = false;
+   bool bSearchSouthEdgeForward = false;
 
    //! In order to go from low elevation (sea) to high elevation (land), process the east edge cells forward (i.e. ascending indices)?
-   bool bEastEdgeForward = false;
+   bool bSearchEastEdgeForward = false;
 
    //! In order to go from low elevation (sea) to high elevation (land), process the west edge cells forward (i.e. ascending indices)?
-   bool bWestEdgeForward = false;
+   bool bSearchWestEdgeForward = false;
 
    //! Options for GDAL when handling raster files
    char **m_papszGDALRasterOptions;

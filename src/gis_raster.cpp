@@ -323,12 +323,12 @@ int CSimulation::nReadRasterBasementDEM(void)
 //===============================================================================================================================
 int CSimulation::nMarkBoundingBoxEdgeCells(void)
 {
-   // The bounding box must touch the edge of the grid at least once on each side of the grid. Store these corner points in the sequence [N E S W]
+   // The bounding box must touch the edge of the grid at least once on each side of the grid. Store these corner points in the sequence [NW NE SW SE], also get the elevation of the corner points
    vector<CGeom2DIPoint> VPtiBoundingBoxCorner;
+   vector<double> VdBoundingBoxCornerElev;
 
-   // Start with the top (north) edge
+   // Start with the top (north) edge, search NW to NE (left to right)
    bool bFound = false;
-
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {
       if (bFound)
@@ -338,8 +338,11 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
       {
          if (! m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
          {
+            // This is the NW corner
             CGeom2DIPoint const PtiTmp(nX, nY);
             VPtiBoundingBoxCorner.push_back(PtiTmp);
+            VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
+
             bFound = true;
             break;
          }
@@ -349,25 +352,27 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    if (! bFound)
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ": north (top) edge of bounding box not found" << endl;
+         LogStream << m_ulIter << ": NW (top left) corner of bounding box not found" << endl;
 
       return RTN_ERR_BOUNDING_BOX;
    }
 
-   // Do the same for the right (east) edge
+   // Again go along the top (north) edge, but this time search NE to NW (right to left)
    bFound = false;
-
-   for (int nY = 0; nY < m_nYGridSize; nY++)
+   for (int nX = m_nXGridSize-1; nX >= 0; nX--)
    {
       if (bFound)
          break;
 
-      for (int nX = m_nXGridSize - 1; nX >= 0; nX--)
+      for (int nY = 0; nY < m_nYGridSize; nY++)
       {
          if (! m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
          {
+            // This is the NE corner
             CGeom2DIPoint const PtiTmp(nX, nY);
             VPtiBoundingBoxCorner.push_back(PtiTmp);
+            VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
+
             bFound = true;
             break;
          }
@@ -377,25 +382,28 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    if (! bFound)
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ": east (right) edge of bounding box not found" << endl;
+         LogStream << m_ulIter << ": NE (top right) edge of bounding box not found" << endl;
 
       return RTN_ERR_BOUNDING_BOX;
    }
 
-   // Do the same for the south (bottom) edge
-   bFound = false;
 
-   for (int nX = m_nXGridSize - 1; nX >= 0; nX--)
+   // Now go along the bottom (south) edge, search SW to SE (top to bottom)
+   bFound = false;
+   for (int nX = 0; nX < m_nXGridSize; nX++)
    {
       if (bFound)
          break;
 
-      for (int nY = m_nYGridSize - 1; nY >= 0; nY--)
+      for (int nY = m_nYGridSize-1; nY >= 0; nY--)
       {
          if (! m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
          {
+            // This is the SW corner
             CGeom2DIPoint const PtiTmp(nX, nY);
             VPtiBoundingBoxCorner.push_back(PtiTmp);
+            VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
+
             bFound = true;
             break;
          }
@@ -405,25 +413,27 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    if (! bFound)
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ": south (bottom) edge of bounding box not found" << endl;
+         LogStream << m_ulIter << ": SW (bottom left) corner of bounding box not found" << endl;
 
       return RTN_ERR_BOUNDING_BOX;
    }
 
-   // And finally repeat for the west (left) edge
+   // Finally, again go along the bottom (south) edge, but this time search SE to SW (bottom to top)
    bFound = false;
-
-   for (int nY = m_nYGridSize - 1; nY >= 0; nY--)
+   for (int nX = m_nXGridSize-1; nX >= 0; nX--)
    {
       if (bFound)
          break;
 
-      for (int nX = 0; nX < m_nXGridSize; nX++)
+      for (int nY = m_nYGridSize-1; nY >= 0; nY--)
       {
          if (! m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
          {
+            // This is the NE corner
             CGeom2DIPoint const PtiTmp(nX, nY);
             VPtiBoundingBoxCorner.push_back(PtiTmp);
+            VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
+
             bFound = true;
             break;
          }
@@ -433,12 +443,57 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    if (! bFound)
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ": west (left) edge of bounding box not found" << endl;
+         LogStream << m_ulIter << ": SE (bottom right) edge of bounding box not found" << endl;
 
       return RTN_ERR_BOUNDING_BOX;
    }
 
-   // OK, so we have a point on each side of the grid, so start at this point and find the edges of the bounding box N E S W
+   // We have the elevations of the four bounding box corner points, in the sequence [NW NE SW SE]. When finding possible start/finish points for coast tracing later on, we wish to process each side of the grid in the sequence low elevation (sea) to high elevation (land). So set these directions now
+   if (VdBoundingBoxCornerElev[0] > VdBoundingBoxCornerElev[1])
+   {
+      // NW (left) point is higher than NE (right) point, so search north edge for coast points right to left
+      bSearchNorthEdgeForward = false;
+   }
+   else
+   {
+      // NW (left) point is lower than NE (right) point, so search north edge for coast points left to right
+      bSearchNorthEdgeForward = true;
+   }
+
+   if (VdBoundingBoxCornerElev[1] > VdBoundingBoxCornerElev[3])
+   {
+      // NE (top) point is higher than SE (bottom) point, so search east edge for coast points bottom to top
+      bSearchEastEdgeForward = false;
+   }
+   else
+   {
+      // NE (bottom) point is lower than SE (top) point, so search east edge for coast points top to bottom
+      bSearchEastEdgeForward = true;
+   }
+
+   if (VdBoundingBoxCornerElev[2] > VdBoundingBoxCornerElev[3])
+   {
+      // SW (left) point is higher than SE (right) point, so search south edge for coast points right to left
+      bSearchSouthEdgeForward = false;
+   }
+   else
+   {
+      // SW (left) point is lower than SE (right) point, so search south edge for coast points left to right
+      bSearchSouthEdgeForward = true;
+   }
+
+   if (VdBoundingBoxCornerElev[0] > VdBoundingBoxCornerElev[2])
+   {
+      // NW (top) point is higher than SW (bottom) point, so search west edge for coast points bottom to top
+      bSearchWestEdgeForward = false;
+   }
+   else
+   {
+      // NW (top) point is lower than SW (bottom) point, so search west edge for coast points top to bottom
+      bSearchWestEdgeForward = true;
+   }
+
+   // OK, so we have a point on each side of the grid, so start at this point and find the edges of the bounding box [NW NE SW SE]
    for (int nX = VPtiBoundingBoxCorner[0].nGetX(); nX <= VPtiBoundingBoxCorner[1].nGetX(); nX++)
    {
       bFound = false;
