@@ -39,177 +39,177 @@ using std::stack;
 #include "coast.h"
 #include "2di_point.h"
 
-//===============================================================================================================================
-//! Use the sealevel, wave set-up and run-up to evaluate flood hydraulically connected TODO 007 Finish surge and runup stuff
-//===============================================================================================================================
-void CSimulation::FloodFillLand(int const nXStart, int const nYStart)
-{
-   // The flood is at a user-specified location. So get the location from values read from the shapefile
-   long const unsigned int nLocIDs = m_VdFloodLocationX.size();
-   double dDiffTotWaterLevel = 0;
-
-   double dAuxWaterLevelDiff = 0;
-
-   if (nLocIDs == 0)
-   {
-      int pointCounter = 0;
-
-      for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
-      {
-         int const nCoastSize = m_VCoast[nCoast].pLGetCoastlineExtCRS()->nGetSize();
-
-         for (int nCoastPoint = 0; nCoastPoint < nCoastSize; nCoastPoint++)
-         {
-            dAuxWaterLevelDiff = m_VCoast[nCoast].dGetLevel(nCoastPoint, m_nLevel);
-
-            if (!isnan(dAuxWaterLevelDiff))
-            {
-               if (tAbs(dAuxWaterLevelDiff) < 1) // Limiting the maximum value that can be found (dAuxWaterLevelDiff != DBL_NODATA)
-               {
-                  pointCounter++;
-                  dDiffTotWaterLevel += dAuxWaterLevelDiff;
-               }
-            }
-         }
-      }
-
-      if (pointCounter > 0)
-         dDiffTotWaterLevel /= pointCounter;
-      else
-         dDiffTotWaterLevel = 0;
-   }
-   else
-   {
-      for (long unsigned int n = 0; n < nLocIDs; n++)
-      {
-         double const dPointGridXExtCRS = m_VdFloodLocationX[n];
-         double const dPointGridYExtCRS = m_VdFloodLocationY[n];
-         double dMinDiffTotWaterLevelAtCoast = 1e10;
-
-         for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
-         {
-            int const nCoastSize = m_VCoast[nCoast].pLGetCoastlineExtCRS()->nGetSize();
-            double dMinDistSquare = 1e10;
-
-            for (int nCoastPoint = 0; nCoastPoint < nCoastSize; nCoastPoint++)
-            {
-               double const dCoastPointXExtCRS = m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nCoastPoint)->dGetX();
-               double const dCoastPointYExtCRS = m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nCoastPoint)->dGetY();
-
-               double const dDistSquare = (dCoastPointXExtCRS - dPointGridXExtCRS) * (dCoastPointXExtCRS - dPointGridXExtCRS) + (dCoastPointYExtCRS - dPointGridYExtCRS) * (dCoastPointYExtCRS - dPointGridYExtCRS);
-
-               if (dDistSquare < dMinDistSquare)
-               {
-                  dAuxWaterLevelDiff = m_VCoast[nCoast].dGetLevel(nCoastPoint, m_nLevel);
-
-                  if (!isnan(dAuxWaterLevelDiff))
-                  {
-                     dMinDistSquare = dDistSquare;
-                     dMinDiffTotWaterLevelAtCoast = dAuxWaterLevelDiff;
-                  }
-               }
-            }
-         }
-
-         dDiffTotWaterLevel += dMinDiffTotWaterLevelAtCoast;
-      }
-
-      dDiffTotWaterLevel /= static_cast<double>(nLocIDs);
-   }
-
-   m_dThisIterDiffTotWaterLevel = dDiffTotWaterLevel;
-
-   switch (m_nLevel)
-   {
-   case 0: // WAVESETUP + STORMSURGE:
-      m_dThisIterDiffWaveSetupSurgeWaterLevel = m_dThisIterDiffTotWaterLevel;
-      break;
-
-   case 1: // WAVESETUP + STORMSURGE + RUNUP:
-      m_dThisIterDiffWaveSetupSurgeRunupWaterLevel = m_dThisIterDiffTotWaterLevel;
-      break;
-   }
-
-   // Create an empty stack
-   stack<CGeom2DIPoint> PtiStackFlood;
-
-   // Start at the given edge cell, push this onto the stack
-   PtiStackFlood.push(CGeom2DIPoint(nXStart, nYStart));
-
-   // Then do the cell-by-cell fill loop until there are no more cell coordinates on the stack
-   while (! PtiStackFlood.empty())
-   {
-      CGeom2DIPoint const Pti = PtiStackFlood.top();
-      PtiStackFlood.pop();
-
-      int nX = Pti.nGetX();
-      int const nY = Pti.nGetY();
-
-      while (nX >= 0)
-      {
-         if (m_pRasterGrid->m_Cell[nX][nY].bIsCellFloodCheck())
-            break;
-
-         if (! m_pRasterGrid->m_Cell[nX][nY].bElevLessThanSWL())
-            break;
-
-         nX--;
-      }
-
-      nX++;
-
-      bool bSpanAbove = false;
-      bool bSpanBelow = false;
-
-      while (nX < m_nXGridSize)
-      {
-         if (m_pRasterGrid->m_Cell[nX][nY].bIsCellFloodCheck())
-            break;
-
-         if (! m_pRasterGrid->m_Cell[nX][nY].bElevLessThanSWL())
-            break;
-
-         // Flood this cell
-         m_pRasterGrid->m_Cell[nX][nY].SetCheckFloodCell();
-         m_pRasterGrid->m_Cell[nX][nY].SetInContiguousFlood();
-
-         switch (m_nLevel)
-         {
-         case 0: // WAVESETUP + STORMSURGE:
-            m_pRasterGrid->m_Cell[nX][nY].SetFloodBySetupSurge();
-            break;
-
-         case 1: // WAVESETUP + STORMSURGE + RUNUP:
-            m_pRasterGrid->m_Cell[nX][nY].SetFloodBySetupSurgeRunup();
-            break;
-         }
-
-         if ((! bSpanAbove) && (nY > 0) && (m_pRasterGrid->m_Cell[nX][nY - 1].bElevLessThanSWL()) && (!m_pRasterGrid->m_Cell[nX][nY - 1].bIsCellFloodCheck()))
-         {
-            PtiStackFlood.push(CGeom2DIPoint(nX, nY - 1));
-            bSpanAbove = true;
-         }
-
-         else if (bSpanAbove && (nY > 0) && (!m_pRasterGrid->m_Cell[nX][nY - 1].bElevLessThanSWL()))
-         {
-            bSpanAbove = false;
-         }
-
-         if ((! bSpanBelow) && (nY < m_nYGridSize - 1) && (m_pRasterGrid->m_Cell[nX][nY + 1].bElevLessThanSWL()) && (!m_pRasterGrid->m_Cell[nX][nY + 1].bIsCellFloodCheck()))
-         {
-            PtiStackFlood.push(CGeom2DIPoint(nX, nY + 1));
-            bSpanBelow = true;
-         }
-
-         else if (bSpanBelow && (nY < m_nYGridSize - 1) && (!m_pRasterGrid->m_Cell[nX][nY + 1].bElevLessThanSWL()))
-         {
-            bSpanBelow = false;
-         }
-
-         nX++;
-      }
-   }
-}
+// //===============================================================================================================================
+// //! Use the sealevel, wave set-up and run-up to evaluate flood hydraulically connected TODO 007 Finish surge and runup stuff
+// //===============================================================================================================================
+// void CSimulation::FloodFillLand(int const nXStart, int const nYStart)
+// {
+//    // The flood is at a user-specified location. So get the location from values read from the shapefile
+//    long const unsigned int nLocIDs = m_VdFloodLocationX.size();
+//    double dDiffTotWaterLevel = 0;
+//
+//    double dAuxWaterLevelDiff = 0;
+//
+//    if (nLocIDs == 0)
+//    {
+//       int pointCounter = 0;
+//
+//       for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
+//       {
+//          int const nCoastSize = m_VCoast[nCoast].pLGetCoastlineExtCRS()->nGetSize();
+//
+//          for (int nCoastPoint = 0; nCoastPoint < nCoastSize; nCoastPoint++)
+//          {
+//             dAuxWaterLevelDiff = m_VCoast[nCoast].dGetLevel(nCoastPoint, m_nLevel);
+//
+//             if (!isnan(dAuxWaterLevelDiff))
+//             {
+//                if (tAbs(dAuxWaterLevelDiff) < 1) // Limiting the maximum value that can be found (dAuxWaterLevelDiff != DBL_NODATA)
+//                {
+//                   pointCounter++;
+//                   dDiffTotWaterLevel += dAuxWaterLevelDiff;
+//                }
+//             }
+//          }
+//       }
+//
+//       if (pointCounter > 0)
+//          dDiffTotWaterLevel /= pointCounter;
+//       else
+//          dDiffTotWaterLevel = 0;
+//    }
+//    else
+//    {
+//       for (long unsigned int n = 0; n < nLocIDs; n++)
+//       {
+//          double const dPointGridXExtCRS = m_VdFloodLocationX[n];
+//          double const dPointGridYExtCRS = m_VdFloodLocationY[n];
+//          double dMinDiffTotWaterLevelAtCoast = 1e10;
+//
+//          for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
+//          {
+//             int const nCoastSize = m_VCoast[nCoast].pLGetCoastlineExtCRS()->nGetSize();
+//             double dMinDistSquare = 1e10;
+//
+//             for (int nCoastPoint = 0; nCoastPoint < nCoastSize; nCoastPoint++)
+//             {
+//                double const dCoastPointXExtCRS = m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nCoastPoint)->dGetX();
+//                double const dCoastPointYExtCRS = m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nCoastPoint)->dGetY();
+//
+//                double const dDistSquare = (dCoastPointXExtCRS - dPointGridXExtCRS) * (dCoastPointXExtCRS - dPointGridXExtCRS) + (dCoastPointYExtCRS - dPointGridYExtCRS) * (dCoastPointYExtCRS - dPointGridYExtCRS);
+//
+//                if (dDistSquare < dMinDistSquare)
+//                {
+//                   dAuxWaterLevelDiff = m_VCoast[nCoast].dGetLevel(nCoastPoint, m_nLevel);
+//
+//                   if (!isnan(dAuxWaterLevelDiff))
+//                   {
+//                      dMinDistSquare = dDistSquare;
+//                      dMinDiffTotWaterLevelAtCoast = dAuxWaterLevelDiff;
+//                   }
+//                }
+//             }
+//          }
+//
+//          dDiffTotWaterLevel += dMinDiffTotWaterLevelAtCoast;
+//       }
+//
+//       dDiffTotWaterLevel /= static_cast<double>(nLocIDs);
+//    }
+//
+//    m_dThisIterDiffTotWaterLevel = dDiffTotWaterLevel;
+//
+//    switch (m_nLevel)
+//    {
+//    case 0: // WAVESETUP + STORMSURGE:
+//       m_dThisIterDiffWaveSetupSurgeWaterLevel = m_dThisIterDiffTotWaterLevel;
+//       break;
+//
+//    case 1: // WAVESETUP + STORMSURGE + RUNUP:
+//       m_dThisIterDiffWaveSetupSurgeRunupWaterLevel = m_dThisIterDiffTotWaterLevel;
+//       break;
+//    }
+//
+//    // Create an empty stack
+//    stack<CGeom2DIPoint> PtiStackFlood;
+//
+//    // Start at the given edge cell, push this onto the stack
+//    PtiStackFlood.push(CGeom2DIPoint(nXStart, nYStart));
+//
+//    // Then do the cell-by-cell fill loop until there are no more cell coordinates on the stack
+//    while (! PtiStackFlood.empty())
+//    {
+//       CGeom2DIPoint const Pti = PtiStackFlood.top();
+//       PtiStackFlood.pop();
+//
+//       int nX = Pti.nGetX();
+//       int const nY = Pti.nGetY();
+//
+//       while (nX >= 0)
+//       {
+//          if (m_pRasterGrid->m_Cell[nX][nY].bIsCellFloodCheck())
+//             break;
+//
+//          if (! m_pRasterGrid->m_Cell[nX][nY].bElevLessThanSWL())
+//             break;
+//
+//          nX--;
+//       }
+//
+//       nX++;
+//
+//       bool bSpanAbove = false;
+//       bool bSpanBelow = false;
+//
+//       while (nX < m_nXGridSize)
+//       {
+//          if (m_pRasterGrid->m_Cell[nX][nY].bIsCellFloodCheck())
+//             break;
+//
+//          if (! m_pRasterGrid->m_Cell[nX][nY].bElevLessThanSWL())
+//             break;
+//
+//          // Flood this cell
+//          m_pRasterGrid->m_Cell[nX][nY].SetCheckFloodCell();
+//          m_pRasterGrid->m_Cell[nX][nY].SetInContiguousFlood();
+//
+//          switch (m_nLevel)
+//          {
+//          case 0: // WAVESETUP + STORMSURGE:
+//             m_pRasterGrid->m_Cell[nX][nY].SetFloodBySetupSurge();
+//             break;
+//
+//          case 1: // WAVESETUP + STORMSURGE + RUNUP:
+//             m_pRasterGrid->m_Cell[nX][nY].SetFloodBySetupSurgeRunup();
+//             break;
+//          }
+//
+//          if ((! bSpanAbove) && (nY > 0) && (m_pRasterGrid->m_Cell[nX][nY - 1].bElevLessThanSWL()) && (!m_pRasterGrid->m_Cell[nX][nY - 1].bIsCellFloodCheck()))
+//          {
+//             PtiStackFlood.push(CGeom2DIPoint(nX, nY - 1));
+//             bSpanAbove = true;
+//          }
+//
+//          else if (bSpanAbove && (nY > 0) && (!m_pRasterGrid->m_Cell[nX][nY - 1].bElevLessThanSWL()))
+//          {
+//             bSpanAbove = false;
+//          }
+//
+//          if ((! bSpanBelow) && (nY < m_nYGridSize - 1) && (m_pRasterGrid->m_Cell[nX][nY + 1].bElevLessThanSWL()) && (!m_pRasterGrid->m_Cell[nX][nY + 1].bIsCellFloodCheck()))
+//          {
+//             PtiStackFlood.push(CGeom2DIPoint(nX, nY + 1));
+//             bSpanBelow = true;
+//          }
+//
+//          else if (bSpanBelow && (nY < m_nYGridSize - 1) && (!m_pRasterGrid->m_Cell[nX][nY + 1].bElevLessThanSWL()))
+//          {
+//             bSpanBelow = false;
+//          }
+//
+//          nX++;
+//       }
+//    }
+// }
 
 // //===============================================================================================================================
 // //! Locates all the potential coastline start points on the edges of the raster grid, then traces vector coastline(s) from these start points

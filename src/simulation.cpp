@@ -761,7 +761,6 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
          return (nRet);
    }
 
-
    // Maybe read in the landform class data, otherwise calculate this during the first timestep using identification rules
    if (! m_strInitialLandformFile.empty())
    {
@@ -902,6 +901,9 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       m_dAccumulatedSeaLevelChange -= m_dDeltaSWLPerTimestep;
    }
 
+   // Calculate the sea-to-land processing direction for each side of the grid
+   CalcGridEdgeSeaToLandDirection();
+
    // ===================================================== The main loop ======================================================
    // Tell the user what is happening
    AnnounceIsRunning();
@@ -947,13 +949,13 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
 
       // Locate estuaries TODO someday...
 
-      if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse && m_bCliffToeLocate)
-      {
-         // Locate and trace cliff toe
-         nRet = nLocateCliffToe();
-         if (nRet != RTN_OK)
-            return nRet;
-      }
+      // if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse && m_bCliffToeLocate)
+      // {
+      //    // Locate and trace cliff toe
+      //    nRet = nLocateCliffToe();
+      //    if (nRet != RTN_OK)
+      //       return nRet;
+      // }
 
       // For all cells, use classification rules to assign sea and hinterland landform categories
       nRet = nAssignLandformsForAllCells();

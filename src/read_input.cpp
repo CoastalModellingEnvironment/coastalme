@@ -1235,23 +1235,23 @@ bool CSimulation::bReadRunDataFile(void)
                      strRH = strRemoveSubstr(&strRH, &RASTER_SEDIMENT_INPUT_EVENT_CODE);
                   }
 
-                  if (strRH.find(RASTER_SETUP_SURGE_FLOOD_MASK_CODE) != string::npos)
-                  {
-                     m_bSetupSurgeFloodMaskSave = true;
-                     strRH = strRemoveSubstr(&strRH, &RASTER_SETUP_SURGE_FLOOD_MASK_CODE);
-                  }
-
-                  if (strRH.find(RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_CODE) != string::npos)
-                  {
-                     m_bSetupSurgeRunupFloodMaskSave = true;
-                     strRH = strRemoveSubstr(&strRH, &RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_CODE);
-                  }
-
-                  if (strRH.find(RASTER_WAVE_FLOOD_LINE_CODE) != string::npos)
-                  {
-                     m_bRasterWaveFloodLineSave = true;
-                     strRH = strRemoveSubstr(&strRH, &RASTER_WAVE_FLOOD_LINE_CODE);
-                  }
+                  // if (strRH.find(RASTER_SETUP_SURGE_FLOOD_MASK_CODE) != string::npos)
+                  // {
+                  //    m_bSetupSurgeFloodMaskSave = true;
+                  //    strRH = strRemoveSubstr(&strRH, &RASTER_SETUP_SURGE_FLOOD_MASK_CODE);
+                  // }
+                  //
+                  // if (strRH.find(RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_CODE) != string::npos)
+                  // {
+                  //    m_bSetupSurgeRunupFloodMaskSave = true;
+                  //    strRH = strRemoveSubstr(&strRH, &RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_CODE);
+                  // }
+                  //
+                  // if (strRH.find(RASTER_WAVE_FLOOD_LINE_CODE) != string::npos)
+                  // {
+                  //    m_bRasterWaveFloodLineSave = true;
+                  //    strRH = strRemoveSubstr(&strRH, &RASTER_WAVE_FLOOD_LINE_CODE);
+                  // }
 
                   if (strRH.find(RASTER_CLIFF_NOTCH_ALL_CODE) != string::npos)
                   {

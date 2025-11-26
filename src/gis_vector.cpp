@@ -1042,52 +1042,52 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
       break;
    }
 
-   case (VECTOR_PLOT_CLIFF_EDGE):
-   {
-      // The layer has been created, so create an integer-numbered value (the number of the cliff edge object) for the multi-line
-      string const strFieldValue1 = "CliffEdge";
-      OGRFieldDefn const OGRField1(strFieldValue1.c_str(), OFTInteger);
-
-      if (pOGRLayer->CreateField(&OGRField1) != OGRERR_NONE)
-      {
-         cerr << ERR << "cannot create " << strType << " attribute field 1 '" << strFieldValue1 << "' in " << strFilePathName << endl << CPLGetLastErrorMsg() << endl;
-         return false;
-      }
-
-      // OK, now do features
-      OGRLineString OGRls;
-
-      for (int i = 0; i < static_cast<int>(m_VCliffToe.size()); i++)
-      {
-         // Create a feature object, one per cliff edge
-         OGRFeature* pOGRFeature = OGRFeature::CreateFeature(pOGRLayer->GetLayerDefn());
-
-         // Set the feature's attribute (the cliff edge number)
-         pOGRFeature->SetField(strFieldValue1.c_str(), i);
-
-         // Now attach a geometry to the feature object
-         for (int j = 0; j < m_VCliffToe[i].nGetSize(); j++)
-         {
-            // Use external CRS coordinates directly (already smoothed)
-            OGRls.addPoint(m_VCliffToe[i].dGetXAt(j), m_VCliffToe[i].dGetYAt(j));
-         }
-
-         pOGRFeature->SetGeometry(&OGRls);
-
-         // Create the feature in the output layer
-         if (pOGRLayer->CreateFeature(pOGRFeature) != OGRERR_NONE)
-         {
-            cerr << ERR << "cannot create  " << strType << " feature " << strPlotTitle << " for cliff edge " << i << " in " << strFilePathName << endl << CPLGetLastErrorMsg() << endl;
-            return false;
-         }
-
-         // Tidy up: empty the line string and destroy the feature object
-         OGRls.empty();
-         OGRFeature::DestroyFeature(pOGRFeature);
-      }
-
-      break;
-   }
+   // case (VECTOR_PLOT_CLIFF_EDGE):
+   // {
+   //    // The layer has been created, so create an integer-numbered value (the number of the cliff edge object) for the multi-line
+   //    string const strFieldValue1 = "CliffEdge";
+   //    OGRFieldDefn const OGRField1(strFieldValue1.c_str(), OFTInteger);
+   //
+   //    if (pOGRLayer->CreateField(&OGRField1) != OGRERR_NONE)
+   //    {
+   //       cerr << ERR << "cannot create " << strType << " attribute field 1 '" << strFieldValue1 << "' in " << strFilePathName << endl << CPLGetLastErrorMsg() << endl;
+   //       return false;
+   //    }
+   //
+   //    // OK, now do features
+   //    OGRLineString OGRls;
+   //
+   //    for (int i = 0; i < static_cast<int>(m_VCliffToe.size()); i++)
+   //    {
+   //       // Create a feature object, one per cliff edge
+   //       OGRFeature* pOGRFeature = OGRFeature::CreateFeature(pOGRLayer->GetLayerDefn());
+   //
+   //       // Set the feature's attribute (the cliff edge number)
+   //       pOGRFeature->SetField(strFieldValue1.c_str(), i);
+   //
+   //       // Now attach a geometry to the feature object
+   //       for (int j = 0; j < m_VCliffToe[i].nGetSize(); j++)
+   //       {
+   //          // Use external CRS coordinates directly (already smoothed)
+   //          OGRls.addPoint(m_VCliffToe[i].dGetXAt(j), m_VCliffToe[i].dGetYAt(j));
+   //       }
+   //
+   //       pOGRFeature->SetGeometry(&OGRls);
+   //
+   //       // Create the feature in the output layer
+   //       if (pOGRLayer->CreateFeature(pOGRFeature) != OGRERR_NONE)
+   //       {
+   //          cerr << ERR << "cannot create  " << strType << " feature " << strPlotTitle << " for cliff edge " << i << " in " << strFilePathName << endl << CPLGetLastErrorMsg() << endl;
+   //          return false;
+   //       }
+   //
+   //       // Tidy up: empty the line string and destroy the feature object
+   //       OGRls.empty();
+   //       OGRFeature::DestroyFeature(pOGRFeature);
+   //    }
+   //
+   //    break;
+   // }
 
    case (VECTOR_PLOT_NORMALS):
    case (VECTOR_PLOT_INVALID_NORMALS):

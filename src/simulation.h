@@ -473,16 +473,16 @@ class CSimulation
    bool m_bLowestSWLSoFar;
 
    //! In order to go from low elevation (sea) to high elevation (land), process the north edge cells forward (i.e. ascending indices)?
-   bool bSearchNorthEdgeForward = false;
+   bool m_bSearchNorthEdgeForward = false;
 
    //! In order to go from low elevation (sea) to high elevation (land), process the south edge cells forward (i.e. ascending indices)?
-   bool bSearchSouthEdgeForward = false;
+   bool m_bSearchSouthEdgeForward = false;
 
    //! In order to go from low elevation (sea) to high elevation (land), process the east edge cells forward (i.e. ascending indices)?
-   bool bSearchEastEdgeForward = false;
+   bool m_bSearchEastEdgeForward = false;
 
    //! In order to go from low elevation (sea) to high elevation (land), process the west edge cells forward (i.e. ascending indices)?
-   bool bSearchWestEdgeForward = false;
+   bool m_bSearchWestEdgeForward = false;
 
    //! Options for GDAL when handling raster files
    char **m_papszGDALRasterOptions;
@@ -1690,13 +1690,13 @@ class CSimulation
    int nUpdateGrid(void);
 
    // For cliff toe location
-   int nLocateCliffToe(void);
-   void nCalcSlopeAtAllCells(void);
-   void nLocateCliffCell(void);
-   void nTraceSeawardCliffEdge(void);
-   void nValidateCliffToeEdges(void);
-   CGeomLine nValidateCliffToeDirection(CGeomLine& CliffEdge, bool bReverse);
-   void nRemoveSmallCliffIslands(int const);
+   // int nLocateCliffToe(void);
+   // void nCalcSlopeAtAllCells(void);
+   // void nLocateCliffCell(void);
+   // void nTraceSeawardCliffEdge(void);
+   // void nValidateCliffToeEdges(void);
+   // CGeomLine nValidateCliffToeDirection(CGeomLine& CliffEdge, bool bReverse);
+   // void nRemoveSmallCliffIslands(int const);
 
    // Lower-level simulation routines
    void FindAllSeaCells(void);
@@ -1790,6 +1790,7 @@ class CSimulation
 
    // GIS utility routines
    int nMarkBoundingBoxEdgeCells(void);
+   void CalcGridEdgeSeaToLandDirection(void);
    bool bCheckRasterGISOutputFormat(void);
    bool bCheckVectorGISOutputFormat(void);
    bool bSaveAllRasterGISFiles(void);

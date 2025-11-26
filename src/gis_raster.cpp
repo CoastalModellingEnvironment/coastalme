@@ -12,18 +12,11 @@
 /* ===============================================================================================================================
    This file is part of CoastalME, the Coastal Modelling Environment.
 
-   CoastalME is free software; you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation; either version 3 of the License, or (at your option) any later
-version.
+   CoastalME is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
-   This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+   This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-   You should have received a copy of the GNU General Public License along with
-this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave,
-Cambridge, MA 02139, USA.
+   You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ===============================================================================================================================*/
 #include <assert.h>
 
@@ -71,39 +64,32 @@ using std::to_string;
 //===============================================================================================================================
 void CSimulation::InitializeGDALPerformance(void)
 {
-   // Configure GDAL for optimal performance
    // Enable GDAL threading - use all available CPU cores
 #ifdef _OPENMP
    CPLSetConfigOption("GDAL_NUM_THREADS", "ALL_CPUS");
 #else
-   CPLSetConfigOption("GDAL_NUM_THREADS", "4");      // Fallback for non-OpenMP builds
+   CPLSetConfigOption("GDAL_NUM_THREADS", "4");                            // Fallback for non-OpenMP builds
 #endif
 
    // Optimize GDAL memory usage and caching
-   CPLSetConfigOption("GDAL_CACHEMAX",
-                      "1.5GB");      // 2GB cache for large grids (was 1GB)
-   CPLSetConfigOption("GDAL_DISABLE_READDIR_ON_OPEN",
-                      "EMPTY_DIR");                    // Faster file access
-   CPLSetConfigOption("VSI_CACHE", "TRUE");            // Enable virtual file system cache
-   CPLSetConfigOption("VSI_CACHE_SIZE", "512MB");      // 256MB VSI cache
+   CPLSetConfigOption("GDAL_CACHEMAX", "1.5GB");                           // 2GB cache for large grids (was 1GB)
+   CPLSetConfigOption("GDAL_DISABLE_READDIR_ON_OPEN", "EMPTY_DIR");        // Faster file access
+   CPLSetConfigOption("VSI_CACHE", "TRUE");                                // Enable virtual file system cache
+   CPLSetConfigOption("VSI_CACHE_SIZE", "512MB");                          // Was 256MB VSI cache
 
    // Block and chunk optimizations for raster operations
    CPLSetConfigOption("GDAL_TIFF_INTERNAL_MASK_TO_8BIT", "YES");
-   CPLSetConfigOption("GDAL_RASTERIO_RESAMPLING",
-                      "CUBIC");      // Better for coastal DEM data
+   CPLSetConfigOption("GDAL_RASTERIO_RESAMPLING", "CUBIC");                // Better for coastal DEM data
 
    // Grid creation optimizations (for GDALGridCreate performance)
-   CPLSetConfigOption("GDAL_GRID_MAX_POINTS_PER_QUADTREE_LEAF", "1024");
-   // Increased from 512
-   CPLSetConfigOption("GDAL_GRID_POINT_COUNT_THRESHOLD",
-                      "100");      // New 2024 option
+   CPLSetConfigOption("GDAL_GRID_MAX_POINTS_PER_QUADTREE_LEAF", "1024");   // Increased from 512
+   CPLSetConfigOption("GDAL_GRID_POINT_COUNT_THRESHOLD", "100");           // New 2024 option
 
    // Thread-safe dataset access (GDAL 3.10+)
-   CPLSetConfigOption("GDAL_DATASET_CACHE_SIZE", "64");      // Cache more datasets
+   CPLSetConfigOption("GDAL_DATASET_CACHE_SIZE", "64");                    // Cache more datasets
 
    // Compression optimizations for output
-   CPLSetConfigOption("GDAL_TIFF_OVR_BLOCKSIZE",
-                      "512");      // Optimal for coastal data
+   CPLSetConfigOption("GDAL_TIFF_OVR_BLOCKSIZE", "512");                   // Optimal for coastal data
 
    // Memory allocator optimization for multi-threading
    CPLSetConfigOption("CPL_VSIL_USE_TEMP_FILE_FOR_RANDOM_WRITE", "YES");
@@ -323,11 +309,7 @@ int CSimulation::nReadRasterBasementDEM(void)
 //===============================================================================================================================
 int CSimulation::nMarkBoundingBoxEdgeCells(void)
 {
-   // The bounding box must touch the edge of the grid at least once on each side of the grid. Store these corner points in the sequence [NW NE SW SE], also get the elevation of the corner points
-   m_VPtiBoundingBoxCorner.clear();
-   vector<double> VdBoundingBoxCornerElev;
-
-   // Start with the top (north) edge, search NW to NE (left to right)
+   // The bounding box must touch the edge of the grid at least once on each side of the grid. Store these corner points in the sequence [NW NE SW SE]. Start with the top (north) edge, search NW to NE (left to right)
    bool bFound = false;
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {
@@ -341,7 +323,6 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
             // This is the NW corner
             CGeom2DIPoint const PtiTmp(nX, nY);
             m_VPtiBoundingBoxCorner.push_back(PtiTmp);
-            VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
 
             bFound = true;
             break;
@@ -371,7 +352,6 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
             // This is the NE corner
             CGeom2DIPoint const PtiTmp(nX, nY);
             m_VPtiBoundingBoxCorner.push_back(PtiTmp);
-            VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
 
             bFound = true;
             break;
@@ -402,7 +382,6 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
             // This is the SW corner
             CGeom2DIPoint const PtiTmp(nX, nY);
             m_VPtiBoundingBoxCorner.push_back(PtiTmp);
-            VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
 
             bFound = true;
             break;
@@ -432,7 +411,6 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
             // This is the NE corner
             CGeom2DIPoint const PtiTmp(nX, nY);
             m_VPtiBoundingBoxCorner.push_back(PtiTmp);
-            VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus());
 
             bFound = true;
             break;
@@ -446,51 +424,6 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          LogStream << m_ulIter << ": SE (bottom right) edge of bounding box not found" << endl;
 
       return RTN_ERR_BOUNDING_BOX;
-   }
-
-   // We have the elevations of the four bounding box corner points, in the sequence [NW NE SW SE]. When finding possible start/finish points for coast tracing later on, we wish to process each side of the grid in the sequence low elevation (sea) to high elevation (land). So set these directions now
-   if (VdBoundingBoxCornerElev[0] > VdBoundingBoxCornerElev[1])
-   {
-      // NW (left) point is higher than NE (right) point, so search north edge for coast points right to left
-      bSearchNorthEdgeForward = false;
-   }
-   else
-   {
-      // NW (left) point is lower than NE (right) point, so search north edge for coast points left to right
-      bSearchNorthEdgeForward = true;
-   }
-
-   if (VdBoundingBoxCornerElev[1] > VdBoundingBoxCornerElev[3])
-   {
-      // NE (top) point is higher than SE (bottom) point, so search east edge for coast points bottom to top
-      bSearchEastEdgeForward = false;
-   }
-   else
-   {
-      // NE (bottom) point is lower than SE (top) point, so search east edge for coast points top to bottom
-      bSearchEastEdgeForward = true;
-   }
-
-   if (VdBoundingBoxCornerElev[2] > VdBoundingBoxCornerElev[3])
-   {
-      // SW (left) point is higher than SE (right) point, so search south edge for coast points right to left
-      bSearchSouthEdgeForward = false;
-   }
-   else
-   {
-      // SW (left) point is lower than SE (right) point, so search south edge for coast points left to right
-      bSearchSouthEdgeForward = true;
-   }
-
-   if (VdBoundingBoxCornerElev[0] > VdBoundingBoxCornerElev[2])
-   {
-      // NW (top) point is higher than SW (bottom) point, so search west edge for coast points bottom to top
-      bSearchWestEdgeForward = false;
-   }
-   else
-   {
-      // NW (top) point is lower than SW (bottom) point, so search west edge for coast points top to bottom
-      bSearchWestEdgeForward = true;
    }
 
    // OK, so we have a point at each corner [NW NE SW SE] of the grid, so start at this point and find the edges of the bounding box
@@ -628,6 +561,68 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    m_VPtiAllEdgeCell.insert(m_VPtiAllEdgeCell.end(), m_VPtiWestEdgeCell.end(), m_VPtiWestEdgeCell.begin());       // Reverse
 
    return RTN_OK;
+}
+
+//===============================================================================================================================
+//! Find the elevations of the four bounding-box corners, and use these to choose a sea-to-land (i.e. low elevation to high elevation) direction of processing for each bounding-box edge
+//===============================================================================================================================
+void CSimulation::CalcGridEdgeSeaToLandDirection(void)
+{
+   // The bounding box corner points are in the sequence [NW NE SW SE]
+   vector<double> VdBoundingBoxCornerElev;
+
+   for (int i = 0; i < 4; i++)
+   {
+      int nX = m_VPtiBoundingBoxCorner[i].nGetX();
+      int nY = m_VPtiBoundingBoxCorner[i].nGetY();
+      m_pRasterGrid->m_Cell[nX][nY].CalcAllLayerElevsAndD50();
+      VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus());
+   }
+
+   // We have the elevations of the four bounding box corner points, in the sequence [NW NE SW SE]. When finding possible start/finish points for coast tracing later on, we wish to process each side of the grid in the sequence low elevation (sea) to high elevation (land). So set these directions now
+   if (VdBoundingBoxCornerElev[0] > VdBoundingBoxCornerElev[1])
+   {
+      // NW (left) point is higher than NE (right) point, so search north edge for coast points right to left
+      m_bSearchNorthEdgeForward = false;
+   }
+   else
+   {
+      // NW (left) point is lower than NE (right) point, so search north edge for coast points left to right
+      m_bSearchNorthEdgeForward = true;
+   }
+
+   if (VdBoundingBoxCornerElev[1] > VdBoundingBoxCornerElev[3])
+   {
+      // NE (top) point is higher than SE (bottom) point, so search east edge for coast points bottom to top
+      m_bSearchEastEdgeForward = false;
+   }
+   else
+   {
+      // NE (bottom) point is lower than SE (top) point, so search east edge for coast points top to bottom
+      m_bSearchEastEdgeForward = true;
+   }
+
+   if (VdBoundingBoxCornerElev[2] > VdBoundingBoxCornerElev[3])
+   {
+      // SW (left) point is higher than SE (right) point, so search south edge for coast points right to left
+      m_bSearchSouthEdgeForward = false;
+   }
+   else
+   {
+      // SW (left) point is lower than SE (right) point, so search south edge for coast points left to right
+      m_bSearchSouthEdgeForward = true;
+   }
+
+   if (VdBoundingBoxCornerElev[0] > VdBoundingBoxCornerElev[2])
+   {
+      // NW (top) point is higher than SW (bottom) point, so search west edge for coast points bottom to top
+      m_bSearchWestEdgeForward = false;
+   }
+   else
+   {
+      // NW (top) point is lower than SW (bottom) point, so search west edge for coast points top to bottom
+      m_bSearchWestEdgeForward = true;
+   }
 }
 
 //===============================================================================================================================
@@ -1068,9 +1063,7 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer)
 //===============================================================================================================================
 //! Writes GIS raster files using GDAL, using data from the RasterGrid array
 //===============================================================================================================================
-bool CSimulation::bWriteRasterGISFile(int const nDataItem,
-                                      string const *strPlotTitle,
-                                      int const nLayer, double const dElev)
+bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlotTitle, int const nLayer, double const dElev)
 {
    bool bIsInteger = false;
    bool bIsUnsignedLong = false;
@@ -1109,9 +1102,9 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
          strFilePathName.append(RASTER_SLOPE_FOR_CLIFF_TOE_NAME);
          break;
 
-      case (RASTER_PLOT_CLIFF_TOE):
-         strFilePathName.append(RASTER_CLIFF_TOE_NAME);
-         break;
+      // case (RASTER_PLOT_CLIFF_TOE):
+      //    strFilePathName.append(RASTER_CLIFF_TOE_NAME);
+      //    break;
 
       case (RASTER_PLOT_SEA_DEPTH):
          strFilePathName.append(RASTER_SEA_DEPTH_NAME);
@@ -1362,20 +1355,20 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
          strFilePathName.append(RASTER_POLYGON_UPDRIFT_OR_DOWNDRIFT_NAME);
          break;
 
-      case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
-         bIsInteger = true;
-         strFilePathName.append(RASTER_SETUP_SURGE_FLOOD_MASK_NAME);
-         break;
-
-      case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
-         bIsInteger = true;
-         strFilePathName.append(RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_NAME);
-         break;
-
-      case (RASTER_PLOT_WAVE_FLOOD_LINE):
-         bIsInteger = true;
-         strFilePathName.append(RASTER_WAVE_FLOOD_LINE_NAME);
-         break;
+      // case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
+      //    bIsInteger = true;
+      //    strFilePathName.append(RASTER_SETUP_SURGE_FLOOD_MASK_NAME);
+      //    break;
+      //
+      // case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
+      //    bIsInteger = true;
+      //    strFilePathName.append(RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_NAME);
+      //    break;
+      //
+      // case (RASTER_PLOT_WAVE_FLOOD_LINE):
+      //    bIsInteger = true;
+      //    strFilePathName.append(RASTER_WAVE_FLOOD_LINE_NAME);
+      //    break;
    }
 
    // Append the 'save number' to the filename, and prepend zeros to the save
@@ -1421,34 +1414,27 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
       if (bIsInteger)
       {
          pDataSet =
-            pDriver->Create(strFilePathName.c_str(), m_nXGridSize, m_nYGridSize,
-                            1, GDT_Int16, m_papszGDALRasterOptions);
+            pDriver->Create(strFilePathName.c_str(), m_nXGridSize, m_nYGridSize, 1, GDT_Int16, m_papszGDALRasterOptions);
       }
       else if (bIsUnsignedLong)
       {
          pDataSet =
-            pDriver->Create(strFilePathName.c_str(), m_nXGridSize, m_nYGridSize,
-                            1, GDT_UInt32, m_papszGDALRasterOptions);
+            pDriver->Create(strFilePathName.c_str(), m_nXGridSize, m_nYGridSize, 1, GDT_UInt32, m_papszGDALRasterOptions);
       }
       else if (m_strRasterGISOutFormat == "gpkg")
       {
          // TODO 065 Floating point exception here
-         pDataSet =
-            pDriver->Create(strFilePathName.c_str(), m_nXGridSize, m_nYGridSize,
-                            1, GDT_Byte, m_papszGDALRasterOptions);
+         pDataSet = pDriver->Create(strFilePathName.c_str(), m_nXGridSize, m_nYGridSize, 1, GDT_Byte, m_papszGDALRasterOptions);
       }
       else
       {
-         pDataSet = pDriver->Create(strFilePathName.c_str(), m_nXGridSize,
-                                    m_nYGridSize, 1, m_GDALWriteFloatDataType,
-                                    m_papszGDALRasterOptions);
+         pDataSet = pDriver->Create(strFilePathName.c_str(), m_nXGridSize, m_nYGridSize, 1, m_GDALWriteFloatDataType, m_papszGDALRasterOptions);
       }
 
       if (NULL == pDataSet)
       {
          // Error, couldn't create file
-         cerr << ERR << "cannot create " << m_strRasterGISOutFormat
-              << " file named " << strFilePathName << endl;
+         cerr << ERR << "cannot create " << m_strRasterGISOutFormat << " file named " << strFilePathName << endl;
          return false;
       }
    }
@@ -1461,8 +1447,7 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
       if (NULL == pDataSet)
       {
          // Couldn't create in-memory file dataset
-         cerr << ERR << "cannot create in-memory file for " << m_strRasterGISOutFormat << " file named " << strFilePathName << endl
-              << CPLGetLastErrorMsg() << endl;
+         cerr << ERR << "cannot create in-memory file for " << m_strRasterGISOutFormat << " file named " << strFilePathName << endl << CPLGetLastErrorMsg() << endl;
          return false;
       }
    }
@@ -1474,8 +1459,7 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
 
    // Set geotransformation info for output dataset (will be same as was read in from DEM)
    if (CE_Failure == pDataSet->SetGeoTransform(m_dGeoTransform))
-      LogStream << WARN << "cannot write geotransformation information to " << m_strRasterGISOutFormat << " file named " << strFilePathName << endl
-                << CPLGetLastErrorMsg() << endl;
+      LogStream << WARN << "cannot write geotransformation information to " << m_strRasterGISOutFormat << " file named " << strFilePathName << endl << CPLGetLastErrorMsg() << endl;
 
    // Allocate memory for a 1D array, to hold the floating point raster band data for GDAL
    double *pdRaster = new double[m_ulNumCells];
@@ -1541,13 +1525,13 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
                dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetConsSedSlope();
                break;
 
-            case (RASTER_PLOT_SLOPE_FOR_CLIFF_TOE):
-               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetSlopeForCliffToe();
-               break;
-
-            case (RASTER_PLOT_CLIFF_TOE):
-               dTmp = static_cast<double>(m_pRasterGrid->m_Cell[nX][nY].bIsCliffToe());
-               break;
+            // case (RASTER_PLOT_SLOPE_FOR_CLIFF_TOE):
+            //    dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetSlopeForCliffToe();
+            //    break;
+            //
+            // case (RASTER_PLOT_CLIFF_TOE):
+            //    dTmp = static_cast<double>(m_pRasterGrid->m_Cell[nX][nY].bIsCliffToe());
+            //    break;
 
             case (RASTER_PLOT_SEA_DEPTH):
                dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth();
@@ -1841,17 +1825,17 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
                dTmp = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetTotAllSedimentInputDepth();
                break;
 
-            case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
-               dTmp = (m_pRasterGrid->m_Cell[nX][nY].bIsFloodBySetupSurge() ? 1 : 0);
-               break;
+            // case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
+            //    dTmp = (m_pRasterGrid->m_Cell[nX][nY].bIsFloodBySetupSurge() ? 1 : 0);
+            //    break;
+            //
+            // case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
+            //    dTmp = (m_pRasterGrid->m_Cell[nX][nY].bIsFloodBySetupSurgeRunup() ? 1 : 0);
+            //    break;
 
-            case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
-               dTmp = (m_pRasterGrid->m_Cell[nX][nY].bIsFloodBySetupSurgeRunup() ? 1 : 0);
-               break;
-
-            case (RASTER_PLOT_WAVE_FLOOD_LINE):
-               dTmp = (m_pRasterGrid->m_Cell[nX][nY].bIsFloodline() ? 1 : 0);
-               break;
+            // case (RASTER_PLOT_WAVE_FLOOD_LINE):
+            //    dTmp = (m_pRasterGrid->m_Cell[nX][nY].bIsFloodline() ? 1 : 0);
+            //    break;
          }
 
          // If necessary, scale this value
@@ -1956,8 +1940,8 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
       case (RASTER_PLOT_POLYGON):
       case (RASTER_PLOT_POLYGON_UPDRIFT_OR_DOWNDRIFT):
       case (RASTER_PLOT_POTENTIAL_PLATFORM_EROSION_MASK):
-      case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
-      case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
+      // case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
+      // case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
       case (RASTER_PLOT_SHADOW_DOWNDRIFT_ZONE):
       case (RASTER_PLOT_SHADOW_ZONE):
       case (RASTER_PLOT_SLICE):
@@ -1965,19 +1949,19 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
          break;
    }
 
-   CPLPushErrorHandler(CPLQuietErrorHandler);      // Needed to get next line to fail silently, if it fails
-   pBand->SetUnitType(strUnits.c_str());           // Not supported for some GIS formats
+   CPLPushErrorHandler(CPLQuietErrorHandler);            // Needed to get next line to fail silently, if it fails
+   pBand->SetUnitType(strUnits.c_str());                 // Not supported for some GIS formats
    CPLPopErrorHandler();
 
    // Tell the output dataset about NODATA (missing values)
-   CPLPushErrorHandler(CPLQuietErrorHandler);      // Needed to get next line to fail silently, if it fails
+   CPLPushErrorHandler(CPLQuietErrorHandler);            // Needed to get next line to fail silently, if it fails
 
    if (bIsInteger)
-      pBand->SetNoDataValue(m_nMissingValue);      // Will fail for some formats
+      pBand->SetNoDataValue(m_nMissingValue);            // Will fail for some formats
    if (bIsUnsignedLong)
-      pBand->SetNoDataValueAsUInt64(m_ulMissingValue);      // Will fail for some formats
+      pBand->SetNoDataValueAsUInt64(m_ulMissingValue);   // Will fail for some formats
    else
-      pBand->SetNoDataValue(m_dMissingValue);      // Will fail for some formats
+      pBand->SetNoDataValue(m_dMissingValue);            // Will fail for some formats
 
    CPLPopErrorHandler();
 
@@ -2074,20 +2058,20 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
          papszCategoryNames = CSLAddString(papszCategoryNames, "Downdrift movement of unconsolidated sediment");
          break;
 
-      case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
-         papszCategoryNames = CSLAddString(papszCategoryNames, "Inundated by swl setup and surge ");
-         papszCategoryNames = CSLAddString(papszCategoryNames, "Not inundated by swl setup and surge");
-         break;
-
-      case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
-         papszCategoryNames = CSLAddString(papszCategoryNames, "Inundated by swl setup, surge and runup ");
-         papszCategoryNames = CSLAddString(papszCategoryNames, "Not inundated by swl setup, surge and runup");
-         break;
-
-      case (RASTER_PLOT_WAVE_FLOOD_LINE):
-         papszCategoryNames = CSLAddString(papszCategoryNames, "Intersection line of inundation ");
-         papszCategoryNames = CSLAddString(papszCategoryNames, "Not inundated by swl waves and runup");
-         break;
+      // case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
+      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Inundated by swl setup and surge ");
+      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Not inundated by swl setup and surge");
+      //    break;
+      //
+      // case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
+      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Inundated by swl setup, surge and runup ");
+      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Not inundated by swl setup, surge and runup");
+      //    break;
+      //
+      // case (RASTER_PLOT_WAVE_FLOOD_LINE):
+      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Intersection line of inundation ");
+      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Not inundated by swl waves and runup");
+      //    break;
    }
 
    CPLPushErrorHandler(CPLQuietErrorHandler);        // Needed to get next line to fail silently, if it fails
@@ -2101,43 +2085,32 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
    if (CE_Failure == pBand->RasterIO(GF_Write, 0, 0, m_nXGridSize, m_nYGridSize, pdRaster, m_nXGridSize, m_nYGridSize, GDT_Float64, 0, 0, NULL))
    {
       // Write error, better error message
-      cerr << ERR << "cannot write data for " << m_strRasterGISOutFormat << " file named " << strFilePathName << endl
-           << CPLGetLastErrorMsg() << endl;
+      cerr << ERR << "cannot write data for " << m_strRasterGISOutFormat << " file named " << strFilePathName << endl << CPLGetLastErrorMsg() << endl;
       delete[] pdRaster;
       return false;
    }
 
    // Calculate statistics for this band
    double dMin, dMax, dMean, dStdDev;
-   CPLPushErrorHandler(CPLQuietErrorHandler);      // Needed to get next line to fail
-                                                   // silently, if it fails
+   CPLPushErrorHandler(CPLQuietErrorHandler);      // Needed to get next line to fail silently, if it fails
    pBand->ComputeStatistics(false, &dMin, &dMax, &dMean, &dStdDev, NULL, NULL);
    CPLPopErrorHandler();
 
    // And then write the statistics
-   CPLPushErrorHandler(CPLQuietErrorHandler);      // Needed to get next line to fail
-                                                   // silently, if it fails
+   CPLPushErrorHandler(CPLQuietErrorHandler);      // Needed to get next line to fail silently, if it fails
    pBand->SetStatistics(dMin, dMax, dMean, dStdDev);
    CPLPopErrorHandler();
 
    if (! m_bGDALCanCreate)
    {
-      // Since the user-selected raster driver cannot use the Create() method, we
-      // have been writing to a dataset created by the in-memory driver. So now we
-      // need to use CreateCopy() to copy this in-memory dataset to a file in the
-      // user-specified raster driver format
-      GDALDriver *pOutDriver = GetGDALDriverManager()->GetDriverByName(
-         m_strRasterGISOutFormat.c_str());
-      GDALDataset *pOutDataSet =
-         pOutDriver->CreateCopy(strFilePathName.c_str(), pDataSet, false,
-                                m_papszGDALRasterOptions, NULL, NULL);
+      // Since the user-selected raster driver cannot use the Create() method, we have been writing to a dataset created by the in-memory driver. So now we need to use CreateCopy() to copy this in-memory dataset to a file in the user-specified raster driver format
+      GDALDriver *pOutDriver = GetGDALDriverManager()->GetDriverByName(m_strRasterGISOutFormat.c_str());
+      GDALDataset *pOutDataSet = pOutDriver->CreateCopy(strFilePathName.c_str(), pDataSet, false, m_papszGDALRasterOptions, NULL, NULL);
 
       if (NULL == pOutDataSet)
       {
          // Couldn't create file
-         cerr << ERR << "cannot create " << m_strRasterGISOutFormat
-              << " file named " << strFilePathName << endl
-              << CPLGetLastErrorMsg() << endl;
+         cerr << ERR << "cannot create " << m_strRasterGISOutFormat << " file named " << strFilePathName << endl << CPLGetLastErrorMsg() << endl;
          return false;
       }
 
@@ -2199,12 +2172,7 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem,
 //! @param pVdDeepWaterHeightY Y component of wave height at deep water points
 //! @return RTN_OK on success, error code otherwise
 //===============================================================================================================================
-int CSimulation::nInterpolateWavesToPolygonCells(
-   vector<TransectWaveData> const *pVTransects,
-   vector<double> const *pVdDeepWaterX,
-   vector<double> const *pVdDeepWaterY,
-   vector<double> const *pVdDeepWaterHeightX,
-   vector<double> const *pVdDeepWaterHeightY)
+int CSimulation::nInterpolateWavesToPolygonCells(vector<TransectWaveData> const *pVTransects, vector<double> const *pVdDeepWaterX, vector<double> const *pVdDeepWaterY, vector<double> const *pVdDeepWaterHeightX,  vector<double> const *pVdDeepWaterHeightY)
 {
    // ============================================================================
    // STEP 1: Calculate grid dimensions and initialize variables
@@ -2278,8 +2246,7 @@ int CSimulation::nInterpolateWavesToPolygonCells(
    // - power = 2.0: Inverse distance weighting power
    //                ** ADJUST THIS to change influence of nearby vs distant points **
    //
-   // The interpolator builds a k-d tree for fast nearest neighbor search
-   // and shares it between X and Y interpolation for efficiency
+   // The interpolator builds a k-d tree for fast nearest neighbor search and shares it between X and Y interpolation for efficiency
    DualSpatialInterpolator interp(points, VdHeightX, VdHeightY, 6, 2.0);
 
    // ============================================================================
@@ -2292,8 +2259,7 @@ int CSimulation::nInterpolateWavesToPolygonCells(
    {
       for (int nX = m_nXMinBoundingBox; nX <= m_nXMaxBoundingBox; nX++)
       {
-         query_points.emplace_back(static_cast<double>(nX),
-                                   static_cast<double>(nY));
+         query_points.emplace_back(static_cast<double>(nX), static_cast<double>(nY));
       }
    }
 
@@ -2301,9 +2267,7 @@ int CSimulation::nInterpolateWavesToPolygonCells(
    // STEP 5: Perform batch interpolation
    // ============================================================================
    //
-   // This does the actual interpolation for all grid points at once
-   // Uses OpenMP parallelization if available (see spatial_interpolation.cpp)
-   // Interpolates both X and Y components simultaneously using shared k-d tree
+   // This does the actual interpolation for all grid points at once. Uses OpenMP parallelization if available (see spatial_interpolation.cpp). Interpolates both X and Y components simultaneously using shared k-d tree
    interp.Interpolate(query_points, VdOutX, VdOutY);
 
    // ============================================================================
@@ -2354,8 +2318,7 @@ int CSimulation::nInterpolateWavesToPolygonCells(
    // STEP 7: Update grid cells with interpolated wave properties
    // ============================================================================
    //
-   // Convert X and Y components back to magnitude and direction,
-   // then update each cell's wave attributes
+   // Convert X and Y components back to magnitude and direction, then update each cell's wave attributes
 
    int n = 0;
 
@@ -2366,31 +2329,22 @@ int CSimulation::nInterpolateWavesToPolygonCells(
          int const nActualX = nX + m_nXMinBoundingBox;
          int const nActualY = nY + m_nYMinBoundingBox;
 
-         if (m_pRasterGrid->m_Cell[nActualX][nActualY]
-                .bIsInContiguousSea())
+         if (m_pRasterGrid->m_Cell[nActualX][nActualY].bIsInContiguousSea())
          {
             // Only update sea cells
 
-            if (m_pRasterGrid->m_Cell[nActualX][nActualY].nGetPolygonID() ==
-                INT_NODATA)
+            if (m_pRasterGrid->m_Cell[nActualX][nActualY].nGetPolygonID() == INT_NODATA)
             {
                // --------------------------------------------------------------------
                // Deep water cell (NOT in a polygon)
                // --------------------------------------------------------------------
-               // Use the cell's pre-assigned deep water wave values
-               // (these cells are beyond the coastal zone, so don't need interpolation)
+               // Use the cell's pre-assigned deep water wave values (these cells are beyond the coastal zone, so don't need interpolation)
 
-               double const dDeepWaterWaveHeight =
-                  m_pRasterGrid->m_Cell[nActualX][nActualY]
-                     .dGetCellDeepWaterWaveHeight();
-               m_pRasterGrid->m_Cell[nActualX][nActualY].SetWaveHeight(
-                  dDeepWaterWaveHeight);
+               double const dDeepWaterWaveHeight = m_pRasterGrid->m_Cell[nActualX][nActualY].dGetCellDeepWaterWaveHeight();
+               m_pRasterGrid->m_Cell[nActualX][nActualY].SetWaveHeight(dDeepWaterWaveHeight);
 
-               double const dDeepWaterWaveAngle =
-                  m_pRasterGrid->m_Cell[nActualX][nActualY]
-                     .dGetCellDeepWaterWaveAngle();
-               m_pRasterGrid->m_Cell[nActualX][nActualY].SetWaveAngle(
-                  dDeepWaterWaveAngle);
+               double const dDeepWaterWaveAngle = m_pRasterGrid->m_Cell[nActualX][nActualY].dGetCellDeepWaterWaveAngle();
+               m_pRasterGrid->m_Cell[nActualX][nActualY].SetWaveAngle(dDeepWaterWaveAngle);
             }
             else
             {
@@ -2403,24 +2357,20 @@ int CSimulation::nInterpolateWavesToPolygonCells(
                double dWaveHeightY;
 
                // Get interpolated X component (use average as fallback if missing/invalid)
-               if ((isnan(VdOutX[n])) ||
-                   (bFPIsEqual(VdOutX[n], m_dMissingValue, TOLERANCE)))
+               if ((isnan(VdOutX[n])) || (bFPIsEqual(VdOutX[n], m_dMissingValue, TOLERANCE)))
                   dWaveHeightX = dXAvg;
                else
                   dWaveHeightX = VdOutX[n];
 
                // Get interpolated Y component (use average as fallback if missing/invalid)
-               if ((isnan(VdOutY[n])) ||
-                   (bFPIsEqual(VdOutY[n], m_dMissingValue, TOLERANCE)))
+               if ((isnan(VdOutY[n])) || (bFPIsEqual(VdOutY[n], m_dMissingValue, TOLERANCE)))
                   dWaveHeightY = dYAvg;
                else
                   dWaveHeightY = VdOutY[n];
 
                // Convert X/Y components to magnitude and direction
-               double const dWaveHeight = sqrt((dWaveHeightX * dWaveHeightX) +
-                                               (dWaveHeightY * dWaveHeightY));
-               double const dWaveDir =
-                  atan2(dWaveHeightX, dWaveHeightY) * (180 / PI);
+               double const dWaveHeight = sqrt((dWaveHeightX * dWaveHeightX) + (dWaveHeightY * dWaveHeightY));
+               double const dWaveDir = atan2(dWaveHeightX, dWaveHeightY) * (180 / PI);
 
                // Update the cell's wave attributes
                m_pRasterGrid->m_Cell[nActualX][nActualY].SetWaveHeight(
@@ -2428,15 +2378,12 @@ int CSimulation::nInterpolateWavesToPolygonCells(
                m_pRasterGrid->m_Cell[nActualX][nActualY].SetWaveAngle(
                   dKeepWithin360(dWaveDir));
 
-               // Calculate wave height-to-depth ratio and update active zone status
-               // (active zone = where waves are breaking or near-breaking)
+               // Calculate wave height-to-depth ratio and update active zone status (active zone = where waves are breaking or near-breaking)
                double const dSeaDepth =
                   m_pRasterGrid->m_Cell[nActualX][nActualY].dGetSeaDepth();
 
-               if ((dWaveHeight / dSeaDepth) >=
-                   m_dBreakingWaveHeightDepthRatio)
-                  m_pRasterGrid->m_Cell[nActualX][nActualY].SetInActiveZone(
-                     true);
+               if ((dWaveHeight / dSeaDepth) >= m_dBreakingWaveHeightDepthRatio)
+                  m_pRasterGrid->m_Cell[nActualX][nActualY].SetInActiveZone(true);
 
                // LogStream << " nX = " << nX << " nY = " << nY << " [" <<
                // nActualX
@@ -2456,56 +2403,35 @@ int CSimulation::nInterpolateWavesToPolygonCells(
 }
 
 //===============================================================================================================================
-//! If the user supplies multiple deep water wave height and angle values,
-//! this routine interplates these to all cells (including dry land cells)
+//! If the user supplies multiple deep water wave height and angle values, this routine interplates these to all cells (including dry land cells)
 //===============================================================================================================================
 int CSimulation::nInterpolateAllDeepWaterWaveValues(void)
 {
-   // Interpolate deep water height and orientation from multiple
-   // user-supplied values
-   unsigned int const nUserPoints =
-      static_cast<unsigned int>(m_VdDeepWaterWaveStationX.size());
+   // Interpolate deep water height and orientation from multiple user-supplied values
+   unsigned int const nUserPoints = static_cast<unsigned int>(m_VdDeepWaterWaveStationX.size());
 
    // Performance optimization: Enable GDAL threading for interpolation
    CPLSetThreadLocalConfigOption("GDAL_NUM_THREADS", "ALL_CPUS");
 
-   // Call GDALGridCreate() with the GGA_InverseDistanceToAPower
-   // interpolation algorithm. It has following parameters: radius1 is the
-   // first radius (X axis if rotation angle is 0) of the search ellipse,
-   // set this to zero (the default) to use the whole point array; radius2
-   // is the second radius (Y axis if rotation angle is 0) of the search
-   // ellipse, again set this parameter to zero (the default) to use the
-   // whole point array; angle is the angle of the search ellipse rotation
-   // in degrees (counter clockwise, default 0.0); nodata is the NODATA
-   // marker to fill empty points (default 0.0) TODO 086
-   GDALGridInverseDistanceToAPowerOptions *pOptions =
-      new GDALGridInverseDistanceToAPowerOptions();
+   // Call GDALGridCreate() with the GGA_InverseDistanceToAPower interpolation algorithm. It has following parameters: radius1 is the first radius (X axis if rotation angle is 0) of the search ellipse, set this to zero (the default) to use the whole point array; radius2 is the second radius (Y axis if rotation angle is 0) of the search ellipse, again set this parameter to zero (the default) to use the whole point array; angle is the angle of the search ellipse rotation in degrees (counter clockwise, default 0.0); nodata is the NODATA marker to fill empty points (default 0.0) TODO 086
+   GDALGridInverseDistanceToAPowerOptions *pOptions = new GDALGridInverseDistanceToAPowerOptions();
    pOptions->dfAngle = 0;
    pOptions->dfAnisotropyAngle = 0;
    pOptions->dfAnisotropyRatio = 0;
-   pOptions->dfPower = 2;      // Reduced from 3 to 2 for faster computation
-   pOptions->dfSmoothing =
-      50;      // Reduced from 100 to 50 for faster computation
+   pOptions->dfPower = 2;              // Reduced from 3 to 2 for faster computation
+   pOptions->dfSmoothing = 50;         // Reduced from 100 to 50 for faster computation
    pOptions->dfRadius1 = 0;
    pOptions->dfRadius2 = 0;
-   pOptions->nMaxPoints =
-      12;                         // Limit points for faster computation (was 0 = unlimited)
-   pOptions->nMinPoints = 3;      // Minimum points needed for interpolation
+   pOptions->nMaxPoints = 12;          // Limit points for faster computation (was 0 = unlimited)
+   pOptions->nMinPoints = 3;           // Minimum points needed for interpolation
    pOptions->dfNoDataValue = m_nMissingValue;
 
    // CPLSetConfigOption("CPL_DEBUG", "ON");
    // CPLSetConfigOption("GDAL_NUM_THREADS", "1");
 
-   // OK, now create a gridded version of wave height: first create the
-   // GDAL context TODO 086 GDALGridContext* pContext =
-   // GDALGridContextCreate(GGA_InverseDistanceToAPower, pOptions,
-   // nUserPoints, &m_VdDeepWaterWaveStationX[0],
-   // &m_VdDeepWaterWaveStationY[0],
-   // &m_VdThisIterDeepWaterWaveStationHeight[0], true);
-   GDALGridContext *pContext = GDALGridContextCreate(
-      GGA_InverseDistanceToAPower, pOptions, nUserPoints,
-      m_VdDeepWaterWaveStationX.data(), m_VdDeepWaterWaveStationY.data(),
-      m_VdThisIterDeepWaterWaveStationHeight.data(), true);
+   // OK, now create a gridded version of wave height: first create the GDAL context TODO 086
+   // GDALGridContext* pContext = GDALGridContextCreate(GGA_InverseDistanceToAPower, pOptions, nUserPoints, &m_VdDeepWaterWaveStationX[0], &m_VdDeepWaterWaveStationY[0], &m_VdThisIterDeepWaterWaveStationHeight[0], true);
+   GDALGridContext *pContext = GDALGridContextCreate(GGA_InverseDistanceToAPower, pOptions, nUserPoints, m_VdDeepWaterWaveStationX.data(), m_VdDeepWaterWaveStationY.data(), m_VdThisIterDeepWaterWaveStationHeight.data(), true);
 
    if (pContext == NULL)
    {
@@ -2515,9 +2441,7 @@ int CSimulation::nInterpolateAllDeepWaterWaveValues(void)
 
    // Now process the context
    double *dHeightOut = new double[m_ulNumCells];
-   int nRet = GDALGridContextProcess(
-      pContext, 0, m_nXGridSize - 1, 0, m_nYGridSize - 1, m_nXGridSize,
-      m_nYGridSize, GDT_Float64, dHeightOut, NULL, NULL);
+   int nRet = GDALGridContextProcess(pContext, 0, m_nXGridSize - 1, 0, m_nYGridSize - 1, m_nXGridSize, m_nYGridSize, GDT_Float64, dHeightOut, NULL, NULL);
 
    if (nRet == CE_Failure)
    {
@@ -2529,16 +2453,9 @@ int CSimulation::nInterpolateAllDeepWaterWaveValues(void)
    // Get rid of the context
    GDALGridContextFree(pContext);
 
-   // Next create a gridded version of wave orientation: first create the
-   // GDAL context pContext =
-   // GDALGridContextCreate(GGA_InverseDistanceToAPower, pOptions,
-   // nUserPoints,  &(m_VdDeepWaterWaveStationX[0]),
-   // &(m_VdDeepWaterWaveStationY[0]),
-   // (&m_VdThisIterDeepWaterWaveStationAngle[0]), true);
-   pContext = GDALGridContextCreate(
-      GGA_InverseDistanceToAPower, pOptions, nUserPoints,
-      m_VdDeepWaterWaveStationX.data(), m_VdDeepWaterWaveStationY.data(),
-      m_VdThisIterDeepWaterWaveStationAngle.data(), true);
+   // Next create a gridded version of wave orientation: first create the GDAL context
+   // pContext = GDALGridContextCreate(GGA_InverseDistanceToAPower, pOptions, nUserPoints,  &(m_VdDeepWaterWaveStationX[0]), &(m_VdDeepWaterWaveStationY[0]), (&m_VdThisIterDeepWaterWaveStationAngle[0]), true);
+   pContext = GDALGridContextCreate(GGA_InverseDistanceToAPower, pOptions, nUserPoints, m_VdDeepWaterWaveStationX.data(), m_VdDeepWaterWaveStationY.data(), m_VdThisIterDeepWaterWaveStationAngle.data(), true);
 
    if (pContext == NULL)
    {
@@ -2549,9 +2466,7 @@ int CSimulation::nInterpolateAllDeepWaterWaveValues(void)
 
    // Now process the context TODO 086
    double *dAngleOut = new double[m_ulNumCells];
-   nRet = GDALGridContextProcess(
-      pContext, 0, m_nXGridSize - 1, 0, m_nYGridSize - 1, m_nXGridSize,
-      m_nYGridSize, GDT_Float64, dAngleOut, NULL, NULL);
+   nRet = GDALGridContextProcess(pContext, 0, m_nXGridSize - 1, 0, m_nYGridSize - 1, m_nXGridSize, m_nYGridSize, GDT_Float64, dAngleOut, NULL, NULL);
 
    if (nRet == CE_Failure)
    {
@@ -2564,16 +2479,9 @@ int CSimulation::nInterpolateAllDeepWaterWaveValues(void)
    // Get rid of the context
    GDALGridContextFree(pContext);
 
-   // OK, now create a gridded version of wave period: first create the
-   // GDAL context pContext =
-   // GDALGridContextCreate(GGA_InverseDistanceToAPower, pOptions,
-   // nUserPoints, &m_VdDeepWaterWaveStationX[0],
-   // &m_VdDeepWaterWaveStationY[0],
-   // &m_VdThisIterDeepWaterWaveStationPeriod[0], true);
-   pContext = GDALGridContextCreate(
-      GGA_InverseDistanceToAPower, pOptions, nUserPoints,
-      m_VdDeepWaterWaveStationX.data(), m_VdDeepWaterWaveStationY.data(),
-      m_VdThisIterDeepWaterWaveStationPeriod.data(), true);
+   // OK, now create a gridded version of wave period: first create the GDAL context
+   // pContext = GDALGridContextCreate(GGA_InverseDistanceToAPower, pOptions, nUserPoints, &m_VdDeepWaterWaveStationX[0], &m_VdDeepWaterWaveStationY[0], &m_VdThisIterDeepWaterWaveStationPeriod[0], true);
+   pContext = GDALGridContextCreate(GGA_InverseDistanceToAPower, pOptions, nUserPoints, m_VdDeepWaterWaveStationX.data(), m_VdDeepWaterWaveStationY.data(), m_VdThisIterDeepWaterWaveStationPeriod.data(), true);
 
    if (pContext == NULL)
    {
@@ -2583,9 +2491,7 @@ int CSimulation::nInterpolateAllDeepWaterWaveValues(void)
 
    // Now process the context TODO 086
    double *dPeriopdOut = new double[m_ulNumCells];
-   nRet = GDALGridContextProcess(
-      pContext, 0, m_nXGridSize - 1, 0, m_nYGridSize - 1, m_nXGridSize,
-      m_nYGridSize, GDT_Float64, dPeriopdOut, NULL, NULL);
+   nRet = GDALGridContextProcess(pContext, 0, m_nXGridSize - 1, 0, m_nYGridSize - 1, m_nXGridSize, m_nYGridSize, GDT_Float64, dPeriopdOut, NULL, NULL);
 
    if (nRet == CE_Failure)
    {
@@ -2597,8 +2503,7 @@ int CSimulation::nInterpolateAllDeepWaterWaveValues(void)
    // Get rid of the context
    GDALGridContextFree(pContext);
 
-   // The output from GDALGridCreate() is in dHeightOut, dAngleOut and
-   // dPeriopdOut but must be reversed
+   // The output from GDALGridCreate() is in dHeightOut, dAngleOut and dPeriopdOut but must be reversed
    vector<double> VdHeight;
    vector<double> VdAngle;
    vector<double> VdPeriod;
@@ -2655,9 +2560,7 @@ int CSimulation::nInterpolateAllDeepWaterWaveValues(void)
             VdPeriod.push_back(m_dMissingValue);
          }
 
-         // LogStream << " nX = " << nX << " nY = " << nY << " n = " << n <<
-         // " dHeightOut[n] = " << dHeightOut[n] << " dAngleOut[n] = " <<
-         // dAngleOut[n] << endl;
+         // LogStream << " nX = " << nX << " nY = " << nY << " n = " << n << " dHeightOut[n] = " << dHeightOut[n] << " dAngleOut[n] = " << dAngleOut[n] << endl;
          n++;
       }
    }
@@ -2681,35 +2584,23 @@ int CSimulation::nInterpolateAllDeepWaterWaveValues(void)
       for (int nX = 0; nX < m_nXGridSize; nX++)
       {
          if (bFPIsEqual(VdHeight[n], m_dMissingValue, TOLERANCE))
-            m_pRasterGrid->m_Cell[nX][nY].SetCellDeepWaterWaveHeight(
-               dAvgHeight);
-
+            m_pRasterGrid->m_Cell[nX][nY].SetCellDeepWaterWaveHeight(dAvgHeight);
          else
-            m_pRasterGrid->m_Cell[nX][nY].SetCellDeepWaterWaveHeight(
-               VdHeight[n]);
+            m_pRasterGrid->m_Cell[nX][nY].SetCellDeepWaterWaveHeight(VdHeight[n]);
 
          if (bFPIsEqual(VdAngle[n], m_dMissingValue, TOLERANCE))
-            m_pRasterGrid->m_Cell[nX][nY].SetCellDeepWaterWaveAngle(
-               dAvgAngle);
-
+            m_pRasterGrid->m_Cell[nX][nY].SetCellDeepWaterWaveAngle(dAvgAngle);
          else
             m_pRasterGrid->m_Cell[nX][nY].SetCellDeepWaterWaveAngle(
                VdAngle[n]);
 
          if (bFPIsEqual(VdPeriod[n], m_dMissingValue, TOLERANCE))
-            m_pRasterGrid->m_Cell[nX][nY].SetCellDeepWaterWavePeriod(
-               dAvgPeriod);
-
+            m_pRasterGrid->m_Cell[nX][nY].SetCellDeepWaterWavePeriod(dAvgPeriod);
          else
             m_pRasterGrid->m_Cell[nX][nY].SetCellDeepWaterWavePeriod(
                VdPeriod[n]);
 
-         // LogStream << " [" << nX << "][" << nY << "] deep water wave
-         // height = "
-         // << m_pRasterGrid->m_Cell[nX][nY].dGetCellDeepWaterWaveHeight() <<
-         // " deep water wave angle = " <<
-         // m_pRasterGrid->m_Cell[nX][nY].dGetCellDeepWaterWaveAngle() <<
-         // endl;
+         // LogStream << " [" << nX << "][" << nY << "] deep water wave height = " << m_pRasterGrid->m_Cell[nX][nY].dGetCellDeepWaterWaveHeight() << " deep water wave angle = " << m_pRasterGrid->m_Cell[nX][nY].dGetCellDeepWaterWaveAngle() << endl;
          n++;
       }
    }

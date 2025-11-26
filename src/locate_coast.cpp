@@ -101,7 +101,7 @@ void CSimulation::FindAllSeaCells(void)
    // Go along each list of edge cells, north edge first
    if (! m_bOmitSearchNorthEdge)
    {
-      if (bSearchNorthEdgeForward)
+      if (m_bSearchNorthEdgeForward)
       {
          for (int n = 0; n < static_cast<int>(m_VPtiNorthEdgeCell.size()); n++)
          {
@@ -138,7 +138,7 @@ void CSimulation::FindAllSeaCells(void)
    // Now go along the south edge cells
    if (! m_bOmitSearchSouthEdge)
    {
-      if (bSearchSouthEdgeForward)
+      if (m_bSearchSouthEdgeForward)
       {
          for (int n = 0; n < static_cast<int>(m_VPtiSouthEdgeCell.size()); n++)
          {
@@ -175,7 +175,7 @@ void CSimulation::FindAllSeaCells(void)
    // Now go along the west edge cells
    if (! m_bOmitSearchWestEdge)
    {
-      if (bSearchWestEdgeForward)
+      if (m_bSearchWestEdgeForward)
       {
          for (int n = 0; n < static_cast<int>(m_VPtiWestEdgeCell.size()); n++)
          {
@@ -212,7 +212,7 @@ void CSimulation::FindAllSeaCells(void)
    // Finally go along the east edge cells
    if (! m_bOmitSearchEastEdge)
    {
-      if (bSearchEastEdgeForward)
+      if (m_bSearchEastEdgeForward)
       {
          for (int n = 0; n < static_cast<int>(m_VPtiEastEdgeCell.size()); n++)
          {
@@ -447,7 +447,7 @@ int CSimulation::nTraceAllCoasts(void)
    // Go along each list of edge cells from low to high elevation, so that the most seaward possible coast point is found first. Start with north edge
    if (! m_bOmitSearchNorthEdge)
    {
-      if (bSearchNorthEdgeForward)
+      if (m_bSearchNorthEdgeForward)
       {
          for (int n = 0; n < static_cast<int>(m_VPtiNorthEdgeCell.size())-1; n++)
          {
@@ -467,7 +467,7 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
-         for (int n = static_cast<int>(m_VPtiNorthEdgeCell.size())-1; n > 0; n--)
+         for (int n = static_cast<int>(m_VPtiNorthEdgeCell.size())-2; n >= 0; n--)
          {
             int const nXThis = m_VPtiNorthEdgeCell[n].nGetX();
             int const nYThis = m_VPtiNorthEdgeCell[n].nGetY();
@@ -488,7 +488,7 @@ int CSimulation::nTraceAllCoasts(void)
    // Now go along south edge
    if (! m_bOmitSearchSouthEdge)
    {
-      if (bSearchSouthEdgeForward)
+      if (m_bSearchSouthEdgeForward)
       {
          for (int n = 0; n < static_cast<int>(m_VPtiSouthEdgeCell.size())-1; n++)
          {
@@ -508,7 +508,7 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
-         for (int n = static_cast<int>(m_VPtiSouthEdgeCell.size())-1; n > 0; n--)
+         for (int n = static_cast<int>(m_VPtiSouthEdgeCell.size())-2; n >= 0; n--)
          {
             int const nXThis = m_VPtiSouthEdgeCell[n].nGetX();
             int const nYThis = m_VPtiSouthEdgeCell[n].nGetY();
@@ -529,7 +529,7 @@ int CSimulation::nTraceAllCoasts(void)
    // Now go along west edge
    if (! m_bOmitSearchWestEdge)
    {
-      if (bSearchWestEdgeForward)
+      if (m_bSearchWestEdgeForward)
       {
          for (int n = 0; n < static_cast<int>(m_VPtiWestEdgeCell.size())-1; n++)
          {
@@ -549,7 +549,7 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
-         for (int n = static_cast<int>(m_VPtiWestEdgeCell.size())-1; n > 0; n--)
+         for (int n = static_cast<int>(m_VPtiWestEdgeCell.size())-2; n >= 0; n--)
          {
             int const nXThis = m_VPtiWestEdgeCell[n].nGetX();
             int const nYThis = m_VPtiWestEdgeCell[n].nGetY();
@@ -570,7 +570,7 @@ int CSimulation::nTraceAllCoasts(void)
    // Finally go along east edge
    if (! m_bOmitSearchEastEdge)
    {
-      if (bSearchEastEdgeForward)
+      if (m_bSearchEastEdgeForward)
       {
          for (int n = 0; n < static_cast<int>(m_VPtiEastEdgeCell.size())-1; n++)
          {
@@ -590,7 +590,7 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
-         for (int n = static_cast<int>(m_VPtiEastEdgeCell.size())-1; n >= 0; n--)
+         for (int n = static_cast<int>(m_VPtiEastEdgeCell.size())-2; n >= 0; n--)
          {
             int const nXThis = m_VPtiEastEdgeCell[n].nGetX();
             int const nYThis = m_VPtiEastEdgeCell[n].nGetY();

@@ -40,20 +40,20 @@ class CGeomCell
    //! Switch to indicate if this is a sea cell, contiguous with other sea cells
    bool m_bInContiguousSea;
 
-   //! Switch to indicate that this cell is in the contiguous runup flood area
-   bool m_bInContiguousFlood;
+   // //! Switch to indicate that this cell is in the contiguous runup flood area
+   // bool m_bInContiguousFlood;
 
    //! Switch to indicate that this cell is in the active zone
    bool m_bIsInActiveZone;
 
-   //! Is this cell a cliff toe?
-   bool m_bCliffToe;
+   // //! Is this cell a cliff toe?
+   // bool m_bCliffToe;
 
-   //! Switch to indicate that this cell is 'under' a runup flood line TODO 007 Finish surge and runup stuff
-   bool m_bFloodLine;
+   // //! Switch to indicate that this cell is 'under' a runup flood line TODO 007 Finish surge and runup stuff
+   // bool m_bFloodLine;
 
-   //! Switch to indicate that this cell is 'under' a runup wave flood line TODO 007 Finish surge and runup stuff
-   bool m_bWaveFlood;
+   // //! Switch to indicate that this cell is 'under' a runup wave flood line TODO 007 Finish surge and runup stuff
+   // bool m_bWaveFlood;
 
    // //! TODO 007 Finish surge and runup stuff
    // bool m_bCheckCell;
@@ -256,13 +256,13 @@ class CGeomCell
    void SetInContiguousSea(void);
    bool bIsInContiguousSea(void) const;
 
-   void SetInContiguousFlood(void);
-   void UnSetInContiguousFlood(void);
-   void SetFloodBySetupSurge(void);
-   bool bIsFloodBySetupSurge(void) const;
-   void SetFloodBySetupSurgeRunup(void);
-   bool bIsFloodBySetupSurgeRunup(void) const;
-   bool bIsInContiguousSeaFlood(void) const;
+   // void SetInContiguousFlood(void);
+   // void UnSetInContiguousFlood(void);
+   // void SetFloodBySetupSurge(void);
+   // bool bIsFloodBySetupSurge(void) const;
+   // void SetFloodBySetupSurgeRunup(void);
+   // bool bIsFloodBySetupSurgeRunup(void) const;
+   // bool bIsInContiguousSeaFlood(void) const;
 
    void SetInActiveZone(bool const);
    bool bIsInActiveZone(void) const;
@@ -271,11 +271,11 @@ class CGeomCell
    void SetAsCoastline(int const);
    bool bIsCoastline(void) const;
    int nGetCoastline(void) const;
-   void SetAsFloodline(bool const);
-   bool bIsFloodline(void) const;
+   // void SetAsFloodline(bool const);
+   // bool bIsFloodline(void) const;
 
-   void SetAsCliffToe(bool const);
-   bool bIsCliffToe(void) const;
+   // void SetAsCliffToe(bool const);
+   // bool bIsCliffToe(void) const;
 
    int nGetProfileID(void) const;
    bool bIsProfile(void) const;
@@ -314,8 +314,8 @@ class CGeomCell
    void SetLocalConsSlope(double const);
    double dGetConsSedSlope(void) const;
 
-   void SetSlopeForCliffToe(double const);
-   double dGetSlopeForCliffToe(void) const;
+   // void SetSlopeForCliffToe(double const);
+   // double dGetSlopeForCliffToe(void) const;
 
    bool bIsInundated(void);
    double dGetThisIterSWL(void) const;

@@ -969,13 +969,13 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
       if (! bWriteRasterGISFile(RASTER_PLOT_CONS_SED_SLOPE, &RASTER_PLOT_CONS_SED_SLOPE_TITLE))
          return false;
 
-   if (m_bSlopeSaveForCliffToe)
-      if (! bWriteRasterGISFile(RASTER_PLOT_SLOPE_FOR_CLIFF_TOE, &RASTER_PLOT_SLOPE_FOR_CLIFF_TOE_TITLE))
-         return false;
-
-   if (m_bCliffToeSave)
-      if (! bWriteRasterGISFile(RASTER_PLOT_CLIFF_TOE, &RASTER_PLOT_CLIFF_TOE_TITLE))
-         return false;
+   // if (m_bSlopeSaveForCliffToe)
+   //    if (! bWriteRasterGISFile(RASTER_PLOT_SLOPE_FOR_CLIFF_TOE, &RASTER_PLOT_SLOPE_FOR_CLIFF_TOE_TITLE))
+   //       return false;
+   //
+   // if (m_bCliffToeSave)
+   //    if (! bWriteRasterGISFile(RASTER_PLOT_CLIFF_TOE, &RASTER_PLOT_CLIFF_TOE_TITLE))
+   //       return false;
 
    if (m_bSeaDepthSave)
       if (! bWriteRasterGISFile(RASTER_PLOT_SEA_DEPTH, &RASTER_PLOT_SEA_DEPTH_TITLE))
@@ -1474,10 +1474,10 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
        (nDataItem == RASTER_PLOT_COAST) ||
        (nDataItem == RASTER_PLOT_NORMAL_PROFILE) ||
        (nDataItem == RASTER_PLOT_ACTIVE_ZONE) ||
-       (nDataItem == RASTER_PLOT_POLYGON_UPDRIFT_OR_DOWNDRIFT) ||
+       (nDataItem == RASTER_PLOT_POLYGON_UPDRIFT_OR_DOWNDRIFT)) /*||
        (nDataItem == RASTER_PLOT_SETUP_SURGE_FLOOD_MASK) ||
        (nDataItem == RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK) ||
-       (nDataItem == RASTER_PLOT_WAVE_FLOOD_LINE))
+       (nDataItem == RASTER_PLOT_WAVE_FLOOD_LINE))*/
    {
       dMin = 0;
       dMax = 1;

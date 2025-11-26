@@ -530,7 +530,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
    int const nCoastSize = m_VCoast[nCoast].nGetCoastlineSize();
    int const nHandedness = m_VCoast[nCoast].nGetSeaHandedness();
    int const nProfileLen = nRound(m_dCoastNormalLength / m_dCellSide);                 // Profile length in grid CRS
-   int nProfileStartEdge;
+   // int nProfileStartEdge;
 
    CGeom2DIPoint PtiProfileStart;                                                      // In grid CRS
    vector<CGeom2DIPoint> VPtiNormalPoints;                                             // In grid CRS
@@ -539,13 +539,13 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
    {
       // At start of coast
       PtiProfileStart = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(0);             // Grid CRS
-      nProfileStartEdge = m_VCoast[nCoast].nGetStartEdge();
+      // nProfileStartEdge = m_VCoast[nCoast].nGetStartEdge();
    }
    else
    {
       // At end of coast
       PtiProfileStart = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastSize - 1); // Grid CRS
-      nProfileStartEdge = m_VCoast[nCoast].nGetEndEdge();
+      // nProfileStartEdge = m_VCoast[nCoast].nGetEndEdge();
    }
 
    VPtiNormalPoints.push_back(PtiProfileStart);
@@ -621,7 +621,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
 
       // Have we hit a corner point?
       CGeom2DIPoint Pti = m_VPtiAllEdgeCell[nPos];
-      auto it = find(m_VPtiBoundingBoxCorner.begin(), m_VPtiBoundingBoxCorner.end(), Pti);
+      it = find(m_VPtiBoundingBoxCorner.begin(), m_VPtiBoundingBoxCorner.end(), Pti);
       if (it != m_VPtiBoundingBoxCorner.end())
       {
          // We've reached the end of a grid side before the profile is long enough. OK, we can live with this
