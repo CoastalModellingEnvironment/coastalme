@@ -27,11 +27,21 @@ using std::ios;
 #include <ios>
 using std::fixed;
 
+#include <string>
+using std::to_string;
+
 #include <iomanip>
 using std::setprecision;
 
 #include <stack>
 using std::stack;
+
+#include <cpl_conv.h>
+#include <cpl_error.h>
+#include <cpl_string.h>
+#include <gdal.h>
+#include <gdal_alg.h>
+#include <gdal_priv.h>
 
 #include "cme.h"
 #include "2di_point.h"
@@ -245,10 +255,6 @@ void CSimulation::FindAllSeaCells(void)
          }
       }
    }
-
-
-
-
 }
 
 //===============================================================================================================================
@@ -357,34 +363,34 @@ void CSimulation::CellByCellFillSea(int const nXStart, int const nYStart)
       }
    }
 
-   // // DEBUG CODE ===========================================================================================================
-   // string strOutFile = m_strOutPath + "is_contiguous_sea_";
-   // strOutFile += to_string(m_ulIter);
-   // strOutFile += ".tif";
-   //
-   // GDALDriver* pDriver = GetGDALDriverManager()->GetDriverByName("gtiff");
-   // GDALDataset* pDataSet = pDriver->Create(strOutFile.c_str(), m_nXGridSize, m_nYGridSize, 1, GDT_Float64, m_papszGDALRasterOptions);
-   // pDataSet->SetProjection(m_strGDALBasementDEMProjection.c_str());
-   // pDataSet->SetGeoTransform(m_dGeoTransform);
-   // double* pdRaster = new double[m_nXGridSize * m_nYGridSize];
-   // int n = 0;
-   // for (int nY = 0; nY < m_nYGridSize; nY++)
-   // {
-   //    for (int nX = 0; nX < m_nXGridSize; nX++)
-   //    {
-   //    pdRaster[n++] = m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea();
-   //    }
-   // }
-   //
-   // GDALRasterBand* pBand = pDataSet->GetRasterBand(1);
-   // pBand->SetNoDataValue(m_dMissingValue);
-   // int nRet = pBand->RasterIO(GF_Write, 0, 0, m_nXGridSize, m_nYGridSize, pdRaster, m_nXGridSize, m_nYGridSize, GDT_Float64, 0, 0, NULL);
-   // if (nRet == CE_Failure)
-   // return;
-   //
-   // GDALClose(pDataSet);
-   // delete[] pdRaster;
-   // // DEBUG CODE ===========================================================================================================
+   // DEBUG CODE ===========================================================================================================
+   string strOutFile = m_strOutPath + "is_contiguous_sea_";
+   strOutFile += to_string(m_ulIter);
+   strOutFile += ".tif";
+
+   GDALDriver* pDriver = GetGDALDriverManager()->GetDriverByName("gtiff");
+   GDALDataset* pDataSet = pDriver->Create(strOutFile.c_str(), m_nXGridSize, m_nYGridSize, 1, GDT_Float64, m_papszGDALRasterOptions);
+   pDataSet->SetProjection(m_strGDALBasementDEMProjection.c_str());
+   pDataSet->SetGeoTransform(m_dGeoTransform);
+   double* pdRaster = new double[m_nXGridSize * m_nYGridSize];
+   int n = 0;
+   for (int nY = 0; nY < m_nYGridSize; nY++)
+   {
+      for (int nX = 0; nX < m_nXGridSize; nX++)
+      {
+      pdRaster[n++] = m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea();
+      }
+   }
+
+   GDALRasterBand* pBand = pDataSet->GetRasterBand(1);
+   pBand->SetNoDataValue(m_dMissingValue);
+   int nRet = pBand->RasterIO(GF_Write, 0, 0, m_nXGridSize, m_nYGridSize, pdRaster, m_nXGridSize, m_nYGridSize, GDT_Float64, 0, 0, NULL);
+   if (nRet == CE_Failure)
+   return;
+
+   GDALClose(pDataSet);
+   delete[] pdRaster;
+   // DEBUG CODE ===========================================================================================================
 
    // // DEBUG CODE ===========================================================================================================
    // string strOutFile = m_strOutPath + "is_inundated_";
@@ -654,8 +660,8 @@ bool CSimulation::bIdentifyPossibleCoastStart(int const nXThis, int const nYThis
    bool const bThisCellIsSea = m_pRasterGrid->m_Cell[nXThis][nYThis].bIsInContiguousSea();
    bool const bNextCellIsSea = m_pRasterGrid->m_Cell[nXNext][nYNext].bIsInContiguousSea();
 
-   // Is this cell land and the next cell sea?
-   if ((! bThisCellIsSea) && bNextCellIsSea)
+   // We are searching from sea to land: so is this cell sea and the next cell land?
+   if (bThisCellIsSea && (! bNextCellIsSea))
    {
       // All OK, so flag 'this' cell
       m_pRasterGrid->m_Cell[nXThis][nYThis].SetPossibleCoastStartCell();

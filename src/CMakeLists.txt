@@ -144,7 +144,7 @@ if(CMAKE_BUILD_TYPE_LC STREQUAL "debug")
     add_compile_options(-Wuseless-cast)
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "13.0")
       add_compile_options(
-        -O2
+        # -O2
         -Wformat
         -Wformat=2
         -Wimplicit-fallthrough
@@ -234,6 +234,7 @@ elseif(CMAKE_BUILD_TYPE_LC STREQUAL "prerelease")
       )
       # Note  -fsanitize-ignorelist=sanitize_ignorelist.txt not yet working for gcc, need this to hide GDAL errors
     endif()
+
     # =======================================================================
   elseif(CMAKE_CXX_COMPILER_ID MATCHES "^(Apple)?Clang$")
     message("Applying additional ${CMAKE_BUILD_TYPE_LC} flags for Clang")
@@ -289,7 +290,7 @@ endif()
 # Sort out compiler flags for various build types
 if(CMAKE_BUILD_TYPE_LC STREQUAL "debug")
   set(CSHORE_BUILD "DEBUG")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_DEBUG} ${CMAKE_CXX_FLAGS}")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_DEBUG} ${CMAKE_CXX_FLAGS} ${COMPILE_OPTIONS}")
   add_link_options(-g)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CME_BINARY_DIR}/Debug CACHE PATH "Directory for Debug builds" FORCE)
   # For Debug builds on any platform, add the model's "internal" debug flag(used for extra logging) etc.
@@ -420,7 +421,7 @@ message(STATUS "CSHORELIB_INCLUDE_DIR=${CSHORELIB_INCLUDE_DIR}")
 set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} ${CSHORELIB_INCLUDE_DIR})
 
 if(CSHORE_LIBRARY_LC STREQUAL "static")
-   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
   set(LIBS ${LIBS} ${LIBGFORTRAN_LIBRARIES} ${LIBQUADMATH_LIBRARIES})
   set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} ${GFORTRAN_INCLUDE_DIR})
      # include_directories(${GFORTRAN_INCLUDE_DIR})
