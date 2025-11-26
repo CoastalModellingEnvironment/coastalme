@@ -244,8 +244,20 @@ CoastalME CHANGELOG
          Enable Linux clang builds
          Code tidying
 
+1.4.0    YAML configuration file support added
+         CoastalME now accepts cme.yaml as default input (falls back to cme.ini)
+         Full migration of input features to YAML parsing workflow
+         Fixed YAML cliff collapse flag reading
+         Time-varying wave data support in YAML format
+         Fixed reading of time-variable wave data in YAML input
+         Depth of closure improvements
+         CShore bug fixes
+         Bug fixes related to talus
+         Performance optimizations: fixed passing string by value instead of by reference
+         Extra debug output capabilities
+         Code tidying
 
-1.4.0_cliff_collapse
+1.4.0_cliff_collapse (experimental branch)
          Calculates mean high water (MHW) level
          Now outputs MHW time series
          Cliff notch apex now at or above MHW
