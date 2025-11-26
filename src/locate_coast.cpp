@@ -455,6 +455,7 @@ int CSimulation::nTraceAllCoasts(void)
    {
       if (m_bSearchNorthEdgeForward)
       {
+         // Searching forward (i.e. in direction of increasing indices)
          for (int n = 0; n < static_cast<int>(m_VPtiNorthEdgeCell.size())-1; n++)
          {
             int const nXThis = m_VPtiNorthEdgeCell[n].nGetX();
@@ -473,6 +474,7 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
+         // Searching backward (i.e. in direction of decreasing indices)
          for (int n = static_cast<int>(m_VPtiNorthEdgeCell.size())-1; n > 0; n--)
          {
             int const nXThis = m_VPtiNorthEdgeCell[n].nGetX();
@@ -499,6 +501,7 @@ int CSimulation::nTraceAllCoasts(void)
    {
       if (m_bSearchSouthEdgeForward)
       {
+         // Searching forward (i.e. in direction of increasing indices)
          for (int n = 0; n < static_cast<int>(m_VPtiSouthEdgeCell.size())-1; n++)
          {
             int const nXThis = m_VPtiSouthEdgeCell[n].nGetX();
@@ -517,6 +520,7 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
+         // Searching backward (i.e. in direction of decreasing indices)
          for (int n = static_cast<int>(m_VPtiSouthEdgeCell.size())-1; n > 0; n--)
          {
             int const nXThis = m_VPtiSouthEdgeCell[n].nGetX();
@@ -540,6 +544,7 @@ int CSimulation::nTraceAllCoasts(void)
    {
       if (m_bSearchWestEdgeForward)
       {
+         // Searching forward (i.e. in direction of increasing indices)
          for (int n = 0; n < static_cast<int>(m_VPtiWestEdgeCell.size())-1; n++)
          {
             int const nXThis = m_VPtiWestEdgeCell[n].nGetX();
@@ -558,6 +563,7 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
+         // Searching backward (i.e. in direction of decreasing indices)
          for (int n = static_cast<int>(m_VPtiWestEdgeCell.size())-1; n > 0; n--)
          {
             int const nXThis = m_VPtiWestEdgeCell[n].nGetX();
@@ -581,6 +587,7 @@ int CSimulation::nTraceAllCoasts(void)
    {
       if (m_bSearchEastEdgeForward)
       {
+         // Searching forward (i.e. in direction of increasing indices)
          for (int n = 0; n < static_cast<int>(m_VPtiEastEdgeCell.size())-1; n++)
          {
             int const nXThis = m_VPtiEastEdgeCell[n].nGetX();
@@ -599,6 +606,7 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
+         // Searching backward (i.e. in direction of decreasing indices)
          for (int n = static_cast<int>(m_VPtiEastEdgeCell.size())-1; n > 0; n--)
          {
             int const nXThis = m_VPtiEastEdgeCell[n].nGetX();
