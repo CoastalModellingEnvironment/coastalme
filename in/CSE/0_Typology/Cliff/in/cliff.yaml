@@ -49,8 +49,9 @@ simulation:
   # List of strings: Times at which to save outputs
   # Each entry should include value and unit
   save_times:
+     - "6 hours"
     # - "1 years"
-    - "6 months"
+    # - "6 months"
     # - "6 hours"
     # - "14 days"
 
@@ -103,7 +104,8 @@ gis_output:
 
   # String: Vector output format
   # Common options: "ESRI Shapefile", "GeoJSON", "KML"
-  vector_format: "GPKG"
+  # vector_format: "GPKG"
+  vector_format: "ESRI Shapefile"
 
   # List of strings: Time series files to generate
   # Options: ["all"] = everything, or specific codes like ["beach_change_net"]

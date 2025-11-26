@@ -255,7 +255,7 @@ int CSimulation::nReadRasterBasementDEM(void)
 
    if (! bFPIsEqual(dMissingValue, m_dMissingValue, TOLERANCE))
    {
-      cerr << NOTE << "NODATA value in " << m_strInitialBasementDEMFile << " is " << dMissingValue << "\n         instead using CoastalME's default floating-point NODATA value " << m_dMissingValue << endl;
+      cerr << NOTE << "NODATA value in " << m_strInitialBasementDEMFile << " is " << dMissingValue << "\n      instead using CoastalME's default floating-point NODATA value " << m_dMissingValue << endl;
    }
 
    // Next allocate memory for a 2D array of raster cell objects: tell the user what is happening
@@ -871,7 +871,7 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer)
 
       if (m_nGISMissingValue != m_nMissingValue)
       {
-         cerr << NOTE << "NODATA value in " << strGISFile << " is " << m_nGISMissingValue << "\n         instead using CoatalME's default integer NODATA value " << m_nMissingValue << endl;
+         cerr << NOTE << "NODATA value in " << strGISFile << " is " << m_nGISMissingValue << "\n      instead using CoatalME's default integer NODATA value " << m_nMissingValue << endl;
       }
    }
    else
@@ -883,7 +883,7 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer)
 
       if (! bFPIsEqual(m_dGISMissingValue, m_dMissingValue, TOLERANCE))
       {
-         cerr << NOTE << "NODATA value in " << strGISFile << " is " << m_dGISMissingValue << "\n         instead using CoastalME's default floating-point NODATA value " << m_dMissingValue << endl;
+         cerr << NOTE << "NODATA value in " << strGISFile << " is " << m_dGISMissingValue << "\n      instead using CoastalME's default floating-point NODATA value " << m_dMissingValue << endl;
       }
    }
 

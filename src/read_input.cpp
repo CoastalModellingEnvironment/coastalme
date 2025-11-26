@@ -65,7 +65,6 @@ using std::exception;
 //===============================================================================================================================
 bool CSimulation::bReadIniFile(void)
 {
-
    string strOrigCMEDir = m_strCMEDir;
    string strOrigCMEIni = m_strCMEIni;
 
@@ -1350,7 +1349,6 @@ bool CSimulation::bReadRunDataFile(void)
                strErr += VECTOR_USUAL_OUTPUT_CODE;
                strErr += "', or at least one vector GIS output code";
             }
-
             else
             {
                strRH = strToLower(&strRH);
@@ -4123,7 +4121,6 @@ bool CSimulation::bReadIniYamlFile(void)
    if (m_strCMEIni.empty())
       // If not use the cme executable directory to find cme.yaml
       m_strCMEIni = m_strCMEDir;
-
    else
    {
       // If user has supplied home directory replace cme run directory with user supplied dir

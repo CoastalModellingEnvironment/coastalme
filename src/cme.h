@@ -369,7 +369,7 @@ int const SAVEMAX = 100000;                              // Maximum number of sa
 int const BUF_SIZE = 2048;                               // Max length (inc. terminating NULL) of any C-type string
 int const CAPE_POINT_MIN_SPACING = 10;                   // In cells: for shadow zone stuff, cape points must not be closer than this
 int const CLOCK_CHECK_ITERATION = 5000;                  // If have done this many timesteps then reset the CPU time running total
-int const COAST_LENGTH_MAX_CONST = 100;                  // When tracing coast, quit if coast length > this * smallest grid size
+int const COAST_LENGTH_MAX_CONST = 3;                    // When tracing coast, quit if coast length > this * smallest grid edge size
 int const COAST_LENGTH_MIN_CONST = 3;                    // Ignore very short coasts less than this * profile spacing
 
 //! The size of the arrays output by CShore. If this is changed, then must also set the same value on line 12 of cshore_wrapper.f03 (integer, parameter :: NN = 1000, NL = 1) and recompile CShore. Eventually we should move to dynamically allocated arrays TODO 070

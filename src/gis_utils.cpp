@@ -1321,7 +1321,7 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
 bool CSimulation::bSaveAllVectorGISFiles(void)
 {
    // Always written
-   if (m_bCoastSave)
+   // if (m_bCoastSave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_COAST, &VECTOR_PLOT_COAST_TITLE))
          return false;
@@ -1339,13 +1339,13 @@ bool CSimulation::bSaveAllVectorGISFiles(void)
          return false;
    }
 
-   if (m_bNormalsSave)
+   // if (m_bNormalsSave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE))
          return false;
    }
 
-   if (m_bInvalidNormalsSave)
+   // if (m_bInvalidNormalsSave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE))
          return false;
@@ -1357,15 +1357,9 @@ bool CSimulation::bSaveAllVectorGISFiles(void)
          return false;
    }
 
-   if (m_bWaveAngleAndHeightSave)
+   // if (m_bWaveAngleAndHeightSave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_WAVE_ANGLE_AND_HEIGHT, &VECTOR_PLOT_WAVE_ANGLE_AND_HEIGHT_TITLE))
-         return false;
-   }
-
-   if (m_bAvgWaveAngleAndHeightSave)
-   {
-      if (! bWriteVectorGISFile(VECTOR_PLOT_AVG_WAVE_ANGLE_AND_HEIGHT, &VECTOR_PLOT_AVG_WAVE_ANGLE_AND_HEIGHT_TITLE))
          return false;
    }
 
@@ -1393,7 +1387,7 @@ bool CSimulation::bSaveAllVectorGISFiles(void)
          return false;
    }
 
-   if (m_bPolygonBoundarySave)
+   // if (m_bPolygonBoundarySave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_POLYGON_BOUNDARY, &VECTOR_PLOT_POLYGON_BOUNDARY_TITLE))
          return false;
@@ -1411,13 +1405,13 @@ bool CSimulation::bSaveAllVectorGISFiles(void)
          return false;
    }
 
-   if (m_bShadowBoundarySave)
+   // if (m_bShadowBoundarySave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_SHADOW_ZONE_BOUNDARY, &VECTOR_PLOT_SHADOW_ZONE_BOUNDARY_TITLE))
          return false;
    }
 
-   if (m_bShadowDowndriftBoundarySave)
+   // if (m_bShadowDowndriftBoundarySave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_DOWNDRIFT_ZONE_BOUNDARY, &VECTOR_PLOT_DOWNDRIFT_ZONE_BOUNDARY_TITLE))
          return false;
