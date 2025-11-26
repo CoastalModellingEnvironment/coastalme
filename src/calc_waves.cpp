@@ -1082,10 +1082,10 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
             break;
          }
 
-         strErr += " on coast " + to_string(nCoast) + " profile " + to_string(pProfile->nGetProfileID()) + " profile length " + to_string(nOutSize) + "\n";
+         strErr += " on coast " + to_string(nCoast) + " profile " + to_string(pProfile->nGetProfileID()) + " profile length " + to_string(nOutSize);
 
          // OK, give up for this profile
-         LogStream << strErr;
+         LogStream << strErr << endl;
 
          // return RTN_ERR_CSHORE_ERROR;
       }
@@ -1257,7 +1257,7 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
             break;
          }
 
-         strErr += " on coast " + to_string(nCoast) + " profile " + to_string(pProfile->nGetProfileID()) + " profile length " + to_string(nOutSize) + "\n";
+         strErr += " on coast " + to_string(nCoast) + " profile " + to_string(pProfile->nGetProfileID()) + " profile length " + to_string(nOutSize);
 
          // OK, give up for this profile
          LogStream << strErr << endl;
