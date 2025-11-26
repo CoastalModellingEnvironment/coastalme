@@ -473,12 +473,15 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
-         for (int n = static_cast<int>(m_VPtiNorthEdgeCell.size())-2; n >= 0; n--)
+         for (int n = static_cast<int>(m_VPtiNorthEdgeCell.size())-1; n > 0; n--)
          {
             int const nXThis = m_VPtiNorthEdgeCell[n].nGetX();
             int const nYThis = m_VPtiNorthEdgeCell[n].nGetY();
-            int const nXNext = m_VPtiNorthEdgeCell[n + 1].nGetX();
-            int const nYNext = m_VPtiNorthEdgeCell[n + 1].nGetY();
+            int const nXNext = m_VPtiNorthEdgeCell[n - 1].nGetX();
+            int const nYNext = m_VPtiNorthEdgeCell[n - 1].nGetY();
+
+            if (n == 0)
+               LogStream << endl;
 
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
@@ -514,12 +517,12 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
-         for (int n = static_cast<int>(m_VPtiSouthEdgeCell.size())-2; n >= 0; n--)
+         for (int n = static_cast<int>(m_VPtiSouthEdgeCell.size())-1; n > 0; n--)
          {
             int const nXThis = m_VPtiSouthEdgeCell[n].nGetX();
             int const nYThis = m_VPtiSouthEdgeCell[n].nGetY();
-            int const nXNext = m_VPtiSouthEdgeCell[n + 1].nGetX();
-            int const nYNext = m_VPtiSouthEdgeCell[n + 1].nGetY();
+            int const nXNext = m_VPtiSouthEdgeCell[n - 1].nGetX();
+            int const nYNext = m_VPtiSouthEdgeCell[n - 1].nGetY();
 
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
@@ -555,12 +558,12 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
-         for (int n = static_cast<int>(m_VPtiWestEdgeCell.size())-2; n >= 0; n--)
+         for (int n = static_cast<int>(m_VPtiWestEdgeCell.size())-1; n > 0; n--)
          {
             int const nXThis = m_VPtiWestEdgeCell[n].nGetX();
             int const nYThis = m_VPtiWestEdgeCell[n].nGetY();
-            int const nXNext = m_VPtiWestEdgeCell[n + 1].nGetX();
-            int const nYNext = m_VPtiWestEdgeCell[n + 1].nGetY();
+            int const nXNext = m_VPtiWestEdgeCell[n - 1].nGetX();
+            int const nYNext = m_VPtiWestEdgeCell[n - 1].nGetY();
 
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
@@ -596,12 +599,12 @@ int CSimulation::nTraceAllCoasts(void)
       }
       else
       {
-         for (int n = static_cast<int>(m_VPtiEastEdgeCell.size())-2; n >= 0; n--)
+         for (int n = static_cast<int>(m_VPtiEastEdgeCell.size())-1; n > 0; n--)
          {
             int const nXThis = m_VPtiEastEdgeCell[n].nGetX();
             int const nYThis = m_VPtiEastEdgeCell[n].nGetY();
-            int const nXNext = m_VPtiEastEdgeCell[n + 1].nGetX();
-            int const nYNext = m_VPtiEastEdgeCell[n + 1].nGetY();
+            int const nXNext = m_VPtiEastEdgeCell[n - 1].nGetX();
+            int const nYNext = m_VPtiEastEdgeCell[n - 1].nGetY();
 
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
