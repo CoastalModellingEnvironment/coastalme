@@ -32,6 +32,9 @@ using std::sqrt;
 #include <vector>
 using std::vector;
 
+#include <algorithm>
+using std::reverse;
+
 #include <iostream>
 using std::cerr;
 using std::endl;
@@ -489,7 +492,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    }
 
    // Bottom (south) edge
-   for (int nX = m_VPtiBoundingBoxCorner[2].nGetX(); nX >= m_VPtiBoundingBoxCorner[3].nGetX(); nX++)
+   for (int nX = m_VPtiBoundingBoxCorner[2].nGetX(); nX <= m_VPtiBoundingBoxCorner[3].nGetX(); nX++)
    {
       // Searching left to right (W to E)
       bFound = false;
@@ -520,7 +523,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    }
 
    // Left (west) edge
-   for (int nY = m_VPtiBoundingBoxCorner[0].nGetY(); nY >= m_VPtiBoundingBoxCorner[2].nGetY(); nY++)
+   for (int nY = m_VPtiBoundingBoxCorner[0].nGetY(); nY <= m_VPtiBoundingBoxCorner[2].nGetY(); nY++)
    {
       // Search top to bottom (N to S)
       bFound = false;
@@ -553,8 +556,14 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
    // Finally concatenate the four edge cell vectors to make an all-edge-cells vector, in clockwise sequence
    m_VPtiAllEdgeCell.insert(m_VPtiAllEdgeCell.end(), m_VPtiNorthEdgeCell.begin(), m_VPtiNorthEdgeCell.end());
    m_VPtiAllEdgeCell.insert(m_VPtiAllEdgeCell.end(), m_VPtiEastEdgeCell.begin(), m_VPtiEastEdgeCell.end());
-   m_VPtiAllEdgeCell.insert(m_VPtiAllEdgeCell.end(), m_VPtiSouthEdgeCell.end(), m_VPtiSouthEdgeCell.begin());     // Reverse
-   m_VPtiAllEdgeCell.insert(m_VPtiAllEdgeCell.end(), m_VPtiWestEdgeCell.end(), m_VPtiWestEdgeCell.begin());       // Reverse
+
+   vector<CGeom2DIPoint> VPtiSouthReversed = m_VPtiSouthEdgeCell;
+   reverse(VPtiSouthReversed.begin(), VPtiSouthReversed.end());
+   m_VPtiAllEdgeCell.insert(m_VPtiAllEdgeCell.end(), VPtiSouthReversed.begin(), VPtiSouthReversed.end());
+
+   vector<CGeom2DIPoint> VPtiWestReversed = m_VPtiWestEdgeCell;
+   reverse(VPtiWestReversed.begin(), VPtiWestReversed.end());
+   m_VPtiAllEdgeCell.insert(m_VPtiAllEdgeCell.end(), VPtiWestReversed.begin(), VPtiWestReversed.end());
 
    return RTN_OK;
 }
