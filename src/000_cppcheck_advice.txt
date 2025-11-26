@@ -1,7 +1,22 @@
 calc_waves.cpp:508:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-do_uncons_sediment_slumping.cpp:174:14: style: struct member 'Neighbour::slope' is never used. [unusedStructMember]
+create_profiles.cpp:624:12: style: Local variable 'it' shadows outer variable [shadowVariable]
+      auto it = find(m_VPtiBoundingBoxCorner.begin(), m_VPtiBoundingBoxCorner.end(), Pti);
+           ^
+create_profiles.cpp:554:9: note: Shadowed declaration
+   auto it = find(m_VPtiAllEdgeCell.begin(), m_VPtiAllEdgeCell.end(), PtiProfileStart);
+        ^
+create_profiles.cpp:624:12: note: Shadow variable
+      auto it = find(m_VPtiBoundingBoxCorner.begin(), m_VPtiBoundingBoxCorner.end(), Pti);
+           ^
+create_profiles.cpp:542:25: style: Variable 'nProfileStartEdge' is assigned a value that is never used. [unreadVariable]
+      nProfileStartEdge = m_VCoast[nCoast].nGetStartEdge();
+                        ^
+create_profiles.cpp:548:25: style: Variable 'nProfileStartEdge' is assigned a value that is never used. [unreadVariable]
+      nProfileStartEdge = m_VCoast[nCoast].nGetEndEdge();
+                        ^
+do_uncons_sediment_slumping.cpp:176:14: style: struct member 'Neighbour::slope' is never used. [unusedStructMember]
       double slope;
              ^
 nanoflann.hpp:2507:9: performance: Variable 'treeCount_' is assigned in constructor body. Consider performing initialization in initialization list. [useInitializationList]
@@ -31,9 +46,6 @@ nanoflann.hpp:812:5: style: Struct 'KDTreeSingleIndexAdaptorParams' has a constr
 nanoflann.hpp:831:5: style: Struct 'SearchParameters' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
     SearchParameters(float eps_ = 0, bool sorted_ = true)
     ^
-spatial_interpolation.h:71:4: style: Struct 'Point2D' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-   Point2D(double x_ = 0, double y_ = 0) : x(x_), y(y_)
-   ^
 nanoflann.hpp:633:5: style: Struct 'L2_Simple_Adaptor < double , PointCloud , double , long >' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
     L2_Simple_Adaptor(const DataSource& _data_source)
     ^
@@ -67,43 +79,34 @@ nanoflann.hpp:693:22: note: Shadow variable
 nanoflann.hpp:2091:44: style: Consider using std::fill or std::generate algorithm instead of a raw loop. [useStlAlgorithm]
         for (auto& v : Base::root_bbox_) v = {};
                                            ^
-gis_raster.cpp:2168:15: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+gis_raster.cpp:2229:15: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       nPoints += static_cast<unsigned int>(transect.VdX.size());
               ^
 nanoflann.hpp:2554:13: performance: Prefer prefix ++/-- operators for non-primitive types. [postfixOperator]
             pointCount_++;
             ^
-read_input.cpp:4746:33: style: The scope of the variable 'nDay' can be reduced. [variableScope]
-         int nHour, nMin, nSec, nDay, nMonth, nYear;
-                                ^
-read_input.cpp:4746:39: style: The scope of the variable 'nMonth' can be reduced. [variableScope]
-         int nHour, nMin, nSec, nDay, nMonth, nYear;
-                                      ^
-read_input.cpp:4746:47: style: The scope of the variable 'nYear' can be reduced. [variableScope]
-         int nHour, nMin, nSec, nDay, nMonth, nYear;
-                                              ^
-read_input.cpp:4774:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4779:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
                          ^
-read_input.cpp:4776:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4781:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
                          ^
-read_input.cpp:4778:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4783:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("month"));
                          ^
-read_input.cpp:4780:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4785:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("year"));
                          ^
-read_input.cpp:4801:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4806:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
                          ^
-read_input.cpp:4803:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4808:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
                          ^
-read_input.cpp:4805:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4810:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("month"));
                          ^
-read_input.cpp:4807:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4812:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("year"));
                          ^
 read_input.cpp:4664:27: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
@@ -112,7 +115,7 @@ read_input.cpp:4664:27: style: Consider using std::transform algorithm instead o
 read_input.cpp:4676:28: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
                   vecTimes.push_back(node.GetULongValue());
                            ^
-read_input.cpp:4905:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
+read_input.cpp:4910:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
       strErr = "max save digits for GIS output file names must be > 1";
              ^
 spatial_interpolation.cpp:96:4: warning: Class 'SpatialInterpolator' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
@@ -139,14 +142,32 @@ yaml_parser.cpp:167:18: style: Consider using std::transform algorithm instead o
 2di_shape.cpp:53:0: style: The function 'Clear' is never used. [unusedFunction]
 void CA2DIShape::Clear(void)
 ^
+cell.cpp:143:0: style: The function 'UnSetInContiguousFlood' is never used. [unusedFunction]
+void CGeomCell::UnSetInContiguousFlood(void)
+^
+cell.cpp:173:0: style: The function 'bIsInContiguousSeaFlood' is never used. [unusedFunction]
+bool CGeomCell::bIsInContiguousSeaFlood(void) const
+^
+cell.cpp:209:0: style: The function 'bIsPossibleCoastStartCell' is never used. [unusedFunction]
+bool CGeomCell::bIsPossibleCoastStartCell(void) const
+^
+cell.cpp:215:0: style: The function 'SetPossibleFloodStartCell' is never used. [unusedFunction]
+void CGeomCell::SetPossibleFloodStartCell(void)
+^
 cell.cpp:221:0: style: The function 'bIsPossibleFloodStartCell' is never used. [unusedFunction]
 bool CGeomCell::bIsPossibleFloodStartCell(void) const
 ^
 cell.cpp:233:0: style: The function 'bActualPlatformErosion' is never used. [unusedFunction]
 bool CGeomCell::bActualPlatformErosion(void) const
 ^
+cell.cpp:272:0: style: The function 'SetAsFloodline' is never used. [unusedFunction]
+void CGeomCell::SetAsFloodline(bool const bNewFlag)
+^
 cell.cpp:380:0: style: The function 'SetWaveFlood' is never used. [unusedFunction]
 void CGeomCell::SetWaveFlood(void)
+^
+cell.cpp:440:0: style: The function 'UnSetCheckFloodCell' is never used. [unusedFunction]
+void CGeomCell::UnSetCheckFloodCell(void)
 ^
 cell.cpp:1108:0: style: The function 'AddSandTalusToUncons' is never used. [unusedFunction]
 void CGeomCell::AddSandTalusToUncons(double const dSandTalus)
@@ -246,6 +267,9 @@ configuration.h:1174:0: style: The function 'nGetCliffEdgeSmoothingWindow' is ne
 ^
 configuration.h:1179:0: style: The function 'nGetCliffEdgePolynomialOrder' is never used. [unusedFunction]
    int nGetCliffEdgePolynomialOrder() const
+^
+do_surge_flood.cpp:45:0: style: The function 'FloodFillLand' is never used. [unusedFunction]
+void CSimulation::FloodFillLand(int const nXStart, int const nYStart)
 ^
 gis_utils.cpp:1969:0: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]
 bool CSimulation::bIsAdjacentEdgeCell(CGeom2DIPoint const* pPt1, CGeom2DIPoint const* pPt2)

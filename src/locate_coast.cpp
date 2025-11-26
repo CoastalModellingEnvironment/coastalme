@@ -441,6 +441,8 @@ int CSimulation::nTraceAllCoasts(void)
 
    vector<CGeom2DIPoint> V2DIPossibleStartCell;
    vector<int> VnPossibleStartCellHandedness;
+   vector<int> VnPossibleStartCellSearchDirection;
+   vector<bool> VbTraced;
 
    // Go along each list of edge cells from low to high elevation, so that the most seaward possible coast point is found first. Start with north edge
    if (! m_bOmitSearchNorthEdge)
@@ -457,6 +459,8 @@ int CSimulation::nTraceAllCoasts(void)
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
                VnPossibleStartCellHandedness.push_back(RIGHT_HANDED);
+               VnPossibleStartCellSearchDirection.push_back(SOUTH);
+               VbTraced.push_back(false);
                break;
             }
          }
@@ -473,6 +477,8 @@ int CSimulation::nTraceAllCoasts(void)
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
                VnPossibleStartCellHandedness.push_back(LEFT_HANDED);
+               VnPossibleStartCellSearchDirection.push_back(SOUTH);
+               VbTraced.push_back(false);
                break;
             }
          }
@@ -494,6 +500,8 @@ int CSimulation::nTraceAllCoasts(void)
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
                VnPossibleStartCellHandedness.push_back(LEFT_HANDED);
+               VnPossibleStartCellSearchDirection.push_back(NORTH);
+               VbTraced.push_back(false);
                break;
             }
          }
@@ -510,6 +518,8 @@ int CSimulation::nTraceAllCoasts(void)
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
                VnPossibleStartCellHandedness.push_back(RIGHT_HANDED);
+               VnPossibleStartCellSearchDirection.push_back(NORTH);
+               VbTraced.push_back(false);
                break;
             }
          }
@@ -531,6 +541,8 @@ int CSimulation::nTraceAllCoasts(void)
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
                VnPossibleStartCellHandedness.push_back(LEFT_HANDED);
+               VnPossibleStartCellSearchDirection.push_back(EAST);
+               VbTraced.push_back(false);
                break;
             }
          }
@@ -547,6 +559,8 @@ int CSimulation::nTraceAllCoasts(void)
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
                VnPossibleStartCellHandedness.push_back(RIGHT_HANDED);
+               VnPossibleStartCellSearchDirection.push_back(EAST);
+               VbTraced.push_back(false);
                break;
             }
          }
@@ -568,6 +582,8 @@ int CSimulation::nTraceAllCoasts(void)
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
                VnPossibleStartCellHandedness.push_back(RIGHT_HANDED);
+               VnPossibleStartCellSearchDirection.push_back(WEST);
+               VbTraced.push_back(false);
                break;
             }
          }
@@ -584,6 +600,8 @@ int CSimulation::nTraceAllCoasts(void)
             if (bIdentifyPossibleCoastStart(nXThis, nYThis, nXNext, nYNext, &V2DIPossibleStartCell))
             {
                VnPossibleStartCellHandedness.push_back(LEFT_HANDED);
+               VnPossibleStartCellSearchDirection.push_back(WEST);
+               VbTraced.push_back(false);
                break;
             }
          }
@@ -609,7 +627,7 @@ int CSimulation::nTraceAllCoasts(void)
    // All OK, now trace from each of these possible start/finish points
    for (int n = 0; n < static_cast<int>(V2DIPossibleStartCell.size()); n++)
    {
-      int nRet = nTraceCoastLine(n, &V2DIPossibleStartCell[n], VnPossibleStartCellHandedness[n]);
+      int nRet = nTraceCoastLine(n, &V2DIPossibleStartCell, &VbTraced, VnPossibleStartCellHandedness[n], VnPossibleStartCellSearchDirection[n]);
       if (nRet == RTN_OK)
       {
          // We have a valid coastline starting from this possible start cell
@@ -657,7 +675,7 @@ bool CSimulation::bIdentifyPossibleCoastStart(int const nXThis, int const nYThis
 //===============================================================================================================================
 //! Traces a coastline (which is defined to be just above still water level) on the grid using the 'wall follower' rule for maze traversal (http://en.wikipedia.org/wiki/Maze_solving_algorithm#Wall_follower). The resulting vector coastline is then smoothed
 //===============================================================================================================================
-int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, CGeom2DIPoint const* p2DIPossibleStartCell, /*int const nStartSearchDirection,*/ int const nHandedness)
+int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeom2DIPoint> const* pV2DIPossibleStartCell, vector<bool>* pVbTraced, int const nHandedness, int const nStartSearchDirection)
 {
    bool bHitStartCell = false;
    bool bAtCoast = false;
@@ -735,7 +753,7 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, CGeom2DIPoi
       // LogStream << "bHasLeftStartEdge = " << bHasLeftStartEdge << " bAtCoast = " << bAtCoast << endl;
       if (bHasLeftStartEdge && bAtCoast)
       {
-         for (unsigned int nn = 0; nn < pVbTraced->size(); nn++)
+         for (int nn = 0; nn < static_cast<int>(pVbTraced->size()); nn++)
          {
             bool const bTraced = pVbTraced->at(nn);
             if ((nn != nTraceFromStartCellIndex) && (! bTraced))
