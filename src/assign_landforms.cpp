@@ -81,7 +81,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
          }
 
          // Next, do some safety checks. Note that layer 0 is the first layer above basement
-         int const nLayer = m_pRasterGrid->m_Cell[nX][nY].nGetLayerAtElev(m_dThisIterSWL);
+         int nLayer = m_pRasterGrid->m_Cell[nX][nY].nGetLayerAtElev(m_dThisIterSWL);
          if (nLayer == ELEV_IN_BASEMENT)
          {
             // Should never happen
@@ -93,9 +93,18 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
          if (nLayer == ELEV_ABOVE_SEDIMENT_TOP)
          {
             // Again, should never happen
-            LogStream << m_ulIter << ": SWL (" << m_dThisIterSWL << ") is above sediment-top elevation inc. any talus (" << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << ") on cell [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}, cannot assign coastal landform for coastline " << nCoast << endl;
+            LogStream << m_ulIter << ":\t SWL (" << m_dThisIterSWL << ") is above sediment-top elevation inc. any talus (" << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << ") on cell [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}, cannot assign coastal landform for coastline " << nCoast << endl;
 
-            return RTN_ERR_CANNOT_ASSIGN_COASTAL_LANDFORM;
+            // TODO DFM bodge ========================
+            // We have unconsolidated sediment at SWL, so this is a drift cell: create a drift object on the vector coastline with these attributes
+            CACoastLandform* pDrift = new CRWDrift(&m_VCoast[nCoast], nCoast, nCoastPoint, LF_DRIFT_BEACH);
+            m_VCoast[nCoast].AppendCoastLandform(pDrift);
+
+            m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_DRIFT_BEACH);
+            continue;
+            // TODO DFM bodge ========================
+
+            // return RTN_ERR_CANNOT_ASSIGN_COASTAL_LANDFORM;
          }
 
          // OK, now check what we have at SWL on this cell: is it unconsolidated or consolidated sediment?
