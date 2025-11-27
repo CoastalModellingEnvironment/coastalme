@@ -49,9 +49,9 @@ simulation:
   # List of strings: Times at which to save outputs
   # Each entry should include value and unit
   save_times:
-     - "6 hours"
+    # - "6 hours"
     # - "1 years"
-    # - "6 months"
+    - "6 months"
     # - "6 hours"
     # - "14 days"
 
