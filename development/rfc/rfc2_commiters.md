@@ -96,6 +96,7 @@ project.
    managers are assumed to have permission to create a branch.
 -  All source code in SVC should be in Unix text format as opposed to
    DOS text mode.
+-  Please make use of existing code (such as CoastalME's 2d integer and floating point classes) wherever possible. Don't try to re-invent the wheel!
 -  When committing new features or significant changes to existing
    source code, the committer should take reasonable measures to ensure
    that the source code continues to build and work on the most commonly
