@@ -101,108 +101,108 @@ $(function(){initNavTree('dc/d0e/update__grid_8cpp_source.html','../../'); initR
 </div><!--header-->
 <div class="contents">
 <a href="../../dc/d0e/update__grid_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">/* ==============================================================================================================================</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">   This file is part of CoastalME, the Coastal Modelling Environment.</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"></span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">   CoastalME is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"></span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">   This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"></span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">   You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">==============================================================================================================================*/</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;cfloat&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#ifdef _OPENMP</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;omp.h&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d2a/cme_8h.html">cme.h</a>&quot;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d6a/simulation_8h.html">simulation.h</a>&quot;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/d8c/raster__grid_8h.html">raster_grid.h</a>&quot;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/d65/coast_8h.html">coast.h</a>&quot;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">//===============================================================================================================================</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">//===============================================================================================================================</span></div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../d1/d98/classCSimulation.html#a996b06826b541667552a9b5948530f3c">   34</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d1/d98/classCSimulation.html#a996b06826b541667552a9b5948530f3c">CSimulation::nUpdateGrid</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>   <span class="comment">// Go through all cells in the raster grid and calculate some this-timestep totals</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>   <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#aeaa75695f5f579644ab1dc9ea37d1fea">m_dThisIterTopElevMax</a> = -DBL_MAX;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>   <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a38b32c3159465e5873c25b0a59f35cee">m_dThisIterTopElevMin</a> = DBL_MAX;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>   <span class="comment">// Initialize reduction variables to zero</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>   <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a45931e39afa0dacd5b570beff8d40eda">m_ulThisIterNumCoastCells</a> = 0;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>   <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a8cbbb43255c6f01e32c58c23673b95a0">m_dThisIterTotSeaDepth</a> = 0;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>   <span class="comment">// Use OpenMP parallel reduction for thread-safe accumulation and min/max calculations</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#ifdef _OPENMP</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#pragma omp parallel for collapse(2)                                 \</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">    reduction(+ : m_ulThisIterNumCoastCells, m_dThisIterTotSeaDepth) \</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">    reduction(max : m_dThisIterTopElevMax)                           \</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">    reduction(min : m_dThisIterTopElevMin)</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> nX = 0; nX &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1652253500dab35e6f6f9f734207e20b">m_nXGridSize</a>; nX++)</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>   {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> nY = 0; nY &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a3755fdc07c0ac9f2ce6c2237cfef50ce">m_nYGridSize</a>; nY++)</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>         <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].bIsCoastline())</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a45931e39afa0dacd5b570beff8d40eda">m_ulThisIterNumCoastCells</a>++;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>         <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].bIsInContiguousSea())</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>         {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="comment">// Is a sea cell</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a8cbbb43255c6f01e32c58c23673b95a0">m_dThisIterTotSeaDepth</a> += <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].dGetSeaDepth();</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>         }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>         <span class="keywordtype">double</span> <span class="keyword">const</span> dTopElev = <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].dGetTopElevIncSea();</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>         <span class="comment">// Get highest and lowest elevations of the top surface of the DEM</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>         <span class="keywordflow">if</span> (dTopElev &gt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#aeaa75695f5f579644ab1dc9ea37d1fea">m_dThisIterTopElevMax</a>)</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#aeaa75695f5f579644ab1dc9ea37d1fea">m_dThisIterTopElevMax</a> = dTopElev;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>         <span class="keywordflow">if</span> (dTopElev &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a38b32c3159465e5873c25b0a59f35cee">m_dThisIterTopElevMin</a>)</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a38b32c3159465e5873c25b0a59f35cee">m_dThisIterTopElevMin</a> = dTopElev;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>      }</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>   }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>   <span class="comment">// No sea cells?</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>   <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#ab36abfb1e4554a06b6da815d506c634c">m_ulThisIterNumSeaCells</a> == 0)</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>      <span class="comment">// All land, assume this is an error</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>      <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d6/d2a/cme_8h.html#a91dc9e596a127baf0301068fc9f3fe2f">RTN_ERR_NOSEACELLS</a>;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>   <span class="comment">// Now go through all cells again and sort out suspended sediment load</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>   <span class="keywordtype">double</span> <span class="keyword">const</span> dSuspPerSeaCell = <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a9ff982b02c96da7af9df717158907d43">m_dThisIterFineSedimentToSuspension</a> / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#ab36abfb1e4554a06b6da815d506c634c">m_ulThisIterNumSeaCells</a>);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>   <span class="comment">// Parallelize the sediment distribution loop</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#ifdef _OPENMP</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#pragma omp parallel for collapse(2)</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> nX = 0; nX &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1652253500dab35e6f6f9f734207e20b">m_nXGridSize</a>; nX++)</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>   {</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> nY = 0; nY &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a3755fdc07c0ac9f2ce6c2237cfef50ce">m_nYGridSize</a>; nY++)</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>         <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].bIsInContiguousSea())</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].AddSuspendedSediment(dSuspPerSeaCell);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>      }</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>   }</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>   <span class="comment">// Go along each coastline and update the grid with landform attributes, ready for next timestep</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; static_cast&lt;int&gt;(<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a25ada8139c82ca7beab3f279cff83184">m_VCoast</a>.size()); i++)</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>   {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a25ada8139c82ca7beab3f279cff83184">m_VCoast</a>[i].nGetCoastlineSize(); j++)</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>      {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>         <span class="keywordtype">int</span> <span class="keyword">const</span> nRet = <a class="code hl_function" href="../../d1/d98/classCSimulation.html#af9de548b92fa5739286fd1bb9329e732">nLandformToGrid</a>(i, j);</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>         <span class="keywordflow">if</span> (nRet != <a class="code hl_variable" href="../../d6/d2a/cme_8h.html#aa768cb14b5c6123ee95e6e4ebd9fe331">RTN_OK</a>)</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <span class="keywordflow">return</span> nRet;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>      }</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>   }</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d6/d2a/cme_8h.html#aa768cb14b5c6123ee95e6e4ebd9fe331">RTN_OK</a>;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">/* ==============================================================================================================================</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">   This file is part of CoastalME, the Coastal Modelling Environment.</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"></span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">   CoastalME is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"></span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">   This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"></span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">   You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">==============================================================================================================================*/</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;cfloat&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#ifdef _OPENMP</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;omp.h&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d2a/cme_8h.html">cme.h</a>&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d6a/simulation_8h.html">simulation.h</a>&quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/d8c/raster__grid_8h.html">raster_grid.h</a>&quot;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/d65/coast_8h.html">coast.h</a>&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">//===============================================================================================================================</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">//===============================================================================================================================</span></div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../d1/d98/classCSimulation.html#a996b06826b541667552a9b5948530f3c">   35</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d1/d98/classCSimulation.html#a996b06826b541667552a9b5948530f3c">CSimulation::nUpdateGrid</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>   <span class="comment">// Go through all cells in the raster grid and calculate some this-timestep totals</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>   <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#aeaa75695f5f579644ab1dc9ea37d1fea">m_dThisIterTopElevMax</a> = -DBL_MAX;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>   <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a38b32c3159465e5873c25b0a59f35cee">m_dThisIterTopElevMin</a> = DBL_MAX;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>   <span class="comment">// Initialize reduction variables to zero</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>   <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a45931e39afa0dacd5b570beff8d40eda">m_ulThisIterNumCoastCells</a> = 0;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>   <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a8cbbb43255c6f01e32c58c23673b95a0">m_dThisIterTotSeaDepth</a> = 0;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>   <span class="comment">// Use OpenMP parallel reduction for thread-safe accumulation and min/max calculations</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#ifdef _OPENMP</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#pragma omp parallel for collapse(2)                                 \</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">    reduction(+ : m_ulThisIterNumCoastCells, m_dThisIterTotSeaDepth) \</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">    reduction(max : m_dThisIterTopElevMax)                           \</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">    reduction(min : m_dThisIterTopElevMin)</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> nX = 0; nX &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1652253500dab35e6f6f9f734207e20b">m_nXGridSize</a>; nX++)</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>   {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> nY = 0; nY &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a3755fdc07c0ac9f2ce6c2237cfef50ce">m_nYGridSize</a>; nY++)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>      {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>         <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].bIsCoastline())</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a45931e39afa0dacd5b570beff8d40eda">m_ulThisIterNumCoastCells</a>++;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>         <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].bIsInContiguousSea())</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>         {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="comment">// Is a sea cell</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a8cbbb43255c6f01e32c58c23673b95a0">m_dThisIterTotSeaDepth</a> += <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].dGetSeaDepth();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>         }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>         <span class="keywordtype">double</span> <span class="keyword">const</span> dTopElev = <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].dGetTopElevIncSea();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>         <span class="comment">// Get highest and lowest elevations of the top surface of the DEM</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>         <span class="keywordflow">if</span> (dTopElev &gt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#aeaa75695f5f579644ab1dc9ea37d1fea">m_dThisIterTopElevMax</a>)</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#aeaa75695f5f579644ab1dc9ea37d1fea">m_dThisIterTopElevMax</a> = dTopElev;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>         <span class="keywordflow">if</span> (dTopElev &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a38b32c3159465e5873c25b0a59f35cee">m_dThisIterTopElevMin</a>)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a38b32c3159465e5873c25b0a59f35cee">m_dThisIterTopElevMin</a> = dTopElev;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>      }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>   }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>   <span class="comment">// No sea cells?</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>   <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#ab36abfb1e4554a06b6da815d506c634c">m_ulThisIterNumSeaCells</a> == 0)</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>      <span class="comment">// All land, assume this is an error</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>      <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d6/d2a/cme_8h.html#a91dc9e596a127baf0301068fc9f3fe2f">RTN_ERR_NOSEACELLS</a>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>   <span class="comment">// Now go through all cells again and sort out suspended sediment load</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>   <span class="keywordtype">double</span> <span class="keyword">const</span> dSuspPerSeaCell = <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a9ff982b02c96da7af9df717158907d43">m_dThisIterFineSedimentToSuspension</a> / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#ab36abfb1e4554a06b6da815d506c634c">m_ulThisIterNumSeaCells</a>);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>   <span class="comment">// Parallelize the sediment distribution loop</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#ifdef _OPENMP</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#pragma omp parallel for collapse(2)</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> nX = 0; nX &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1652253500dab35e6f6f9f734207e20b">m_nXGridSize</a>; nX++)</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>   {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> nY = 0; nY &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a3755fdc07c0ac9f2ce6c2237cfef50ce">m_nYGridSize</a>; nY++)</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>      {</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>         <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].bIsInContiguousSea())</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">m_pRasterGrid</a>-&gt;m_Cell[nX][nY].AddSuspendedSediment(dSuspPerSeaCell);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>      }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>   }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>   <span class="comment">// Go along each coastline and update the grid with landform attributes, ready for next timestep</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; static_cast&lt;int&gt;(<a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a25ada8139c82ca7beab3f279cff83184">m_VCoast</a>.size()); i++)</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>   {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code hl_variable" href="../../d1/d98/classCSimulation.html#a25ada8139c82ca7beab3f279cff83184">m_VCoast</a>[i].nGetCoastlineSize(); j++)</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>      {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>         <span class="keywordtype">int</span> <span class="keyword">const</span> nRet = <a class="code hl_function" href="../../d1/d98/classCSimulation.html#af9de548b92fa5739286fd1bb9329e732">nLandformToGrid</a>(i, j);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>         <span class="keywordflow">if</span> (nRet != <a class="code hl_variable" href="../../d6/d2a/cme_8h.html#aa768cb14b5c6123ee95e6e4ebd9fe331">RTN_OK</a>)</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            <span class="keywordflow">return</span> nRet;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>      }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>   }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d6/d2a/cme_8h.html#aa768cb14b5c6123ee95e6e4ebd9fe331">RTN_OK</a>;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>}</div>
 </div>
 <div class="ttc" id="aclassCSimulation_html_a1312f0ac2c93a6cb2bc41c23eb01c293"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#a1312f0ac2c93a6cb2bc41c23eb01c293">CSimulation::m_pRasterGrid</a></div><div class="ttdeci">CGeomRasterGrid * m_pRasterGrid</div><div class="ttdoc">Pointer to the raster grid object.</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d6a/simulation_8h_source.html#l01575">simulation.h:1575</a></div></div>
 <div class="ttc" id="aclassCSimulation_html_a1652253500dab35e6f6f9f734207e20b"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#a1652253500dab35e6f6f9f734207e20b">CSimulation::m_nXGridSize</a></div><div class="ttdeci">int m_nXGridSize</div><div class="ttdoc">The size of the grid in the x direction.</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d6a/simulation_8h_source.html#l00494">simulation.h:494</a></div></div>
@@ -211,11 +211,11 @@ $(function(){initNavTree('dc/d0e/update__grid_8cpp_source.html','../../'); initR
 <div class="ttc" id="aclassCSimulation_html_a38b32c3159465e5873c25b0a59f35cee"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#a38b32c3159465e5873c25b0a59f35cee">CSimulation::m_dThisIterTopElevMin</a></div><div class="ttdeci">double m_dThisIterTopElevMin</div><div class="ttdoc">This-iteration lowest elevation of DEM.</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d6a/simulation_8h_source.html#l01007">simulation.h:1007</a></div></div>
 <div class="ttc" id="aclassCSimulation_html_a45931e39afa0dacd5b570beff8d40eda"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#a45931e39afa0dacd5b570beff8d40eda">CSimulation::m_ulThisIterNumCoastCells</a></div><div class="ttdeci">unsigned long m_ulThisIterNumCoastCells</div><div class="ttdoc">The number of grid cells which are marked as coast, for this iteration.</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d6a/simulation_8h_source.html#l00641">simulation.h:641</a></div></div>
 <div class="ttc" id="aclassCSimulation_html_a8cbbb43255c6f01e32c58c23673b95a0"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#a8cbbb43255c6f01e32c58c23673b95a0">CSimulation::m_dThisIterTotSeaDepth</a></div><div class="ttdeci">double m_dThisIterTotSeaDepth</div><div class="ttdoc">Total sea depth (m) for this iteration.</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d6a/simulation_8h_source.html#l00863">simulation.h:863</a></div></div>
-<div class="ttc" id="aclassCSimulation_html_a996b06826b541667552a9b5948530f3c"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#a996b06826b541667552a9b5948530f3c">CSimulation::nUpdateGrid</a></div><div class="ttdeci">int nUpdateGrid(void)</div><div class="ttdoc">Update all cells in the raster raster grid and do some per-timestep accounting.</div><div class="ttdef"><b>Definition</b> <a href="#l00034">update_grid.cpp:34</a></div></div>
+<div class="ttc" id="aclassCSimulation_html_a996b06826b541667552a9b5948530f3c"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#a996b06826b541667552a9b5948530f3c">CSimulation::nUpdateGrid</a></div><div class="ttdeci">int nUpdateGrid(void)</div><div class="ttdoc">Update all cells in the raster raster grid and do some per-timestep accounting.</div><div class="ttdef"><b>Definition</b> <a href="#l00035">update_grid.cpp:35</a></div></div>
 <div class="ttc" id="aclassCSimulation_html_a9ff982b02c96da7af9df717158907d43"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#a9ff982b02c96da7af9df717158907d43">CSimulation::m_dThisIterFineSedimentToSuspension</a></div><div class="ttdeci">double m_dThisIterFineSedimentToSuspension</div><div class="ttdoc">Total fine unconsolidated sediment in suspension for this iteration (depth in m)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d6a/simulation_8h_source.html#l00896">simulation.h:896</a></div></div>
 <div class="ttc" id="aclassCSimulation_html_ab36abfb1e4554a06b6da815d506c634c"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#ab36abfb1e4554a06b6da815d506c634c">CSimulation::m_ulThisIterNumSeaCells</a></div><div class="ttdeci">unsigned long m_ulThisIterNumSeaCells</div><div class="ttdoc">The number of grid cells which are marked as sea, for this iteration.</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d6a/simulation_8h_source.html#l00638">simulation.h:638</a></div></div>
 <div class="ttc" id="aclassCSimulation_html_aeaa75695f5f579644ab1dc9ea37d1fea"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#aeaa75695f5f579644ab1dc9ea37d1fea">CSimulation::m_dThisIterTopElevMax</a></div><div class="ttdeci">double m_dThisIterTopElevMax</div><div class="ttdoc">This-iteration highest elevation of DEM.</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d6a/simulation_8h_source.html#l01004">simulation.h:1004</a></div></div>
-<div class="ttc" id="aclassCSimulation_html_af9de548b92fa5739286fd1bb9329e732"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#af9de548b92fa5739286fd1bb9329e732">CSimulation::nLandformToGrid</a></div><div class="ttdeci">int nLandformToGrid(int const, int const)</div><div class="ttdoc">At the end of each timestep, this routine stores the attributes from a single coastal landform object...</div><div class="ttdef"><b>Definition</b> <a href="../../da/d3d/assign__landforms_8cpp_source.html#l00317">assign_landforms.cpp:317</a></div></div>
+<div class="ttc" id="aclassCSimulation_html_af9de548b92fa5739286fd1bb9329e732"><div class="ttname"><a href="../../d1/d98/classCSimulation.html#af9de548b92fa5739286fd1bb9329e732">CSimulation::nLandformToGrid</a></div><div class="ttdeci">int nLandformToGrid(int const, int const)</div><div class="ttdoc">At the end of each timestep, this routine stores the attributes from a single coastal landform object...</div><div class="ttdef"><b>Definition</b> <a href="../../da/d3d/assign__landforms_8cpp_source.html#l00318">assign_landforms.cpp:318</a></div></div>
 <div class="ttc" id="acme_8h_html"><div class="ttname"><a href="../../d6/d2a/cme_8h.html">cme.h</a></div><div class="ttdoc">This file contains global definitions for CoastalME.</div></div>
 <div class="ttc" id="acme_8h_html_a91dc9e596a127baf0301068fc9f3fe2f"><div class="ttname"><a href="../../d6/d2a/cme_8h.html#a91dc9e596a127baf0301068fc9f3fe2f">RTN_ERR_NOSEACELLS</a></div><div class="ttdeci">int const RTN_ERR_NOSEACELLS</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d2a/cme_8h_source.html#l00614">cme.h:614</a></div></div>
 <div class="ttc" id="acme_8h_html_aa768cb14b5c6123ee95e6e4ebd9fe331"><div class="ttname"><a href="../../d6/d2a/cme_8h.html#aa768cb14b5c6123ee95e6e4ebd9fe331">RTN_OK</a></div><div class="ttdeci">int const RTN_OK</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d2a/cme_8h_source.html#l00583">cme.h:583</a></div></div>
@@ -228,7 +228,7 @@ $(function(){initNavTree('dc/d0e/update__grid_8cpp_source.html','../../'); initR
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dc/d0e/update__grid_8cpp.html">update_grid.cpp</a></li>
-    <li class="footer">Generated on Fri Dec 12 2025 12:44:52 for CoastalME (Coastal Modelling Environment) by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+    <li class="footer">Generated on Fri Dec 12 2025 16:13:04 for CoastalME (Coastal Modelling Environment) by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

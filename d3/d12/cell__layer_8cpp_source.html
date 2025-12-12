@@ -101,239 +101,239 @@ $(function(){initNavTree('d3/d12/cell__layer_8cpp_source.html','../../'); initRe
 </div><!--header-->
 <div class="contents">
 <a href="../../d3/d12/cell__layer_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">/* ===============================================================================================================================</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">   This file is part of CoastalME, the Coastal Modelling Environment.</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"></span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">   CoastalME is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"></span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">   This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"></span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">   You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">===============================================================================================================================*/</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;assert.h&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d1d/cell__layer_8h.html">cell_layer.h</a>&quot;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/d55/cell__sediment_8h.html">cell_sediment.h</a>&quot;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="../../dc/d04/cell__talus_8h.html">cell_talus.h</a>&quot;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
-<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a652dda36e4a17bd84da2b79a09667c8e">   28</a></span><a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a652dda36e4a17bd84da2b79a09667c8e">CRWCellLayer::CRWCellLayer</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>   <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> = NULL;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">/* ===============================================================================================================================</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">   This file is part of CoastalME, the Coastal Modelling Environment.</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"></span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">   CoastalME is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"></span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">   This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"></span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">   You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">===============================================================================================================================*/</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;assert.h&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d1d/cell__layer_8h.html">cell_layer.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/d55/cell__sediment_8h.html">cell_sediment.h</a>&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="../../dc/d04/cell__talus_8h.html">cell_talus.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a652dda36e4a17bd84da2b79a09667c8e">   29</a></span><a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a652dda36e4a17bd84da2b79a09667c8e">CRWCellLayer::CRWCellLayer</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>   <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> = NULL;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
 </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span></div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a46aa869c0350fd5223d8446d1d8835f1">   34</a></span><a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a46aa869c0350fd5223d8446d1d8835f1">CRWCellLayer::~CRWCellLayer</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>   <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> != NULL)</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>      <span class="keyword">delete</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a46aa869c0350fd5223d8446d1d8835f1">   35</a></span><a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a46aa869c0350fd5223d8446d1d8835f1">CRWCellLayer::~CRWCellLayer</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>   <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> != NULL)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      <span class="keyword">delete</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
-<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a6ee086df697edf497ddb97fe2f4adf53">   41</a></span><a class="code hl_class" href="../../d5/dc6/classCRWCellSediment.html">CRWCellSediment</a>* <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a6ee086df697edf497ddb97fe2f4adf53">CRWCellLayer::pGetUnconsolidatedSediment</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>{</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>   <span class="keywordflow">return</span> &amp;<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span></div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a6ee086df697edf497ddb97fe2f4adf53">   42</a></span><a class="code hl_class" href="../../d5/dc6/classCRWCellSediment.html">CRWCellSediment</a>* <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a6ee086df697edf497ddb97fe2f4adf53">CRWCellLayer::pGetUnconsolidatedSediment</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>   <span class="keywordflow">return</span> &amp;<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
 </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
-<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a30800b5cd971976ffec36381d4e54342">   47</a></span><a class="code hl_class" href="../../d5/dc6/classCRWCellSediment.html">CRWCellSediment</a>* <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a30800b5cd971976ffec36381d4e54342">CRWCellLayer::pGetConsolidatedSediment</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>{</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>   <span class="keywordflow">return</span> &amp;<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
+<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a30800b5cd971976ffec36381d4e54342">   48</a></span><a class="code hl_class" href="../../d5/dc6/classCRWCellSediment.html">CRWCellSediment</a>* <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a30800b5cd971976ffec36381d4e54342">CRWCellLayer::pGetConsolidatedSediment</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>   <span class="keywordflow">return</span> &amp;<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
 </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
-<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#abe46f3733d6514b50b862bbf2369e0ce">   53</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#abe46f3733d6514b50b862bbf2369e0ce">CRWCellLayer::bHasUncons</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>{</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>   <span class="keywordflow">if</span> (this-&gt;<a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#ab46b6efc49e92c135ac57f93a16a3306">dGetAllUnconsDepth</a>() &gt; 0)</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>   <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#abe46f3733d6514b50b862bbf2369e0ce">   54</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#abe46f3733d6514b50b862bbf2369e0ce">CRWCellLayer::bHasUncons</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>   <span class="keywordflow">if</span> (this-&gt;<a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#ab46b6efc49e92c135ac57f93a16a3306">dGetAllUnconsDepth</a>() &gt; 0)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>   <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
 </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
-<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a528d3e2c99d7dcec145e5e6253007e84">   62</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a528d3e2c99d7dcec145e5e6253007e84">CRWCellLayer::dGetUnconsFineDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetFineDepth();</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a528d3e2c99d7dcec145e5e6253007e84">   63</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a528d3e2c99d7dcec145e5e6253007e84">CRWCellLayer::dGetUnconsFineDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetFineDepth();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
 </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
-<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#aa3c001b25e745405fb468780a3817a22">   68</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#aa3c001b25e745405fb468780a3817a22">CRWCellLayer::dGetConsFineDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetFineDepth();</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
+<div class="foldopen" id="foldopen00069" data-start="{" data-end="}">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#aa3c001b25e745405fb468780a3817a22">   69</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#aa3c001b25e745405fb468780a3817a22">CRWCellLayer::dGetConsFineDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetFineDepth();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
 </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span></div>
-<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#aeac80ccd32b12189ad035eb77f4fa268">   74</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#aeac80ccd32b12189ad035eb77f4fa268">CRWCellLayer::dGetUnconsSandDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetSandDepth();</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#aeac80ccd32b12189ad035eb77f4fa268">   75</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#aeac80ccd32b12189ad035eb77f4fa268">CRWCellLayer::dGetUnconsSandDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetSandDepth();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
 </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
-<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a16fef79b8804552ecac42da43a22ac1c">   80</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a16fef79b8804552ecac42da43a22ac1c">CRWCellLayer::dGetConsSandDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetSandDepth();</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="foldopen" id="foldopen00081" data-start="{" data-end="}">
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a16fef79b8804552ecac42da43a22ac1c">   81</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a16fef79b8804552ecac42da43a22ac1c">CRWCellLayer::dGetConsSandDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetSandDepth();</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
 </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span></div>
-<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a22c40f7cddd25c2c99d6da4c2f68b542">   86</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a22c40f7cddd25c2c99d6da4c2f68b542">CRWCellLayer::dGetUnconsCoarseDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetCoarseDepth();</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span></div>
+<div class="foldopen" id="foldopen00087" data-start="{" data-end="}">
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a22c40f7cddd25c2c99d6da4c2f68b542">   87</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a22c40f7cddd25c2c99d6da4c2f68b542">CRWCellLayer::dGetUnconsCoarseDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetCoarseDepth();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>}</div>
 </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span></div>
-<div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a65a57589bd18d707ab984b250e4e5fcd">   92</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a65a57589bd18d707ab984b250e4e5fcd">CRWCellLayer::dGetConsCoarseDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetCoarseDepth();</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span></div>
+<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a65a57589bd18d707ab984b250e4e5fcd">   93</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a65a57589bd18d707ab984b250e4e5fcd">CRWCellLayer::dGetConsCoarseDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetCoarseDepth();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>}</div>
 </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
-<div class="foldopen" id="foldopen00098" data-start="{" data-end="}">
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#ab46b6efc49e92c135ac57f93a16a3306">   98</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#ab46b6efc49e92c135ac57f93a16a3306">CRWCellLayer::dGetAllUnconsDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>   <span class="keywordflow">return</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetFineDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetSandDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetCoarseDepth());</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span></div>
+<div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#ab46b6efc49e92c135ac57f93a16a3306">   99</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#ab46b6efc49e92c135ac57f93a16a3306">CRWCellLayer::dGetAllUnconsDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>   <span class="keywordflow">return</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetFineDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetSandDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetCoarseDepth());</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
 </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span></div>
-<div class="foldopen" id="foldopen00104" data-start="{" data-end="}">
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a8658cd5c1d29b3b6530b0f8b009d32bd">  104</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a8658cd5c1d29b3b6530b0f8b009d32bd">CRWCellLayer::dGetAllConsDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>   <span class="keywordflow">return</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetFineDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetSandDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetCoarseDepth());</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span></div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a8658cd5c1d29b3b6530b0f8b009d32bd">  105</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a8658cd5c1d29b3b6530b0f8b009d32bd">CRWCellLayer::dGetAllConsDepth</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>   <span class="keywordflow">return</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetFineDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetSandDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetCoarseDepth());</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
 </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span></div>
-<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a894e1b3d51a02c4dd798df7c4b06edb3">  110</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a894e1b3d51a02c4dd798df7c4b06edb3">CRWCellLayer::dGetTotalThickness</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>   <span class="keywordflow">return</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetFineDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetSandDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetCoarseDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetFineDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetSandDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetCoarseDepth());</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span></div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="}">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a894e1b3d51a02c4dd798df7c4b06edb3">  111</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a894e1b3d51a02c4dd798df7c4b06edb3">CRWCellLayer::dGetTotalThickness</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>   <span class="keywordflow">return</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetFineDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetSandDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">m_UnconsolidatedSediment</a>.dGetCoarseDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetFineDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetSandDepth() + <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">m_ConsolidatedSediment</a>.dGetCoarseDepth());</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
 </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">// //! Returns the thickness of unconsolidated sediment lost due to notch incision (total for all size classes)</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">// double CRWCellLayer::dGetNotchUnconsolidatedLost(void) const</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment">// {</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment">// return (m_UnconsolidatedSediment.dGetNotchFineLost() + m_UnconsolidatedSediment.dGetNotchSandLost() + m_UnconsolidatedSediment.dGetNotchCoarseLost());</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment">// }</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">// //! Returns the thickness of consolidated sediment lost due to notch incision (total for all size classes)</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment">// double CRWCellLayer::dGetNotchConsolidatedLost(void) const</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment">// {</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment">// return (m_ConsolidatedSediment.dGetNotchFineLost() + m_ConsolidatedSediment.dGetNotchSandLost() + m_ConsolidatedSediment.dGetNotchCoarseLost());</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">// }</span></div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="comment">// double CRWCellLayer::dGetVolSedFraction(void) const</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">// {</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment">// return m_VdolSedFraction;</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment">// }</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment">// void CRWCellLayer::SetVolSedFraction(double const dNewVolSedFraction)</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment">// {</span></div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">// m_VdolSedFraction = dNewVolSedFraction;</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">// }</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">//</span></div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">// double CRWCellLayer::dGetMechResistance(void) const</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment">// {</span></div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="comment">// return m_dMechResistance;</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="comment">// }</span></div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="comment">// void CRWCellLayer::SetMechResistance(double const dNewMechResistance)</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment">// {</span></div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment">// m_dMechResistance = dNewMechResistance;</span></div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment">// }</span></div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="comment">// double CRWCellLayer::dGetConsolidationStatus(void) const</span></div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="comment">// {</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment">// return m_dConsolidationStatus;</span></div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment">// }</span></div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment">// void CRWCellLayer::SetConsolidationStatus(double const dNewConsolidationStatus)</span></div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment">// {</span></div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment">// m_dConsolidationStatus = dNewConsolidationStatus;</span></div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment">// }</span></div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span></div>
-<div class="foldopen" id="foldopen00158" data-start="{" data-end="}">
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a17e7ace45470776532f5fb433871e9cf">  158</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a17e7ace45470776532f5fb433871e9cf">CRWCellLayer::bHasTalus</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>{</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>   <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> == NULL)</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>   <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>}</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">// //! Returns the thickness of unconsolidated sediment lost due to notch incision (total for all size classes)</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment">// double CRWCellLayer::dGetNotchUnconsolidatedLost(void) const</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment">// {</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment">// return (m_UnconsolidatedSediment.dGetNotchFineLost() + m_UnconsolidatedSediment.dGetNotchSandLost() + m_UnconsolidatedSediment.dGetNotchCoarseLost());</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">// }</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment">// //! Returns the thickness of consolidated sediment lost due to notch incision (total for all size classes)</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment">// double CRWCellLayer::dGetNotchConsolidatedLost(void) const</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment">// {</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">// return (m_ConsolidatedSediment.dGetNotchFineLost() + m_ConsolidatedSediment.dGetNotchSandLost() + m_ConsolidatedSediment.dGetNotchCoarseLost());</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment">// }</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">// double CRWCellLayer::dGetVolSedFraction(void) const</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment">// {</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment">// return m_VdolSedFraction;</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment">// }</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment">// void CRWCellLayer::SetVolSedFraction(double const dNewVolSedFraction)</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">// {</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">// m_VdolSedFraction = dNewVolSedFraction;</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">// }</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">//</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment">// double CRWCellLayer::dGetMechResistance(void) const</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="comment">// {</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="comment">// return m_dMechResistance;</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="comment">// }</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment">// void CRWCellLayer::SetMechResistance(double const dNewMechResistance)</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment">// {</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment">// m_dMechResistance = dNewMechResistance;</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="comment">// }</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="comment">// double CRWCellLayer::dGetConsolidationStatus(void) const</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment">// {</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment">// return m_dConsolidationStatus;</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment">// }</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment">// void CRWCellLayer::SetConsolidationStatus(double const dNewConsolidationStatus)</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment">// {</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment">// m_dConsolidationStatus = dNewConsolidationStatus;</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment">// }</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span></div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="}">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a17e7ace45470776532f5fb433871e9cf">  159</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a17e7ace45470776532f5fb433871e9cf">CRWCellLayer::bHasTalus</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>{</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>   <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> == NULL)</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>   <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>}</div>
 </div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span></div>
-<div class="foldopen" id="foldopen00167" data-start="{" data-end="}">
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a00bec5639fb1c91195dd036d63c0b26a">  167</a></span><a class="code hl_class" href="../../da/ddf/classCRWCellTalus.html">CRWCellTalus</a>* <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a00bec5639fb1c91195dd036d63c0b26a">CRWCellLayer::pGetTalus</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a>;</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>}</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span></div>
+<div class="foldopen" id="foldopen00168" data-start="{" data-end="}">
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a00bec5639fb1c91195dd036d63c0b26a">  168</a></span><a class="code hl_class" href="../../da/ddf/classCRWCellTalus.html">CRWCellTalus</a>* <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a00bec5639fb1c91195dd036d63c0b26a">CRWCellLayer::pGetTalus</a>(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>}</div>
 </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span></div>
-<div class="foldopen" id="foldopen00173" data-start="{" data-end="}">
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a71fc2d7392eba7e593a1385c7b0f95e4">  173</a></span><a class="code hl_class" href="../../da/ddf/classCRWCellTalus.html">CRWCellTalus</a>* <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a71fc2d7392eba7e593a1385c7b0f95e4">CRWCellLayer::pGetOrCreateTalus</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>{</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>   <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> == NULL)</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>   {</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>      <span class="comment">// No talus object here, so create one</span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>      <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../da/ddf/classCRWCellTalus.html">CRWCellTalus</a>();</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>   }</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a>;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>}</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span></div>
+<div class="foldopen" id="foldopen00174" data-start="{" data-end="}">
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a71fc2d7392eba7e593a1385c7b0f95e4">  174</a></span><a class="code hl_class" href="../../da/ddf/classCRWCellTalus.html">CRWCellTalus</a>* <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a71fc2d7392eba7e593a1385c7b0f95e4">CRWCellLayer::pGetOrCreateTalus</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>{</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>   <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> == NULL)</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>   {</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>      <span class="comment">// No talus object here, so create one</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>      <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> = <span class="keyword">new</span> <a class="code hl_class" href="../../da/ddf/classCRWCellTalus.html">CRWCellTalus</a>();</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>   }</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>   <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>}</div>
 </div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment">// Deletes this layer&#39;s talus object and resets the pointer</span></div>
-<div class="foldopen" id="foldopen00185" data-start="{" data-end="}">
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a4de73bbb8f5fab455d1fae9e35539b47">  185</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a4de73bbb8f5fab455d1fae9e35539b47">CRWCellLayer::DeleteTalus</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>{</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>   <span class="keyword">delete</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a>;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>   <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> = NULL;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>}</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment">// Deletes this layer&#39;s talus object and resets the pointer</span></div>
+<div class="foldopen" id="foldopen00186" data-start="{" data-end="}">
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="../../d5/d6d/classCRWCellLayer.html#a4de73bbb8f5fab455d1fae9e35539b47">  186</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/d6d/classCRWCellLayer.html#a4de73bbb8f5fab455d1fae9e35539b47">CRWCellLayer::DeleteTalus</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>{</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>   <span class="keyword">delete</span> <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>   <a class="code hl_variable" href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">m_pTalus</a> = NULL;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>}</div>
 </div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
 <div class="ttc" id="acell__layer_8h_html"><div class="ttname"><a href="../../d6/d1d/cell__layer_8h.html">cell_layer.h</a></div><div class="ttdoc">Contains CRWCellLayer definitions.</div></div>
 <div class="ttc" id="acell__sediment_8h_html"><div class="ttname"><a href="../../d5/d55/cell__sediment_8h.html">cell_sediment.h</a></div><div class="ttdoc">Contains CRWCellSediment definitions.</div></div>
 <div class="ttc" id="acell__talus_8h_html"><div class="ttname"><a href="../../dc/d04/cell__talus_8h.html">cell_talus.h</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a00bec5639fb1c91195dd036d63c0b26a"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a00bec5639fb1c91195dd036d63c0b26a">CRWCellLayer::pGetTalus</a></div><div class="ttdeci">CRWCellTalus * pGetTalus(void) const</div><div class="ttdoc">Returns a pointer to the layer&#39;s talus object, or NULL if there is no talus object.</div><div class="ttdef"><b>Definition</b> <a href="#l00167">cell_layer.cpp:167</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a0d0c8ae6d4f3e0c52986299e7a5b7ac7"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">CRWCellLayer::m_ConsolidatedSediment</a></div><div class="ttdeci">CRWCellSediment m_ConsolidatedSediment</div><div class="ttdoc">This cell&#39;s consolidated sediment object.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1d/cell__layer_8h_source.html#l00038">cell_layer.h:38</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a16fef79b8804552ecac42da43a22ac1c"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a16fef79b8804552ecac42da43a22ac1c">CRWCellLayer::dGetConsSandDepth</a></div><div class="ttdeci">double dGetConsSandDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s sand consolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00080">cell_layer.cpp:80</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a17e7ace45470776532f5fb433871e9cf"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a17e7ace45470776532f5fb433871e9cf">CRWCellLayer::bHasTalus</a></div><div class="ttdeci">bool bHasTalus(void)</div><div class="ttdoc">Returns true if the layer has talus, false otherwise.</div><div class="ttdef"><b>Definition</b> <a href="#l00158">cell_layer.cpp:158</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a22c40f7cddd25c2c99d6da4c2f68b542"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a22c40f7cddd25c2c99d6da4c2f68b542">CRWCellLayer::dGetUnconsCoarseDepth</a></div><div class="ttdeci">double dGetUnconsCoarseDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s coarse unconsolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00086">cell_layer.cpp:86</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a24cd0e82a61e5d9bdb66ca12548145a8"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">CRWCellLayer::m_UnconsolidatedSediment</a></div><div class="ttdeci">CRWCellSediment m_UnconsolidatedSediment</div><div class="ttdoc">This cell&#39;s unconsolidated sediment object.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1d/cell__layer_8h_source.html#l00035">cell_layer.h:35</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a30800b5cd971976ffec36381d4e54342"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a30800b5cd971976ffec36381d4e54342">CRWCellLayer::pGetConsolidatedSediment</a></div><div class="ttdeci">CRWCellSediment * pGetConsolidatedSediment(void)</div><div class="ttdoc">Returns a pointer to the cell&#39;s consolidated sediment object.</div><div class="ttdef"><b>Definition</b> <a href="#l00047">cell_layer.cpp:47</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a46aa869c0350fd5223d8446d1d8835f1"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a46aa869c0350fd5223d8446d1d8835f1">CRWCellLayer::~CRWCellLayer</a></div><div class="ttdeci">~CRWCellLayer(void)</div><div class="ttdoc">Destructor.</div><div class="ttdef"><b>Definition</b> <a href="#l00034">cell_layer.cpp:34</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a4de73bbb8f5fab455d1fae9e35539b47"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a4de73bbb8f5fab455d1fae9e35539b47">CRWCellLayer::DeleteTalus</a></div><div class="ttdeci">void DeleteTalus(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00185">cell_layer.cpp:185</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a528d3e2c99d7dcec145e5e6253007e84"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a528d3e2c99d7dcec145e5e6253007e84">CRWCellLayer::dGetUnconsFineDepth</a></div><div class="ttdeci">double dGetUnconsFineDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s fine unconsolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00062">cell_layer.cpp:62</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a652dda36e4a17bd84da2b79a09667c8e"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a652dda36e4a17bd84da2b79a09667c8e">CRWCellLayer::CRWCellLayer</a></div><div class="ttdeci">CRWCellLayer(void)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition</b> <a href="#l00028">cell_layer.cpp:28</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a65a57589bd18d707ab984b250e4e5fcd"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a65a57589bd18d707ab984b250e4e5fcd">CRWCellLayer::dGetConsCoarseDepth</a></div><div class="ttdeci">double dGetConsCoarseDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s coarse consolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00092">cell_layer.cpp:92</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a6ee086df697edf497ddb97fe2f4adf53"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a6ee086df697edf497ddb97fe2f4adf53">CRWCellLayer::pGetUnconsolidatedSediment</a></div><div class="ttdeci">CRWCellSediment * pGetUnconsolidatedSediment(void)</div><div class="ttdoc">Returns a pointer to the cell&#39;s unconsolidated sediment object.</div><div class="ttdef"><b>Definition</b> <a href="#l00041">cell_layer.cpp:41</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a71fc2d7392eba7e593a1385c7b0f95e4"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a71fc2d7392eba7e593a1385c7b0f95e4">CRWCellLayer::pGetOrCreateTalus</a></div><div class="ttdeci">CRWCellTalus * pGetOrCreateTalus(void)</div><div class="ttdoc">Returns a pointer to the layer&#39;s talus object. If there is no talus object, then create one.</div><div class="ttdef"><b>Definition</b> <a href="#l00173">cell_layer.cpp:173</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a8658cd5c1d29b3b6530b0f8b009d32bd"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a8658cd5c1d29b3b6530b0f8b009d32bd">CRWCellLayer::dGetAllConsDepth</a></div><div class="ttdeci">double dGetAllConsDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s consolidated sediment (total for all size classes)</div><div class="ttdef"><b>Definition</b> <a href="#l00104">cell_layer.cpp:104</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_a894e1b3d51a02c4dd798df7c4b06edb3"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a894e1b3d51a02c4dd798df7c4b06edb3">CRWCellLayer::dGetTotalThickness</a></div><div class="ttdeci">double dGetTotalThickness(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s sediment (total for all size classes, both consolidated and unco...</div><div class="ttdef"><b>Definition</b> <a href="#l00110">cell_layer.cpp:110</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_aa3c001b25e745405fb468780a3817a22"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#aa3c001b25e745405fb468780a3817a22">CRWCellLayer::dGetConsFineDepth</a></div><div class="ttdeci">double dGetConsFineDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s fine consolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00068">cell_layer.cpp:68</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_ab46b6efc49e92c135ac57f93a16a3306"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#ab46b6efc49e92c135ac57f93a16a3306">CRWCellLayer::dGetAllUnconsDepth</a></div><div class="ttdeci">double dGetAllUnconsDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s unconsolidated sediment (total for all size classes)</div><div class="ttdef"><b>Definition</b> <a href="#l00098">cell_layer.cpp:98</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_abe46f3733d6514b50b862bbf2369e0ce"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#abe46f3733d6514b50b862bbf2369e0ce">CRWCellLayer::bHasUncons</a></div><div class="ttdeci">bool bHasUncons(void)</div><div class="ttdoc">Return true if the layer has unconsolidated sediment, false otherwise.</div><div class="ttdef"><b>Definition</b> <a href="#l00053">cell_layer.cpp:53</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_ac26be535d2abf127d050f6448b8533fa"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">CRWCellLayer::m_pTalus</a></div><div class="ttdeci">CRWCellTalus * m_pTalus</div><div class="ttdoc">Pointer to this cell layer&#39;s talus (unconsolidated sediment derived from cliff collapse),...</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1d/cell__layer_8h_source.html#l00041">cell_layer.h:41</a></div></div>
-<div class="ttc" id="aclassCRWCellLayer_html_aeac80ccd32b12189ad035eb77f4fa268"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#aeac80ccd32b12189ad035eb77f4fa268">CRWCellLayer::dGetUnconsSandDepth</a></div><div class="ttdeci">double dGetUnconsSandDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s sand unconsolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00074">cell_layer.cpp:74</a></div></div>
-<div class="ttc" id="aclassCRWCellSediment_html"><div class="ttname"><a href="../../d5/dc6/classCRWCellSediment.html">CRWCellSediment</a></div><div class="ttdoc">Real-world class used to represent the sediment (either consolidated or unconsolidated) associated wi...</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d55/cell__sediment_8h_source.html#l00024">cell_sediment.h:25</a></div></div>
-<div class="ttc" id="aclassCRWCellTalus_html"><div class="ttname"><a href="../../da/ddf/classCRWCellTalus.html">CRWCellTalus</a></div><div class="ttdoc">Real-world class used to represent the talus (unconsolidated sediment resulting from cliff collapse) ...</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d04/cell__talus_8h_source.html#l00024">cell_talus.h:25</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a00bec5639fb1c91195dd036d63c0b26a"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a00bec5639fb1c91195dd036d63c0b26a">CRWCellLayer::pGetTalus</a></div><div class="ttdeci">CRWCellTalus * pGetTalus(void) const</div><div class="ttdoc">Returns a pointer to the layer&#39;s talus object, or NULL if there is no talus object.</div><div class="ttdef"><b>Definition</b> <a href="#l00168">cell_layer.cpp:168</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a0d0c8ae6d4f3e0c52986299e7a5b7ac7"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a0d0c8ae6d4f3e0c52986299e7a5b7ac7">CRWCellLayer::m_ConsolidatedSediment</a></div><div class="ttdeci">CRWCellSediment m_ConsolidatedSediment</div><div class="ttdoc">This cell&#39;s consolidated sediment object.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1d/cell__layer_8h_source.html#l00039">cell_layer.h:39</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a16fef79b8804552ecac42da43a22ac1c"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a16fef79b8804552ecac42da43a22ac1c">CRWCellLayer::dGetConsSandDepth</a></div><div class="ttdeci">double dGetConsSandDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s sand consolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00081">cell_layer.cpp:81</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a17e7ace45470776532f5fb433871e9cf"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a17e7ace45470776532f5fb433871e9cf">CRWCellLayer::bHasTalus</a></div><div class="ttdeci">bool bHasTalus(void)</div><div class="ttdoc">Returns true if the layer has talus, false otherwise.</div><div class="ttdef"><b>Definition</b> <a href="#l00159">cell_layer.cpp:159</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a22c40f7cddd25c2c99d6da4c2f68b542"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a22c40f7cddd25c2c99d6da4c2f68b542">CRWCellLayer::dGetUnconsCoarseDepth</a></div><div class="ttdeci">double dGetUnconsCoarseDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s coarse unconsolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00087">cell_layer.cpp:87</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a24cd0e82a61e5d9bdb66ca12548145a8"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a24cd0e82a61e5d9bdb66ca12548145a8">CRWCellLayer::m_UnconsolidatedSediment</a></div><div class="ttdeci">CRWCellSediment m_UnconsolidatedSediment</div><div class="ttdoc">This cell&#39;s unconsolidated sediment object.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1d/cell__layer_8h_source.html#l00036">cell_layer.h:36</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a30800b5cd971976ffec36381d4e54342"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a30800b5cd971976ffec36381d4e54342">CRWCellLayer::pGetConsolidatedSediment</a></div><div class="ttdeci">CRWCellSediment * pGetConsolidatedSediment(void)</div><div class="ttdoc">Returns a pointer to the cell&#39;s consolidated sediment object.</div><div class="ttdef"><b>Definition</b> <a href="#l00048">cell_layer.cpp:48</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a46aa869c0350fd5223d8446d1d8835f1"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a46aa869c0350fd5223d8446d1d8835f1">CRWCellLayer::~CRWCellLayer</a></div><div class="ttdeci">~CRWCellLayer(void)</div><div class="ttdoc">Destructor.</div><div class="ttdef"><b>Definition</b> <a href="#l00035">cell_layer.cpp:35</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a4de73bbb8f5fab455d1fae9e35539b47"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a4de73bbb8f5fab455d1fae9e35539b47">CRWCellLayer::DeleteTalus</a></div><div class="ttdeci">void DeleteTalus(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00186">cell_layer.cpp:186</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a528d3e2c99d7dcec145e5e6253007e84"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a528d3e2c99d7dcec145e5e6253007e84">CRWCellLayer::dGetUnconsFineDepth</a></div><div class="ttdeci">double dGetUnconsFineDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s fine unconsolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00063">cell_layer.cpp:63</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a652dda36e4a17bd84da2b79a09667c8e"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a652dda36e4a17bd84da2b79a09667c8e">CRWCellLayer::CRWCellLayer</a></div><div class="ttdeci">CRWCellLayer(void)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition</b> <a href="#l00029">cell_layer.cpp:29</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a65a57589bd18d707ab984b250e4e5fcd"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a65a57589bd18d707ab984b250e4e5fcd">CRWCellLayer::dGetConsCoarseDepth</a></div><div class="ttdeci">double dGetConsCoarseDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s coarse consolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00093">cell_layer.cpp:93</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a6ee086df697edf497ddb97fe2f4adf53"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a6ee086df697edf497ddb97fe2f4adf53">CRWCellLayer::pGetUnconsolidatedSediment</a></div><div class="ttdeci">CRWCellSediment * pGetUnconsolidatedSediment(void)</div><div class="ttdoc">Returns a pointer to the cell&#39;s unconsolidated sediment object.</div><div class="ttdef"><b>Definition</b> <a href="#l00042">cell_layer.cpp:42</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a71fc2d7392eba7e593a1385c7b0f95e4"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a71fc2d7392eba7e593a1385c7b0f95e4">CRWCellLayer::pGetOrCreateTalus</a></div><div class="ttdeci">CRWCellTalus * pGetOrCreateTalus(void)</div><div class="ttdoc">Returns a pointer to the layer&#39;s talus object. If there is no talus object, then create one.</div><div class="ttdef"><b>Definition</b> <a href="#l00174">cell_layer.cpp:174</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a8658cd5c1d29b3b6530b0f8b009d32bd"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a8658cd5c1d29b3b6530b0f8b009d32bd">CRWCellLayer::dGetAllConsDepth</a></div><div class="ttdeci">double dGetAllConsDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s consolidated sediment (total for all size classes)</div><div class="ttdef"><b>Definition</b> <a href="#l00105">cell_layer.cpp:105</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_a894e1b3d51a02c4dd798df7c4b06edb3"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#a894e1b3d51a02c4dd798df7c4b06edb3">CRWCellLayer::dGetTotalThickness</a></div><div class="ttdeci">double dGetTotalThickness(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s sediment (total for all size classes, both consolidated and unco...</div><div class="ttdef"><b>Definition</b> <a href="#l00111">cell_layer.cpp:111</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_aa3c001b25e745405fb468780a3817a22"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#aa3c001b25e745405fb468780a3817a22">CRWCellLayer::dGetConsFineDepth</a></div><div class="ttdeci">double dGetConsFineDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s fine consolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00069">cell_layer.cpp:69</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_ab46b6efc49e92c135ac57f93a16a3306"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#ab46b6efc49e92c135ac57f93a16a3306">CRWCellLayer::dGetAllUnconsDepth</a></div><div class="ttdeci">double dGetAllUnconsDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s unconsolidated sediment (total for all size classes)</div><div class="ttdef"><b>Definition</b> <a href="#l00099">cell_layer.cpp:99</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_abe46f3733d6514b50b862bbf2369e0ce"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#abe46f3733d6514b50b862bbf2369e0ce">CRWCellLayer::bHasUncons</a></div><div class="ttdeci">bool bHasUncons(void)</div><div class="ttdoc">Return true if the layer has unconsolidated sediment, false otherwise.</div><div class="ttdef"><b>Definition</b> <a href="#l00054">cell_layer.cpp:54</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_ac26be535d2abf127d050f6448b8533fa"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#ac26be535d2abf127d050f6448b8533fa">CRWCellLayer::m_pTalus</a></div><div class="ttdeci">CRWCellTalus * m_pTalus</div><div class="ttdoc">Pointer to this cell layer&#39;s talus (unconsolidated sediment derived from cliff collapse),...</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1d/cell__layer_8h_source.html#l00042">cell_layer.h:42</a></div></div>
+<div class="ttc" id="aclassCRWCellLayer_html_aeac80ccd32b12189ad035eb77f4fa268"><div class="ttname"><a href="../../d5/d6d/classCRWCellLayer.html#aeac80ccd32b12189ad035eb77f4fa268">CRWCellLayer::dGetUnconsSandDepth</a></div><div class="ttdeci">double dGetUnconsSandDepth(void) const</div><div class="ttdoc">Returns the thickness of this cell&#39;s sand unconsolidated sediment.</div><div class="ttdef"><b>Definition</b> <a href="#l00075">cell_layer.cpp:75</a></div></div>
+<div class="ttc" id="aclassCRWCellSediment_html"><div class="ttname"><a href="../../d5/dc6/classCRWCellSediment.html">CRWCellSediment</a></div><div class="ttdoc">Real-world class used to represent the sediment (either consolidated or unconsolidated) associated wi...</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d55/cell__sediment_8h_source.html#l00025">cell_sediment.h:26</a></div></div>
+<div class="ttc" id="aclassCRWCellTalus_html"><div class="ttname"><a href="../../da/ddf/classCRWCellTalus.html">CRWCellTalus</a></div><div class="ttdoc">Real-world class used to represent the talus (unconsolidated sediment resulting from cliff collapse) ...</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d04/cell__talus_8h_source.html#l00025">cell_talus.h:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../d3/d12/cell__layer_8cpp.html">cell_layer.cpp</a></li>
-    <li class="footer">Generated on Fri Dec 12 2025 12:44:52 for CoastalME (Coastal Modelling Environment) by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+    <li class="footer">Generated on Fri Dec 12 2025 16:13:04 for CoastalME (Coastal Modelling Environment) by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>
