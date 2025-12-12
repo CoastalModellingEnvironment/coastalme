@@ -58,7 +58,7 @@ We strive to:
   Our work will be used by other people, and in turn we will depend on the work
   of others. When we make something for the benefit of CoastalME, we are willing to
   explain to others how it works, so that they can build on the work to make it
-  even better. Any decision we make will affect users and colleagues, and we
+  even better. Also, please make use of existing code (such as CoastalME's 2d integer and floating point classes) wherever possible. Don't try to re-invent the wheel! Any decision we make will affect users and colleagues, and we
   take those consequences seriously when making decisions.
 
 - Be inquisitive.
