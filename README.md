@@ -3,16 +3,16 @@
 </p>
 
 # CoastalME
-The [latest release](https://github.com/coastalme/coastalme/releases) is version 1.2.0 (18 Nov 2024).
+The [latest release](https://github.com/coastalme/coastalme/releases) is version 1.4.0 (26 Nov 2025).
 
-The testing version (it should work well, but use at your own risk) is 1.3.28 (28 Aug 2025)
+The [main branch][https://github.com/CoastalModellingEnvironment/coastalme] is also 1.4.0.
 
-Experimental versions (which may not even compile) are 1.4.0 (28 Aug 2025) and 1.4.0_cliff_collapse (11 Sep 2025)
+The [development branch][https://github.com/CoastalModellingEnvironment/coastalme/tree/develop] is version 1.4.1 (12 Dec 2025). It should work well, but use at your own risk.
+
+There are other experimental versions which may not even compile. 
 =======
-The experimental version (it may not even compile) is 1.4.0 (10 Nov 2025)
 
-By <a href="https://www.bgs.ac.uk/people/payo-garcia-andres/">Andres Payo</a> and <a href="https://en.wikipedia.org/wiki/David_Favis-Mortlock">David Favis-Mortlock</a> and [others](COMMITERS.md).
-
+By <a href="https://www.bgs.ac.uk/people/payo-garcia-andres/">Andres Payo</a>, <a href="https://en.wikipedia.org/wiki/David_Favis-Mortlock">David Favis-Mortlock</a>, <a href="https://www.linkedin.com/in/wilf-chun-a35a3a148"> Wilf Chun, and [others](COMMITERS.md).
 ## Table of contents
 
 - [About](#about)
