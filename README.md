@@ -10,9 +10,8 @@ The [main branch][https://github.com/CoastalModellingEnvironment/coastalme] is a
 The [development branch][https://github.com/CoastalModellingEnvironment/coastalme/tree/develop] is version 1.4.1 (12 Dec 2025). It should work well, but use at your own risk.
 
 There are other experimental versions which may not even compile. 
-=======
 
-By <a href="https://www.bgs.ac.uk/people/payo-garcia-andres/">Andres Payo</a>, <a href="https://en.wikipedia.org/wiki/David_Favis-Mortlock">David Favis-Mortlock</a>, <a href="https://www.linkedin.com/in/wilf-chun-a35a3a148"> Wilf Chun, and [others](COMMITERS.md).
+By <a href="https://www.bgs.ac.uk/people/payo-garcia-andres/">Andres Payo</a>, <a href="https://en.wikipedia.org/wiki/David_Favis-Mortlock">David Favis-Mortlock</a>, <a href="https://www.linkedin.com/in/wilf-chun-a35a3a148"> Wilf Chun</a>, and [others](COMMITERS.md).
 ## Table of contents
 
 - [About](#about)
