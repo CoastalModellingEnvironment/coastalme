@@ -4,6 +4,7 @@
    \details TODO 001 A more detailed description of these routines.
    \author David Favis-Mortlock
    \author Andres Payo
+   \author Wilf Chun
    \date 2025
    \copyright GNU General Public License
 */

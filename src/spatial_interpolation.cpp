@@ -2,7 +2,7 @@
    \file spatial_interpolation.cpp
    \brief Spatial Interpolation Using k-Nearest Neighbors and Inverse Distance Weighting
    \details TODO
-   \autho Wilf Chun
+   \author Wilf Chun
    \author David Favis-Mortlock
    \author Andres Payo
    \date 2025
@@ -18,6 +18,7 @@
 
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ==============================================================================================================================*/
+
 //===============================================================================================================================
 //! Spatial Interpolation Using k-Nearest Neighbors and Inverse Distance Weighting
 //!

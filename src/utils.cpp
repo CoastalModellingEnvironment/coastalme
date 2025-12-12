@@ -4,6 +4,7 @@
    \details TODO 001 A more detailed description of this routine.
    \author David Favis-Mortlock
    \author Andres Payo
+   \author Wilf Chun
    \date 2025
    \copyright GNU General Public License
 */
@@ -1748,18 +1749,21 @@ void CSimulation::AnnounceProgress(void)
       // Stdout is connected to a tty, so not running as a background job
       static double sdElapsed = 0;
       static double sdToGo = 0;
+      static double sdExpectedRuntime = 0;
       time_t const tNow = time(nullptr);
 
       // Calculate time elapsed and remaining
       sdElapsed = difftime(tNow, m_tSysStartTime);
-      sdToGo = (sdElapsed * m_dSimDuration / m_dSimElapsed) - sdElapsed;
+      sdExpectedRuntime = (sdElapsed * m_dSimDuration / m_dSimElapsed);
+      sdToGo = sdExpectedRuntime  - sdElapsed;
 
       // Tell the user about progress (note need to make several separate calls to cout here, or MS VC++ compiler appears to get confused)
       cout << SIMULATING << strDispSimTime(m_dSimElapsed);
       cout << fixed << setprecision(3) << setw(9) << 100 * m_dSimElapsed / m_dSimDuration;
-      cout << "%   (elapsed " << strDispTime(sdElapsed, false, false) << " remaining ";
+      cout << "%   (elapsed " << strDispTime(sdElapsed, false, false) ;
 
-      cout << strDispTime(sdToGo, false, false) << ")  ";
+      cout << " remaining " << strDispTime(sdToGo, false, false);
+      cout << " total expected " << strDispTime(sdExpectedRuntime, false, false) << ")  ";
 
       // Add a 'marker' for GIS saves etc.
       if (m_bSaveGISThisIter)

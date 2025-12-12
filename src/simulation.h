@@ -1,10 +1,10 @@
 /*!
    \class CSimulation
    \brief This class runs CoastalME simulations
-   \details TODO 001 This is a more detailed description of the CSimulation
-   class
+   \details TODO 001 This is a more detailed description of the CSimulation class
    \author David Favis-Mortlock
    \author Andres Payo
+   \author Wilf Chun
    \date 2025
    \copyright GNU General Public License
    \file simulation.h

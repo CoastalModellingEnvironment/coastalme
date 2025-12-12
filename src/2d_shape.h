@@ -4,6 +4,7 @@
    \details Abstract class, used as a base class for 2D objects (line, area, etc.)
    \author David Favis-Mortlock
    \author Andres Payo
+   \author Wilf Chun
    \date 2025
    \copyright GNU General Public License
    \file 2d_shape.h

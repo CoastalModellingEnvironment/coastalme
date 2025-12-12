@@ -18,6 +18,7 @@
 
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ==============================================================================================================================*/
+
 //===============================================================================================================================
 //! Spatial Interpolation Using k-Nearest Neighbors and Inverse Distance Weighting
 //!
@@ -96,20 +97,13 @@ struct PointCloud
 };
 
 // Type definitions for nanoflann
-using KDTree = nanoflann::KDTreeSingleIndexAdaptor<
-   nanoflann::L2_Simple_Adaptor<double, PointCloud>,
-   PointCloud,
-   2      // 2D
-   >;
+using KDTree = nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<double, PointCloud>, PointCloud, 2>;
 
 // Main interpolator class
 class SpatialInterpolator
 {
    public:
-   SpatialInterpolator(std::vector<Point2D> const& points,
-                       std::vector<double> const& values,
-                       int k_neighbors = 12,
-                       double power = 2.0);
+   SpatialInterpolator(std::vector<Point2D> const& points, std::vector<double> const& values, int k_neighbors = 12, double power = 2.0);
 
    ~SpatialInterpolator();
 

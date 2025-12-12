@@ -4,6 +4,7 @@
    \details TODO 001 This is a more detailed description of the CRWCellTalus class.
    \author David Favis-Mortlock
    \author Andres Payo
+   \author Wilf Chun
    \date 2025
    \copyright GNU General Public License
    \file cell_sediment.h

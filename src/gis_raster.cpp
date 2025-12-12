@@ -1,10 +1,10 @@
 /*!
    \file gis_raster.cpp
-   \brief These functions use GDAL (at least version 2) to read and write raster
-   GIS files in several formats
+   \brief These functions use GDAL (at least version 2) to read and write raster  GIS files in several formats
    \details TODO 001 A more detailed description of these routines.
    \author David Favis-Mortlock
    \author Andres Payo
+   \author Wilf Chun
    \date 2025
    \copyright GNU General Public License
 */

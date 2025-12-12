@@ -2,8 +2,10 @@
    \class CRWSedInputEvent
    \brief Class used to represent a sediment input event
    \details This class represent a sediment input event such as sediment derived from inland (e.g. at the mouth of a gully or rambla), or sediment from an intervention such as beach nourishment
+   \author Manuel Cobos Budia
    \author David Favis-Mortlock
    \author Andres Payo
+   \author Wilf Chun
    \date 2025
    \copyright GNU General Public License
    \file sediment_input_event.h

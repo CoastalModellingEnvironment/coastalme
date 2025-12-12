@@ -384,7 +384,6 @@ public:
    }
 
    // Wave height Data
-   // Wave height Data
    void SetWaveInputMode(string const* pStr)
    {
       m_strWaveInputMode = *pStr;

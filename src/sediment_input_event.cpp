@@ -2,8 +2,10 @@
    \file sediment_input_event.cpp
    \brief CRWSedInputEvent routines
    \details TODO 001 A more detailed description of these routines.
+   \author Manuel Cobos Budia
    \author David Favis-Mortlock
    \author Andres Payo
+   \author Wilf Chun
    \date 2025
    \copyright GNU General Public License
 */

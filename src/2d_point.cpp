@@ -4,6 +4,7 @@
    \details The CGeom2DPoint class is used to represent 2D points where the x and y coordinates are floating-point values
    \author David Favis-Mortlock
    \author Andres Payo
+   \author Wilf Chun
    \date 2025
    \copyright GNU General Public License
 */

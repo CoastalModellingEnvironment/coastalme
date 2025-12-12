@@ -2,9 +2,10 @@
    \file do_surge_flood.cpp
    \brief Does flood/surge stuff (not yet implemented)
    \details TODO 001 A more detailed description of these routines.
+   \author Manuel Cobos Budia
    \author David Favis-Mortlock
    \author Andres Payo
-   \author Manuel Cobos Budia
+   \author Wilf Chun
    \date 2025
    \copyright GNU General Public License
 */
