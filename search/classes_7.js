@@ -1,19 +1,9 @@
 var searchData=
 [
-  ['kdtreebaseclass_0',['KDTreeBaseClass',['../df/d14/classnanoflann_1_1KDTreeBaseClass.html',1,'nanoflann']]],
-  ['kdtreebaseclass_3c_20kdtreesingleindexadaptor_3c_20distance_2c_20datasetadaptor_2c_20_2d1_2c_20uint32_5ft_20_3e_2c_20distance_2c_20datasetadaptor_2c_20_2d1_2c_20uint32_5ft_20_3e_1',['KDTreeBaseClass&lt; KDTreeSingleIndexAdaptor&lt; Distance, DatasetAdaptor, -1, uint32_t &gt;, Distance, DatasetAdaptor, -1, uint32_t &gt;',['../df/d14/classnanoflann_1_1KDTreeBaseClass.html',1,'nanoflann']]],
-  ['kdtreebaseclass_3c_20kdtreesingleindexdynamicadaptor_5f_3c_20distance_2c_20datasetadaptor_2c_20_2d1_2c_20uint32_5ft_20_3e_2c_20distance_2c_20datasetadaptor_2c_20_2d1_2c_20uint32_5ft_20_3e_2',['KDTreeBaseClass&lt; KDTreeSingleIndexDynamicAdaptor_&lt; Distance, DatasetAdaptor, -1, uint32_t &gt;, Distance, DatasetAdaptor, -1, uint32_t &gt;',['../df/d14/classnanoflann_1_1KDTreeBaseClass.html',1,'nanoflann']]],
-  ['kdtreebaseclass_3c_20kdtreesingleindexdynamicadaptor_5f_3c_20distance_2c_20datasetadaptor_2c_20dim_2c_20uint32_5ft_20_3e_2c_20distance_2c_20datasetadaptor_2c_20dim_2c_20uint32_5ft_20_3e_3',['KDTreeBaseClass&lt; KDTreeSingleIndexDynamicAdaptor_&lt; Distance, DatasetAdaptor, DIM, uint32_t &gt;, Distance, DatasetAdaptor, DIM, uint32_t &gt;',['../df/d14/classnanoflann_1_1KDTreeBaseClass.html',1,'nanoflann']]],
-  ['kdtreeeigenmatrixadaptor_4',['KDTreeEigenMatrixAdaptor',['../d8/d4a/structnanoflann_1_1KDTreeEigenMatrixAdaptor.html',1,'nanoflann']]],
-  ['kdtreeeigenmatrixadaptor_3c_20matrixtype_2c_20dim_2c_20distance_2c_20row_5fmajor_20_3e_5',['KDTreeEigenMatrixAdaptor&lt; MatrixType, DIM, Distance, row_major &gt;',['../d8/d4a/structnanoflann_1_1KDTreeEigenMatrixAdaptor.html',1,'nanoflann']]],
-  ['kdtreesingleindexadaptor_6',['KDTreeSingleIndexAdaptor',['../de/dd0/classnanoflann_1_1KDTreeSingleIndexAdaptor.html',1,'nanoflann']]],
-  ['kdtreesingleindexadaptor_3c_20metric_5ft_2c_20self_5ft_2c_20row_5fmajor_20_3f_20matrixtype_3a_3acolsatcompiletime_20_3amatrixtype_3a_3arowsatcompiletime_2c_20indextype_20_3e_7',['KDTreeSingleIndexAdaptor&lt; metric_t, self_t, row_major ? MatrixType::ColsAtCompileTime :MatrixType::RowsAtCompileTime, IndexType &gt;',['../de/dd0/classnanoflann_1_1KDTreeSingleIndexAdaptor.html',1,'nanoflann']]],
-  ['kdtreesingleindexadaptor_3c_20nanoflann_3a_3al2_5fsimple_5fadaptor_3c_20double_2c_20pointcloud_20_3e_2c_20pointcloud_2c_202_20_3e_8',['KDTreeSingleIndexAdaptor&lt; nanoflann::L2_Simple_Adaptor&lt; double, PointCloud &gt;, PointCloud, 2 &gt;',['../de/dd0/classnanoflann_1_1KDTreeSingleIndexAdaptor.html',1,'nanoflann']]],
-  ['kdtreesingleindexadaptorparams_9',['KDTreeSingleIndexAdaptorParams',['../d5/d47/structnanoflann_1_1KDTreeSingleIndexAdaptorParams.html',1,'nanoflann']]],
-  ['kdtreesingleindexdynamicadaptor_10',['KDTreeSingleIndexDynamicAdaptor',['../d4/d9e/classnanoflann_1_1KDTreeSingleIndexDynamicAdaptor.html',1,'nanoflann']]],
-  ['kdtreesingleindexdynamicadaptor_5f_11',['KDTreeSingleIndexDynamicAdaptor_',['../d1/db4/classnanoflann_1_1KDTreeSingleIndexDynamicAdaptor__.html',1,'nanoflann']]],
-  ['kdtreesingleindexdynamicadaptor_5f_3c_20distance_2c_20datasetadaptor_2c_20_2d1_20_3e_12',['KDTreeSingleIndexDynamicAdaptor_&lt; Distance, DatasetAdaptor, -1 &gt;',['../d1/db4/classnanoflann_1_1KDTreeSingleIndexDynamicAdaptor__.html',1,'nanoflann']]],
-  ['kdtreesingleindexdynamicadaptor_5f_3c_20distance_2c_20datasetadaptor_2c_20_2d1_2c_20uint32_5ft_20_3e_13',['KDTreeSingleIndexDynamicAdaptor_&lt; Distance, DatasetAdaptor, -1, uint32_t &gt;',['../d1/db4/classnanoflann_1_1KDTreeSingleIndexDynamicAdaptor__.html',1,'nanoflann']]],
-  ['kdtreesingleindexdynamicadaptor_5f_3c_20distance_2c_20datasetadaptor_2c_20dim_2c_20indextype_20_3e_14',['KDTreeSingleIndexDynamicAdaptor_&lt; Distance, DatasetAdaptor, DIM, IndexType &gt;',['../d1/db4/classnanoflann_1_1KDTreeSingleIndexDynamicAdaptor__.html',1,'nanoflann']]],
-  ['knnresultset_15',['KNNResultSet',['../db/d6e/classnanoflann_1_1KNNResultSet.html',1,'nanoflann']]]
+  ['ifstream_0',['ifstream',['../d0/d68/classifstream.html',1,'']]],
+  ['indexdist_5fsorter_1',['IndexDist_Sorter',['../d0/d61/structnanoflann_1_1IndexDist__Sorter.html',1,'nanoflann']]],
+  ['interval_2',['Interval',['../d4/d08/structnanoflann_1_1KDTreeBaseClass_1_1Interval.html',1,'nanoflann::KDTreeBaseClass']]],
+  ['ios_3',['ios',['../df/d02/classios.html',1,'']]],
+  ['istringstream_4',['istringstream',['../dc/d35/classistringstream.html',1,'']]],
+  ['iterator_5',['iterator',['../d9/dcc/classarray_1_1iterator.html',1,'array&lt; T &gt;::iterator'],['../de/d81/classdeque_1_1iterator.html',1,'deque&lt; T &gt;::iterator'],['../dd/d7b/classmap_1_1iterator.html',1,'map&lt; K, T &gt;::iterator'],['../dd/d43/classset_1_1iterator.html',1,'set&lt; K &gt;::iterator'],['../d5/d16/classstring_1_1iterator.html',1,'string::iterator'],['../d0/d05/classvector_1_1iterator.html',1,'vector&lt; T &gt;::iterator']]]
 ];

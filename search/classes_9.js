@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['map_0',['map',['../d9/d28/classmap.html',1,'']]],
-  ['metric_1',['Metric',['../df/d87/structnanoflann_1_1Metric.html',1,'nanoflann']]],
-  ['metric_5fl1_2',['metric_L1',['../d7/d60/structnanoflann_1_1metric__L1.html',1,'nanoflann']]],
-  ['metric_5fl2_3',['metric_L2',['../d2/d3f/structnanoflann_1_1metric__L2.html',1,'nanoflann']]],
-  ['metric_5fl2_5fsimple_4',['metric_L2_Simple',['../de/d10/structnanoflann_1_1metric__L2__Simple.html',1,'nanoflann']]],
-  ['metric_5fso2_5',['metric_SO2',['../d8/d87/structnanoflann_1_1metric__SO2.html',1,'nanoflann']]],
-  ['metric_5fso3_6',['metric_SO3',['../dc/d81/structnanoflann_1_1metric__SO3.html',1,'nanoflann']]]
+  ['l1_5fadaptor_0',['L1_Adaptor',['../dc/d49/structnanoflann_1_1L1__Adaptor.html',1,'nanoflann']]],
+  ['l1_5fadaptor_3c_20t_2c_20datasource_2c_20t_2c_20indextype_20_3e_1',['L1_Adaptor&lt; T, DataSource, T, IndexType &gt;',['../dc/d49/structnanoflann_1_1L1__Adaptor.html',1,'nanoflann']]],
+  ['l2_5fadaptor_2',['L2_Adaptor',['../d4/df1/structnanoflann_1_1L2__Adaptor.html',1,'nanoflann']]],
+  ['l2_5fadaptor_3c_20t_2c_20datasource_2c_20t_2c_20indextype_20_3e_3',['L2_Adaptor&lt; T, DataSource, T, IndexType &gt;',['../d4/df1/structnanoflann_1_1L2__Adaptor.html',1,'nanoflann']]],
+  ['l2_5fsimple_5fadaptor_4',['L2_Simple_Adaptor',['../db/d93/structnanoflann_1_1L2__Simple__Adaptor.html',1,'nanoflann']]],
+  ['l2_5fsimple_5fadaptor_3c_20t_2c_20datasource_2c_20distancetype_2c_20size_5ft_20_3e_5',['L2_Simple_Adaptor&lt; T, DataSource, DistanceType, size_t &gt;',['../db/d93/structnanoflann_1_1L2__Simple__Adaptor.html',1,'nanoflann']]],
+  ['l2_5fsimple_5fadaptor_3c_20t_2c_20datasource_2c_20t_2c_20indextype_20_3e_6',['L2_Simple_Adaptor&lt; T, DataSource, T, IndexType &gt;',['../db/d93/structnanoflann_1_1L2__Simple__Adaptor.html',1,'nanoflann']]]
 ];

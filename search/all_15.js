@@ -116,5 +116,6 @@ var searchData=
   ['vector_5fwave_5ftransect_5fpoints_5fcode_113',['VECTOR_WAVE_TRANSECT_POINTS_CODE',['../d6/d2a/cme_8h.html#ae293ad8578978f01e5dc54013cf223ad',1,'cme.h']]],
   ['vector_5fwave_5ftransect_5fpoints_5fname_114',['VECTOR_WAVE_TRANSECT_POINTS_NAME',['../d6/d2a/cme_8h.html#a2b3881e120474332547764aba283e036',1,'cme.h']]],
   ['vngetcircularities_115',['VnGetCircularities',['../df/d45/classCGeomCoastPolygon.html#a4ad424e6e91b9700f74d1122222fbcd7',1,'CGeomCoastPolygon']]],
-  ['vstrsplit_116',['VstrSplit',['../d1/d98/classCSimulation.html#afa49724344dd8c5a4fd3d2733677dee2',1,'CSimulation::VstrSplit(string const *, char const, vector&lt; string &gt; *)'],['../d1/d98/classCSimulation.html#a85309b53990bb9833ddc6f6eaf5dc7e6',1,'CSimulation::VstrSplit(string const *, char const)']]]
+  ['vstrgetstringsequence_116',['VstrGetStringSequence',['../d7/dab/classCYamlNode.html#a922105d8be7a47574a19ab7ca7f7bb5c',1,'CYamlNode']]],
+  ['vstrsplit_117',['VstrSplit',['../d1/d98/classCSimulation.html#afa49724344dd8c5a4fd3d2733677dee2',1,'CSimulation::VstrSplit(string const *, char const, vector&lt; string &gt; *)'],['../d1/d98/classCSimulation.html#a85309b53990bb9833ddc6f6eaf5dc7e6',1,'CSimulation::VstrSplit(string const *, char const)']]]
 ];

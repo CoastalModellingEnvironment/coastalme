@@ -126,6 +126,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a37bcb7fc471a15c70f71ea583c7ff8e8" id="r_a37bcb7fc471a15c70f71ea583c7ff8e8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37bcb7fc471a15c70f71ea583c7ff8e8">dGetFineDepth</a> (void) const</td></tr>
 <tr class="memdesc:a37bcb7fc471a15c70f71ea583c7ff8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the fine sediment depth equivalent for this sediment layer object.  <br /></td></tr>
 <tr class="separator:a37bcb7fc471a15c70f71ea583c7ff8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f21a87dbbc0fcf1afa7c3c90a43813d" id="r_a2f21a87dbbc0fcf1afa7c3c90a43813d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f21a87dbbc0fcf1afa7c3c90a43813d">AddFineDepth</a> (double const)</td></tr>
+<tr class="memdesc:a2f21a87dbbc0fcf1afa7c3c90a43813d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds fine sediment (depth equivalent) to this sediment layer object's fine sediment.  <br /></td></tr>
+<tr class="separator:a2f21a87dbbc0fcf1afa7c3c90a43813d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab97af63753b8f227a695b073ba51521c" id="r_ab97af63753b8f227a695b073ba51521c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab97af63753b8f227a695b073ba51521c">SetSandDepth</a> (double const)</td></tr>
 <tr class="memdesc:ab97af63753b8f227a695b073ba51521c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets this sediment layer object's sand sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative)  <br /></td></tr>
 <tr class="separator:ab97af63753b8f227a695b073ba51521c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -300,6 +303,8 @@ Andres Payo </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00127">127</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+
 </div>
 </div>
 <a id="a28bed2bcc1b65552a9ee3faf21068758" name="a28bed2bcc1b65552a9ee3faf21068758"></a>
@@ -320,6 +325,29 @@ Andres Payo </dd></dl>
 <p>Adds to the this-iteration total depth of coarse sediment input, and to the since-start-of-simulation total depth of coarse sediment input (m) </p>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00208">208</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2f21a87dbbc0fcf1afa7c3c90a43813d" name="a2f21a87dbbc0fcf1afa7c3c90a43813d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f21a87dbbc0fcf1afa7c3c90a43813d">&#9670;&#160;</a></span>AddFineDepth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CRWCellSediment::AddFineDepth </td>
+          <td>(</td>
+          <td class="paramtype">double const</td>          <td class="paramname"><span class="paramname"><em>dSedDepthToAdd</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds fine sediment (depth equivalent) to this sediment layer object's fine sediment. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00090">90</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
 
 </div>
 </div>
@@ -363,6 +391,8 @@ Andres Payo </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00109">109</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+
 </div>
 </div>
 <a id="aa5f4479da528e67022eac9c27fa60c31" name="aa5f4479da528e67022eac9c27fa60c31"></a>
@@ -405,7 +435,7 @@ Andres Payo </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00121">121</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00759">CGeomCell::CalcAllLayerElevsAndD50()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00761">CGeomCell::CalcAllLayerElevsAndD50()</a>, and <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
 
 </div>
 </div>
@@ -449,7 +479,7 @@ Andres Payo </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00759">CGeomCell::CalcAllLayerElevsAndD50()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00761">CGeomCell::CalcAllLayerElevsAndD50()</a>, and <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
 
 </div>
 </div>
@@ -556,7 +586,7 @@ Andres Payo </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00103">103</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00759">CGeomCell::CalcAllLayerElevsAndD50()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00761">CGeomCell::CalcAllLayerElevsAndD50()</a>, and <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
 
 </div>
 </div>
@@ -663,6 +693,8 @@ Andres Payo </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00115">115</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+
 </div>
 </div>
 <a id="a97f6c24afee3f0ac4c7e0fcaa09b5cca" name="a97f6c24afee3f0ac4c7e0fcaa09b5cca"></a>
@@ -683,6 +715,8 @@ Andres Payo </dd></dl>
 <p>Sets this sediment layer object's fine sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative) </p>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00078">78</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
 
 </div>
 </div>
@@ -768,6 +802,8 @@ Andres Payo </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00096">96</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
@@ -851,7 +887,7 @@ Andres Payo </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00028">28</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00190">AddFineSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00084">dGetFineDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00078">SetFineDepth()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00090">AddFineDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00190">AddFineSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00084">dGetFineDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00078">SetFineDepth()</a>.</p>
 
 </div>
 </div>
@@ -1117,7 +1153,7 @@ Andres Payo </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d5/dc6/classCRWCellSediment.html">CRWCellSediment</a></li>
-    <li class="footer">Generated on Fri Dec 12 2025 12:22:37 for CoastalME (Coastal Modelling Environment) by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+    <li class="footer">Generated on Fri Dec 12 2025 12:44:53 for CoastalME (Coastal Modelling Environment) by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

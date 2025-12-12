@@ -1,4 +1,13 @@
 var searchData=
 [
-  ['traits_0',['traits',['../d0/dcf/structnanoflann_1_1metric__L1_1_1traits.html',1,'nanoflann::metric_L1::traits&lt; T, DataSource, IndexType &gt;'],['../de/ddc/structnanoflann_1_1metric__L2_1_1traits.html',1,'nanoflann::metric_L2::traits&lt; T, DataSource, IndexType &gt;'],['../db/d84/structnanoflann_1_1metric__L2__Simple_1_1traits.html',1,'nanoflann::metric_L2_Simple::traits&lt; T, DataSource, IndexType &gt;'],['../d7/d0f/structnanoflann_1_1metric__SO2_1_1traits.html',1,'nanoflann::metric_SO2::traits&lt; T, DataSource, IndexType &gt;'],['../d4/dff/structnanoflann_1_1metric__SO3_1_1traits.html',1,'nanoflann::metric_SO3::traits&lt; T, DataSource, IndexType &gt;']]]
+  ['searchparameters_0',['SearchParameters',['../d8/d4b/structnanoflann_1_1SearchParameters.html',1,'nanoflann']]],
+  ['set_1',['set',['../d0/d59/classset.html',1,'']]],
+  ['so2_5fadaptor_2',['SO2_Adaptor',['../dd/d9f/structnanoflann_1_1SO2__Adaptor.html',1,'nanoflann']]],
+  ['so2_5fadaptor_3c_20t_2c_20datasource_2c_20t_2c_20indextype_20_3e_3',['SO2_Adaptor&lt; T, DataSource, T, IndexType &gt;',['../dd/d9f/structnanoflann_1_1SO2__Adaptor.html',1,'nanoflann']]],
+  ['so3_5fadaptor_4',['SO3_Adaptor',['../d5/d67/structnanoflann_1_1SO3__Adaptor.html',1,'nanoflann']]],
+  ['so3_5fadaptor_3c_20t_2c_20datasource_2c_20t_2c_20indextype_20_3e_5',['SO3_Adaptor&lt; T, DataSource, T, IndexType &gt;',['../d5/d67/structnanoflann_1_1SO3__Adaptor.html',1,'nanoflann']]],
+  ['spatialinterpolator_6',['SpatialInterpolator',['../d4/da8/classSpatialInterpolator.html',1,'']]],
+  ['stack_7',['stack',['../d1/dc2/classstack.html',1,'']]],
+  ['string_8',['string',['../d5/d92/classstring.html',1,'']]],
+  ['stringstream_9',['stringstream',['../d9/d61/classstringstream.html',1,'']]]
 ];

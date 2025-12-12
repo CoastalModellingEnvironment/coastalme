@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gdaldatatype_0',['GDALDataType',['../d9/da5/classGDALDataType.html',1,'']]]
+  ['exception_0',['exception',['../d6/d7d/classexception.html',1,'']]]
 ];
