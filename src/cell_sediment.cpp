@@ -87,11 +87,11 @@ double CRWCellSediment::dGetFineDepth(void) const
    return m_dFine;
 }
 
-// //! Adds fine sediment (depth equivalent) to this sediment layer object's fine sediment
-// void CRWCellSediment::AddFineDepth(double const dSedDepthToAdd)
-// {
-//    m_dFine += dSedDepthToAdd;
-// }
+//! Adds fine sediment (depth equivalent) to this sediment layer object's fine sediment
+void CRWCellSediment::AddFineDepth(double const dSedDepthToAdd)
+{
+   m_dFine += dSedDepthToAdd;
+}
 
 //! Sets this sediment layer object's sand sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative)
 void CRWCellSediment::SetSandDepth(double const dNewSedDepth)

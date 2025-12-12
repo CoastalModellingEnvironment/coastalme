@@ -1,5 +1,4 @@
 /*!
-
    \file yaml_parser.h
    \brief Simple YAML parser for CoastalME configuration files
    \details A lightweight YAML parser using only standard C++ library, designed specifically for CoastalME configuration needs
@@ -8,7 +7,6 @@
    \author Andres Payo
    \date 2025
    \copyright GNU General Public License
-
 */
 
 /* ==============================================================================================================================
@@ -26,14 +24,16 @@
 #define YAML_PARSER_H
 
 #include <string>
-#include <map>
-#include <vector>
-#include <fstream>
-
-using std::ifstream;
-using std::map;
 using std::string;
+
+#include <map>
+using std::map;
+
+#include <vector>
 using std::vector;
+
+#include <fstream>
+using std::ifstream;
 
 //! Simple YAML node class to represent parsed values
 class CYamlNode
@@ -41,30 +41,30 @@ class CYamlNode
    private:
    string m_strValue;
    map<string, CYamlNode> m_mapChildren;
-   vector<CYamlNode> m_vecChildren;
+   vector<CYamlNode> m_VYamlChildren;
    bool m_bIsSequence;
 
    public:
    CYamlNode();
    ~CYamlNode();
 
-   void SetValue(string const& strValue);
-   void AddChild(string const& strKey, CYamlNode const& node);
-   void AddSequenceItem(CYamlNode const& node);
+   void SetValue(string const*);
+   void AddChild(string const*, CYamlNode const*);
+   void AddSequenceItem(CYamlNode const*);
 
-   string GetValue() const;
-   bool HasChild(string const& strKey) const;
+   string* pstrGetValue() const;
+   bool bHasChild(const char[]) const;
    CYamlNode GetChild(string const& strKey) const;
    vector<CYamlNode> GetSequence() const;
    bool IsSequence() const;
-   int GetSequenceSize() const;
+   int nGetSequenceSize() const;
 
    // Convenience methods for common types
-   int GetIntValue(int nDefault = 0) const;
+   int nGetIntValue(int nDefault = 0) const;
    unsigned long GetULongValue(unsigned long nDefault = 0) const;
-   double GetDoubleValue(double dDefault = 0.0) const;
-   bool GetBoolValue(bool bDefault = false) const;
-   vector<string> GetStringSequence() const;
+   double dGetDoubleValue(double dDefault = 0.0) const;
+   bool bGetBoolValue(bool bDefault = false) const;
+   vector<string> const VstrGetStringSequence() const;
 };
 
 //! Simple YAML parser class
@@ -93,7 +93,7 @@ class CYamlParser
 
    bool bParseFile(string const& strFileName);
    CYamlNode GetRoot() const;
-   string GetError() const;
+   string const* pstrGetError() const;
    bool bHasError() const;
 };
 

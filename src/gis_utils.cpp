@@ -970,13 +970,13 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
       if (! bWriteRasterGISFile(RASTER_PLOT_CONS_SED_SLOPE, &RASTER_PLOT_CONS_SED_SLOPE_TITLE))
          return false;
 
-   if (m_bSlopeSaveForCliffToe)
-      if (! bWriteRasterGISFile(RASTER_PLOT_SLOPE_FOR_CLIFF_TOE, &RASTER_PLOT_SLOPE_FOR_CLIFF_TOE_TITLE))
-         return false;
-
-   if (m_bCliffToeSave)
-      if (! bWriteRasterGISFile(RASTER_PLOT_CLIFF_TOE, &RASTER_PLOT_CLIFF_TOE_TITLE))
-         return false;
+   // if (m_bSlopeSaveForCliffToe)
+   //    if (! bWriteRasterGISFile(RASTER_PLOT_SLOPE_FOR_CLIFF_TOE, &RASTER_PLOT_SLOPE_FOR_CLIFF_TOE_TITLE))
+   //       return false;
+   //
+   // if (m_bCliffToeSave)
+   //    if (! bWriteRasterGISFile(RASTER_PLOT_CLIFF_TOE, &RASTER_PLOT_CLIFF_TOE_TITLE))
+   //       return false;
 
    if (m_bSeaDepthSave)
       if (! bWriteRasterGISFile(RASTER_PLOT_SEA_DEPTH, &RASTER_PLOT_SEA_DEPTH_TITLE))
@@ -1173,13 +1173,11 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
                return false;
          }
 
-#ifdef _DEBUG
          if (m_bCliffCollapseTimestepSave)
          {
             if (! bWriteRasterGISFile(RASTER_PLOT_CLIFF_COLLAPSE_TIMESTEP, &RASTER_PLOT_CLIFF_COLLAPSE_TIMESTEP_TITLE))
                return false;
          }
-#endif
       }
 
       if (m_bTotCliffCollapseSave)
@@ -1324,7 +1322,7 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
 bool CSimulation::bSaveAllVectorGISFiles(void)
 {
    // Always written
-   if (m_bCoastSave)
+   // if (m_bCoastSave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_COAST, &VECTOR_PLOT_COAST_TITLE))
          return false;
@@ -1342,13 +1340,13 @@ bool CSimulation::bSaveAllVectorGISFiles(void)
          return false;
    }
 
-   if (m_bNormalsSave)
+   // if (m_bNormalsSave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE))
          return false;
    }
 
-   if (m_bInvalidNormalsSave)
+   // if (m_bInvalidNormalsSave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE))
          return false;
@@ -1360,15 +1358,9 @@ bool CSimulation::bSaveAllVectorGISFiles(void)
          return false;
    }
 
-   if (m_bWaveAngleAndHeightSave)
+   // if (m_bWaveAngleAndHeightSave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_WAVE_ANGLE_AND_HEIGHT, &VECTOR_PLOT_WAVE_ANGLE_AND_HEIGHT_TITLE))
-         return false;
-   }
-
-   if (m_bAvgWaveAngleAndHeightSave)
-   {
-      if (! bWriteVectorGISFile(VECTOR_PLOT_AVG_WAVE_ANGLE_AND_HEIGHT, &VECTOR_PLOT_AVG_WAVE_ANGLE_AND_HEIGHT_TITLE))
          return false;
    }
 
@@ -1396,7 +1388,7 @@ bool CSimulation::bSaveAllVectorGISFiles(void)
          return false;
    }
 
-   if (m_bPolygonBoundarySave)
+   // if (m_bPolygonBoundarySave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_POLYGON_BOUNDARY, &VECTOR_PLOT_POLYGON_BOUNDARY_TITLE))
          return false;
@@ -1414,13 +1406,13 @@ bool CSimulation::bSaveAllVectorGISFiles(void)
          return false;
    }
 
-   if (m_bShadowBoundarySave)
+   // if (m_bShadowBoundarySave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_SHADOW_ZONE_BOUNDARY, &VECTOR_PLOT_SHADOW_ZONE_BOUNDARY_TITLE))
          return false;
    }
 
-   if (m_bShadowDowndriftBoundarySave)
+   // if (m_bShadowDowndriftBoundarySave)
    {
       if (! bWriteVectorGISFile(VECTOR_PLOT_DOWNDRIFT_ZONE_BOUNDARY, &VECTOR_PLOT_DOWNDRIFT_ZONE_BOUNDARY_TITLE))
          return false;
@@ -1477,10 +1469,10 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
        (nDataItem == RASTER_PLOT_COAST) ||
        (nDataItem == RASTER_PLOT_NORMAL_PROFILE) ||
        (nDataItem == RASTER_PLOT_ACTIVE_ZONE) ||
-       (nDataItem == RASTER_PLOT_POLYGON_UPDRIFT_OR_DOWNDRIFT) ||
+       (nDataItem == RASTER_PLOT_POLYGON_UPDRIFT_OR_DOWNDRIFT)) /*||
        (nDataItem == RASTER_PLOT_SETUP_SURGE_FLOOD_MASK) ||
        (nDataItem == RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK) ||
-       (nDataItem == RASTER_PLOT_WAVE_FLOOD_LINE))
+       (nDataItem == RASTER_PLOT_WAVE_FLOOD_LINE))*/
    {
       dMin = 0;
       dMax = 1;

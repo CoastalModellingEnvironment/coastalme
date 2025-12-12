@@ -115,7 +115,7 @@ if(CMAKE_BUILD_TYPE_LC STREQUAL "debug")
   message("Applying universal debug flags")
   add_compile_options(
       -march=native
-      # -O2
+      -O0
       -fno-inline
       -W
       -Wall
@@ -139,13 +139,12 @@ if(CMAKE_BUILD_TYPE_LC STREQUAL "debug")
   if(CMAKE_CXX_COMPILER_ID MATCHES "^(GNU|LCC|QCC)$")
     message("Applying additional ${CMAKE_BUILD_TYPE_LC} flags for gcc")
     # ==========================================================================
-    # Also use these with debug builds to check for vulnerabilities at compile
-    # time, see
-    # https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
+    # Also use these with debug builds to check for vulnerabilities at compile time, see https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html
     # ==========================================================================
     add_compile_options(-Wuseless-cast)
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "13.0")
       add_compile_options(
+        # -O2
         -Wformat
         -Wformat=2
         -Wimplicit-fallthrough
@@ -209,11 +208,9 @@ elseif(CMAKE_BUILD_TYPE_LC STREQUAL "relwithdebinfo")
 elseif(CMAKE_BUILD_TYPE_LC STREQUAL "prerelease")
   if(CMAKE_CXX_COMPILER_ID MATCHES "^(GNU|LCC|QCC)$")
     message("Applying additional ${CMAKE_BUILD_TYPE_LC} flags for gcc")
-    # Pre-release build using gcc, do this before a release to check for
-    # memory access problems.
-    # Note that -fsanitize=address(and the other sanitize options?)
-    # DO NOT work if run under gdb
-    # # ========================================================================
+    # ========================================================================
+    # Pre-release build using gcc, do this before a release to check for  memory access problems. Note that -fsanitize=address(and the other sanitize options?) DO NOT work if run under gdb
+    # ========================================================================
     add_compile_options(-march=native)
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "5.0")
       add_compile_options(
@@ -235,10 +232,10 @@ elseif(CMAKE_BUILD_TYPE_LC STREQUAL "prerelease")
         -fsanitize=vptr
         -fsanitize=address
       )
-      # Note  -fsanitize-ignorelist=sanitize_ignorelist.txt not yet working
-      # for gcc, need this to hide GDAL errors
+      # Note  -fsanitize-ignorelist=sanitize_ignorelist.txt not yet working for gcc, need this to hide GDAL errors
     endif()
-    # # =======================================================================
+
+    # =======================================================================
   elseif(CMAKE_CXX_COMPILER_ID MATCHES "^(Apple)?Clang$")
     message("Applying additional ${CMAKE_BUILD_TYPE_LC} flags for Clang")
   endif()
@@ -293,7 +290,7 @@ endif()
 # Sort out compiler flags for various build types
 if(CMAKE_BUILD_TYPE_LC STREQUAL "debug")
   set(CSHORE_BUILD "DEBUG")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_DEBUG} ${CMAKE_CXX_FLAGS}")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_DEBUG} ${CMAKE_CXX_FLAGS} ${COMPILE_OPTIONS}")
   add_link_options(-g)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CME_BINARY_DIR}/Debug CACHE PATH "Directory for Debug builds" FORCE)
   # For Debug builds on any platform, add the model's "internal" debug flag(used for extra logging) etc.
@@ -334,8 +331,7 @@ endif()
 message("Finding libraries")
 
 ################################################################################
-# Find OpenMP for parallelization
-# First try to find OpenMP using the standard CMake module
+# Find OpenMP for parallelization. First try to find OpenMP using the standard CMake module
 find_package(OpenMP)
 
 if(OpenMP_CXX_FOUND)
@@ -425,7 +421,7 @@ message(STATUS "CSHORELIB_INCLUDE_DIR=${CSHORELIB_INCLUDE_DIR}")
 set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} ${CSHORELIB_INCLUDE_DIR})
 
 if(CSHORE_LIBRARY_LC STREQUAL "static")
-   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
   set(LIBS ${LIBS} ${LIBGFORTRAN_LIBRARIES} ${LIBQUADMATH_LIBRARIES})
   set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} ${GFORTRAN_INCLUDE_DIR})
      # include_directories(${GFORTRAN_INCLUDE_DIR})
@@ -487,6 +483,5 @@ message(STATUS "LIBS=${LIBS}")
 # message(STATUS "CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}")
 # message(STATUS "CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}")
 message(STATUS "CMAKE_INSTALL_RPATH=${CMAKE_INSTALL_RPATH}")
-
 ################################################################################
 

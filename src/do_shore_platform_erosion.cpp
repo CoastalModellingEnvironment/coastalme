@@ -151,9 +151,9 @@ int CSimulation::nDoAllShorePlatFormErosion(void)
 
    if (m_nLogFileDetail >= LOG_FILE_ALL)
    {
-      LogStream << m_ulIter << ": \ttotal potential shore platform erosion (m^3) = " << m_dThisIterPotentialPlatformErosion * m_dCellArea << " (on profiles = " << m_dTotPotentialPlatformErosionOnProfiles * m_dCellArea << ", between profiles = " << m_dTotPotentialPlatformErosionBetweenProfiles * m_dCellArea << ")" << endl;
+      LogStream << m_ulIter << ":\t total potential shore platform erosion (m^3) = " << m_dThisIterPotentialPlatformErosion * m_dCellArea << " (on profiles = " << m_dTotPotentialPlatformErosionOnProfiles * m_dCellArea << ", between profiles = " << m_dTotPotentialPlatformErosionBetweenProfiles * m_dCellArea << ")" << endl;
 
-      LogStream << m_ulIter << ": \ttotal actual shore platform erosion (m^3) = " << (m_dThisIterActualPlatformErosionFineCons + m_dThisIterActualPlatformErosionSandCons + m_dThisIterActualPlatformErosionCoarseCons) * m_dCellArea << " (fine = " << m_dThisIterActualPlatformErosionFineCons * m_dCellArea << ", sand = " << m_dThisIterActualPlatformErosionSandCons * m_dCellArea << ", coarse = " << m_dThisIterActualPlatformErosionCoarseCons * m_dCellArea << ")" << endl;
+      LogStream << m_ulIter << ":\t total actual shore platform erosion (m^3) = " << (m_dThisIterActualPlatformErosionFineCons + m_dThisIterActualPlatformErosionSandCons + m_dThisIterActualPlatformErosionCoarseCons) * m_dCellArea << " (fine = " << m_dThisIterActualPlatformErosionFineCons * m_dCellArea << ", sand = " << m_dThisIterActualPlatformErosionSandCons * m_dCellArea << ", coarse = " << m_dThisIterActualPlatformErosionCoarseCons * m_dCellArea << ")" << endl;
    }
 
    return RTN_OK;

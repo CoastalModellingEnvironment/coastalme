@@ -472,7 +472,7 @@ void CSimulation::WriteStartRunDetails(void)
    if (m_nWavePropagationModel == WAVE_MODEL_COVE)
       OutStream << "COVE";
    else if (m_nWavePropagationModel == WAVE_MODEL_CSHORE)
-      OutStream << "CShore (output arrays have " << CSHOREARRAYOUTSIZE << " points)";
+      OutStream << "CShore (output arrays have " << CSHORE_ARRAY_OUT_SIZE << " points)";
 
    OutStream << endl;
    OutStream << " Density of sea water                                      \t: " << resetiosflags(ios::floatfield) << fixed << setprecision(0) << m_dSeaWaterDensity << " kg/m^3" << endl;

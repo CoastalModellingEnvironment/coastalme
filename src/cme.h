@@ -360,7 +360,7 @@ char const TILDE = '~';
 // TESTING options
 bool const ACCEPT_TRUNCATED_PROFILES = true;
 bool const CREATE_SHADOW_ZONE_IF_HITS_GRID_EDGE = true;  // If shadow line tracing hits grid edge, create shadow zone?
-bool const SAVE_CSHORE_OUTPUT = true;                    // #ifdef CSHORE_FILE_INOUT || CSHORE_BOTH, append all CShore output files to a whole-run master
+bool const SAVE_CSHORE_OUTPUT = true;                    // If CSHORE_FILE_INOUT or CSHORE_BOTH, append all CShore output files to a whole-run master
 bool const USE_DEEP_WATER_FOR_SHADOW_LINE = true;        // Use deep water wave orientation in determining shadow line orientation?
 
 // Not likely that user will need to change these
@@ -369,11 +369,11 @@ int const SAVEMAX = 100000;                              // Maximum number of sa
 int const BUF_SIZE = 2048;                               // Max length (inc. terminating NULL) of any C-type string
 int const CAPE_POINT_MIN_SPACING = 10;                   // In cells: for shadow zone stuff, cape points must not be closer than this
 int const CLOCK_CHECK_ITERATION = 5000;                  // If have done this many timesteps then reset the CPU time running total
-int const COAST_LENGTH_MAX = 100;                        // For safety check when tracing coast
-int const COAST_LENGTH_MIN_X_PROF_SPACE = 20;            // Ignore very short coasts less than this x profile spacing
+int const COAST_LENGTH_MAX_CONST = 3;                    // When tracing coast, quit if coast length > this * smallest grid edge size
+int const COAST_LENGTH_MIN_CONST = 1;                    // Ignore very short coasts less than this * profile spacing
 
 //! The size of the arrays output by CShore. If this is changed, then must also set the same value on line 12 of cshore_wrapper.f03 (integer, parameter :: NN = 1000, NL = 1) and recompile CShore. Eventually we should move to dynamically allocated arrays TODO 070
-int const CSHOREARRAYOUTSIZE = 1000;
+int const CSHORE_ARRAY_OUT_SIZE = 1000;
 
 int const FLOOD_FILL_START_OFFSET = 2;                   // In cells: cell-by-cell fill starts this distance inside polygon
 int const GRID_MARGIN = 10;                              // Ignore this many along-coast grid-edge points re. shadow zone calcs
@@ -500,9 +500,7 @@ int const RASTER_PLOT_CLIFF_COLLAPSE_DEPOSITION_SAND = 13;
 int const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_COARSE = 14;
 int const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_FINE = 15;
 int const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_SAND = 16;
-#ifdef _DEBUG
 int const RASTER_PLOT_CLIFF_COLLAPSE_TIMESTEP = 17;
-#endif
 int const RASTER_PLOT_CLIFF_NOTCH_ALL = 18;
 int const RASTER_PLOT_CLIFF_TOE = 19;
 int const RASTER_PLOT_COARSE_CONSOLIDATED_SEDIMENT = 20;
@@ -530,8 +528,8 @@ int const RASTER_PLOT_SAND_UNCONSOLIDATED_SEDIMENT = 41;
 int const RASTER_PLOT_SEA_DEPTH = 42;
 int const RASTER_PLOT_SEDIMENT_INPUT = 43;
 int const RASTER_PLOT_SED_TOP_INC_TALUS_ELEV = 44;
-int const RASTER_PLOT_SETUP_SURGE_FLOOD_MASK = 45;
-int const RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK = 46;
+// int const RASTER_PLOT_SETUP_SURGE_FLOOD_MASK = 45;
+// int const RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK = 46;
 int const RASTER_PLOT_SHADOW_DOWNDRIFT_ZONE = 47;
 int const RASTER_PLOT_SHADOW_ZONE = 48;
 int const RASTER_PLOT_SLICE = 49;
@@ -689,8 +687,7 @@ int const WAVE_MODEL_CSHORE = 1;
 int const UNCONS_SEDIMENT_EQUATION_CERC = 0;
 int const UNCONS_SEDIMENT_EQUATION_KAMPHUIS = 1;
 
-int const CLIFF_COLLAPSE_LENGTH_INCREMENT = 10;             // Increment the planview length of the cliff talus Dean profile, if we have not been able to deposit enough
-int const PROFILE_CHECK_DIST_FROM_COAST = 20;               // TEST TODO Used in checking shoreline-normal profiles for intersection
+int const PROFILE_CHECK_DIST_FROM_COAST = 5;                // Used in checking shoreline-normal profiles for intersection
 int const GAP_BETWEEN_DIFFERENT_COAST_PROFILES = 30;        // In cells, is the gap between profile ends belonging to different coasts
 
 int const NUM_DAYS_FOR_MEAN_HIGH_WATER_CALC = 30;           // Number of days to average daily high water elevation
@@ -700,11 +697,15 @@ int const RUNUP_EQUATION_NIELSEN_HANSLOW = 1;               // Runup equation is
 int const RUNUP_EQUATION_MASE = 2;                          // Runup equation is Mase, H. 1989. Random Wave Runup Height on Gentle Slope. Journal of Waterway, Port, Coastal, and Ocean Engineering, 115, 649-661.
 int const RUNUP_EQUATION_STOCKDON = 3;                      // Runup equation is Stockdon, H. F., Holman, R. A., Howd, P. A. & Sallenger JR, A. H. 2006. Empirical parameterization of setup, swash, and runup. Coastal Engineering, 53, 573-588.
 
+//! Maximum number of avalanche iterations per timestep. Safety limit to prevent infinite loops in case of numerical issues.
+int const MAX_SLUMP_ITERATIONS = 100;
+
 unsigned long const MASK = 0xfffffffful;
 unsigned long const SEDIMENT_INPUT_EVENT_ERROR = -1;
 unsigned long const UNSIGNED_LONG_NODATA = 9999;
 
 double const PI = 3.141592653589793238462643;
+double const SQRT2 = 1.414213562;
 
 double const D50_FINE_DEFAULT = 0.0625;                     // In mm
 double const D50_SAND_DEFAULT = 0.42;                       // In mm
@@ -735,9 +736,26 @@ double const INTERVENTION_PROFILE_SPACING_FACTOR = 0.5;     // Profile spacing o
 double const CLIFF_NOTCH_CUTOFF_DISTANCE = 2;               // Cut-off SWL distance (m), measured downwards from the cliff notch apex: below this there is no notch incision
 double const DBL_NODATA = -9999;
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.0 (11 Nov 2025)";
+//! Angle of repose for sediment (degrees). This is a typical value for sand. Finer sediments may have lower angles (~28°), coarser sediments higher (~37°).
+double const ANGLE_OF_REPOSE_DEG = 33.0;
+
+//! Angle of repose in radians (pre-calculated for efficiency)
+double const ANGLE_OF_REPOSE_RAD = 0.5759586531;  // 33° * π/180
+
+//! Tangent of angle of repose (pre-calculated for direct slope comparison)
+double const TAN_ANGLE_OF_REPOSE = 0.6494075931;  // tan(33°)
+
+//! Minimum sediment volume (m³) to trigger avalanche redistribution. Prevents processing of trivially small amounts that don't affect morphology.
+double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
+
+//! Fraction of excess sediment to redistribute per iteration. 0.5 = move 50% of unstable sediment each iteration. Lower values (0.2-0.3) are more stable but slower to converge.Higher values (0.6-0.8) converge faster but may overshoot.
+double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
+
+
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (12 Dec 2025)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
+string const CME_YAML = "cme.yaml";
 
 string const COPYRIGHT = "(C) 2025 Andres Payo, David Favis-Mortlock, and Wilf Chun";
 string const LINE = "-------------------------------------------------------------------------------";
@@ -872,7 +890,7 @@ string const RASTER_CLIFF_COLLAPSE_TIMESTEP_CODE = "cliff_collapse_timestep";
 string const RASTER_CLIFF_COLLAPSE_TIMESTEP_NAME = "cliff_collapse_timestep_all";
 string const RASTER_CLIFF_NOTCH_ALL_CODE = "cliff_notch_all";
 string const RASTER_CLIFF_NOTCH_ALL_NAME = "cliff_notch_all";
-string const RASTER_CLIFF_TOE_NAME = "cliff_toe";                 // Note no code for this, because is chosen by m_bCliffToeLocate in input file
+// string const RASTER_CLIFF_TOE_NAME = "cliff_toe";                 // Note no code for this, because is chosen by m_bCliffToeLocate in input file
 string const RASTER_COARSE_CONS_CODE = "cons_sed_coarse";
 string const RASTER_COARSE_CONS_NAME = "cons_sed_coarse";
 string const RASTER_COARSE_UNCONS_CODE = "uncons_sed_coarse";
@@ -921,10 +939,10 @@ string const RASTER_SEDIMENT_INPUT_EVENT_CODE = "sediment_input_total";
 string const RASTER_SEDIMENT_INPUT_EVENT_NAME = "sediment_input_total";
 string const RASTER_SEDIMENT_TOP_CODE = "sediment_top_elevation";
 string const RASTER_SEDIMENT_TOP_ELEVATION_NAME = "sediment_top_elevation";
-string const RASTER_SETUP_SURGE_FLOOD_MASK_CODE = "flood_setup_surge_mask";
-string const RASTER_SETUP_SURGE_FLOOD_MASK_NAME = "flood_setup_surge_mask";
-string const RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_CODE = "flood_setup_surge_runup_mask";
-string const RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_NAME = "flood_setup_surge_runup_mask";
+// string const RASTER_SETUP_SURGE_FLOOD_MASK_CODE = "flood_setup_surge_mask";
+// string const RASTER_SETUP_SURGE_FLOOD_MASK_NAME = "flood_setup_surge_mask";
+// string const RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_CODE = "flood_setup_surge_runup_mask";
+// string const RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_NAME = "flood_setup_surge_runup_mask";
 string const RASTER_SHADOW_DOWNDRIFT_ZONE_CODE = "shadow_downdrift_zones";
 string const RASTER_SHADOW_DOWNDRIFT_ZONE_NAME = "shadow_downdrift_zones";
 string const RASTER_SHADOW_ZONE_CODE = "shadow_zones";
@@ -987,9 +1005,7 @@ string const RASTER_PLOT_CLIFF_COLLAPSE_DEPOSITION_SAND_TITLE = "Depth of sand t
 string const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_COARSE_TITLE = "Cliff collapse depth of erosion, coarse sediment";
 string const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_FINE_TITLE = "Cliff collapse depth of erosion, fine sediment";
 string const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_SAND_TITLE = "Cliff collapse depth of erosion, sand sediment";
-#ifdef _DEBUG
 string const RASTER_PLOT_CLIFF_COLLAPSE_TIMESTEP_TITLE = "Timestep at which cliff collapse occurred";
-#endif
 string const RASTER_PLOT_CLIFF_NOTCH_ALL_TITLE = "All cliff notch incision";
 string const RASTER_PLOT_CLIFF_TOE_TITLE = "Cliff toe cells";
 string const RASTER_PLOT_COARSE_CONSOLIDATED_SEDIMENT_TITLE = "Consolidated coarse sediment depth";
@@ -1016,8 +1032,8 @@ string const RASTER_PLOT_SAND_UNCONSOLIDATED_SEDIMENT_TITLE = "Unconsolidated sa
 string const RASTER_PLOT_SEA_DEPTH_TITLE = "Sea depth";
 string const RASTER_PLOT_SEDIMENT_INPUT_EVENT_TITLE = "Sediment input event(s) since last GIS save";
 string const RASTER_PLOT_SED_TOP_INC_TALUS_ELEV_TITLE = "Elevation of sediment top inc talus";
-string const RASTER_PLOT_SETUP_SURGE_FLOOD_MASK_TITLE = "Mask of setup-surge flood";
-string const RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK_TITLE = "Mask of setup-surge-runup flood";
+// string const RASTER_PLOT_SETUP_SURGE_FLOOD_MASK_TITLE = "Mask of setup-surge flood";
+// string const RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK_TITLE = "Mask of setup-surge-runup flood";
 string const RASTER_PLOT_SHADOW_DOWNDRIFT_ZONE_TITLE = "Downdrift of wave shadow zones";
 string const RASTER_PLOT_SHADOW_ZONE_TITLE = "Wave shadow zones";
 string const RASTER_PLOT_SLICE_TITLE = "Slice though layers at elevation = ";

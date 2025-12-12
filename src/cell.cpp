@@ -36,16 +36,16 @@ using std::vector;
 //! Constructor with initialisation list
 CGeomCell::CGeomCell()
    : m_bInContiguousSea(false),
-     m_bInContiguousFlood(false),
+     // m_bInContiguousFlood(false),
      m_bIsInActiveZone(false),
-     m_bCliffToe(false),
-     m_bFloodLine(false),
-     m_bWaveFlood(false),
+     // m_bCliffToe(false),
+     // m_bFloodLine(false),
+     // m_bWaveFlood(false),
      // m_bCheckCell(false),
-     m_bCheckFloodCell(false),
+     // m_bCheckFloodCell(false),
      m_bShadowBoundary(false),
      m_bPossibleCoastStartCell(false),
-     m_bPossibleFloodStartCell(false),
+     // m_bPossibleFloodStartCell(false),
      m_nBoundingBoxEdge(NO_DIRECTION),
      m_nCoastlineID(INT_NODATA),
      m_nProfileID(INT_NODATA),
@@ -92,6 +92,8 @@ CGeomCell::CGeomCell()
      m_dBeachDepositionThisIter(0),
      m_dTotBeachDeposition(0),
      m_dUnconsD50(0),
+     m_dSlumpingDepositionThisIter(0),
+     m_dTotSlumpingDeposition(0),
      m_dInterventionHeight(0)
 {
    m_Landform.SetLFCategory(LF_UNKNOWN);
@@ -132,47 +134,47 @@ bool CGeomCell::bIsInContiguousSea(void) const
    return m_bInContiguousSea;
 }
 
-//! Set this cell as in the contiguous runup flood area
-void CGeomCell::SetInContiguousFlood(void)
-{
-   m_bInContiguousFlood = true;
-}
+// //! Set this cell as in the contiguous runup flood area
+// void CGeomCell::SetInContiguousFlood(void)
+// {
+//    m_bInContiguousFlood = true;
+// }
 
-//! Set this cell as not in the contiguous runup flood area
-void CGeomCell::UnSetInContiguousFlood(void)
-{
-   m_bInContiguousFlood = false;
-}
+// //! Set this cell as not in the contiguous runup flood area
+// void CGeomCell::UnSetInContiguousFlood(void)
+// {
+//    m_bInContiguousFlood = false;
+// }
 
-//! Set this cell as flooded by setup surge
-void CGeomCell::SetFloodBySetupSurge(void)
-{
-   m_bFloodBySetupSurge = true;
-}
+// //! Set this cell as flooded by setup surge
+// void CGeomCell::SetFloodBySetupSurge(void)
+// {
+//    m_bFloodBySetupSurge = true;
+// }
 
-//! Is this cell flooded by setup surge?
-bool CGeomCell::bIsFloodBySetupSurge(void) const
-{
-   return m_bFloodBySetupSurge;
-}
+// //! Is this cell flooded by setup surge?
+// bool CGeomCell::bIsFloodBySetupSurge(void) const
+// {
+//    return m_bFloodBySetupSurge;
+// }
 
-//! Set this cell as flooded by setup surge runup
-void CGeomCell::SetFloodBySetupSurgeRunup(void)
-{
-   m_bFloodBySetupSurgeRunup = true;
-}
+// //! Set this cell as flooded by setup surge runup
+// void CGeomCell::SetFloodBySetupSurgeRunup(void)
+// {
+//    m_bFloodBySetupSurgeRunup = true;
+// }
 
-//! Is this cell flooded by setup surge runup?
-bool CGeomCell::bIsFloodBySetupSurgeRunup(void) const
-{
-   return m_bFloodBySetupSurgeRunup;
-}
+// //! Is this cell flooded by setup surge runup?
+// bool CGeomCell::bIsFloodBySetupSurgeRunup(void) const
+// {
+//    return m_bFloodBySetupSurgeRunup;
+// }
 
-//! Is this cell in the contiguous sea flood area?
-bool CGeomCell::bIsInContiguousSeaFlood(void) const
-{
-   return m_bInContiguousFlood;
-}
+// //! Is this cell in the contiguous sea flood area?
+// bool CGeomCell::bIsInContiguousSeaFlood(void) const
+// {
+//    return m_bInContiguousFlood;
+// }
 
 //! Sets a flag to show whether this cell is in the active zone
 void CGeomCell::SetInActiveZone(bool const bFlag)
@@ -255,29 +257,29 @@ int CGeomCell::nGetCoastline(void) const
    return m_nCoastlineID;
 }
 
-//! Marks this cell as a cliff toe cell
-void CGeomCell::SetAsCliffToe(bool const bNewFlag)
-{
-   m_bCliffToe = bNewFlag;
-}
+// //! Marks this cell as a cliff toe cell
+// void CGeomCell::SetAsCliffToe(bool const bNewFlag)
+// {
+//    m_bCliffToe = bNewFlag;
+// }
+//
+// //! Returns true if this cell is marked as a cliff toe
+// bool CGeomCell::bIsCliffToe(void) const
+// {
+//    return m_bCliffToe;
+// }
 
-//! Returns true if this cell is marked as a cliff toe
-bool CGeomCell::bIsCliffToe(void) const
-{
-   return m_bCliffToe;
-}
+// //! Marks this cell as a flood line
+// void CGeomCell::SetAsFloodline(bool const bNewFlag)
+// {
+//    m_bFloodLine = bNewFlag;
+// }
 
-//! Marks this cell as a flood line
-void CGeomCell::SetAsFloodline(bool const bNewFlag)
-{
-   m_bFloodLine = bNewFlag;
-}
-
-//! Returns true if the cell is a flood line
-bool CGeomCell::bIsFloodline(void) const
-{
-   return m_bFloodLine;
-}
+// //! Returns true if the cell is a flood line
+// bool CGeomCell::bIsFloodline(void) const
+// {
+//    return m_bFloodLine;
+// }
 
 //! Gets the ID number of the coast-normal profile which this cell is 'under', or returns INT_NODATA
 int CGeomCell::nGetProfileID(void) const
@@ -375,11 +377,11 @@ double CGeomCell::dGetTalusDepth(void) const
    return dTotTalusDepth;
 }
 
-//! Set this cell as flooded by swl + surge + setup + runup
-void CGeomCell::SetWaveFlood(void)
-{
-   m_bWaveFlood = true;
-}
+// //! Set this cell as flooded by swl + surge + setup + runup
+// void CGeomCell::SetWaveFlood(void)
+// {
+//    m_bWaveFlood = true;
+// }
 
 // void CGeomCell::SetWaveSetup(int const dWaveSetup)
 // {
@@ -489,17 +491,17 @@ double CGeomCell::dGetBasementElev(void) const
    return (m_dBasementElevation);
 }
 
-//! Sets this cell's slope for cliff toe locating
-void CGeomCell::SetSlopeForCliffToe(double const dNewSlope)
-{
-   m_dSlopeForCliffToe = dNewSlope;
-}
-
-//! Returns this cell's slope for cliff toe locationg
-double CGeomCell::dGetSlopeForCliffToe(void) const
-{
-   return (m_dSlopeForCliffToe);
-}
+// //! Sets this cell's slope for cliff toe locating
+// void CGeomCell::SetSlopeForCliffToe(double const dNewSlope)
+// {
+//    m_dSlopeForCliffToe = dNewSlope;
+// }
+//
+// //! Returns this cell's slope for cliff toe locationg
+// double CGeomCell::dGetSlopeForCliffToe(void) const
+// {
+//    return (m_dSlopeForCliffToe);
+// }
 
 //! Returns true if this cells's basement data is NODATA, is needed for irregularly-shaped DEMs
 bool CGeomCell::bBasementElevIsMissingValue(void) const
@@ -868,16 +870,16 @@ void CGeomCell::SetSeaDepth(void)
 void CGeomCell::InitCell(void)
 {
    m_bInContiguousSea = false;
-   m_bInContiguousFlood = false;
-   m_bFloodLine = false;
+   // m_bInContiguousFlood = false;
+   // m_bFloodLine = false;
    m_bIsInActiveZone = false;
    // m_bEstimated = false;
    m_bShadowBoundary = false;
    m_bPossibleCoastStartCell = false;
    m_bPossibleFloodStartCell = false;
-   m_bWaveFlood = false;
+   // m_bWaveFlood = false;
    // m_bCheckCell = false;
-   m_bCheckFloodCell = false;
+   // m_bCheckFloodCell = false;
 
    m_nCoastlineID = INT_NODATA;
    m_nPolygonID = INT_NODATA;
@@ -1223,6 +1225,25 @@ bool CGeomCell::bBeachErosionOrDepositionThisIter(void) const
 double CGeomCell::dGetUnconsD50(void) const
 {
    return m_dUnconsD50;
+}
+
+//! Increment this-timestep avalanche deposition, also increment total avalanche deposition
+void CGeomCell::IncrSlumpDeposition(double const dThisDeposition)
+{
+   m_dSlumpingDepositionThisIter += dThisDeposition;
+   m_dTotSlumpingDeposition += dThisDeposition;
+}
+
+//! Get avalanche deposition for this timestep
+double CGeomCell::dGetAvalancheDeposition(void) const
+{
+   return m_dSlumpingDepositionThisIter;
+}
+
+//! Get total avalanche deposition
+double CGeomCell::dGetTotAvalancheDeposition(void) const
+{
+   return m_dTotSlumpingDeposition;
 }
 
 //! Gets the intervention class for this cell, or returns INT_NODATA if there is not an intervention here

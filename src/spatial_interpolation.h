@@ -1,8 +1,8 @@
 /*!
-   \file spatial_interpolation.h
+   \file spatial_interpolation.ch
    \brief Spatial Interpolation Using k-Nearest Neighbors and Inverse Distance Weighting
    \details TODO
-   \author Wilf Chun
+   \autho Wilf Chun
    \author David Favis-Mortlock
    \author Andres Payo
    \date 2025
@@ -69,7 +69,7 @@
 struct Point2D
 {
    double x, y;
-   Point2D(double x_ = 0, double y_ = 0) : x(x_), y(y_)
+   explicit Point2D(double x_ = 0, double y_ = 0) : x(x_), y(y_)
    {
    }
 };
@@ -97,20 +97,13 @@ struct PointCloud
 };
 
 // Type definitions for nanoflann
-using KDTree = nanoflann::KDTreeSingleIndexAdaptor<
-   nanoflann::L2_Simple_Adaptor<double, PointCloud>,
-   PointCloud,
-   2      // 2D
-   >;
+using KDTree = nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<double, PointCloud>, PointCloud, 2>;
 
 // Main interpolator class
 class SpatialInterpolator
 {
    public:
-   SpatialInterpolator(std::vector<Point2D> const& points,
-                       std::vector<double> const& values,
-                       int k_neighbors = 12,
-                       double power = 2.0);
+   SpatialInterpolator(std::vector<Point2D> const& points, std::vector<double> const& values, int k_neighbors = 12, double power = 2.0);
 
    ~SpatialInterpolator();
 

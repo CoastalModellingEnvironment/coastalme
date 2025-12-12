@@ -70,7 +70,7 @@ class CRWCellSediment
 
    void SetFineDepth(double const);
    double dGetFineDepth(void) const;
-   // void AddFineDepth(double const);
+   void AddFineDepth(double const);
 
    void SetSandDepth(double const);
    double dGetSandDepth(void) const;

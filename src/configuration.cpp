@@ -1,5 +1,4 @@
 /*!
-
    \file configuration.cpp
    \brief Implementation of unified configuration class for CoastalME
    \details Provides default values and initialization for simulation parameters
@@ -8,11 +7,9 @@
    \author Andres Payo
    \date 2025
    \copyright GNU General Public License
-
 */
 
 /* ==============================================================================================================================
-
    This file is part of CoastalME, the Coastal Modelling Environment.
 
    CoastalME is free software; you can redistribute it and/or modify it under the terms of the GNU General Public  License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
@@ -20,14 +17,14 @@
    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
 ==============================================================================================================================*/
-#include "cme.h"
-#include "configuration.h"
-// #include "simulation.h"
 #include <algorithm>
 #include <string>
 #include <cctype>
+
+#include "cme.h"
+#include "configuration.h"
+#include "simulation.h"
 
 //===============================================================================================================================
 //! Constructor
@@ -58,24 +55,24 @@ void CConfiguration::InitializeDefaults()
    m_strStartDateTime = "00-00-00 01/01/2000";
    m_strDuration = "1 hour";
    m_strTimestep = "1 hour";
-   m_vecSaveTimes.clear();
+   m_VstrSaveTimes.clear();
    m_nRandomSeed = 0;
    m_bUseSystemTimeForSeed = true;
 
    // GIS Output
    m_nMaxSaveDigits = 3;
    m_strSaveDigitsMode = "sequential";
-   m_vecRasterFiles.clear();
-   m_vecRasterFiles.push_back("");
+   m_VstrRasterFiles.clear();
+   m_VstrRasterFiles.push_back("");
    m_strRasterFormat = "";
    m_bWorldFile = false;
    m_bScaleValues = false;
-   m_vecSliceElevations.clear();
-   m_vecVectorFiles.clear();
-   m_vecVectorFiles.push_back("");
+   m_VdSliceElevations.clear();
+   m_VstrVectorFiles.clear();
+   m_VstrVectorFiles.push_back("");
    m_strVectorFormat = "ESRI Shapefile";
-   m_vecTimeSeriesFiles.clear();
-   m_vecTimeSeriesFiles.push_back("");
+   m_VstrTimeSeriesFiles.clear();
+   m_VstrTimeSeriesFiles.push_back("");
 
    // Grid and Coastline
    m_nCoastlineSmoothing = 0;
@@ -89,12 +86,12 @@ void CConfiguration::InitializeDefaults()
    // Layers and Files
    m_nNumLayers = 1;
    m_strBasementDEMFile = "";
-   m_vecUnconsFineFiles.clear();
-   m_vecUnconsSandFiles.clear();
-   m_vecUnconsCoarseFiles.clear();
-   m_vecConsFineFiles.clear();
-   m_vecConsSandFiles.clear();
-   m_vecConsCoarseFiles.clear();
+   m_VstrUnconsFineFiles.clear();
+   m_VstrUnconsSandFiles.clear();
+   m_VStrUnconsCoarseFiles.clear();
+   m_VstrConsFineFiles.clear();
+   m_VstrConsSandFiles.clear();
+   m_VstrConsCoarseFiles.clear();
    m_strSuspendedSedFile = "";
    m_strLandformFile = "";
    m_strInterventionClassFile = "";
@@ -104,8 +101,8 @@ void CConfiguration::InitializeDefaults()
    m_nWavePropagationModel = 1;      // CShore
    m_dSeawaterDensity = 1029.0;
    m_dInitialWaterLevel = 0.0;
-   // m_dFinalWaterLevel = 0.0;
-   m_bHasFinalWaterLevel = false;
+   m_dFinalWaterLevel = 0.0;
+   m_bbHasFinalWaterLevel = false;
 
    m_strWaveInputMode = "fixed";
    m_strWaveHeightTimeSeries = "";
@@ -148,7 +145,7 @@ void CConfiguration::InitializeDefaults()
    // Flood parameters
    m_bFloodInput = false;
    m_strFloodCoastline = "";
-   m_strRunupEquation = 0;
+   m_nRunupEquation = 0;
    m_strFloodLocations = "";
    m_strFloodInputLocation = "";
 
@@ -168,8 +165,8 @@ void CConfiguration::InitializeDefaults()
 
    // Profile and Output Options
    m_bSaveProfileData = false;
-   m_vecProfileNumbers.clear();
-   m_vecProfileTimesteps.clear();
+   m_VnProfileNumbers.clear();
+   m_VulProfileTimesteps.clear();
    m_bSaveParallelProfiles = false;
    m_bOutputErosionPotential = false;
    m_nCurvatureWindow = 11;
@@ -184,21 +181,17 @@ void CConfiguration::InitializeDefaults()
 //===============================================================================================================================
 //! Get raster files with keyword expansion support
 //===============================================================================================================================
-vector<string> CConfiguration::GetRasterFiles() const
+void CConfiguration::GetRasterFiles(vector<string>* pVStrIn) const
 {
    // Case 11: Raster GIS files to output - expand "all" and "usual" keywords
-   vector<string> expandedFiles;
-
-   for (string const &fileSpec : m_vecRasterFiles)
+   for (string const &fileSpec : m_VstrRasterFiles)
    {
-      string fileSpecLower = fileSpec;
-      std::transform(fileSpecLower.begin(), fileSpecLower.end(),
-                     fileSpecLower.begin(), ::tolower);
+      string fileSpecLower = CSimulation::strToLower(&fileSpec);
 
       if (fileSpecLower == "all")
       {
          // Add all possible raster outputs (Case 11 "all" mode)
-         expandedFiles.insert(expandedFiles.end(),
+         pVStrIn->insert(pVStrIn->end(),
                               {"suspended_sediment",
                                "avg_suspended_sediment",
                                "fine_uncons",
@@ -253,7 +246,7 @@ vector<string> CConfiguration::GetRasterFiles() const
       else if (fileSpecLower == "usual")
       {
          // Add usual/standard raster outputs (Case 11 "usual" mode)
-         expandedFiles.insert(expandedFiles.end(),
+         pVStrIn->insert(pVStrIn->end(),
                               {"suspended_sediment",
                                "avg_suspended_sediment",
                                "fine_uncons",
@@ -305,7 +298,7 @@ vector<string> CConfiguration::GetRasterFiles() const
       else if (fileSpecLower == "cmetools")
       {
          // Add usual/standard raster outputs (Case 11 "usual" mode)
-         expandedFiles.insert(expandedFiles.end(),
+         pVStrIn->insert(pVStrIn->end(),
                               {"fine_uncons",
                                "fine_cons",
                                "sand_uncons",
@@ -331,130 +324,104 @@ vector<string> CConfiguration::GetRasterFiles() const
       }
       else if (fileSpecLower == "" or fileSpecLower == "none")
       {
-         return expandedFiles;
+         // Do nothing
       }
       else
       {
          // Regular file specification - add as-is
-         expandedFiles.push_back(fileSpec);
+         pVStrIn->push_back(fileSpec);
       }
    }
-
-   return expandedFiles;
 }
 
 //===============================================================================================================================
 //! Get vector files with keyword expansion support
 //===============================================================================================================================
-vector<string> CConfiguration::GetVectorFiles() const
+void CConfiguration::GetVectorFiles(vector<string>* pVStrIn) const
 {
    // Case 16: Vector GIS files to output - expand "all" and "usual" keywords
-   vector<string> expandedFiles;
-
-   for (string const &fileSpec : m_vecVectorFiles)
+   for (string const &fileSpec : m_VstrVectorFiles)
    {
-      string fileSpecLower = fileSpec;
-      std::transform(fileSpecLower.begin(), fileSpecLower.end(),
-                     fileSpecLower.begin(), ::tolower);
+      string fileSpecLower = CSimulation::strToLower(&fileSpec);
 
       if (fileSpecLower == "all")
       {
          // Add all possible vector outputs (Case 16 "all" mode)
-         expandedFiles.insert(expandedFiles.end(), {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals", "avg_wave_angle", "wave_energy", "mean_wave_energy", "breaking_wave_height", "coast_curvature", "polygon_node", "polygon", "cliff_notch", "wave_transect_points", "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle", "wave_setup", "storm_surge", "run_up", "flood_line"});
+         pVStrIn->insert(pVStrIn->end(), {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals", "avg_wave_angle", "wave_energy", "mean_wave_energy", "breaking_wave_height", "coast_curvature", "polygon_node", "polygon", "cliff_notch", "wave_transect_points", "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle", "wave_setup", "storm_surge", "run_up", "flood_line"});
       }
       else if (fileSpecLower == "usual")
       {
          // Add usual/standard vector outputs (Case 16 "usual" mode)
-         expandedFiles.insert(
-            expandedFiles.end(),
-            {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals",
-             "avg_wave_angle", "wave_energy", "mean_wave_energy",
-             "breaking_wave_height", "polygon", "cliff_notch",
-             "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle"});
+         pVStrIn->insert(pVStrIn->end(), {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals", "avg_wave_angle", "wave_energy", "mean_wave_energy", "breaking_wave_height", "polygon", "cliff_notch",            "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle"});
       }
-      else if (fileSpecLower == "" or fileSpecLower == "none")
+      else if ((fileSpecLower == "") or (fileSpecLower == "none"))
       {
-         return expandedFiles;
+         // Do nothing
       }
       else
       {
          // Regular file specification - add as-is
-         expandedFiles.push_back(fileSpec);
+         pVStrIn->push_back(fileSpec);
       }
    }
-
-   return expandedFiles;
 }
-//===============================================================================================================================
 
+//===============================================================================================================================
 //! Get time series files with keyword expansion support
 //===============================================================================================================================
-vector<string> CConfiguration::GetTimeSeriesFiles() const
+void CConfiguration::GetTimeSeriesFiles(vector<string>* pVStrIn) const
 {
    // Case 18: Timeseries files to output - expand "all" and "usual" keywords
-   vector<string> expandedFiles;
-
-   for (string const &fileSpec : m_vecVectorFiles)
+   for (string const &fileSpec : m_VstrVectorFiles)
    {
-      string fileSpecLower = fileSpec;
-      std::transform(fileSpecLower.begin(), fileSpecLower.end(),
-                     fileSpecLower.begin(), ::tolower);
+      string fileSpecLower = CSimulation::strToLower(&fileSpec);
 
       if (fileSpecLower == "all")
       {
          // Add all possible vector outputs (Case 16 "all" mode)
-         expandedFiles.insert(expandedFiles.end(), {"wave_setup", "wave_runup", "beach_change_net", "beach_deposition", "beach_erosion", "cliff_collapse_deposition", "cliff_collapse_erosion", "cliff_collapse_net", "platform_erosion", "sea_area", "suspended", "water_level"});
+         pVStrIn->insert(pVStrIn->end(), {"wave_setup", "wave_runup", "beach_change_net", "beach_deposition", "beach_erosion", "cliff_collapse_deposition", "cliff_collapse_erosion", "cliff_collapse_net", "platform_erosion", "sea_area", "suspended", "water_level"});
       }
       else if (fileSpecLower == "" or fileSpecLower == "none")
       {
-         return expandedFiles;
+         // Do nothing
       }
       else
       {
          // Regular file specification - add as-is
-         expandedFiles.push_back(fileSpec);
+         pVStrIn->push_back(fileSpec);
       }
    }
-
-   return expandedFiles;
 }
 
+//===============================================================================================================================
 //! Get time series files with keyword expansion support
 //===============================================================================================================================
-vector<string> CConfiguration::GetFloodFiles() const
+void CConfiguration::GetFloodFiles(vector<string>* pVStrIn) const
 {
    // Case 18: Timeseries files to output - expand "all" and "usual" keywords
-   vector<string> expandedFiles;
-
-   for (string const &fileSpec : m_vecVectorFiles)
+   for (string const &fileSpec : m_VstrVectorFiles)
    {
-      string fileSpecLower = fileSpec;
-      std::transform(fileSpecLower.begin(), fileSpecLower.end(),
-                     fileSpecLower.begin(), ::tolower);
+      string fileSpecLower = CSimulation::strToLower(&fileSpec);
 
       if (fileSpecLower == "all")
       {
          // Add all possible vector outputs (Case 16 "all" mode)
-         expandedFiles.insert(expandedFiles.end(), {});
+         pVStrIn->insert(pVStrIn->end(), {});
       }
       else if (fileSpecLower == "" or fileSpecLower == "none")
       {
-         return expandedFiles;
+         // Do nothing
       }
       else
       {
          // Regular file specification - add as-is
-         expandedFiles.push_back(fileSpec);
+         pVStrIn->push_back(fileSpec);
       }
    }
-
-   return expandedFiles;
 }
 
-string CConfiguration::GetOmitGridEdges() const
+string const CConfiguration::strGetOmitGridEdges() const
 {
    // This needs to be lower case
-   std::string my_text{m_strOmitGridEdges};
-   std::transform(my_text.begin(), my_text.end(), my_text.begin(), ::tolower);
-   return my_text;
+   return CSimulation::strToLower(&m_strOmitGridEdges);
 }

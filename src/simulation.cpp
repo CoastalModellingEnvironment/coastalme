@@ -128,6 +128,7 @@ CSimulation::CSimulation(void)
    m_bPolygonNodeSave = false;
    m_bPolygonBoundarySave = false;
    m_bCliffNotchSave = false;
+   m_bWaveTransectPointsSave = false;
    m_bShadowBoundarySave = false;
    m_bShadowDowndriftBoundarySave = false;
    m_bDeepWaterWaveAngleSave = false;
@@ -325,6 +326,7 @@ CSimulation::CSimulation(void)
    m_dCoastNormalSpacing = 0;
    m_dCoastNormalInterventionSpacing = 0;
    m_dCoastNormalLength = 0;
+   m_dSyntheticTransectSpacing = 0;
    m_dThisIterTotSeaDepth = 0;
    m_dThisIterPotentialSedLostBeachErosion = 0;
    m_dThisIterLeftGridUnconsFine = 0;        // TODO067
@@ -569,8 +571,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       {
          // Running with stdout and stderr as a tty, so ask the user if they wish to create it
          char ch;
-         cerr << endl
-              << "Output folder '" << m_strOutPath << "' does not exist. Create it? (Y/N) ";
+         cerr << endl << "Output folder '" << m_strOutPath << "' does not exist. Create it? (Y/N) ";
          cerr.flush();
          cin.get(ch);
 
@@ -657,9 +658,9 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       return nRet;
 
    //    // DEBUG CODE =================================================================================================================
-   // for (int n = 0; n < m_VEdgeCell.size(); n++)
+   // for (int n = 0; n < m_VPtiAllEdgeCell.size(); n++)
    // {
-   // LogStream << "[" << m_VEdgeCell[n].nGetX() << "][" << m_VEdgeCell[n].nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VEdgeCell[n].nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VEdgeCell[n].nGetY()) << "} " << m_VEdgeCellEdge[n] << endl;
+   // LogStream << "[" << m_VPtiAllEdgeCell[n].nGetX() << "][" << m_VPtiAllEdgeCell[n].nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VPtiAllEdgeCell[n].nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VPtiAllEdgeCell[n].nGetY()) << "} " << m_VPtiAllEdgeCellEdge[n] << endl;
    // }
    //    // DEBUG CODE =================================================================================================================
 
@@ -760,7 +761,6 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       if (nRet != RTN_OK)
          return (nRet);
    }
-
 
    // Maybe read in the landform class data, otherwise calculate this during the first timestep using identification rules
    if (! m_strInitialLandformFile.empty())
@@ -876,9 +876,8 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
    AnnounceFinalInitialization();
 
    // Misc initialisation calcs
-   m_nCoastMax = COAST_LENGTH_MAX * tMax(m_nXGridSize, m_nYGridSize);                           // Arbitrary but probably OK
-   // m_nCoastMin = tMin(m_nXGridSize, m_nYGridSize);
-   m_nCoastMin = nRound(COAST_LENGTH_MIN_X_PROF_SPACE * m_dCoastNormalSpacing / m_dCellSide);   // Arbitrary but probably OK
+   m_nCoastMax = COAST_LENGTH_MAX_CONST * tMax(m_nXGridSize, m_nYGridSize);                     // Arbitrary but probably OK
+   m_nCoastMin = COAST_LENGTH_MIN_CONST * nRound(m_dCoastNormalSpacing);                        // Arbitrary but probably OK
    m_nCoastCurvatureInterval = tMax(nRound(m_dCoastNormalSpacing / (m_dCellSide * 2)), 2);      // Arbitrary but probably OK
 
    // For beach erosion/deposition, conversion from immersed weight to bulk volumetric (sand and voids) transport rate (Leo Van Rijn) TODO 007 need full reference
@@ -903,6 +902,9 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       m_dAccumulatedSeaLevelChange -= m_dDeltaSWLPerTimestep;
    }
 
+   // Calculate the sea-to-land processing direction for each side of the grid
+   CalcGridEdgeSeaToLandDirection();
+
    // ===================================================== The main loop ======================================================
    // Tell the user what is happening
    AnnounceIsRunning();
@@ -920,6 +922,8 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
          LogStream << "TIMESTEP " << m_ulIter << " " << string(154, '=') << endl;
 
       LogStream << fixed << setprecision(3);
+
+      // Note: m_prSlumpDirtyCells is NOT cleared here - it accumulates across timesteps. It will be cleared after GIS output is written (when saving at intervals)
 
       // Check to see if there is a new intervention in place: if so, update it on the RasterGrid array
       nRet = nUpdateIntervention();
@@ -946,13 +950,13 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
 
       // Locate estuaries TODO someday...
 
-      if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse && m_bCliffToeLocate)
-      {
-         // Locate and trace cliff toe
-         nRet = nLocateCliffToe();
-         if (nRet != RTN_OK)
-            return nRet;
-      }
+      // if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse && m_bCliffToeLocate)
+      // {
+      //    // Locate and trace cliff toe
+      //    nRet = nLocateCliffToe();
+      //    if (nRet != RTN_OK)
+      //       return nRet;
+      // }
 
       // For all cells, use classification rules to assign sea and hinterland landform categories
       nRet = nAssignLandformsForAllCells();
@@ -1220,6 +1224,11 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
             WritePolygonSedimentInputEventTable();
       }
 
+      // Do slumping of unconsolidated sediment on dune areas, for cells that changed this timestep
+      nRet = nDoSedimentSlumping();
+      if (nRet != RTN_OK)
+         return nRet;
+
       //       // Add the fine sediment that was eroded this timestep (from the shore platform, from cliff collapse, from erosion of existing fine sediment during cliff collapse talus deposition, and from beach erosion; minus the fine sediment from beach erosion that went off-grid) to the suspended sediment load
       // double dFineThisIter = m_dThisIterActualPlatformErosionFineCons + m_dThisIterCliffCollapseErosionFineUncons + m_dThisIterCliffCollapseErosionFineCons + m_dThisIterCliffCollapseFineErodedDuringDeposition + m_dThisIterBeachErosionFine - m_dThisIterLeftGridUnconsFine;
       //
@@ -1297,25 +1306,25 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       if (nRet != RTN_OK)
          return nRet;
 
-      // Make water level inundation on grid
-      if (m_bFloodSWLSetupSurgeLine || m_bSetupSurgeFloodMaskSave)
-      {
-         m_nLevel = 0;
-
-         nRet = nLocateFloodAndCoasts();
-         if (nRet != RTN_OK)
-            return nRet;
-      }
-
-      if (m_bFloodSWLSetupSurgeRunupLineSave || m_bSetupSurgeRunupFloodMaskSave)
-      {
-         // TODO 007 Finish surge and runup stuff
-         m_nLevel = 1;
-
-         nRet = nLocateFloodAndCoasts();
-         if (nRet != RTN_OK)
-            return nRet;
-      }
+      // // Make water level inundation on grid
+      // if (m_bFloodSWLSetupSurgeLine || m_bSetupSurgeFloodMaskSave)
+      // {
+      //    m_nLevel = 0;
+      //
+      //    nRet = nLocateFloodAndCoasts();
+      //    if (nRet != RTN_OK)
+      //       return nRet;
+      // }
+      //
+      // if (m_bFloodSWLSetupSurgeRunupLineSave || m_bSetupSurgeRunupFloodMaskSave)
+      // {
+      //    // TODO 007 Finish surge and runup stuff
+      //    m_nLevel = 1;
+      //
+      //    nRet = nLocateFloodAndCoasts();
+      //    if (nRet != RTN_OK)
+      //       return nRet;
+      // }
 
       // Now save results, first the raster and vector GIS files if required
       m_bSaveGISThisIter = false;
@@ -1334,6 +1343,9 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
          // Save the vector GIS files
          if (! bSaveAllVectorGISFiles())
             return (RTN_ERR_VECTOR_FILE_WRITE);
+
+         // Clear dirty cells now that GIS output has been written. This allows dirty cells to accumulate across timesteps when saving at intervals
+         m_prSlumpDirtyCells.clear();
 
          // Tell the user how the simulation is progressing
          AnnounceProgress();

@@ -36,6 +36,9 @@ using std::ofstream;
 #include <string>
 using std::string;
 
+#include <set>
+using std::set;
+
 #include <utility>
 using std::pair;
 
@@ -56,6 +59,7 @@ using ::GDALDataType;
 #include "line.h"
 #include "cme.h"
 #include "line.h"
+#include "configuration.h"
 
 class CGeomRasterGrid; // Forward declarations
 class CRWCoast;
@@ -64,6 +68,7 @@ class CGeomCoastPolygon;
 class CRWCliff;
 class CRWSedInputEvent;
 class CRWCellLandform;
+class CConfiguration;
 
 class CSimulation
 {
@@ -466,6 +471,18 @@ class CSimulation
 
    //! Do we have the lowest SWL so far?
    bool m_bLowestSWLSoFar;
+
+   //! In order to go from low elevation (sea) to high elevation (land), process the north edge cells forward (i.e. ascending indices)?
+   bool m_bSearchNorthEdgeForward = false;
+
+   //! In order to go from low elevation (sea) to high elevation (land), process the south edge cells forward (i.e. ascending indices)?
+   bool m_bSearchSouthEdgeForward = false;
+
+   //! In order to go from low elevation (sea) to high elevation (land), process the east edge cells forward (i.e. ascending indices)?
+   bool m_bSearchEastEdgeForward = false;
+
+   //! In order to go from low elevation (sea) to high elevation (land), process the west edge cells forward (i.e. ascending indices)?
+   bool m_bSearchWestEdgeForward = false;
 
    //! Options for GDAL when handling raster files
    char **m_papszGDALRasterOptions;
@@ -1575,17 +1592,32 @@ class CSimulation
    //! TODO 007 Finish surge and runup stuff
    vector<CRWCoast> m_VFloodWaveSetupSurgeRunup;
 
-   //! Edge cells
-   vector<CGeom2DIPoint> m_VEdgeCell;
+   //! Corners of the bounding box
+   vector<CGeom2DIPoint> m_VPtiBoundingBoxCorner;
 
-   //! The grid edge that each edge cell belongs to
-   vector<int> m_VEdgeCellEdge;
+   //! North edge cells
+   vector<CGeom2DIPoint> m_VPtiNorthEdgeCell;
+
+   //! South edge cells
+   vector<CGeom2DIPoint> m_VPtiSouthEdgeCell;
+
+   //! West edge cells
+   vector<CGeom2DIPoint> m_VPtiWestEdgeCell;
+
+   //! East edge cells
+   vector<CGeom2DIPoint> m_VPtiEastEdgeCell;
+
+   //! All edge cells
+   vector<CGeom2DIPoint> m_VPtiAllEdgeCell;
 
    //! The location to compute the total water level for flooding
    vector<int> m_VCellFloodLocation;
 
    //! Sediment input events
    vector<CRWSedInputEvent*> m_pVSedInputEvent;
+
+   //! Cells that had sediment changes this timestep (for sediment slump processing)
+   set<pair<int, int>> m_prSlumpDirtyCells;
 
    //! The c++11 random number generators
    default_random_engine m_Rand[NUMBER_OF_RNGS];
@@ -1597,12 +1629,14 @@ class CSimulation
    // Input and output routines
    int nHandleCommandLineParams(int, char const*[]);
    bool bReadIniFile(void);
+   bool bReadIniYamlFile(void);
    bool bReadRunDataFile(void);
    bool bReadYamlFile(void);
-   bool bDetectFileFormat(string const& strFileName, bool& bIsYaml);
+   bool bFileIsYamlFormat(string const& strFileName);
    bool bConfigureFromDatFile(CConfiguration& config);
    bool bConfigureFromYamlFile(CConfiguration& config);
-   bool bApplyConfiguration(CConfiguration const& config);
+   void ApplyConfiguration(CConfiguration const& config);
+   string const* processFilePath(string*);
    bool bOpenLogFile(void);
    bool bSetUpTSFiles(void);
    void WriteStartRunDetails(void);
@@ -1642,7 +1676,7 @@ class CSimulation
    int nCalcExternalForcing(void);
    int nInitGridAndCalcStillWaterLevel(void);
    int nLocateSeaAndCoasts(void);
-   int nLocateFloodAndCoasts(void);
+   // int nLocateFloodAndCoasts(void);
    int nAssignLandformsForAllCoasts(void);
    int nAssignLandformsForAllCells(void);
    int nDoAllPropagateWaves(void);
@@ -1652,26 +1686,27 @@ class CSimulation
    int nDoCliffCollapse(int const, CRWCliff *, double&, double&, double&, int&, double&, double&);
    void DoCliffCollapseTalusDeposition(int const, CRWCliff const*, double const, double const, int const);
    int nMoveCliffTalusToUnconsolidated(void);
+   double dCalcSlopeForUnconsSlumping(int const, int const, int const, int const) const;
    int nUpdateGrid(void);
 
    // For cliff toe location
-   int nLocateCliffToe(void);
-   void nCalcSlopeAtAllCells(void);
-   void nLocateCliffCell(void);
-   void nTraceSeawardCliffEdge(void);
-   void nValidateCliffToeEdges(void);
-   CGeomLine nValidateCliffToeDirection(CGeomLine& CliffEdge, bool bReverse);
-   void nRemoveSmallCliffIslands(int const);
+   // int nLocateCliffToe(void);
+   // void nCalcSlopeAtAllCells(void);
+   // void nLocateCliffCell(void);
+   // void nTraceSeawardCliffEdge(void);
+   // void nValidateCliffToeEdges(void);
+   // CGeomLine nValidateCliffToeDirection(CGeomLine& CliffEdge, bool bReverse);
+   // void nRemoveSmallCliffIslands(int const);
 
    // Lower-level simulation routines
    void FindAllSeaCells(void);
    int FindAllInundatedCells(void);
    void CellByCellFillSea(int const, int const);
    void FloodFillLand(int const, int const);
-   int nTraceCoastLine(unsigned int const, int const, int const, vector<bool>*, vector<CGeom2DIPoint> const*);
+   int nTraceCoastLine(int const, vector<CGeom2DIPoint> const*, vector<bool>*, int const, int const, int const);
    int nTraceAllCoasts(void);
-   int nTraceFloodCoastLine(unsigned int const, int const, int const, vector<bool>*, vector<CGeom2DIPoint> const*);
-   int nTraceAllFloodCoasts(void);
+   // int nTraceFloodCoastLine(unsigned int const, int const, int const, vector<bool>*, vector<CGeom2DIPoint> const*);
+   // int nTraceAllFloodCoasts(void);
    void DoCoastCurvature(int const, int const);
    int nCheckAndMarkAllProfiles(void);
    int nCreateAllProfiles(void);
@@ -1747,9 +1782,15 @@ class CSimulation
    int nTruncateProfileMultiLineDifferentCoasts(CGeomProfile*, double const, double const);
    bool bIncreaseCliffNotchIncision(int const, int const, int const, CRWCliff*, double const);
    bool bCreateNotchInland(int const, int const, int const, int const, double const, double const);
+   double dCalculateSlumpInstability(int const, int const) const;
+   set<pair<int, int>> prDoSlumpRedistributeSediment(int const, int const);
+   void SlumpMarkCellDirty(int const, int const);
+   int nDoSedimentSlumping(void);
+   bool bIdentifyPossibleCoastStart(int const, int const, int const, int const, vector<CGeom2DIPoint>*);
 
    // GIS utility routines
    int nMarkBoundingBoxEdgeCells(void);
+   void CalcGridEdgeSeaToLandDirection(void);
    bool bCheckRasterGISOutputFormat(void);
    bool bCheckVectorGISOutputFormat(void);
    bool bSaveAllRasterGISFiles(void);
@@ -1863,7 +1904,6 @@ class CSimulation
    static string strTrim(string const*);
    static string strTrimLeft(string const*);
    static string strTrimRight(string const*);
-   static string strToLower(string const*);
    // static string strToUpper(string const*);
    static string strRemoveSubstr(string*, string const*);
    static vector<string>* VstrSplit(string const*, char const, vector<string>*);
@@ -1930,5 +1970,9 @@ class CSimulation
 
    //! Carries out end-of-simulation tidying (error messages etc.)
    void DoSimulationEnd(int const);
+
+   //! Returns a pointer to the lower case version of a string
+   static string strToLower(string const*);
+
 };
 #endif // SIMULATION_H

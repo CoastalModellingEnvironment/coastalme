@@ -1,5 +1,4 @@
 /*!
-
    \file yaml_parser.cpp
    \brief Simple YAML parser implementation for CoastalME
    \details A lightweight YAML parser using only standard C++ library
@@ -8,11 +7,9 @@
    \author Andres Payo
    \date 2025
    \copyright GNU General Public License
-
 */
 
 /* ==============================================================================================================================
-
    This file is part of CoastalME, the Coastal Modelling Environment.
 
    CoastalME is free software; you can redistribute it and/or modify it under the terms of the GNU General Public  License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
@@ -20,21 +17,30 @@
    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
 ==============================================================================================================================*/
-#include "yaml_parser.h"
 #include <iostream>
-#include <sstream>
-#include <algorithm>
-#include <cctype>
-
 using std::cerr;
 using std::endl;
+
+#include <string>
 using std::getline;
-using std::isspace;
 using std::stod;
 using std::stoi;
+using std::to_string;
+
+#include <sstream>
 using std::stringstream;
+
+#include <algorithm>
+
+#include <cctype>
+using std::isspace;
+
+#include <exception>
+using std::exception;
+
+#include "yaml_parser.h"
+#include "simulation.h"
 
 //===============================================================================================================================
 // CYamlNode implementation
@@ -47,30 +53,30 @@ CYamlNode::~CYamlNode()
 {
 }
 
-void CYamlNode::SetValue(string const& strValue)
+void CYamlNode::SetValue(string const* pStrValue)
 {
-   m_strValue = strValue;
+   m_strValue = *pStrValue;
 }
 
-void CYamlNode::AddChild(string const& strKey, CYamlNode const& node)
+void CYamlNode::AddChild(string const* pStrKey, CYamlNode const* pNode)
 {
-   m_mapChildren[strKey] = node;
+   m_mapChildren[*pStrKey] = *pNode;
 }
 
-void CYamlNode::AddSequenceItem(CYamlNode const& node)
+void CYamlNode::AddSequenceItem(CYamlNode const* pNode)
 {
-   m_vecChildren.push_back(node);
+   m_VYamlChildren.push_back(*pNode);
    m_bIsSequence = true;
 }
 
-string CYamlNode::GetValue() const
+string* CYamlNode::pstrGetValue() const
 {
-   return m_strValue;
+   return const_cast<string*>(&m_strValue);
 }
 
-bool CYamlNode::HasChild(string const& strKey) const
+bool CYamlNode::bHasChild(const char chKey[]) const
 {
-   return m_mapChildren.find(strKey) != m_mapChildren.end();
+   return m_mapChildren.find(chKey) != m_mapChildren.end();
 }
 
 CYamlNode CYamlNode::GetChild(string const& strKey) const
@@ -83,7 +89,7 @@ CYamlNode CYamlNode::GetChild(string const& strKey) const
 
 vector<CYamlNode> CYamlNode::GetSequence() const
 {
-   return m_vecChildren;
+   return m_VYamlChildren;
 }
 
 bool CYamlNode::IsSequence() const
@@ -91,12 +97,12 @@ bool CYamlNode::IsSequence() const
    return m_bIsSequence;
 }
 
-int CYamlNode::GetSequenceSize() const
+int CYamlNode::nGetSequenceSize() const
 {
-   return static_cast<int>(m_vecChildren.size());
+   return static_cast<int>(m_VYamlChildren.size());
 }
 
-int CYamlNode::GetIntValue(int nDefault) const
+int CYamlNode::nGetIntValue(int nDefault) const
 {
    try
    {
@@ -124,7 +130,7 @@ unsigned long CYamlNode::GetULongValue(unsigned long nDefault) const
    return nDefault;
 }
 
-double CYamlNode::GetDoubleValue(double dDefault) const
+double CYamlNode::dGetDoubleValue(double dDefault) const
 {
    try
    {
@@ -138,13 +144,12 @@ double CYamlNode::GetDoubleValue(double dDefault) const
    return dDefault;
 }
 
-bool CYamlNode::GetBoolValue(bool bDefault) const
+bool CYamlNode::bGetBoolValue(bool bDefault) const
 {
    if (m_strValue.empty())
       return bDefault;
 
-   string strLower = m_strValue;
-   std::transform(strLower.begin(), strLower.end(), strLower.begin(), ::tolower);
+   string strLower = CSimulation::strToLower(&m_strValue);
 
    if (strLower == "true" || strLower == "yes" || strLower == "y" || strLower == "1")
       return true;
@@ -154,14 +159,14 @@ bool CYamlNode::GetBoolValue(bool bDefault) const
    return bDefault;
 }
 
-vector<string> CYamlNode::GetStringSequence() const
+vector<string> const CYamlNode::VstrGetStringSequence() const
 {
-   vector<string> vecResult;
-   for (auto const& node : m_vecChildren)
+   vector<string> VstrResult;
+   for (auto const& node : m_VYamlChildren)
    {
-      vecResult.push_back(node.GetValue());
+      VstrResult.push_back(*node.pstrGetValue());
    }
-   return vecResult;
+   return VstrResult;
 }
 
 //===============================================================================================================================
@@ -192,9 +197,9 @@ bool CYamlParser::bParseFile(string const& strFileName)
    {
       m_RootNode = ParseSection(fileStream, -1);
    }
-   catch (std::exception const& e)
+   catch (exception const& e)
    {
-      m_strError = "Parse error at line " + std::to_string(m_nCurrentLine) + ": " + e.what();
+      m_strError = "Parse error at line " + to_string(m_nCurrentLine) + ": " + e.what();
       return false;
    }
 
@@ -207,9 +212,9 @@ CYamlNode CYamlParser::GetRoot() const
    return m_RootNode;
 }
 
-string CYamlParser::GetError() const
+string const* CYamlParser::pstrGetError() const
 {
-   return m_strError;
+   return &m_strError;
 }
 
 bool CYamlParser::bHasError() const
@@ -338,7 +343,8 @@ CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
          break;
       }
 
-      string strKey, strValue;
+      string strKey;
+      string strValue;
       bool bIsSequence;
 
       if (bParseLine(strLine, strKey, strValue, bIsSequence))
@@ -349,14 +355,14 @@ CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
             CYamlNode itemNode;
             if (! strValue.empty())
             {
-               itemNode.SetValue(strValue);
+               itemNode.SetValue(&strValue);
             }
             else
             {
                // Multi-line sequence item
                itemNode = ParseSection(fileStream, nIndent);
             }
-            currentNode.AddSequenceItem(itemNode);
+            currentNode.AddSequenceItem(&itemNode);
          }
          else
          {
@@ -364,14 +370,14 @@ CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
             CYamlNode childNode;
             if (! strValue.empty())
             {
-               childNode.SetValue(strValue);
+               childNode.SetValue(&strValue);
             }
             else
             {
                // Multi-line value
                childNode = ParseSection(fileStream, nIndent);
             }
-            currentNode.AddChild(strKey, childNode);
+            currentNode.AddChild(&strKey, &childNode);
          }
       }
    }
