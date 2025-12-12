@@ -14,6 +14,6 @@ var searchData=
   ['null_5fhanded_11',['NULL_HANDED',['../d6/d2a/cme_8h.html#a601c7b6ec625c675fabc5f59b44f1871',1,'cme.h']]],
   ['num_5fdays_5ffor_5fmean_5fhigh_5fwater_5fcalc_12',['NUM_DAYS_FOR_MEAN_HIGH_WATER_CALC',['../d6/d2a/cme_8h.html#a82426a65448ceda4c627551bd527e881',1,'cme.h']]],
   ['number_5fof_5frngs_13',['NUMBER_OF_RNGS',['../d6/d2a/cme_8h.html#a8685684b0d68b7675157ab4c637969a0',1,'cme.h']]],
-  ['nx_14',['nX',['../d6/d0d/classCGeom2DIPoint.html#af8cb55764fbd7d7bc74ad9ff6c8c6d01',1,'CGeom2DIPoint::nX'],['../d1/d5e/structUnstableCell.html#ac310658b7e64158e32ee1f83ebb2269a',1,'UnstableCell::nX']]],
-  ['ny_15',['nY',['../d6/d0d/classCGeom2DIPoint.html#a536afdd4b00a05066d998034e320951b',1,'CGeom2DIPoint::nY'],['../d1/d5e/structUnstableCell.html#af01d8ede2c787fb1ade5ac08a9202d0a',1,'UnstableCell::nY']]]
+  ['nx_14',['nX',['../d6/d0d/classCGeom2DIPoint.html#af8cb55764fbd7d7bc74ad9ff6c8c6d01',1,'CGeom2DIPoint']]],
+  ['ny_15',['nY',['../d6/d0d/classCGeom2DIPoint.html#a536afdd4b00a05066d998034e320951b',1,'CGeom2DIPoint']]]
 ];

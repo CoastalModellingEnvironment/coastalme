@@ -107,6 +107,7 @@ $(function(){initNavTree('functions_n.html',''); initResizable(true); });
 <li>nCalcExternalForcing()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a2e53c27590e5217827b7e96000b2e4af">CSimulation</a></li>
 <li>nCalcPotentialPlatformErosionBetweenProfiles()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a5ecb98fb61c4e0ae63cc6c7786c7a0bf">CSimulation</a></li>
 <li>nCalcPotentialPlatformErosionOnProfile()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a94021023e2af53e0b800dc821108ee2c">CSimulation</a></li>
+<li>nCalcSlopeAtAllCells()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a31df16db2393709113b48f91b07abb7e">CSimulation</a></li>
 <li>nCalcWavePropertiesOnProfile()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a1467ae7c46f92c9cd09dd8bcb683a485">CSimulation</a></li>
 <li>nCellByCellFillShadowZone()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a76519e09f243be9768ad9d9df34e3620">CSimulation</a></li>
 <li>nCheckAndMarkAllProfiles()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#af3abb2eb16609e6d42f0d0a6ddb0c89d">CSimulation</a></li>
@@ -127,7 +128,6 @@ $(function(){initNavTree('functions_n.html',''); initResizable(true); });
 <li>nDoParallelProfileUnconsErosion()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#ac935de0067137b45f5c6fd3c1aa02bc2">CSimulation</a></li>
 <li>nDoPolygonSharedBoundaries()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#af103396c763e8526e49a977ee0e04ddb">CSimulation</a></li>
 <li>nDoSedimentInputEvent()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a6b13477c84d33f845c5d7203cb3ac8a5">CSimulation</a></li>
-<li>nDoSedimentSlumping()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a37b87b4a60a1beb9b294bd39329294ef">CSimulation</a></li>
 <li>nDoSimulation()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a71288b0bcd20fa2c58d31614b9a66805">CSimulation</a></li>
 <li>nDoSimulationTimeMultiplier()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a33dca7e0fdf25050a19dbe2098da23c3">CSimulation</a></li>
 <li>nDoTimeUnits()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a7999cf7351cebc162a3b29a35651547f">CSimulation</a></li>
@@ -135,26 +135,18 @@ $(function(){initNavTree('functions_n.html',''); initResizable(true); });
 <li>nDoUnconsErosionOnPolygon()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#ab48f57d1f48027f7cdeb33ac36ce2fdc">CSimulation</a></li>
 <li>nFindClosestCoastPoint()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#aca498b08a8d1f3ed66a5bd59b4064ca5">CSimulation</a></li>
 <li>nFindIndex()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#ac02a8c9cb4a6aa01156efaf3dff987bb">CSimulation</a></li>
-<li>nGetBeachErosionEquation()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a30ab9af46229e97a9576ab376ec22c7f">CConfiguration</a></li>
-<li>nGetBeachTransportAtEdges()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#aaeee0f89c75a11a90e3d2022524d79f2">CConfiguration</a></li>
 <li>nGetBoundarySize()&#160;:&#160;<a class="el" href="df/d45/classCGeomCoastPolygon.html#ab852fa65536ccc1e4d5357a9b40806f6">CGeomCoastPolygon</a></li>
 <li>nGetBoundingBoxEdge()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a65799ca97360d56e366c05d1c3392827">CGeomCell</a></li>
 <li>nGetBreakingDistance()&#160;:&#160;<a class="el" href="d1/dbe/classCRWCoast.html#ab27116c3ebaef3c6fb57537d475e4dce">CRWCoast</a></li>
 <li>nGetCellGivenDepth()&#160;:&#160;<a class="el" href="da/dae/classCGeomProfile.html#a10971c49bfeae2df1e16899743662fe4">CGeomProfile</a></li>
-<li>nGetCliffEdgePolynomialOrder()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a428a340707f960a4d7e780cdccd9fb8f">CConfiguration</a></li>
-<li>nGetCliffEdgeSmoothing()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a3feec9ff79dc31a961aef1904867bd07">CConfiguration</a></li>
-<li>nGetCliffEdgeSmoothingWindow()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a756b61669f1ae98b6577706a282d22b6">CConfiguration</a></li>
 <li>nGetCoast()&#160;:&#160;<a class="el" href="d2/de0/classCACoastLandform.html#a48cad916a3fb1156ce1f84d12adf23e7">CACoastLandform</a>, <a class="el" href="dc/d4a/classCRWCellLandform.html#a3af2d90dce26c560c88945e5e6641062">CRWCellLandform</a></li>
 <li>nGetCoastID()&#160;:&#160;<a class="el" href="da/dae/classCGeomProfile.html#aacd98f9837c3c7cf7414764b73275fba">CGeomProfile</a></li>
 <li>nGetCoastline()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a31d16a440d59cf79c0f6629593ea7508">CGeomCell</a></li>
 <li>nGetCoastlineSize()&#160;:&#160;<a class="el" href="d1/dbe/classCRWCoast.html#a91449166a8df49fae05d8fcdf0bd2136">CRWCoast</a></li>
-<li>nGetCoastlineSmoothing()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a4a3b1146b0be2c322fbc46f212614bc8">CConfiguration</a></li>
-<li>nGetCoastlineSmoothingWindow()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a205c54a3582f8a06aaea34dda78d0cb2">CConfiguration</a></li>
 <li>nGetCoastNormalEndPoint()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a9a8f66d4a55299b92d4b1cea9e1d095e">CSimulation</a></li>
 <li>nGetCoastPoint()&#160;:&#160;<a class="el" href="da/dae/classCGeomProfile.html#a343fd2b73e3a87cf425572860e79ebd6">CGeomProfile</a></li>
 <li>nGetCoastPointGivenCell()&#160;:&#160;<a class="el" href="d1/dbe/classCRWCoast.html#a6a6af57d19c557f10dd8e80c7c856e2f">CRWCoast</a></li>
 <li>nGetCoincidentProfileForLineSegment()&#160;:&#160;<a class="el" href="d0/d89/classCGeomMultiLine.html#a4aef627971905a6679ea17401ad8a4d3">CGeomMultiLine</a></li>
-<li>nGetCurvatureWindow()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#af37a631c9db5409751d24b681ab58c3c">CConfiguration</a></li>
 <li>nGetDownCoastAdjacentPolygon()&#160;:&#160;<a class="el" href="df/d45/classCGeomCoastPolygon.html#aa53fed4b7165494360840b7bef504a3a">CGeomCoastPolygon</a></li>
 <li>nGetDownCoastProfile()&#160;:&#160;<a class="el" href="df/d45/classCGeomCoastPolygon.html#ae2119674d8d0b78f27bc53ed463fead2">CGeomCoastPolygon</a></li>
 <li>nGetDownDriftZoneNumber()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a9a5321cb6c2accfb287f60f7ca1011cd">CGeomCell</a></li>
@@ -163,19 +155,15 @@ $(function(){initNavTree('functions_n.html',''); initResizable(true); });
 <li>nGetGridYMax()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a46f08f37407a47d10b107f77d86c13c9">CSimulation</a></li>
 <li>nGetIndentLevel()&#160;:&#160;<a class="el" href="d1/dd6/classCYamlParser.html#af6849e07e24c8ec3b073b0f265c3028d">CYamlParser</a></li>
 <li>nGetInterventionClass()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a73f4d48988ff9eabf9b8f0303532ff25">CGeomCell</a></li>
-<li>nGetIntValue()&#160;:&#160;<a class="el" href="d7/dab/classCYamlNode.html#a75e7db82e30fd48475076501584c1ef7">CYamlNode</a></li>
 <li>nGetLandFormCategory()&#160;:&#160;<a class="el" href="d2/de0/classCACoastLandform.html#ac161cb56a83d653b651aa08173a1f1ca">CACoastLandform</a></li>
 <li>nGetLayerAtElev()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a861c4641b31bb1f920daa863a98ea35c">CGeomCell</a></li>
 <li>nGetLFCategory()&#160;:&#160;<a class="el" href="dc/d4a/classCRWCellLandform.html#a5350a7ac48d1eef3a78bef9bcf041b45">CRWCellLandform</a></li>
 <li>nGetLocationID()&#160;:&#160;<a class="el" href="d4/d9d/classCRWSedInputEvent.html#aeec9e5b85385c291874b9fed354180af">CRWSedInputEvent</a></li>
-<li>nGetLogFileDetail()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a5554522a06d510c4e5d20229f0042d2a">CConfiguration</a></li>
-<li>nGetMaxLocalSlope()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a0059b70a2d921f436f5e0b402be983c3">CConfiguration</a></li>
-<li>nGetMaxSaveDigits()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a84768317cab81e19ae9e61b568173d65">CConfiguration</a></li>
 <li>nGetNodeCoastPoint()&#160;:&#160;<a class="el" href="df/d45/classCGeomCoastPolygon.html#aa4ec073404fad6e28ca1d5ffc5a80de4">CGeomCoastPolygon</a></li>
 <li>nGetNumCellsInProfile()&#160;:&#160;<a class="el" href="da/dae/classCGeomProfile.html#a8a29c3fa364ab1f7b3930b7a9c83f45f">CGeomProfile</a></li>
 <li>nGetNumCoincidentProfilesInLineSegment()&#160;:&#160;<a class="el" href="d0/d89/classCGeomMultiLine.html#a3516022bd96ee15709653b3bb7cc0155">CGeomMultiLine</a></li>
 <li>nGetNumDownCoastAdjacentPolygons()&#160;:&#160;<a class="el" href="df/d45/classCGeomCoastPolygon.html#aa9ef391813543b0260b2174e063d80e2">CGeomCoastPolygon</a></li>
-<li>nGetNumLayers()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a07449615e6b8e9e6002b4675c99b25f2">CConfiguration</a>, <a class="el" href="d1/dd9/classCGeomCell.html#a033144382e01adf1274fd039f21a9f83">CGeomCell</a></li>
+<li>nGetNumLayers()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a033144382e01adf1274fd039f21a9f83">CGeomCell</a></li>
 <li>nGetNumLineSegments()&#160;:&#160;<a class="el" href="d0/d89/classCGeomMultiLine.html#ae22f845fd065108959610678de571cdb">CGeomMultiLine</a></li>
 <li>nGetNumOfTopLayerAboveBasement()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a2e8a70d1e9091f687cc78bf2e5acfd65">CGeomCell</a></li>
 <li>nGetNumPointsUsedDownCoastProfile()&#160;:&#160;<a class="el" href="df/d45/classCGeomCoastPolygon.html#a19a835fe7c493f6853cf118fd3584847">CGeomCoastPolygon</a></li>
@@ -190,17 +178,12 @@ $(function(){initNavTree('functions_n.html',''); initResizable(true); });
 <li>nGetPolygonCoastID()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a318ecf660cca622347f0b97b27010ac0">CGeomCell</a>, <a class="el" href="df/d45/classCGeomCoastPolygon.html#a9e53712138c4edfcf0f6c12f42f823e6">CGeomCoastPolygon</a></li>
 <li>nGetPolygonID()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a622387009a4fcb864bfdab627389ea84">CGeomCell</a></li>
 <li>nGetPolygonNode()&#160;:&#160;<a class="el" href="d1/dbe/classCRWCoast.html#aa725a6985c589bf09c2067172690dbb4">CRWCoast</a></li>
-<li>nGetPolynomialOrder()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#aab2cdc92a6e005407fece4c262333abf">CConfiguration</a></li>
 <li>nGetProf()&#160;:&#160;<a class="el" href="d0/d89/classCGeomMultiLine.html#a5682956da0d84c928fbafa6f4ff25201">CGeomMultiLine</a></li>
 <li>nGetProfileCoastID()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a26af9c75feffe73ce7273fd720401d00">CGeomCell</a></li>
 <li>nGetProfileID()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a6b0409071b2570b9d8a9c15bc91308e2">CGeomCell</a>, <a class="el" href="da/dae/classCGeomProfile.html#a2f9eb1a1f6e3778160886e570703b482">CGeomProfile</a></li>
 <li>nGetProfileSize()&#160;:&#160;<a class="el" href="da/dae/classCGeomProfile.html#abaf88697019588a2b0901bd19044aee4">CGeomProfile</a></li>
-<li>nGetProfileSmoothingWindow()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a7e8c0917e9d217a45c6db25eec158fc6">CConfiguration</a></li>
 <li>nGetProfsLineSeg()&#160;:&#160;<a class="el" href="d0/d89/classCGeomMultiLine.html#a0598f98c4103cde329147da13ded7c61">CGeomMultiLine</a></li>
-<li>nGetRandomSeed()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#ae74cb740d569c9378fab19a03a9d330f">CConfiguration</a></li>
-<li>nGetRunupEquation()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#a562da3a4197206e5f1bb11394e0d94f5">CConfiguration</a></li>
 <li>nGetSeaHandedness()&#160;:&#160;<a class="el" href="d1/dbe/classCRWCoast.html#a6bee4707a39bfbbd9c2cc5c9698d758e">CRWCoast</a></li>
-<li>nGetSequenceSize()&#160;:&#160;<a class="el" href="d7/dab/classCYamlNode.html#a1e9a3e6831ef53708c07cb8198000cf2">CYamlNode</a></li>
 <li>nGetShadowZoneNumber()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a206e79e2d10e831a8464079870bd547b">CGeomCell</a></li>
 <li>nGetSize()&#160;:&#160;<a class="el" href="d2/d0f/classCA2DIShape.html#a0ac5eed12e215b9ff467df5bf60767cb">CA2DIShape</a>, <a class="el" href="d9/d0e/classCA2DShape.html#ac220b8554a95ebe15b345ef2bd04177b">CA2DShape</a></li>
 <li>nGetStartEdge()&#160;:&#160;<a class="el" href="d1/dbe/classCRWCoast.html#aa0b67d231e2d66ffb875432104460136">CRWCoast</a></li>
@@ -208,7 +191,6 @@ $(function(){initNavTree('functions_n.html',''); initResizable(true); });
 <li>nGetTopNonZeroLayerAboveBasement()&#160;:&#160;<a class="el" href="d1/dd9/classCGeomCell.html#a43434d6fd45da697ae17f7b274ba9a83">CGeomCell</a></li>
 <li>nGetUpCoastAdjacentPolygon()&#160;:&#160;<a class="el" href="df/d45/classCGeomCoastPolygon.html#a52ad4ee9d9013fd1616649e4c0cde407">CGeomCoastPolygon</a></li>
 <li>nGetUpCoastProfile()&#160;:&#160;<a class="el" href="df/d45/classCGeomCoastPolygon.html#aa717d51fde4419cad26236395d047b71">CGeomCoastPolygon</a></li>
-<li>nGetWavePropagationModel()&#160;:&#160;<a class="el" href="dc/d01/classCConfiguration.html#ae3ccd4a4ba872081426c0e43633e4ffe">CConfiguration</a></li>
 <li>nGetX()&#160;:&#160;<a class="el" href="d6/d0d/classCGeom2DIPoint.html#af84c687b2d0be01ab41cbcc0565f4f3f">CGeom2DIPoint</a></li>
 <li>nGetY()&#160;:&#160;<a class="el" href="d6/d0d/classCGeom2DIPoint.html#a4d9c20bcca90dcb9d519b664aba09cbd">CGeom2DIPoint</a></li>
 <li>nHandleCommandLineParams()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#af6c5eb586b6d62d702232509a228ffe9">CSimulation</a></li>
@@ -218,6 +200,9 @@ $(function(){initNavTree('functions_n.html',''); initResizable(true); });
 <li>nInterpolateWavesToPolygonCells()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a88219bc268dcf886572ac4ac894ff0d0">CSimulation</a></li>
 <li>nLandformToGrid()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#af9de548b92fa5739286fd1bb9329e732">CSimulation</a></li>
 <li>nLocateAndCreateGridEdgeProfile()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#ad99c84064dcd16e7109364ea5a560a4a">CSimulation</a></li>
+<li>nLocateCliffCell()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a88137bef651027792f9604086d7d60e6">CSimulation</a></li>
+<li>nLocateCliffToe()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a38892ef164d6f982e3947f20abec3cd1">CSimulation</a></li>
+<li>nLocateFloodAndCoasts()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a26b2ea24d39d2037f72ce5c96624a56c">CSimulation</a></li>
 <li>nLocateSeaAndCoasts()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#abd588662ecc6a3ee8f2847fd7ea67724">CSimulation</a></li>
 <li>nMarkBoundingBoxEdgeCells()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#ae713fb743a2a041d9c31a0bc8ff8107c">CSimulation</a></li>
 <li>nMoveCliffTalusToUnconsolidated()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a13f3815baeca3ed47817d6f05f4b31ed">CSimulation</a></li>
@@ -233,27 +218,33 @@ $(function(){initNavTree('functions_n.html',''); initResizable(true); });
 <li>nReadTideDataFile()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#acd7a3ad1f945ffc9965ed3643df23e35">CSimulation</a></li>
 <li>nReadVectorGISFile()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a63809a9ec3983736d46b00dcea7955fa">CSimulation</a></li>
 <li>nReadWaveStationInputFile()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a2ea6e67ca50cc91b5c2222ae5f1b9163">CSimulation</a></li>
+<li>nRemoveSmallCliffIslands()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#aaa1f540d417ef3298cd1cf8c8876de34">CSimulation</a></li>
 <li>nSaveParProfile()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a3b7163f1f1ca4965591fd6a7e2b53d2b">CSimulation</a></li>
 <li>nSaveProfile()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a62a7753e37f9e236df3a6213b07585ec">CSimulation</a></li>
 <li>nSetAllCoastpointDeepWaterWaveValues()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a97046956fb2a262a0c5d493715067527">CSimulation</a></li>
 <li>nTraceAllCoasts()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#ad2b706a31f10ea9156ed45b22be845ed">CSimulation</a></li>
-<li>nTraceCoastLine()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a7f567e075e386f9a62f57d95239d1153">CSimulation</a></li>
+<li>nTraceAllFloodCoasts()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a2bfebc9f476bad7b216e0fc2e834aa59">CSimulation</a></li>
+<li>nTraceCoastLine()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a27d517cb755d3385b75bf8c439d5e38a">CSimulation</a></li>
+<li>nTraceFloodCoastLine()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a79983afb5c1ab4e466a572c9dbbfc369">CSimulation</a></li>
+<li>nTraceSeawardCliffEdge()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a789534a78dfef623346b74b5b5ed7ce7">CSimulation</a></li>
 <li>nTruncateProfileHitDifferentCoast()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#aff1bebf47e3ac519029d6f1c5d77be7b">CSimulation</a></li>
 <li>nTruncateProfileMultiLineDifferentCoasts()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a494967476ef7bdff1f43e7bd56dccb3f">CSimulation</a></li>
 <li>nTruncateProfilesDifferentCoasts()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a4af09ead98d56341d7d912d5d3129a0e">CSimulation</a></li>
 <li>num_t&#160;:&#160;<a class="el" href="d8/d4a/structnanoflann_1_1KDTreeEigenMatrixAdaptor.html#a30dd9b84ee35c67d50dbdb4c54679baf">nanoflann::KDTreeEigenMatrixAdaptor&lt; MatrixType, DIM, Distance, row_major &gt;</a></li>
 <li>nUpdateGrid()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a996b06826b541667552a9b5948530f3c">CSimulation</a></li>
 <li>nUpdateIntervention()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a934d92423deb63815b76827495e6b50f">CSimulation</a></li>
+<li>nValidateCliffToeDirection()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a9a1c261a387b6636e5ebcf7ba51bbaad">CSimulation</a></li>
+<li>nValidateCliffToeEdges()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#ae0f88a672266d9fcd578727c320b9b66">CSimulation</a></li>
 <li>nWriteEndRunDetails()&#160;:&#160;<a class="el" href="d1/d98/classCSimulation.html#a22cb3f37d70df716fdf66757ba86ef7c">CSimulation</a></li>
-<li>nX&#160;:&#160;<a class="el" href="d6/d0d/classCGeom2DIPoint.html#af8cb55764fbd7d7bc74ad9ff6c8c6d01">CGeom2DIPoint</a>, <a class="el" href="d1/d5e/structUnstableCell.html#ac310658b7e64158e32ee1f83ebb2269a">UnstableCell</a></li>
-<li>nY&#160;:&#160;<a class="el" href="d6/d0d/classCGeom2DIPoint.html#a536afdd4b00a05066d998034e320951b">CGeom2DIPoint</a>, <a class="el" href="d1/d5e/structUnstableCell.html#af01d8ede2c787fb1ade5ac08a9202d0a">UnstableCell</a></li>
+<li>nX&#160;:&#160;<a class="el" href="d6/d0d/classCGeom2DIPoint.html#af8cb55764fbd7d7bc74ad9ff6c8c6d01">CGeom2DIPoint</a></li>
+<li>nY&#160;:&#160;<a class="el" href="d6/d0d/classCGeom2DIPoint.html#a536afdd4b00a05066d998034e320951b">CGeom2DIPoint</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Dec 12 2025 16:13:05 for CoastalME (Coastal Modelling Environment) by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+    <li class="footer">Generated on Fri Dec 12 2025 16:51:59 for CoastalME (Coastal Modelling Environment) by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

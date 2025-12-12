@@ -4,7 +4,6 @@ var classCRWCellSediment =
     [ "CRWCellSediment", "d5/dc6/classCRWCellSediment.html#a1d13f486c992f3a5ba3790f22caad688", null ],
     [ "AddCoarseDepth", "d5/dc6/classCRWCellSediment.html#ad73dec3a528a3496102ec51ac09f72e0", null ],
     [ "AddCoarseSedimentInputDepth", "d5/dc6/classCRWCellSediment.html#a28bed2bcc1b65552a9ee3faf21068758", null ],
-    [ "AddFineDepth", "d5/dc6/classCRWCellSediment.html#a2f21a87dbbc0fcf1afa7c3c90a43813d", null ],
     [ "AddFineSedimentInputDepth", "d5/dc6/classCRWCellSediment.html#a42212b7df1abe39a870cfb721911529d", null ],
     [ "AddSandDepth", "d5/dc6/classCRWCellSediment.html#ac51eee0be6307c1e51fa491bc0e35368", null ],
     [ "AddSandSedimentInputDepth", "d5/dc6/classCRWCellSediment.html#aa5f4479da528e67022eac9c27fa60c31", null ],

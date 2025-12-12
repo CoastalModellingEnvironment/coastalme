@@ -126,9 +126,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a37bcb7fc471a15c70f71ea583c7ff8e8" id="r_a37bcb7fc471a15c70f71ea583c7ff8e8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37bcb7fc471a15c70f71ea583c7ff8e8">dGetFineDepth</a> (void) const</td></tr>
 <tr class="memdesc:a37bcb7fc471a15c70f71ea583c7ff8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the fine sediment depth equivalent for this sediment layer object.  <br /></td></tr>
 <tr class="separator:a37bcb7fc471a15c70f71ea583c7ff8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f21a87dbbc0fcf1afa7c3c90a43813d" id="r_a2f21a87dbbc0fcf1afa7c3c90a43813d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f21a87dbbc0fcf1afa7c3c90a43813d">AddFineDepth</a> (double const)</td></tr>
-<tr class="memdesc:a2f21a87dbbc0fcf1afa7c3c90a43813d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds fine sediment (depth equivalent) to this sediment layer object's fine sediment.  <br /></td></tr>
-<tr class="separator:a2f21a87dbbc0fcf1afa7c3c90a43813d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab97af63753b8f227a695b073ba51521c" id="r_ab97af63753b8f227a695b073ba51521c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab97af63753b8f227a695b073ba51521c">SetSandDepth</a> (double const)</td></tr>
 <tr class="memdesc:ab97af63753b8f227a695b073ba51521c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets this sediment layer object's sand sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative)  <br /></td></tr>
 <tr class="separator:ab97af63753b8f227a695b073ba51521c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -233,13 +230,11 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p>Real-world class used to represent the sediment (either consolidated or unconsolidated) associated with a cell layer object. </p>
 <p>TODO 001 This is a more detailed description of the <a class="el" href="../../d5/dc6/classCRWCellSediment.html" title="Real-world class used to represent the sediment (either consolidated or unconsolidated) associated wi...">CRWCellSediment</a> class. </p><dl class="section author"><dt>Author</dt><dd>David Favis-Mortlock </dd>
 <dd>
-Andres Payo </dd>
-<dd>
-Wilf Chun </dd></dl>
+Andres Payo </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2025 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00025">25</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00024">24</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a661ea30228eafc458250e9a13f4e01c0" name="a661ea30228eafc458250e9a13f4e01c0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a661ea30228eafc458250e9a13f4e01c0">&#9670;&#160;</a></span>CRWCellSediment() <span class="overload">[1/2]</span></h2>
@@ -258,9 +253,9 @@ Wilf Chun </dd></dl>
 
 <p><a class="el" href="../../d5/dc6/classCRWCellSediment.html" title="Real-world class used to represent the sediment (either consolidated or unconsolidated) associated wi...">CRWCellSediment</a> constructor, initialisation list sets all internal values to zero. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">26</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">25</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>.</p>
 
 </div>
 </div>
@@ -281,7 +276,7 @@ Wilf Chun </dd></dl>
 
 <p><a class="el" href="../../d5/dc6/classCRWCellSediment.html" title="Real-world class used to represent the sediment (either consolidated or unconsolidated) associated wi...">CRWCellSediment</a> copy constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">42</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -303,9 +298,7 @@ Wilf Chun </dd></dl>
 
 <p>Adds coarse sediment (depth equivalent) to this sediment layer object's coarse sediment. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00128">128</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00127">127</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -326,30 +319,7 @@ Wilf Chun </dd></dl>
 
 <p>Adds to the this-iteration total depth of coarse sediment input, and to the since-start-of-simulation total depth of coarse sediment input (m) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00209">209</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2f21a87dbbc0fcf1afa7c3c90a43813d" name="a2f21a87dbbc0fcf1afa7c3c90a43813d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f21a87dbbc0fcf1afa7c3c90a43813d">&#9670;&#160;</a></span>AddFineDepth()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CRWCellSediment::AddFineDepth </td>
-          <td>(</td>
-          <td class="paramtype">double const</td>          <td class="paramname"><span class="paramname"><em>dSedDepthToAdd</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds fine sediment (depth equivalent) to this sediment layer object's fine sediment. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00091">91</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00208">208</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -370,7 +340,7 @@ Wilf Chun </dd></dl>
 
 <p>Adds to the this-iteration total depth of fine sediment input, and to the since-start-of-simulation total depth of fine sediment input (m) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00191">191</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00190">190</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -391,9 +361,7 @@ Wilf Chun </dd></dl>
 
 <p>Adds sand sediment (depth equivalent) to this sediment layer object's sand sediment. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00110">110</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00109">109</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -414,7 +382,7 @@ Wilf Chun </dd></dl>
 
 <p>Adds to the this-iteration total depth of sand sediment input, and to the since-start-of-simulation total depth of sand sediment input (m) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00200">200</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00199">199</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -435,9 +403,9 @@ Wilf Chun </dd></dl>
 
 <p>Returns the coarse sediment depth equivalent for this sediment layer object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00122">122</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00121">121</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00762">CGeomCell::CalcAllLayerElevsAndD50()</a>, and <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00759">CGeomCell::CalcAllLayerElevsAndD50()</a>.</p>
 
 </div>
 </div>
@@ -458,7 +426,7 @@ Wilf Chun </dd></dl>
 
 <p>Returns the this-iteration total depth of coarse sediment input (m) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00230">230</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00229">229</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -479,9 +447,9 @@ Wilf Chun </dd></dl>
 
 <p>Returns the fine sediment depth equivalent for this sediment layer object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00085">85</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00762">CGeomCell::CalcAllLayerElevsAndD50()</a>, and <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00759">CGeomCell::CalcAllLayerElevsAndD50()</a>.</p>
 
 </div>
 </div>
@@ -502,7 +470,7 @@ Wilf Chun </dd></dl>
 
 <p>Returns the this-iteration total depth of fine sediment input (m) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00218">218</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00217">217</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -523,7 +491,7 @@ Wilf Chun </dd></dl>
 
 <p>Gets the depth equivalent of coarse sediment lost by notch incision. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00185">185</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00184">184</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -544,7 +512,7 @@ Wilf Chun </dd></dl>
 
 <p>Gets the depth equivalent of fine sediment lost by notch incision. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00147">147</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00146">146</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -565,7 +533,7 @@ Wilf Chun </dd></dl>
 
 <p>Gets the depth equivalent of sand sediment lost by notch incision. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00166">166</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00165">165</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -586,9 +554,9 @@ Wilf Chun </dd></dl>
 
 <p>Returns the sand sediment depth equivalent for this sediment layer. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00104">104</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00103">103</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00762">CGeomCell::CalcAllLayerElevsAndD50()</a>, and <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d6/d68/cell_8cpp_source.html#l00759">CGeomCell::CalcAllLayerElevsAndD50()</a>.</p>
 
 </div>
 </div>
@@ -609,7 +577,7 @@ Wilf Chun </dd></dl>
 
 <p>Returns the this-iteration total depth of sand sediment input (m) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00224">224</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00223">223</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -630,7 +598,7 @@ Wilf Chun </dd></dl>
 
 <p>Returns the total (since the start of simulation) depth of sediment input (m, all size classes) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00236">236</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00235">235</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -651,7 +619,7 @@ Wilf Chun </dd></dl>
 
 <p>Intializes the this-iteration total depth of sediment input for all size classes (m) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00242">242</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00241">241</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -672,7 +640,7 @@ Wilf Chun </dd></dl>
 
 <p>Sets one <a class="el" href="../../d5/dc6/classCRWCellSediment.html" title="Real-world class used to represent the sediment (either consolidated or unconsolidated) associated wi...">CRWCellSediment</a> object equal to another. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">60</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">59</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -693,9 +661,7 @@ Wilf Chun </dd></dl>
 
 <p>Sets this sediment layer object's coarse sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00116">116</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00115">115</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -716,9 +682,7 @@ Wilf Chun </dd></dl>
 
 <p>Sets this sediment layer object's fine sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00079">79</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00078">78</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -739,7 +703,7 @@ Wilf Chun </dd></dl>
 
 <p>Sets the depth equivalent of coarse sediment lost by notch incision. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00172">172</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00171">171</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -760,7 +724,7 @@ Wilf Chun </dd></dl>
 
 <p>Sets the depth equivalent of fine sediment lost by notch incision. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00134">134</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00133">133</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -781,7 +745,7 @@ Wilf Chun </dd></dl>
 
 <p>Sets the depth equivalent of sand sediment lost by notch incision. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00153">153</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00152">152</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -802,9 +766,7 @@ Wilf Chun </dd></dl>
 
 <p>Sets this sediment layer object's sand sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00097">97</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../d4/d88/do__uncons__sediment__slumping_8cpp_source.html#l00147">CSimulation::prDoSlumpRedistributeSediment()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00096">96</a> of file <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html">cell_sediment.cpp</a>.</p>
 
 </div>
 </div>
@@ -831,9 +793,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent of coarse sediment in m. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00041">41</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00040">40</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00128">AddCoarseDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00209">AddCoarseSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00122">dGetCoarseDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00116">SetCoarseDepth()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00127">AddCoarseDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00208">AddCoarseSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00121">dGetCoarseDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00115">SetCoarseDepth()</a>.</p>
 
 </div>
 </div>
@@ -859,9 +821,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent (m) of coarse sediment added via sediment input events, this iteration. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00053">53</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00052">52</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00209">AddCoarseSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00230">dGetCoarseSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00242">InitThisIterSedimentInputAll()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00208">AddCoarseSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00229">dGetCoarseSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00241">InitThisIterSedimentInputAll()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>.</p>
 
 </div>
 </div>
@@ -887,9 +849,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent of fine sediment in m. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00029">29</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00028">28</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00091">AddFineDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00191">AddFineSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00085">dGetFineDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00079">SetFineDepth()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00190">AddFineSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00084">dGetFineDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00078">SetFineDepth()</a>.</p>
 
 </div>
 </div>
@@ -915,9 +877,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent (m) of fine sediment added via sediment input events, this iteration. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00047">47</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00046">46</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00191">AddFineSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00218">dGetFineSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00242">InitThisIterSedimentInputAll()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00190">AddFineSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00217">dGetFineSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00241">InitThisIterSedimentInputAll()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>.</p>
 
 </div>
 </div>
@@ -943,9 +905,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent (m) of coarse sediment lost via notch incision. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00044">44</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00043">43</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00185">dGetNotchCoarseLost()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00172">SetNotchCoarseLost()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00184">dGetNotchCoarseLost()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00171">SetNotchCoarseLost()</a>.</p>
 
 </div>
 </div>
@@ -971,9 +933,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent (m) of fine sediment lost via notch incision. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00032">32</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00031">31</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00147">dGetNotchFineLost()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00134">SetNotchFineLost()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00146">dGetNotchFineLost()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00133">SetNotchFineLost()</a>.</p>
 
 </div>
 </div>
@@ -999,9 +961,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent (m) of sand sediment lost via notch incision. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00038">38</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00037">37</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00166">dGetNotchSandLost()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00153">SetNotchSandLost()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00165">dGetNotchSandLost()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00152">SetNotchSandLost()</a>.</p>
 
 </div>
 </div>
@@ -1027,9 +989,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent of sand sediment in m. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00035">35</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00034">34</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00110">AddSandDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00200">AddSandSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00104">dGetSandDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00097">SetSandDepth()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00109">AddSandDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00199">AddSandSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00103">dGetSandDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00096">SetSandDepth()</a>.</p>
 
 </div>
 </div>
@@ -1055,9 +1017,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent (m) of sand sediment added via sediment input events, this iteration. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00050">50</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00049">49</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00200">AddSandSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00224">dGetSandSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00242">InitThisIterSedimentInputAll()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00199">AddSandSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00223">dGetSandSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00241">InitThisIterSedimentInputAll()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>.</p>
 
 </div>
 </div>
@@ -1083,9 +1045,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent (m) of coarse sediment added via sediment input events, since start of simulation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00062">62</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00061">61</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00209">AddCoarseSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00236">dGetTotAllSedimentInputDepth()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00208">AddCoarseSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00235">dGetTotAllSedimentInputDepth()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>.</p>
 
 </div>
 </div>
@@ -1111,9 +1073,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent (m) of fine sediment added via sediment input events, since start of simulation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00056">56</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00055">55</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00191">AddFineSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00236">dGetTotAllSedimentInputDepth()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00190">AddFineSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00235">dGetTotAllSedimentInputDepth()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>.</p>
 
 </div>
 </div>
@@ -1139,9 +1101,9 @@ Wilf Chun </dd></dl>
 
 <p>Depth equivalent (m) of sand sediment added via sediment input events, since start of simulation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00059">59</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d55/cell__sediment_8h_source.html#l00058">58</a> of file <a class="el" href="../../d5/d55/cell__sediment_8h_source.html">cell_sediment.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00200">AddSandSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00043">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00026">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00236">dGetTotAllSedimentInputDepth()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00060">operator=()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00199">AddSandSedimentInputDepth()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00042">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00025">CRWCellSediment()</a>, <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00235">dGetTotAllSedimentInputDepth()</a>, and <a class="el" href="../../db/d2b/cell__sediment_8cpp_source.html#l00059">operator=()</a>.</p>
 
 </div>
 </div>
@@ -1155,7 +1117,7 @@ Wilf Chun </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d5/dc6/classCRWCellSediment.html">CRWCellSediment</a></li>
-    <li class="footer">Generated on Fri Dec 12 2025 16:13:05 for CoastalME (Coastal Modelling Environment) by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+    <li class="footer">Generated on Fri Dec 12 2025 16:51:59 for CoastalME (Coastal Modelling Environment) by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

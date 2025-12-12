@@ -4,5 +4,5 @@ var spatial__interpolation_8h =
     [ "PointCloud", "dd/d9f/structPointCloud.html", "dd/d9f/structPointCloud" ],
     [ "SpatialInterpolator", "d4/da8/classSpatialInterpolator.html", "d4/da8/classSpatialInterpolator" ],
     [ "DualSpatialInterpolator", "db/d00/classDualSpatialInterpolator.html", "db/d00/classDualSpatialInterpolator" ],
-    [ "KDTree", "d7/d3e/spatial__interpolation_8h.html#af180cfe312080f01ca922e7ac995ac53", null ]
+    [ "KDTree", "d7/d3e/spatial__interpolation_8h.html#ac08b211d50983a88a24bd6511313308d", null ]
 ];

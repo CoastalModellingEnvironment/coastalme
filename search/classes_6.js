@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['has_5fassign_0',['has_assign',['../d0/d8d/structnanoflann_1_1has__assign.html',1,'nanoflann']]],
-  ['has_5fassign_3c_20t_2c_20decltype_28_28void_29_20std_3a_3adeclval_3c_20t_20_3e_28_29_2eassign_281_2c_200_29_2c_200_29_3e_1',['has_assign&lt; T, decltype((void) std::declval&lt; T &gt;().assign(1, 0), 0)&gt;',['../da/dee/structnanoflann_1_1has__assign_3_01T_00_01decltype_07_07void_08_01std_1_1declval_3_01T_01_4_07_0384656df8feb37b62ef12dfcd439e93e.html',1,'nanoflann']]],
-  ['has_5fresize_2',['has_resize',['../db/d13/structnanoflann_1_1has__resize.html',1,'nanoflann']]],
-  ['has_5fresize_3c_20t_2c_20decltype_28_28void_29_20std_3a_3adeclval_3c_20t_20_3e_28_29_2eresize_281_29_2c_200_29_3e_3',['has_resize&lt; T, decltype((void) std::declval&lt; T &gt;().resize(1), 0)&gt;',['../da/d86/structnanoflann_1_1has__resize_3_01T_00_01decltype_07_07void_08_01std_1_1declval_3_01T_01_4_07_08_8resize_071_08_00_010_08_4.html',1,'nanoflann']]]
+  ['ifstream_0',['ifstream',['../d0/d68/classifstream.html',1,'']]],
+  ['indexdist_5fsorter_1',['IndexDist_Sorter',['../d0/d61/structnanoflann_1_1IndexDist__Sorter.html',1,'nanoflann']]],
+  ['interval_2',['Interval',['../d4/d08/structnanoflann_1_1KDTreeBaseClass_1_1Interval.html',1,'nanoflann::KDTreeBaseClass']]],
+  ['ios_3',['ios',['../df/d02/classios.html',1,'']]],
+  ['istringstream_4',['istringstream',['../dc/d35/classistringstream.html',1,'']]],
+  ['iterator_5',['iterator',['../d9/dcc/classarray_1_1iterator.html',1,'array&lt; T &gt;::iterator'],['../de/d81/classdeque_1_1iterator.html',1,'deque&lt; T &gt;::iterator'],['../dd/d7b/classmap_1_1iterator.html',1,'map&lt; K, T &gt;::iterator'],['../d5/d16/classstring_1_1iterator.html',1,'string::iterator'],['../d0/d05/classvector_1_1iterator.html',1,'vector&lt; T &gt;::iterator']]]
 ];

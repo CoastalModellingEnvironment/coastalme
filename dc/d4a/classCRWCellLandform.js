@@ -11,13 +11,11 @@ var classCRWCellLandform =
     [ "nGetLFCategory", "dc/d4a/classCRWCellLandform.html#a5350a7ac48d1eef3a78bef9bcf041b45", null ],
     [ "nGetPointOnCoast", "dc/d4a/classCRWCellLandform.html#ad77dd2473ef3394e8f9ac60a50d42586", null ],
     [ "SetAccumWaveEnergy", "dc/d4a/classCRWCellLandform.html#abd409068ef909c26ff8ede3d7125b94d", null ],
-    [ "SetCliffCollapseTimestep", "dc/d4a/classCRWCellLandform.html#a5faa4c5359b35140d6ddb8e5c9be4ef4", null ],
     [ "SetCliffNotchApexElev", "dc/d4a/classCRWCellLandform.html#a80a0354ed07a8820d861a654708fc24e", null ],
     [ "SetCliffNotchIncisionDepth", "dc/d4a/classCRWCellLandform.html#ae8788655b365f0f71e779c5bd3e8fd0a", null ],
     [ "SetCoast", "dc/d4a/classCRWCellLandform.html#a3690af9ff283365f80221e193438d1ad", null ],
     [ "SetLFCategory", "dc/d4a/classCRWCellLandform.html#aaf631af6cb530503a8fc676d4296ac79", null ],
     [ "SetPointOnCoast", "dc/d4a/classCRWCellLandform.html#ab3563c3cc3cd8bee90bfbb4ff558310c", null ],
-    [ "ulGetCliffCollapseTimestep", "dc/d4a/classCRWCellLandform.html#a44b5d7888b607e15713d87b81c05372b", null ],
     [ "m_dAccumWaveEnergy", "dc/d4a/classCRWCellLandform.html#a28ef604e689eb572438fcfb2cc4d4d73", null ],
     [ "m_dNotchApexElev", "dc/d4a/classCRWCellLandform.html#a099ed87a3f981b5c5b6a7fe28f8c7ec6", null ],
     [ "m_dNotchIncision", "dc/d4a/classCRWCellLandform.html#a05b0e7c74f5548e479df2a16a36c36e9", null ],
@@ -27,6 +25,5 @@ var classCRWCellLandform =
     [ "m_nPointOnCoastline", "dc/d4a/classCRWCellLandform.html#a812055836848b0de1454827545b2688c", null ],
     [ "m_sBeachData", "dc/d4a/classCRWCellLandform.html#a6f1a35a7a19e27ea5206a9010f46662d", null ],
     [ "m_sCliffData", "dc/d4a/classCRWCellLandform.html#a5a2d4dca3a1b48a48b7cbcd741a0374f", null ],
-    [ "m_ulCollapseTimestep", "dc/d4a/classCRWCellLandform.html#a6fd2d0ec6a8b1a0ea7a57d251c0d505f", null ],
     [ "m_uLFData", "dc/d4a/classCRWCellLandform.html#a9820039620dc7d87162e894663c4be5e", null ]
 ];
