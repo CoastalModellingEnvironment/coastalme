@@ -9,6 +9,10 @@
    \copyright GNU General Public License
 */
 
+
+#ifndef SPATIAL_INTERPOLATION_H
+#define SPATIAL_INTERPOLATION_H
+
 /* ==============================================================================================================================
    This file is part of CoastalME, the Coastal Modelling Environment.
 
@@ -36,12 +40,12 @@
 //!
 //! QUICK START:
 //! ------------
-//! std::vector<Point2D> points = {{0,0}, {10,0}, {5,10}};
-//! std::vector<double> values_x = {1.0, 2.0, 1.5};
-//! std::vector<double> values_y = {0.5, 1.0, 0.8};
+//! vector<Point2D> points = {{0,0}, {10,0}, {5,10}};
+//! vector<double> values_x = {1.0, 2.0, 1.5};
+//! vector<double> values_y = {0.5, 1.0, 0.8};
 //! DualSpatialInterpolator interp(points, values_x, values_y, 12, 2.0);
-//! std::vector<Point2D> query = {{5,5}};
-//! std::vector<double> result_x, result_y;
+//! vector<Point2D> query = {{5,5}};
+//! vector<double> result_x, result_y;
 //! interp.Interpolate(query, result_x, result_y);
 //!
 //! TUNING PARAMETERS:
@@ -54,13 +58,12 @@
 //!   * Decrease for smoother transitions (distant points have more influence)
 //!
 //===============================================================================================================================
-
-#ifndef SPATIAL_INTERPOLATION_H
-#define SPATIAL_INTERPOLATION_H
-
 #include <vector>
+using std::vector;
+
 #include <cmath>
 #include <algorithm>
+
 #include "nanoflann.hpp"
 
 //===============================================================================================================================
@@ -111,8 +114,7 @@ class SpatialInterpolator
    double Interpolate(double x, double y) const;
 
    // Interpolate at multiple points (more efficient)
-   void Interpolate(std::vector<Point2D> const& query_points,
-                    std::vector<double>& results) const;
+   void Interpolate(vector<Point2D> const& query_points, vector<double>& results) const;
 
    // Get the k-d tree (for sharing between interpolators)
    KDTree const* GetKDTree() const { return m_kdtree; }
@@ -122,7 +124,7 @@ class SpatialInterpolator
 
    private:
    PointCloud m_cloud;
-   std::vector<double> m_values;
+   vector<double> m_values;
    KDTree* m_kdtree;
    int m_k_neighbors;
    double m_power;
@@ -132,34 +134,24 @@ class SpatialInterpolator
 
    // Private constructor for sharing k-d tree
    friend class DualSpatialInterpolator;
-   SpatialInterpolator(PointCloud const& cloud,
-                       KDTree* kdtree,
-                       std::vector<double> const& values,
-                       int k_neighbors,
-                       double power);
+   SpatialInterpolator(PointCloud const& cloud, KDTree* kdtree, vector<double> const& values, int k_neighbors, double power);
 };
 
 // Optimized dual interpolator for X and Y values sharing same spatial points
 class DualSpatialInterpolator
 {
-   public:
-   DualSpatialInterpolator(std::vector<Point2D> const& points,
-                           std::vector<double> const& values_x,
-                           std::vector<double> const& values_y,
-                           int k_neighbors = 12,
-                           double power = 2.0);
+public:
+   DualSpatialInterpolator(vector<Point2D> const& points, vector<double> const& values_x, vector<double> const& values_y, int k_neighbors = 12, double power = 2.0);
 
    ~DualSpatialInterpolator();
 
    // Interpolate both X and Y at multiple points (parallel optimized)
-   void Interpolate(std::vector<Point2D> const& query_points,
-                    std::vector<double>& results_x,
-                    std::vector<double>& results_y) const;
+   void Interpolate(vector<Point2D> const& query_points, vector<double>& results_x, vector<double>& results_y) const;
 
-   private:
+private:
    PointCloud m_cloud;
-   std::vector<double> m_values_x;
-   std::vector<double> m_values_y;
+   vector<double> m_values_x;
+   vector<double> m_values_y;
    KDTree* m_kdtree;
    int m_k_neighbors;
    double m_power;
@@ -167,9 +159,7 @@ class DualSpatialInterpolator
    static constexpr double EPSILON = 1e-10;
 
    // Helper for single point interpolation
-   void InterpolatePoint(double x, double y, double& result_x, double& result_y,
-                         std::vector<unsigned int>& indices,
-                         std::vector<double>& sq_dists) const;
+   void InterpolatePoint(double x, double y, double& result_x, double& result_y, vector<unsigned int>& indices, vector<double>& sq_dists) const;
 };
 
 #endif      // SPATIAL_INTERPOLATION_H

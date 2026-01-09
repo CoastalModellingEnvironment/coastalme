@@ -63,6 +63,10 @@
 #include <cstdio>
 using std::size_t;
 
+#include <cmath>
+using std::sqrt;
+using std::pow;
+
 #include <vector>
 using std::vector;
 
@@ -160,9 +164,7 @@ double SpatialInterpolator::Interpolate(double x, double y) const
    if (bFPIsEqual(m_power, 2.0, TOLERANCE))
    {
       // *** OPTIMIZED PATH for power=2.0 ***
-      // Since weight = 1/dist^2 and we have sq_dist = dist^2,
-      // we can use: weight = 1/sq_dist
-      // This avoids both sqrt() and pow() calls
+      // Since weight = 1/dist^2 and we have sq_dist = dist^2, we can use: weight = 1/sq_dist. This avoids both sqrt() and pow() calls
       for (size_t i = 0; i < num_found; i++)
       {
          double const weight = 1.0 / sq_dists[i];  // 1/dist^2 = 1/sq_dist
@@ -176,8 +178,8 @@ double SpatialInterpolator::Interpolate(double x, double y) const
       // Need to calculate actual distance and apply pow()
       for (size_t i = 0; i < num_found; i++)
       {
-         double dist = std::sqrt(sq_dists[i]);
-         double weight = 1.0 / std::pow(dist, m_power);
+         double const dist = sqrt(sq_dists[i]);
+         double const weight = 1.0 / pow(dist, m_power);
          sum_weights += weight;
          sum_weighted_values += weight * m_values[indices[i]];
       }
@@ -186,11 +188,10 @@ double SpatialInterpolator::Interpolate(double x, double y) const
    return sum_weighted_values / sum_weights;
 }
 
-void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points,
-                                      std::vector<double>& results) const
+void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points, vector<double>& results) const
 {
    results.resize(query_points.size());
-   size_t const k = std::min((size_t) m_k_neighbors, m_cloud.pts.size());
+   size_t const k = min((size_t) m_k_neighbors, m_cloud.pts.size());
 
 #ifdef _OPENMP
    #pragma omp parallel
@@ -204,9 +205,7 @@ void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points,
       {
          double const query_pt[2] = {query_points[i].x, query_points[i].y};
 
-         long unsigned int num_found = m_kdtree->knnSearch(query_pt, k,
-                                                       indices.data(),
-                                                       sq_dists.data());
+         long unsigned int const num_found = m_kdtree->knnSearch(query_pt, k, indices.data(), sq_dists.data());
 
          if (num_found == 0)
          {
@@ -229,7 +228,7 @@ void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points,
          {
             for (size_t j = 0; j < num_found; j++)
             {
-               double weight = 1.0 / sq_dists[j];
+               double const weight = 1.0 / sq_dists[j];
                sum_weights += weight;
                sum_weighted_values += weight * m_values[indices[j]];
             }
@@ -238,8 +237,8 @@ void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points,
          {
             for (size_t j = 0; j < num_found; j++)
             {
-               double dist = std::sqrt(sq_dists[j]);
-               double weight = 1.0 / std::pow(dist, m_power);
+               double const dist = std::sqrt(sq_dists[j]);
+               double const weight = 1.0 / std::pow(dist, m_power);
                sum_weights += weight;
                sum_weighted_values += weight * m_values[indices[j]];
             }
@@ -312,10 +311,7 @@ DualSpatialInterpolator::~DualSpatialInterpolator()
    delete m_kdtree;
 }
 
-void DualSpatialInterpolator::InterpolatePoint(double x, double y,
-                                               double& result_x, double& result_y,
-                                               std::vector<unsigned int>& indices,
-                                               std::vector<double>& sq_dists) const
+void DualSpatialInterpolator::InterpolatePoint(double x, double y, double& result_x, double& result_y, vector<unsigned int>& indices, vector<double>& sq_dists) const
 {
    double const query_pt[2] = {x, y};
    size_t const k = std::min((size_t) m_k_neighbors, m_cloud.pts.size());

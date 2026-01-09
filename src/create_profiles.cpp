@@ -67,13 +67,6 @@ int CSimulation::nCreateAllProfiles(void)
 
    for (unsigned int nCoast = 0; nCoast < m_VCoast.size(); nCoast++)
    {
-      // DEBUG CODE ==============================================================================================================
-      if ((m_ulIter == 851) && (nCoast == 1))
-      {
-         LogStream <<  "=================" << endl;
-      }
-      // DEBUG CODE ==============================================================================================================
-
       int nProfile = 0;
       int const nCoastSize = m_VCoast[nCoast].nGetCoastlineSize();
 
@@ -128,31 +121,40 @@ int CSimulation::nCreateAllProfiles(void)
       // Now locate the start points for all coastline-normal profiles (except the grid-edge ones), at points of maximum convexity. Then create the profiles
       LocateAndCreateProfiles(nCoast, nProfile, &bVCoastPointDone, &prVCurvature);
 
-      // Did we fail to create any normal profiles? If so, quit
-      if (nProfile < 0)
+      // Did we fail to create any coast-normal profiles? If so, quit
+      if (nProfile == 0)
       {
-         string strErr = ERR + "timestep " + strDblToStr(m_ulIter) + ": could not create profiles for coastline " + strDblToStr(nCoast);
+         // If this is the only coastline, then we have a problem
+         if (nCoast == 0)
+         {
+            string strErr = ERR + "timestep " + strDblToStr(m_ulIter) + ": could not create coast-normal profiles for coastline " + strDblToStr(nCoast);
 
-         if (m_ulIter == 1)
-            strErr += ". Check the SWL";
+            // This is the only coastline
+            if (m_ulIter == 1)
+               strErr += ". Check the SWL";
 
-         strErr += "\n";
+            strErr += "\n";
+            cerr << strErr;
+            LogStream << strErr;
 
-         cerr << strErr;
-         LogStream << strErr;
-
-         return RTN_ERR_NO_PROFILES_1;
+            return RTN_ERR_NO_PROFILES_1;
+         }
+         else
+         {
+            // This is not the only coastline, so attempt to continue
+            string strErr = WARN + "timestep " + strDblToStr(m_ulIter) + ": could not create coast-normal profiles for coastline " + strDblToStr(nCoast) + " continuing however\n";
+            cerr << strErr;
+            LogStream << strErr;
+         }
       }
 
       // Locate and create a 'special' profile at the grid edge, first at the beginning of the coastline. Then put this onto the raster grid
       int nRet = nLocateAndCreateGridEdgeProfile(true, nCoast, nProfile);
-
       if (nRet != RTN_OK)
          return nRet;
 
       // Locate a second 'special' profile at the grid edge, this time at end of the coastline. Then put this onto the raster grid
       nRet = nLocateAndCreateGridEdgeProfile(false, nCoast, ++nProfile);
-
       if (nRet != RTN_OK)
          return nRet;
 
@@ -627,12 +629,30 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
          }
       }
 
-      // Have we hit a corner point?
       CGeom2DIPoint const Pti = m_VPtiAllEdgeCell[nPos];
+
+      // Have we hit a corner point?
       it = find(m_VPtiBoundingBoxCorner.begin(), m_VPtiBoundingBoxCorner.end(), Pti);
       if (it != m_VPtiBoundingBoxCorner.end())
       {
          // We've reached the end of a grid side before the profile is long enough. OK, we can live with this
+         break;
+      }
+
+      int const nX = Pti.nGetX();
+      int const nY = Pti.nGetY();
+
+      // Have we hit a profile belonging to another coast?
+      if (m_pRasterGrid->m_Cell[nX][nY].bIsProfile())
+      {
+         // We have hit a profile, so assume it belongs to another coast
+         break;
+      }
+
+      // Have we hit another coast?
+      if (m_pRasterGrid->m_Cell[nX][nY].bIsCoastline())
+      {
+         // We have hit a coast cell, so assume it belongs to another coast
          break;
       }
 

@@ -1,7 +1,4 @@
-assign_landforms.cpp:138:55: style: Variable 'dSedTopElevIncTalus' is assigned a value that is never used. [unreadVariable]
-                     double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
-                                                      ^
-calc_waves.cpp:506:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
+calc_waves.cpp:509:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
 do_uncons_sediment_slumping.cpp:176:14: style: struct member 'Neighbour::slope' is never used. [unusedStructMember]
@@ -106,22 +103,16 @@ read_input.cpp:4674:28: style: Consider using std::transform algorithm instead o
 read_input.cpp:4908:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
       strErr = "max save digits for GIS output file names must be > 1";
              ^
-spatial_interpolation.cpp:97:4: warning: Class 'SpatialInterpolator' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
+spatial_interpolation.cpp:306:4: warning: Class 'DualSpatialInterpolator' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
    m_kdtree = new KDTree(2, m_cloud, {10 /* max leaf size */});
    ^
-spatial_interpolation.cpp:97:4: warning: Class 'SpatialInterpolator' does not have a operator= which is recommended since it has dynamic memory/resource allocation(s). [noOperatorEq]
+spatial_interpolation.cpp:306:4: warning: Class 'DualSpatialInterpolator' does not have a operator= which is recommended since it has dynamic memory/resource allocation(s). [noOperatorEq]
    m_kdtree = new KDTree(2, m_cloud, {10 /* max leaf size */});
    ^
-spatial_interpolation.cpp:305:4: warning: Class 'DualSpatialInterpolator' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
-   m_kdtree = new KDTree(2, m_cloud, {10 /* max leaf size */});
-   ^
-spatial_interpolation.cpp:305:4: warning: Class 'DualSpatialInterpolator' does not have a operator= which is recommended since it has dynamic memory/resource allocation(s). [noOperatorEq]
-   m_kdtree = new KDTree(2, m_cloud, {10 /* max leaf size */});
-   ^
-spatial_interpolation.cpp:252:37: style: Variable 'indices' is assigned a value that is never used. [unreadVariable]
+spatial_interpolation.cpp:253:37: style: Variable 'indices' is assigned a value that is never used. [unreadVariable]
    std::vector<unsigned int> indices(k);
                                     ^
-spatial_interpolation.cpp:253:32: style: Variable 'sq_dists' is assigned a value that is never used. [unreadVariable]
+spatial_interpolation.cpp:254:32: style: Variable 'sq_dists' is assigned a value that is never used. [unreadVariable]
    std::vector<double> sq_dists(k);
                                ^
 yaml_parser.cpp:167:18: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]

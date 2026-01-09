@@ -22,8 +22,8 @@
 ==============================================================================================================================*/
 #include <assert.h>
 
-#include <cmath>
-using std::sqrt;
+// #include <cmath>
+// using std::sqrt;
 
 #include <cstdio>
 using std::size_t;
@@ -37,9 +37,9 @@ using std::stringstream;
 // using std::max;
 // using std::min;
 
-#include <utility>
+// #include <utility>
 // using std::make_pair;
-using std::pair;
+// using std::pair;
 
 // #include "cme.h"
 // #include "cell.h"
