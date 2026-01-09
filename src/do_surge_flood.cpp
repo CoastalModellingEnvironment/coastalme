@@ -21,24 +21,24 @@
 ==============================================================================================================================*/
 #include <assert.h>
 
-#include <cmath>
-using std::isnan;
+// #include <cmath>
+// using std::isnan;
 
 #include <iostream>
-using std::endl;
+// using std::endl;
 using std::ios;
 
-#include <stack>
-using std::stack;
+// #include <stack>
+// using std::stack;
 
 #include "cme.h"
-#include "2d_point.h"
-#include "i_line.h"
-#include "line.h"
-#include "simulation.h"
-#include "raster_grid.h"
-#include "coast.h"
-#include "2di_point.h"
+// #include "2d_point.h"
+// #include "i_line.h"
+// #include "line.h"
+// #include "simulation.h"
+// #include "raster_grid.h"
+// #include "coast.h"
+// #include "2di_point.h"
 
 // //===============================================================================================================================
 // //! Use the sealevel, wave set-up and run-up to evaluate flood hydraulically connected TODO 007 Finish surge and runup stuff
@@ -319,7 +319,7 @@ using std::stack;
 // int CSimulation::nTraceFloodCoastLine(unsigned int const nTraceFromStartCellIndex, int const nStartSearchDirection, int const nHandedness, vector<bool>* pVbTraced, vector<CGeom2DIPoint> const* pV2DIPossibleStartCell)
 // {
 //    bool bHitStartCell = false;
-//    bool bAtCoast = false;
+//    bool bOnCoast = false;
 //    bool bHasLeftStartEdge = false;
 //    bool bTooLong = false;
 //    bool bOffEdge = false;
@@ -391,7 +391,7 @@ using std::stack;
 //       }
 //
 //       // Leave the loop if the vector coastline has left the start edge, then we find a coast cell which is a possible start cell from which a coastline has not yet been traced
-//       // if (bHasLeftStartEdge && bAtCoast)
+//       // if (bHasLeftStartEdge && bOnCoast)
 //       {
 //          for (unsigned int nn = 0; nn < pVbTraced->size(); nn++)
 //          {
@@ -399,7 +399,7 @@ using std::stack;
 //             {
 //                // LogStream << "[" << pV2DIPossibleStartCell->at(nn).nGetX() << "][" << pV2DIPossibleStartCell->at(nn).nGetY() << "]" << endl;
 //
-//                if (bAtCoast && (nX == pV2DIPossibleStartCell->at(nn).nGetX()) && (nY == pV2DIPossibleStartCell->at(nn).nGetY()))
+//                if (bOnCoast && (nX == pV2DIPossibleStartCell->at(nn).nGetX()) && (nY == pV2DIPossibleStartCell->at(nn).nGetY()))
 //                {
 //                   if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
 //                      LogStream << m_ulIter << ": Possible flood coastline found, traced from [" << nStartX << "][" << nStartY << "] and hit another possible flood coast start cell at [" << nX << "][" << nY << "]" << endl;
@@ -635,7 +635,7 @@ using std::stack;
 //          if (m_pRasterGrid->m_Cell[nXSeaward][nYSeaward].bIsInContiguousSeaFlood())
 //          {
 //             // There is sea in this seaward direction, so we are on the coast
-//             bAtCoast = true;
+//             bOnCoast = true;
 //
 //             // Has the current cell already marked been marked as a coast cell?
 //             if (! m_pRasterGrid->m_Cell[nX][nY].bIsFloodline())
@@ -676,7 +676,7 @@ using std::stack;
 //          if (m_pRasterGrid->m_Cell[nXStraightOn][nYStraightOn].bIsInContiguousSeaFlood())
 //          {
 //             // Sea is in front, so we are on the coast
-//             bAtCoast = true;
+//             bOnCoast = true;
 //
 //             // Has the current cell already marked been marked as a floodline cell?
 //             if (! m_pRasterGrid->m_Cell[nX][nY].bIsFloodline())
@@ -716,7 +716,7 @@ using std::stack;
 //          if (m_pRasterGrid->m_Cell[nXAntiSeaward][nYAntiSeaward].bIsInContiguousSeaFlood())
 //          {
 //             // There is sea on the anti-seaward side, so we are on the coast
-//             bAtCoast = true;
+//             bOnCoast = true;
 //
 //             // Has the current cell already marked been marked as a floodline cell?
 //             if (! m_pRasterGrid->m_Cell[nX][nY].bIsFloodline())

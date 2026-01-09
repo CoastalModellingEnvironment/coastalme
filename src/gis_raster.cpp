@@ -578,8 +578,8 @@ void CSimulation::CalcGridEdgeSeaToLandDirection(void)
 
    for (int i = 0; i < 4; i++)
    {
-      int nX = m_VPtiBoundingBoxCorner[i].nGetX();
-      int nY = m_VPtiBoundingBoxCorner[i].nGetY();
+      int const nX = m_VPtiBoundingBoxCorner[i].nGetX();
+      int const nY = m_VPtiBoundingBoxCorner[i].nGetY();
       m_pRasterGrid->m_Cell[nX][nY].CalcAllLayerElevsAndD50();
       VdBoundingBoxCornerElev.push_back(m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus());
    }
@@ -2252,7 +2252,7 @@ int CSimulation::nInterpolateWavesToPolygonCells(vector<TransectWaveData> const 
    //                ** ADJUST THIS to change influence of nearby vs distant points **
    //
    // The interpolator builds a k-d tree for fast nearest neighbor search and shares it between X and Y interpolation for efficiency
-   DualSpatialInterpolator interp(points, VdHeightX, VdHeightY, 6, 2.0);
+   DualSpatialInterpolator const interp(points, VdHeightX, VdHeightY, 6, 2.0);
 
    // ============================================================================
    // STEP 4: Build query points (grid cells where we want interpolated values)

@@ -25,24 +25,24 @@ using std::cerr;
 using std::endl;
 using std::ios;
 
-#include <ios>
-using std::fixed;
+// #include <ios>
+// using std::fixed;
 
-#include <string>
-using std::to_string;
+// #include <string>
+// using std::to_string;
 
-#include <iomanip>
-using std::setprecision;
+// #include <iomanip>
+// using std::setprecision;
 
 #include <stack>
 using std::stack;
 
-#include <cpl_conv.h>
-#include <cpl_error.h>
-#include <cpl_string.h>
-#include <gdal.h>
-#include <gdal_alg.h>
-#include <gdal_priv.h>
+// #include <cpl_conv.h>
+// #include <cpl_error.h>
+// #include <cpl_string.h>
+// #include <gdal.h>
+// #include <gdal_alg.h>
+// #include <gdal_priv.h>
 
 #include "cme.h"
 #include "2di_point.h"
@@ -471,7 +471,6 @@ int CSimulation::nTraceAllCoasts(void)
                VnPossibleStartCellHandedness.push_back(RIGHT_HANDED);
                VnPossibleStartCellSearchDirection.push_back(SOUTH);
                VbTraced.push_back(false);
-               break;
             }
          }
       }
@@ -491,7 +490,6 @@ int CSimulation::nTraceAllCoasts(void)
                VnPossibleStartCellHandedness.push_back(LEFT_HANDED);
                VnPossibleStartCellSearchDirection.push_back(SOUTH);
                VbTraced.push_back(false);
-               break;
             }
          }
       }
@@ -516,7 +514,6 @@ int CSimulation::nTraceAllCoasts(void)
                VnPossibleStartCellHandedness.push_back(LEFT_HANDED);
                VnPossibleStartCellSearchDirection.push_back(NORTH);
                VbTraced.push_back(false);
-               break;
             }
          }
       }
@@ -536,7 +533,6 @@ int CSimulation::nTraceAllCoasts(void)
                VnPossibleStartCellHandedness.push_back(RIGHT_HANDED);
                VnPossibleStartCellSearchDirection.push_back(NORTH);
                VbTraced.push_back(false);
-               break;
             }
          }
       }
@@ -561,7 +557,6 @@ int CSimulation::nTraceAllCoasts(void)
                VnPossibleStartCellHandedness.push_back(LEFT_HANDED);
                VnPossibleStartCellSearchDirection.push_back(EAST);
                VbTraced.push_back(false);
-               break;
             }
          }
       }
@@ -581,7 +576,6 @@ int CSimulation::nTraceAllCoasts(void)
                VnPossibleStartCellHandedness.push_back(RIGHT_HANDED);
                VnPossibleStartCellSearchDirection.push_back(EAST);
                VbTraced.push_back(false);
-               break;
             }
          }
       }
@@ -606,7 +600,6 @@ int CSimulation::nTraceAllCoasts(void)
                VnPossibleStartCellHandedness.push_back(RIGHT_HANDED);
                VnPossibleStartCellSearchDirection.push_back(WEST);
                VbTraced.push_back(false);
-               break;
             }
          }
       }
@@ -626,7 +619,6 @@ int CSimulation::nTraceAllCoasts(void)
                VnPossibleStartCellHandedness.push_back(LEFT_HANDED);
                VnPossibleStartCellSearchDirection.push_back(WEST);
                VbTraced.push_back(false);
-               break;
             }
          }
       }
@@ -653,7 +645,8 @@ int CSimulation::nTraceAllCoasts(void)
    {
       if (! VbTraced[n])
       {
-         int nRet = nTraceCoastLine(n, &V2DIPossibleStartCell, &VbTraced, VnPossibleStartCellEdge[n], VnPossibleStartCellHandedness[n], VnPossibleStartCellSearchDirection[n]);
+
+         int const nRet = nTraceCoastLine(n, &V2DIPossibleStartCell, &VbTraced, VnPossibleStartCellEdge[n], VnPossibleStartCellHandedness[n], VnPossibleStartCellSearchDirection[n]);
          if (nRet == RTN_OK)
          {
             // We have a valid coastline starting from this possible start cell
@@ -704,8 +697,8 @@ bool CSimulation::bIdentifyPossibleCoastStart(int const nXThis, int const nYThis
 //===============================================================================================================================
 int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeom2DIPoint> const* pV2DIPossibleStartCell, vector<bool>* pVbTraced, int const nStartEdge, int const nHandedness, int const nStartSearchDirection)
 {
-   bool bHitStartCell = false;
-   bool bAtCoast = false;
+   // bool bHitStartCell = false;
+   // bool bOnCoast = false;
    bool bHasLeftStartEdge = false;
    bool bTooLong = false;
    bool bOffEdge = false;
@@ -717,16 +710,9 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
    int nY = nStartY;
    int nSearchDirection = nStartSearchDirection;
    int nRoundLoop = -1;
-   // nThisLen = 0;
-   // nLastLen = 0,
-   // nPreLastLen = 0;
 
    // Temporary coastline as integer points (grid CRS)
    CGeomILine ILTempGridCRS;
-
-   // Add the start cell to the vector
-   CGeom2DIPoint const PtiStart(nStartX, nStartY);
-   ILTempGridCRS.Append(&PtiStart);
 
    // Start at this grid-edge point and trace the rest of the coastline using the 'wall follower' rule for maze traversal, trying to keep next to cells flagged as sea
    do
@@ -734,9 +720,9 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
       nRoundLoop++;
 
       // // DEBUG CODE ==============================================================================================================
-      // if (m_ulIter == 106)
+      // if (m_ulIter == 851)
       // {
-      //    LogStream << "Now at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+      //    LogStream << "nX = " << nX << " nY = " << nY << " {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
       //    LogStream << "ILTempGridCRS is now:" << endl;
       //    for (int n = 0; n < ILTempGridCRS.nGetSize(); n++)
       //    LogStream << "[" << ILTempGridCRS[n].nGetX() << "][" << ILTempGridCRS[n].nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILTempGridCRS[n].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILTempGridCRS[n].nGetY()) << "}" << endl;
@@ -747,7 +733,7 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
       // TEST =========================================
       if (m_pRasterGrid->m_Cell[nX][nY].bIsBoundingBoxEdge())
       {
-         int nEdge = m_pRasterGrid->m_Cell[nX][nY].nGetBoundingBoxEdge();
+         int const nEdge = m_pRasterGrid->m_Cell[nX][nY].nGetBoundingBoxEdge();
          if (nEdge != nStartEdge)
          {
             // we have hit a different edge
@@ -788,50 +774,46 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
          break;
       }
 
-
-
-
       // OK so far: so have we left the start edge?
       if (! bHasLeftStartEdge)
       {
-         // We have not yet left the start edge
          if (((nStartSearchDirection == SOUTH) && (nY > nStartY)) || ((nStartSearchDirection == NORTH) && (nY < nStartY)) || ((nStartSearchDirection == EAST) && (nX > nStartX)) || ((nStartSearchDirection == WEST) && (nX < nStartX)))
-            bHasLeftStartEdge = true;
-
-         // Flag this cell to ensure that it is not chosen as a coastline start cell later
-         m_pRasterGrid->m_Cell[nX][nY].SetPossibleCoastStartCell();
-         // LogStream << "Flagging [" << nX << "][" << nY << "] as possible coast start cell NOT YET LEFT EDGE" << endl;
-      }
-
-      // If the vector coastline has left the start edge, and we hit a possible coast start point from which a coastline has not yet been traced, then hooray! We've traced a coast. Leave the loop
-      // LogStream << "bHasLeftStartEdge = " << bHasLeftStartEdge << " bAtCoast = " << bAtCoast << endl;
-      if (bHasLeftStartEdge && bAtCoast)
-      {
-         for (int nn = 0; nn < static_cast<int>(pVbTraced->size()); nn++)
          {
-            bool const bTraced = pVbTraced->at(nn);
-            if ((nn != nTraceFromStartCellIndex) && (! bTraced))
-            {
-               int const nXPoss = pV2DIPossibleStartCell->at(nn).nGetX();
-               int const nYPoss = pV2DIPossibleStartCell->at(nn).nGetY();
-
-               // LogStream << "In 'Leave the edge' loop for [" << nX << "][" << nY << "] bTraced = " << bTraced << " nn = " << nn << " nTraceFromStartCellIndex = " << nTraceFromStartCellIndex << " possible start cell = [" << nXPoss << "][" << nYPoss << "]" << endl;
-
-               if ((nX == nXPoss) && (nY == nYPoss))
-               {
-                  if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-                     LogStream << m_ulIter << ":\t possible coastline found, traced from [" << nStartX << "][" << nStartY << "]  = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "}, ended at possible coast start cell at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
-
-                  pVbTraced->at(nn) = true;
-                  bHitStartCell = true;
-                  break;
-               }
-            }
+            // LogStream << "Left start edge with nX = " << nX << " nY = " << nY << endl;
+            bHasLeftStartEdge = true;
          }
       }
 
-      if (bHitStartCell)
-         break;
+      // LogStream << "Now at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} bHasLeftStartEdge = " << bHasLeftStartEdge << " bOnCoast = " << bOnCoast << endl;
+
+      // // If the vector coastline has left the start edge, and we hit a possible coast start point from which a coastline has not yet been traced, then hooray! We've traced a coast. Leave the loop
+      // if (bHasLeftStartEdge && bOnCoast)
+      // {
+      //    for (int nn = 0; nn < static_cast<int>(pVbTraced->size()); nn++)
+      //    {
+      //       bool const bTraced = pVbTraced->at(nn);
+      //       if ((nn != nTraceFromStartCellIndex) && (! bTraced))
+      //       {
+      //          int const nXPoss = pV2DIPossibleStartCell->at(nn).nGetX();
+      //          int const nYPoss = pV2DIPossibleStartCell->at(nn).nGetY();
+      //
+      //          LogStream << "In 'Leave the edge' loop for [" << nX << "][" << nY << "] bTraced = " << bTraced << " nn = " << nn << " nTraceFromStartCellIndex = " << nTraceFromStartCellIndex << " possible start cell = [" << nXPoss << "][" << nYPoss << "]" << endl;
+      //
+      //          if ((nX == nXPoss) && (nY == nYPoss))
+      //          {
+      //             if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+      //                LogStream << m_ulIter << ":\t possible coastline found, traced from [" << nStartX << "][" << nStartY << "]  = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "}, ended at possible coast start cell at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+      //
+      //             pVbTraced->at(nn) = true;
+      //             bHitStartCell = true;
+      //             break;
+      //          }
+      //       }
+      //    }
+      // }
+      //
+      // if (bHitStartCell)
+      //    break;
 
       // OK now sort out the next iteration of the search
       int nXSeaward = 0;
@@ -1050,10 +1032,10 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
          if (m_pRasterGrid->m_Cell[nXSeaward][nYSeaward].bIsInContiguousSea())
          {
             // There is sea in this seaward direction, so we are on the coast
-            bAtCoast = true;
+            // bOnCoast = true;
 
             // Has the current cell already marked been marked as a coast cell?
-            if (! m_pRasterGrid->m_Cell[nX][nY].bIsCoastline())
+            if ((! ILTempGridCRS.bIsPresent(nX, nY)) && (! m_pRasterGrid->m_Cell[nX][nY].bIsCoastline()))
             {
                // Not already marked, is this an intervention cell with the top above SWL?
                if ((bIsInterventionCell(nX, nY)) && (m_pRasterGrid->m_Cell[nX][nY].dGetInterventionTopElev() >= m_dThisIterSWL))
@@ -1087,10 +1069,10 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
          if (m_pRasterGrid->m_Cell[nXStraightOn][nYStraightOn].bIsInContiguousSea())
          {
             // Sea is in front, so we are on the coast
-            bAtCoast = true;
+            // bOnCoast = true;
 
             // Has the current cell already marked been marked as a coast cell?
-            if (! m_pRasterGrid->m_Cell[nX][nY].bIsCoastline())
+            if ((! ILTempGridCRS.bIsPresent(nX, nY)) && (! m_pRasterGrid->m_Cell[nX][nY].bIsCoastline()))
             {
                // Not already marked, is this an intervention cell with the top above SWL?
                if ((bIsInterventionCell(nX, nY)) && (m_pRasterGrid->m_Cell[nX][nY].dGetInterventionTopElev() >= m_dThisIterSWL))
@@ -1123,10 +1105,10 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
          if (m_pRasterGrid->m_Cell[nXAntiSeaward][nYAntiSeaward].bIsInContiguousSea())
          {
             // There is sea on the anti-seaward side, so we are on the coast
-            bAtCoast = true;
+            // bOnCoast = true;
 
             // Has the current cell already marked been marked as a coast cell?
-            if (! m_pRasterGrid->m_Cell[nX][nY].bIsCoastline())
+            if ((! ILTempGridCRS.bIsPresent(nX, nY)) && (! m_pRasterGrid->m_Cell[nX][nY].bIsCoastline()))
             {
                // Not already marked, is this an intervention cell with the top above SWL?
                if ((bIsInterventionCell(nX, nY)) && (m_pRasterGrid->m_Cell[nX][nY].dGetInterventionTopElev() >= m_dThisIterSWL))
@@ -1176,9 +1158,9 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
    if (bOffEdge)
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ":\t **** TEST abandoning possible coastline from [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "} since hit off-edge cell at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}, coastline size is " << nCoastSize << endl;
+         LogStream << m_ulIter << ":\t abandoning possible coastline from [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "} since hit off-edge cell at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}, coastline size is " << nCoastSize << endl;
 
-      // return RTN_ERR_IGNORING_COAST;
+      return RTN_ERR_IGNORING_COAST;
    }
 
    if (bTooLong)
@@ -1245,6 +1227,19 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
          ILTempGridCRS.AppendIfNotPrevious(nEndX, nEndY);
          nCoastSize++;
       }
+   }
+
+   // Now flag the coast end cell so that it is no longer a possible coast start cell
+   for (int nn = 0; nn < static_cast<int>(pV2DIPossibleStartCell->size()); nn++)
+   {
+      if (nn == nTraceFromStartCellIndex)
+         continue;
+
+      int const nPossStartCellX = pV2DIPossibleStartCell->at(nn).nGetX();
+      int const nPossStartCellY = pV2DIPossibleStartCell->at(nn).nGetY();
+
+      if ((nEndX == nPossStartCellX) && (nEndY == nPossStartCellY))
+         pVbTraced->at(nn) = true;
    }
 
    // Need to specify start edge and end edge for smoothing routines

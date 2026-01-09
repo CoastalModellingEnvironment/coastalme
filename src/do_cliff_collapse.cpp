@@ -22,7 +22,7 @@
 #include <assert.h>
 
 #include <iostream>
-using std::cerr;
+// using std::cerr;
 using std::endl;
 using std::ios;
 
@@ -134,7 +134,7 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
                }
 
                // Deposit all sand and/or coarse sediment derived from this cliff collapse as talus, on the cell on which collapse occurred
-               DoCliffCollapseTalusDeposition(nCoast, pCliff, dSandCollapse, dCoarseCollapse, nNotchLayer);
+               DoCliffCollapseTalusDeposition(/*nCoast,*/ pCliff, dSandCollapse, dCoarseCollapse, nNotchLayer);
 
                // // DEBUG CODE ============================================================================================================================================
                // // Get total depths of sand consolidated and unconsolidated for every cell
@@ -435,8 +435,8 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    // Get the post-collapse cell elevation (talus will be deposited above this)
    dPostCollapseCellElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus();
 
-   if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-      LogStream << m_ulIter << ":\t coast " << nCoast << " cliff collapse at [" << nX << "][" << nY << "], before talus deposition: original cell elevation = " << dPreCollapseCellElev << ", new cell elevation = " << dPostCollapseCellElevNoTalus << ", change in elevation = " << dPreCollapseCellElev - dPostCollapseCellElevNoTalus << endl;
+   // if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
+   //    LogStream << m_ulIter << ":\t coast " << nCoast << " cliff collapse at [" << nX << "][" << nY << "], before talus deposition: original cell elevation = " << dPreCollapseCellElev << ", new cell elevation = " << dPostCollapseCellElevNoTalus << ", change in elevation = " << dPreCollapseCellElev - dPostCollapseCellElevNoTalus << endl;
 
    // Update this-polygon totals: add to the depths of cliff collapse erosion for this polygon
    pPolygon->AddCliffCollapseErosionFine(dFineCollapse);
@@ -575,7 +575,7 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
          // And add to the cell's accumulated wave energy
          m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->AddToAccumWaveEnergy(dWaveEnergy * dWeight);
 
-         LogStream << m_ulIter << ":\t incision of newly-created notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dNotchIncision = " << dNotchIncision << endl;
+         // LogStream << m_ulIter << ":\t incision of newly-created notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dNotchIncision = " << dNotchIncision << endl;
 
          return true;
       }
@@ -585,7 +585,7 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
          if ((nCoastPoint == 0) || (nCoastPoint == m_VCoast[nCoast].nGetCoastlineSize()-1))
             return false;
 
-         return bCreateNotchInland(nCoast, nCoastPoint, nX, nY, dWaveEnergy, dWaveElev);
+         return bCreateNotchInland(nCoast, nCoastPoint, /*nX, nY,*/ dWaveEnergy, dWaveElev);
       }
    }
 
@@ -596,9 +596,9 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
 //===============================================================================================================================
 //! If possible, creates an erosional notch further inland from a given coastline point
 //===============================================================================================================================
-bool CSimulation::bCreateNotchInland(int const nCoast, int const nCoastPoint, int const nX, int const nY, double const dWaveEnergy, double const dWaveElev)
+bool CSimulation::bCreateNotchInland(int const nCoast, int const nCoastPoint, /*int const nX, int const nY,*/ double const dWaveEnergy, double const dWaveElev)
 {
-   LogStream << m_ulIter << ":\t In bCreateNotchInland() for [" << nX << "][" << nY << "]" << endl;
+   // LogStream << m_ulIter << ":\t In bCreateNotchInland() for [" << nX << "][" << nY << "]" << endl;
 
    bool bFound = false;
    int const nSeaHandedness = m_VCoast[nCoast].nGetSeaHandedness();
@@ -641,10 +641,10 @@ bool CSimulation::bCreateNotchInland(int const nCoast, int const nCoastPoint, in
       if (dNotchApexElev < dSedTopElevNoTalus)
       {
          // Yes we can potentially create a notch here
-         if (bPreExistingNotch)
-            LogStream << m_ulIter << ":\t Incision of pre-existing inland cliff at [" << nXTmp << "][" << nYTmp << "] dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << endl;
-         else
-            LogStream << m_ulIter << ":\t Creation of new inland cliff at [" << nXTmp << "][" << nYTmp << "] dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << endl;
+         // if (bPreExistingNotch)
+         //    LogStream << m_ulIter << ":\t Incision of pre-existing inland cliff at [" << nXTmp << "][" << nYTmp << "] dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << endl;
+         // else
+         //    LogStream << m_ulIter << ":\t Creation of new inland cliff at [" << nXTmp << "][" << nYTmp << "] dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << endl;
 
          // Set the cell to be an inland cliff
          m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform()->SetLFCategory(LF_CLIFF_INLAND);
@@ -672,11 +672,11 @@ bool CSimulation::bCreateNotchInland(int const nCoast, int const nCoastPoint, in
          // And add to the cell's accumulated wave energy
          m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform()->AddToAccumWaveEnergy(dWaveEnergy * dWeight);
 
-         double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetAllSedTopElevIncTalus();
+         // double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetAllSedTopElevIncTalus();
 
-         assert(dNotchApexElev < dSedTopElevNoTalus);
+         // assert(dNotchApexElev < dSedTopElevNoTalus);
 
-         LogStream << m_ulIter << ":\t INLAND cliff created (or re-created) at [" << nXTmp << "][" << nYTmp << "] dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << " dNotchIncision = " << dNotchIncision << " dNotchApexElev = " << dNotchApexElev << endl;
+         // LogStream << m_ulIter << ":\t INLAND cliff created (or re-created) at [" << nXTmp << "][" << nYTmp << "] dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << " dNotchIncision = " << dNotchIncision << " dNotchApexElev = " << dNotchApexElev << endl;
 
          bFound = true;
       }
@@ -691,7 +691,7 @@ bool CSimulation::bCreateNotchInland(int const nCoast, int const nCoastPoint, in
 //===============================================================================================================================
 //! Deposit the unconsolidated sediment from cliff collapse as talus on the cell on which collapse occurred
 //===============================================================================================================================
-void CSimulation::DoCliffCollapseTalusDeposition(int const nCoast, CRWCliff const* pCliff, double const dSandFromCollapse, double const dCoarseFromCollapse, int const nNotchLayer)
+void CSimulation::DoCliffCollapseTalusDeposition(/*int const nCoast,*/ CRWCliff const* pCliff, double const dSandFromCollapse, double const dCoarseFromCollapse, int const nNotchLayer)
 {
    // Check: is there some sand- or coarse-sized sediment to deposit?
    if ((dSandFromCollapse + dCoarseFromCollapse) < SED_ELEV_TOLERANCE)
@@ -724,7 +724,7 @@ void CSimulation::DoCliffCollapseTalusDeposition(int const nCoast, CRWCliff cons
    // And update the cell's sea depth
    m_pRasterGrid->m_Cell[nX][nY].SetSeaDepth();
 
-   LogStream << m_ulIter << ";\tcoast " << nCoast << " cliff collapse talus deposition on [" << nX << "][" << nY << "] dSandFromCollapse = " << dSandFromCollapse << " dCoarseFromCollapse = " << dCoarseFromCollapse << " sea depth = " << m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth() << endl;
+   // LogStream << m_ulIter << ":\t coast " << nCoast << " cliff collapse talus deposition on [" << nX << "][" << nY << "] dSandFromCollapse = " << dSandFromCollapse << " dCoarseFromCollapse = " << dCoarseFromCollapse << " sea depth = " << m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth() << endl;
 }
 
 //===============================================================================================================================
@@ -765,7 +765,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
             if (dWaveElev < dThisTalusBottomElev)
             {
                // No talus moved
-               LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] since waves do not reach talus base: dWaveElev = " << dWaveElev << " dThisTalusBottomElev = " << dThisTalusBottomElev << endl;
+               // LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] since waves do not reach talus base: dWaveElev = " << dWaveElev << " dThisTalusBottomElev = " << dThisTalusBottomElev << endl;
 
                continue;
             }
@@ -789,7 +789,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                continue;
             }
 
-            LogStream << m_ulIter << ":\t talus potentially moved from [" << nX << "][" << nY << "] dThisTalusBottomElev = " << dThisTalusBottomElev << " dThisTalusTopElev = " << dThisTalusTopElev << " dWeight = " << dWeight << endl;
+            // LogStream << m_ulIter << ":\t talus potentially moved from [" << nX << "][" << nY << "] dThisTalusBottomElev = " << dThisTalusBottomElev << " dThisTalusTopElev = " << dThisTalusTopElev << " dWeight = " << dWeight << endl;
 
             // Next, determine the cells to which talus will be moved. Find all surrounding cells with a top elevation (including talus) which is less than the top elevation (including talus) of this cell
             double dAdjElev;
@@ -946,7 +946,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
             if (nLower == 0)
             {
                // None of the adjacent cells are lower
-               LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] since no adjacent cells are lower" << endl;
+               // LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] since no adjacent cells are lower" << endl;
 
                continue;
             }
@@ -990,7 +990,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                   dTalusSandToMove -= dActualDepthToMove;
                   dTalusSandMoved += dActualDepthToMove;
 
-                  assert(dTalusSandToMove >= 0.0);
+                  // assert(dTalusSandToMove >= 0.0);
 
                   // Set the changed-this-timestep switch re. the adjacent cell
                   m_bUnconsChangedThisIter[nTopLayer] = true;
@@ -1017,7 +1017,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                   dTalusCoarseToMove -= dActualDepthToMove;
                   dTalusCoarseMoved += dActualDepthToMove;
 
-                  assert(dTalusCoarseToMove >= 0.0);
+                  // assert(dTalusCoarseToMove >= 0.0);
 
                   LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " talus coarse deposited at [" << nXAdj << "][" << nYAdj << "], talus coarse still to deposit on [" << nX << "][" << nY << "] = " << std::scientific << dTalusCoarseToMove << " talus coarse removed = " << dTalusCoarseMoved << std::fixed << endl;
 

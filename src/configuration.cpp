@@ -18,9 +18,9 @@
 
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ==============================================================================================================================*/
-#include <algorithm>
-#include <string>
-#include <cctype>
+// #include <algorithm>
+// #include <string>
+// #include <cctype>
 
 #include "cme.h"
 #include "configuration.h"
@@ -186,9 +186,9 @@ void CConfiguration::GetRasterFiles(vector<string>* pVStrIn) const
    // Case 11: Raster GIS files to output - expand "all" and "usual" keywords
    for (string const &fileSpec : m_VstrRasterFiles)
    {
-      string fileSpecLower = CSimulation::strToLower(&fileSpec);
+      string const strFileSpecLower = CSimulation::strToLower(&fileSpec);
 
-      if (fileSpecLower == "all")
+      if (strFileSpecLower == "all")
       {
          // Add all possible raster outputs (Case 11 "all" mode)
          pVStrIn->insert(pVStrIn->end(),
@@ -243,7 +243,7 @@ void CConfiguration::GetRasterFiles(vector<string>* pVStrIn) const
                                "polygon_uncons_sediment_up_or_down_drift",
                                "polygon_uncons_sediment_gain_or_loss"});
       }
-      else if (fileSpecLower == "usual")
+      else if (strFileSpecLower == "usual")
       {
          // Add usual/standard raster outputs (Case 11 "usual" mode)
          pVStrIn->insert(pVStrIn->end(),
@@ -295,7 +295,7 @@ void CConfiguration::GetRasterFiles(vector<string>* pVStrIn) const
                                "coarse_uncons",
                                "coarse_cons"});
       }
-      else if (fileSpecLower == "cmetools")
+      else if (strFileSpecLower == "cmetools")
       {
          // Add usual/standard raster outputs (Case 11 "usual" mode)
          pVStrIn->insert(pVStrIn->end(),
@@ -322,7 +322,7 @@ void CConfiguration::GetRasterFiles(vector<string>* pVStrIn) const
                                "coast_normal",
                                "coastline"});
       }
-      else if (fileSpecLower == "" or fileSpecLower == "none")
+      else if (strFileSpecLower == "" or strFileSpecLower == "none")
       {
          // Do nothing
       }
@@ -342,19 +342,19 @@ void CConfiguration::GetVectorFiles(vector<string>* pVStrIn) const
    // Case 16: Vector GIS files to output - expand "all" and "usual" keywords
    for (string const &fileSpec : m_VstrVectorFiles)
    {
-      string fileSpecLower = CSimulation::strToLower(&fileSpec);
+      string const strFileSpecLower = CSimulation::strToLower(&fileSpec);
 
-      if (fileSpecLower == "all")
+      if (strFileSpecLower == "all")
       {
          // Add all possible vector outputs (Case 16 "all" mode)
          pVStrIn->insert(pVStrIn->end(), {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals", "avg_wave_angle", "wave_energy", "mean_wave_energy", "breaking_wave_height", "coast_curvature", "polygon_node", "polygon", "cliff_notch", "wave_transect_points", "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle", "wave_setup", "storm_surge", "run_up", "flood_line"});
       }
-      else if (fileSpecLower == "usual")
+      else if (strFileSpecLower == "usual")
       {
          // Add usual/standard vector outputs (Case 16 "usual" mode)
          pVStrIn->insert(pVStrIn->end(), {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals", "avg_wave_angle", "wave_energy", "mean_wave_energy", "breaking_wave_height", "polygon", "cliff_notch",            "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle"});
       }
-      else if ((fileSpecLower == "") or (fileSpecLower == "none"))
+      else if ((strFileSpecLower == "") or (strFileSpecLower == "none"))
       {
          // Do nothing
       }
@@ -374,14 +374,14 @@ void CConfiguration::GetTimeSeriesFiles(vector<string>* pVStrIn) const
    // Case 18: Timeseries files to output - expand "all" and "usual" keywords
    for (string const &fileSpec : m_VstrVectorFiles)
    {
-      string fileSpecLower = CSimulation::strToLower(&fileSpec);
+      string const strFileSpecLower = CSimulation::strToLower(&fileSpec);
 
-      if (fileSpecLower == "all")
+      if (strFileSpecLower == "all")
       {
          // Add all possible vector outputs (Case 16 "all" mode)
          pVStrIn->insert(pVStrIn->end(), {"wave_setup", "wave_runup", "beach_change_net", "beach_deposition", "beach_erosion", "cliff_collapse_deposition", "cliff_collapse_erosion", "cliff_collapse_net", "platform_erosion", "sea_area", "suspended", "water_level"});
       }
-      else if (fileSpecLower == "" or fileSpecLower == "none")
+      else if (strFileSpecLower == "" or strFileSpecLower == "none")
       {
          // Do nothing
       }
@@ -401,14 +401,14 @@ void CConfiguration::GetFloodFiles(vector<string>* pVStrIn) const
    // Case 18: Timeseries files to output - expand "all" and "usual" keywords
    for (string const &fileSpec : m_VstrVectorFiles)
    {
-      string fileSpecLower = CSimulation::strToLower(&fileSpec);
+      string const strFileSpecLower = CSimulation::strToLower(&fileSpec);
 
-      if (fileSpecLower == "all")
+      if (strFileSpecLower == "all")
       {
          // Add all possible vector outputs (Case 16 "all" mode)
          pVStrIn->insert(pVStrIn->end(), {});
       }
-      else if (fileSpecLower == "" or fileSpecLower == "none")
+      else if (strFileSpecLower == "" or strFileSpecLower == "none")
       {
          // Do nothing
       }

@@ -1149,7 +1149,7 @@ class KDTreeBaseClass
     NodePtr divideTree(
         Derived& obj, const Offset left, const Offset right, BoundingBox& bbox)
     {
-        assert(left < obj.dataset_.kdtree_get_point_count());
+        // assert(left < obj.dataset_.kdtree_get_point_count());
 
         NodePtr node = obj.pool_.template allocate<Node>();  // allocate memory
         const auto dims = (DIM > 0 ? DIM : obj.dim_);
@@ -1430,7 +1430,7 @@ class KDTreeBaseClass
         const Derived& obj, const ElementType* vec,
         distance_vector_t& dists) const
     {
-        assert(vec);
+        // assert(vec);
         DistanceType dist = DistanceType();
 
         for (Dimension i = 0; i < (DIM > 0 ? DIM : obj.dim_); ++i)
@@ -1709,7 +1709,7 @@ class KDTreeSingleIndexAdaptor
         RESULTSET& result, const ElementType* vec,
         const SearchParameters& searchParams = {}) const
     {
-        assert(vec);
+        // assert(vec);
         if (this->size(*this) == 0) return false;
         if (!Base::root_node_)
             throw std::runtime_error(
@@ -2181,7 +2181,7 @@ class KDTreeSingleIndexDynamicAdaptor_
         RESULTSET& result, const ElementType* vec,
         const SearchParameters& searchParams = {}) const
     {
-        assert(vec);
+        // assert(vec);
         if (this->size(*this) == 0) return false;
         if (!Base::root_node_) return false;
         float epsError = 1 + searchParams.eps;

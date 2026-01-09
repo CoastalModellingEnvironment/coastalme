@@ -67,6 +67,13 @@ int CSimulation::nCreateAllProfiles(void)
 
    for (unsigned int nCoast = 0; nCoast < m_VCoast.size(); nCoast++)
    {
+      // DEBUG CODE ==============================================================================================================
+      if ((m_ulIter == 851) && (nCoast == 1))
+      {
+         LogStream <<  "=================" << endl;
+      }
+      // DEBUG CODE ==============================================================================================================
+
       int nProfile = 0;
       int const nCoastSize = m_VCoast[nCoast].nGetCoastlineSize();
 
@@ -621,7 +628,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
       }
 
       // Have we hit a corner point?
-      CGeom2DIPoint Pti = m_VPtiAllEdgeCell[nPos];
+      CGeom2DIPoint const Pti = m_VPtiAllEdgeCell[nPos];
       it = find(m_VPtiBoundingBoxCorner.begin(), m_VPtiBoundingBoxCorner.end(), Pti);
       if (it != m_VPtiBoundingBoxCorner.end())
       {

@@ -1,21 +1,9 @@
-calc_waves.cpp:508:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
+assign_landforms.cpp:138:55: style: Variable 'dSedTopElevIncTalus' is assigned a value that is never used. [unreadVariable]
+                     double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
+                                                      ^
+calc_waves.cpp:506:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-create_profiles.cpp:624:12: style: Local variable 'it' shadows outer variable [shadowVariable]
-      auto it = find(m_VPtiBoundingBoxCorner.begin(), m_VPtiBoundingBoxCorner.end(), Pti);
-           ^
-create_profiles.cpp:554:9: note: Shadowed declaration
-   auto it = find(m_VPtiAllEdgeCell.begin(), m_VPtiAllEdgeCell.end(), PtiProfileStart);
-        ^
-create_profiles.cpp:624:12: note: Shadow variable
-      auto it = find(m_VPtiBoundingBoxCorner.begin(), m_VPtiBoundingBoxCorner.end(), Pti);
-           ^
-create_profiles.cpp:542:25: style: Variable 'nProfileStartEdge' is assigned a value that is never used. [unreadVariable]
-      nProfileStartEdge = m_VCoast[nCoast].nGetStartEdge();
-                        ^
-create_profiles.cpp:548:25: style: Variable 'nProfileStartEdge' is assigned a value that is never used. [unreadVariable]
-      nProfileStartEdge = m_VCoast[nCoast].nGetEndEdge();
-                        ^
 do_uncons_sediment_slumping.cpp:176:14: style: struct member 'Neighbour::slope' is never used. [unusedStructMember]
       double slope;
              ^
@@ -49,13 +37,13 @@ nanoflann.hpp:831:5: style: Struct 'SearchParameters' has a constructor with 1 a
 nanoflann.hpp:633:5: style: Struct 'L2_Simple_Adaptor < double , PointCloud , double , long >' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
     L2_Simple_Adaptor(const DataSource& _data_source)
     ^
-gis_raster.cpp:168:11: style: Condition '!m_strGDALBasementDEMProjection.empty()' is always true [knownConditionTrueFalse]
+gis_raster.cpp:157:11: style: Condition '!m_strGDALBasementDEMProjection.empty()' is always true [knownConditionTrueFalse]
       if (! m_strGDALBasementDEMProjection.empty())
           ^
-gis_raster.cpp:149:44: note: Assuming that condition 'm_strGDALBasementDEMProjection.empty()' is not redundant
+gis_raster.cpp:138:44: note: Assuming that condition 'm_strGDALBasementDEMProjection.empty()' is not redundant
    if (m_strGDALBasementDEMProjection.empty())
                                            ^
-gis_raster.cpp:168:11: note: Condition '!m_strGDALBasementDEMProjection.empty()' is always true
+gis_raster.cpp:157:11: note: Condition '!m_strGDALBasementDEMProjection.empty()' is always true
       if (! m_strGDALBasementDEMProjection.empty())
           ^
 nanoflann.hpp:694:29: style: Redundant initialization for 'result'. The initialized value is overwritten before it is read. [redundantInitialization]
@@ -79,154 +67,154 @@ nanoflann.hpp:693:22: note: Shadow variable
 nanoflann.hpp:2091:44: style: Consider using std::fill or std::generate algorithm instead of a raw loop. [useStlAlgorithm]
         for (auto& v : Base::root_bbox_) v = {};
                                            ^
-gis_raster.cpp:2229:15: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+gis_raster.cpp:2202:15: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       nPoints += static_cast<unsigned int>(transect.VdX.size());
               ^
 nanoflann.hpp:2554:13: performance: Prefer prefix ++/-- operators for non-primitive types. [postfixOperator]
             pointCount_++;
             ^
-read_input.cpp:4779:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4777:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
+                         ^
+read_input.cpp:4779:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+            strNumeric = strNumeric.substr(0, strNumeric.find("day"));
                          ^
 read_input.cpp:4781:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
-            strNumeric = strNumeric.substr(0, strNumeric.find("day"));
+            strNumeric = strNumeric.substr(0, strNumeric.find("month"));
                          ^
 read_input.cpp:4783:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
-            strNumeric = strNumeric.substr(0, strNumeric.find("month"));
-                         ^
-read_input.cpp:4785:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("year"));
                          ^
-read_input.cpp:4806:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4804:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
                          ^
-read_input.cpp:4808:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4806:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
                          ^
-read_input.cpp:4810:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4808:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("month"));
                          ^
-read_input.cpp:4812:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4810:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("year"));
                          ^
-read_input.cpp:4664:27: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:4662:27: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
                   vecNums.push_back(node.nGetIntValue());
                           ^
-read_input.cpp:4676:28: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:4674:28: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
                   vecTimes.push_back(node.GetULongValue());
                            ^
-read_input.cpp:4910:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
+read_input.cpp:4908:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
       strErr = "max save digits for GIS output file names must be > 1";
              ^
-spatial_interpolation.cpp:96:4: warning: Class 'SpatialInterpolator' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
+spatial_interpolation.cpp:97:4: warning: Class 'SpatialInterpolator' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
    m_kdtree = new KDTree(2, m_cloud, {10 /* max leaf size */});
    ^
-spatial_interpolation.cpp:96:4: warning: Class 'SpatialInterpolator' does not have a operator= which is recommended since it has dynamic memory/resource allocation(s). [noOperatorEq]
+spatial_interpolation.cpp:97:4: warning: Class 'SpatialInterpolator' does not have a operator= which is recommended since it has dynamic memory/resource allocation(s). [noOperatorEq]
    m_kdtree = new KDTree(2, m_cloud, {10 /* max leaf size */});
    ^
-spatial_interpolation.cpp:304:4: warning: Class 'DualSpatialInterpolator' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
+spatial_interpolation.cpp:305:4: warning: Class 'DualSpatialInterpolator' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
    m_kdtree = new KDTree(2, m_cloud, {10 /* max leaf size */});
    ^
-spatial_interpolation.cpp:304:4: warning: Class 'DualSpatialInterpolator' does not have a operator= which is recommended since it has dynamic memory/resource allocation(s). [noOperatorEq]
+spatial_interpolation.cpp:305:4: warning: Class 'DualSpatialInterpolator' does not have a operator= which is recommended since it has dynamic memory/resource allocation(s). [noOperatorEq]
    m_kdtree = new KDTree(2, m_cloud, {10 /* max leaf size */});
    ^
-spatial_interpolation.cpp:251:37: style: Variable 'indices' is assigned a value that is never used. [unreadVariable]
+spatial_interpolation.cpp:252:37: style: Variable 'indices' is assigned a value that is never used. [unreadVariable]
    std::vector<unsigned int> indices(k);
                                     ^
-spatial_interpolation.cpp:252:32: style: Variable 'sq_dists' is assigned a value that is never used. [unreadVariable]
+spatial_interpolation.cpp:253:32: style: Variable 'sq_dists' is assigned a value that is never used. [unreadVariable]
    std::vector<double> sq_dists(k);
                                ^
 yaml_parser.cpp:167:18: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
       VstrResult.push_back(*node.pstrGetValue());
                  ^
-2di_shape.cpp:53:0: style: The function 'Clear' is never used. [unusedFunction]
+2di_shape.cpp:54:0: style: The function 'Clear' is never used. [unusedFunction]
 void CA2DIShape::Clear(void)
 ^
-cell.cpp:143:0: style: The function 'UnSetInContiguousFlood' is never used. [unusedFunction]
-void CGeomCell::UnSetInContiguousFlood(void)
-^
-cell.cpp:173:0: style: The function 'bIsInContiguousSeaFlood' is never used. [unusedFunction]
-bool CGeomCell::bIsInContiguousSeaFlood(void) const
-^
-cell.cpp:209:0: style: The function 'bIsPossibleCoastStartCell' is never used. [unusedFunction]
+cell.cpp:210:0: style: The function 'bIsPossibleCoastStartCell' is never used. [unusedFunction]
 bool CGeomCell::bIsPossibleCoastStartCell(void) const
 ^
-cell.cpp:215:0: style: The function 'SetPossibleFloodStartCell' is never used. [unusedFunction]
+cell.cpp:216:0: style: The function 'SetPossibleFloodStartCell' is never used. [unusedFunction]
 void CGeomCell::SetPossibleFloodStartCell(void)
 ^
-cell.cpp:221:0: style: The function 'bIsPossibleFloodStartCell' is never used. [unusedFunction]
+cell.cpp:222:0: style: The function 'bIsPossibleFloodStartCell' is never used. [unusedFunction]
 bool CGeomCell::bIsPossibleFloodStartCell(void) const
 ^
-cell.cpp:233:0: style: The function 'bActualPlatformErosion' is never used. [unusedFunction]
+cell.cpp:234:0: style: The function 'bActualPlatformErosion' is never used. [unusedFunction]
 bool CGeomCell::bActualPlatformErosion(void) const
 ^
-cell.cpp:272:0: style: The function 'SetAsFloodline' is never used. [unusedFunction]
-void CGeomCell::SetAsFloodline(bool const bNewFlag)
+cell.cpp:413:0: style: The function 'bElevLessThanSWL' is never used. [unusedFunction]
+bool CGeomCell::bElevLessThanSWL(void) const
 ^
-cell.cpp:380:0: style: The function 'SetWaveFlood' is never used. [unusedFunction]
-void CGeomCell::SetWaveFlood(void)
+cell.cpp:435:0: style: The function 'SetCheckFloodCell' is never used. [unusedFunction]
+void CGeomCell::SetCheckFloodCell(void)
 ^
-cell.cpp:440:0: style: The function 'UnSetCheckFloodCell' is never used. [unusedFunction]
+cell.cpp:441:0: style: The function 'UnSetCheckFloodCell' is never used. [unusedFunction]
 void CGeomCell::UnSetCheckFloodCell(void)
 ^
-cell.cpp:1108:0: style: The function 'AddSandTalusToUncons' is never used. [unusedFunction]
+cell.cpp:447:0: style: The function 'bIsCellFloodCheck' is never used. [unusedFunction]
+bool CGeomCell::bIsCellFloodCheck(void) const
+^
+cell.cpp:1109:0: style: The function 'AddSandTalusToUncons' is never used. [unusedFunction]
 void CGeomCell::AddSandTalusToUncons(double const dSandTalus)
 ^
-cell.cpp:1115:0: style: The function 'dGetThisIterSandTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1116:0: style: The function 'dGetThisIterSandTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetThisIterSandTalusToUncons(void)
 ^
-cell.cpp:1121:0: style: The function 'dGetTotSandTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1122:0: style: The function 'dGetTotSandTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetTotSandTalusToUncons(void)
 ^
-cell.cpp:1127:0: style: The function 'AddCoarseTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1128:0: style: The function 'AddCoarseTalusToUncons' is never used. [unusedFunction]
 void CGeomCell::AddCoarseTalusToUncons(double const dCoarseTalus)
 ^
-cell.cpp:1134:0: style: The function 'dGetThisIterCoarseTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1135:0: style: The function 'dGetThisIterCoarseTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetThisIterCoarseTalusToUncons(void)
 ^
-cell.cpp:1140:0: style: The function 'dGetTotCoarseTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1141:0: style: The function 'dGetTotCoarseTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetTotCoarseTalusToUncons(void)
 ^
-cell.cpp:1243:0: style: The function 'dGetTotAvalancheDeposition' is never used. [unusedFunction]
+cell.cpp:1244:0: style: The function 'dGetTotAvalancheDeposition' is never used. [unusedFunction]
 double CGeomCell::dGetTotAvalancheDeposition(void) const
 ^
-cell_talus.cpp:76:0: style: The function 'dGetSandAddedThisIter' is never used. [unusedFunction]
+cell_talus.cpp:77:0: style: The function 'dGetSandAddedThisIter' is never used. [unusedFunction]
 double CRWCellTalus::dGetSandAddedThisIter(void) const
 ^
-cell_talus.cpp:82:0: style: The function 'dGetSandLostThisIter' is never used. [unusedFunction]
+cell_talus.cpp:83:0: style: The function 'dGetSandLostThisIter' is never used. [unusedFunction]
 double CRWCellTalus::dGetSandLostThisIter(void) const
 ^
-cell_talus.cpp:88:0: style: The function 'dGetTotSandAdded' is never used. [unusedFunction]
+cell_talus.cpp:89:0: style: The function 'dGetTotSandAdded' is never used. [unusedFunction]
 double CRWCellTalus::dGetTotSandAdded(void) const
 ^
-cell_talus.cpp:94:0: style: The function 'dGetTotSandLost' is never used. [unusedFunction]
+cell_talus.cpp:95:0: style: The function 'dGetTotSandLost' is never used. [unusedFunction]
 double CRWCellTalus::dGetTotSandLost(void) const
 ^
-cell_talus.cpp:100:0: style: The function 'dGetCoarseAddedThisIter' is never used. [unusedFunction]
+cell_talus.cpp:101:0: style: The function 'dGetCoarseAddedThisIter' is never used. [unusedFunction]
 double CRWCellTalus::dGetCoarseAddedThisIter(void) const
 ^
-cell_talus.cpp:106:0: style: The function 'dGetCoarseLostThisIter' is never used. [unusedFunction]
+cell_talus.cpp:107:0: style: The function 'dGetCoarseLostThisIter' is never used. [unusedFunction]
 double CRWCellTalus::dGetCoarseLostThisIter(void) const
 ^
-cell_talus.cpp:112:0: style: The function 'dGetTotCoarseAdded' is never used. [unusedFunction]
+cell_talus.cpp:113:0: style: The function 'dGetTotCoarseAdded' is never used. [unusedFunction]
 double CRWCellTalus::dGetTotCoarseAdded(void) const
 ^
-cell_talus.cpp:118:0: style: The function 'dGetTotCoarseLost' is never used. [unusedFunction]
+cell_talus.cpp:119:0: style: The function 'dGetTotCoarseLost' is never used. [unusedFunction]
 double CRWCellTalus::dGetTotCoarseLost(void) const
 ^
-coast.cpp:205:0: style: The function 'pILGetCoastlineGridCRS' is never used. [unusedFunction]
+coast.cpp:206:0: style: The function 'pILGetCoastlineGridCRS' is never used. [unusedFunction]
 CGeomILine* CRWCoast::pILGetCoastlineGridCRS(void)
 ^
-coast_polygon.cpp:581:0: style: The function 'AddCliffCollapseUnconsSandDeposition' is never used. [unusedFunction]
+coast.cpp:623:0: style: The function 'dGetLevel' is never used. [unusedFunction]
+double CRWCoast::dGetLevel(int const nCoastPoint, int const level) const
+^
+coast_polygon.cpp:582:0: style: The function 'AddCliffCollapseUnconsSandDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseUnconsSandDeposition(double const dDepth)
 ^
-coast_polygon.cpp:593:0: style: The function 'AddCliffCollapseUnconsCoarseDeposition' is never used. [unusedFunction]
+coast_polygon.cpp:594:0: style: The function 'AddCliffCollapseUnconsCoarseDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseUnconsCoarseDeposition(double const dDepth)
 ^
-coast_polygon.cpp:605:0: style: The function 'AddCliffCollapseSandErodedDeanProfile' is never used. [unusedFunction]
+coast_polygon.cpp:606:0: style: The function 'AddCliffCollapseSandErodedDeanProfile' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseSandErodedDeanProfile(double const dDepth)
 ^
-coast_polygon.cpp:617:0: style: The function 'AddCliffCollapseCoarseErodedDeanProfile' is never used. [unusedFunction]
+coast_polygon.cpp:618:0: style: The function 'AddCliffCollapseCoarseErodedDeanProfile' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseCoarseErodedDeanProfile(double const dDepth)
 ^
 configuration.h:216:0: style: The function 'UseSystemTimeForSeed' is never used. [unusedFunction]
@@ -241,37 +229,37 @@ configuration.h:261:0: style: The function 'SetVectorFormat' is never used. [unu
 configuration.h:266:0: style: The function 'SetTimeSeriesFiles' is never used. [unusedFunction]
    void SetTimeSeriesFiles(vector<string> const &vec)
 ^
-configuration.h:553:0: style: The function 'SetFloodFiles' is never used. [unusedFunction]
+configuration.h:552:0: style: The function 'SetFloodFiles' is never used. [unusedFunction]
    void SetFloodFiles(vector<string> const*v)
 ^
-configuration.h:889:0: style: The function 'pstrGetWaveInputMode' is never used. [unusedFunction]
+configuration.h:888:0: style: The function 'pstrGetWaveInputMode' is never used. [unusedFunction]
    string const* pstrGetWaveInputMode() const
 ^
-configuration.h:1037:0: style: The function 'dGetCliffDepositionA' is never used. [unusedFunction]
+configuration.h:1036:0: style: The function 'dGetCliffDepositionA' is never used. [unusedFunction]
    double dGetCliffDepositionA() const
 ^
-configuration.h:1065:0: style: The function 'pstrGetFloodCoastline' is never used. [unusedFunction]
+configuration.h:1064:0: style: The function 'pstrGetFloodCoastline' is never used. [unusedFunction]
    string const* pstrGetFloodCoastline() const
 ^
-configuration.h:1080:0: style: The function 'pstrGetFloodInputLocation' is never used. [unusedFunction]
+configuration.h:1079:0: style: The function 'pstrGetFloodInputLocation' is never used. [unusedFunction]
    string const* pstrGetFloodInputLocation() const
 ^
-configuration.h:1101:0: style: The function 'pstrGetSedimentInputDetails' is never used. [unusedFunction]
+configuration.h:1100:0: style: The function 'pstrGetSedimentInputDetails' is never used. [unusedFunction]
    string const* pstrGetSedimentInputDetails() const
 ^
-configuration.h:1127:0: style: The function 'dGetStartDepthRatio' is never used. [unusedFunction]
+configuration.h:1126:0: style: The function 'dGetStartDepthRatio' is never used. [unusedFunction]
    double dGetStartDepthRatio() const
 ^
-configuration.h:1174:0: style: The function 'nGetCliffEdgeSmoothingWindow' is never used. [unusedFunction]
+configuration.h:1173:0: style: The function 'nGetCliffEdgeSmoothingWindow' is never used. [unusedFunction]
    int nGetCliffEdgeSmoothingWindow() const
 ^
-configuration.h:1179:0: style: The function 'nGetCliffEdgePolynomialOrder' is never used. [unusedFunction]
+configuration.h:1178:0: style: The function 'nGetCliffEdgePolynomialOrder' is never used. [unusedFunction]
    int nGetCliffEdgePolynomialOrder() const
 ^
-do_surge_flood.cpp:45:0: style: The function 'FloodFillLand' is never used. [unusedFunction]
-void CSimulation::FloodFillLand(int const nXStart, int const nYStart)
+gis_utils.cpp:1797:0: style: The function 'nGetOppositeDirection' is never used. [unusedFunction]
+int CSimulation::nGetOppositeDirection(int const nDirection)
 ^
-gis_utils.cpp:1969:0: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]
+gis_utils.cpp:1964:0: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]
 bool CSimulation::bIsAdjacentEdgeCell(CGeom2DIPoint const* pPt1, CGeom2DIPoint const* pPt2)
 ^
 nanoflann.hpp:427:0: style: The function 'worst_item' is never used. [unusedFunction]
@@ -301,16 +289,16 @@ nanoflann.hpp:2690:0: style: The function 'query' is never used. [unusedFunction
 nanoflann.hpp:2702:0: style: The function 'derived' is never used. [unusedFunction]
     const self_t& derived() const { return *this; }
 ^
-spatial_interpolation.h:124:0: style: The function 'GetKDTree' is never used. [unusedFunction]
+spatial_interpolation.h:118:0: style: The function 'GetKDTree' is never used. [unusedFunction]
    KDTree const* GetKDTree() const { return m_kdtree; }
 ^
-spatial_interpolation.h:127:0: style: The function 'GetPointCloud' is never used. [unusedFunction]
+spatial_interpolation.h:121:0: style: The function 'GetPointCloud' is never used. [unusedFunction]
    PointCloud const& GetPointCloud() const { return m_cloud; }
 ^
-utils.cpp:2442:0: style: The function 'pstrChangeToBackslash' is never used. [unusedFunction]
+utils.cpp:2446:0: style: The function 'pstrChangeToBackslash' is never used. [unusedFunction]
 string CSimulation::pstrChangeToBackslash(string const* strIn)
 ^
-utils.cpp:2452:0: style: The function 'pstrChangeToForwardSlash' is never used. [unusedFunction]
+utils.cpp:2456:0: style: The function 'pstrChangeToForwardSlash' is never used. [unusedFunction]
 string CSimulation::pstrChangeToForwardSlash(string const* strIn)
 ^
 yaml_parser.cpp:100:0: style: The function 'nGetSequenceSize' is never used. [unusedFunction]

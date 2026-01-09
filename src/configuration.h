@@ -9,6 +9,8 @@
    \copyright GNU General Public License
 */
 
+#ifndef CONFIGURATION_H
+#define CONFIGURATION_H
 /* ==============================================================================================================================
    This file is part of CoastalME, the Coastal Modelling Environment.
 
@@ -18,8 +20,6 @@
 
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ==============================================================================================================================*/
-#ifndef CONFIGURATION_H
-#define CONFIGURATION_H
 
 #include <algorithm>
 

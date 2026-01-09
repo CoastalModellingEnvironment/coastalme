@@ -18,9 +18,9 @@ You should have received a copy of the GNU General Public License along with thi
 ===============================================================================================================================*/
 #include <assert.h>
 
-#include <cmath>
+// #include <cmath>
 
-#include <vector>
+// #include <vector>
 
 #include <queue>
 using std::priority_queue;
@@ -33,8 +33,8 @@ using std::pair;
 using std::make_pair;
 
 #include <iostream>
-using std::cerr;
-using std::cout;
+// using std::cerr;
+// using std::cout;
 using std::endl;
 
 #include "cme.h"
@@ -158,9 +158,9 @@ set<pair<int, int>> CSimulation::prDoSlumpRedistributeSediment(int const nX, int
 
    // Get unconsolidated sediment depths from top layer
    CRWCellSediment* pUnconsolidated = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment();
-   double dSand = pUnconsolidated->dGetSandDepth();
-   double dCoarse = pUnconsolidated->dGetCoarseDepth();
-   double dFine = pUnconsolidated->dGetFineDepth();
+   double const dSand = pUnconsolidated->dGetSandDepth();
+   double const dCoarse = pUnconsolidated->dGetCoarseDepth();
+   double const dFine = pUnconsolidated->dGetFineDepth();
 
    double const dTotalDepth = dSand + dCoarse + dFine;
 

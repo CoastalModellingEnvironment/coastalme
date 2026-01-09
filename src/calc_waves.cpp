@@ -41,6 +41,9 @@ using std::ifstream;
 #include <algorithm>
 using std::reverse_copy;
 
+#include <utility>
+using std::move;
+
 #include "cme.h"
 #include "coast.h"
 #include "simulation.h"
@@ -303,12 +306,12 @@ int CSimulation::nDoAllPropagateWaves(void)
    vector<TransectWaveData> VAllTransects;
 
    // Set up all-profile vectors to hold the wave attribute data at every profile point on all profiles
-   vector<bool> VbBreakingAll;
+   const vector<bool> VbBreakingAll;
 
-   vector<double> VdXAll;
-   vector<double> VdYAll;
-   vector<double> VdHeightXAll;
-   vector<double> VdHeightYAll;
+   const vector<double> VdXAll;
+   const vector<double> VdYAll;
+   const vector<double> VdHeightXAll;
+   const vector<double> VdHeightYAll;
 
    // Calculate wave properties for every coast
    bool bSomeNonStartOrEndOfCoastProfiles = false;
@@ -368,7 +371,7 @@ int CSimulation::nDoAllPropagateWaves(void)
          transect.bIsGridEdge = pProfile->bIsGridEdge();
 
          // Add this transect to the collection
-         VAllTransects.push_back(std::move(transect));
+         VAllTransects.push_back(move(transect));
       }
 
       bDownCoast = ! bDownCoast;

@@ -60,7 +60,17 @@
 //! double result = interp.Interpolate(5.0, 5.0);  // Interpolate at (5,5)
 //!
 //===============================================================================================================================
+#include <cstdio>
+using std::size_t;
+
+#include <vector>
+using std::vector;
+
+#include <algorithm>
+using std::min;
+
 #include <stdexcept>
+using std::invalid_argument;
 
 #include "spatial_interpolation.h"
 #include "cme.h"
@@ -77,17 +87,14 @@
 //! @param k_neighbors Number of nearest neighbors to use (default: 12)
 //! @param power       IDW power parameter (default: 2.0)
 //===============================================================================================================================
-SpatialInterpolator::SpatialInterpolator(std::vector<Point2D> const& points,
-                                         std::vector<double> const& values,
-                                         int k_neighbors,
-                                         double power)
+SpatialInterpolator::SpatialInterpolator(vector<Point2D> const& points, vector<double> const& values, int k_neighbors, double power)
    : m_values(values), m_kdtree(nullptr), m_k_neighbors(k_neighbors), m_power(power), m_owns_kdtree(true)
 {
    if (points.size() != values.size())
-      throw std::invalid_argument("Points and values must have same size");
+      throw invalid_argument("Points and values must have same size");
 
    if (points.empty())
-      throw std::invalid_argument("Cannot create interpolator with empty data");
+      throw invalid_argument("Cannot create interpolator with empty data");
 
    // Copy input points into point cloud structure
    m_cloud.pts = points;
@@ -98,11 +105,7 @@ SpatialInterpolator::SpatialInterpolator(std::vector<Point2D> const& points,
    m_kdtree->buildIndex();
 }
 
-SpatialInterpolator::SpatialInterpolator(PointCloud const& cloud,
-                                         KDTree* kdtree,
-                                         std::vector<double> const& values,
-                                         int k_neighbors,
-                                         double power)
+SpatialInterpolator::SpatialInterpolator(PointCloud const& cloud, KDTree* kdtree, vector<double> const& values, int k_neighbors, double power)
    : m_cloud(cloud), m_values(values), m_kdtree(kdtree), m_k_neighbors(k_neighbors), m_power(power), m_owns_kdtree(false)
 {
 }
@@ -135,13 +138,11 @@ double SpatialInterpolator::Interpolate(double x, double y) const
    double const query_pt[2] = {x, y};
 
    // Find k nearest neighbors (or all points if fewer than k exist)
-   size_t const k = std::min((size_t) m_k_neighbors, m_cloud.pts.size());
-   std::vector<unsigned int> indices(k);
-   std::vector<double> sq_dists(k);  // Squared distances (faster than actual distances)
+   size_t const k = min((size_t) m_k_neighbors, m_cloud.pts.size());
+   vector<unsigned int> indices(k);
+   vector<double> sq_dists(k);  // Squared distances (faster than actual distances)
 
-   long unsigned int num_found = m_kdtree->knnSearch(query_pt, k,
-                                                 indices.data(),
-                                                 sq_dists.data());
+   long unsigned int const num_found = m_kdtree->knnSearch(query_pt, k, indices.data(), sq_dists.data());
 
    if (num_found == 0)
       throw std::runtime_error("knnSearch found no neighbors");
@@ -164,7 +165,7 @@ double SpatialInterpolator::Interpolate(double x, double y) const
       // This avoids both sqrt() and pow() calls
       for (size_t i = 0; i < num_found; i++)
       {
-         double weight = 1.0 / sq_dists[i];  // 1/dist^2 = 1/sq_dist
+         double const weight = 1.0 / sq_dists[i];  // 1/dist^2 = 1/sq_dist
          sum_weights += weight;
          sum_weighted_values += weight * m_values[indices[i]];
       }

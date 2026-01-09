@@ -25,6 +25,10 @@ using std::cerr;
 using std::endl;
 using std::ios;
 
+#include <cmath>
+using std::sqrt;
+using std::atan2;
+
 #include <sstream>
 using std::stringstream;
 

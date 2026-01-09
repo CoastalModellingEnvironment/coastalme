@@ -1684,7 +1684,7 @@ class CSimulation
    int nDoAllShorePlatFormErosion(void);
    int nDoAllWaveEnergyToCoastLandforms(void);
    int nDoCliffCollapse(int const, CRWCliff *, double&, double&, double&, int&, double&, double&);
-   void DoCliffCollapseTalusDeposition(int const, CRWCliff const*, double const, double const, int const);
+   void DoCliffCollapseTalusDeposition(/*int const,*/ CRWCliff const*, double const, double const, int const);
    int nMoveCliffTalusToUnconsolidated(void);
    double dCalcSlopeForUnconsSlumping(int const, int const, int const, int const) const;
    int nUpdateGrid(void);
@@ -1781,7 +1781,7 @@ class CSimulation
    int nTruncateProfileHitDifferentCoast(int const, int const, int const, int const);
    int nTruncateProfileMultiLineDifferentCoasts(CGeomProfile*, double const, double const);
    bool bIncreaseCliffNotchIncision(int const, int const, int const, CRWCliff*, double const);
-   bool bCreateNotchInland(int const, int const, int const, int const, double const, double const);
+   bool bCreateNotchInland(int const, int const, /*int const, int const,*/ double const, double const);
    double dCalculateSlumpInstability(int const, int const) const;
    set<pair<int, int>> prDoSlumpRedistributeSediment(int const, int const);
    void SlumpMarkCellDirty(int const, int const);
