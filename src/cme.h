@@ -652,16 +652,18 @@ int const RTN_ERR_CELL_MARKED_PROFILE_COAST_BUT_NOT_PROFILE = 70;
 int const RTN_ERR_TRACING_FLOOD = 71;
 int const RTN_ERR_NO_START_FINISH_POINTS_TRACING_COAST = 72;
 int const RTN_ERR_NO_VALID_COAST = 73;
-int const RTN_ERR_REPEATING_WHEN_TRACING_COAST = 74;
-int const RTN_ERR_ZERO_LENGTH_COAST = 75;
-int const RTN_ERR_COAST_TOO_SMALL = 77;
-int const RTN_ERR_IGNORING_COAST = 78;
-int const RTN_ERR_TOO_LONG_TRACING_COAST = 79;
+int const RTN_ERR_COAST_TRACING_REPEATING = 74;
+int const RTN_ERR_COAST_TRACING_SAME_START_FINISH = 75;
+int const RTN_ERR_COAST_TRACING_ZERO_LENGTH = 76;
+int const RTN_ERR_COAST_TRACING_TOO_SHORT = 77;
+int const RTN_ERR_COAST_TRACING_TOO_LONG = 78;
+int const RTN_ERR_COAST_TRACING_OFF_EDGE = 79;
 int const RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE_DIFFERENT_COASTS = 80;
 int const RTN_ERR_POINT_NOT_FOUND_IN_MULTILINE_DIFFERENT_COASTS = 81;
 int const RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE = 82;
 int const RTN_ERR_CELL_IN_POLY_BUT_NO_POLY_COAST = 83;
 int const RTN_ERR_CLIFF_TALUS_TO_UNCONS = 84;
+int const RTN_ERR_COAST_TRACING_SAME_EDGE_START_FINISH = 85;
 int const RTN_ERR_UNKNOWN = 999;
 
 // Elevation and 'slice' codes
@@ -752,7 +754,7 @@ double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
 double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (09 Jan 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (10 Jan 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

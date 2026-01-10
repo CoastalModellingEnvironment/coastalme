@@ -2273,23 +2273,31 @@ string CSimulation::strGetErrorText(int const nErr)
       strErr = "error tracing coastline on grid, no valid coast found";
       break;
 
-   case RTN_ERR_REPEATING_WHEN_TRACING_COAST:
+   case RTN_ERR_COAST_TRACING_REPEATING:
       strErr = "error tracing coastline on grid, coast search just repeats";
       break;
 
-   case RTN_ERR_ZERO_LENGTH_COAST:
-      strErr = "error tracing coastline on grid, zero-length coast found";
+   case RTN_ERR_COAST_TRACING_SAME_START_FINISH:
+      strErr = "error tracing coastline on grid, start cell is the same as the finish cell";
       break;
 
-   case RTN_ERR_COAST_TOO_SMALL:
-      strErr = "error tracing coastline on grid, coast below minimum permitted length";
+   case RTN_ERR_COAST_TRACING_SAME_EDGE_START_FINISH:
+      strErr = "error tracing coastline on grid, TEST cost starts and ends on same edge";
       break;
 
-   case RTN_ERR_IGNORING_COAST:
-      strErr = "error tracing coastline on grid, coast ignored";
+   case RTN_ERR_COAST_TRACING_ZERO_LENGTH:
+      strErr = "error tracing coastline on grid, zero length coast";
       break;
 
-   case RTN_ERR_TOO_LONG_TRACING_COAST:
+   case RTN_ERR_COAST_TRACING_TOO_SHORT:
+      strErr = "error tracing coastline on grid, coast less than minimum length";
+      break;
+
+   case RTN_ERR_COAST_TRACING_OFF_EDGE:
+      strErr = "error tracing coastline on grid, hit off-edge cell";
+      break;
+
+   case RTN_ERR_COAST_TRACING_TOO_LONG:
       strErr = "error tracing coastline on grid, too many times round tracing loop";
       break;
 

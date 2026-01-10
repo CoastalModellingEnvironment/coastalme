@@ -145,6 +145,8 @@ int CSimulation::nCreateAllProfiles(void)
             string strErr = WARN + "timestep " + strDblToStr(m_ulIter) + ": could not create coast-normal profiles for coastline " + strDblToStr(nCoast) + " continuing however\n";
             cerr << strErr;
             LogStream << strErr;
+
+            continue;
          }
       }
 
@@ -330,7 +332,8 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
          if (nRet != RTN_OK)
          {
             // This potential profile is no good (has hit coast, or hit dry land, etc.) so forget about it
-            LogStream << m_ulIter << ":\t profile at coastpoint " << nNormalPoint << " is no good" << endl;
+            // LogStream << m_ulIter << ":\t profile at coastpoint " << nNormalPoint << " is no good" << endl;
+
             continue;
          }
 
@@ -476,7 +479,7 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    if (! m_pRasterGrid->m_Cell[nXEnd][nYEnd].bIsInContiguousSea())
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ": coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " has inland end point at [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, ignoring" << endl;
+         LogStream << m_ulIter << ":\t coast " << nCoast << " ignoring possible profile from coast point " << nProfileStartPoint << " [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << PtStart.dGetX() << ", " << PtStart.dGetY() << "} since has inland end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}" << endl;
 
       return RTN_ERR_PROFILE_ENDPOINT_IS_INLAND;
    }
@@ -486,7 +489,7 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
       {
-         LogStream << m_ulIter << ": coast " << nCoast << ", possible profile with start point " << nProfileStartPoint << " is too short for depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, continuing however. Suggest increasing the length of coastline normals" << endl;
+         LogStream << m_ulIter << ":\t coast " << nCoast << ", possible profile from coast point " << nProfileStartPoint  << " [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << PtStart.dGetX() << ", " << PtStart.dGetY() << "} is too short for depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, continuing however. Increase the length of coastline normals?" << endl;
       }
 
       // return RTN_ERR_PROFILE_END_INSUFFICIENT_DEPTH;
