@@ -429,10 +429,10 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
       return RTN_ERR_BOUNDING_BOX;
    }
 
-   // OK, so we have a point at each corner [NW NE SW SE] of the grid, so start at this point and find the edges of the bounding box
+   // OK, so we have a point at each corner [NW NE SW SE] of the grid, so search from each of these points to find the edges of the bounding box. Start by searching the full width of the top (north) edge left to right (W to E)
    for (int nX = m_VPtiBoundingBoxCorner[0].nGetX(); nX <= m_VPtiBoundingBoxCorner[1].nGetX(); nX++)
    {
-      // Search left to right (W to E)
+      // At each point on the north edge, search southwards
       bFound = false;
       for (int nY = m_VPtiBoundingBoxCorner[0].nGetY(); nY < m_nYGridSize; nY++)
       {
@@ -444,7 +444,13 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          }
 
          // Found a bounding box edge cell
-         m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(NORTH);
+         if (nX == m_VPtiBoundingBoxCorner[0].nGetX())
+            m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(NORTH_WEST);
+         else if (nX == m_VPtiBoundingBoxCorner[1].nGetX())
+            m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(NORTH_EAST);
+         else
+            m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(NORTH);
+
          m_VPtiNorthEdgeCell.push_back(CGeom2DIPoint(nX, nY));
 
          bFound = true;
@@ -460,10 +466,10 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
       }
    }
 
-   // Right (east) edge
-   for (int nY = m_VPtiBoundingBoxCorner[1].nGetY(); nY <= m_VPtiBoundingBoxCorner[3].nGetY(); nY++)
+   // Search the right (east) edge N to S (top to bottom), omit the two end points
+   for (int nY = m_VPtiBoundingBoxCorner[1].nGetY() + 1; nY <= m_VPtiBoundingBoxCorner[3].nGetY() - 1; nY++)
    {
-      // Search top to bottom (N to S)
+      // At each point on the east edge, search westwards
       bFound = false;
       for (int nX = m_VPtiBoundingBoxCorner[1].nGetX(); nX >= 0; nX--)
       {
@@ -475,6 +481,7 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          }
 
          // Found a bounding box edge cell
+
          m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(EAST);
          m_VPtiEastEdgeCell.push_back(CGeom2DIPoint(nX, nY));
 
@@ -491,10 +498,10 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
       }
    }
 
-   // Bottom (south) edge
+   // Search the full width of the bottom (south) edge W to E (left to right)
    for (int nX = m_VPtiBoundingBoxCorner[2].nGetX(); nX <= m_VPtiBoundingBoxCorner[3].nGetX(); nX++)
    {
-      // Searching left to right (W to E)
+      // At each point on the bottom edge, search northwards
       bFound = false;
       for (int nY = m_VPtiBoundingBoxCorner[2].nGetY(); nY >= 0; nY--)
       {
@@ -506,7 +513,13 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
          }
 
          // Found a bounding box edge cell
-         m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(SOUTH);
+         if (nX == m_VPtiBoundingBoxCorner[2].nGetX())
+            m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(SOUTH_WEST);
+         else if (nX == m_VPtiBoundingBoxCorner[3].nGetX())
+            m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(SOUTH_EAST);
+         else
+            m_pRasterGrid->m_Cell[nX][nY].SetBoundingBoxEdge(SOUTH);
+
          m_VPtiSouthEdgeCell.push_back(CGeom2DIPoint(nX, nY));
 
          bFound = true;
@@ -522,12 +535,12 @@ int CSimulation::nMarkBoundingBoxEdgeCells(void)
       }
    }
 
-   // Left (west) edge
-   for (int nY = m_VPtiBoundingBoxCorner[0].nGetY(); nY <= m_VPtiBoundingBoxCorner[2].nGetY(); nY++)
+   // Search the left (west) edge N to S (top to bottom), omit the two end points
+   for (int nY = m_VPtiBoundingBoxCorner[0].nGetY() + 1; nY <= m_VPtiBoundingBoxCorner[2].nGetY() - 1; nY++)
    {
-      // Search top to bottom (N to S)
+      // At each point on the left edge, search eastwards
       bFound = false;
-      for (int nX = m_VPtiBoundingBoxCorner[0].nGetX(); nX < m_nXGridSize - 1; nX++)
+      for (int nX = m_VPtiBoundingBoxCorner[0].nGetX(); nX < m_nXGridSize; nX++)
       {
          // Searching left to right (W to E)
          if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
@@ -589,45 +602,49 @@ void CSimulation::CalcGridEdgeSeaToLandDirection(void)
    {
       // NW (left) point is higher than NE (right) point, so search north edge for coast points right to left
       m_bSearchNorthEdgeForward = false;
+      m_bSearchSouthEdgeForward = false;
    }
    else
    {
       // NW (left) point is lower than NE (right) point, so search north edge for coast points left to right
       m_bSearchNorthEdgeForward = true;
+      m_bSearchSouthEdgeForward = true;
    }
 
    if (VdBoundingBoxCornerElev[1] > VdBoundingBoxCornerElev[3])
    {
       // NE (top) point is higher than SE (bottom) point, so search east edge for coast points bottom to top
       m_bSearchEastEdgeForward = false;
+      m_bSearchWestEdgeForward = false;
    }
    else
    {
       // NE (bottom) point is lower than SE (top) point, so search east edge for coast points top to bottom
       m_bSearchEastEdgeForward = true;
-   }
-
-   if (VdBoundingBoxCornerElev[2] > VdBoundingBoxCornerElev[3])
-   {
-      // SW (left) point is higher than SE (right) point, so search south edge for coast points right to left
-      m_bSearchSouthEdgeForward = false;
-   }
-   else
-   {
-      // SW (left) point is lower than SE (right) point, so search south edge for coast points left to right
-      m_bSearchSouthEdgeForward = true;
-   }
-
-   if (VdBoundingBoxCornerElev[0] > VdBoundingBoxCornerElev[2])
-   {
-      // NW (top) point is higher than SW (bottom) point, so search west edge for coast points bottom to top
-      m_bSearchWestEdgeForward = false;
-   }
-   else
-   {
-      // NW (top) point is lower than SW (bottom) point, so search west edge for coast points top to bottom
       m_bSearchWestEdgeForward = true;
    }
+
+   // if (VdBoundingBoxCornerElev[2] > VdBoundingBoxCornerElev[3])
+   // {
+   //    // SW (left) point is higher than SE (right) point, so search south edge for coast points right to left
+   //    m_bSearchSouthEdgeForward = false;
+   // }
+   // else
+   // {
+   //    // SW (left) point is lower than SE (right) point, so search south edge for coast points left to right
+   //    m_bSearchSouthEdgeForward = true;
+   // }
+
+   // if (VdBoundingBoxCornerElev[0] > VdBoundingBoxCornerElev[2])
+   // {
+   //    // NW (top) point is higher than SW (bottom) point, so search west edge for coast points bottom to top
+   //    m_bSearchWestEdgeForward = false;
+   // }
+   // else
+   // {
+   //    // NW (top) point is lower than SW (bottom) point, so search west edge for coast points top to bottom
+   //    m_bSearchWestEdgeForward = true;
+   // }
 }
 
 //===============================================================================================================================

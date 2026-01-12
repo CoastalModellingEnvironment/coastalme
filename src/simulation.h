@@ -1702,6 +1702,7 @@ class CSimulation
    void FindAllSeaCells(void);
    int FindAllInundatedCells(void);
    void CellByCellFillSea(int const, int const);
+   bool nAdjacentCellIsSea(int const, int const);
    void FloodFillLand(int const, int const);
    int nTraceCoastLine(int const, vector<CGeom2DIPoint> const*, vector<bool>*, int const, int const, int const);
    int nTraceAllCoasts(void);
