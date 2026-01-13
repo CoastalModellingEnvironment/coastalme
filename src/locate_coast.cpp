@@ -700,7 +700,7 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
    // bool bHitStartCell = false;
    bool bOnCoast = false;
    bool bHasLeftStartEdge = false;
-   bool bTooLong = false;
+   // bool bTooLong = false;
    bool bDeadEnd = false;
    bool bHereBefore = false;
 
@@ -753,15 +753,15 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
       // }
 
       // Another safety check: have we visited this cell before?
-      if (ILTempGridCRS.bIsPresent(nX, nY))
-      {
-         // We've been here before
-         bHereBefore = true;
-
-         LogStream << m_ulIter << ":\t abandoning possible coastline, traced from [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "}, since have already visited [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
-
-         break;
-      }
+      // if (ILTempGridCRS.bIsPresent(nX, nY))
+      // {
+      //    // We've been here before
+      //    bHereBefore = true;
+      //
+      //    LogStream << m_ulIter << ":\t abandoning possible coastline, traced from [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "}, since have already visited [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+      //
+      //    break;
+      // }
 
       // OK so far: so have we left the start edge?
       if (! bHasLeftStartEdge)
@@ -849,7 +849,24 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
             break;
 
          case NORTH_EAST:
-            // TODO
+            // The sea is towards the RHS (SE) of the coast, so first try to go right (to the SE)
+            nXSeaward = nX + 1;
+            nYSeaward = nY + 1;
+            nSeawardNewDirection = SOUTH_EAST;
+
+            // If can't do this, try to go straight on (to the NE)
+            nXStraightOn = nX + 1;
+            nYStraightOn = nY - 1;
+
+            // If can't do either of these, try to go anti-seaward i.e. towards the LHS (NW)
+            nXAntiSeaward = nX - 1;
+            nYAntiSeaward = nY - 1;
+            nAntiSeawardNewDirection = NORTH_WEST;
+
+            // As a last resort, go back (to the SW)
+            nXGoBack = nX - 1;
+            nYGoBack = nY + 1;
+            nGoBackNewDirection = SOUTH_WEST;
 
             break;
 
@@ -876,7 +893,24 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
             break;
 
          case SOUTH_EAST:
-            // TODO
+            // The sea is towards the RHS (SW) of the coast, so first try to go right (to the SW)
+            nXSeaward = nX - 1;
+            nYSeaward = nY + 1;
+            nSeawardNewDirection = SOUTH_WEST;
+
+            // If can't do this, try to go straight on (to the SE)
+            nXStraightOn = nX + 1;
+            nYStraightOn = nY + 1;
+
+            // If can't do either of these, try to go anti-seaward i.e. towards the LHS (NE)
+            nXAntiSeaward = nX + 1;
+            nYAntiSeaward = nY - 1;
+            nAntiSeawardNewDirection = NORTH_EAST;
+
+            // As a last resort, go back (to the NW)
+            nXGoBack = nX - 1;
+            nYGoBack = nY - 1;
+            nGoBackNewDirection = NORTH_WEST;
 
             break;
 
@@ -903,7 +937,24 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
             break;
 
          case SOUTH_WEST:
-            // TODO
+            // The sea is towards the RHS (NW) of the coast, so first try to go right (to the NW)
+            nXSeaward = nX - 1;
+            nYSeaward = nY - 1;
+            nSeawardNewDirection = NORTH_WEST;
+
+            // If can't do this, try to go straight on (to the SW)
+            nXStraightOn = nX - 1;
+            nYStraightOn = nY + 1;
+
+            // If can't do either of these, try to go anti-seaward i.e. towards the LHS (SE)
+            nXAntiSeaward = nX + 1;
+            nYAntiSeaward = nY + 1;
+            nAntiSeawardNewDirection = SOUTH_EAST;
+
+            // As a last resort, go back (to the NE)
+            nXGoBack = nX + 1;
+            nYGoBack = nY - 1;
+            nGoBackNewDirection = NORTH_EAST;
 
             break;
 
@@ -930,7 +981,24 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
             break;
 
          case NORTH_WEST:
-            // TODO
+            // The sea is towards the RHS (NE) of the coast, so first try to go right (to the NE)
+            nXSeaward = nX + 1;
+            nYSeaward = nY - 1;
+            nSeawardNewDirection = NORTH_EAST;
+
+            // If can't do this, try to go straight on (to the NW)
+            nXStraightOn = nX - 1;
+            nYStraightOn = nY - 1;
+
+            // If can't do either of these, try to go anti-seaward i.e. towards the LHS (SW)
+            nXAntiSeaward = nX - 1;
+            nYAntiSeaward = nY + 1;
+            nAntiSeawardNewDirection = SOUTH_WEST;
+
+            // As a last resort, go back (to the SE)
+            nXGoBack = nX + 1;
+            nYGoBack = nY - 1;
+            nGoBackNewDirection = SOUTH_EAST;
 
             break;
          }
@@ -965,7 +1033,24 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
             break;
 
          case NORTH_EAST:
-            // TODO
+            // The sea is towards the LHS (NW) of the coast, so first try to go left (to the NW)
+            nXSeaward = nX - 1;
+            nYSeaward = nY - 1;
+            nSeawardNewDirection = NORTH_WEST;
+
+            // If can't do this, try to go straight on (to the NE)
+            nXStraightOn = nX + 1;
+            nYStraightOn = nY - 1;
+
+            // If can't do either of these, try to go anti-seaward i.e. towards the RHS (SE)
+            nXAntiSeaward = nX + 1;
+            nYAntiSeaward = nY + 1;
+            nAntiSeawardNewDirection = SOUTH_EAST;
+
+            // As a last resort, go back (to the SW)
+            nXGoBack = nX - 1;
+            nYGoBack = nY + 1;
+            nGoBackNewDirection = SOUTH_WEST;
 
             break;
 
@@ -992,7 +1077,24 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
             break;
 
          case SOUTH_EAST:
-            // TODO
+            // The sea is towards the LHS (NE) of the coast, so first try to go left (to the NE)
+            nXSeaward = nX + 1;
+            nYSeaward = nY - 1;
+            nSeawardNewDirection = NORTH_EAST;
+
+            // If can't do this, try to go straight on (to the SE)
+            nXStraightOn = nX + 1;
+            nYStraightOn = nY + 1;
+
+            // If can't do either of these, try to go anti-seaward i.e. towards the RHS (SW)
+            nXAntiSeaward = nX - 1;
+            nYAntiSeaward = nY + 1;
+            nAntiSeawardNewDirection = SOUTH_WEST;
+
+            // As a last resort, go back (to the NW)
+            nXGoBack = nX - 1;
+            nYGoBack = nY - 1;
+            nGoBackNewDirection = NORTH_WEST;
 
             break;
 
@@ -1019,7 +1121,24 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
             break;
 
          case SOUTH_WEST:
-            // TODO
+            // The sea is towards the LHS (SE) of the coast, so first try to go left (to the SE)
+            nXSeaward = nX + 1;
+            nYSeaward = nY + 1;
+            nSeawardNewDirection = SOUTH_EAST;
+
+            // If can't do this, try to go straight on (to the SW)
+            nXStraightOn = nX - 1;
+            nYStraightOn = nY + 1;
+
+            // If can't do either of these, try to go anti-seaward i.e. towards the RHS (NW)
+            nXAntiSeaward = nX - 1;
+            nYAntiSeaward = nY - 1;
+            nAntiSeawardNewDirection = NORTH_WEST;
+
+            // As a last resort, go back (to the NE)
+            nXGoBack = nX + 1;
+            nYGoBack = nY - 1;
+            nGoBackNewDirection = NORTH_EAST;
 
             break;
 
@@ -1046,7 +1165,24 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
             break;
 
          case NORTH_WEST:
-            // TODO
+            // The sea is towards the LHS (SW) of the coast, so first try to go left (to the SW)
+            nXSeaward = nX - 1;
+            nYSeaward = nY + 1;
+            nSeawardNewDirection = SOUTH_WEST;
+
+            // If can't do this, try to go straight on (to the NW)
+            nXStraightOn = nX - 1;
+            nYStraightOn = nY - 1;
+
+            // If can't do either of these, try to go anti-seaward i.e. towards the RHS (NE)
+            nXAntiSeaward = nX + 1;
+            nYAntiSeaward = nY - 1;
+            nAntiSeawardNewDirection = NORTH_EAST;
+
+            // As a last resort, go back (to the SE)
+            nXGoBack = nX + 1;
+            nYGoBack = nY + 1;
+            nGoBackNewDirection = SOUTH_EAST;
 
             break;
          }
@@ -1183,13 +1319,13 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
       return RTN_ERR_COAST_TRACING_ZERO_LENGTH;
    }
 
-   // if (bDeadEnd)
-   // {
-   //    if (m_nLogFileDetail >= LOG_FILE_ALL)
-   //       LogStream << m_ulIter << ":\t abandoning possible coastline from [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "} since hit off-edge cell at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}, coastline size is " << nCoastSize << endl;
-   //
-   //    return RTN_ERR_COAST_TRACING_OFF_EDGE;
-   // }
+   if (bDeadEnd)
+   {
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ":\t abandoning possible coastline from [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "} since hit dead end at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}, coastline size is " << nCoastSize << endl;
+
+      return RTN_ERR_COAST_TRACING_OFF_EDGE;
+   }
 
    // if (bTooLong)
    // {
@@ -1480,7 +1616,7 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
 // }
 
 //===============================================================================================================================
-//! Returns true if any of the eight surrounding cells are flagged as sea
+//! Returns true if any of the eight surrounding cells is flagged as sea
 //===============================================================================================================================
 bool CSimulation::nAdjacentCellIsSea(int const nX, int const nY)
 {

@@ -145,7 +145,6 @@ CGeomLine CSimulation::LSmoothCoastSavitzkyGolay(CGeomLine* pLineIn, int const n
             break;
          }
       }
-
       else if (i >= (nSize - nHalfWindow))
       {
          // For the last few values of PtVTemp, just apply a running mean with a variable-sized window
@@ -183,7 +182,6 @@ CGeomLine CSimulation::LSmoothCoastSavitzkyGolay(CGeomLine* pLineIn, int const n
             break;
          }
       }
-
       else
       {
          // For all other PtVTemp values, calc Savitzky-Golay weighted values for both X and Y

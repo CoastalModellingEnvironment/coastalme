@@ -602,49 +602,45 @@ void CSimulation::CalcGridEdgeSeaToLandDirection(void)
    {
       // NW (left) point is higher than NE (right) point, so search north edge for coast points right to left
       m_bSearchNorthEdgeForward = false;
-      m_bSearchSouthEdgeForward = false;
    }
    else
    {
       // NW (left) point is lower than NE (right) point, so search north edge for coast points left to right
       m_bSearchNorthEdgeForward = true;
-      m_bSearchSouthEdgeForward = true;
    }
 
    if (VdBoundingBoxCornerElev[1] > VdBoundingBoxCornerElev[3])
    {
       // NE (top) point is higher than SE (bottom) point, so search east edge for coast points bottom to top
       m_bSearchEastEdgeForward = false;
-      m_bSearchWestEdgeForward = false;
    }
    else
    {
       // NE (bottom) point is lower than SE (top) point, so search east edge for coast points top to bottom
       m_bSearchEastEdgeForward = true;
-      m_bSearchWestEdgeForward = true;
    }
 
-   // if (VdBoundingBoxCornerElev[2] > VdBoundingBoxCornerElev[3])
-   // {
-   //    // SW (left) point is higher than SE (right) point, so search south edge for coast points right to left
-   //    m_bSearchSouthEdgeForward = false;
-   // }
-   // else
-   // {
-   //    // SW (left) point is lower than SE (right) point, so search south edge for coast points left to right
-   //    m_bSearchSouthEdgeForward = true;
-   // }
+   if (VdBoundingBoxCornerElev[2] > VdBoundingBoxCornerElev[3])
+   {
+      // SW (left) point is higher than SE (right) point, so search south edge for coast points right to left
+      m_bSearchSouthEdgeForward = false;
+   }
+   else
+   {
+      // SW (left) point is lower than SE (right) point, so search south edge for coast points left to right
+      m_bSearchSouthEdgeForward = true;
+   }
 
-   // if (VdBoundingBoxCornerElev[0] > VdBoundingBoxCornerElev[2])
-   // {
-   //    // NW (top) point is higher than SW (bottom) point, so search west edge for coast points bottom to top
-   //    m_bSearchWestEdgeForward = false;
-   // }
-   // else
-   // {
-   //    // NW (top) point is lower than SW (bottom) point, so search west edge for coast points top to bottom
-   //    m_bSearchWestEdgeForward = true;
-   // }
+   if (VdBoundingBoxCornerElev[0] > VdBoundingBoxCornerElev[2])
+   {
+      // NW (top) point is higher than SW (bottom) point, so search west edge for coast points bottom to top
+      m_bSearchWestEdgeForward = false;
+   }
+   else
+   {
+      // NW (top) point is lower than SW (bottom) point, so search west edge for coast points top to bottom
+      m_bSearchWestEdgeForward = true;
+   }
 }
 
 //===============================================================================================================================

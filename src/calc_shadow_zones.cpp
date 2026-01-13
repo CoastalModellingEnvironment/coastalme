@@ -813,7 +813,6 @@ void CSimulation::DoShadowZoneAndDownDriftZone(int const nCoast, int const nZone
 
    if (nCoastSeaHand == LEFT_HANDED)
       nShadowZoneCoastToCapeSeaHand = RIGHT_HANDED;
-
    else
       nShadowZoneCoastToCapeSeaHand = LEFT_HANDED;
 
@@ -832,7 +831,6 @@ void CSimulation::DoShadowZoneAndDownDriftZone(int const nCoast, int const nZone
 
    if (bSweepDownCoast)
       nDownDriftEndPoint = nShadowBoundaryStartPoint + nTotAlongCoastDistanceToDownDriftEndpoint;
-
    else
       nDownDriftEndPoint = nShadowBoundaryStartPoint - nTotAlongCoastDistanceToDownDriftEndpoint;
 
@@ -850,26 +848,22 @@ void CSimulation::DoShadowZoneAndDownDriftZone(int const nCoast, int const nZone
          PtiDownDriftEndPoint.SetX(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(0)->nGetX());
          PtiDownDriftEndPoint.SetY(nDownDriftEndPoint);
       }
-
       else if (nStartEdge == SOUTH)
       {
          PtiDownDriftEndPoint.SetX(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(0)->nGetX());
          PtiDownDriftEndPoint.SetY(m_nYGridSize - nDownDriftEndPoint - 1);
       }
-
       else if (nStartEdge == WEST)
       {
          PtiDownDriftEndPoint.SetX(nDownDriftEndPoint);
          PtiDownDriftEndPoint.SetY(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(0)->nGetY());
       }
-
       else if (nStartEdge == EAST)
       {
          PtiDownDriftEndPoint.SetX(m_nXGridSize - nDownDriftEndPoint - 1);
          PtiDownDriftEndPoint.SetY(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(0)->nGetY());
       }
    }
-
    else if (nDownDriftEndPoint >= m_VCoast[nCoast].nGetCoastlineSize())
    {
       // Is beyond the end of the coastline
@@ -881,26 +875,22 @@ void CSimulation::DoShadowZoneAndDownDriftZone(int const nCoast, int const nZone
          PtiDownDriftEndPoint.SetX(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastSize - 1)->nGetX());
          PtiDownDriftEndPoint.SetY(-nDownDriftEndPoint);
       }
-
       else if (nEndEdge == SOUTH)
       {
          PtiDownDriftEndPoint.SetX(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastSize - 1)->nGetX());
          PtiDownDriftEndPoint.SetY(m_nYGridSize + nDownDriftEndPoint);
       }
-
       else if (nEndEdge == WEST)
       {
          PtiDownDriftEndPoint.SetX(-nDownDriftEndPoint);
          PtiDownDriftEndPoint.SetY(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastSize - 1)->nGetY());
       }
-
       else if (nEndEdge == EAST)
       {
          PtiDownDriftEndPoint.SetX(m_nXGridSize + nDownDriftEndPoint);
          PtiDownDriftEndPoint.SetY(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastSize - 1)->nGetY());
       }
    }
-
    else
    {
       // Is on the coastline, so get the location (grid CRS)

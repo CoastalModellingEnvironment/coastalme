@@ -1179,7 +1179,7 @@ void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
          // Now look at beach protection
          if ((m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetBeachProtectionFactor(), DBL_NODATA, TOLERANCE)))
          {
-            // This is a sea cell, and it has an initialised beach protection value. So look at its N-S and W-E neighbours
+            // This is a sea cell, and it has an initialised beach protection value. So look at its eight neighbours
             int nXTmp;
             int nYTmp;
             int nAdjacent = 0;
@@ -1187,6 +1187,16 @@ void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
 
             // North
             nXTmp = nX;
+            nYTmp = nY - 1;
+
+            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor(), DBL_NODATA, TOLERANCE)))
+            {
+               nAdjacent++;
+               dBeachProtection += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor();
+            }
+
+            // North-east
+            nXTmp = nX + 1;
             nYTmp = nY - 1;
 
             if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor(), DBL_NODATA, TOLERANCE)))
@@ -1205,8 +1215,28 @@ void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
                dBeachProtection += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor();
             }
 
+            // South-east
+            nXTmp = nX + 1;
+            nYTmp = nY + 1;
+
+            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor(), DBL_NODATA, TOLERANCE)))
+            {
+               nAdjacent++;
+               dBeachProtection += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor();
+            }
+
             // South
             nXTmp = nX;
+            nYTmp = nY + 1;
+
+            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor(), DBL_NODATA, TOLERANCE)))
+            {
+               nAdjacent++;
+               dBeachProtection += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor();
+            }
+
+            // South-west
+            nXTmp = nX - 1;
             nYTmp = nY + 1;
 
             if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor(), DBL_NODATA, TOLERANCE)))
@@ -1225,10 +1255,20 @@ void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
                dBeachProtection += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor();
             }
 
-            // If this sea cell has four neighbours with initialised beach protection values, then assume that it should not have an uninitialised beach protection value. Set it to the average of its neighbours
-            if (nAdjacent == 4)
+            // North-west
+            nXTmp = nX - 1;
+            nYTmp = nY - 1;
+
+            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor(), DBL_NODATA, TOLERANCE)))
             {
-               m_pRasterGrid->m_Cell[nX][nY].SetBeachProtectionFactor(dBeachProtection / 4);
+               nAdjacent++;
+               dBeachProtection += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetBeachProtectionFactor();
+            }
+
+            // If this sea cell has eight neighbours with initialised beach protection values, then assume that it should not have an uninitialised beach protection value. Set it to the average of its neighbours
+            if (nAdjacent == 8)
+            {
+               m_pRasterGrid->m_Cell[nX][nY].SetBeachProtectionFactor(dBeachProtection / 8);
             }
          }
       }

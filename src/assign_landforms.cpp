@@ -510,7 +510,7 @@ int CSimulation::nAssignLandformsForAllCells(void)
    return RTN_OK;
 }
 //===============================================================================================================================
-//! Returns true if this cell has four drift cells surrounding it
+//! Returns true if this cell has eight drift cells surrounding it
 //===============================================================================================================================
 bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
 {
@@ -520,6 +520,19 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
 
    // North
    nXTmp = nX;
+   nYTmp = nY - 1;
+
+   if (bIsWithinValidGrid(nXTmp, nYTmp))
+   {
+      CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
+      int const nCat = pLandform->nGetLFCategory();
+
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+         nAdjacent++;
+   }
+
+   // North-east
+   nXTmp = nX + 1;
    nYTmp = nY - 1;
 
    if (bIsWithinValidGrid(nXTmp, nYTmp))
@@ -544,8 +557,34 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
          nAdjacent++;
    }
 
+   // South-east
+   nXTmp = nX + 1;
+   nYTmp = nY + 1;
+
+   if (bIsWithinValidGrid(nXTmp, nYTmp))
+   {
+      CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
+      int const nCat = pLandform->nGetLFCategory();
+
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+         nAdjacent++;
+   }
+
    // South
    nXTmp = nX;
+   nYTmp = nY + 1;
+
+   if (bIsWithinValidGrid(nXTmp, nYTmp))
+   {
+      CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
+      int const nCat = pLandform->nGetLFCategory();
+
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+         nAdjacent++;
+   }
+
+   // South-west
+   nXTmp = nX - 1;
    nYTmp = nY + 1;
 
    if (bIsWithinValidGrid(nXTmp, nYTmp))
@@ -570,9 +609,22 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
          nAdjacent++;
    }
 
-   if (nAdjacent == 4)
+   // North-west
+   nXTmp = nX - 1;
+   nYTmp = nY - 1;
+
+   if (bIsWithinValidGrid(nXTmp, nYTmp))
    {
-      // This cell has four LF_DRIFT neighbours
+      CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
+      int const nCat = pLandform->nGetLFCategory();
+
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+         nAdjacent++;
+   }
+
+   if (nAdjacent == 8)
+   {
+      // This cell has eight LF_DRIFT neighbours
       return true;
    }
 
