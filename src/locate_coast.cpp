@@ -1284,17 +1284,6 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
 
    } while (true);
 
-   // // DEBUG CODE ==============================================================================================================
-   // if (m_ulIter == 367)
-   // {
-   //    LogStream << "nX = " << nX << " nY = " << nY << " {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
-   //    LogStream << "ILTempGridCRS is now:" << endl;
-   //    for (int n = 0; n < ILTempGridCRS.nGetSize(); n++)
-   //    LogStream << "[" << ILTempGridCRS[n].nGetX() << "][" << ILTempGridCRS[n].nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILTempGridCRS[n].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILTempGridCRS[n].nGetY()) << "}" << endl;
-   //    LogStream <<  "=================" << endl;
-   // }
-   // // DEBUG CODE ==============================================================================================================
-
    // OK, we have a possible coastline
    int nCoastSize = ILTempGridCRS.nGetSize();
    int nEndX = ILTempGridCRS[nCoastSize - 1].nGetX();

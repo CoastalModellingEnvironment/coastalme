@@ -546,7 +546,7 @@ int CSimulation::nDoParallelProfileUnconsErosion(CGeomCoastPolygon* pPolygon, in
 
             // Safety check
             if (nThisLayer == INT_NODATA)
-               return RTN_ERR_NO_TOP_LAYER;
+               return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
 
             if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
             {
@@ -605,7 +605,7 @@ int CSimulation::nDoParallelProfileUnconsErosion(CGeomCoastPolygon* pPolygon, in
 
                   // Safety check
                   if (nTopLayer == INT_NODATA)
-                     return RTN_ERR_NO_TOP_LAYER;
+                     return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
 
                   if (dTotToDeposit > 0)
                   {
@@ -1125,7 +1125,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
 
                   // Safety check
                   if (nTopLayer == INT_NODATA)
-                     return RTN_ERR_NO_TOP_LAYER;
+                     return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
 
                   if (dToDepositHere > SED_ELEV_TOLERANCE)
                   {
@@ -1231,7 +1231,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
 
                // Safety check
                if (nThisLayer == INT_NODATA)
-                  return RTN_ERR_NO_TOP_LAYER;
+                  return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
 
                if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
                {
@@ -1618,7 +1618,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
 
                      // Safety check
                      if (nTopLayer == INT_NODATA)
-                        return RTN_ERR_NO_TOP_LAYER;
+                        return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
 
                      if (dToDepositHere > SED_ELEV_TOLERANCE)
                      {
@@ -1718,7 +1718,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
 
                   // Safety check
                   if (nThisLayer == INT_NODATA)
-                     return RTN_ERR_NO_TOP_LAYER;
+                     return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
 
                   if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
                   {

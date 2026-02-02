@@ -3083,12 +3083,12 @@ bool CSimulation::bReadRunDataFile(void)
 
          case 76:
             // Spacing of coastline normals (m)
-            m_dCoastNormalSpacing = strtod(strRH.c_str(), NULL);
+            m_dCoastProfileSpacing = strtod(strRH.c_str(), NULL);
 
-            if (bFPIsEqual(m_dCoastNormalSpacing, 0.0, TOLERANCE))
-               m_nCoastNormalSpacing = DEFAULT_PROFILE_SPACING;      // In cells, we will set m_dCoastNormalSpacing later when we know m_dCellSide
+            if (bFPIsEqual(m_dCoastProfileSpacing, 0.0, TOLERANCE))
+               m_nCoastProfileSpacing = DEFAULT_PROFILE_SPACING;      // In cells, we will set m_dCoastProfileSpacing later when we know m_dCellSide
 
-            else if (m_dCoastNormalSpacing < 0)
+            else if (m_dCoastProfileSpacing < 0)
                strErr = "line " + to_string(nLine) + ": spacing of coastline normals must be > 0";
 
             break;
@@ -5560,9 +5560,9 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
    m_dG = config.dGetGravitationalAcceleration();
 
    // Case 77: Spacing of coastline normals (m)
-   m_dCoastNormalSpacing = config.dGetNormalSpacing();
-   if (bFPIsEqual(m_dCoastNormalSpacing, 0.0, TOLERANCE))
-      m_nCoastNormalSpacing = DEFAULT_PROFILE_SPACING;      // In cells, we will set m_dCoastNormalSpacing later when we know m_dCellSide
+   m_dCoastProfileSpacing = config.dGetNormalSpacing();
+   if (bFPIsEqual(m_dCoastProfileSpacing, 0.0, TOLERANCE))
+      m_nCoastProfileSpacing = DEFAULT_PROFILE_SPACING;      // In cells, we will set m_dCoastProfileSpacing later when we know m_dCellSide
 
    // Case 78: Random factor for spacing of normals  [0 to 1, 0 = deterministic], check that this is a valid double
    m_dCoastNormalRandSpacingFactor = config.dGetRandomFactor();

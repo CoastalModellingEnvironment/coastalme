@@ -34,37 +34,16 @@ class CGeomProfile : public CGeomMultiLine
 {
  private:
    //! Is this a start-of-coast profile?
-   bool m_bStartOfCoast;
+   bool m_bIsStartOfCoast;
 
    //! Is this an end-of-coast profile?
-   bool m_bEndOfCoast;
-
-   //! Has this profile encountered a CShore problem?
-   bool m_bCShoreProblem;
-
-   //! Has this profile hit land?
-   bool m_bHitLand;
-
-   //! Has this profile hit an intervention?
-   bool m_bHitIntervention;
-
-   //! Has this profile hit a coastline?
-   bool m_bHitCoast;
-
-   //! Is this profile too short?
-   bool m_bTooShort;
-
-   //! Has this profile been truncated by hitting another profile from the same coast?
-   bool m_bTruncatedSameCoast;
-
-   //! Has this profile been truncated by hitting another profile from a different coast?
-   bool m_bTruncatedDifferentCoast;
-
-   //! Has this profile hit another profile?
-   bool m_bHitAnotherProfile;
+   bool m_bIsEndOfCoast;
 
    //! Is this an intervention profile?
    bool m_bIntervention;
+
+   //! Does this profile have a CShore problem?
+   bool m_bCShoreProblem;
 
    //! The coast from which this profile projects
    int m_nCoast;
@@ -72,8 +51,11 @@ class CGeomProfile : public CGeomMultiLine
    //! The coastline point at which this profile hits the coast (not necessarily coincident wih the profile start cell)
    int m_nCoastPoint;
 
-   //! The this-coast ID of the profile (note that a profile in a different coast may have the same ID as this profile)
+   //! The this-coast ID of the profile (note that a profile belonging to a different coast may have the same ID as this profile)
    int m_nProfileID;
+
+   //! The profile's status
+   int m_nProfileStatus;
 
    //! The wave height at the end of the profile
    double m_dDeepWaterWaveHeight;
@@ -90,14 +72,8 @@ class CGeomProfile : public CGeomMultiLine
    //! Pointer to the adjacent down-coast profile (may be an invalid profile)
    CGeomProfile* m_pDownCoastAdjacentProfile;
 
-   //! In the grid CRS, the integer coordinates of the cells 'under' this profile, point zero is the same as 'cell marked as coastline' in coast object
+   //! In the grid CRS, integer coordinates of the cells 'under' this profile. Point zero is the same as 'cell marked as coastline' in coast object. Vector is not filled if the profile is invalid
    vector<CGeom2DIPoint> m_VCellInProfile;
-
-   //! In external CRS, the coords of cells 'under' this profile (has the same length as m_VCellInProfile)
-   // vector<CGeom2DPoint> m_VCellInProfileExtCRS;
-
-   // Is this profile point part of a multi-line? (Has have the same length as m_VCellInProfile)
-   // vector<bool> m_bVShared;
 
  protected:
  public:
@@ -112,33 +88,17 @@ class CGeomProfile : public CGeomMultiLine
    CGeom2DIPoint* pPtiGetEndPoint(void);
 
    void SetStartOfCoast(bool const);
-   bool bStartOfCoast(void) const;
+   bool bIsStartOfCoast(void) const;
    void SetEndOfCoast(bool const);
-   bool bEndOfCoast(void) const;
-   bool bIsGridEdge(void) const;
+   bool bIsEndOfCoast(void) const;
+   bool bIsStartOrEndOfCoast(void) const;
+   bool bIsIntervention(void) const;
+   void SetCShoreProblem(void);
+   bool bHasCShoreProblem(void) const;
 
-   void SetCShoreProblem(bool const);
-   bool bCShoreProblem(void) const;
-
-   void SetHitLand(bool const);
-   bool bHitLand(void) const;
-   void SetHitIntervention(bool const);
-   bool bHitIntervention(void) const;
-   void SetHitCoast(bool const);
-   bool bHitCoast(void) const;
-   void SetTooShort(bool const);
-   bool bTooShort(void) const;
-   void SetTruncatedSameCoast(bool const);
-   bool bTruncatedSameCoast(void) const;
-   void SetTruncatedDifferentCoast(bool const);
-   bool bTruncatedDifferentCoast(void) const;
-   void SetHitAnotherProfile(bool const);
-   bool bHitAnotherProfile(void) const;
-
+   void SetProfileStatus(int const);
+   int nGetProfileStatus(void) const;
    bool bProfileOK(void) const;
-   bool bProfileOKIncTruncated(void) const;
-   bool bOKIncStartAndEndOfCoast(void) const;
-   // bool bOKIncStartOfCoast(void) const;
 
    void SetPointsInProfile(vector<CGeom2DPoint> const*);
    void SetPointInProfile(int const, double const, double const);
@@ -155,9 +115,6 @@ class CGeomProfile : public CGeomMultiLine
    bool bIsPointInProfile(double const, double const);
    bool bIsPointInProfile(double const, double const, int&);
    // int nFindInsertionLineSeg(double const, double const);
-
-   // void AppendPointShared(bool const);
-   // bool bPointShared(int const) const;
 
    void SetUpCoastAdjacentProfile(CGeomProfile*);
    // CGeomProfile* pGetUpCoastAdjacentProfile(void) const;
@@ -184,7 +141,5 @@ class CGeomProfile : public CGeomMultiLine
 
    void SetProfileDeepWaterWavePeriod(double const);
    double dGetProfileDeepWaterWavePeriod(void) const;
-
-   bool bIsIntervention(void) const;
 };
 #endif // PROFILE_H

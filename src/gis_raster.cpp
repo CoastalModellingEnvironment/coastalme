@@ -930,8 +930,7 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer)
          switch (nDataItem)
          {
             case (LANDFORM_RASTER):
-               // Initial Landform Class GIS data, is integer TODO 030 Do we also need
-               // a landform sub-category input?
+               // Initial Landform Class GIS data, is integer
                nTmp = static_cast<int>(pdScanline[nX]);
 
                if ((isnan(nTmp)) || (nTmp == m_nGISMissingValue))
@@ -944,7 +943,7 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer)
                break;
 
             case (INTERVENTION_CLASS_RASTER):
-               // Intervention class, is integer. If not an intervention, show INT_NODATA
+               // Intervention class, is integer (1 = structural intervention, 2 = non-structural intervention)
                nTmp = static_cast<int>(pdScanline[nX]);
 
                if ((isnan(nTmp)) || (nTmp == m_nGISMissingValue))
@@ -953,7 +952,18 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer)
                   nMissing++;
                }
 
-               m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(nTmp);
+               if ((nTmp == 0) || (nTmp == INT_NODATA))
+                  // If not an intervention, do nothing
+                  break;
+
+               // OK we have an intervention here. Which kind?
+               if (nTmp == 1)
+                  // Structural intervention
+                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_INTERVENTION_STRUCT);
+               else if (nTmp == 2)
+                  // Non-structural intervention
+                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_INTERVENTION_NON_STRUCT);
+
                break;
 
             case (INTERVENTION_HEIGHT_RASTER):

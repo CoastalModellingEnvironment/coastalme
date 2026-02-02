@@ -165,7 +165,7 @@ int CSimulation::nDoAllShorePlatFormErosion(void)
 int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomProfile *pProfile)
 {
    // Only work on this profile if it is problem-free TODO 024 Or if it has just hit dry land?
-   if (! pProfile->bOKIncStartAndEndOfCoast()) // || (pProfile->nGetProblemCode() == PROFILE_DRYLAND))
+   if (! pProfile->bProfileOK())
       return RTN_OK;
 
    // Get the length of the profile (in cells) and the index of the coast point at which this profile starts
@@ -229,7 +229,7 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
 
       // Safety check
       if (nTopLayer == INT_NODATA)
-         return RTN_ERR_NO_TOP_LAYER;
+         return RTN_ERR_NO_TOP_LAYER_DURING_PLATFORM_CALC;
 
       if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
          // TODO 025 We are down to basement
@@ -394,7 +394,7 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
 int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, CGeomProfile *pProfile, int const nDirection)
 {
    // Only work on this profile if it is problem-free
-   if (! pProfile->bOKIncStartAndEndOfCoast())
+   if (! pProfile->bProfileOK())
       return RTN_OK;
 
    int const nProfSize = pProfile->nGetNumCellsInProfile();
@@ -536,7 +536,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
 
          // Safety check
          if (nTopLayer == INT_NODATA)
-            return RTN_ERR_NO_TOP_LAYER;
+            return RTN_ERR_NO_TOP_LAYER_DURING_PLATFORM_CALC;
 
          if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
             // TODO 025 We are down to basement

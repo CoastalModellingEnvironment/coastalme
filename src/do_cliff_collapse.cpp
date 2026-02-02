@@ -253,7 +253,7 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    if (nTopLayer == INT_NODATA)
    {
       LogStream << m_ulIter << ": " << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] nTopLayer = " << nTopLayer << endl;
-      return RTN_ERR_NO_TOP_LAYER;
+      return RTN_ERR_NO_TOP_LAYER_DURING_CLIFF_COLLAPSE_CALC;
    }
 
    // Set flags to say that the notch layer, and all layers above it, have changed
@@ -470,7 +470,7 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    // Final safety check
    int const nNewTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetNumOfTopLayerAboveBasement();
    if (nNewTopLayer == INT_NODATA)
-      return RTN_ERR_NO_TOP_LAYER;
+      return RTN_ERR_NO_TOP_LAYER_DURING_CLIFF_COLLAPSE_CALC;
 
    return RTN_OK;
 }

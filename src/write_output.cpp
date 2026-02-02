@@ -587,8 +587,8 @@ void CSimulation::WriteStartRunDetails(void)
    }
 
    OutStream << " Gravitational acceleration                                \t: " << resetiosflags(ios::floatfield) << fixed << m_dG << " m^2/s" << endl;
-   OutStream << " Usual spacing of coastline normals                        \t: " << resetiosflags(ios::floatfield) << fixed << m_dCoastNormalSpacing << " m" << endl;
-   OutStream << "*Usual spacing of coastline normals on interventions       \t: " << resetiosflags(ios::floatfield) << fixed << m_dCoastNormalInterventionSpacing << " m" << endl;
+   OutStream << " Usual spacing of coastline normals                        \t: " << resetiosflags(ios::floatfield) << fixed << m_dCoastProfileSpacing << " m" << endl;
+   OutStream << "*Usual spacing of coastline normals on interventions       \t: " << resetiosflags(ios::floatfield) << fixed << m_dCoastProfileInterventionSpacing << " m" << endl;
    OutStream << " Random factor for spacing of normals                      \t: " << resetiosflags(ios::floatfield) << fixed << m_dCoastNormalRandSpacingFactor << endl;
    OutStream << " Length of coastline normals                               \t: " << m_dCoastNormalLength << " m" << endl;
    OutStream << endl;

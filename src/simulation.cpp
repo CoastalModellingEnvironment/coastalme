@@ -207,8 +207,8 @@ CSimulation::CSimulation(void)
    m_nCliffEdgeSmoothWindow = 0;
    m_nSavGolCliffEdgePoly = 0;
    m_nProfileSmoothWindow = 0;
-   m_nCoastNormalSpacing = 0;
-   m_nCoastNormalInterventionSpacing = 0;
+   m_nCoastProfileSpacing = 0;
+   m_nCoastProfileInterventionSpacing = 0;
    m_nCoastCurvatureInterval = 0;
    m_nGISMaxSaveDigits = 0;
    m_nGISSave = 0;
@@ -232,7 +232,8 @@ CSimulation::CSimulation(void)
    m_nDeepWaterWaveDataNumTimeSteps = 0;
    m_nLogFileDetail = 0;
    m_nRunUpEquation = 0;
-   m_nLevel = 0;
+   // m_nLevel = 0;
+   m_nExtra = 0;
 
    // TODO 011 May wish to make this a user-supplied value
    m_nGISMissingValue = INT_NODATA;
@@ -323,8 +324,8 @@ CSimulation::CSimulation(void)
    m_dG = 0;
    m_dInmersedToBulkVolumetric = 0;
    m_dDepthOfClosure = 0;
-   m_dCoastNormalSpacing = 0;
-   m_dCoastNormalInterventionSpacing = 0;
+   m_dCoastProfileSpacing = 0;
+   m_dCoastProfileInterventionSpacing = 0;
    m_dCoastNormalLength = 0;
    m_dSyntheticTransectSpacing = 0;
    m_dThisIterTotSeaDepth = 0;
@@ -665,26 +666,26 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
    //    // DEBUG CODE =================================================================================================================
 
    // If we are using the default cell spacing, then now that we know the size of the raster cells, we can set the size of profile spacing in m
-   if (bFPIsEqual(m_dCoastNormalSpacing, 0.0, TOLERANCE))
-      m_dCoastNormalSpacing = DEFAULT_PROFILE_SPACING * m_dCellSide;
+   if (bFPIsEqual(m_dCoastProfileSpacing, 0.0, TOLERANCE))
+      m_dCoastProfileSpacing = DEFAULT_PROFILE_SPACING * m_dCellSide;
    else
    {
       // The user specified a profile spacing, is this too small?
-      m_nCoastNormalSpacing = nRound(m_dCoastNormalSpacing / m_dCellSide);
+      m_nCoastProfileSpacing = nRound(m_dCoastProfileSpacing / m_dCellSide);
 
-      if (m_nCoastNormalSpacing < DEFAULT_PROFILE_SPACING)
+      if (m_nCoastProfileSpacing < DEFAULT_PROFILE_SPACING)
       {
-         cerr << ERR << "profile spacing was specified as " << m_dCoastNormalSpacing << " m, which is " << m_nCoastNormalSpacing << " cells. Polygon creation works poorly if profile spacing is less than " << DEFAULT_PROFILE_SPACING << " cells, i.e. " << DEFAULT_PROFILE_SPACING * m_dCellSide << " m" << endl;
+         cerr << ERR << "profile spacing was specified as " << m_dCoastProfileSpacing << " m, which is " << m_nCoastProfileSpacing << " cells. Polygon creation works poorly if profile spacing is less than " << DEFAULT_PROFILE_SPACING << " cells, i.e. " << DEFAULT_PROFILE_SPACING * m_dCellSide << " m" << endl;
 
-         LogStream << ERR << "profile spacing was specified as " << m_dCoastNormalSpacing << " m, which is " << m_nCoastNormalSpacing << " cells. Polygon creation works poorly if profile spacing is less than " << DEFAULT_PROFILE_SPACING << " cells, i.e. " << DEFAULT_PROFILE_SPACING * m_dCellSide << " m" << endl;
+         LogStream << ERR << "profile spacing was specified as " << m_dCoastProfileSpacing << " m, which is " << m_nCoastProfileSpacing << " cells. Polygon creation works poorly if profile spacing is less than " << DEFAULT_PROFILE_SPACING << " cells, i.e. " << DEFAULT_PROFILE_SPACING * m_dCellSide << " m" << endl;
 
          return RTN_ERR_PROFILE_SPACING;
       }
    }
 
-   // Set the profile spacing on interventions
-   m_dCoastNormalInterventionSpacing = m_dCoastNormalSpacing * INTERVENTION_PROFILE_SPACING_FACTOR;
-   m_nCoastNormalInterventionSpacing = nRound(m_dCoastNormalInterventionSpacing / m_dCellSide);
+   // Set the profile spacing on interventions (both structural and non-structural)
+   m_dCoastProfileInterventionSpacing = dRound(m_dCoastProfileSpacing * INTERVENTION_PROFILE_SPACING_FACTOR);
+   m_nCoastProfileInterventionSpacing = nRound(m_dCoastProfileInterventionSpacing / m_dCellSide);
 
    // We have at least one filename for the first layer, so add the correct number of layers. Note the the number of layers does not change during the simulation: however layers can decrease in thickness until they have zero thickness
    AnnounceAddLayers();
@@ -877,8 +878,8 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
 
    // Misc initialisation calcs
    m_nCoastMax = COAST_LENGTH_MAX_CONST * tMax(m_nXGridSize, m_nYGridSize);                     // Arbitrary but probably OK
-   m_nCoastMin = COAST_LENGTH_MIN_CONST * nRound(m_dCoastNormalSpacing);                        // Arbitrary but probably OK
-   m_nCoastCurvatureInterval = tMax(nRound(m_dCoastNormalSpacing / (m_dCellSide * 2)), 2);      // Arbitrary but probably OK
+   m_nCoastMin = COAST_LENGTH_MIN_CONST * nRound(m_dCoastProfileSpacing);                        // Arbitrary but probably OK
+   m_nCoastCurvatureInterval = tMax(nRound(m_dCoastProfileSpacing / (m_dCellSide * 2)), 2);      // Arbitrary but probably OK
 
    // For beach erosion/deposition, conversion from immersed weight to bulk volumetric (sand and voids) transport rate (Leo Van Rijn) TODO 007 need full reference
    m_dInmersedToBulkVolumetric = 1 / ((m_dBeachSedimentDensity - m_dSeaWaterDensity) * (1 - m_dBeachSedimentPorosity) * m_dG);
@@ -922,6 +923,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
          LogStream << "TIMESTEP " << m_ulIter << " " << string(154, '=') << endl;
 
       LogStream << fixed << setprecision(3);
+      m_nExtra = 0;
 
       // Note: m_prSlumpDirtyCells is NOT cleared here - it accumulates across timesteps. It will be cleared after GIS output is written (when saving at intervals)
 
@@ -968,12 +970,15 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       if (nRet != RTN_OK)
          return nRet;
 
-      // Create all coastline-normal profiles, in coastline-concave-curvature sequence
+      // For every coastline, create all coastline-normal profiles
       nRet = nCreateAllProfiles();
       if (nRet != RTN_OK)
          return nRet;
 
-      // Check the coastline-normal profiles for intersection, modify the profiles if they intersect, then mark valid profiles on the raster grid
+      // For every coastline, check all coastline-normal profiles for intersection, then modify intersecting profiles so that the sections of each profile seaward of the point of intersection are 'shared' i.e. are multi-lines. This creates the boundaries of the triangular polygons
+      CheckAllProfilesForIntersection();
+
+      // For every coastline, do further checks on profiles then mark valid profiles on the raster grid
       nRet = nCheckAndMarkAllProfiles();
       if (nRet != RTN_OK)
          return nRet;

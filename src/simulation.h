@@ -521,10 +521,10 @@ class CSimulation
    int m_nProfileSmoothWindow;
 
    //! Average spacing between coastline normals, measured in cells
-   int m_nCoastNormalSpacing;
+   int m_nCoastProfileSpacing;
 
    //! Average spacing between coastline normals on interventions, measured in cells
-   int m_nCoastNormalInterventionSpacing;
+   int m_nCoastProfileInterventionSpacing;
 
    //! Coast curvature interval is a length, measured in coastline points
    int m_nCoastCurvatureInterval;
@@ -607,8 +607,11 @@ class CSimulation
    //! The run-up equation used TODO 007 Finish surge and runup stuff
    int m_nRunUpEquation;
 
-   //! TODO 007 Used in WAVESETUP + SURGE + RUNUP Finish surge and runup stuff
-   int m_nLevel;
+   // //! TODO 007 Used in WAVESETUP + SURGE + RUNUP Finish surge and runup stuff
+   // int m_nLevel;
+
+   //! Used in debugging, if we need to output multiple sets of vector files within the same timestep
+   int m_nExtra;
 
    //! The data type used by GDAL for integer operations, can be GDT_Byte, GDT_Int16, GDT_UInt16, GDT_Int32, or GDT_UInt32
    GDALDataType m_GDALWriteIntDataType;
@@ -848,10 +851,10 @@ class CSimulation
    double m_dDepthOfClosure;
 
    //! Average spacing of the coastline-normal profiles, in m
-   double m_dCoastNormalSpacing;
+   double m_dCoastProfileSpacing;
 
    //! Average spacing of the coastline-normal profiles on interventions, in m
-   double m_dCoastNormalInterventionSpacing;
+   double m_dCoastProfileInterventionSpacing;
 
    //! Length of the coastline-normal profiles, in m
    double m_dCoastNormalLength;
@@ -1661,7 +1664,7 @@ class CSimulation
    int nReadRasterGISFile(int const, int const);
    int nReadVectorGISFile(int const);
    bool bWriteRasterGISFile(int const, string const*, int const = 0, double const = 0);
-   bool bWriteVectorGISFile(int const, string const*);
+   bool bWriteVectorGISFile(int const, string const*, string = "");
    void GetRasterOutputMinMax(int const, double&, double&, int const, double const);
    void SetRasterFileCreationDefaults(void);
    int nInterpolateWavesToPolygonCells(vector<TransectWaveData> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*);
@@ -1715,13 +1718,13 @@ class CSimulation
    int nCreateProfile(int const, int const, int const, int const, bool const, CGeom2DIPoint const*);
    int nLocateAndCreateGridEdgeProfile(bool const, int const, int&);
    void MarkProfilesOnGrid(int const, int&);
-   void CheckForIntersectingProfiles(void);
+   void CheckAllProfilesForIntersection(void);
    static bool bCheckForIntersection(CGeomProfile* const, CGeomProfile* const, int&, int&, double&, double&, double&, double&);
    void MergeProfilesAtFinalLineSegments(int const, CGeomProfile*, CGeomProfile*, int const, int const, double const, double const, double const, double const);
    void TruncateOneProfileRetainOtherProfile(int const, CGeomProfile*, CGeomProfile*, double, double, int, int, bool const);
    int nInsertPointIntoProfilesIfNeededThenUpdate(int const, CGeomProfile*, double const, double const, int const, CGeomProfile*, int const, bool const);
    void TruncateProfileAndAppendNew(int const, CGeomProfile*, int const, vector<CGeom2DPoint> const*, vector<vector<pair<int, int>>> const*);
-   void CreateRasterizedProfile(int const, CGeomProfile*, vector<CGeom2DIPoint>*, vector<bool>*, bool&, bool&, bool&, bool&, bool&, bool&);
+   void CreateRasterizedProfile(int const, CGeomProfile*, vector<CGeom2DIPoint>*, vector<bool>*, bool&, bool&, bool&, bool&, bool&/*, bool&*/);
    static void CalcDeanProfile(vector<double>*, double const, double const, double const, bool const, int const, double const);
    static double dSubtractProfiles(vector<double> const*, vector<double> const*, vector<bool> const*);
    int nCalcPotentialPlatformErosionOnProfile(int const, CGeomProfile*);

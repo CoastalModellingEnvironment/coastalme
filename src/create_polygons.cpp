@@ -57,7 +57,7 @@ int CSimulation::nCreateAllPolygons(void)
          // OK, this coast point is the start of a coastline-normal profile
          CGeomProfile* pThisProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nCoastPoint);
 
-         if (pThisProfile->bOKIncStartAndEndOfCoast())
+         if (pThisProfile->bProfileOK())
          {
             // This profile is OK, so we will start a polygon here and extend it down-coast (i.e. along the coast in the direction of increasing coastline point numbers)
             int const nThisProfile = pThisProfile->nGetProfileID();
@@ -86,7 +86,7 @@ int CSimulation::nCreateAllPolygons(void)
                nNextProfile = pNextProfile->nGetProfileID();
 
                // Is the next profile OK?
-               bNextProfileIsOK = pNextProfile->bOKIncStartAndEndOfCoast();
+               bNextProfileIsOK = pNextProfile->bProfileOK();
 
                if (! bNextProfileIsOK)
                {
@@ -200,10 +200,10 @@ int CSimulation::nCreateAllPolygons(void)
             bool bStartCoast = false;
             bool bEndCoast = false;
 
-            if (pThisProfile->bStartOfCoast())
+            if (pThisProfile->bIsStartOfCoast())
                bStartCoast = true;
 
-            if (pNextProfile->bEndOfCoast())
+            if (pNextProfile->bIsEndOfCoast())
                bEndCoast = true;
 
             // Create the coast polygon object, store it, and get a pointer to it

@@ -17,15 +17,21 @@ simulation:
   duration: 365 days
   timestep: 6 hours
   save_times:
+  - 1 hour
+  - 2 hours
+  - 3 hours
+  - 4 hours
+  - 5 hours
   - 6 hours
-  - 12 hours
-  - 24 hours
-  - 120 hours
-  - 250 hours
-  - 500 hours
-  - 1000 hours
-  - 3000 hours
-  - 5000 hours
+  # - 6 hours
+  # - 12 hours
+  # - 24 hours
+  # - 120 hours
+  # - 250 hours
+  # - 500 hours
+  # - 1000 hours
+  # - 3000 hours
+  # - 5000 hours
   random_seed: 280764
 
 # GIS Output Configuration

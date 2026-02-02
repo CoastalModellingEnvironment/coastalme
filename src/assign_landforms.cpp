@@ -36,6 +36,187 @@ using std::endl;
 #include "cell_layer.h"
 
 //===============================================================================================================================
+//! Each timestep, classify landforms for all cells (cells on the coastline will be changed later)
+//===============================================================================================================================
+int CSimulation::nAssignLandformsForAllCells(void)
+{
+   int const NO_ACTION = -1;
+
+   // First pass: collect information about cells that need to be changed. This avoids race conditions from reading neighbour cells while writing to current cells
+   vector<vector<int>> VCellToUpdate(m_nXGridSize, vector<int>(m_nYGridSize, NO_ACTION));
+
+   // Read-only phase: determine what changes need to be made
+#ifdef _OPENMP
+#pragma omp parallel for collapse(2)
+#endif
+
+   for (int nX = 0; nX < m_nXGridSize; nX++)
+   {
+      for (int nY = 0; nY < m_nYGridSize; nY++)
+      {
+         // Get this cell's existing landform category
+         CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetLandform();
+         int const nCat = pLandform->nGetLFCategory();
+
+         // OK, use these rules to set landform categories
+         if (nCat == LF_INTERVENTION_STRUCT)
+            // Already set to intervention, so don't change
+            continue;
+
+         if (nCat == LF_INTERVENTION_NON_STRUCT)
+            // Already set to intervention, so don't change
+            continue;
+
+         if (nCat == LF_SEDIMENT_INPUT_UNCONSOLIDATED)
+            // Already set to sediment input, so don't change
+            continue;
+
+         if (nCat == LF_SEDIMENT_INPUT_CONSOLIDATED)
+            // Already set to sediment input, so don't change
+            continue;
+
+         // Now maybe change landform category
+         if (m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea())
+         {
+            // This is a sea cell, is it surrounded by drift cells?
+            if (bSurroundedByDriftCells(nX, nY))
+            {
+               // Set to beach
+               VCellToUpdate[nX][nY] = LF_DRIFT_BEACH;
+               continue;
+            }
+
+            if (m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() > m_dThisIterSWL)
+            {
+               // This sea cell has elevation is above this-iteration SWL
+               if (nCat != LF_ISLAND)
+                  // Set to island
+                  VCellToUpdate[nX][nY] = LF_ISLAND;
+               continue;
+            }
+
+            // Is this cell already marked as sea?
+            if (nCat != LF_SEA)
+               // Mark it as sea
+               VCellToUpdate[nX][nY] = LF_SEA;
+            continue;
+         }
+
+         // OK, this is not sea. Are we down to basement?
+         if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
+         {
+            // Down to basement
+            if (nCat != LF_UNKNOWN)
+               // Set to unknown landform
+               VCellToUpdate[nX][nY] = LF_UNKNOWN;
+            continue;
+         }
+
+         int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
+         CRWCellLayer* pTopLayer = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer);
+
+         if (pTopLayer->bHasTalus())
+         {
+            // There is talus here
+            VCellToUpdate[nX][nY] = LF_DRIFT_TALUS;
+            continue;
+         }
+
+         if (pTopLayer->bHasUncons())
+         {
+            // This is unconsolidated sediment here, so set to beach
+            VCellToUpdate[nX][nY] = LF_DRIFT_BEACH;
+            continue;
+         }
+
+         // Default
+         VCellToUpdate[nX][nY] = LF_HINTERLAND;
+      }
+   }
+
+   // Write phase: apply the changes
+   for (int nX = 0; nX < m_nXGridSize; nX++)
+   {
+      for (int nY = 0; nY < m_nYGridSize; nY++)
+      {
+         int const nAction = VCellToUpdate[nX][nY];
+
+         if (nAction == NO_ACTION)
+            // No change
+            continue;
+
+         CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetLandform();
+
+         switch (nAction)
+         {
+         case LF_UNKNOWN:
+            // Set to unknown landform
+            pLandform->SetLFCategory(LF_UNKNOWN);
+            break;
+
+         case LF_HINTERLAND:
+            // Set to hinterland
+            pLandform->SetLFCategory(LF_HINTERLAND);
+            break;
+
+         case LF_CLIFF_ON_COASTLINE:
+            // Set to cliff on coastline
+            pLandform->SetLFCategory(LF_CLIFF_ON_COASTLINE);
+            break;
+
+         case LF_CLIFF_INLAND:
+            // Set to cliff inland
+            pLandform->SetLFCategory(LF_CLIFF_INLAND);
+            break;
+
+         case LF_DRIFT_TALUS:
+            // Set to talus
+            pLandform->SetLFCategory(LF_DRIFT_TALUS);
+            break;
+
+         case LF_DRIFT_BEACH:
+            // Set to beach
+            pLandform->SetLFCategory(LF_DRIFT_BEACH);
+            break;
+
+         case LF_DRIFT_DUNES:
+            // TODO not yet implemented
+            // Set to dunes
+            pLandform->SetLFCategory(LF_DRIFT_DUNES);
+            break;
+
+         case LF_INTERVENTION_STRUCT:
+            // Set to structural intervention
+            pLandform->SetLFCategory(LF_INTERVENTION_STRUCT);
+            break;
+
+         case LF_INTERVENTION_NON_STRUCT:
+            // Set to non-structural intervention
+            pLandform->SetLFCategory(LF_INTERVENTION_NON_STRUCT);
+            break;
+
+         case LF_ISLAND:
+            // Set to island
+            pLandform->SetLFCategory(LF_ISLAND);
+            break;
+
+         case LF_SEDIMENT_INPUT_UNCONSOLIDATED:
+            // Set to unconsolidated sediment input
+            pLandform->SetLFCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
+            break;
+
+         case LF_SEDIMENT_INPUT_CONSOLIDATED:
+            // Set to consolidated sediment input
+            pLandform->SetLFCategory(LF_SEDIMENT_INPUT_CONSOLIDATED);
+            break;
+         }
+      }
+   }
+
+   return RTN_OK;
+}
+
+//===============================================================================================================================
 //! Each timestep, classify coastal landforms and assign a coastal landform object to every point on every coastline. If, for a given cell, the coastal landform class has not changed then it inherits values from the previous timestep
 //===============================================================================================================================
 int CSimulation::nAssignLandformsForAllCoasts(void)
@@ -50,18 +231,17 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
          int const nY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
 
          // Store the coastline number and the number of the coastline point in the cell so we can get these quickly later
-         m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetCoast(nCoast);
          m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetPointOnCoast(nCoastPoint);
 
-         // OK, start assigning coastal landforms. First, is there an intervention here?
-         if (bIsInterventionCell(nX, nY) || m_pRasterGrid->m_Cell[nX][nY].dGetInterventionHeight() > 0)
+         // OK, start assigning coastal landforms. First, is there an intervention on this cell?
+         int nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory();
+         if ((nCat == LF_INTERVENTION_STRUCT) || (nCat == LF_INTERVENTION_NON_STRUCT))
          {
             // There is, so create an intervention object on the vector coastline with these attributes
-            int const nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory();
             CACoastLandform* pIntervention = new CRWIntervention(&m_VCoast[nCoast], nCoast, nCoastPoint, nCat);
             m_VCoast[nCoast].AppendCoastLandform(pIntervention);
 
-            LogStream << nCoastPoint << " [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} " << m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory() << " " << m_pRasterGrid->m_Cell[nX][nY].dGetInterventionHeight() << endl;
+            // LogStream << nCoastPoint << " [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} " << m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory() << " " << m_pRasterGrid->m_Cell[nX][nY].dGetInterventionHeight() << endl;
 
             continue;
          }
@@ -116,7 +296,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
             if (m_bDoCliffCollapse)
             {
                // OK we are considering cliff collapse, and we have consolidated sediment at SWL, so this is a cliff cell. Get the existing landform category for this cell
-               int const nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory();
+               nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory();
                if ((nCat == LF_CLIFF_ON_COASTLINE) || (nCat == LF_CLIFF_INLAND))
                {
                   // This cell was a cliff in some previous timestep. Is the pre-existing notch still below the top of the consolidated sediment?
@@ -380,135 +560,6 @@ int CSimulation::nLandformToGrid(int const nCoast, int const nPoint)
    return RTN_OK;
 }
 
-//===============================================================================================================================
-//! Each timestep, classify landforms for cells that are not on the coastline
-//===============================================================================================================================
-int CSimulation::nAssignLandformsForAllCells(void)
-{
-   // First pass: collect information about cells that need to be changed. This avoids race conditions from reading neighbour cells while writing to current cells
-   vector<vector<int>> vCellUpdates(m_nXGridSize, vector<int>(m_nYGridSize, -1));
-
-   // Read-only phase: determine what changes need to be made
-#ifdef _OPENMP
-#pragma omp parallel for collapse(2)
-#endif
-
-   for (int nX = 0; nX < m_nXGridSize; nX++)
-   {
-      for (int nY = 0; nY < m_nYGridSize; nY++)
-      {
-         // Get this cell's landform category
-         CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetLandform();
-         int const nCat = pLandform->nGetLFCategory();
-
-         // Store what action to take (to avoid writing during read phase)
-         int nAction = -1;       // -1 = no change, others defined below
-
-         if (m_pRasterGrid->m_Cell[nX][nY].bBasementElevIsMissingValue())
-         {
-            // Down to basement
-            nAction = 0;         // Set to unknown landform
-
-            vCellUpdates[nX][nY] = nAction;
-            continue;
-         }
-
-         if (nCat == LF_SEA)
-         {
-            // This is a sea cell. Is it surrounded by drift cells, or drift and cliff?
-            if (bSurroundedByDriftCells(nX, nY))
-               nAction = 1;      // Set to beach
-            else if (m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus() > m_dThisIterSWL)
-               nAction = 2;      // Set to island
-            // else keep as sea (no action needed)
-
-            vCellUpdates[nX][nY] = nAction;
-            continue;
-         }
-
-         if (nCat == LF_CLIFF_ON_COASTLINE)
-         {
-            nAction = 3;      // Set to cliff inland
-
-            vCellUpdates[nX][nY] = nAction;
-            continue;
-         }
-
-         int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
-         CRWCellLayer* pTopLayer = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer);
-
-         if (pTopLayer->bHasTalus())
-         {
-            // There is talus here
-            nAction = 4;      // Set to talus
-
-            vCellUpdates[nX][nY] = nAction;
-            continue;
-         }
-
-         if (pTopLayer->bHasUncons())
-         {
-            // This is unconsolidated sediment here TODO improve this
-            nAction = 5;      // Set to beach
-
-            vCellUpdates[nX][nY] = nAction;
-            continue;
-
-         }
-
-         nAction = 6;         // Set to hinterland
-
-         vCellUpdates[nX][nY] = nAction;
-      }
-   }
-
-   // Write phase: apply the changes
-   for (int nX = 0; nX < m_nXGridSize; nX++)
-   {
-      for (int nY = 0; nY < m_nYGridSize; nY++)
-      {
-         int const nAction = vCellUpdates[nX][nY];
-
-         if (nAction == -1)
-            continue; // No change
-
-         CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetLandform();
-
-         switch (nAction)
-         {
-         case 0: // Set to unknown landform
-            pLandform->SetLFCategory(LF_UNKNOWN);
-            break;
-
-         case 1: // Set to beach
-            pLandform->SetLFCategory(LF_DRIFT_BEACH);
-            break;
-
-         case 2: // Set to island
-            pLandform->SetLFCategory(LF_ISLAND);
-            break;
-
-         case 3: // Set to cliff inland
-            pLandform->SetLFCategory(LF_CLIFF_INLAND);
-            break;
-
-         case 4: // Set to talus
-            pLandform->SetLFCategory(LF_DRIFT_TALUS);
-            break;
-
-         case 5: // Set to beach
-            pLandform->SetLFCategory(LF_DRIFT_BEACH);
-            break;
-
-         case 6: // Set to hinterland
-            pLandform->SetLFCategory(LF_HINTERLAND);
-            break;
-         }
-      }
-   }
-
-   return RTN_OK;
-}
 //===============================================================================================================================
 //! Returns true if this cell has eight drift cells surrounding it
 //===============================================================================================================================

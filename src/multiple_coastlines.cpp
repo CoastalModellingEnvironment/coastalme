@@ -114,7 +114,7 @@ int CSimulation::nDoMultipleCoastlines(void)
             }
 
             // For grid-edge cells, don't check for intersection with other-coast profiles, instead wait until this profile hits a different coast
-            if (! pProfile->bIsGridEdge())
+            if (! pProfile->bIsStartOrEndOfCoast())
             {
                // Have we hit a cell which is 'under' a coast-normal profile belonging to another coast? NOTE Is a problem if get more than two coast normals passing through this cell
                int nHitProfileCoast = m_pRasterGrid->m_Cell[nX][nY].nGetProfileCoastID();
@@ -278,36 +278,30 @@ int CSimulation::nTruncateProfilesDifferentCoasts(int const nThisProfileCoast, i
    pVHitProfileCells->resize(nHitProfileEndpointIndex);
    pHitProfile->SetCellsInProfile(pVHitProfileCells);
 
-   // Flag this profile as truncated
-   pThisProfile->SetTruncatedDifferentCoast(true);
-
-   // Flag the hit profile as truncated
-   pHitProfile->SetTruncatedDifferentCoast(true);
-
    if (m_nLogFileDetail >= LOG_FILE_ALL)
    {
       string strTmp;
-      if (pThisProfile->bIsGridEdge())
+      if (pThisProfile->bIsStartOrEndOfCoast())
       {
          strTmp += " grid-edge ";
 
-         if (pThisProfile->bStartOfCoast())
+         if (pThisProfile->bIsStartOfCoast())
             strTmp += "start";
 
-         if (pThisProfile->bEndOfCoast())
+         if (pThisProfile->bIsEndOfCoast())
             strTmp += "end";
       }
 
       LogStream << m_ulIter << ": coast " << nThisProfileCoast << strTmp << " profile " << nThisProfile << " hit by coast " << nHitProfileCoast << " profile " << nHitProfile << " at [" << nXIntersect << "][" << nYIntersect << "] = {" << dGridCentroidXToExtCRSX(nXIntersect) << ", " << dGridCentroidYToExtCRSY(nYIntersect) << "}. Profile truncated, new endpoint is [" << nXThisProfileEndPoint << "][" << nYThisProfileEndPoint << "] = {" << dGridCentroidXToExtCRSX(nXThisProfileEndPoint) << ", " << dGridCentroidYToExtCRSY(nYThisProfileEndPoint) << "}. Length was " << nThisProfileLen << " cells, length is now " << nThisProfileEndpointIndex << " cells (" << 100 * nThisProfileEndpointIndex / nThisProfileLen << "%)" << endl;
 
-      if (pHitProfile->bIsGridEdge())
+      if (pHitProfile->bIsStartOrEndOfCoast())
       {
          strTmp = " grid-edge ";
 
-         if (pHitProfile->bStartOfCoast())
+         if (pHitProfile->bIsStartOfCoast())
             strTmp += "start";
 
-         if (pHitProfile->bEndOfCoast())
+         if (pHitProfile->bIsEndOfCoast())
             strTmp += "end";
       }
 
@@ -361,20 +355,17 @@ int CSimulation::nTruncateProfileHitDifferentCoast(int const nCoast, int const n
    if (nRtn != RTN_OK)
       return nRtn;
 
-   // And flag as truncated
-   pProfile->SetTruncatedDifferentCoast(true);
-
    if (m_nLogFileDetail >= LOG_FILE_ALL)
    {
       string strTmp;
-      if (pProfile->bStartOfCoast() || pProfile->bEndOfCoast())
+      if (pProfile->bIsStartOfCoast() || pProfile->bIsEndOfCoast())
       {
          strTmp += " grid-edge ";
 
-         if (pProfile->bStartOfCoast())
+         if (pProfile->bIsStartOfCoast())
             strTmp += "start";
 
-         if (pProfile->bEndOfCoast())
+         if (pProfile->bIsEndOfCoast())
             strTmp += "end";
       }
 

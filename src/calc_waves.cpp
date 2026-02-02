@@ -262,7 +262,7 @@ void CSimulation::GenerateSyntheticTransects(vector<TransectWaveData> const* pVR
          // Set metadata for synthetic transect
          synthTransect.nCoastID = transect1.nCoastID;
          synthTransect.nProfileID = -1; // Mark as synthetic
-         synthTransect.bIsGridEdge = false;
+         synthTransect.bIsStartOrEndOfCoast = false;
 
          // Interpolate points - use the minimum length to avoid extrapolation
          size_t const nMinLength = std::min(transect1.VdX.size(), transect2.VdX.size());
@@ -342,7 +342,7 @@ int CSimulation::nDoAllPropagateWaves(void)
             if (nRet == RTN_ERR_CSHORE_ERROR)
             {
                // Abandon calculations on this profile, and flag the profile
-               pProfile->SetCShoreProblem(true);
+               pProfile->SetCShoreProblem();
 
                // Move on to next profile
                continue;
@@ -359,7 +359,7 @@ int CSimulation::nDoAllPropagateWaves(void)
             continue;
 
          // Is this a start of coast or end of coast profile?
-         if (! pProfile->bIsGridEdge())
+         if (! pProfile->bIsStartOrEndOfCoast())
          {
             // It is neither a start of coast or an end of coast profile, so set switch
             bSomeNonStartOrEndOfCoastProfiles = true;
@@ -368,7 +368,7 @@ int CSimulation::nDoAllPropagateWaves(void)
          // Store metadata about this transect
          transect.nCoastID = nCoast;
          transect.nProfileID = pProfile->nGetProfileID();
-         transect.bIsGridEdge = pProfile->bIsGridEdge();
+         transect.bIsStartOrEndOfCoast = pProfile->bIsStartOrEndOfCoast();
 
          // Add this transect to the collection
          VAllTransects.push_back(move(transect));
@@ -806,11 +806,11 @@ double CSimulation::dCalcWaveAngleToCoastNormal(double const dCoastAngle, double
 //===============================================================================================================================
 int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoastSize, CGeomProfile *pProfile, vector<double> *pVdX, vector<double> *pVdY, vector<double> *pVdHeightX, vector<double> *pVdHeightY, vector<bool> *pVbBreaking)
 {
-   // Only do this for profiles without problems. Still do start- and end-of-coast profiles however
-   if (! pProfile->bOKIncStartAndEndOfCoast())
+   // Only do this for profiles (inc. start- and end-of-coast profiles) without problems
+   if (! pProfile->bProfileOK())
    {
-      // if (m_nLogFileDetail >= LOG_FILE_ALL)
-      // LogStream << m_ulIter << ": coast " << nCoast << ", profile " << nProfile << " has been marked invalid, will not calc wave properties on this profile" << endl;
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": coast " << nCoast << ", profile " << pProfile->nGetProfileID() << " is not OK, will not calc wave properties on this profile" << endl;
 
       return RTN_OK;
    }
@@ -985,7 +985,6 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
 
       // The elevation of each of these profile points is the elevation of the centroid of the cell that is 'under' the point. However we cannot always be confident that this is the 'true' elevation of the point on the vector since (unless the profile runs planview N-S or W-E) the vector does not always run exactly through the centroid of the cell
       int nRet = nGetThisProfileElevationsForCShore(nCoast, pProfile, nProfileSize, &VdProfileDistXY, &VdProfileZ, &VdProfileFrictionFactor);
-
       if (nRet != RTN_OK)
       {
          // Could not create the profile elevation vectors
@@ -1062,27 +1061,27 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
          switch (nRet)
          {
          case -1:
-            strErr = "CShore WARNING 1: negative depth at the first node";
+            strErr = "CShore WARNING 1 negative depth at the first node";
             break;
 
          case 2:
-            strErr = "CShore WARNING 2: negative value at end of landward marching computation";
+            strErr = "CShore WARNING 2 negative value at end of landward marching computation";
             break;
 
          case 3:
-            strErr = "CShore WARNING 3: large energy gradients at the first node: small waves with short period at sea boundary";
+            strErr = "CShore WARNING 3 large energy gradients at the first node: small waves with short period at sea boundary";
             break;
 
          case 4:
-            strErr = "CShore WARNING 4: zero energy at the first node";
+            strErr = "CShore WARNING 4 zero energy at the first node";
             break;
 
          case 5:
-            strErr = "CShore WARNING 5: at end of landward marching computation, insufficient water depth";
+            strErr = "CShore WARNING 5 at end of landward marching computation, insufficient water depth";
             break;
 
          case 7:
-            strErr = "CShore WARNING 7: did not reach convergence";
+            strErr = "CShore WARNING 7 did not reach convergence";
             break;
          }
 
@@ -1237,27 +1236,27 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
          switch (nRet)
          {
          case -1:
-            strErr += "CShore WARNING 1: negative depth at the first node";
+            strErr += "CShore WARNING 1 negative depth at the first node";
             break;
 
          case 2:
-            strErr += "CShore WARNING 2: negative value at end of landward marching computation";
+            strErr += "CShore WARNING 2 negative value at end of landward marching computation";
             break;
 
          case 3:
-            strErr += "CShore WARNING 3: large energy gradients at the first node: small waves with short period at sea boundary";
+            strErr += "CShore WARNING 3 large energy gradients at the first node: small waves with short period at sea boundary";
             break;
 
          case 4:
-            strErr += "CShore WARNING 4: zero energy at the first node";
+            strErr += "CShore WARNING 4 zero energy at the first node";
             break;
 
          case 5:
-            strErr += "CShore WARNING 5: at end of landward marching computation, insufficient water depth";
+            strErr += "CShore WARNING 5 at end of landward marching computation, insufficient water depth";
             break;
 
          case 7:
-            strErr += "CShore WARNING 7: did not reach convergence";
+            strErr += "CShore WARNING 7 did not reach convergence";
             break;
          }
 
@@ -1705,11 +1704,19 @@ int CSimulation::nGetThisProfileElevationsForCShore(int const nCoast, CGeomProfi
 
       // Safety checks
       if (nTopLayer == INT_NODATA)
-         return RTN_ERR_NO_TOP_LAYER;
+      {
+         LogStream << ERR << " no top layer during wave calcs at [" << nX << "][" << nY << "] for coast " << pProfile->nGetCoastID() << " profile " << pProfile->nGetProfileID() << endl;
+
+         return RTN_ERR_NO_TOP_LAYER_DURING_WAVE_CALC;
+      }
 
       if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
+      {
          // TODO 009 We are down to basement, decide what to do
+         LogStream << ERR << " down to basement during wave calcs at [" << nX << "][" << nY << "] for coast " << pProfile->nGetCoastID() << " profile " << pProfile->nGetProfileID() << endl;
+
          return RTN_OK;
+      }
 
       // Get the elevation for both consolidated and unconsolidated sediment (including any talus) on this cell
       double const dTopElev = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() + m_pRasterGrid->m_Cell[nX][nY].dGetInterventionHeight();
@@ -1731,7 +1738,6 @@ int CSimulation::nGetThisProfileElevationsForCShore(int const nCoast, CGeomProfi
             VdVZ->push_back(VdProfileZ);
          }
       }
-
       else
       {
          VdVZ->push_back(VdProfileZ);
@@ -1750,7 +1756,6 @@ int CSimulation::nGetThisProfileElevationsForCShore(int const nCoast, CGeomProfi
          dProfileFricFact = 100 * CSHORE_FRICTION_FACTOR;
          bIsBehindIntervention = true;
       }
-
       else
          dProfileFricFact = CSHORE_FRICTION_FACTOR;
 
@@ -1997,8 +2002,8 @@ void CSimulation::ModifyBreakingWavePropertiesWithinShadowZoneToCoastline(int co
 {
    CGeomProfile *pProfile = m_VCoast[nCoast].pGetProfile(nProfile);
 
-   // Only do this for profiles without problems, including the start and end-of-coast profile
-   if (! pProfile->bOKIncStartAndEndOfCoast())
+   // Only do this for profiles (including the start and end-of-coast profiles) without problems
+   if (! pProfile->bProfileOK())
       return;
 
    bool bModfiedWaveHeightisBreaking = false;
@@ -2100,7 +2105,7 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
    {
       pNextProfile = pTmpProfile->pGetDownCoastAdjacentProfile();
 
-      if (pNextProfile->bOKIncStartAndEndOfCoast())
+      if (pNextProfile->bProfileOK())
       {
          // The next profile is OK
          break;
@@ -2109,7 +2114,7 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
       // The next profile is not OK, so prepare to the one after that
       pTmpProfile = pNextProfile;
 
-      if (pTmpProfile->bEndOfCoast())
+      if (pTmpProfile->bIsEndOfCoast())
       {
          // Uh-oh, we've reached the down-coast end of the coast without finding an OK down-coast profile. So give up
          return;

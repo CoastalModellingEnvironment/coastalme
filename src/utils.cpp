@@ -2165,8 +2165,20 @@ string CSimulation::strGetErrorText(int const nErr)
       strErr = "updating grid with landforms";
       break;
 
-   case RTN_ERR_NO_TOP_LAYER:
-      strErr = "no top layer of sediment";
+   case RTN_ERR_NO_TOP_LAYER_DURING_WAVE_CALC:
+      strErr = "no top layer of sediment during wave calculations";
+      break;
+
+   case RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC:
+      strErr = "no top layer of sediment during beach erosion/deposition";
+      break;
+
+   case RTN_ERR_NO_TOP_LAYER_DURING_PLATFORM_CALC:
+      strErr = "no top layer of sediment during shore platform erosion";
+      break;
+
+   case RTN_ERR_NO_TOP_LAYER_DURING_CLIFF_COLLAPSE_CALC:
+      strErr = "no top layer of sediment during cliff collapse";
       break;
 
    case RTN_ERR_NO_ADJACENT_POLYGON:

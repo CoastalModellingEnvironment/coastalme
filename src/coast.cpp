@@ -482,7 +482,7 @@ CGeomProfile* CRWCoast::pGetProfileWithUpCoastSeq(int const nProf) const
 // {
 //    CGeomProfile* pDownCoastProfile = pProfile->pGetDownCoastAdjacentProfile();
 //
-//    if ((pDownCoastProfile != NULL) && (pDownCoastProfile->bEndOfCoast()))
+//    if ((pDownCoastProfile != NULL) && (pDownCoastProfile->bIsEndOfCoast()))
 //       return NULL;
 //
 //    return pDownCoastProfile;

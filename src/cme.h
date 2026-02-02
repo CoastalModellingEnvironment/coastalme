@@ -218,6 +218,8 @@
 
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ===============================================================================================================================*/
+#include <csignal>      // Only for programmatic debug breakpoints using gdb i.e. std::raise(SIGINT);
+
 #include <climits>
 
 #include <string>
@@ -483,7 +485,6 @@ int const FLOOD_LOCATION_VEC = 3;
 int const FLOOD_LOCATION_MAX_LAYER = 1;
 
 // GIS raster output codes
-
 int const RASTER_PLOT_ACTIVE_ZONE = 1;
 int const RASTER_PLOT_ACTUAL_BEACH_EROSION = 2;
 int const RASTER_PLOT_ACTUAL_PLATFORM_EROSION = 3;
@@ -624,47 +625,58 @@ int const RTN_ERR_NO_SEAWARD_END_OF_PROFILE_BEACH_EROSION = 42;
 int const RTN_ERR_NO_SEAWARD_END_OF_PROFILE_UPCOAST_BEACH_DEPOSITION = 43;
 int const RTN_ERR_NO_SEAWARD_END_OF_PROFILE_DOWNCOAST_BEACH_DEPOSITION = 44;
 int const RTN_ERR_LANDFORM_TO_GRID = 45;
-int const RTN_ERR_NO_TOP_LAYER = 46;
-int const RTN_ERR_NO_ADJACENT_POLYGON = 47;
-int const RTN_ERR_BAD_MULTILINE = 48;
-int const RTN_ERR_CANNOT_INSERT_POINT = 49;
-int const RTN_ERR_CANNOT_ASSIGN_COASTAL_LANDFORM = 50;
-int const RTN_ERR_SHADOW_ZONE_FLOOD_FILL_NOGRID = 51;
-int const RTN_ERR_SHADOW_ZONE_FLOOD_START_POINT = 52;
-int const RTN_ERR_CSHORE_EMPTY_PROFILE = 53;
-int const RTN_ERR_CSHORE_FILE_INPUT = 54;
-int const RTN_ERR_READING_CSHORE_FILE_OUTPUT = 55;
-int const RTN_ERR_WAVE_INTERPOLATION_LOOKUP = 56;
-int const RTN_ERR_GRIDCREATE = 57;
-int const RTN_ERR_COAST_CANT_FIND_EDGE_CELL = 58;
-int const RTN_ERR_CSHORE_ERROR = 59;
-int const RTN_ERR_NO_CELL_UNDER_COASTLINE = 60;
-int const RTN_ERR_OPEN_DEEP_WATER_WAVE_DATA = 61;
-int const RTN_ERR_READING_DEEP_WATER_WAVE_DATA = 62;
-int const RTN_ERR_BOUNDING_BOX = 63;
-int const RTN_ERR_READING_SEDIMENT_INPUT_EVENT = 64;
-int const RTN_ERR_SEDIMENT_INPUT_EVENT = 65;
-int const RTN_ERR_SEDIMENT_INPUT_EVENT_LOCATION = 66;
-int const RTN_ERR_WAVESTATION_LOCATION = 67;
-int const RTN_ERR_FLOOD_LOCATION = 68;
-int const RTN_ERR_CLIFF_NOT_IN_POLYGON = 69;
-int const RTN_ERR_CELL_MARKED_PROFILE_COAST_BUT_NOT_PROFILE = 70;
-int const RTN_ERR_TRACING_FLOOD = 71;
-int const RTN_ERR_NO_START_FINISH_POINTS_TRACING_COAST = 72;
-int const RTN_ERR_NO_VALID_COAST = 73;
-int const RTN_ERR_COAST_TRACING_REPEATING = 74;
-int const RTN_ERR_COAST_TRACING_SAME_START_FINISH = 75;
-int const RTN_ERR_COAST_TRACING_ZERO_LENGTH = 76;
-int const RTN_ERR_COAST_TRACING_TOO_SHORT = 77;
-int const RTN_ERR_COAST_TRACING_TOO_LONG = 78;
-int const RTN_ERR_COAST_TRACING_OFF_EDGE = 79;
-int const RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE_DIFFERENT_COASTS = 80;
-int const RTN_ERR_POINT_NOT_FOUND_IN_MULTILINE_DIFFERENT_COASTS = 81;
-int const RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE = 82;
-int const RTN_ERR_CELL_IN_POLY_BUT_NO_POLY_COAST = 83;
-int const RTN_ERR_CLIFF_TALUS_TO_UNCONS = 84;
-int const RTN_ERR_COAST_TRACING_SAME_EDGE_START_FINISH = 85;
+int const RTN_ERR_NO_TOP_LAYER_DURING_WAVE_CALC = 46;
+int const RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC = 47;
+int const RTN_ERR_NO_TOP_LAYER_DURING_PLATFORM_CALC = 48;
+int const RTN_ERR_NO_TOP_LAYER_DURING_CLIFF_COLLAPSE_CALC = 49;
+int const RTN_ERR_NO_ADJACENT_POLYGON = 50;
+int const RTN_ERR_BAD_MULTILINE = 51;
+int const RTN_ERR_CANNOT_INSERT_POINT = 52;
+int const RTN_ERR_CANNOT_ASSIGN_COASTAL_LANDFORM = 53;
+int const RTN_ERR_SHADOW_ZONE_FLOOD_FILL_NOGRID = 54;
+int const RTN_ERR_SHADOW_ZONE_FLOOD_START_POINT = 55;
+int const RTN_ERR_CSHORE_EMPTY_PROFILE = 56;
+int const RTN_ERR_CSHORE_FILE_INPUT = 57;
+int const RTN_ERR_READING_CSHORE_FILE_OUTPUT = 58;
+int const RTN_ERR_WAVE_INTERPOLATION_LOOKUP = 59;
+int const RTN_ERR_GRIDCREATE = 60;
+int const RTN_ERR_COAST_CANT_FIND_EDGE_CELL = 61;
+int const RTN_ERR_CSHORE_ERROR = 62;
+int const RTN_ERR_NO_CELL_UNDER_COASTLINE = 63;
+int const RTN_ERR_OPEN_DEEP_WATER_WAVE_DATA = 64;
+int const RTN_ERR_READING_DEEP_WATER_WAVE_DATA = 65;
+int const RTN_ERR_BOUNDING_BOX = 66;
+int const RTN_ERR_READING_SEDIMENT_INPUT_EVENT = 67;
+int const RTN_ERR_SEDIMENT_INPUT_EVENT = 68;
+int const RTN_ERR_SEDIMENT_INPUT_EVENT_LOCATION = 69;
+int const RTN_ERR_WAVESTATION_LOCATION = 70;
+int const RTN_ERR_FLOOD_LOCATION = 71;
+int const RTN_ERR_CLIFF_NOT_IN_POLYGON = 72;
+int const RTN_ERR_CELL_MARKED_PROFILE_COAST_BUT_NOT_PROFILE = 73;
+int const RTN_ERR_TRACING_FLOOD = 74;
+int const RTN_ERR_NO_START_FINISH_POINTS_TRACING_COAST = 75;
+int const RTN_ERR_NO_VALID_COAST = 76;
+int const RTN_ERR_COAST_TRACING_REPEATING = 77;
+int const RTN_ERR_COAST_TRACING_SAME_START_FINISH = 78;
+int const RTN_ERR_COAST_TRACING_ZERO_LENGTH = 79;
+int const RTN_ERR_COAST_TRACING_TOO_SHORT = 80;
+int const RTN_ERR_COAST_TRACING_TOO_LONG = 81;
+int const RTN_ERR_COAST_TRACING_OFF_EDGE = 82;
+int const RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE_DIFFERENT_COASTS = 83;
+int const RTN_ERR_POINT_NOT_FOUND_IN_MULTILINE_DIFFERENT_COASTS = 84;
+int const RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE = 85;
+int const RTN_ERR_CELL_IN_POLY_BUT_NO_POLY_COAST = 86;
+int const RTN_ERR_CLIFF_TALUS_TO_UNCONS = 87;
+int const RTN_ERR_COAST_TRACING_SAME_EDGE_START_FINISH = 88;
 int const RTN_ERR_UNKNOWN = 999;
+
+// Coast-normal profile status codes
+int const PROFILE_STATUS_OK = 0;                         // No problem, profile is valid
+int const PROFILE_STATUS_TOO_SHORT = 1;                  // Is this profile invalid because it is too short?
+int const PROFILE_STATUS_HIT_LAND = 2;                   // Has this profile invalid because it hit land?
+int const PROFILE_STATUS_HIT_COAST = 3;                  // Has this profile invalid because it hit a coast?
+int const PROFILE_STATUS_HIT_PROFILE = 4;                // Has this profile invalid because it hit another profile?
+int const PROFILE_STATUS_HIT_INTERVENTION = 5;           // Has this profile invalid because it hit an intervention?
 
 // Elevation and 'slice' codes
 int const ELEV_IN_BASEMENT = -1;
@@ -733,7 +745,7 @@ double const STRAIGHT_COAST_MAX_SMOOTH_CURVATURE = -1;
 double const MIN_LENGTH_OF_SHADOW_ZONE_LINE = 10;           // Used in shadow line tracing
 double const MAX_LAND_LENGTH_OF_SHADOW_ZONE_LINE = 5;       // Used in shadow line tracing
 double const CLIFF_COLLAPSE_HEIGHT_INCREMENT = 0.1;         // Increment the fractional height of the cliff talus Dean profile, if we have not been able to deposit enough
-double const INTERVENTION_PROFILE_SPACING_FACTOR = 0.5;     // Profile spacing on interventions works better if it is smaller than profile spacing on coastline
+double const INTERVENTION_PROFILE_SPACING_FACTOR = 0.2;     // Profile spacing on interventions works better if it is smaller than profile spacing on coastline
 
 double const CLIFF_NOTCH_CUTOFF_DISTANCE = 2;               // Cut-off SWL distance (m), measured downwards from the cliff notch apex: below this there is no notch incision
 double const DBL_NODATA = -9999;
@@ -754,7 +766,7 @@ double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
 double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (13 Jan 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (01 Feb 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";
@@ -1270,7 +1282,7 @@ struct TransectWaveData
    std::vector<bool> VbBreaking;
    int nCoastID;
    int nProfileID;
-   bool bIsGridEdge;
+   bool bIsStartOrEndOfCoast;
 };
 
 ostream &operator<<(ostream &, const FillToWidth &);

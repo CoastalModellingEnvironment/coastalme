@@ -25,6 +25,7 @@ using std::endl;
 
 #include <cmath>
 using std::sqrt;
+using std::pow;
 
 #include <numeric>
 using std::accumulate;
@@ -152,29 +153,15 @@ void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
 }
 
 //===============================================================================================================================
-//! Calculates signed Menger curvature (https://en.wikipedia.org/wiki/Menger_curvature#Definition) from three points on a line. Returns +ve values for concave, -ve for convex, and zero if the points are co-linear. Curvature is multiplied by 1000 to give easier-to-read numbers
+//! Returns the 2D curvature of three points: +ve for convex, -ve for concave, or zero if the points are co-linear. Curvature is multiplied by 1000 to give easier-to-read numbers
 //===============================================================================================================================
 double CSimulation::dCalcCurvature(int const nHandedness, CGeom2DPoint const* pPtBefore, CGeom2DPoint const* pPtThis, CGeom2DPoint const* pPtAfter)
 {
-   double const dAreax4 = 2 * dTriangleAreax2(pPtBefore, pPtThis, pPtAfter);
-   double dDist1 = dGetDistanceBetween(pPtBefore, pPtThis);
-   double dDist2 = dGetDistanceBetween(pPtThis, pPtAfter);
-   double dDist3 = dGetDistanceBetween(pPtBefore, pPtAfter);
-
-   // Safety checks
-   if (bFPIsEqual(dDist1, 0.0, TOLERANCE))
-      dDist1 = TOLERANCE;
-
-   if (bFPIsEqual(dDist2, 0.0, TOLERANCE))
-      dDist2 = TOLERANCE;
-
-   if (bFPIsEqual(dDist3, 0.0, TOLERANCE))
-      dDist3 = TOLERANCE;
-
-   double const dCurvature = dAreax4 / (dDist1 * dDist2 * dDist3);
+   // Calculate the cross product
+   double dCrosProd = (pPtThis->dGetX() - pPtBefore->dGetX()) * (pPtAfter->dGetY() - pPtBefore->dGetY()) - (pPtThis->dGetY() - pPtBefore->dGetY()) * (pPtAfter->dGetX() - pPtBefore->dGetX());
 
    // Reverse if left-handed
-   int const nShape = (nHandedness == LEFT_HANDED ? 1 : -1);
+   int const nSide = (nHandedness == RIGHT_HANDED ? 1 : -1);
 
-   return (dCurvature * nShape * 1000);
+   return 1000 * nSide * dCrosProd;
 }

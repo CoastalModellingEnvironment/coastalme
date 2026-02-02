@@ -38,20 +38,14 @@ using std::find;
 
 //! Constructor with initialisation list
 CGeomProfile::CGeomProfile(int const nCoast, int const nCoastPoint, int const nProfileID, bool const bIntervention)
-    : m_bStartOfCoast(false),
-      m_bEndOfCoast(false),
-      m_bCShoreProblem(false),
-      m_bHitLand(false),
-      m_bHitIntervention(false),
-      m_bHitCoast(false),
-      m_bTooShort(false),
-      m_bTruncatedSameCoast(false),
-      m_bTruncatedDifferentCoast(false),
-      m_bHitAnotherProfile(false),
+    : m_bIsStartOfCoast(false),
+      m_bIsEndOfCoast(false),
       m_bIntervention(bIntervention),
+      m_bCShoreProblem(false),
       m_nCoast(nCoast),
       m_nCoastPoint(nCoastPoint),
       m_nProfileID(nProfileID),
+      m_nProfileStatus(PROFILE_STATUS_OK),
       m_dDeepWaterWaveHeight(0),
       m_dDeepWaterWaveAngle(0),
       m_dDeepWaterWavePeriod(0),
@@ -98,198 +92,68 @@ CGeom2DIPoint* CGeomProfile::pPtiGetEndPoint(void)
 //! Sets a switch to indicate whether this is a start-of-coast profile
 void CGeomProfile::SetStartOfCoast(bool const bFlag)
 {
-   m_bStartOfCoast = bFlag;
+   m_bIsStartOfCoast = bFlag;
 }
 
 //! Returns the switch to indicate whether this is a start-of-coast profile
-bool CGeomProfile::bStartOfCoast(void) const
+bool CGeomProfile::bIsStartOfCoast(void) const
 {
-   return m_bStartOfCoast;
+   return m_bIsStartOfCoast;
 }
 
 //! Sets a switch to indicate whether this is an end-of-coast profile
 void CGeomProfile::SetEndOfCoast(bool const bFlag)
 {
-   m_bEndOfCoast = bFlag;
+   m_bIsEndOfCoast = bFlag;
 }
 
 //! Returns the switch to indicate whether this is an end-of-coast profile
-bool CGeomProfile::bEndOfCoast(void) const
+bool CGeomProfile::bIsEndOfCoast(void) const
 {
-   return m_bEndOfCoast;
+   return m_bIsEndOfCoast;
 }
 
 //! Returns true if this is a start-of-coast or an end-of-coast profile
-bool CGeomProfile::bIsGridEdge(void) const
+bool CGeomProfile::bIsStartOrEndOfCoast(void) const
 {
-   if (m_bStartOfCoast || m_bEndOfCoast)
+   if (m_bIsStartOfCoast || m_bIsEndOfCoast)
       return true;
 
    return false;
 }
 
-//! Sets a switch to indicate whether this profile has a CShore problem
-void CGeomProfile::SetCShoreProblem(bool const bFlag)
+//! Flag this profile as having a CShore problem
+void CGeomProfile::SetCShoreProblem(void)
 {
-   m_bCShoreProblem = bFlag;
+   m_bCShoreProblem = true;
 }
 
-//! Returns the switch which indicates whether this profile has a CShore problem
-bool CGeomProfile::bCShoreProblem(void) const
+//! Returns true if this profile has a CShore problem
+bool CGeomProfile::bHasCShoreProblem(void) const
 {
    return m_bCShoreProblem;
 }
 
-//! Sets a switch which indicates whether this profile has hit land
-void CGeomProfile::SetHitLand(bool const bFlag)
+//! Set the profile's status
+void CGeomProfile::SetProfileStatus(int const nStatus)
 {
-   m_bHitLand = bFlag;
+   m_nProfileStatus = nStatus;
 }
 
-//! Returns the switch which indicates whether this profile has hit land
-bool CGeomProfile::bHitLand(void) const
+//! Gets the profile's status
+int CGeomProfile::nGetProfileStatus(void) const
 {
-   return m_bHitLand;
+   return m_nProfileStatus;
 }
 
-//! Sets a switch which indicates whether this profile has hit an intervention
-void CGeomProfile::SetHitIntervention(bool const bFlag)
-{
-   m_bHitIntervention = bFlag;
-}
-
-//! Returns the switch which indicates whether this profile has hit an intervention
-bool CGeomProfile::bHitIntervention(void) const
-{
-   return m_bHitIntervention;
-}
-
-//! Sets a switch which indicates whether this profile has hit a coast
-void CGeomProfile::SetHitCoast(bool const bFlag)
-{
-   m_bHitCoast = bFlag;
-}
-
-//! Returns the switch which indicates whether this profile has hit a coast
-bool CGeomProfile::bHitCoast(void) const
-{
-   return m_bHitCoast;
-}
-
-//! Sets a switch which indicates whether this profile is too short to be useful
-void CGeomProfile::SetTooShort(bool const bFlag)
-{
-   m_bTooShort = bFlag;
-}
-
-//! Returns the switch which indicates whether this profile is too short to be useful
-bool CGeomProfile::bTooShort(void) const
-{
-   return m_bTooShort;
-}
-
-//! Sets a switch which indicates whether this profile is truncated, due to hitting another profile from the same coast
-void CGeomProfile::SetTruncatedSameCoast(bool const bFlag)
-{
-   m_bTruncatedSameCoast = bFlag;
-}
-
-//! Returns the switch which indicates whether this profile has been truncated, due to hitting another profile from the same coast
-bool CGeomProfile::bTruncatedSameCoast(void) const
-{
-   return m_bTruncatedSameCoast;
-}
-
-//! Sets a switch which indicates whether this profile is truncated, due to hitting another profile from a different coast
-void CGeomProfile::SetTruncatedDifferentCoast(bool const bFlag)
-{
-   m_bTruncatedDifferentCoast = bFlag;
-}
-
-//! Returns the switch which indicates whether this profile has been truncated, due to hitting another profile from a different coast
-bool CGeomProfile::bTruncatedDifferentCoast(void) const
-{
-   return m_bTruncatedDifferentCoast;
-}
-
-//! Sets a switch which indicates whether this profile hits another profile badly
-void CGeomProfile::SetHitAnotherProfile(bool const bFlag)
-{
-   m_bHitAnotherProfile = bFlag;
-}
-
-//! Returns the switch which indicates whether this profile hits another profile badly
-bool CGeomProfile::bHitAnotherProfile(void) const
-{
-   return m_bHitAnotherProfile;
-}
-
-//! Returns true if this is a problem-free profile, and is not a start-of-coast and is not an end-of-coast profile
+//! Returns true if this is a problem-free profile
 bool CGeomProfile::bProfileOK(void) const
 {
-   // All profiles without problems, but not start- or end-of-coast profiles
-   if ((! m_bStartOfCoast) &&
-       (! m_bEndOfCoast) &&
-       (! m_bHitLand) &&
-       (! m_bHitIntervention) &&
-       (! m_bHitCoast) &&
-       (! m_bTooShort) &&
-       (! m_bTruncatedSameCoast) &&
-       (! m_bHitAnotherProfile) &&
-       (! m_bCShoreProblem))
+   if (m_nProfileStatus == PROFILE_STATUS_OK)
       return true;
 
    return false;
 }
-
-//! Returns true if this is a problem-free profile, and is not a start-of-coast and is not an end-of-coast profile. But it can be a truncated profile due to hitting another profile from this coast or from a different coast
-bool CGeomProfile::bProfileOKIncTruncated(void) const
-{
-   // All profiles without problems, but not start- or end-of-coast profiles
-   if ((! m_bStartOfCoast) &&
-       (! m_bEndOfCoast) &&
-       (! m_bHitLand) &&
-       (! m_bHitIntervention) &&
-       (! m_bHitCoast) &&
-       (! m_bTooShort) &&
-       (! m_bHitAnotherProfile) &&
-       (! m_bCShoreProblem))
-      return true;
-
-   return false;
-}
-
-//! Returns true if this is a problem-free profile (however it could be a start-of-coast or an end-of-coast profile, or could be truncated due to hitting a different coast)
-bool CGeomProfile::bOKIncStartAndEndOfCoast(void) const
-{
-   // All profiles without problems, including start- and end-of-coast profiles
-   if ((! m_bHitLand) &&
-       (! m_bHitIntervention) &&
-       (! m_bHitCoast) &&
-       (! m_bTooShort) &&
-       (! m_bTruncatedSameCoast) &&
-       (! m_bHitAnotherProfile) &&
-       (! m_bCShoreProblem))
-      return true;
-
-   return false;
-}
-
-// //! Returns true if this is a problem-free profile (however it could still be a start-of-coast profile)
-// bool CGeomProfile::bOKIncStartOfCoast(void) const
-// {
-//    // All profiles without problems, including start-of-coast profile (but not end-of-coast profile)
-// if ((! m_bEndOfCoast) &&
-// (! m_bHitLand) &&
-// (! m_bHitIntervention) &&
-// (! m_bHitCoast) &&
-// (! m_bTooShort) &&
-// (! m_bTruncatedSameCoast) &&
-// (! m_bHitAnotherProfile))
-// return true;
-//
-// return false;
-// }
 
 //! Sets points (external CRS) in the profile. Note that only two points, the start and end point, are initially stored each profile
 void CGeomProfile::SetPointsInProfile(vector<CGeom2DPoint> const* VNewPoints)
@@ -355,7 +219,7 @@ void CGeomProfile::TruncateProfile(int const nSize)
 // }
 // }
 
-//! Returns the number of external CRS points in the profile (only two, initally; and always just two for grid-edge profiles)
+//! Returns the number of external CRS points in the profile (only two, initally; and always just two for grid-edge profiles). These points are stored even if the profile is later marked as invalid
 int CGeomProfile::nGetProfileSize(void) const
 {
    return static_cast<int>(CGeomMultiLine::m_VPoints.size());

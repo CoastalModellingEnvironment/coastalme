@@ -39,7 +39,7 @@ GIS raster output format                                            [blank=same 
    If needed, also output GIS raster world file?                                        [y/n]: y
    If needed, scale GIS raster output values?                                           [y/n]: y
 GIS raster 'slice' elevation(s) (m)                                                          :
-GIS vector files to output                                ["usual", "all", or from codes.txt]: usual
+GIS vector files to output                                ["usual", "all", or from codes.txt]: all
 GIS vector output format                                                                     : ESRI Shapefile           ; ogrinfo --formats for others
 Time series files to output                                                   [see codes.txt]: all
 
@@ -71,7 +71,7 @@ Initial suspended sediment file                                               [p
 
 ; OTHER OPTIONAL RASTER FILES
 Initial landform file                                                         [path and name]:
-Intervention class file                                                       [path and name]: in/test_suite/minimal_cons_with_intervention_wave_angle_215/intervention_class.tif
+Intervention class file (0 = none, 1 = structural, 2 = non-structural)        [path and name]: in/test_suite/minimal_cons_with_intervention_wave_angle_215/intervention_class.tif
 Intervention height file                                                      [path and name]: in/test_suite/minimal_cons_with_intervention_wave_angle_215/intervention_height.tif
 
 ; Hydrology data -------------------------------------------------------------------------------------------------------

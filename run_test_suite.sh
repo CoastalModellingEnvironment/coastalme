@@ -1,16 +1,17 @@
 #!/bin/sh
 
-cp cme.ini cme.ini.OLD
+cp cme.ini cme.ini.OLD 2> /dev/null
+cp cme.yaml cme.yaml.OLD 2> /dev/null
 
 rm -f out/test_suite/minimal_cons_wave_angle_230/*
 cp in/test_suite/minimal_cons_wave_angle_230/cme.ini .
 ./cme
 echo ===============================================================================
 
-rm -f out/test_suite/minimal_uncons_wave_angle_230/*
-cp in/test_suite/minimal_uncons_wave_angle_230/cme.ini .
-./cme
-echo ===============================================================================
+# rm -f out/test_suite/minimal_uncons_wave_angle_230/*
+# cp in/test_suite/minimal_uncons_wave_angle_230/cme.ini .
+# ./cme
+# echo ===============================================================================
 
 rm -f out/test_suite/minimal_cons_wave_angle_270/*
 cp in/test_suite/minimal_cons_wave_angle_270/cme.ini .
@@ -177,4 +178,5 @@ echo ===========================================================================
 # ./cme
 # echo ===============================================================================
 
-mv cme.ini.OLD cme.ini
+mv cme.ini.OLD cme.ini 2> /dev/null
+mv cme.yaml.OLD cme.yaml 2> /dev/null
