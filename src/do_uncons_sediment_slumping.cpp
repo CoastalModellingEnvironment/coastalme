@@ -3,7 +3,7 @@
  * \brief Implements sediment slumping redistribution when slopes exceed angle of repose
  * \details Uses a priority queue algorithm combined with dirty cell tracking to efficiently process only cells that have changed. Provides 10-100x speedup over full-grid iteration for typical coastal scenarios.
  * \author Wilf Chun
- * \date 2025
+ * \date 2026
  * \copyright GNU General Public License
  */
 

@@ -5,7 +5,7 @@
    \author David Favis-Mortlock
    \author Andres Payo
    \author Wilf Chun
-   \date 2025
+   \date 2026
    \copyright GNU General Public License
 */
 
@@ -273,17 +273,6 @@ int CSimulation::nHandleCommandLineParams(int nArg, char const* pcArgv[])
 void CSimulation::AnnounceStart(void)
 {
    cout << endl << PROGRAM_NAME << " for " << PLATFORM << " " << strGetBuild() << endl;
-
-#ifdef _OPENMP
-   cout << "OpenMP is enabled: " << omp_get_max_threads() << " threads available";
-   #pragma omp parallel
-   {
-      #pragma omp single
-      cout << ", " << omp_get_num_threads() << " threads used." << endl;
-   }
-#else
-   cout << "OpenMP is not enabled." << endl;
-#endif // !_OPENMP
 }
 
 //===============================================================================================================================
@@ -347,9 +336,9 @@ bool CSimulation::bFindExeDir(char const* pcArg)
 }
 
 //===============================================================================================================================
-//! Tells the user about the licence
+//! Tells the user about the licence, and the simulation's starting conditions
 //===============================================================================================================================
-void CSimulation::AnnounceLicence(void)
+void CSimulation::AnnounceLicenceAndStartConditions(void)
 {
    cout << COPYRIGHT << endl << endl;
    cout << LINE << endl;
@@ -362,7 +351,20 @@ void CSimulation::AnnounceLicence(void)
    cout << LINE << endl << endl;
 
    cout << START_NOTICE << strGetComputerName() << " at " << put_time(localtime(&m_tSysStartTime), "%T on %A %d %B %Y") << endl;
+
+#ifdef _OPENMP
+   cout << " - OpenMP is enabled: " << omp_get_max_threads() << " threads available";
+   #pragma omp parallel
+   {
+      #pragma omp single
+      cout << ", " << omp_get_num_threads() << " threads used" << endl;
+   }
+#else
+   cout << " - OpenMP is not enabled" << endl;
+#endif
+
    cout << INITIALIZING_NOTICE << endl;
+
 }
 
 //===============================================================================================================================

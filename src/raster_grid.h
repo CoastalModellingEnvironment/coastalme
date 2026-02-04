@@ -5,7 +5,7 @@
    \author David Favis-Mortlock
    \author Andres Payo
    \author Wilf Chun
-   \date 2025
+   \date 2026
    \copyright GNU General Public License
    \file raster_grid.h
    \brief Contains CGeomRasterGrid definitions

@@ -2,7 +2,7 @@
 ;
 ; Data file for CoastalME
 ;
-; Copyright (C) 2025 David Favis-Mortlock and Andres Payo
+; Copyright (C) 2026 David Favis-Mortlock and Andres Payo
 ;
 ;==============================================================================================================================================================
 ;
@@ -82,7 +82,7 @@ Deep water wave height (m)                                    [real value or poi
 Deep water wave height time series (m)                            [empty if real value above]:
 Deep water wave orientation (degrees)                      [empty if time wave height series]: 225
 Wave period (sec)                                          [empty if time wave height series]: 10
-Tide data is the change (m) from still water level for each timestep                         : in/test_suite/GMD2017/CliffFineSandBays/cme_1_hours_01_01_1999_00_00_00_CromerTide_15min_1999_2017.csv
+Tide data is the change (m) from still water level for each timestep                         :     # in/test_suite/GMD2017/CliffFineSandBays/cme_1_hours_01_01_1999_00_00_00_CromerTide_15min_1999_2017.csv
 Breaking wave height to water depth ratio (non dimensional)                                  : 0.80
 
 ; Sediment data -----------------------------------------------------------------------------------------------------------------------------------------------

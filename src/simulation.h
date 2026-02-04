@@ -5,7 +5,7 @@
    \author David Favis-Mortlock
    \author Andres Payo
    \author Wilf Chun
-   \date 2025
+   \date 2026
    \copyright GNU General Public License
    \file simulation.h
    \brief Contains CSimulation definitions
@@ -1848,7 +1848,7 @@ class CSimulation
 
    // Utility routines
    static void AnnounceStart(void);
-   void AnnounceLicence(void);
+   void AnnounceLicenceAndStartConditions(void);
    void AnnounceReadBasementDEM(void) const;
    static void AnnounceAddLayers(void);
    static void AnnounceReadRasterFiles(void);

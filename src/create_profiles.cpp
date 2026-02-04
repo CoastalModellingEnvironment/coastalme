@@ -5,7 +5,7 @@
    \author David Favis-Mortlock
    \author Andres Payo
    \author Wilf Chun
-   \date 2025
+   \date 2026
    \copyright GNU General Public License
 */
 
@@ -1092,12 +1092,13 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                      CGeomProfile* pSecondProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nSecondCoastPoint);
                      int const nSecondProfile = pSecondProfile->nGetProfileID();
 
-                     LogStream << endl << m_ulIter << ":\t  " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast search, first profile " << pFirstProfile->nGetProfileID() << " (coast point " << nCoastPoint << ") and second profile " << pSecondProfile->nGetProfileID() << " (coast point " << nSecondCoastPoint << ")" << endl;
+                     LogStream << m_ulIter << ":\t  " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast search, first profile " << pFirstProfile->nGetProfileID() << " (coast point " << nCoastPoint << ") and second profile " << pSecondProfile->nGetProfileID() << " (coast point " << nSecondCoastPoint << ")" << endl;
 
                      // Don't check this profile if it is a start- or end-of-coast profile
                      if (pSecondProfile->bIsStartOrEndOfCoast())
                      {
                         LogStream << m_ulIter << ":\t  nCoastPoint = " << nCoastPoint << " pSecondProfile = " << pSecondProfile->nGetProfileID() << " is a start- or end-of-coast profile, do not check" << endl;
+
                         continue;
                      }
 
@@ -1112,26 +1113,25 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                      if (! pSecondProfile->bProfileOK())
                      {
                         LogStream << m_ulIter << ":\t  nCoastPoint = " << nCoastPoint << " pSecondProfile = " << pSecondProfile->nGetProfileID() << " is not OK, do not check" << endl;
+
                         continue;
                      }
 
                      // Begin checks for intersection: is the second profile co-incident in the final line segment of the first profile?
                      if (pFirstProfile->bFindProfileInCoincidentProfilesOfLastLineSegment(nSecondProfile))
                      {
-                        // Yes, the profiles have already intersected
-                        LogStream << m_ulIter << ":\t  profile " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " are re not co-incident in the final line segment of both profiles (i.e. the profiles have not already intersected), abandoning" << endl;
+                        // Yes, the profiles have already intersected, so don't check
+                        LogStream << m_ulIter << ":\t  profile " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " are co-incident in the final line segment of both profiles, the profiles have already intersected)" << endl;
 
-                        // So don't check the first profile
                         continue;
                      }
 
                      // Is the first profile co-incident in the final line segment of the second profile?
                      if (pSecondProfile->bFindProfileInCoincidentProfilesOfLastLineSegment(nFirstProfile))
                      {
-                        // Yes, the profiles have already intersected
-                        LogStream << m_ulIter << ":\t  profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " are are not co-incident in the final line segment of both profiles (i.e. the profiles have not already intersected), abandoning" << endl;
+                        // Yes, the profiles have already intersected, so don't check
+                        LogStream << m_ulIter << ":\t  profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " are co-incident in the final line segment of both profiles, the profiles have already intersected" << endl;
 
-                        // So don't check the first profile
                         continue;
                      }
 

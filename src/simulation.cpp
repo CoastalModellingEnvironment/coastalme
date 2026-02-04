@@ -5,7 +5,7 @@
    \author David Favis-Mortlock
    \author Andres Payo
    \author Wilf Chun
-   \date 2025
+   \date 2026
    \copyright GNU General Public License
 */
 
@@ -556,7 +556,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       return (RTN_ERR_CMEDIR);
 
    // OK, we are off, tell the user about the licence and the start time
-   AnnounceLicence();
+   AnnounceLicenceAndStartConditions();
 
    // Read the .ini file and get the name of the run-data file, and path for output etc.
    if (! bReadIniFile())

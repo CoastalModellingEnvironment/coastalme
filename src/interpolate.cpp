@@ -3,7 +3,7 @@
    \brief Returns interpolated value at x from parallel arrays
    \details TODO 001 A more detailed description of these routines.
    \author Modified by David Favis-Mortlock and Andres Payo
-   \date 2025
+   \date 2026
    \copyright GNU Lesser General Public License
 */
 

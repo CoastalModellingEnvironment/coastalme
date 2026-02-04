@@ -6,7 +6,7 @@
             to avoid circular dependency issues.
    \author David Favis-Mortlock
    \author Andres Payo
-   \date 2025
+   \date 2026
    \copyright GNU General Public License
 */
 
