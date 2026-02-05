@@ -1712,12 +1712,12 @@ class CSimulation
    // int nTraceFloodCoastLine(unsigned int const, int const, int const, vector<bool>*, vector<CGeom2DIPoint> const*);
    // int nTraceAllFloodCoasts(void);
    void DoCoastCurvature(int const, int const);
-   int nCheckAndMarkAllProfiles(void);
+   int nFurtherCheckAndMarkAllProfiles(void);
    int nCreateAllProfiles(void);
    void LocateAndCreateProfiles(int const, int&, vector<bool>*, vector<pair<int, double>> const*);
    int nCreateProfile(int const, int const, int const, int const, bool const, CGeom2DIPoint const*);
    int nLocateAndCreateGridEdgeProfile(bool const, int const, int&);
-   void MarkProfilesOnGrid(int const, int&);
+   int nMarkProfilesOnGrid(void);
    void CheckAllProfilesForIntersection(void);
    static bool bCheckForIntersection(CGeomProfile* const, CGeomProfile* const, int&, int&, double&, double&, double&, double&);
    void MergeProfilesAtFinalLineSegments(int const, CGeomProfile*, CGeomProfile*, int const, int const, double const, double const, double const, double const);
@@ -1818,6 +1818,7 @@ class CSimulation
    void KeepWithinValidGrid(int&, int&) const;
    void KeepWithinValidGrid(int, int, int&, int&) const;
    void KeepWithinValidGrid(CGeom2DIPoint const*, CGeom2DIPoint *) const;
+   void KeepWithinValidGrid(double&, double&, int&, int&) const;
    static double dKeepWithin360(double const);
    // vector<CGeom2DPoint> VGetPerpendicular(CGeom2DPoint const*, CGeom2DPoint
    // const*, double const, int const);

@@ -197,14 +197,14 @@ bool CSimulation::bIsWithinValidGrid(int const nX, int const nY) const
 }
 
 //===============================================================================================================================
-//! Checks whether the supplied point (a reference to a CGeom2DIPoint, in the  grid CRS) is within the raster grid, and is a valid cell (i.e. the basement DEM is not NODATA)
+//! Checks whether the supplied point (a reference to a CGeom2DIPoint, in the grid CRS) is within the raster grid, and is a valid cell (i.e. the basement DEM is not NODATA)
 //===============================================================================================================================
 bool CSimulation::bIsWithinValidGrid(CGeom2DIPoint const* Pti) const
 {
    int const nX = Pti->nGetX();
    int const nY = Pti->nGetY();
 
-   return this->bIsWithinValidGrid(nX, nY);
+   return bIsWithinValidGrid(nX, nY);
 }
 
 //===============================================================================================================================
@@ -225,6 +225,23 @@ void CSimulation::KeepWithinValidGrid(int& nX, int& nY) const
 void CSimulation::KeepWithinValidGrid(CGeom2DIPoint const* Pti0, CGeom2DIPoint* Pti1) const
 {
    KeepWithinValidGrid(Pti0->nGetX(), Pti0->nGetY(), *Pti1->pnGetX(), *Pti1->pnGetY());
+}
+
+//===============================================================================================================================
+//! Given the X and Y co-ordinates of a point in the ext CRS, calculates the grid CRS equivalent: both are constrained (in necessary) to be within the valid grid
+//===============================================================================================================================
+void CSimulation::KeepWithinValidGrid(double& dX, double& dY, int& nX, int& nY) const
+{
+   nX = nRound(dExtCRSXToGridX(dX));
+   nY = nRound(dExtCRSYToGridY(dY));
+
+   if (bIsWithinValidGrid(nX, nY))
+      return;
+
+   KeepWithinValidGrid(nX, nY);
+
+   dX = dGridCentroidXToExtCRSX(nX);
+   dY = dGridCentroidYToExtCRSY(nY);
 }
 
 //===============================================================================================================================

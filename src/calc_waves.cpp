@@ -449,10 +449,6 @@ int CSimulation::nDoAllPropagateWaves(void)
       }
    }
 
-   // DEBUG CODE ============================================================================================================
-   LogStream << m_ulIter << ":\t starting loop" << endl;
-   // DEBUG CODE ============================================================================================================
-
    for (int nY = 0; nY < m_nYGridSize; nY++)
    {
       if (m_pRasterGrid->m_Cell[0][nY].bIsInContiguousSea())
@@ -810,7 +806,7 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
    if (! pProfile->bProfileOK())
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ": coast " << nCoast << ", profile " << pProfile->nGetProfileID() << " is not OK, will not calc wave properties on this profile" << endl;
+         LogStream << m_ulIter << ":\t coast " << nCoast << ", profile " << pProfile->nGetProfileID() << " is not OK, will not calc wave properties on this profile" << endl;
 
       return RTN_OK;
    }

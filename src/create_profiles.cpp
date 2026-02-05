@@ -260,9 +260,9 @@ int CSimulation::nCreateAllProfiles(void)
       // for (int n = 0; n < m_VCoast[nCoast].nGetNumProfiles(); n++)
       // {
       // CGeomProfile* pProfile = m_VCoast[nCoast].pGetProfileWithDownCoastSeq(n);
-      // int nStartPoint = pProfile->nGetCoastPoint();
+      // int nSecondProfileStartCoastPoint = pProfile->nGetCoastPoint();
       //
-      // LogStream << n << "\t nCoastID = " << pProfile->nGetProfileID() << "\tnStartPoint = " << nStartPoint << endl;
+      // LogStream << n << "\t nCoastID = " << pProfile->nGetProfileID() << "\tnSecondProfileStartCoastPoint = " << nSecondProfileStartCoastPoint << endl;
       // }
       // LogStream << endl;
       // LogStream << "=====================" << endl;
@@ -742,7 +742,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
 //===============================================================================================================================
 //! Finds the end point of a coastline-normal line, given the start point on the vector coastline. If however the start point is on the grid edge (only applicable to cliff collapse [rofiles), then the end point is also on the grid edge, and the line joining the start and end points is not necessarily normal to the vector coast. All input coordinates are in the external CRS
 //===============================================================================================================================
-int CSimulation::nGetCoastNormalEndPoint(int const nCoast, int const nStartCoastPoint, int const nCoastSize, CGeom2DPoint const* pPtStart, double const dLineLength, CGeom2DPoint* pPtEnd, CGeom2DIPoint* pPtiEnd, bool const bIntervention)
+int CSimulation::nGetCoastNormalEndPoint(int const nCoast, int const nFirstProfileStartCoastPoint, int const nCoastSize, CGeom2DPoint const* pPtStart, double const dLineLength, CGeom2DPoint* pPtEnd, CGeom2DIPoint* pPtiEnd, bool const bIntervention)
 {
    int nAvgSize = 21; // TODO 011 This should be a user input
 
@@ -791,7 +791,7 @@ int CSimulation::nGetCoastNormalEndPoint(int const nCoast, int const nStartCoast
 
       for (int n = 1; n <= nAvgSize; n++)
       {
-         int const nPoint = nStartCoastPoint - n;
+         int const nPoint = nFirstProfileStartCoastPoint - n;
          if (nPoint < 0)
             break;
 
@@ -803,7 +803,7 @@ int CSimulation::nGetCoastNormalEndPoint(int const nCoast, int const nStartCoast
 
       for (int n = 1; n <= nAvgSize; n++)
       {
-         int const nPoint = nStartCoastPoint + n;
+         int const nPoint = nFirstProfileStartCoastPoint + n;
          if (nPoint > nCoastSize - 1)
             break;
 
@@ -851,7 +851,7 @@ int CSimulation::nGetCoastNormalEndPoint(int const nCoast, int const nStartCoast
 
          if (dDiscriminant < 0)
          {
-            LogStream << ERR << "timestep " << m_ulIter << ": discriminant < 0 when finding profile end point on coastline " << nCoast << ", from coastline point " << nStartCoastPoint << "), ignored" << endl;
+            LogStream << ERR << "timestep " << m_ulIter << ": discriminant < 0 when finding profile end point on coastline " << nCoast << ", from coastline point " << nFirstProfileStartCoastPoint << "), ignored" << endl;
             return RTN_ERR_NO_SOLUTION_FOR_ENDPOINT;
          }
 
@@ -871,7 +871,7 @@ int CSimulation::nGetCoastNormalEndPoint(int const nCoast, int const nStartCoast
 
    if (! bIsWithinValidGrid(pPtiEnd))
    {
-      // LogStream << m_ulIter << ": profile endpoint is outside grid [" << pPtiEnd->nGetX() << "][" << pPtiEnd->nGetY() << "] = {" << pPtEnd->dGetX() << ", " << pPtEnd->dGetY() << "}. The profile starts at coastline point " << nStartCoastPoint << " = {" << pPtStart->dGetX() << ", " << pPtStart->dGetY() << "}" << endl;
+      // LogStream << m_ulIter << ": profile endpoint is outside grid [" << pPtiEnd->nGetX() << "][" << pPtiEnd->nGetY() << "] = {" << pPtEnd->dGetX() << ", " << pPtEnd->dGetY() << "}. The profile starts at coastline point " << nFirstProfileStartCoastPoint << " = {" << pPtStart->dGetX() << ", " << pPtStart->dGetY() << "}" << endl;
 
       // The end point is off the grid, so constrain it to be within the valid grid
       CGeom2DIPoint const PtiStart(nRound(dExtCRSXToGridX(pPtStart->dGetX())), nRound(dExtCRSYToGridY(pPtStart->dGetY())));
@@ -880,7 +880,7 @@ int CSimulation::nGetCoastNormalEndPoint(int const nCoast, int const nStartCoast
       pPtEnd->SetX(dGridCentroidXToExtCRSX(pPtiEnd->nGetX()));
       pPtEnd->SetY(dGridCentroidYToExtCRSY(pPtiEnd->nGetY()));
 
-      // LogStream << m_ulIter << ":\t coast " << nCoast << " profile endpoint constrained to be within grid, is now [" << pPtiEnd->nGetX() << "][" << pPtiEnd->nGetY() << "] = {" << pPtEnd->dGetX() << ", " << pPtEnd->dGetY() << "}. The profile starts at coastline point " << nStartCoastPoint << " = {" << pPtStart->dGetX() << ", " << pPtStart->dGetY() << "}" << endl;
+      // LogStream << m_ulIter << ":\t coast " << nCoast << " profile endpoint constrained to be within grid, is now [" << pPtiEnd->nGetX() << "][" << pPtiEnd->nGetY() << "] = {" << pPtEnd->dGetX() << ", " << pPtEnd->dGetY() << "}. The profile starts at coastline point " << nFirstProfileStartCoastPoint << " = {" << pPtStart->dGetX() << ", " << pPtStart->dGetY() << "}" << endl;
    }
 
    return RTN_OK;
@@ -1027,7 +1027,7 @@ CGeom2DPoint CSimulation::PtChooseEndPoint(int const nHand, CGeom2DPoint const* 
 }
 
 //===============================================================================================================================
-//! Checks all coastline-normal profiles (on all coasts) for intersection, and modifies those that intersect
+//! For all coasts, checks all coastline-normal profiles for intersection, and modifies those that intersect
 //===============================================================================================================================
 void CSimulation::CheckAllProfilesForIntersection(void)
 {
@@ -1040,64 +1040,88 @@ void CSimulation::CheckAllProfilesForIntersection(void)
    {
       int const nCoastSize = m_VCoast[nCoast].nGetCoastlineSize();
 
-      for (int nPass = 0; nPass <= 1; nPass++)
+      bool bChanged = true;
+      int nPass = -1;
+      while (bChanged)
       {
-         // int nStartCoastPoint;
-         //
-         // if (nDirection == DIRECTION_DOWNCOAST)
-         //    nStartCoastPoint = 0;
-         // else
-         //    nStartCoastPoint = nCoastSize - 1;
-         //
-         // for (int nCoastPoint = nStartCoastPoint; (nDirection == DIRECTION_DOWNCOAST) ? nCoastPoint < nCoastSize : nCoastPoint >= 0; (nDirection == DIRECTION_DOWNCOAST) ? nCoastPoint++ : nCoastPoint--)
-         for (int nCoastPoint = (nCoastSize-1); nCoastPoint > 0; nCoastPoint--)
-         // for (int nCoastPoint = 1; nCoastPoint < (nCoastSize-1); nCoastPoint++)
+         bChanged = false;
+         nPass++;
+         LogStream << "***************************** nPass = " << nPass << endl;
+         if (nPass == 20)
+            break;
+
+         // Search in alternate directions, first down-coast (in the direction of increasing coast point numbers) then up-coast
+         int nFirstProfileStartCoastPoint;
+         for (int nFirstSearchDirection = DIRECTION_DOWNCOAST; nFirstSearchDirection <= DIRECTION_UPCOAST; nFirstSearchDirection++)
          {
-            if (! m_VCoast[nCoast].bIsProfileAtCoastPoint(nCoastPoint))
-               continue;
+            // Don't include coast-end profiles in the first profile search
+            if (nFirstSearchDirection == DIRECTION_DOWNCOAST)
+               nFirstProfileStartCoastPoint = 1;
+            else
+               nFirstProfileStartCoastPoint = nCoastSize - 2;
 
-            // There is a profile at this coast point
-            CGeomProfile* pFirstProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nCoastPoint);
-            int const nFirstProfile = pFirstProfile->nGetProfileID();
-
-            // Don't check this profile if it is a start- or end-of-coast profile
-            if (pFirstProfile->bIsStartOrEndOfCoast())
+            // In the current search direction, look for "first profiles"
+            for (int nFirstCoastPoint = nFirstProfileStartCoastPoint; ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? nFirstCoastPoint < nCoastSize : nFirstCoastPoint >= 0); ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? nFirstCoastPoint++ : nFirstCoastPoint--))
             {
-               LogStream << m_ulIter << ":\t nCoastPoint = " << nCoastPoint << " pFirstProfile = " << pFirstProfile->nGetProfileID() << " is a start- or end-of-coast profile, do not check" << endl;
-               continue;
-            }
+               if (! m_VCoast[nCoast].bIsProfileAtCoastPoint(nFirstCoastPoint))
+                  // No first profile at this coast point
+                  continue;
 
-            // Don't check this profile if it is has a problem
-            if (! pFirstProfile->bProfileOK())
-            {
-               LogStream << m_ulIter << ":\t nCoastPoint = " << nCoastPoint << " pFirstProfile = " << pFirstProfile->nGetProfileID() << " is not OK, do not check" << endl;
-               continue;
-            }
+               // There is a first profile at this coast point
+               CGeomProfile* pFirstProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nFirstCoastPoint);
+               int const nFirstProfile = pFirstProfile->nGetProfileID();
 
-            // OK we have found a first profile. Now go along the coast in alternate directions: first down-coast (in the direction of increasing coast point numbers) then up-coast
-            for (int nDirection = DIRECTION_DOWNCOAST; nDirection <= DIRECTION_UPCOAST; nDirection++)
-            {
-               int nStartPoint;
-
-               if (nDirection == DIRECTION_DOWNCOAST)
-                  nStartPoint = nCoastPoint + 1;
-               else
-                  nStartPoint = nCoastPoint - 1;
-
-               for (int nSecondCoastPoint = nStartPoint; (nDirection == DIRECTION_DOWNCOAST) ? nSecondCoastPoint < nCoastSize : nSecondCoastPoint >= 0; (nDirection == DIRECTION_DOWNCOAST) ? nSecondCoastPoint++ : nSecondCoastPoint--)
+               // Safety check: don't check this first profile if it is a start- or end-of-coast profile
+               if (pFirstProfile->bIsStartOrEndOfCoast())
                {
-                  if (m_VCoast[nCoast].bIsProfileAtCoastPoint(nSecondCoastPoint))
+                  // LogStream << m_ulIter << ":\t coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, nFirstCoastPoint = " << nFirstCoastPoint << " first profile " << pFirstProfile->nGetProfileID() << " is a start- or end-of-coast profile, do not check" << endl << endl;
+
+                  continue;
+               }
+
+               // Don't check this first profile if it is has a problem
+               if (! pFirstProfile->bProfileOK())
+               {
+                  LogStream << m_ulIter << ":\t coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, nFirstCoastPoint = " << nFirstCoastPoint << " first profile " << pFirstProfile->nGetProfileID() << " is not OK, do not check" << endl;
+
+                  continue;
+               }
+
+               // Now search in alternate directions, starting from one point either side of the first profile coast point, first down-coast (in the direction of increasing coast point numbers) then up-coast
+               for (int nSecondSearchDirection = DIRECTION_DOWNCOAST; nSecondSearchDirection <= DIRECTION_UPCOAST; nSecondSearchDirection++)
+               {
+                  int nSecondProfileStartCoastPoint;
+
+                  if (nSecondSearchDirection == DIRECTION_DOWNCOAST)
+                     nSecondProfileStartCoastPoint = nFirstCoastPoint + 1;
+                  else
+                     nSecondProfileStartCoastPoint = nFirstCoastPoint - 1;
+
+                  // Search for a "second profile"
+                  for (int nSecondCoastPoint = nSecondProfileStartCoastPoint; (nSecondSearchDirection == DIRECTION_DOWNCOAST) ? nSecondCoastPoint < nCoastSize : nSecondCoastPoint >= 0; (nSecondSearchDirection == DIRECTION_DOWNCOAST) ? nSecondCoastPoint++ : nSecondCoastPoint--)
                   {
-                     // There is a profile at the second coast point, so get a pointer to it
+                     if (! m_VCoast[nCoast].bIsProfileAtCoastPoint(nSecondCoastPoint))
+                        // No second profile at this coast point
+                        continue;
+
+                     // There is a second profile at this coast point, so get a pointer to the profile
                      CGeomProfile* pSecondProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nSecondCoastPoint);
                      int const nSecondProfile = pSecondProfile->nGetProfileID();
 
-                     LogStream << m_ulIter << ":\t  " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast search, first profile " << pFirstProfile->nGetProfileID() << " (coast point " << nCoastPoint << ") and second profile " << pSecondProfile->nGetProfileID() << " (coast point " << nSecondCoastPoint << ")" << endl;
+                     // LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << pFirstProfile->nGetProfileID() << " (coast point " << nFirstCoastPoint << ") and second profile " << pSecondProfile->nGetProfileID() << " (coast point " << nSecondCoastPoint << ")" << endl;
 
-                     // Don't check this profile if it is a start- or end-of-coast profile
+                     // Safety check: don't check this second profile if it is a start- or end-of-coast profile
                      if (pSecondProfile->bIsStartOrEndOfCoast())
                      {
-                        LogStream << m_ulIter << ":\t  nCoastPoint = " << nCoastPoint << " pSecondProfile = " << pSecondProfile->nGetProfileID() << " is a start- or end-of-coast profile, do not check" << endl;
+                        // LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << nFirstProfile << " second profile = " << pSecondProfile->nGetProfileID() << " is a start- or end-of-coast profile, do not check" << endl << endl;
+
+                        continue;
+                     }
+
+                     // Don't check this second profile if it is has a problem
+                     if (! pSecondProfile->bProfileOK())
+                     {
+                        LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " second profile " << pSecondProfile->nGetProfileID() << " is not OK, do not check" << endl;
 
                         continue;
                      }
@@ -1105,37 +1129,119 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                      // // DEBUG CODE ====================================
                      // LogStream << "nExtra = " << ++m_nExtra << endl;
                      // string strExtra = "_" + to_string(m_nExtra);
-                     // bool bRet = bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                     // bRet = bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                     // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                     // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
                      // // DEBUG CODE ====================================
 
-                     // Don't check this profile if it is has a problem
-                     if (! pSecondProfile->bProfileOK())
-                     {
-                        LogStream << m_ulIter << ":\t  nCoastPoint = " << nCoastPoint << " pSecondProfile = " << pSecondProfile->nGetProfileID() << " is not OK, do not check" << endl;
+                     // // OK, now begin checks for intersection. First find out whether the first and second profiles have already intersected
+                     // bool bSecondInFirst = pFirstProfile->bFindProfileInCoincidentProfilesOfLastLineSegment(nSecondProfile);
+                     // bool bFirstInSecond = pSecondProfile->bFindProfileInCoincidentProfilesOfLastLineSegment(nFirstProfile);
 
-                        continue;
-                     }
-
-                     // Begin checks for intersection: is the second profile co-incident in the final line segment of the first profile?
-                     if (pFirstProfile->bFindProfileInCoincidentProfilesOfLastLineSegment(nSecondProfile))
-                     {
-                        // Yes, the profiles have already intersected, so don't check
-                        LogStream << m_ulIter << ":\t  profile " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " are co-incident in the final line segment of both profiles, the profiles have already intersected)" << endl;
-
-                        continue;
-                     }
-
-                     // Is the first profile co-incident in the final line segment of the second profile?
-                     if (pSecondProfile->bFindProfileInCoincidentProfilesOfLastLineSegment(nFirstProfile))
-                     {
-                        // Yes, the profiles have already intersected, so don't check
-                        LogStream << m_ulIter << ":\t  profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " are co-incident in the final line segment of both profiles, the profiles have already intersected" << endl;
-
-                        continue;
-                     }
-
-                     // OK we will check for intersction
+                     // If the econd profile is co-incident in the final line segment of the first profile, and the first profile is co-incident in the final line segment of the second profile, then these two profiles intersect and have already been modified, so do not check
+                     // if (bSecondInFirst && bFirstInSecond)
+                     // {
+                     //    LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " is co-incident in the final segment of second profile " << nSecondProfile << " and vice versa, so do not check" << endl;
+                     //
+                     //    // DEBUG CODE ****************************************************************
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                     //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                     //
+                     //    LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nFirstProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nSecondProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    // DEBUG CODE ******************************************************************
+                     //
+                     //    continue;
+                     // }
+                     //
+                     // // Is the second profile co-incident in the final line segment of the first profile?
+                     // if (bSecondInFirst)
+                     // {
+                     //    // ???
+                     //    LogStream << m_ulIter << ":\t  ***???? coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << nFirstProfile << " second profile = " << nSecondProfile << " second profile " << nSecondProfile << " is co-incident in the final line segment of first profile " << nFirstProfile << endl;
+                     //
+                     //    // DEBUG CODE ****************************************************************
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                     //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                     //
+                     //    LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nFirstProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nSecondProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    // DEBUG CODE ******************************************************************
+                     //
+                     //    continue;
+                     // }
+                     //
+                     // // Is the first profile co-incident in the final line segment of the second profile?
+                     // if (bFirstInSecond)
+                     // {
+                     //    // ???
+                     //    LogStream << m_ulIter << ":\t  ***???? coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << nFirstProfile << " second profile = " << nSecondProfile << " first profile " << nFirstProfile << " is co-incident in the final line segment of second profile " << nSecondProfile << endl;
+                     //
+                     //    // DEBUG CODE ****************************************************************
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                     //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                     //
+                     //    LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nFirstProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nSecondProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    // DEBUG CODE ******************************************************************
+                     //
+                     //    continue;
+                     // }
+                     //
+                     // The first and second profiles have not previously intersected. So check for intersection now
                      int nProf1LineSeg = 0;
                      int nProf2LineSeg = 0;
                      double dIntersectX = 0;
@@ -1143,11 +1249,174 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                      double dAvgEndX = 0;
                      double dAvgEndY = 0;
 
-                     if (bCheckForIntersection(pFirstProfile, pSecondProfile, nProf1LineSeg, nProf2LineSeg, dIntersectX, dIntersectY, dAvgEndX, dAvgEndY))
+                     if (! bCheckForIntersection(pFirstProfile, pSecondProfile, nProf1LineSeg, nProf2LineSeg, dIntersectX, dIntersectY, dAvgEndX, dAvgEndY))
+                        // The first and second profiles do not intersect
+                        continue;
+
+                     // The first and second profiles do intersect. If the point of intersertion is present in both profiles then we must have we already dealt with this intersection
+                     if ((pFirstProfile->bIsPointInProfile(dIntersectX, dIntersectY)) && (pSecondProfile->bIsPointInProfile(dIntersectX, dIntersectY)))
+                        // Yes, present in both profiles
+                        continue;
+
+                     // // DEBUG CODE =====================================
+                     // LogStream << endl << "###################################################### WE HAVE INTERSECTION " << endl;;
+                     // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+                     //
+                     // LogStream << "nExtra = " << ++m_nExtra << endl;
+                     // string strExtra = "_" + to_string(m_nExtra);
+                     // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                     // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                     //
+                     // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
+                     // {
+                     //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
+                     //    {
+                     //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
+                     //       int const nProfileTmp = pProfile->nGetProfileID();
+                     //       int const nCoastIDTmp = pProfile->nGetCoastID();
+                     //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
+                     //
+                     //       bool const bStartTmp = pProfile->bIsStartOfCoast();
+                     //       bool const bEndTmp = pProfile->bIsEndOfCoast();
+                     //       bool const bInterventionTmp = pProfile->bIsIntervention();
+                     //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
+                     //
+                     //       // int nStartXTmp = INT_NODATA;
+                     //       // int nStartYTmp = INT_NODATA;
+                     //       // int nEndXTmp = INT_NODATA;
+                     //       // int nEndYTmp = INT_NODATA;
+                     //       //
+                     //       // if (pProfile->nGetNumCellsInProfile() > 0)
+                     //       // {
+                     //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
+                     //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
+                     //       //    nStartXTmp = pPtiStart->nGetX();
+                     //       //    nStartYTmp = pPtiStart->nGetY();
+                     //       //    nEndXTmp = pPtiEnd->nGetX();
+                     //       //    nEndYTmp = pPtiEnd->nGetY();
+                     //       // }
+                     //
+                     //       int nCellSize = pProfile->nGetNumCellsInProfile();
+                     //
+                     //       bool const bProfileOKTmp = pProfile->bProfileOK();
+                     //       int const nStatusTmp = pProfile->nGetProfileStatus();
+                     //       string strStatusTmp;
+                     //       switch (nStatusTmp)
+                     //       {
+                     //       case 0:
+                     //          strStatusTmp = "PROFILE_STATUS_OK";
+                     //          break;
+                     //       case 1:
+                     //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
+                     //          break;
+                     //       case 2:
+                     //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
+                     //          break;
+                     //       case 3:
+                     //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
+                     //          break;
+                     //       case 4:
+                     //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
+                     //          break;
+                     //       case 5:
+                     //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
+                     //          break;
+                     //       default:
+                     //          strStatusTmp = "UNKNOWN";
+                     //          break;
+                     //       }
+                     //
+                     //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
+                     //
+                     //       LogStream << "\t\t\t";
+                     //       int nPointSize = pProfile->nGetProfileSize();
+                     //       for (int mmm = 0; mmm < nPointSize; mmm++)
+                     //       {
+                     //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
+                     //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+                     //       }
+                     //       LogStream << endl;
+                     //
+                     //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
+                     //       // {
+                     //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
+                     //       //    {
+                     //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
+                     //       //       double dThisX = p2DPThis->dGetX();
+                     //       //       double dThisY = p2DPThis->dGetY();
+                     //       //       int nThisX = dExtCRSXToGridX(dThisX);
+                     //       //       int nThisY = dExtCRSYToGridY(dThisY);
+                     //       //
+                     //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
+                     //       //    }
+                     //       //    LogStream << endl;
+                     //       //
+                     //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
+                     //       //    {
+                     //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
+                     //       //    }
+                     //       //    LogStream << endl;
+                     //       // }
+                     //    }
+                     // }
+                     // LogStream << endl << "######################################################" << endl;
+                     // // DEBUG CODE =====================================
+                     //
+                     // The first and second profiles do intersect. Get the intersection point and the average endpoint in the grid CRS
+                     // int nPoint = -1;
+                     int nIntersectX = nRound(dExtCRSXToGridX(dIntersectX));
+                     int nIntersectY = nRound(dExtCRSYToGridY(dIntersectY));
+                     int nAvgEndX = nRound(dExtCRSXToGridX(dAvgEndX));
+                     int nAvgEndY = nRound(dExtCRSYToGridY(dAvgEndY));
+
+                     // Safety check: make sure that the point of intersection is within the valid grid
+                     if (! bIsWithinValidGrid(nIntersectX, nIntersectY))
                      {
+                        LogStream << m_ulIter << ":\t  << coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, intersection {" << dIntersectX << ", " << dIntersectY << "} constrained to be ";
+
+                        KeepWithinValidGrid(dIntersectX, dIntersectY, nIntersectX, nIntersectY);
+
+                        LogStream << "{" << dIntersectX << ", " << dIntersectY << "}" << endl;
+                     }
+
+                     // Safety check: make sure that the average endpoint is within the valid grid
+                     if (! bIsWithinValidGrid(nAvgEndX, nAvgEndY))
+                     {
+                        LogStream << m_ulIter << ":\t  << coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, average endpoint {" << dAvgEndX << ", " << dAvgEndY << "} constrained to be ";
+
+                        KeepWithinValidGrid(dAvgEndX, dAvgEndY, nAvgEndX, nAvgEndY);
+
+                        LogStream << "{" << dAvgEndX << ", " << dAvgEndY << "}" << endl;
+                     }
+
+                     // Is the point of intersection also the end point of the first profile and the second profile? (Uncommon, but it happens occasionally)
+                     int nFirstPointSize = pFirstProfile->nGetProfileSize();
+                     CGeom2DPoint* pPtFirstEnd = pFirstProfile->pPtGetPointInProfile(nFirstPointSize-1);
+
+                     int nSecondPointSize = pSecondProfile->nGetProfileSize();
+                     CGeom2DPoint* pPtSecondEnd = pSecondProfile->pPtGetPointInProfile(nSecondPointSize-1);
+
+                     if (bFPIsEqual(dIntersectX, pPtFirstEnd->dGetX(), TOLERANCE) && bFPIsEqual(dIntersectY, pPtFirstEnd->dGetY(), TOLERANCE) && bFPIsEqual(dIntersectX, pPtSecondEnd->dGetX(), TOLERANCE) && bFPIsEqual(dIntersectY, pPtSecondEnd->dGetY(), TOLERANCE))
+                     {
+                        // Yes, the point of intersection also the end point of the first profile and the second profile
+                        LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, intersection point {" << dIntersectX << ", " << dIntersectY << "} already at seaward end of both profiles, no need to modify" << endl;
+
+                        continue;
+                     }
+
+                     // The point of intersection is not also the endpoint of both profiles, so at least one profile must be modified
+                     bChanged = true;
+
+                     // Is the first profile an intervention profile?
+                     if (pFirstProfile->bIsIntervention())
+                     {
+                        // Truncate the first profile, since it is an intervention profile
+                        LogStream << m_ulIter << ": profiles " << nFirstProfile << " and " << nSecondProfile << " intersect, truncate first profile " << nFirstProfile << " at {" << dIntersectX << ", " << dIntersectY << "} since it is an intervention profile" << endl;
+
+                        TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg, false);
 
                         // // DEBUG CODE =====================================
-                        // LogStream << endl << "###################################################### WE HAVE INTERSECTION ";
+                        // LogStream << endl << "###################################################### AFTER TRUNCATION OF FIRST (INTERVENTION) PROFILE ";
                         // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
                         //
                         // LogStream << "nExtra = " << ++m_nExtra << endl;
@@ -1250,709 +1519,1477 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         // LogStream << endl << "######################################################" << endl;
                         // // DEBUG CODE =====================================
 
+                        // // DEBUG CODE ****************************************************************
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                        // int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                        //
+                        // LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nFirstProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nSecondProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // // DEBUG CODE ******************************************************************
 
+                        continue;
+                     }
 
+                     // Is the second profile an intervention profile?
+                     if (pSecondProfile->bIsIntervention())
+                     {
+                        // Truncate the second profile, since it is an intervention profile
+                        LogStream << m_ulIter << ": profiles " << nFirstProfile << " and " << nSecondProfile << " intersect, truncate second profile " << nSecondProfile << " at {" << dIntersectX << ", " << dIntersectY << "} since it is an intervention profile" << endl;
 
+                        TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg, false);
 
-                        // We have an intersection. Convert intersection point, and average endpoint, to grid CRS
-                        int nIntersectX = nRound(dExtCRSXToGridX(dIntersectX));
-                        int nIntersectY = nRound(dExtCRSYToGridY(dIntersectY));
-                        int nAvgEndX = nRound(dExtCRSXToGridX(dAvgEndX));
-                        int nAvgEndY = nRound(dExtCRSYToGridY(dAvgEndY));
+                        // // DEBUG CODE =====================================
+                        // LogStream << endl << "###################################################### AFTER TRUNCATION OF SECOND (INTERVENTION) PROFILE ";
+                        // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+                        //
+                        // LogStream << "nExtra = " << ++m_nExtra << endl;
+                        // string strExtra = "_" + to_string(m_nExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                        //
+                        // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
+                        // {
+                        //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
+                        //    {
+                        //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
+                        //       int const nProfileTmp = pProfile->nGetProfileID();
+                        //       int const nCoastIDTmp = pProfile->nGetCoastID();
+                        //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
+                        //
+                        //       bool const bStartTmp = pProfile->bIsStartOfCoast();
+                        //       bool const bEndTmp = pProfile->bIsEndOfCoast();
+                        //       bool const bInterventionTmp = pProfile->bIsIntervention();
+                        //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
+                        //
+                        //       // int nStartXTmp = INT_NODATA;
+                        //       // int nStartYTmp = INT_NODATA;
+                        //       // int nEndXTmp = INT_NODATA;
+                        //       // int nEndYTmp = INT_NODATA;
+                        //       //
+                        //       // if (pProfile->nGetNumCellsInProfile() > 0)
+                        //       // {
+                        //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
+                        //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
+                        //       //    nStartXTmp = pPtiStart->nGetX();
+                        //       //    nStartYTmp = pPtiStart->nGetY();
+                        //       //    nEndXTmp = pPtiEnd->nGetX();
+                        //       //    nEndYTmp = pPtiEnd->nGetY();
+                        //       // }
+                        //
+                        //       int nCellSize = pProfile->nGetNumCellsInProfile();
+                        //
+                        //       bool const bProfileOKTmp = pProfile->bProfileOK();
+                        //       int const nStatusTmp = pProfile->nGetProfileStatus();
+                        //       string strStatusTmp;
+                        //       switch (nStatusTmp)
+                        //       {
+                        //       case 0:
+                        //          strStatusTmp = "PROFILE_STATUS_OK";
+                        //          break;
+                        //       case 1:
+                        //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
+                        //          break;
+                        //       case 2:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
+                        //          break;
+                        //       case 3:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
+                        //          break;
+                        //       case 4:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
+                        //          break;
+                        //       case 5:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
+                        //          break;
+                        //       default:
+                        //          strStatusTmp = "UNKNOWN";
+                        //          break;
+                        //       }
+                        //
+                        //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
+                        //
+                        //       LogStream << "\t\t\t";
+                        //       int nPointSize = pProfile->nGetProfileSize();
+                        //       for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       {
+                        //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
+                        //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+                        //       }
+                        //       LogStream << endl;
+                        //
+                        //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
+                        //       // {
+                        //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       //    {
+                        //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
+                        //       //       double dThisX = p2DPThis->dGetX();
+                        //       //       double dThisY = p2DPThis->dGetY();
+                        //       //       int nThisX = dExtCRSXToGridX(dThisX);
+                        //       //       int nThisY = dExtCRSYToGridY(dThisY);
+                        //       //
+                        //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       //
+                        //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
+                        //       //    {
+                        //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       // }
+                        //    }
+                        // }
+                        // LogStream << endl << "######################################################" << endl;
+                        // // DEBUG CODE =====================================
 
-                        // Check that none of these are outside the grid
-                        if (! bIsWithinValidGrid(nIntersectX, nIntersectY))
-                        {
-                           KeepWithinValidGrid(nIntersectX, nIntersectY);
-                           LogStream << "*** intersection constrained to be [" << nIntersectX << "][" << nIntersectY << "]" << endl;
-                        }
+                        // // DEBUG CODE ****************************************************************
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                        // int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                        //
+                        // LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nFirstProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nSecondProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // // DEBUG CODE ******************************************************************
 
-                        if (! bIsWithinValidGrid(nAvgEndX, nAvgEndY))
-                        {
-                           KeepWithinValidGrid(nAvgEndX, nAvgEndY);
-                           LogStream << "*** average endpoint constrained to be [" << nAvgEndX << "][" << nAvgEndY << "]" << endl;
-                        }
+                        continue;
+                     }
 
-                        // The profiles intersect
-                        int nPoint = -1;
+                     // // Is the point of intersection (external CRS) already present in the first profile?
+                     // if (pFirstProfile->bIsPointInProfile(dIntersectX, dIntersectY, nPoint))
+                     // {
+                     //    // The point of intersection is present in the first profile, so there has already been an intersection at this point between the first profile and some other profile
+                     //    LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " and second profile " << nSecondProfile << " intersect, but point [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} is already present in first profile " << nFirstProfile << " as point " << nPoint << endl;
+                     //
+                     //    // Truncate the second profile and merge it with the first profile seawards of the point of intersection
+                     //    TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg, true);
+                     //
+                     //    LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, truncated second profile " << nSecondProfile << " at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
+                     //
+                     //    // DEBUG CODE =====================================
+                     //    LogStream << endl << "###################################################### INTERSECTION POINT ALREADY PRESENT IN FIRST PROFILE: AFTER MERGE SECOND PROFILE SEAWARDS OF INTERSECTION  ";
+                     //    LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+                     //
+                     //    LogStream << "nExtra = " << ++m_nExtra << endl;
+                     //    string strExtra = "_" + to_string(m_nExtra);
+                     //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                     //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                     //
+                     //    for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
+                     //    {
+                     //       for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
+                     //       {
+                     //          CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
+                     //          int const nProfileTmp = pProfile->nGetProfileID();
+                     //          int const nCoastIDTmp = pProfile->nGetCoastID();
+                     //          int const nCoastPointTmp = pProfile->nGetCoastPoint();
+                     //
+                     //          bool const bStartTmp = pProfile->bIsStartOfCoast();
+                     //          bool const bEndTmp = pProfile->bIsEndOfCoast();
+                     //          bool const bInterventionTmp = pProfile->bIsIntervention();
+                     //          bool const bCShoreProblem = pProfile->bHasCShoreProblem();
+                     //
+                     //          // int nStartXTmp = INT_NODATA;
+                     //          // int nStartYTmp = INT_NODATA;
+                     //          // int nEndXTmp = INT_NODATA;
+                     //          // int nEndYTmp = INT_NODATA;
+                     //          //
+                     //          // if (pProfile->nGetNumCellsInProfile() > 0)
+                     //          // {
+                     //          //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
+                     //          //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
+                     //          //    nStartXTmp = pPtiStart->nGetX();
+                     //          //    nStartYTmp = pPtiStart->nGetY();
+                     //          //    nEndXTmp = pPtiEnd->nGetX();
+                     //          //    nEndYTmp = pPtiEnd->nGetY();
+                     //          // }
+                     //
+                     //          int nCellSize = pProfile->nGetNumCellsInProfile();
+                     //
+                     //          bool const bProfileOKTmp = pProfile->bProfileOK();
+                     //          int const nStatusTmp = pProfile->nGetProfileStatus();
+                     //          string strStatusTmp;
+                     //          switch (nStatusTmp)
+                     //          {
+                     //          case 0:
+                     //             strStatusTmp = "PROFILE_STATUS_OK";
+                     //             break;
+                     //          case 1:
+                     //             strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
+                     //             break;
+                     //          case 2:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_LAND";
+                     //             break;
+                     //          case 3:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_COAST";
+                     //             break;
+                     //          case 4:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
+                     //             break;
+                     //          case 5:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
+                     //             break;
+                     //          default:
+                     //             strStatusTmp = "UNKNOWN";
+                     //             break;
+                     //          }
+                     //
+                     //          LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
+                     //
+                     //          LogStream << "\t\t\t";
+                     //          int nPointSize = pProfile->nGetProfileSize();
+                     //          for (int mmm = 0; mmm < nPointSize; mmm++)
+                     //          {
+                     //             CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
+                     //             LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+                     //          }
+                     //          LogStream << endl;
+                     //
+                     //          // if ((nProfileTmp == 7) && (m_ulIter == 4))
+                     //          // {
+                     //          //    for (int mmm = 0; mmm < nPointSize; mmm++)
+                     //          //    {
+                     //          //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
+                     //          //       double dThisX = p2DPThis->dGetX();
+                     //          //       double dThisY = p2DPThis->dGetY();
+                     //          //       int nThisX = dExtCRSXToGridX(dThisX);
+                     //          //       int nThisY = dExtCRSYToGridY(dThisY);
+                     //          //
+                     //          //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
+                     //          //    }
+                     //          //    LogStream << endl;
+                     //          //
+                     //          //    for (int mmm = 0; mmm < nCellSize; mmm++)
+                     //          //    {
+                     //          //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
+                     //          //    }
+                     //          //    LogStream << endl;
+                     //          // }
+                     //       }
+                     //    }
+                     //    LogStream << endl << "######################################################" << endl;
+                     //    // DEBUG CODE =====================================
+                     //
+                     //    // DEBUG CODE ****************************************************************
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                     //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                     //
+                     //    LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nFirstProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nSecondProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    // DEBUG CODE ******************************************************************
+                     //
+                     //    continue;
+                     // }
+                     //
+                     // // Is the point of intersection (external CRS) already present in the second profile?
+                     // if (pSecondProfile->bIsPointInProfile(dIntersectX, dIntersectY, nPoint))
+                     // {
+                     //    // The point of intersection is present in the second profile, so there has already been an intersection at this point between the second profile and some other profile
+                     //    LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " and second profile " << nSecondProfile << " intersect, but point [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} is already present in second profile " << nSecondProfile << " as point " << nPoint << endl;
+                     //
+                     //    // Truncate the first profile and merge it with the second profile seawards of the point of intersection
+                     //    TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg, true);
+                     //
+                     //    LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, truncated first profile " << nFirstProfile << " at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
+                     //
+                     //    // DEBUG CODE =====================================
+                     //    LogStream << endl << "###################################################### INTERSECTION POINT ALREADY PRESENT IN SECOND PROFILE: AFTER MERGE FIRST PROFILE SEAWARDS OF INTERSECTION  ";
+                     //    LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+                     //
+                     //    LogStream << "nExtra = " << ++m_nExtra << endl;
+                     //    string strExtra = "_" + to_string(m_nExtra);
+                     //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                     //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                     //
+                     //    for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
+                     //    {
+                     //       for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
+                     //       {
+                     //          CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
+                     //          int const nProfileTmp = pProfile->nGetProfileID();
+                     //          int const nCoastIDTmp = pProfile->nGetCoastID();
+                     //          int const nCoastPointTmp = pProfile->nGetCoastPoint();
+                     //
+                     //          bool const bStartTmp = pProfile->bIsStartOfCoast();
+                     //          bool const bEndTmp = pProfile->bIsEndOfCoast();
+                     //          bool const bInterventionTmp = pProfile->bIsIntervention();
+                     //          bool const bCShoreProblem = pProfile->bHasCShoreProblem();
+                     //
+                     //          // int nStartXTmp = INT_NODATA;
+                     //          // int nStartYTmp = INT_NODATA;
+                     //          // int nEndXTmp = INT_NODATA;
+                     //          // int nEndYTmp = INT_NODATA;
+                     //          //
+                     //          // if (pProfile->nGetNumCellsInProfile() > 0)
+                     //          // {
+                     //          //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
+                     //          //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
+                     //          //    nStartXTmp = pPtiStart->nGetX();
+                     //          //    nStartYTmp = pPtiStart->nGetY();
+                     //          //    nEndXTmp = pPtiEnd->nGetX();
+                     //          //    nEndYTmp = pPtiEnd->nGetY();
+                     //          // }
+                     //
+                     //          int nCellSize = pProfile->nGetNumCellsInProfile();
+                     //
+                     //          bool const bProfileOKTmp = pProfile->bProfileOK();
+                     //          int const nStatusTmp = pProfile->nGetProfileStatus();
+                     //          string strStatusTmp;
+                     //          switch (nStatusTmp)
+                     //          {
+                     //          case 0:
+                     //             strStatusTmp = "PROFILE_STATUS_OK";
+                     //             break;
+                     //          case 1:
+                     //             strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
+                     //             break;
+                     //          case 2:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_LAND";
+                     //             break;
+                     //          case 3:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_COAST";
+                     //             break;
+                     //          case 4:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
+                     //             break;
+                     //          case 5:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
+                     //             break;
+                     //          default:
+                     //             strStatusTmp = "UNKNOWN";
+                     //             break;
+                     //          }
+                     //
+                     //          LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
+                     //
+                     //          LogStream << "\t\t\t";
+                     //          int nPointSize = pProfile->nGetProfileSize();
+                     //          for (int mmm = 0; mmm < nPointSize; mmm++)
+                     //          {
+                     //             CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
+                     //             LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+                     //          }
+                     //          LogStream << endl;
+                     //
+                     //          // if ((nProfileTmp == 7) && (m_ulIter == 4))
+                     //          // {
+                     //          //    for (int mmm = 0; mmm < nPointSize; mmm++)
+                     //          //    {
+                     //          //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
+                     //          //       double dThisX = p2DPThis->dGetX();
+                     //          //       double dThisY = p2DPThis->dGetY();
+                     //          //       int nThisX = dExtCRSXToGridX(dThisX);
+                     //          //       int nThisY = dExtCRSYToGridY(dThisY);
+                     //          //
+                     //          //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
+                     //          //    }
+                     //          //    LogStream << endl;
+                     //          //
+                     //          //    for (int mmm = 0; mmm < nCellSize; mmm++)
+                     //          //    {
+                     //          //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
+                     //          //    }
+                     //          //    LogStream << endl;
+                     //          // }
+                     //       }
+                     //    }
+                     //    LogStream << endl << "######################################################" << endl;
+                     //    // DEBUG CODE =====================================
+                     //
+                     //    // DEBUG CODE ****************************************************************
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                     //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                     //
+                     //    LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nFirstProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nSecondProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    // DEBUG CODE ******************************************************************
+                     //
+                     //    continue;
+                     // }
 
-                        // Is the point of intersection also the end point of both profiles (happens occasionally)?
-                        int nFirstPointSize = pFirstProfile->nGetProfileSize();
-                        CGeom2DPoint* pPtFirstEnd = pFirstProfile->pPtGetPointInProfile(nFirstPointSize-1);
+                     // The point of intersection is not already present in either profile, so get the number of line segments of each profile
+                     int const nFirstProfileLineSegments = pFirstProfile->nGetNumLineSegments();
+                     int const nSecondProfileLineSegments = pSecondProfile->nGetNumLineSegments();
 
-                        int nSecondPointSize = pSecondProfile->nGetProfileSize();
-                        CGeom2DPoint* pPtSecondEnd = pSecondProfile->pPtGetPointInProfile(nSecondPointSize-1);
+                     // assert(nProf1LineSeg < nFirstProfileLineSegments);
+                     // assert(nProf2LineSeg < nSecondProfileLineSegments);
 
-                        if (bFPIsEqual(dIntersectX, pPtFirstEnd->dGetX(), TOLERANCE) && bFPIsEqual(dIntersectY, pPtFirstEnd->dGetY(), TOLERANCE) && bFPIsEqual(dIntersectX, pPtSecondEnd->dGetX(), TOLERANCE) && bFPIsEqual(dIntersectY, pPtSecondEnd->dGetY(), TOLERANCE))
-                        {
-                           LogStream << m_ulIter << ":\t   intersection point already at seaward end of both profiles, continuing" << endl;
+                     // Next check whether the point of intersection is in the final line segment of both profiles
+                     if ((nProf1LineSeg == (nFirstProfileLineSegments-1)) && (nProf2LineSeg == (nSecondProfileLineSegments-1)))
+                     {
+                        // Yes, the point of intersection is on the final line segment of both profiles
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, end-segment intersection between profiles " << nFirstProfile << " and " << nSecondProfile << " at [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} in line segment [" << nProf1LineSeg << "] of " << nFirstProfileLineSegments << " and line segment [" << nProf2LineSeg << "] of " << nSecondProfileLineSegments << " respectively" << endl;
 
-                           continue;
-                        }
+                        // Merge the profiles seaward of the point of intersection
+                        MergeProfilesAtFinalLineSegments(nCoast, pFirstProfile, pSecondProfile, nFirstProfileLineSegments, nSecondProfileLineSegments, dIntersectX, dIntersectY, dAvgEndX, dAvgEndY);
 
-                        // The point of intersection is not also the endpoint of both profiles. So decide whether to truncate one profile and retain the other, or whether to merge both profiles seaward of the point of intersection
-                        if (pFirstProfile->bIsIntervention())
-                        {
-                           LogStream << m_ulIter << ": profiles " << nFirstProfile << " and " << nSecondProfile << " intersect, truncate " << nFirstProfile << " since it is an intervention profile" << endl;
+                        LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, merged first profile " << nFirstProfile << " and second profile " << nSecondProfile << " at {" << dIntersectX << ", " << dIntersectY << "}, averaged endpoint is {" << dAvgEndX << ", " << dAvgEndY << "}" << endl;
 
-                           // Truncate the first profile, since it is an intervention profile
-                           TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg, false);
+                        // // DEBUG CODE =====================================
+                        // LogStream << endl << "###################################################### INTERSECTION POINT ON FINAL SEGMENT OF BOTH: AFTER MERGE BOTH PROFILES SEAWARDS OF INTERSECTION  ";
+                        // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+                        //
+                        // LogStream << "nExtra = " << ++m_nExtra << endl;
+                        // string strExtra = "_" + to_string(m_nExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                        //
+                        // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
+                        // {
+                        //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
+                        //    {
+                        //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
+                        //       int const nProfileTmp = pProfile->nGetProfileID();
+                        //       int const nCoastIDTmp = pProfile->nGetCoastID();
+                        //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
+                        //
+                        //       bool const bStartTmp = pProfile->bIsStartOfCoast();
+                        //       bool const bEndTmp = pProfile->bIsEndOfCoast();
+                        //       bool const bInterventionTmp = pProfile->bIsIntervention();
+                        //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
+                        //
+                        //       // int nStartXTmp = INT_NODATA;
+                        //       // int nStartYTmp = INT_NODATA;
+                        //       // int nEndXTmp = INT_NODATA;
+                        //       // int nEndYTmp = INT_NODATA;
+                        //       //
+                        //       // if (pProfile->nGetNumCellsInProfile() > 0)
+                        //       // {
+                        //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
+                        //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
+                        //       //    nStartXTmp = pPtiStart->nGetX();
+                        //       //    nStartYTmp = pPtiStart->nGetY();
+                        //       //    nEndXTmp = pPtiEnd->nGetX();
+                        //       //    nEndYTmp = pPtiEnd->nGetY();
+                        //       // }
+                        //
+                        //       int nCellSize = pProfile->nGetNumCellsInProfile();
+                        //
+                        //       bool const bProfileOKTmp = pProfile->bProfileOK();
+                        //       int const nStatusTmp = pProfile->nGetProfileStatus();
+                        //       string strStatusTmp;
+                        //       switch (nStatusTmp)
+                        //       {
+                        //       case 0:
+                        //          strStatusTmp = "PROFILE_STATUS_OK";
+                        //          break;
+                        //       case 1:
+                        //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
+                        //          break;
+                        //       case 2:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
+                        //          break;
+                        //       case 3:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
+                        //          break;
+                        //       case 4:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
+                        //          break;
+                        //       case 5:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
+                        //          break;
+                        //       default:
+                        //          strStatusTmp = "UNKNOWN";
+                        //          break;
+                        //       }
+                        //
+                        //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
+                        //
+                        //       LogStream << "\t\t\t";
+                        //       int nPointSize = pProfile->nGetProfileSize();
+                        //       for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       {
+                        //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
+                        //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+                        //       }
+                        //       LogStream << endl;
+                        //
+                        //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
+                        //       // {
+                        //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       //    {
+                        //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
+                        //       //       double dThisX = p2DPThis->dGetX();
+                        //       //       double dThisY = p2DPThis->dGetY();
+                        //       //       int nThisX = dExtCRSXToGridX(dThisX);
+                        //       //       int nThisY = dExtCRSYToGridY(dThisY);
+                        //       //
+                        //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       //
+                        //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
+                        //       //    {
+                        //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       // }
+                        //    }
+                        // }
+                        // LogStream << endl << "######################################################" << endl;
+                        // // DEBUG CODE =====================================
 
-                           // // DEBUG CODE =====================================
-                           // LogStream << endl << "###################################################### AFTER TRUNCATION OF FIRST (INTERVENTION) PROFILE ";
-                           // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                           //
-                           // LogStream << "nExtra = " << ++m_nExtra << endl;
-                           // string strExtra = "_" + to_string(m_nExtra);
-                           // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                           // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                           //
-                           // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
-                           // {
-                           //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
-                           //    {
-                           //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
-                           //       int const nProfileTmp = pProfile->nGetProfileID();
-                           //       int const nCoastIDTmp = pProfile->nGetCoastID();
-                           //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
-                           //
-                           //       bool const bStartTmp = pProfile->bIsStartOfCoast();
-                           //       bool const bEndTmp = pProfile->bIsEndOfCoast();
-                           //       bool const bInterventionTmp = pProfile->bIsIntervention();
-                           //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
-                           //
-                           //       // int nStartXTmp = INT_NODATA;
-                           //       // int nStartYTmp = INT_NODATA;
-                           //       // int nEndXTmp = INT_NODATA;
-                           //       // int nEndYTmp = INT_NODATA;
-                           //       //
-                           //       // if (pProfile->nGetNumCellsInProfile() > 0)
-                           //       // {
-                           //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
-                           //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
-                           //       //    nStartXTmp = pPtiStart->nGetX();
-                           //       //    nStartYTmp = pPtiStart->nGetY();
-                           //       //    nEndXTmp = pPtiEnd->nGetX();
-                           //       //    nEndYTmp = pPtiEnd->nGetY();
-                           //       // }
-                           //
-                           //       int nCellSize = pProfile->nGetNumCellsInProfile();
-                           //
-                           //       bool const bProfileOKTmp = pProfile->bProfileOK();
-                           //       int const nStatusTmp = pProfile->nGetProfileStatus();
-                           //       string strStatusTmp;
-                           //       switch (nStatusTmp)
-                           //       {
-                           //       case 0:
-                           //          strStatusTmp = "PROFILE_STATUS_OK";
-                           //          break;
-                           //       case 1:
-                           //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
-                           //          break;
-                           //       case 2:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
-                           //          break;
-                           //       case 3:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
-                           //          break;
-                           //       case 4:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
-                           //          break;
-                           //       case 5:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
-                           //          break;
-                           //       default:
-                           //          strStatusTmp = "UNKNOWN";
-                           //          break;
-                           //       }
-                           //
-                           //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
-                           //
-                           //       LogStream << "\t\t\t";
-                           //       int nPointSize = pProfile->nGetProfileSize();
-                           //       for (int mmm = 0; mmm < nPointSize; mmm++)
-                           //       {
-                           //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
-                           //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
-                           //       }
-                           //       LogStream << endl;
-                           //
-                           //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
-                           //       // {
-                           //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
-                           //       //    {
-                           //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
-                           //       //       double dThisX = p2DPThis->dGetX();
-                           //       //       double dThisY = p2DPThis->dGetY();
-                           //       //       int nThisX = dExtCRSXToGridX(dThisX);
-                           //       //       int nThisY = dExtCRSYToGridY(dThisY);
-                           //       //
-                           //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
-                           //       //    }
-                           //       //    LogStream << endl;
-                           //       //
-                           //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
-                           //       //    {
-                           //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
-                           //       //    }
-                           //       //    LogStream << endl;
-                           //       // }
-                           //    }
-                           // }
-                           // LogStream << endl << "######################################################" << endl;
-                           // // DEBUG CODE =====================================
+                        // // DEBUG CODE =============================================================================================
+                        // int nSizeTmp = pFirstProfile->nGetProfileSize();
+                        // CGeom2DPoint PtEndTmp = *pFirstProfile->pPtGetPointInProfile(nSizeTmp-1);
+                        //
+                        // LogStream << m_ulIter << ":\t   end of first profile (" << nFirstProfile << ") is point " << nSizeTmp-1 << " at [" << dExtCRSXToGridX(PtEndTmp.dGetX()) << "][" << dExtCRSYToGridY(PtEndTmp.dGetY()) << "} = {" << PtEndTmp.dGetX() << ", " << PtEndTmp.dGetY() << "}" << endl;
+                        //
+                        // nSizeTmp = pSecondProfile->nGetProfileSize();
+                        // PtEndTmp = *pSecondProfile->pPtGetPointInProfile(nSizeTmp-1);
+                        //
+                        // LogStream << m_ulIter << ":\t   end of second profile (" << nSecondProfile << ") is point " << nSizeTmp-1 << " at [" << dExtCRSXToGridX(PtEndTmp.dGetX()) << "][" << dExtCRSYToGridY(PtEndTmp.dGetY()) << "} = {" << PtEndTmp.dGetX() << ", " << PtEndTmp.dGetY() << "}" << endl;
+                        // // DEBUG CODE =============================================================================================
 
+                        // // DEBUG CODE ****************************************************************
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                        // int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                        //
+                        // LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nFirstProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nSecondProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // // DEBUG CODE ******************************************************************
 
-                           continue;
-                        }
+                        continue;
+                     }
 
-                        if (pSecondProfile->bIsIntervention())
-                        {
-                           LogStream << m_ulIter << ": profiles " << nFirstProfile << " and " << nSecondProfile << " intersect, truncate " << nSecondProfile << " since it is an intervention profile" << endl;
+                     // The profiles intersect, but the point of intersection is not in the final line segment of both profiles. One of the profiles will be truncated, the other profile will be retained
+                     LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, intersection (not in both end segments) between profiles " << nFirstProfile << " and " << nSecondProfile << " at [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} in line segment [" << nProf1LineSeg << "] of " << nFirstProfileLineSegments << " and line segment [" << nProf2LineSeg << "] of " << nSecondProfileLineSegments << ", respectively" << endl;
 
-                           // // DEBUG CODE =======================
-                           // if ((nFirstProfile == 22) && (nSecondProfile == 2))
-                           //    std::raise(SIGINT);
-                           // // DEBUG CODE =======================
+                     // Decide which profile to truncate, and which to retain
+                     if (pFirstProfile->bIsIntervention())
+                     {
+                        // Truncate the first profile, since it is an intervention profile
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << nFirstProfile << " second profile = " << nSecondProfile << ", first profile is an intervention profile, so truncate first profile (" << nFirstProfile << ") at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
-                           // Truncate the second profile, since it is an intervention profile
-                           TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg, false);
+                        TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg, false);
 
-                           // // DEBUG CODE =====================================
-                           // LogStream << endl << "###################################################### AFTER TRUNCATION OF SECOND (INTERVENTION) PROFILE ";
-                           // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                           //
-                           // LogStream << "nExtra = " << ++m_nExtra << endl;
-                           // string strExtra = "_" + to_string(m_nExtra);
-                           // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                           // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                           //
-                           // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
-                           // {
-                           //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
-                           //    {
-                           //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
-                           //       int const nProfileTmp = pProfile->nGetProfileID();
-                           //       int const nCoastIDTmp = pProfile->nGetCoastID();
-                           //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
-                           //
-                           //       bool const bStartTmp = pProfile->bIsStartOfCoast();
-                           //       bool const bEndTmp = pProfile->bIsEndOfCoast();
-                           //       bool const bInterventionTmp = pProfile->bIsIntervention();
-                           //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
-                           //
-                           //       // int nStartXTmp = INT_NODATA;
-                           //       // int nStartYTmp = INT_NODATA;
-                           //       // int nEndXTmp = INT_NODATA;
-                           //       // int nEndYTmp = INT_NODATA;
-                           //       //
-                           //       // if (pProfile->nGetNumCellsInProfile() > 0)
-                           //       // {
-                           //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
-                           //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
-                           //       //    nStartXTmp = pPtiStart->nGetX();
-                           //       //    nStartYTmp = pPtiStart->nGetY();
-                           //       //    nEndXTmp = pPtiEnd->nGetX();
-                           //       //    nEndYTmp = pPtiEnd->nGetY();
-                           //       // }
-                           //
-                           //       int nCellSize = pProfile->nGetNumCellsInProfile();
-                           //
-                           //       bool const bProfileOKTmp = pProfile->bProfileOK();
-                           //       int const nStatusTmp = pProfile->nGetProfileStatus();
-                           //       string strStatusTmp;
-                           //       switch (nStatusTmp)
-                           //       {
-                           //       case 0:
-                           //          strStatusTmp = "PROFILE_STATUS_OK";
-                           //          break;
-                           //       case 1:
-                           //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
-                           //          break;
-                           //       case 2:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
-                           //          break;
-                           //       case 3:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
-                           //          break;
-                           //       case 4:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
-                           //          break;
-                           //       case 5:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
-                           //          break;
-                           //       default:
-                           //          strStatusTmp = "UNKNOWN";
-                           //          break;
-                           //       }
-                           //
-                           //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
-                           //
-                           //       LogStream << "\t\t\t";
-                           //       int nPointSize = pProfile->nGetProfileSize();
-                           //       for (int mmm = 0; mmm < nPointSize; mmm++)
-                           //       {
-                           //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
-                           //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
-                           //       }
-                           //       LogStream << endl;
-                           //
-                           //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
-                           //       // {
-                           //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
-                           //       //    {
-                           //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
-                           //       //       double dThisX = p2DPThis->dGetX();
-                           //       //       double dThisY = p2DPThis->dGetY();
-                           //       //       int nThisX = dExtCRSXToGridX(dThisX);
-                           //       //       int nThisY = dExtCRSYToGridY(dThisY);
-                           //       //
-                           //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
-                           //       //    }
-                           //       //    LogStream << endl;
-                           //       //
-                           //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
-                           //       //    {
-                           //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
-                           //       //    }
-                           //       //    LogStream << endl;
-                           //       // }
-                           //    }
-                           // }
-                           // LogStream << endl << "######################################################" << endl;
-                           // // DEBUG CODE =====================================
+                        // // DEBUG CODE =====================================
+                        // LogStream << endl << "###################################################### INTERSECTION NOT IN FINAL LINE SEGMENT, TRUNCATE INTERVENTION PROFILE";
+                        // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+                        //
+                        // LogStream << "nExtra = " << ++m_nExtra << endl;
+                        // string strExtra = "_" + to_string(m_nExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                        //
+                        // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
+                        // {
+                        //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
+                        //    {
+                        //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
+                        //       int const nProfileTmp = pProfile->nGetProfileID();
+                        //       int const nCoastIDTmp = pProfile->nGetCoastID();
+                        //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
+                        //
+                        //       bool const bStartTmp = pProfile->bIsStartOfCoast();
+                        //       bool const bEndTmp = pProfile->bIsEndOfCoast();
+                        //       bool const bInterventionTmp = pProfile->bIsIntervention();
+                        //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
+                        //
+                        //       // int nStartXTmp = INT_NODATA;
+                        //       // int nStartYTmp = INT_NODATA;
+                        //       // int nEndXTmp = INT_NODATA;
+                        //       // int nEndYTmp = INT_NODATA;
+                        //       //
+                        //       // if (pProfile->nGetNumCellsInProfile() > 0)
+                        //       // {
+                        //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
+                        //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
+                        //       //    nStartXTmp = pPtiStart->nGetX();
+                        //       //    nStartYTmp = pPtiStart->nGetY();
+                        //       //    nEndXTmp = pPtiEnd->nGetX();
+                        //       //    nEndYTmp = pPtiEnd->nGetY();
+                        //       // }
+                        //
+                        //       int nCellSize = pProfile->nGetNumCellsInProfile();
+                        //
+                        //       bool const bProfileOKTmp = pProfile->bProfileOK();
+                        //       int const nStatusTmp = pProfile->nGetProfileStatus();
+                        //       string strStatusTmp;
+                        //       switch (nStatusTmp)
+                        //       {
+                        //       case 0:
+                        //          strStatusTmp = "PROFILE_STATUS_OK";
+                        //          break;
+                        //       case 1:
+                        //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
+                        //          break;
+                        //       case 2:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
+                        //          break;
+                        //       case 3:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
+                        //          break;
+                        //       case 4:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
+                        //          break;
+                        //       case 5:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
+                        //          break;
+                        //       default:
+                        //          strStatusTmp = "UNKNOWN";
+                        //          break;
+                        //       }
+                        //
+                        //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
+                        //
+                        //       LogStream << "\t\t\t";
+                        //       int nPointSize = pProfile->nGetProfileSize();
+                        //       for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       {
+                        //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
+                        //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+                        //       }
+                        //       LogStream << endl;
+                        //
+                        //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
+                        //       // {
+                        //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       //    {
+                        //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
+                        //       //       double dThisX = p2DPThis->dGetX();
+                        //       //       double dThisY = p2DPThis->dGetY();
+                        //       //       int nThisX = dExtCRSXToGridX(dThisX);
+                        //       //       int nThisY = dExtCRSYToGridY(dThisY);
+                        //       //
+                        //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       //
+                        //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
+                        //       //    {
+                        //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       // }
+                        //    }
+                        // }
+                        // LogStream << endl << "######################################################" << endl;
+                        // // DEBUG CODE =====================================
 
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
 
-                           continue;
-                        }
+                        // // DEBUG CODE ****************************************************************
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                        // int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                        //
+                        // LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nFirstProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nSecondProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // // DEBUG CODE ******************************************************************
 
+                        continue;
+                     }
 
-                        // Is the point of intersection (external CRS) already present in either profile?
-                        if (pFirstProfile->bIsPointInProfile(dIntersectX, dIntersectY, nPoint))
-                        {
-                           // The point of intersection is present in the first profile, so there has already been an intersection at this point between the first profile and some other profile
-                           LogStream << m_ulIter << ":\t   coast " << nCoast << " profiles " << nFirstProfile << " and " << nSecondProfile << " intersect, but point [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} is already present in first profile " << nFirstProfile << " as point " << nPoint << endl;
+                     if (pSecondProfile->bIsIntervention())
+                     {
+                        // Truncate the second profile, since it is an intervention profile
+                        LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << nFirstProfile << " second profile = " << nSecondProfile << ", second profile is an intervention profile, so truncate second profile (" << nSecondProfile << ") at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
-                           // Truncate the second profile and merge it with the first profile seawards of the point of intersection
-                           TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg, true);
+                        TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg, false);
 
-                           // // DEBUG CODE =====================================
-                           // LogStream << endl << "###################################################### INTERSECTION POINT ALREADY PRESENT IN FIRST PROFILE: AFTER MERGE SECOND PROFILE SEAWARDS OF INTERSECTION  ";
-                           // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                           //
-                           // LogStream << "nExtra = " << ++m_nExtra << endl;
-                           // string strExtra = "_" + to_string(m_nExtra);
-                           // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                           // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                           //
-                           // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
-                           // {
-                           //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
-                           //    {
-                           //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
-                           //       int const nProfileTmp = pProfile->nGetProfileID();
-                           //       int const nCoastIDTmp = pProfile->nGetCoastID();
-                           //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
-                           //
-                           //       bool const bStartTmp = pProfile->bIsStartOfCoast();
-                           //       bool const bEndTmp = pProfile->bIsEndOfCoast();
-                           //       bool const bInterventionTmp = pProfile->bIsIntervention();
-                           //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
-                           //
-                           //       // int nStartXTmp = INT_NODATA;
-                           //       // int nStartYTmp = INT_NODATA;
-                           //       // int nEndXTmp = INT_NODATA;
-                           //       // int nEndYTmp = INT_NODATA;
-                           //       //
-                           //       // if (pProfile->nGetNumCellsInProfile() > 0)
-                           //       // {
-                           //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
-                           //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
-                           //       //    nStartXTmp = pPtiStart->nGetX();
-                           //       //    nStartYTmp = pPtiStart->nGetY();
-                           //       //    nEndXTmp = pPtiEnd->nGetX();
-                           //       //    nEndYTmp = pPtiEnd->nGetY();
-                           //       // }
-                           //
-                           //       int nCellSize = pProfile->nGetNumCellsInProfile();
-                           //
-                           //       bool const bProfileOKTmp = pProfile->bProfileOK();
-                           //       int const nStatusTmp = pProfile->nGetProfileStatus();
-                           //       string strStatusTmp;
-                           //       switch (nStatusTmp)
-                           //       {
-                           //       case 0:
-                           //          strStatusTmp = "PROFILE_STATUS_OK";
-                           //          break;
-                           //       case 1:
-                           //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
-                           //          break;
-                           //       case 2:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
-                           //          break;
-                           //       case 3:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
-                           //          break;
-                           //       case 4:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
-                           //          break;
-                           //       case 5:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
-                           //          break;
-                           //       default:
-                           //          strStatusTmp = "UNKNOWN";
-                           //          break;
-                           //       }
-                           //
-                           //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
-                           //
-                           //       LogStream << "\t\t\t";
-                           //       int nPointSize = pProfile->nGetProfileSize();
-                           //       for (int mmm = 0; mmm < nPointSize; mmm++)
-                           //       {
-                           //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
-                           //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
-                           //       }
-                           //       LogStream << endl;
-                           //
-                           //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
-                           //       // {
-                           //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
-                           //       //    {
-                           //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
-                           //       //       double dThisX = p2DPThis->dGetX();
-                           //       //       double dThisY = p2DPThis->dGetY();
-                           //       //       int nThisX = dExtCRSXToGridX(dThisX);
-                           //       //       int nThisY = dExtCRSYToGridY(dThisY);
-                           //       //
-                           //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
-                           //       //    }
-                           //       //    LogStream << endl;
-                           //       //
-                           //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
-                           //       //    {
-                           //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
-                           //       //    }
-                           //       //    LogStream << endl;
-                           //       // }
-                           //    }
-                           // }
-                           // LogStream << endl << "######################################################" << endl;
-                           // // DEBUG CODE =====================================
+                       // // DEBUG CODE =====================================
+                       //  LogStream << endl << "###################################################### INTERSECTION NOT IN FINAL LINE SEGMENT, TRUNCATE INTERVENTION PROFILE";
+                       //  LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+                       //
+                       //  LogStream << "nExtra = " << ++m_nExtra << endl;
+                       //  string strExtra = "_" + to_string(m_nExtra);
+                       //  bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                       //  bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                       //
+                       //  for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
+                       //  {
+                       //     for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
+                       //     {
+                       //        CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
+                       //        int const nProfileTmp = pProfile->nGetProfileID();
+                       //        int const nCoastIDTmp = pProfile->nGetCoastID();
+                       //        int const nCoastPointTmp = pProfile->nGetCoastPoint();
+                       //
+                       //        bool const bStartTmp = pProfile->bIsStartOfCoast();
+                       //        bool const bEndTmp = pProfile->bIsEndOfCoast();
+                       //        bool const bInterventionTmp = pProfile->bIsIntervention();
+                       //        bool const bCShoreProblem = pProfile->bHasCShoreProblem();
+                       //
+                       //        // int nStartXTmp = INT_NODATA;
+                       //        // int nStartYTmp = INT_NODATA;
+                       //        // int nEndXTmp = INT_NODATA;
+                       //        // int nEndYTmp = INT_NODATA;
+                       //        //
+                       //        // if (pProfile->nGetNumCellsInProfile() > 0)
+                       //        // {
+                       //        //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
+                       //        //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
+                       //        //    nStartXTmp = pPtiStart->nGetX();
+                       //        //    nStartYTmp = pPtiStart->nGetY();
+                       //        //    nEndXTmp = pPtiEnd->nGetX();
+                       //        //    nEndYTmp = pPtiEnd->nGetY();
+                       //        // }
+                       //
+                       //        int nCellSize = pProfile->nGetNumCellsInProfile();
+                       //
+                       //        bool const bProfileOKTmp = pProfile->bProfileOK();
+                       //        int const nStatusTmp = pProfile->nGetProfileStatus();
+                       //        string strStatusTmp;
+                       //        switch (nStatusTmp)
+                       //        {
+                       //        case 0:
+                       //           strStatusTmp = "PROFILE_STATUS_OK";
+                       //           break;
+                       //        case 1:
+                       //           strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
+                       //           break;
+                       //        case 2:
+                       //           strStatusTmp = "PROFILE_STATUS_HIT_LAND";
+                       //           break;
+                       //        case 3:
+                       //           strStatusTmp = "PROFILE_STATUS_HIT_COAST";
+                       //           break;
+                       //        case 4:
+                       //           strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
+                       //           break;
+                       //        case 5:
+                       //           strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
+                       //           break;
+                       //        default:
+                       //           strStatusTmp = "UNKNOWN";
+                       //           break;
+                       //        }
+                       //
+                       //        LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
+                       //
+                       //        LogStream << "\t\t\t";
+                       //        int nPointSize = pProfile->nGetProfileSize();
+                       //        for (int mmm = 0; mmm < nPointSize; mmm++)
+                       //        {
+                       //           CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
+                       //           LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+                       //        }
+                       //        LogStream << endl;
+                       //
+                       //        // if ((nProfileTmp == 7) && (m_ulIter == 4))
+                       //        // {
+                       //        //    for (int mmm = 0; mmm < nPointSize; mmm++)
+                       //        //    {
+                       //        //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
+                       //        //       double dThisX = p2DPThis->dGetX();
+                       //        //       double dThisY = p2DPThis->dGetY();
+                       //        //       int nThisX = dExtCRSXToGridX(dThisX);
+                       //        //       int nThisY = dExtCRSYToGridY(dThisY);
+                       //        //
+                       //        //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
+                       //        //    }
+                       //        //    LogStream << endl;
+                       //        //
+                       //        //    for (int mmm = 0; mmm < nCellSize; mmm++)
+                       //        //    {
+                       //        //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
+                       //        //    }
+                       //        //    LogStream << endl;
+                       //        // }
+                       //     }
+                       //  }
+                       //  LogStream << endl << "######################################################" << endl;
+                       //  // DEBUG CODE =====================================
 
-                           continue;
-                        }
+                        LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << nSecondProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
 
-                        if (pSecondProfile->bIsPointInProfile(dIntersectX, dIntersectY, nPoint))
-                        {
-                           // The point of intersection is present in the second profile, so there has already been an intersection at this point between the second profile and some other profile
-                           LogStream << m_ulIter << ":\t   coast " << nCoast << " profiles " << nFirstProfile << " and " << nSecondProfile << " intersect, but point [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} is already present in second profile " << nSecondProfile << " as point " << nPoint << endl;
+                     //    // DEBUG CODE ****************************************************************
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                     //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                     //
+                     //    LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nFirstProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                     //    for (int m = 0; m < nSecondProfileLineSeg; m++)
+                     //    {
+                     //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                     //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                     //       for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                     //       LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                     //       LogStream << " }" << endl;
+                     //    }
+                     //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                     //    // DEBUG CODE ******************************************************************
+                     //
+                     //    continue;
+                     // }
+                     //
+                     // if (nFirstProfileLineSegments < nSecondProfileLineSegments)
+                     // {
+                     //    // Truncate the first profile, since it has a smaller number of line segments
+                     //    LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " has a smaller number of line segments, so truncate profile " << nFirstProfile << endl;
+                     //
+                     //    TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg, false);
+                     //
+                     //    // DEBUG CODE =====================================
+                     //    LogStream << endl << "###################################################### INTERSECTION NOT IN FINAL LINE SEGMENT, TRUNCATE PROFILE WITH LEAST SEGMENTS" << endl;
+                     //    LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+                     //
+                     //    LogStream << "nExtra = " << ++m_nExtra << endl;
+                     //    string strExtra = "_" + to_string(m_nExtra);
+                     //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                     //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                     //
+                     //    for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
+                     //    {
+                     //       for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
+                     //       {
+                     //          CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
+                     //          int const nProfileTmp = pProfile->nGetProfileID();
+                     //          int const nCoastIDTmp = pProfile->nGetCoastID();
+                     //          int const nCoastPointTmp = pProfile->nGetCoastPoint();
+                     //
+                     //          bool const bStartTmp = pProfile->bIsStartOfCoast();
+                     //          bool const bEndTmp = pProfile->bIsEndOfCoast();
+                     //          bool const bInterventionTmp = pProfile->bIsIntervention();
+                     //          bool const bCShoreProblem = pProfile->bHasCShoreProblem();
+                     //
+                     //          // int nStartXTmp = INT_NODATA;
+                     //          // int nStartYTmp = INT_NODATA;
+                     //          // int nEndXTmp = INT_NODATA;
+                     //          // int nEndYTmp = INT_NODATA;
+                     //          //
+                     //          // if (pProfile->nGetNumCellsInProfile() > 0)
+                     //          // {
+                     //          //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
+                     //          //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
+                     //          //    nStartXTmp = pPtiStart->nGetX();
+                     //          //    nStartYTmp = pPtiStart->nGetY();
+                     //          //    nEndXTmp = pPtiEnd->nGetX();
+                     //          //    nEndYTmp = pPtiEnd->nGetY();
+                     //          // }
+                     //
+                     //          int nCellSize = pProfile->nGetNumCellsInProfile();
+                     //
+                     //          bool const bProfileOKTmp = pProfile->bProfileOK();
+                     //          int const nStatusTmp = pProfile->nGetProfileStatus();
+                     //          string strStatusTmp;
+                     //          switch (nStatusTmp)
+                     //          {
+                     //          case 0:
+                     //             strStatusTmp = "PROFILE_STATUS_OK";
+                     //             break;
+                     //          case 1:
+                     //             strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
+                     //             break;
+                     //          case 2:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_LAND";
+                     //             break;
+                     //          case 3:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_COAST";
+                     //             break;
+                     //          case 4:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
+                     //             break;
+                     //          case 5:
+                     //             strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
+                     //             break;
+                     //          default:
+                     //             strStatusTmp = "UNKNOWN";
+                     //             break;
+                     //          }
+                     //
+                     //          LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
+                     //
+                     //          LogStream << "\t\t\t";
+                     //          int nPointSize = pProfile->nGetProfileSize();
+                     //          for (int mmm = 0; mmm < nPointSize; mmm++)
+                     //          {
+                     //             CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
+                     //             LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+                     //          }
+                     //          LogStream << endl;
+                     //
+                     //          // if ((nProfileTmp == 7) && (m_ulIter == 4))
+                     //          // {
+                     //          //    for (int mmm = 0; mmm < nPointSize; mmm++)
+                     //          //    {
+                     //          //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
+                     //          //       double dThisX = p2DPThis->dGetX();
+                     //          //       double dThisY = p2DPThis->dGetY();
+                     //          //       int nThisX = dExtCRSXToGridX(dThisX);
+                     //          //       int nThisY = dExtCRSYToGridY(dThisY);
+                     //          //
+                     //          //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
+                     //          //    }
+                     //          //    LogStream << endl;
+                     //          //
+                     //          //    for (int mmm = 0; mmm < nCellSize; mmm++)
+                     //          //    {
+                     //          //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
+                     //          //    }
+                     //          //    LogStream << endl;
+                     //          // }
+                     //       }
+                     //    }
+                     //    LogStream << endl << "######################################################" << endl;
+                     //    // DEBUG CODE =====================================
 
-                           // Truncate the first profile and merge it with the second profile seawards of the point of intersection
-                           TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg, true);
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
 
-                           // // DEBUG CODE =====================================
-                           // LogStream << endl << "###################################################### INTERSECTION POINT ALREADY PRESENT IN SECOND PROFILE: AFTER MERGE FIRST PROFILE SEAWARDS OF INTERSECTION  ";
-                           // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                           //
-                           // LogStream << "nExtra = " << ++m_nExtra << endl;
-                           // string strExtra = "_" + to_string(m_nExtra);
-                           // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                           // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                           //
-                           // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
-                           // {
-                           //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
-                           //    {
-                           //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
-                           //       int const nProfileTmp = pProfile->nGetProfileID();
-                           //       int const nCoastIDTmp = pProfile->nGetCoastID();
-                           //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
-                           //
-                           //       bool const bStartTmp = pProfile->bIsStartOfCoast();
-                           //       bool const bEndTmp = pProfile->bIsEndOfCoast();
-                           //       bool const bInterventionTmp = pProfile->bIsIntervention();
-                           //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
-                           //
-                           //       // int nStartXTmp = INT_NODATA;
-                           //       // int nStartYTmp = INT_NODATA;
-                           //       // int nEndXTmp = INT_NODATA;
-                           //       // int nEndYTmp = INT_NODATA;
-                           //       //
-                           //       // if (pProfile->nGetNumCellsInProfile() > 0)
-                           //       // {
-                           //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
-                           //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
-                           //       //    nStartXTmp = pPtiStart->nGetX();
-                           //       //    nStartYTmp = pPtiStart->nGetY();
-                           //       //    nEndXTmp = pPtiEnd->nGetX();
-                           //       //    nEndYTmp = pPtiEnd->nGetY();
-                           //       // }
-                           //
-                           //       int nCellSize = pProfile->nGetNumCellsInProfile();
-                           //
-                           //       bool const bProfileOKTmp = pProfile->bProfileOK();
-                           //       int const nStatusTmp = pProfile->nGetProfileStatus();
-                           //       string strStatusTmp;
-                           //       switch (nStatusTmp)
-                           //       {
-                           //       case 0:
-                           //          strStatusTmp = "PROFILE_STATUS_OK";
-                           //          break;
-                           //       case 1:
-                           //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
-                           //          break;
-                           //       case 2:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
-                           //          break;
-                           //       case 3:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
-                           //          break;
-                           //       case 4:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
-                           //          break;
-                           //       case 5:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
-                           //          break;
-                           //       default:
-                           //          strStatusTmp = "UNKNOWN";
-                           //          break;
-                           //       }
-                           //
-                           //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
-                           //
-                           //       LogStream << "\t\t\t";
-                           //       int nPointSize = pProfile->nGetProfileSize();
-                           //       for (int mmm = 0; mmm < nPointSize; mmm++)
-                           //       {
-                           //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
-                           //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
-                           //       }
-                           //       LogStream << endl;
-                           //
-                           //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
-                           //       // {
-                           //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
-                           //       //    {
-                           //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
-                           //       //       double dThisX = p2DPThis->dGetX();
-                           //       //       double dThisY = p2DPThis->dGetY();
-                           //       //       int nThisX = dExtCRSXToGridX(dThisX);
-                           //       //       int nThisY = dExtCRSYToGridY(dThisY);
-                           //       //
-                           //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
-                           //       //    }
-                           //       //    LogStream << endl;
-                           //       //
-                           //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
-                           //       //    {
-                           //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
-                           //       //    }
-                           //       //    LogStream << endl;
-                           //       // }
-                           //    }
-                           // }
-                           // LogStream << endl << "######################################################" << endl;
-                           // // DEBUG CODE =====================================
+                        // // DEBUG CODE ****************************************************************
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                        // int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                        //
+                        // LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nFirstProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nSecondProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // // DEBUG CODE ******************************************************************
 
-                           continue;
-                        }
+                        continue;
+                     }
 
-                        // The point of intersection is not already present in either profile, so get the number of line segments of each profile
-                        int const nFirstProfileLineSegments = pFirstProfile->nGetNumLineSegments();
-                        int const nSecondProfileLineSegments = pSecondProfile->nGetNumLineSegments();
+                     if (nFirstProfileLineSegments > nSecondProfileLineSegments)
+                     {
+                        // Truncate the second profile, since it has a smaller number of line segments
+                        LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << nSecondProfile << " has a smaller number of line segments, so truncate profile " << nSecondProfile << endl;
 
-                        // assert(nProf1LineSeg < nFirstProfileLineSegments);
-                        // assert(nProf2LineSeg < nSecondProfileLineSegments);
+                        TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg, false);
 
-                        // Next check whether the point of intersection is on the final line segment of both profiles
-                        if ((nProf1LineSeg == (nFirstProfileLineSegments - 1)) && (nProf2LineSeg == (nSecondProfileLineSegments - 1)))
-                        {
-                           // Yes, the point of intersection is on the final line segment of both profiles
-                           LogStream << m_ulIter << ":\t  " << ((nDirection == DIRECTION_DOWNCOAST) ? "down" : "up") << "-coast search, end-segment intersection between profiles " << nFirstProfile << " and " << nSecondProfile << " at [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} in line segment [" << nProf1LineSeg << "] of " << nFirstProfileLineSegments << " and line segment [" << nProf2LineSeg << "] of " << nSecondProfileLineSegments << " respectively" << endl;
+                        // // DEBUG CODE =====================================
+                        // LogStream << endl << "###################################################### INTERSECTION NOT IN FINAL LINE SEGMENT, TRUNCATE PROFILE WITH LEAST SEGMENTS" << endl;
+                        // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+                        //
+                        // LogStream << "nExtra = " << ++m_nExtra << endl;
+                        // string strExtra = "_" + to_string(m_nExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                        //
+                        // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
+                        // {
+                        //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
+                        //    {
+                        //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
+                        //       int const nProfileTmp = pProfile->nGetProfileID();
+                        //       int const nCoastIDTmp = pProfile->nGetCoastID();
+                        //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
+                        //
+                        //       bool const bStartTmp = pProfile->bIsStartOfCoast();
+                        //       bool const bEndTmp = pProfile->bIsEndOfCoast();
+                        //       bool const bInterventionTmp = pProfile->bIsIntervention();
+                        //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
+                        //
+                        //       // int nStartXTmp = INT_NODATA;
+                        //       // int nStartYTmp = INT_NODATA;
+                        //       // int nEndXTmp = INT_NODATA;
+                        //       // int nEndYTmp = INT_NODATA;
+                        //       //
+                        //       // if (pProfile->nGetNumCellsInProfile() > 0)
+                        //       // {
+                        //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
+                        //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
+                        //       //    nStartXTmp = pPtiStart->nGetX();
+                        //       //    nStartYTmp = pPtiStart->nGetY();
+                        //       //    nEndXTmp = pPtiEnd->nGetX();
+                        //       //    nEndYTmp = pPtiEnd->nGetY();
+                        //       // }
+                        //
+                        //       int nCellSize = pProfile->nGetNumCellsInProfile();
+                        //
+                        //       bool const bProfileOKTmp = pProfile->bProfileOK();
+                        //       int const nStatusTmp = pProfile->nGetProfileStatus();
+                        //       string strStatusTmp;
+                        //       switch (nStatusTmp)
+                        //       {
+                        //       case 0:
+                        //          strStatusTmp = "PROFILE_STATUS_OK";
+                        //          break;
+                        //       case 1:
+                        //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
+                        //          break;
+                        //       case 2:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
+                        //          break;
+                        //       case 3:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
+                        //          break;
+                        //       case 4:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
+                        //          break;
+                        //       case 5:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
+                        //          break;
+                        //       default:
+                        //          strStatusTmp = "UNKNOWN";
+                        //          break;
+                        //       }
+                        //
+                        //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
+                        //
+                        //       LogStream << "\t\t\t";
+                        //       int nPointSize = pProfile->nGetProfileSize();
+                        //       for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       {
+                        //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
+                        //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+                        //       }
+                        //       LogStream << endl;
+                        //
+                        //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
+                        //       // {
+                        //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       //    {
+                        //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
+                        //       //       double dThisX = p2DPThis->dGetX();
+                        //       //       double dThisY = p2DPThis->dGetY();
+                        //       //       int nThisX = dExtCRSXToGridX(dThisX);
+                        //       //       int nThisY = dExtCRSYToGridY(dThisY);
+                        //       //
+                        //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       //
+                        //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
+                        //       //    {
+                        //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       // }
+                        //    }
+                        // }
+                        // LogStream << endl << "######################################################" << endl;
+                        // // DEBUG CODE =====================================
 
-                           // Merge the profiles seaward of the point of intersection
-                           MergeProfilesAtFinalLineSegments(nCoast, pFirstProfile, pSecondProfile, nFirstProfileLineSegments, nSecondProfileLineSegments, dIntersectX, dIntersectY, dAvgEndX, dAvgEndY);
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << nSecondProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
 
-                           // // DEBUG CODE =====================================
-                           // LogStream << endl << "###################################################### INTERSECTION POINT ON FINAL SEGMENT OF BOTH: AFTER MERGE BOTH PROFILES SEAWARDS OF INTERSECTION  ";
-                           // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                           //
-                           // LogStream << "nExtra = " << ++m_nExtra << endl;
-                           // string strExtra = "_" + to_string(m_nExtra);
-                           // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                           // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                           //
-                           // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
-                           // {
-                           //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
-                           //    {
-                           //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
-                           //       int const nProfileTmp = pProfile->nGetProfileID();
-                           //       int const nCoastIDTmp = pProfile->nGetCoastID();
-                           //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
-                           //
-                           //       bool const bStartTmp = pProfile->bIsStartOfCoast();
-                           //       bool const bEndTmp = pProfile->bIsEndOfCoast();
-                           //       bool const bInterventionTmp = pProfile->bIsIntervention();
-                           //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
-                           //
-                           //       // int nStartXTmp = INT_NODATA;
-                           //       // int nStartYTmp = INT_NODATA;
-                           //       // int nEndXTmp = INT_NODATA;
-                           //       // int nEndYTmp = INT_NODATA;
-                           //       //
-                           //       // if (pProfile->nGetNumCellsInProfile() > 0)
-                           //       // {
-                           //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
-                           //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
-                           //       //    nStartXTmp = pPtiStart->nGetX();
-                           //       //    nStartYTmp = pPtiStart->nGetY();
-                           //       //    nEndXTmp = pPtiEnd->nGetX();
-                           //       //    nEndYTmp = pPtiEnd->nGetY();
-                           //       // }
-                           //
-                           //       int nCellSize = pProfile->nGetNumCellsInProfile();
-                           //
-                           //       bool const bProfileOKTmp = pProfile->bProfileOK();
-                           //       int const nStatusTmp = pProfile->nGetProfileStatus();
-                           //       string strStatusTmp;
-                           //       switch (nStatusTmp)
-                           //       {
-                           //       case 0:
-                           //          strStatusTmp = "PROFILE_STATUS_OK";
-                           //          break;
-                           //       case 1:
-                           //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
-                           //          break;
-                           //       case 2:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
-                           //          break;
-                           //       case 3:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
-                           //          break;
-                           //       case 4:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
-                           //          break;
-                           //       case 5:
-                           //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
-                           //          break;
-                           //       default:
-                           //          strStatusTmp = "UNKNOWN";
-                           //          break;
-                           //       }
-                           //
-                           //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
-                           //
-                           //       LogStream << "\t\t\t";
-                           //       int nPointSize = pProfile->nGetProfileSize();
-                           //       for (int mmm = 0; mmm < nPointSize; mmm++)
-                           //       {
-                           //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
-                           //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
-                           //       }
-                           //       LogStream << endl;
-                           //
-                           //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
-                           //       // {
-                           //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
-                           //       //    {
-                           //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
-                           //       //       double dThisX = p2DPThis->dGetX();
-                           //       //       double dThisY = p2DPThis->dGetY();
-                           //       //       int nThisX = dExtCRSXToGridX(dThisX);
-                           //       //       int nThisY = dExtCRSYToGridY(dThisY);
-                           //       //
-                           //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
-                           //       //    }
-                           //       //    LogStream << endl;
-                           //       //
-                           //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
-                           //       //    {
-                           //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
-                           //       //    }
-                           //       //    LogStream << endl;
-                           //       // }
-                           //    }
-                           // }
-                           // LogStream << endl << "######################################################" << endl;
-                           // // DEBUG CODE =====================================
+                        // // DEBUG CODE ****************************************************************
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                        // int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                        //
+                        // LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nFirstProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nSecondProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // // DEBUG CODE ******************************************************************
 
-                           // // DEBUG CODE =============================================================================================
-                           // int nSizeTmp = pFirstProfile->nGetProfileSize();
-                           // CGeom2DPoint PtEndTmp = *pFirstProfile->pPtGetPointInProfile(nSizeTmp-1);
-                           //
-                           // LogStream << m_ulIter << ":\t   end of first profile (" << nFirstProfile << ") is point " << nSizeTmp-1 << " at [" << dExtCRSXToGridX(PtEndTmp.dGetX()) << "][" << dExtCRSYToGridY(PtEndTmp.dGetY()) << "} = {" << PtEndTmp.dGetX() << ", " << PtEndTmp.dGetY() << "}" << endl;
-                           //
-                           // nSizeTmp = pSecondProfile->nGetProfileSize();
-                           // PtEndTmp = *pSecondProfile->pPtGetPointInProfile(nSizeTmp-1);
-                           //
-                           // LogStream << m_ulIter << ":\t   end of second profile (" << nSecondProfile << ") is point " << nSizeTmp-1 << " at [" << dExtCRSXToGridX(PtEndTmp.dGetX()) << "][" << dExtCRSYToGridY(PtEndTmp.dGetY()) << "} = {" << PtEndTmp.dGetX() << ", " << PtEndTmp.dGetY() << "}" << endl;
-                           // // DEBUG CODE =============================================================================================
+                        continue;
+                     }
 
-                           continue;
-                        }
-                        else
-                        {
-                           // The profiles intersect, but the point of intersection is not in the final line segment of both profiles. One of the profiles will be truncated, the other profile will be retained
-                           LogStream << m_ulIter << ":\t  " << ((nDirection == DIRECTION_DOWNCOAST) ? "down" : "up") << "-coast search, intersection (not in both end segments) between profiles " << nFirstProfile << " and " << nSecondProfile << " at [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} in line segment [" << nProf1LineSeg << "] of " << nFirstProfileLineSegments << " and line segment [" << nProf2LineSeg << "] of " << nSecondProfileLineSegments << ", respectively" << endl;
+                     // Both profiles have the same number of line segments, so choose randomly. Draw a sample from the unit normal distribution using random number generator 1
+                     double const dRand = m_dGetFromUnitNormalDist(m_Rand[1]);
+                     if (dRand >= 0.0)
+                     {
+                        LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, dRand = " << dRand << ", same number of line segments so randomly truncate first profile = " << nFirstProfile << endl;
 
-                           // Decide which profile to truncate, and which to retain
-                           if (pFirstProfile->bIsIntervention())
-                           {
-                              // Truncate the first profile, since it is an intervention profile
-                              // LogStream << m_ulIter << ": pFirstProfile = " << pFirstProfile->nGetProfileID() << " pSecondProfile = " << pSecondProfile->nGetProfileID() << ", pFirstProfile is an intervention profile, so truncate pFirstProfile (" << pFirstProfile->nGetProfileID() << ")" << endl;
+                        TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg, false);
 
-                              TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg, false);
+                        // // DEBUG CODE =====================================
+                        // LogStream << endl << "###################################################### INTERSECTION NOT IN FINAL LINE SEGMENT, TRUNCATE RANDOM PROFILE";
+                        // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+                        //
+                        // LogStream << "nExtra = " << ++m_nExtra << endl;
+                        // string strExtra = "_" + to_string(m_nExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                        //
+                        // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
+                        // {
+                        //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
+                        //    {
+                        //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
+                        //       int const nProfileTmp = pProfile->nGetProfileID();
+                        //       int const nCoastIDTmp = pProfile->nGetCoastID();
+                        //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
+                        //
+                        //       bool const bStartTmp = pProfile->bIsStartOfCoast();
+                        //       bool const bEndTmp = pProfile->bIsEndOfCoast();
+                        //       bool const bInterventionTmp = pProfile->bIsIntervention();
+                        //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
+                        //
+                        //       // int nStartXTmp = INT_NODATA;
+                        //       // int nStartYTmp = INT_NODATA;
+                        //       // int nEndXTmp = INT_NODATA;
+                        //       // int nEndYTmp = INT_NODATA;
+                        //       //
+                        //       // if (pProfile->nGetNumCellsInProfile() > 0)
+                        //       // {
+                        //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
+                        //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
+                        //       //    nStartXTmp = pPtiStart->nGetX();
+                        //       //    nStartYTmp = pPtiStart->nGetY();
+                        //       //    nEndXTmp = pPtiEnd->nGetX();
+                        //       //    nEndYTmp = pPtiEnd->nGetY();
+                        //       // }
+                        //
+                        //       int nCellSize = pProfile->nGetNumCellsInProfile();
+                        //
+                        //       bool const bProfileOKTmp = pProfile->bProfileOK();
+                        //       int const nStatusTmp = pProfile->nGetProfileStatus();
+                        //       string strStatusTmp;
+                        //       switch (nStatusTmp)
+                        //       {
+                        //       case 0:
+                        //          strStatusTmp = "PROFILE_STATUS_OK";
+                        //          break;
+                        //       case 1:
+                        //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
+                        //          break;
+                        //       case 2:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
+                        //          break;
+                        //       case 3:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
+                        //          break;
+                        //       case 4:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
+                        //          break;
+                        //       case 5:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
+                        //          break;
+                        //       default:
+                        //          strStatusTmp = "UNKNOWN";
+                        //          break;
+                        //       }
+                        //
+                        //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
+                        //
+                        //       LogStream << "\t\t\t";
+                        //       int nPointSize = pProfile->nGetProfileSize();
+                        //       for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       {
+                        //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
+                        //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+                        //       }
+                        //       LogStream << endl;
+                        //
+                        //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
+                        //       // {
+                        //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       //    {
+                        //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
+                        //       //       double dThisX = p2DPThis->dGetX();
+                        //       //       double dThisY = p2DPThis->dGetY();
+                        //       //       int nThisX = dExtCRSXToGridX(dThisX);
+                        //       //       int nThisY = dExtCRSYToGridY(dThisY);
+                        //       //
+                        //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       //
+                        //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
+                        //       //    {
+                        //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       // }
+                        //    }
+                        // }
+                        // LogStream << endl << "######################################################" << endl;
+                        // // DEBUG CODE =====================================
 
-                              continue;
-                           }
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
 
-                           if (pSecondProfile->bIsIntervention())
-                           {
-                              // Truncate the second profile, since it is an intervention profile
-                              // LogStream << m_ulIter << ": pFirstProfile = " << pFirstProfile->nGetProfileID() << " pSecondProfile = " << pSecondProfile->nGetProfileID() << ", pSecondProfile is an intervention profile, so truncate pSecondProfile (" << pSecondProfile->nGetProfileID() << ")" << endl;
+                        // // DEBUG CODE ****************************************************************
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                        // int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                        //
+                        // LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nFirstProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nSecondProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // // DEBUG CODE ******************************************************************
+                        //
+                     }
+                     else
+                     {
+                        LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, dRand = " << dRand << ", same number of line segments so randomly truncate second profile = " << nSecondProfile << endl;
 
-                              TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg, false);
+                        TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg, false);
 
-                              continue;
-                           }
+                        // // DEBUG CODE =====================================
+                        // LogStream << endl << "###################################################### INTERSECTION NOT IN FINAL LINE SEGMENT, TRUNCATE RANDOM PROFILE";
+                        // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+                        //
+                        // LogStream << "nExtra = " << ++m_nExtra << endl;
+                        // string strExtra = "_" + to_string(m_nExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+                        // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+                        //
+                        // for (unsigned int nCoastTmp = 0; nCoastTmp < m_VCoast.size(); nCoastTmp++)
+                        // {
+                        //    for (int n = 0; n < m_VCoast[nCoastTmp].nGetNumProfiles(); n++)
+                        //    {
+                        //       CGeomProfile* pProfile = m_VCoast[nCoastTmp].pGetProfileWithDownCoastSeq(n);
+                        //       int const nProfileTmp = pProfile->nGetProfileID();
+                        //       int const nCoastIDTmp = pProfile->nGetCoastID();
+                        //       int const nCoastPointTmp = pProfile->nGetCoastPoint();
+                        //
+                        //       bool const bStartTmp = pProfile->bIsStartOfCoast();
+                        //       bool const bEndTmp = pProfile->bIsEndOfCoast();
+                        //       bool const bInterventionTmp = pProfile->bIsIntervention();
+                        //       bool const bCShoreProblem = pProfile->bHasCShoreProblem();
+                        //
+                        //       // int nStartXTmp = INT_NODATA;
+                        //       // int nStartYTmp = INT_NODATA;
+                        //       // int nEndXTmp = INT_NODATA;
+                        //       // int nEndYTmp = INT_NODATA;
+                        //       //
+                        //       // if (pProfile->nGetNumCellsInProfile() > 0)
+                        //       // {
+                        //       //    CGeom2DIPoint* pPtiStart = pProfile->pPtiGetFirstCellInProfile();
+                        //       //    CGeom2DIPoint* pPtiEnd = pProfile->pPtiGetLastCellInProfile();
+                        //       //    nStartXTmp = pPtiStart->nGetX();
+                        //       //    nStartYTmp = pPtiStart->nGetY();
+                        //       //    nEndXTmp = pPtiEnd->nGetX();
+                        //       //    nEndYTmp = pPtiEnd->nGetY();
+                        //       // }
+                        //
+                        //       int nCellSize = pProfile->nGetNumCellsInProfile();
+                        //
+                        //       bool const bProfileOKTmp = pProfile->bProfileOK();
+                        //       int const nStatusTmp = pProfile->nGetProfileStatus();
+                        //       string strStatusTmp;
+                        //       switch (nStatusTmp)
+                        //       {
+                        //       case 0:
+                        //          strStatusTmp = "PROFILE_STATUS_OK";
+                        //          break;
+                        //       case 1:
+                        //          strStatusTmp = "PROFILE_STATUS_TOO_SHORT";
+                        //          break;
+                        //       case 2:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_LAND";
+                        //          break;
+                        //       case 3:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_COAST";
+                        //          break;
+                        //       case 4:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_PROFILE";
+                        //          break;
+                        //       case 5:
+                        //          strStatusTmp = "PROFILE_STATUS_HIT_INTERVENTION";
+                        //          break;
+                        //       default:
+                        //          strStatusTmp = "UNKNOWN";
+                        //          break;
+                        //       }
+                        //
+                        //       LogStream << m_ulIter << " coast = " << nCoastIDTmp << " prof = " << nProfileTmp << " (coast pnt = " << nCoastPointTmp << ")  ncell = " << nCellSize << " isstartprof = " << bStartTmp << " isendprof = " << bEndTmp << " isintervention = " << bInterventionTmp << " CShoreproblem = " << bCShoreProblem << " status = " << bProfileOKTmp << " " << strStatusTmp << endl;
+                        //
+                        //       LogStream << "\t\t\t";
+                        //       int nPointSize = pProfile->nGetProfileSize();
+                        //       for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       {
+                        //          CGeom2DPoint* p2DPt = pProfile->pPtGetPointInProfile(mmm);
+                        //          LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+                        //       }
+                        //       LogStream << endl;
+                        //
+                        //       // if ((nProfileTmp == 7) && (m_ulIter == 4))
+                        //       // {
+                        //       //    for (int mmm = 0; mmm < nPointSize; mmm++)
+                        //       //    {
+                        //       //       CGeom2DPoint* p2DPThis = pProfile->pPtGetPointInProfile(mmm);
+                        //       //       double dThisX = p2DPThis->dGetX();
+                        //       //       double dThisY = p2DPThis->dGetY();
+                        //       //       int nThisX = dExtCRSXToGridX(dThisX);
+                        //       //       int nThisY = dExtCRSYToGridY(dThisY);
+                        //       //
+                        //       //       LogStream << mmm << "\t [" << nThisX << "][" << nThisY << "] = {" << dThisX << ", " << dThisY << "}" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       //
+                        //       //    for (int mmm = 0; mmm < nCellSize; mmm++)
+                        //       //    {
+                        //       //       LogStream << mmm << " [" << pProfile->pPtiGetCellInProfile(mmm)->nGetX() << "][" << pProfile->pPtiGetCellInProfile(mmm)->nGetY() << "]" << endl;
+                        //       //    }
+                        //       //    LogStream << endl;
+                        //       // }
+                        //    }
+                        // }
+                        // LogStream << endl << "######################################################" << endl;
+                        // // DEBUG CODE =====================================
 
-                           if (nFirstProfileLineSegments < nSecondProfileLineSegments)
-                           {
-                              // Truncate the first profile, since it has a smaller number of line segments
-                              LogStream << m_ulIter << ":\t   coast " << nCoast << " profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << ", profile " << pFirstProfile->nGetProfileID() << " has a smaller number of line segments, so truncate profile " << pFirstProfile->nGetProfileID() << endl;
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << nSecondProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
 
-                              TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg, false);
-
-                              continue;
-                           }
-
-                           if (nFirstProfileLineSegments > nSecondProfileLineSegments)
-                           {
-                              // Truncate the second profile, since it has a smaller number of line segments
-                              LogStream << m_ulIter << ":\t   coast " << nCoast << " profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << ", profile " << pSecondProfile->nGetProfileID() << " has a smaller number of line segments, so truncate profile " << pSecondProfile->nGetProfileID() << endl;
-
-                              TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg, false);
-
-                              continue;
-                           }
-
-                           // Both profiles have the same number of line segments, so choose randomly. Draw a sample from the unit normal distribution using random number generator 1
-                           double const dRand = m_dGetFromUnitNormalDist(m_Rand[0]);
-                           if (dRand >= 0.0)
-                           {
-                              LogStream << m_ulIter << ":\t   pFirstProfile = " << pFirstProfile->nGetProfileID() << " pSecondProfile = " << pSecondProfile->nGetProfileID() << " dRand = " << dRand << ", same number of line segments so randomly truncate pFirstProfile" << endl;
-
-                              TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg, false);
-                           }
-                           else
-                           {
-                              LogStream << m_ulIter << ":\t   pFirstProfile = " << pFirstProfile->nGetProfileID() << " pSecondProfile = " << pSecondProfile->nGetProfileID() << " dRand = " << dRand << ", same number of line segments so randomly truncate pSecondProfile" << endl;
-
-                              TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg, false);
-                           }
-                        }
+                        // // DEBUG CODE ****************************************************************
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
+                        // int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+                        //
+                        // LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nFirstProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+                        // for (int m = 0; m < nSecondProfileLineSeg; m++)
+                        // {
+                        //    vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+                        //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+                        //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+                        //    LogStream << " }" << endl;
+                        // }
+                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+                        // // DEBUG CODE ******************************************************************
                      }
                   }
                }
@@ -1963,11 +3000,10 @@ void CSimulation::CheckAllProfilesForIntersection(void)
 }
 
 //===============================================================================================================================
-//! Check all coastline-normal profiles and modify the profiles if they intersect, then mark valid profiles on the raster grid
+//! For all coasts, do further checks on all coastline-normal profiles
 //===============================================================================================================================
-int CSimulation::nCheckAndMarkAllProfiles(void)
+int CSimulation::nFurtherCheckAndMarkAllProfiles(void)
 {
-   // For all coasts, do further checks on the coastline-normal profiles
    for (unsigned int nCoast = 0; nCoast < m_VCoast.size(); nCoast++)
    {
       for (int n = 0; n < m_VCoast[nCoast].nGetNumProfiles(); n++)
@@ -2009,61 +3045,6 @@ int CSimulation::nCheckAndMarkAllProfiles(void)
             }
          }
       }
-
-      // For this coast, put all valid coastline-normal profiles (apart from the profiles at the start and end of the coast, since they have already been done) onto the raster grid. But if the profile is not long enough, crosses a coastline, hits dry land, or hits another profile, then mark the profile as invalid
-      int nValidProfiles = 0;
-      MarkProfilesOnGrid(nCoast, nValidProfiles);
-
-      if (nValidProfiles == 0)
-      {
-         // Problem! No valid profiles, so quit
-         cerr << m_ulIter << ": " << ERR << "no coastline-normal profiles created" << endl;
-         return RTN_ERR_NO_PROFILES_2;
-      }
-
-      // // DEBUG CODE ===========================================================================================================
-      // if (m_ulIter == 109)
-      // {
-      // string strOutFile = m_strOutPath;
-      // strOutFile += "00_profile_raster_";
-      // strOutFile += to_string(m_ulIter);
-      // strOutFile += ".tif";
-      //
-      // GDALDriver* pDriver = GetGDALDriverManager()->GetDriverByName("gtiff");
-      // GDALDataset* pDataSet = pDriver->Create(strOutFile.c_str(), m_nXGridSize, m_nYGridSize, 1, GDT_Float64, m_papszGDALRasterOptions);
-      // pDataSet->SetProjection(m_strGDALBasementDEMProjection.c_str());
-      // pDataSet->SetGeoTransform(m_dGeoTransform);
-      //
-      // int nn = 0;
-      // double* pdRaster = new double[m_nXGridSize * m_nYGridSize];
-      // for (int nY = 0; nY < m_nYGridSize; nY++)
-      // {
-      // for (int nX = 0; nX < m_nXGridSize; nX++)
-      // {
-      // if (m_pRasterGrid->m_Cell[nX][nY].bIsCoastline())
-      // pdRaster[nn] = -1;
-      // else
-      // {
-      //
-      // //         pdRaster[nn] = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID();
-      // pdRaster[nn] = m_pRasterGrid->m_Cell[nX][nY].nGetProfileID();
-      // }
-      //
-      // nn++;
-      // }
-      // }
-      //
-      // GDALRasterBand* pBand = pDataSet->GetRasterBand(1);
-      // pBand->SetNoDataValue(m_dMissingValue);
-      // int nRet1 = pBand->RasterIO(GF_Write, 0, 0, m_nXGridSize, m_nYGridSize, pdRaster, m_nXGridSize, m_nYGridSize, GDT_Float64, 0, 0, NULL);
-      //
-      // if (nRet1 == CE_Failure)
-      // return RTN_ERR_GRIDCREATE;
-      //
-      // GDALClose(pDataSet);
-      // delete[] pdRaster;
-      // }
-      // // DEBUG CODE ===========================================================================================================
    }
 
    return RTN_OK;
@@ -2143,109 +3124,116 @@ bool CSimulation::bCheckForIntersection(CGeomProfile* const pVProfile1, CGeomPro
 }
 
 //===============================================================================================================================
-//! For this coastline, marks all coastline-normal profiles (apart from the two 'special' ones at the start and end of the coast) onto the raster grid, i.e. rasterizes multi-line vector objects onto the raster grid. Note that this doesn't work if the vector has already been interpolated to fit on the grid i.e. if distances between vector points are just one cell apart
+//! For all coastlines, marks all coastline-normal profiles (apart from the two 'special' ones at the start and end of the coast) onto the raster grid, i.e. rasterizes multi-line vector objects onto the raster grid. Note that this doesn't work if the vector has already been interpolated to fit on the grid i.e. if distances between vector points are just one cell apart
 //===============================================================================================================================
-void CSimulation::MarkProfilesOnGrid(int const nCoast, int& nValidProfiles)
+int CSimulation::nMarkProfilesOnGrid(void)
 {
-   // How many profiles on this coast?
-   int const nProfiles = m_VCoast[nCoast].nGetNumProfiles();
+   int nValidProfiles = 0;
 
-   if (nProfiles == 0)
+   for (unsigned int nCoast = 0; nCoast < m_VCoast.size(); nCoast++)
    {
-      // This can happen if the coastline is very short, so just give a warning and carry on with the next coastline
-      if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-         LogStream << WARN << m_ulIter << ": coast " << nCoast << " has no profiles" << endl;
+      // How many profiles on this coast?
+      int const nProfiles = m_VCoast[nCoast].nGetNumProfiles();
 
-      return;
-   }
-
-   static bool bDownCoast = true;
-
-   // Now do this for every profile, alternate between up-coast and down-coast directions
-   for (int n = 0; n < nProfiles; n++)
-   {
-      CGeomProfile* pProfile;
-
-      if (bDownCoast)
-         pProfile = m_VCoast[nCoast].pGetProfileWithDownCoastSeq(n);
-      else
-         pProfile = m_VCoast[nCoast].pGetProfileWithUpCoastSeq(n);
-
-      // Don't do this for the first and last profiles (i.e. the profiles at the start and end of the coast) since these are put onto the grid elsewhere
-      if (pProfile->bIsStartOrEndOfCoast())
-         continue;
-
-      int const nProfile = pProfile->nGetProfileID();
-
-      // If this profile has a problem, then forget about it
-      if (! pProfile->bProfileOK())
+      if (nProfiles == 0)
       {
-         LogStream << m_ulIter << ": in MarkProfilesOnGrid() profile " << nProfile << " is not OK" << endl;
-         continue;
-      }
-
-      int const nPoints = pProfile->nGetProfileSize();
-
-      if (nPoints < 2)
-      {
-         // Need at least two points in the profile, so this profile is invalid: mark it
-         pProfile->SetProfileStatus(PROFILE_STATUS_TOO_SHORT);
-
+         // This can happen if the coastline is very short, so just give a warning and carry on with the next coastline
          if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-            LogStream << m_ulIter << ": coast " << nCoast << ", profile " << nProfile << " is invalid, has only " << nPoints << " points" << endl;
+            LogStream << WARN << m_ulIter << ": coast " << nCoast << " has no profiles" << endl;
 
          continue;
       }
 
-      // OK, go for it: set up temporary vectors to hold the x-y coords (in grid CRS) of the cells which we will mark
-      vector<CGeom2DIPoint> VCellsToMark;
-      vector<bool> bVShared;
-      bool bTooShort = false;
-      bool bTruncatedSameCoast = false;
-      bool bHitCoast = false;
-      bool bHitLand = false;
-      bool bHitIntervention = false;
-      bool bHitAnotherProfile = false;
+      static bool bDownCoast = true;
 
-      CreateRasterizedProfile(nCoast, pProfile, &VCellsToMark, &bVShared, bTooShort, bTruncatedSameCoast, bHitCoast, bHitLand, bHitIntervention/*, bHitAnotherProfile*/);
-
-      if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention || bHitAnotherProfile || VCellsToMark.size() == 0)
+      // Now do this for every profile, alternate between up-coast and down-coast directions
+      for (int n = 0; n < nProfiles; n++)
       {
-         VCellsToMark.clear();
-         bVShared.clear();
-         continue;
-      }
+         CGeomProfile* pProfile;
 
-      // This profile is fine
-      nValidProfiles++;
+         if (bDownCoast)
+            pProfile = m_VCoast[nCoast].pGetProfileWithDownCoastSeq(n);
+         else
+            pProfile = m_VCoast[nCoast].pGetProfileWithUpCoastSeq(n);
 
-      for (unsigned int k = 0; k < VCellsToMark.size(); k++)
-      {
-         // Ignore duplicate points
-         if ((k > 0) && (VCellsToMark[k] == m_VCoast[nCoast].pGetProfile(nProfile)->pPtiGetLastCellInProfile()))
+         // Don't do this for the first and last profiles (i.e. the profiles at the start and end of the coast) since these are put onto the grid elsewhere
+         if (pProfile->bIsStartOrEndOfCoast())
             continue;
 
-         // Mark each cell in the raster grid
-         int const nXTmp = VCellsToMark[k].nGetX();
-         int const nYTmp = VCellsToMark[k].nGetY();
-         m_pRasterGrid->m_Cell[nXTmp][nYTmp].SetCoastAndProfileID(nCoast, nProfile);
+         int const nProfile = pProfile->nGetProfileID();
 
-         // Store the raster grid coordinates in the profile object
-         m_VCoast[nCoast].pGetProfile(nProfile)->AppendCellInProfile(nXTmp, nYTmp);
+         // If this profile has a problem, then forget about it
+         if (! pProfile->bProfileOK())
+         {
+            LogStream << m_ulIter << ": in nMarkProfilesOnGrid(), coast " << nCoast << " profile " << nProfile << " is not OK, not marked on grid" << endl;
+            continue;
+         }
+
+         int const nPoints = pProfile->nGetProfileSize();
+
+         if (nPoints < 2)
+         {
+            // Need at least two points in the profile, so this profile is invalid: mark it
+            pProfile->SetProfileStatus(PROFILE_STATUS_TOO_SHORT);
+
+            if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
+               LogStream << m_ulIter << ": coast " << nCoast << ", profile " << nProfile << " is invalid, has only " << nPoints << " points" << endl;
+
+            continue;
+         }
+
+         // OK, go for it: set up temporary vectors to hold the x-y coords (in grid CRS) of the cells which we will mark
+         vector<CGeom2DIPoint> VCellsToMark;
+         vector<bool> bVShared;
+         bool bTooShort = false;
+         bool bTruncatedSameCoast = false;
+         bool bHitCoast = false;
+         bool bHitLand = false;
+         bool bHitIntervention = false;
+         bool bHitAnotherProfile = false;
+
+         CreateRasterizedProfile(nCoast, pProfile, &VCellsToMark, &bVShared, bTooShort, bTruncatedSameCoast, bHitCoast, bHitLand, bHitIntervention/*, bHitAnotherProfile*/);
+
+         if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention || bHitAnotherProfile || VCellsToMark.size() == 0)
+         {
+            VCellsToMark.clear();
+            bVShared.clear();
+            continue;
+         }
+
+         // This profile is fine
+         nValidProfiles++;
+
+         for (unsigned int k = 0; k < VCellsToMark.size(); k++)
+         {
+            // Ignore duplicate points
+            if ((k > 0) && (VCellsToMark[k] == m_VCoast[nCoast].pGetProfile(nProfile)->pPtiGetLastCellInProfile()))
+               continue;
+
+            // Mark each cell in the raster grid
+            int const nXTmp = VCellsToMark[k].nGetX();
+            int const nYTmp = VCellsToMark[k].nGetY();
+            m_pRasterGrid->m_Cell[nXTmp][nYTmp].SetCoastAndProfileID(nCoast, nProfile);
+
+            // Store the raster grid coordinates in the profile object
+            m_VCoast[nCoast].pGetProfile(nProfile)->AppendCellInProfile(nXTmp, nYTmp);
+         }
+
+         // Get the deep water wave height and orientation values at the end of the profile
+         double const dDeepWaterWaveHeight = m_pRasterGrid->m_Cell[VCellsToMark.back().nGetX()][VCellsToMark.back().nGetY()].dGetCellDeepWaterWaveHeight();
+         double const dDeepWaterWaveAngle = m_pRasterGrid->m_Cell[VCellsToMark.back().nGetX()][VCellsToMark.back().nGetY()].dGetCellDeepWaterWaveAngle();
+         double const dDeepWaterWavePeriod = m_pRasterGrid->m_Cell[VCellsToMark.back().nGetX()][VCellsToMark.back().nGetY()].dGetCellDeepWaterWavePeriod();
+
+         // And store them for this profile
+         m_VCoast[nCoast].pGetProfile(nProfile)->SetProfileDeepWaterWaveHeight(dDeepWaterWaveHeight);
+         m_VCoast[nCoast].pGetProfile(nProfile)->SetProfileDeepWaterWaveAngle(dDeepWaterWaveAngle);
+         m_VCoast[nCoast].pGetProfile(nProfile)->SetProfileDeepWaterWavePeriod(dDeepWaterWavePeriod);
       }
 
-      // Get the deep water wave height and orientation values at the end of the profile
-      double const dDeepWaterWaveHeight = m_pRasterGrid->m_Cell[VCellsToMark.back().nGetX()][VCellsToMark.back().nGetY()].dGetCellDeepWaterWaveHeight();
-      double const dDeepWaterWaveAngle = m_pRasterGrid->m_Cell[VCellsToMark.back().nGetX()][VCellsToMark.back().nGetY()].dGetCellDeepWaterWaveAngle();
-      double const dDeepWaterWavePeriod = m_pRasterGrid->m_Cell[VCellsToMark.back().nGetX()][VCellsToMark.back().nGetY()].dGetCellDeepWaterWavePeriod();
-
-      // And store them for this profile
-      m_VCoast[nCoast].pGetProfile(nProfile)->SetProfileDeepWaterWaveHeight(dDeepWaterWaveHeight);
-      m_VCoast[nCoast].pGetProfile(nProfile)->SetProfileDeepWaterWaveAngle(dDeepWaterWaveAngle);
-      m_VCoast[nCoast].pGetProfile(nProfile)->SetProfileDeepWaterWavePeriod(dDeepWaterWavePeriod);
+      bDownCoast = ! bDownCoast;
    }
 
-   bDownCoast = ! bDownCoast;
+   return RTN_OK;
 }
 
 //===============================================================================================================================
@@ -2605,7 +3593,7 @@ void CSimulation::MergeProfilesAtFinalLineSegments(int const nCoast, CGeomProfil
    int const nNumFirstProfileCoincidentProfilesLastSeg = static_cast<int>(prVFirstProfileCoincidentProfilesLastSeg.size());
    int const nNumSecondProfileCoincidentProfilesLastSeg = static_cast<int>(prVSecondProfileCoincidentProfilesLastSeg.size());
 
-   LogStream << m_ulIter << ":\t   coast " << nCoast << " profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " end-segment intersection at line segment [" << nFirstProfileLineSegments-1 << "] of " << nFirstProfileLineSegments << ", and line segment [" << nSecondProfileLineSegments-1 << "] of " << nSecondProfileLineSegments << ", respectively. Both truncated at {" << dIntersectX << ", " << dIntersectY << "] c. = [" << nRound(dExtCRSXToGridX(dIntersectX)) << "][" << nRound(dExtCRSYToGridY(dIntersectY)) << "], combined profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " extended to {" << dAvgEndX << ", " << dAvgEndY << "] c. = [" << nRound(dExtCRSXToGridX(dAvgEndX)) << "][" << nRound(dExtCRSYToGridY(dAvgEndY)) << "]" << endl;
+   LogStream << m_ulIter << ":\t   coast " << nCoast << " profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " end-segment intersection at line segment " << nFirstProfileLineSegments-1 << " of " << nFirstProfileLineSegments << ", and line segment " << nSecondProfileLineSegments-1 << " of " << nSecondProfileLineSegments << ", respectively. Both truncated at {" << dIntersectX << ", " << dIntersectY << "], combined profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " extended to {" << dAvgEndX << ", " << dAvgEndY << "}" << endl;
 
    // Truncate the first profile, and all co-incident profiles, at the point of intersection
    for (int n = 0; n < nNumFirstProfileCoincidentProfilesLastSeg; n++)
@@ -2662,27 +3650,29 @@ void CSimulation::MergeProfilesAtFinalLineSegments(int const nCoast, CGeomProfil
    }
 
    // // DEBUG CODE ****************************************************************
+   // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
    // int nFirstProfileLineSeg= pFirstProfile->nGetNumLineSegments();
    // int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
    //
-   // LogStream << "\tProfile {" << nFirstProfile << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
+   // LogStream << "\tProfile {" << pFirstProfile->nGetProfileID() << "} now has " << nFirstProfileLineSeg << " line segments" << endl;
    // for (int m = 0; m < nFirstProfileLineSeg; m++)
    // {
-   // vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
-   // LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << nFirstProfile << "} are {";
-   // for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
-   // LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
-   // LogStream << " }" << endl;
+   //    vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+   //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pFirstProfile->nGetProfileID() << "} are {";
+   //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+   //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+   //    LogStream << " }" << endl;
    // }
-   // LogStream << "\tProfile {" << nSecondProfile << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
+   // LogStream << "\tProfile {" << pSecondProfile->nGetProfileID() << "} now has " << nSecondProfileLineSeg << " line segments" << endl;
    // for (int m = 0; m < nSecondProfileLineSeg; m++)
    // {
-   // vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
-   // LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << nSecondProfile << "} are {";
-   // for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
-   // LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
-   // LogStream << " }" << endl;
+   //    vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetPairedCoincidentProfilesForLineSegment(m);
+   //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile {" << pSecondProfile->nGetProfileID() << "} are {";
+   //    for (int nn = 0; nn < prVCoincidentProfiles.size(); nn++)
+   //    LogStream << " " << prVCoincidentProfiles[nn].first << "[" << prVCoincidentProfiles[nn].second << "] ";
+   //    LogStream << " }" << endl;
    // }
+   // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
    // // DEBUG CODE ******************************************************************
 
 }
@@ -2732,7 +3722,7 @@ void CSimulation::TruncateOneProfileRetainOtherProfile(int const nCoast, CGeomPr
    int const nRet = nInsertPointIntoProfilesIfNeededThenUpdate(nCoast, pProfileToRetain, dIntersectX, dIntersectY, nProfileToRetainIntersectLineSeg, pProfileToTruncate, nProfileToTruncateIntersectLineSeg, bAlreadyPresent);
    if (nRet != RTN_OK)
    {
-      // LogStream << m_ulIter << ": error in nInsertPointIntoProfilesIfNeededThenUpdate()" << endl;
+      LogStream << m_ulIter << ": error in nInsertPointIntoProfilesIfNeededThenUpdate()" << endl;
       return;
    }
 
@@ -2846,49 +3836,43 @@ int CSimulation::nInsertPointIntoProfilesIfNeededThenUpdate(int const nCoast, CG
       int const nThisLineSeg = prVCoincidentProfiles[nn].second; // The line segment of this profile
       CGeomProfile* pThisProfile = m_VCoast[nCoast].pGetProfile(nThisProfile);
 
-      int nTmpLineSeg = nThisLineSeg;
-
       // Is the intersection point already present in the to-retain profile?
       if (! bAlreadyPresent)
       {
          // It is not already present, so insert it and also update the associated multi-line
-         if (nn > 0)
-            nTmpLineSeg = nThisLineSeg + 1;
-
-         if (! pThisProfile->bInsertIntersection(dIntersectX, dIntersectY, nTmpLineSeg))
+         if (! pThisProfile->bInsertIntersection(dIntersectX, dIntersectY, nThisLineSeg))
          {
             // Error
-            LogStream << WARN << m_ulIter << ": cannot insert a line segment after the final line segment (" << nTmpLineSeg << ") for " << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile (" << nThisProfile << "), abandoning" << endl;
+            LogStream << WARN << m_ulIter << ": cannot insert a line segment after the final line segment (" << nThisLineSeg << ") for " << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile (" << nThisProfile << "), abandoning" << endl;
 
             return RTN_ERR_CANNOT_INSERT_POINT;
          }
 
-         LogStream << "\tIntersection point NOT already in profile " << nThisProfile << " (" << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile), inserted it as point " << nTmpLineSeg+1 << endl;
+         // LogStream << "\tIntersection point {" << dIntersectX << ", " << dIntersectY << "} not already in profile " << nThisProfile << " (" << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile), inserted it as point " << nTmpLineSeg+1 << " nn = " << nn << endl;
       }
 
       // Get the line segment after intersection
-      VnLineSegAfterIntersect[nn] = nTmpLineSeg + 1;
+      VnLineSegAfterIntersect[nn] = nThisLineSeg + 1;
 
-      // DEBUG CODE ==========================
-      LogStream << endl << "###################################################### in nInsertPointIntoProfilesIfNeededThenUpdate() ";
-      LogStream << "nn = " << nn << " this profile = " << nThisProfile << " this line segment = " << nThisLineSeg << " nTmpLineSeg = " << nTmpLineSeg << endl;
-
-      LogStream << "nExtra = " << m_nExtra << endl;
-      // LogStream << "nExtra = " << ++m_nExtra << endl;
-      // string strExtra = "_" + to_string(m_nExtra);
-      // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-      // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-
-      LogStream << "\t\t\t";
-      int nPointSize = pThisProfile->nGetProfileSize();
-      for (int mmm = 0; mmm < nPointSize; mmm++)
-      {
-         CGeom2DPoint* p2DPt = pThisProfile->pPtGetPointInProfile(mmm);
-         LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
-      }
-      LogStream << endl << "######################################################" << endl;
-      // DEBUG CODE ==========================
-
+      // // DEBUG CODE ==========================
+      // LogStream << endl << "###################################################### in nInsertPointIntoProfilesIfNeededThenUpdate() ";
+      // LogStream << "nn = " << nn << " this profile = " << nThisProfile << " this line segment = " << nThisLineSeg << " nTmpLineSeg = " << nTmpLineSeg << endl;
+      //
+      // LogStream << "nExtra = " << m_nExtra << endl;
+      // // LogStream << "nExtra = " << ++m_nExtra << endl;
+      // // string strExtra = "_" + to_string(m_nExtra);
+      // // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+      // // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+      //
+      // LogStream << "\t\t\t";
+      // int nPointSize = pThisProfile->nGetProfileSize();
+      // for (int mmm = 0; mmm < nPointSize; mmm++)
+      // {
+      //    CGeom2DPoint* p2DPt = pThisProfile->pPtGetPointInProfile(mmm);
+      //    LogStream << "{" << p2DPt->dGetX() << ", " << p2DPt->dGetY() << "}\t";
+      // }
+      // LogStream << endl << "######################################################" << endl;
+      // // DEBUG CODE ==========================
    }
 
    // for (int nn = 0; nn < nNumCoincident; nn++)
@@ -2970,59 +3954,65 @@ int CSimulation::nInsertPointIntoProfilesIfNeededThenUpdate(int const nCoast, CG
 //===============================================================================================================================
 //! Truncate a profile at the point of intersection, and do the same for all its co-incident profiles
 //===============================================================================================================================
-void CSimulation::TruncateProfileAndAppendNew(int const nCoast, CGeomProfile* pProfileToRetain, int const nMainProfileIntersectLineSeg, vector<CGeom2DPoint> const* pPtVProfileLastPart, vector<vector<pair<int, int>>> const* pprVLineSegLastPart)
+void CSimulation::TruncateProfileAndAppendNew(int const nCoast, CGeomProfile* pProfileToTruncate, int const nMainProfileIntersectLineSeg, vector<CGeom2DPoint> const* pPtVProfileLastPart, vector<vector<pair<int, int>>> const* pprVLineSegLastPart)
 {
    // // DEBUG CODE ****************************************************************
-   // Get the index numbers of all coincident profiles for the 'main' profile for the line segment in which intersection occurred
-   // vector<pair<int, int> > prVCoincidentProfilesCHECK1 = *m_VCoast[nCoast].pGetProfile(nMainProfile)->pprVGetPairedCoincidentProfilesForLineSegment(nMainProfileIntersectLineSeg);
+   // // Get the index numbers of all coincident profiles for the 'main' profile for the line segment in which intersection occurred
+   // int nTruncProfile = pProfileToTruncate->nGetProfileID();
+   // vector<pair<int, int> > prVCoincidentProfilesCHECK1 = *m_VCoast[nCoast].pGetProfile(nTruncProfile)->pprVGetPairedCoincidentProfilesForLineSegment(nMainProfileIntersectLineSeg);
    // int nNumCoincidentCHECK1 = prVCoincidentProfilesCHECK1.size();
    //
-   // LogStream << "\tTruncating profile {" << nMainProfile << "}, intersection is at [" << nIntersectX << ", " << nIntersectY << "] in line segment " << nMainProfileIntersectLineSeg << endl;
+   // LogStream << "\tTruncating profile {" << nTruncProfile << "} in line segment " << nMainProfileIntersectLineSeg << endl;
    // for (int nn = 0; nn < nNumCoincidentCHECK1; nn++)
    // {
-   // int nThisProfile = prVCoincidentProfilesCHECK1[nn].first;
-   // LogStream << "\tBEFORE TruncateProfileAndAppendNew(): " << (nThisProfile == nMainProfile ? "MAIN" : "COINCIDENT") << " to-truncate profile {" << nThisProfile << "} has " << m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize() << " points (";
-   // for (int nn = 0; nn < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize(); nn++)
-   // LogStream << "[" << m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nn)->dGetX() << ", " << m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nn)->dGetY() << "] ";
-   // LogStream << "), and " << m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumLineSegments() << " line segments, co-incident profiles are ";
-   // for (int nLineSeg = 0; nLineSeg < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumLineSegments(); nLineSeg++)
-   // {
-   // vector<pair<int, int> > prVTmp = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pprVGetPairedCoincidentProfilesForLineSegment(nLineSeg);
-   // LogStream << "{ ";
-   // for (int nn = 0; nn < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumCoincidentProfilesInLineSegment(nLineSeg); nn++)
-   // LogStream << prVTmp[nn].first << "[" << prVTmp[nn].second << "] ";
-   // LogStream << "} ";
-   // }
-   // LogStream << endl;
+   //    int nThisProfile = prVCoincidentProfilesCHECK1[nn].first;
+   //    LogStream << "\tBEFORE TruncateProfileAndAppendNew(): " << (nThisProfile == nTruncProfile ? "MAIN" : "COINCIDENT") << " to-truncate profile {" << nThisProfile << "} has " << m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize() << " points (";
    //
-   // for (int nPoint = 0; nPoint < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize()-1; nPoint++)
-   // {
-   // CGeom2DPoint
-   // Pt1 = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nPoint),
-   // Pt2 = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nPoint+1);
+   //    for (int nn = 0; nn < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize(); nn++)
+   //       LogStream << "[" << m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nn)->dGetX() << ", " << m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nn)->dGetY() << "] ";
    //
-   // if (Pt1 == Pt2)
-   // LogStream << m_ulIter << ": IDENTICAL POINTS before changes, in profile {" << nThisProfile << "} points = " << nPoint << " and " << nPoint+1 << endl;
+   //    LogStream << "), and " << m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumLineSegments() << " line segments, co-incident profiles are ";
+   //    for (int nLineSeg = 0; nLineSeg < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumLineSegments(); nLineSeg++)
+   //    {
+   //       vector<pair<int, int> > prVTmp = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pprVGetPairedCoincidentProfilesForLineSegment(nLineSeg);
+   //       LogStream << "{ ";
+   //
+   //       for (int nn = 0; nn < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumCoincidentProfilesInLineSegment(nLineSeg); nn++)
+   //       LogStream << prVTmp[nn].first << "[" << prVTmp[nn].second << "] ";
+   //
+   //       LogStream << "} ";
+   //    }
+   //    LogStream << endl;
+   //
+   //    for (int nPoint = 0; nPoint < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize()-1; nPoint++)
+   //    {
+   //       CGeom2DPoint Pt1 = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nPoint);
+   //       CGeom2DPoint Pt2 = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nPoint+1);
+   //
+   //       if (Pt1 == Pt2)
+   //       LogStream << m_ulIter << ": IDENTICAL POINTS before changes, in profile {" << nThisProfile << "} points = " << nPoint << " and " << nPoint+1 << endl;
+   //    }
    // }
-   // }
+   //
    // LogStream << "\tPart-profile to append is ";
    // for (int mm = 0; mm < pPtVProfileLastPart->size(); mm++)
-   // LogStream << "[" << pPtVProfileLastPart->at(mm).dGetX() << ", " << pPtVProfileLastPart->at(mm).dGetY() << "] ";
+   //    LogStream << "[" << pPtVProfileLastPart->at(mm).dGetX() << ", " << pPtVProfileLastPart->at(mm).dGetY() << "] ";
    // LogStream << endl;
+   //
    // LogStream << "\tPart line-segment to append is ";
    // for (int mm = 0; mm < pprVLineSegLastPart->size(); mm++)
    // {
-   // vector<pair<int, int> > prVTmp = pprVLineSegLastPart->at(mm);
-   // LogStream << "{ ";
-   // for (int nn = 0; nn < prVTmp.size(); nn++)
-   // LogStream << prVTmp[nn].first << "[" << prVTmp[nn].second << "] ";
-   // LogStream << "} ";
+   //    vector<pair<int, int> > prVTmp = pprVLineSegLastPart->at(mm);
+   //    LogStream << "{ ";
+   //    for (int nn = 0; nn < prVTmp.size(); nn++)
+   //    LogStream << prVTmp[nn].first << "[" << prVTmp[nn].second << "] ";
+   //    LogStream << "} ";
    // }
    // LogStream << endl;
-   // // DEBUG CODE ******************************************************************
+   // // // DEBUG CODE ******************************************************************
 
    // Get the index numbers of all coincident profiles for the 'main' profile for the line segment in which intersection occurs
-   vector<pair<int, int>> prVCoincidentProfiles = *pProfileToRetain->pprVGetPairedCoincidentProfilesForLineSegment(nMainProfileIntersectLineSeg);
+   vector<pair<int, int>> prVCoincidentProfiles = *pProfileToTruncate->pprVGetPairedCoincidentProfilesForLineSegment(nMainProfileIntersectLineSeg);
    int const nNumCoincident = static_cast<int>(prVCoincidentProfiles.size());
 
    for (int nn = 0; nn < nNumCoincident; nn++)
@@ -3094,35 +4084,36 @@ void CSimulation::TruncateProfileAndAppendNew(int const nCoast, CGeomProfile* pP
    }
 
    // // DEBUG CODE ****************************************************************
-   // Get the index numbers of all coincident profiles for the 'main' to-truncate profile for the line segment in which intersection occurred
-   // vector<pair<int, int> > prVToTruncateCoincidentProfilesCHECK2 = *m_VCoast[nCoast].pGetProfile(nMainProfile)->pprVGetPairedCoincidentProfilesForLineSegment(nMainProfileIntersectLineSeg);
+   // // Get the index numbers of all coincident profiles for the 'main' to-truncate profile for the line segment in which intersection occurred
+   // vector<pair<int, int> > prVToTruncateCoincidentProfilesCHECK2 = *m_VCoast[nCoast].pGetProfile(nTruncProfile)->pprVGetPairedCoincidentProfilesForLineSegment(nMainProfileIntersectLineSeg);
    // int nNumToTruncateCoincidentCHECK2 = prVToTruncateCoincidentProfilesCHECK2.size();
    // for (int nn = 0; nn < nNumToTruncateCoincidentCHECK2; nn++)
    // {
-   // int nThisProfile = prVToTruncateCoincidentProfilesCHECK2[nn].first;
-   // LogStream << "\tAFTER TruncateProfileAndAppendNew(): " << (nThisProfile == nMainProfile ? "MAIN" : "COINCIDENT") << " to-truncate profile {" << nThisProfile << "} has " << m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize() << " points (";
-   // for (int nn = 0; nn < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize(); nn++)
-   // LogStream << "[" << m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nn)->dGetX() << ", " << m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nn)->dGetY() << "] ";
-   // LogStream << "), and " << m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumLineSegments() << " line segments, co-incident profiles are ";
-   // for (int mm = 0; mm < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumLineSegments(); mm++)
-   // {
-   // vector<pair<int, int> > prVTmp = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pprVGetPairedCoincidentProfilesForLineSegment(mm);
-   // LogStream << "{ ";
-   // for (int nn = 0; nn < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumCoincidentProfilesInLineSegment(mm); nn++)
-   // LogStream << prVTmp[nn].first << "[" << prVTmp[nn].second << "] ";
-   // LogStream << "} ";
-   // }
-   // LogStream << endl;
+   //    int nThisProfile = prVToTruncateCoincidentProfilesCHECK2[nn].first;
+   //    LogStream << "\tAFTER  TruncateProfileAndAppendNew(): " << (nThisProfile == nTruncProfile ? "MAIN" : "COINCIDENT") << " to-truncate profile {" << nThisProfile << "} has " << m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize() << " points (";
    //
-   // for (int nPoint = 0; nPoint < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize()-1; nPoint++)
-   // {
-   // CGeom2DPoint
-   // Pt1 = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nPoint),
-   // Pt2 = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nPoint+1);
+   //    for (int nn = 0; nn < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize(); nn++)
+   //       LogStream << "[" << m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nn)->dGetX() << ", " << m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nn)->dGetY() << "] ";
+   //    LogStream << "), and " << m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumLineSegments() << " line segments, co-incident profiles are ";
    //
-   // if (Pt1 == Pt2)
-   // LogStream << m_ulIter << ": IDENTICAL POINTS before changes, in profile {" << nThisProfile << "} points = " << nPoint << " and " << nPoint+1 << endl;
-   // }
+   //    for (int mm = 0; mm < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumLineSegments(); mm++)
+   //    {
+   //       vector<pair<int, int> > prVTmp = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pprVGetPairedCoincidentProfilesForLineSegment(mm);
+   //       LogStream << "{ ";
+   //       for (int nn = 0; nn < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetNumCoincidentProfilesInLineSegment(mm); nn++)
+   //       LogStream << prVTmp[nn].first << "[" << prVTmp[nn].second << "] ";
+   //       LogStream << "} ";
+   //    }
+   //    LogStream << endl;
+   //
+   //    for (int nPoint = 0; nPoint < m_VCoast[nCoast].pGetProfile(nThisProfile)->nGetProfileSize()-1; nPoint++)
+   //    {
+   //       CGeom2DPoint Pt1 = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nPoint);
+   //       CGeom2DPoint Pt2 = *m_VCoast[nCoast].pGetProfile(nThisProfile)->pPtGetPointInProfile(nPoint+1);
+   //
+   //       if (Pt1 == Pt2)
+   //       LogStream << m_ulIter << ": IDENTICAL POINTS before changes, in profile {" << nThisProfile << "} points = " << nPoint << " and " << nPoint+1 << endl;
+   //    }
    // }
    // // DEBUG CODE ******************************************************************
 }

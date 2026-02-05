@@ -164,8 +164,15 @@ void CGeomProfile::SetPointsInProfile(vector<CGeom2DPoint> const* VNewPoints)
 //! Sets a single point (external CRS) in the profile
 void CGeomProfile::SetPointInProfile(int const nPoint, double const dNewX, double const dNewY)
 {
-   // TODO 055 No check to see if nPoint < CGeomMultiLine::m_VPoints,size()
-   CGeomMultiLine::m_VPoints[nPoint] = CGeom2DPoint(dNewX, dNewY);
+   // // TODO 055 No check to see if nPoint < CGeomMultiLine::m_VPoints,size()
+   // CGeomMultiLine::m_VPoints[nPoint] = CGeom2DPoint(dNewX, dNewY);
+
+   // TEST =========================================
+   if (nPoint < static_cast<int>(CGeomMultiLine::m_VPoints.size()))
+      CGeomMultiLine::m_VPoints[nPoint] = CGeom2DPoint(dNewX, dNewY);
+   else
+      CGeomMultiLine::m_VPoints.push_back(CGeom2DPoint(dNewX, dNewY));
+   // TEST =========================================
 }
 
 //! Appends a point (external CRS) to the profile
@@ -184,8 +191,24 @@ void CGeomProfile::AppendPointInProfile(CGeom2DPoint const* pPt)
 bool CGeomProfile::bInsertIntersection(double const dX, double const dY, int const nSeg)
 {
    // Safety check
+   // if (nSeg >= nGetNumLineSegments())
+   //    return false;
+
+   // TEST ===========================================
    if (nSeg >= nGetNumLineSegments())
-      return false;
+   {
+      CGeomMultiLine::m_VPoints.push_back(CGeom2DPoint(dX, dY));
+
+      // Now append insert a line segment in the associated multi-line
+      CGeomMultiLine::AppendLineSegment();
+
+      // Insert a line segment in the associated multi-line, this will inherit the profile/line seg details from the preceding line segment
+      CGeomMultiLine::InsertLineSegment(nSeg);
+
+      return true;
+   }
+   // TEST ===========================================
+
 
    vector<CGeom2DPoint>::iterator it;
    it = CGeomMultiLine::m_VPoints.begin();

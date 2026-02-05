@@ -978,8 +978,8 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       // For every coastline, check all coastline-normal profiles for intersection, then modify intersecting profiles so that the sections of each profile seaward of the point of intersection are 'shared' i.e. are multi-lines. This creates the boundaries of the triangular polygons
       CheckAllProfilesForIntersection();
 
-      // For every coastline, do further checks on profiles then mark valid profiles on the raster grid
-      nRet = nCheckAndMarkAllProfiles();
+      // For every coastline, do further checks on profiles
+      nRet = nFurtherCheckAndMarkAllProfiles();
       if (nRet != RTN_OK)
          return nRet;
 
@@ -990,6 +990,11 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
          if (nRet != RTN_OK)
          return nRet;
       }
+
+      // Mark valid profiles on the raster grid
+      nRet = nMarkProfilesOnGrid();
+      if (nRet != RTN_OK)
+         return nRet;
 
       // Tell the user how the simulation is progressing
       AnnounceProgress();
