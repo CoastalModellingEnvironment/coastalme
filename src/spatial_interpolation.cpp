@@ -146,9 +146,9 @@ double SpatialInterpolator::Interpolate(double x, double y) const
    vector<unsigned int> indices(k);
    vector<double> sq_dists(k);  // Squared distances (faster than actual distances)
 
-   long unsigned int const num_found = m_kdtree->knnSearch(query_pt, k, indices.data(), sq_dists.data());
+   long unsigned int const lunNumFound = m_kdtree->knnSearch(query_pt, k, indices.data(), sq_dists.data());
 
-   if (num_found == 0)
+   if (lunNumFound == 0)
       throw std::runtime_error("knnSearch found no neighbors");
 
    // SPECIAL CASE: Query point coincides with an input point
@@ -165,7 +165,7 @@ double SpatialInterpolator::Interpolate(double x, double y) const
    {
       // *** OPTIMIZED PATH for power=2.0 ***
       // Since weight = 1/dist^2 and we have sq_dist = dist^2, we can use: weight = 1/sq_dist. This avoids both sqrt() and pow() calls
-      for (size_t i = 0; i < num_found; i++)
+      for (size_t i = 0; i < lunNumFound; i++)
       {
          double const weight = 1.0 / sq_dists[i];  // 1/dist^2 = 1/sq_dist
          sum_weights += weight;
@@ -176,7 +176,7 @@ double SpatialInterpolator::Interpolate(double x, double y) const
    {
       // *** GENERAL CASE for arbitrary power ***
       // Need to calculate actual distance and apply pow()
-      for (size_t i = 0; i < num_found; i++)
+      for (size_t i = 0; i < lunNumFound; i++)
       {
          double const dist = sqrt(sq_dists[i]);
          double const weight = 1.0 / pow(dist, m_power);
@@ -205,9 +205,9 @@ void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points, 
       {
          double const query_pt[2] = {query_points[i].x, query_points[i].y};
 
-         long unsigned int const num_found = m_kdtree->knnSearch(query_pt, k, indices.data(), sq_dists.data());
+         long unsigned int const lunNumFound = m_kdtree->knnSearch(query_pt, k, indices.data(), sq_dists.data());
 
-         if (num_found == 0)
+         if (lunNumFound == 0)
          {
             results[i] = 0.0;  // or m_dMissingValue
             continue;
@@ -226,7 +226,7 @@ void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points, 
 
          if (bFPIsEqual(m_power, 2.0, TOLERANCE))
          {
-            for (size_t j = 0; j < num_found; j++)
+            for (size_t j = 0; j < lunNumFound; j++)
             {
                double const weight = 1.0 / sq_dists[j];
                sum_weights += weight;
@@ -235,7 +235,7 @@ void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points, 
          }
          else
          {
-            for (size_t j = 0; j < num_found; j++)
+            for (size_t j = 0; j < lunNumFound; j++)
             {
                double const dist = std::sqrt(sq_dists[j]);
                double const weight = 1.0 / std::pow(dist, m_power);
@@ -316,11 +316,9 @@ void DualSpatialInterpolator::InterpolatePoint(double x, double y, double& resul
    double const query_pt[2] = {x, y};
    size_t const k = std::min((size_t) m_k_neighbors, m_cloud.pts.size());
 
-   long unsigned int num_found = m_kdtree->knnSearch(query_pt, k,
-                                                 indices.data(),
-                                                 sq_dists.data());
+   long unsigned int const lunNumFound = m_kdtree->knnSearch(query_pt, k, indices.data(), sq_dists.data());
 
-   if (num_found == 0)
+   if (lunNumFound == 0)
    {
       result_x = result_y = 0.0;
       return;
@@ -341,9 +339,9 @@ void DualSpatialInterpolator::InterpolatePoint(double x, double y, double& resul
 
    if (bFPIsEqual(m_power, 2.0, TOLERANCE))
    {
-      for (size_t i = 0; i < num_found; i++)
+      for (size_t i = 0; i < lunNumFound; i++)
       {
-         double weight = 1.0 / sq_dists[i];
+         double const weight = 1.0 / sq_dists[i];
          sum_weights += weight;
          sum_weighted_x += weight * m_values_x[indices[i]];
          sum_weighted_y += weight * m_values_y[indices[i]];
@@ -351,10 +349,10 @@ void DualSpatialInterpolator::InterpolatePoint(double x, double y, double& resul
    }
    else
    {
-      for (size_t i = 0; i < num_found; i++)
+      for (size_t i = 0; i < lunNumFound; i++)
       {
-         double dist = std::sqrt(sq_dists[i]);
-         double weight = 1.0 / std::pow(dist, m_power);
+         double const dist = std::sqrt(sq_dists[i]);
+         double const weight = 1.0 / std::pow(dist, m_power);
          sum_weights += weight;
          sum_weighted_x += weight * m_values_x[indices[i]];
          sum_weighted_y += weight * m_values_y[indices[i]];

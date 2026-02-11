@@ -1724,7 +1724,7 @@ class CSimulation
    void TruncateOneProfileRetainOtherProfile(int const, CGeomProfile*, CGeomProfile*, double, double, int, int, bool const);
    int nInsertPointIntoProfilesIfNeededThenUpdate(int const, CGeomProfile*, double const, double const, int const, CGeomProfile*, int const, bool const);
    void TruncateProfileAndAppendNew(int const, CGeomProfile*, int const, vector<CGeom2DPoint> const*, vector<vector<pair<int, int>>> const*);
-   void CreateRasterizedProfile(int const, CGeomProfile*, vector<CGeom2DIPoint>*, vector<bool>*, bool&, bool&, bool&, bool&, bool&/*, bool&*/);
+   void CreateRasterizedProfile(int const, CGeomProfile*, vector<CGeom2DIPoint>*, vector<bool>*, bool&, bool const&, bool&, bool&, bool&/*, bool&*/);
    static void CalcDeanProfile(vector<double>*, double const, double const, double const, bool const, int const, double const);
    static double dSubtractProfiles(vector<double> const*, vector<double> const*, vector<bool> const*);
    int nCalcPotentialPlatformErosionOnProfile(int const, CGeomProfile*);

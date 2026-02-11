@@ -158,7 +158,7 @@ void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
 double CSimulation::dCalcCurvature(int const nHandedness, CGeom2DPoint const* pPtBefore, CGeom2DPoint const* pPtThis, CGeom2DPoint const* pPtAfter)
 {
    // Calculate the cross product
-   double dCrosProd = (pPtThis->dGetX() - pPtBefore->dGetX()) * (pPtAfter->dGetY() - pPtBefore->dGetY()) - (pPtThis->dGetY() - pPtBefore->dGetY()) * (pPtAfter->dGetX() - pPtBefore->dGetX());
+   double const dCrosProd = (pPtThis->dGetX() - pPtBefore->dGetX()) * (pPtAfter->dGetY() - pPtBefore->dGetY()) - (pPtThis->dGetY() - pPtBefore->dGetY()) * (pPtAfter->dGetX() - pPtBefore->dGetX());
 
    // Reverse if left-handed
    int const nSide = (nHandedness == RIGHT_HANDED ? 1 : -1);

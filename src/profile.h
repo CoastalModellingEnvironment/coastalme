@@ -101,11 +101,11 @@ class CGeomProfile : public CGeomMultiLine
    bool bProfileOK(void) const;
 
    void SetPointsInProfile(vector<CGeom2DPoint> const*);
-   void SetPointInProfile(int const, double const, double const);
+   bool bSetPointInProfile(int const, double const, double const);
    void AppendPointInProfile(double const, double const);
    void AppendPointInProfile(CGeom2DPoint const*);
    void TruncateProfile(int const);
-   // void TruncateAndSetPointInProfile(int const, double const, double const);
+   // void TruncateAndbSetPointInProfile(int const, double const, double const);
    bool bInsertIntersection(double const, double const, int const);
    // void ShowProfile(void) const;
    int nGetProfileSize(void) const;

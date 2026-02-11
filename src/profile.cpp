@@ -28,7 +28,7 @@ using std::vector;
 #include <algorithm>
 using std::find;
 
-// #include "cme.h"
+#include "cme.h"
 #include "cell.h"
 #include "2d_point.h"
 #include "2di_point.h"
@@ -161,18 +161,14 @@ void CGeomProfile::SetPointsInProfile(vector<CGeom2DPoint> const* VNewPoints)
    CGeomMultiLine::m_VPoints = *VNewPoints;
 }
 
-//! Sets a single point (external CRS) in the profile
-void CGeomProfile::SetPointInProfile(int const nPoint, double const dNewX, double const dNewY)
+//! Sets a single point (external CRS) in the profile, returns false if the point is out of range
+bool CGeomProfile::bSetPointInProfile(int const nPoint, double const dNewX, double const dNewY)
 {
-   // // TODO 055 No check to see if nPoint < CGeomMultiLine::m_VPoints,size()
-   // CGeomMultiLine::m_VPoints[nPoint] = CGeom2DPoint(dNewX, dNewY);
+   if (nPoint >= static_cast<int>(CGeomMultiLine::m_VPoints.size()))
+      return false;
 
-   // TEST =========================================
-   if (nPoint < static_cast<int>(CGeomMultiLine::m_VPoints.size()))
-      CGeomMultiLine::m_VPoints[nPoint] = CGeom2DPoint(dNewX, dNewY);
-   else
-      CGeomMultiLine::m_VPoints.push_back(CGeom2DPoint(dNewX, dNewY));
-   // TEST =========================================
+   CGeomMultiLine::m_VPoints[nPoint] = CGeom2DPoint(dNewX, dNewY);
+   return true;
 }
 
 //! Appends a point (external CRS) to the profile
@@ -191,24 +187,8 @@ void CGeomProfile::AppendPointInProfile(CGeom2DPoint const* pPt)
 bool CGeomProfile::bInsertIntersection(double const dX, double const dY, int const nSeg)
 {
    // Safety check
-   // if (nSeg >= nGetNumLineSegments())
-   //    return false;
-
-   // TEST ===========================================
    if (nSeg >= nGetNumLineSegments())
-   {
-      CGeomMultiLine::m_VPoints.push_back(CGeom2DPoint(dX, dY));
-
-      // Now append insert a line segment in the associated multi-line
-      CGeomMultiLine::AppendLineSegment();
-
-      // Insert a line segment in the associated multi-line, this will inherit the profile/line seg details from the preceding line segment
-      CGeomMultiLine::InsertLineSegment(nSeg);
-
-      return true;
-   }
-   // TEST ===========================================
-
+      return false;
 
    vector<CGeom2DPoint>::iterator it;
    it = CGeomMultiLine::m_VPoints.begin();
@@ -228,7 +208,7 @@ void CGeomProfile::TruncateProfile(int const nSize)
    CGeomMultiLine::m_VPoints.resize(nSize);
 }
 
-// void CGeomProfile::TruncateAndSetPointInProfile(int const nPoint, double const dNewX, double const dNewY)
+// void CGeomProfile::TruncateAndbSetPointInProfile(int const nPoint, double const dNewX, double const dNewY)
 // {
 // CGeomMultiLine::m_VPoints.resize(nPoint+1);
 // CGeomMultiLine::m_VPoints[nPoint] = CGeom2DPoint(dNewX, dNewY);

@@ -18,9 +18,12 @@
 
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ==============================================================================================================================*/
-#include <iostream>
-using std::cerr;
-using std::endl;
+// #include <iostream>
+// using std::cerr;
+// using std::endl;
+
+#include <cstdio>
+using std::size_t;
 
 #include <string>
 using std::getline;
@@ -31,7 +34,7 @@ using std::to_string;
 #include <sstream>
 using std::stringstream;
 
-#include <algorithm>
+// #include <algorithm>
 
 #include <cctype>
 using std::isspace;
@@ -149,7 +152,7 @@ bool CYamlNode::bGetBoolValue(bool bDefault) const
    if (m_strValue.empty())
       return bDefault;
 
-   string strLower = CSimulation::strToLower(&m_strValue);
+   string const strLower = CSimulation::strToLower(&m_strValue);
 
    if (strLower == "true" || strLower == "yes" || strLower == "y" || strLower == "1")
       return true;
@@ -225,7 +228,7 @@ bool CYamlParser::bHasError() const
 int CYamlParser::nGetIndentLevel(string const& strLine) const
 {
    int nIndent = 0;
-   for (char c : strLine)
+   for (char const c : strLine)
    {
       if (c == ' ')
          nIndent++;
@@ -285,7 +288,7 @@ bool CYamlParser::bParseLine(string const& strLine, string& strKey, string& strV
    }
 
    // Look for key-value pair
-   size_t nColonPos = strTrimmed.find(':');
+   size_t const nColonPos = strTrimmed.find(':');
    if (nColonPos == string::npos)
       return false;
 

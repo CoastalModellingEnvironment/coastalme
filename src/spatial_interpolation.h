@@ -61,8 +61,11 @@
 #include <vector>
 using std::vector;
 
-#include <cmath>
-#include <algorithm>
+#include <cstdio>
+using std::size_t;
+
+// #include <cmath>
+// #include <algorithm>
 
 #include "nanoflann.hpp"
 

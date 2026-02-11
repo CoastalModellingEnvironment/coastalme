@@ -153,17 +153,13 @@ int CSimulation::nReadRasterBasementDEM(void)
    }
    else
    {
-      // We have reference units, so check that they are in metres (note US spelling)
-      if (! m_strGDALBasementDEMProjection.empty())
-      {
-         string const strTmp = strToLower(&m_strGDALBasementDEMProjection);
+      string const strTmp = strToLower(&m_strGDALBasementDEMProjection);
 
-         if ((strTmp.find("meter") == string::npos) && (strTmp.find("metre") == string::npos))
-         {
-            // error: x-y values must be in metres
-            cerr << ERR << "GIS file x-y values (" << m_strGDALBasementDEMProjection << ") in " << m_strInitialBasementDEMFile << " must be in metres" << endl;
-            return RTN_ERR_DEMFILE;
-         }
+      if ((strTmp.find("meter") == string::npos) && (strTmp.find("metre") == string::npos))
+      {
+         // error: x-y values must be in metres
+         cerr << ERR << "GIS file x-y values (" << m_strGDALBasementDEMProjection << ") in " << m_strInitialBasementDEMFile << " must be in metres" << endl;
+         return RTN_ERR_DEMFILE;
       }
    }
 

@@ -39,8 +39,8 @@ using std::pair;
 #include <random>
 using std::normal_distribution;
 
-#include <string>
-using std::to_string;
+// #include <string>
+// using std::to_string;
 
 #include "cme.h"
 #include "simulation.h"
@@ -143,7 +143,7 @@ int CSimulation::nCreateAllProfiles(void)
          else
          {
             // This is not the only coastline, so attempt to continue
-            string strErr = WARN + "timestep " + strDblToStr(m_ulIter) + ": could not create coast-normal profiles for coastline " + strDblToStr(nCoast) + " continuing however\n";
+            string const strErr = WARN + "timestep " + strDblToStr(m_ulIter) + ": could not create coast-normal profiles for coastline " + strDblToStr(nCoast) + " continuing however\n";
             cerr << strErr;
             LogStream << strErr;
 
@@ -690,7 +690,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
    }
 
    // Create the list of cells 'under' this grid-edge profile. Note that more than two cells are stored
-   int nPointsSize = static_cast<int>(VPtiNormalPoints.size());
+   int const nPointsSize = static_cast<int>(VPtiNormalPoints.size());
    for (int n = 0; n < nPointsSize; n++)
    {
       int const nX = VPtiNormalPoints[n].nGetX();
@@ -1390,11 +1390,11 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                      }
 
                      // Is the point of intersection also the end point of the first profile and the second profile? (Uncommon, but it happens occasionally)
-                     int nFirstPointSize = pFirstProfile->nGetProfileSize();
-                     CGeom2DPoint* pPtFirstEnd = pFirstProfile->pPtGetPointInProfile(nFirstPointSize-1);
+                     int const nFirstPointSize = pFirstProfile->nGetProfileSize();
+                     CGeom2DPoint* const pPtFirstEnd = pFirstProfile->pPtGetPointInProfile(nFirstPointSize-1);
 
-                     int nSecondPointSize = pSecondProfile->nGetProfileSize();
-                     CGeom2DPoint* pPtSecondEnd = pSecondProfile->pPtGetPointInProfile(nSecondPointSize-1);
+                     int const nSecondPointSize = pSecondProfile->nGetProfileSize();
+                     CGeom2DPoint* const pPtSecondEnd = pSecondProfile->pPtGetPointInProfile(nSecondPointSize-1);
 
                      if (bFPIsEqual(dIntersectX, pPtFirstEnd->dGetX(), TOLERANCE) && bFPIsEqual(dIntersectY, pPtFirstEnd->dGetY(), TOLERANCE) && bFPIsEqual(dIntersectX, pPtSecondEnd->dGetX(), TOLERANCE) && bFPIsEqual(dIntersectY, pPtSecondEnd->dGetY(), TOLERANCE))
                      {
@@ -2255,7 +2255,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         // LogStream << endl << "######################################################" << endl;
                         // // DEBUG CODE =====================================
 
-                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
                         // // DEBUG CODE ****************************************************************
                         // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
@@ -2397,7 +2397,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                        //  LogStream << endl << "######################################################" << endl;
                        //  // DEBUG CODE =====================================
 
-                        LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << nSecondProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
+                        LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << nSecondProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
                      //    // DEBUG CODE ****************************************************************
                      //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
@@ -2539,7 +2539,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                      //    LogStream << endl << "######################################################" << endl;
                      //    // DEBUG CODE =====================================
 
-                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
                         // // DEBUG CODE ****************************************************************
                         // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
@@ -2681,7 +2681,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         // LogStream << endl << "######################################################" << endl;
                         // // DEBUG CODE =====================================
 
-                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << nSecondProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << nSecondProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
                         // // DEBUG CODE ****************************************************************
                         // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
@@ -2824,7 +2824,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         // LogStream << endl << "######################################################" << endl;
                         // // DEBUG CODE =====================================
 
-                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
                         // // DEBUG CODE ****************************************************************
                         // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
@@ -2963,7 +2963,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         // LogStream << endl << "######################################################" << endl;
                         // // DEBUG CODE =====================================
 
-                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << nSecondProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << " }" << endl;
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << nSecondProfile << " truncated at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
                         // // DEBUG CODE ****************************************************************
                         // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
@@ -3190,11 +3190,11 @@ int CSimulation::nMarkProfilesOnGrid(void)
          bool bHitCoast = false;
          bool bHitLand = false;
          bool bHitIntervention = false;
-         bool bHitAnotherProfile = false;
+         // bool bHitAnotherProfile = false;
 
          CreateRasterizedProfile(nCoast, pProfile, &VCellsToMark, &bVShared, bTooShort, bTruncatedSameCoast, bHitCoast, bHitLand, bHitIntervention/*, bHitAnotherProfile*/);
 
-         if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention || bHitAnotherProfile || VCellsToMark.size() == 0)
+         if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention /*|| bHitAnotherProfile*/ || VCellsToMark.size() == 0)
          {
             VCellsToMark.clear();
             bVShared.clear();
@@ -3239,7 +3239,7 @@ int CSimulation::nMarkProfilesOnGrid(void)
 //===============================================================================================================================
 //! Given a pointer to a coastline-normal profile, returns an output vector of cells which are 'under' every line segment of the profile. If there is a problem with the profile (e.g. a rasterized cell is dry land or coast, or the profile has to be truncated) then we pass this back as an error code
 //===============================================================================================================================
-void CSimulation::CreateRasterizedProfile(int const nCoast, CGeomProfile* pProfile, vector<CGeom2DIPoint>* pVIPointsOut, vector<bool>* pbVShared, bool& bTooShort, bool& bTruncatedSameCoast, bool& bHitCoast, bool& bHitLand, bool& bHitIntervention/*, bool& bHitAnotherProfile*/)
+void CSimulation::CreateRasterizedProfile(int const nCoast, CGeomProfile* pProfile, vector<CGeom2DIPoint>* pVIPointsOut, vector<bool>* pbVShared, bool& bTooShort, bool const& bTruncatedSameCoast, bool& bHitCoast, bool& bHitLand, bool& bHitIntervention/*, bool& bHitAnotherProfile*/)
 {
    int const nProfile = pProfile->nGetProfileID();
    int nSeg = 0;
@@ -3593,7 +3593,7 @@ void CSimulation::MergeProfilesAtFinalLineSegments(int const nCoast, CGeomProfil
    int const nNumFirstProfileCoincidentProfilesLastSeg = static_cast<int>(prVFirstProfileCoincidentProfilesLastSeg.size());
    int const nNumSecondProfileCoincidentProfilesLastSeg = static_cast<int>(prVSecondProfileCoincidentProfilesLastSeg.size());
 
-   LogStream << m_ulIter << ":\t   coast " << nCoast << " profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " end-segment intersection at line segment " << nFirstProfileLineSegments-1 << " of " << nFirstProfileLineSegments << ", and line segment " << nSecondProfileLineSegments-1 << " of " << nSecondProfileLineSegments << ", respectively. Both truncated at {" << dIntersectX << ", " << dIntersectY << "], combined profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " extended to {" << dAvgEndX << ", " << dAvgEndY << "}" << endl;
+   LogStream << m_ulIter << ":\t   coast " << nCoast << " profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " end-segment intersection at line segment " << nFirstProfileLineSegments-1 << " of " << nFirstProfileLineSegments << ", and line segment " << nSecondProfileLineSegments-1 << " of " << nSecondProfileLineSegments << ", respectively. Both truncated at {" << dIntersectX << ", " << dIntersectY << "}, combined profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " extended to {" << dAvgEndX << ", " << dAvgEndY << "}" << endl;
 
    // Truncate the first profile, and all co-incident profiles, at the point of intersection
    for (int n = 0; n < nNumFirstProfileCoincidentProfilesLastSeg; n++)
@@ -3603,7 +3603,8 @@ void CSimulation::MergeProfilesAtFinalLineSegments(int const nCoast, CGeomProfil
       int const nProfileLength = pThisProfile->nGetProfileSize();
 
       // This is the final line segment of the first 'main' profile. We are assuming that it is also the final line segment of all co-incident profiles. This is fine, altho' each profile may well have a different number of line segments landwards i.e. the number of the line segment may be different for each co-incident profile
-      pThisProfile->SetPointInProfile(nProfileLength - 1, dIntersectX, dIntersectY);
+      if (! pThisProfile->bSetPointInProfile(nProfileLength - 1, dIntersectX, dIntersectY))
+         break;
    }
 
    // Truncate the second profile, and all co-incident profiles, at the point of intersection
@@ -3614,7 +3615,8 @@ void CSimulation::MergeProfilesAtFinalLineSegments(int const nCoast, CGeomProfil
       int const nProfileLength = pThisProfile->nGetProfileSize();
 
       // This is the final line segment of the second 'main' profile. We are assuming that it is also the final line segment of all co-incident profiles. This is fine, altho' each profile may well have a different number of line segments landwards i.e. the number of the line segment may be different for each co-incident profile
-      pThisProfile->SetPointInProfile(nProfileLength - 1, dIntersectX, dIntersectY);
+      if (! pThisProfile->bSetPointInProfile(nProfileLength - 1, dIntersectX, dIntersectY))
+         break;
    }
 
    // Append a new straight line segment to the existing line segment(s) of the first profile, and to all co-incident profiles
@@ -3834,18 +3836,49 @@ int CSimulation::nInsertPointIntoProfilesIfNeededThenUpdate(int const nCoast, CG
    {
       int const nThisProfile = prVCoincidentProfiles[nn].first;  // The number of this profile
       int const nThisLineSeg = prVCoincidentProfiles[nn].second; // The line segment of this profile
+
       CGeomProfile* pThisProfile = m_VCoast[nCoast].pGetProfile(nThisProfile);
 
       // Is the intersection point already present in the to-retain profile?
       if (! bAlreadyPresent)
       {
+         // DEBUG CODE ========================
+         if (nThisLineSeg >= pThisProfile->nGetProfileSize())
+         {
+            LogStream << "***?????????????? nThisLineSeg = " << nThisLineSeg << " pThisProfile->nGetProfileSize() = " << pThisProfile->nGetProfileSize() << endl;
+            continue;
+         }
+         // DEBUG CODE ========================
+
          // It is not already present, so insert it and also update the associated multi-line
          if (! pThisProfile->bInsertIntersection(dIntersectX, dIntersectY, nThisLineSeg))
          {
             // Error
-            LogStream << WARN << m_ulIter << ": cannot insert a line segment after the final line segment (" << nThisLineSeg << ") for " << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile (" << nThisProfile << "), abandoning" << endl;
+            LogStream << WARN << m_ulIter << ": cannot insert intersection point {" << dIntersectX << ", " << dIntersectY << "} nThisLineSeg = " << nThisLineSeg << " into profile " << pThisProfile->nGetCoastID() << " (" << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile) which has length " << pThisProfile->nGetProfileSize() << ", abandoning" << endl;
+            LogStream << "\t ";
+            for (int mmm = 0; mmm < pThisProfile->nGetProfileSize(); mmm++)
+            {
+               CGeom2DPoint* pPtThis = pThisProfile->pPtGetPointInProfile(mmm);
+               LogStream << "{" << pPtThis->dGetX() << ", " << pPtThis->dGetY() << "}\t";
+            }
+            LogStream << endl;
 
-            return RTN_ERR_CANNOT_INSERT_POINT;
+            int nSeg = pThisProfile->nGetNumLineSegments();
+            for (int nnn = 0; nnn < nSeg; nnn++)
+            {
+               int nPairedCoinc = pThisProfile->pprVGetPairedCoincidentProfilesForLineSegment(nnn)->size();
+               for (unsigned int mmm = 0; mmm < nPairedCoinc; mmm++)
+               {
+                  pair<int, int> prTmp;
+                  prTmp.first = pThisProfile->pprVGetPairedCoincidentProfilesForLineSegment(mmm)->at(nnn).first;
+                  prTmp.second = pThisProfile->pprVGetPairedCoincidentProfilesForLineSegment(mmm)->at(nnn).second;
+
+                  LogStream << prTmp.first << "\t" << prTmp.second << endl;
+               }
+            }
+
+            // return RTN_ERR_CANNOT_INSERT_POINT;
+            continue;
          }
 
          // LogStream << "\tIntersection point {" << dIntersectX << ", " << dIntersectY << "} not already in profile " << nThisProfile << " (" << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile), inserted it as point " << nTmpLineSeg+1 << " nn = " << nn << endl;

@@ -4,19 +4,23 @@
 /home/dave/coast/CoastalME/src/2di_shape.h:35:26: warning: member variable 'm_VPoints' has protected visibility [misc-non-private-member-variables-in-classes]
    35 |    vector<CGeom2DIPoint> m_VPoints;
       |                          ^
-/home/dave/coast/CoastalME/src/calc_curvature.cpp:36:1: warning: included header coast.h is not used directly [misc-include-cleaner]
-   36 | #include "coast.h"
+/home/dave/coast/CoastalME/src/calc_curvature.cpp:37:1: warning: included header coast.h is not used directly [misc-include-cleaner]
+   37 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
-   37 | 
+   38 | 
+/home/dave/coast/CoastalME/src/calc_curvature.cpp:161:4: warning: variable 'dCrosProd' of type 'double' can be declared 'const' [misc-const-correctness]
+  161 |    double dCrosProd = (pPtThis->dGetX() - pPtBefore->dGetX()) * (pPtAfter->dGetY() - pPtBefore->dGetY()) - (pPtThis->dGetY() - pPtBefore->dGetY()) * (pPtAfter->dGetX() - pPtBefore->dGetX());
+      |    ^
+      |           const 
 /home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:37:1: warning: included header coast.h is not used directly [misc-include-cleaner]
    37 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
    38 | #include "simulation.h"
-/home/dave/coast/CoastalME/src/cme.h:1257:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
- 1257 |    char chFill;
+/home/dave/coast/CoastalME/src/cme.h:1271:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
+ 1271 |    char chFill;
       |         ^
-/home/dave/coast/CoastalME/src/cme.h:1258:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
- 1258 |    int nWidth;
+/home/dave/coast/CoastalME/src/cme.h:1272:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
+ 1272 |    int nWidth;
       |        ^
 /home/dave/coast/CoastalME/src/coast.h:28:10: warning: circular header file dependency detected while including 'coast_landform.h', please check the include path [misc-header-include-cycle]
    28 | #include "coast_landform.h"
@@ -122,6 +126,33 @@
    51 |    bool m_bUseSystemTimeForSeed;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    52 | 
+/home/dave/coast/CoastalME/src/create_profiles.cpp:43:12: warning: using decl 'to_string' is unused [misc-unused-using-decls]
+   43 | using std::to_string;
+      |            ^
+/home/dave/coast/CoastalME/src/create_profiles.cpp:43:12: note: remove the using
+   43 | using std::to_string;
+      | ~~~~~~~~~~~^~~~~~~~~~
+   44 | 
+/home/dave/coast/CoastalME/src/create_profiles.cpp:146:13: warning: variable 'strErr' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+  146 |             string strErr = WARN + "timestep " + strDblToStr(m_ulIter) + ": could not create coast-normal profiles for coastline " + strDblToStr(nCoast) + " continuing however\n";
+      |             ^
+      |                    const 
+/home/dave/coast/CoastalME/src/create_profiles.cpp:693:4: warning: variable 'nPointsSize' of type 'int' can be declared 'const' [misc-const-correctness]
+  693 |    int nPointsSize = static_cast<int>(VPtiNormalPoints.size());
+      |    ^
+      |        const 
+/home/dave/coast/CoastalME/src/create_profiles.cpp:1393:22: warning: variable 'nFirstPointSize' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1393 |                      int nFirstPointSize = pFirstProfile->nGetProfileSize();
+      |                      ^
+      |                          const 
+/home/dave/coast/CoastalME/src/create_profiles.cpp:1396:22: warning: variable 'nSecondPointSize' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1396 |                      int nSecondPointSize = pSecondProfile->nGetProfileSize();
+      |                      ^
+      |                          const 
+/home/dave/coast/CoastalME/src/create_profiles.cpp:3193:10: warning: variable 'bHitAnotherProfile' of type 'bool' can be declared 'const' [misc-const-correctness]
+ 3193 |          bool bHitAnotherProfile = false;
+      |          ^
+      |               const 
 /home/dave/coast/CoastalME/src/do_surge_flood.cpp:34:1: warning: included header cme.h is not used directly [misc-include-cleaner]
    34 | #include "cme.h"
       | ^~~~~~~~~~~~~~~~
@@ -135,24 +166,22 @@
 /home/dave/coast/CoastalME/src/do_uncons_sediment_slumping.cpp:55:11: warning: member variable 'dInstability' has public visibility [misc-non-private-member-variables-in-classes]
    55 |    double dInstability;     //!< Instability metric (how much slope exceeds angle of repose)
       |           ^
+/home/dave/coast/CoastalME/src/gis_vector.cpp:405:95: warning: the parameter 'strExtra' is copied for each invocation but only used as a const reference; consider making it a const reference [performance-unnecessary-value-param]
+  405 | bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlotTitle, string strExtra)
+      |                                                                                               ^
+      |                                                                                        const &
 /home/dave/coast/CoastalME/src/init_grid.cpp:35:1: warning: included header coast.h is not used directly [misc-include-cleaner]
    35 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
    36 | #include "simulation.h"
-/home/dave/coast/CoastalME/src/locate_cliff_toe.cpp:26:12: warning: using decl 'sqrt' is unused [misc-unused-using-decls]
-   26 | using std::sqrt;
-      |            ^
-/home/dave/coast/CoastalME/src/locate_cliff_toe.cpp:26:12: note: remove the using
-   26 | using std::sqrt;
-      | ~~~~~~~~~~~^~~~~
-   27 | 
-/home/dave/coast/CoastalME/src/locate_cliff_toe.cpp:42:12: warning: using decl 'pair' is unused [misc-unused-using-decls]
-   42 | using std::pair;
-      |            ^
-/home/dave/coast/CoastalME/src/locate_cliff_toe.cpp:42:12: note: remove the using
-   42 | using std::pair;
-      | ~~~~~~~~~~~^~~~~
-   43 | 
+/home/dave/coast/CoastalME/src/locate_coast.cpp:705:4: warning: variable 'bHereBefore' of type 'bool' can be declared 'const' [misc-const-correctness]
+  705 |    bool bHereBefore = false;
+      |    ^
+      |         const 
+/home/dave/coast/CoastalME/src/locate_coast.cpp:1201:13: warning: variable 'nCoastAlready' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1201 |             int nCoastAlready = m_pRasterGrid->m_Cell[nX][nY].nGetCoastline();
+      |             ^
+      |                 const 
 /home/dave/coast/CoastalME/src/nanoflann.hpp:188:18: warning: member variable 'first' has public visibility [misc-non-private-member-variables-in-classes]
   188 |     IndexType    first;  //!< Index of the sample in the dataset
       |                  ^
@@ -389,6 +418,9 @@
 /home/dave/coast/CoastalME/src/nanoflann.hpp:2680:52: warning: member variable 'm_data_matrix' has public visibility [misc-non-private-member-variables-in-classes]
  2680 |     const std::reference_wrapper<const MatrixType> m_data_matrix;
       |                                                    ^
+/home/dave/coast/CoastalME/src/profile.cpp:48:24: warning: no header providing "PROFILE_STATUS_OK" is directly included [misc-include-cleaner]
+   21 |       m_nProfileStatus(PROFILE_STATUS_OK),
+      |                        ^
 /home/dave/coast/CoastalME/src/read_input.cpp:4662:19: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
  4661 |                for (auto const &node : seq)
  4662 |                   vecNums.push_back(node.nGetIntValue());
@@ -419,63 +451,33 @@
 /home/dave/coast/CoastalME/src/configuration.cpp:26:10: note: 'configuration.h' included from here
    26 | #include "configuration.h"
       |          ^
-/home/dave/coast/CoastalME/src/simulation.h:1933:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
- 1933 |    ofstream LogStream;
+/home/dave/coast/CoastalME/src/simulation.h:1938:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
+ 1938 |    ofstream LogStream;
       |             ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:179:10: warning: variable 'dist' of type 'double' can be declared 'const' [misc-const-correctness]
-  179 |          double dist = std::sqrt(sq_dists[i]);
-      |          ^
-      |                 const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:179:29: warning: no header providing "std::sqrt" is directly included [misc-include-cleaner]
-   63 |          double dist = std::sqrt(sq_dists[i]);
-      |                             ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:180:10: warning: variable 'weight' of type 'double' can be declared 'const' [misc-const-correctness]
-  180 |          double weight = 1.0 / std::pow(dist, m_power);
-      |          ^
-      |                 const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:180:37: warning: no header providing "std::pow" is directly included [misc-include-cleaner]
-  180 |          double weight = 1.0 / std::pow(dist, m_power);
-      |                                     ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:207:10: warning: variable 'num_found' of type 'unsigned long' can be declared 'const' [misc-const-correctness]
-  207 |          long unsigned int num_found = m_kdtree->knnSearch(query_pt, k,
-      |          ^
-      |                            const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:232:16: warning: variable 'weight' of type 'double' can be declared 'const' [misc-const-correctness]
-  232 |                double weight = 1.0 / sq_dists[j];
-      |                ^
-      |                       const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:241:16: warning: variable 'dist' of type 'double' can be declared 'const' [misc-const-correctness]
-  241 |                double dist = std::sqrt(sq_dists[j]);
-      |                ^
-      |                       const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:242:16: warning: variable 'weight' of type 'double' can be declared 'const' [misc-const-correctness]
-  242 |                double weight = 1.0 / std::pow(dist, m_power);
-      |                ^
-      |                       const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:323:4: warning: variable 'num_found' of type 'unsigned long' can be declared 'const' [misc-const-correctness]
-  323 |    long unsigned int num_found = m_kdtree->knnSearch(query_pt, k,
+/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:319:4: warning: variable 'num_found' of type 'unsigned long' can be declared 'const' [misc-const-correctness]
+  319 |    long unsigned int num_found = m_kdtree->knnSearch(query_pt, k,
       |    ^
       |                      const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:350:10: warning: variable 'weight' of type 'double' can be declared 'const' [misc-const-correctness]
-  350 |          double weight = 1.0 / sq_dists[i];
+/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:346:10: warning: variable 'weight' of type 'double' can be declared 'const' [misc-const-correctness]
+  346 |          double weight = 1.0 / sq_dists[i];
       |          ^
       |                 const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:360:10: warning: variable 'dist' of type 'double' can be declared 'const' [misc-const-correctness]
-  360 |          double dist = std::sqrt(sq_dists[i]);
+/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:356:10: warning: variable 'dist' of type 'double' can be declared 'const' [misc-const-correctness]
+  356 |          double dist = std::sqrt(sq_dists[i]);
       |          ^
       |                 const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:361:10: warning: variable 'weight' of type 'double' can be declared 'const' [misc-const-correctness]
-  361 |          double weight = 1.0 / std::pow(dist, m_power);
+/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:357:10: warning: variable 'weight' of type 'double' can be declared 'const' [misc-const-correctness]
+  357 |          double weight = 1.0 / std::pow(dist, m_power);
       |          ^
       |                 const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:71:11: warning: member variable 'x' has public visibility [misc-non-private-member-variables-in-classes]
-   71 |    double x, y;
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:74:11: warning: member variable 'x' has public visibility [misc-non-private-member-variables-in-classes]
+   74 |    double x, y;
       |           ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:71:14: warning: member variable 'y' has public visibility [misc-non-private-member-variables-in-classes]
-   71 |    double x, y;
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:74:14: warning: member variable 'y' has public visibility [misc-non-private-member-variables-in-classes]
+   74 |    double x, y;
       |              ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:80:25: warning: member variable 'pts' has public visibility [misc-non-private-member-variables-in-classes]
-   80 |    std::vector<Point2D> pts;
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:83:25: warning: member variable 'pts' has public visibility [misc-non-private-member-variables-in-classes]
+   83 |    std::vector<Point2D> pts;
       |                         ^
 /home/dave/coast/CoastalME/src/update_grid.cpp:30:1: warning: included header coast.h is not used directly [misc-include-cleaner]
    30 | #include "coast.h"
@@ -619,11 +621,15 @@
    31 | #include "cme.h"
       | ^~~~~~~~~~~~~~~~
    32 | #include "raster_grid.h"
-/home/dave/coast/CoastalME/src/cme.h:1257:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
- 1257 |    char chFill;
+/home/dave/coast/CoastalME/src/cme.h:221:1: warning: included header csignal is not used directly [misc-include-cleaner]
+  221 | #include <csignal>      // Only for programmatic debug breakpoints using gdb i.e. std::raise(SIGINT);
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  222 | 
+/home/dave/coast/CoastalME/src/cme.h:1271:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
+ 1271 |    char chFill;
       |         ^
-/home/dave/coast/CoastalME/src/cme.h:1258:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
- 1258 |    int nWidth;
+/home/dave/coast/CoastalME/src/cme.h:1272:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
+ 1272 |    int nWidth;
       |        ^
 /home/dave/coast/CoastalME/src/coast.h:28:10: warning: circular header file dependency detected while including 'coast_landform.h', please check the include path [misc-header-include-cycle]
    28 | #include "coast_landform.h"
@@ -905,26 +911,26 @@
 /home/dave/coast/CoastalME/src/simulation.h:62:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
    62 | #include "configuration.h"
       |          ^
-/home/dave/coast/CoastalME/src/simulation.h:1933:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
- 1933 |    ofstream LogStream;
+/home/dave/coast/CoastalME/src/simulation.h:1938:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
+ 1938 |    ofstream LogStream;
       |             ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:62:1: warning: included header cmath is not used directly [misc-include-cleaner]
-   62 | #include <cmath>
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:64:1: warning: included header cmath is not used directly [misc-include-cleaner]
+   64 | #include <cmath>
       | ^~~~~~~~~~~~~~~~
-   63 | #include <algorithm>
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:63:1: warning: included header algorithm is not used directly [misc-include-cleaner]
-   63 | #include <algorithm>
+   65 | #include <algorithm>
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:65:1: warning: included header algorithm is not used directly [misc-include-cleaner]
+   65 | #include <algorithm>
       | ^~~~~~~~~~~~~~~~~~~~
-   64 | #include "nanoflann.hpp"
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:71:11: warning: member variable 'x' has public visibility [misc-non-private-member-variables-in-classes]
-   71 |    double x, y;
+   66 | 
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:74:11: warning: member variable 'x' has public visibility [misc-non-private-member-variables-in-classes]
+   74 |    double x, y;
       |           ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:71:14: warning: member variable 'y' has public visibility [misc-non-private-member-variables-in-classes]
-   71 |    double x, y;
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:74:14: warning: member variable 'y' has public visibility [misc-non-private-member-variables-in-classes]
+   74 |    double x, y;
       |              ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:80:25: warning: member variable 'pts' has public visibility [misc-non-private-member-variables-in-classes]
-   80 |    std::vector<Point2D> pts;
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:83:25: warning: member variable 'pts' has public visibility [misc-non-private-member-variables-in-classes]
+   83 |    std::vector<Point2D> pts;
       |                         ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:82:11: warning: no header providing "size_t" is directly included [misc-include-cleaner]
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:85:11: warning: no header providing "size_t" is directly included [misc-include-cleaner]
    61 |    inline size_t kdtree_get_point_count() const
       |           ^
