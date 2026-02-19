@@ -134,7 +134,7 @@ int CSimulation::nCreateAllPolygons(void)
             //                // DEBUG CODE =============================================================================================
 
             // Now check to see if the two normals do meet i.e. if they are coincident
-            if (pThisProfile->bFindProfileInCoincidentProfiles(nNextProfile))
+            if (pThisProfile->bFindFirstInCoincidentPairs(nNextProfile))
             {
                // Yes they do meet
                bMeetsAtAPoint = true;
@@ -142,7 +142,7 @@ int CSimulation::nCreateAllPolygons(void)
                int nTmpNextProfileEnd;
 
                // Find the most coastward point at which this normal and the previous normal touch. If they do not touch, the polygon requires a 'joining line'
-               pThisProfile->GetMostCoastwardSharedLineSegment(nNextProfile, nTmpThisProfileEnd, nTmpNextProfileEnd);
+               pThisProfile->SearchForLowestNumberedCoincidentLineSegments(nNextProfile, nTmpThisProfileEnd, nTmpNextProfileEnd);
 
                if (nTmpThisProfileEnd == -1)
                {
@@ -707,7 +707,7 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
                double const dDistBetween = dGetDistanceBetween(&PtStart, &PtEnd);
 
                // Find out which polygon is adjacent to each line segment of the polygon's down-coast profile boundary. The basic approach used is to count the number of coincident profiles in each line segment, and (because we are going down-coast) add this number to 'this' polygon's number. However, some of these coincident profiles may be invalid, so we must count only the valid co-incident profiles
-               int const nNumCoinc = pProfile->nGetNumCoincidentProfilesInLineSegment(nPoint);
+               int const nNumCoinc = pProfile->nGetNumCoincidentPairsForLineSegment(nPoint);
 
                // Safety check
                if (nNumCoinc < 0)
@@ -717,11 +717,21 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
 
                for (int nCoinc = 0; nCoinc < nNumCoinc; nCoinc++)
                {
-                  int const nProf = pProfile->nGetCoincidentProfileForLineSegment(nPoint, nCoinc);
+                  int const nProf = pProfile->pprVGetFirstFromCoincidentPairForLineSegment(nPoint, nCoinc);
 
                   // Safety check
                   if (nProf == -1)
+                  {
+                     LogStream << m_ulIter << ": line segment " << nPoint << " does not exist" << endl;
                      continue;
+                  }
+
+                  // Safety check
+                  if (nProf == -2)
+                  {
+                     LogStream << m_ulIter << ": line segment " << nPoint << " has no coincident profiles" << endl;
+                     continue;
+                  }
 
                   CGeomProfile const* pProf = m_VCoast[nCoast].pGetProfile(nProf);
 
@@ -802,7 +812,7 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
                double const dDistBetween = dGetDistanceBetween(&PtStart, &PtEnd);
 
                // Find out which polygon is adjacent to each line segment of the polygon's up-coast profile boundary. The basic approach used is to count the number of coincident profiles in each line segment, and (because we are going up-coast) subtract this number from 'this' polygon's number. However, some of these coincident profiles may be invalid, so we must count only the valid co-incident profiles
-               int const nNumCoinc = pProfile->nGetNumCoincidentProfilesInLineSegment(nPoint);
+               int const nNumCoinc = pProfile->nGetNumCoincidentPairsForLineSegment(nPoint);
 
                // Safety check
                if (nNumCoinc < 0)
@@ -812,11 +822,21 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
 
                for (int nCoinc = 0; nCoinc < nNumCoinc; nCoinc++)
                {
-                  int const nProf = pProfile->nGetCoincidentProfileForLineSegment(nPoint, nCoinc);
+                  int const nProf = pProfile->pprVGetFirstFromCoincidentPairForLineSegment(nPoint, nCoinc);
 
                   // Safety check
                   if (nProf == -1)
+                  {
+                     LogStream << m_ulIter << ": line segment " << nPoint << " does not exist" << endl;
                      continue;
+                  }
+
+                  // Safety check
+                  if (nProf == -2)
+                  {
+                     LogStream << m_ulIter << ": line segment " << nPoint << " has no coincident profiles" << endl;
+                     continue;
+                  }
 
                   CGeomProfile const* pProf = m_VCoast[nCoast].pGetProfile(nProf);
 

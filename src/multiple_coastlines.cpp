@@ -401,9 +401,10 @@ int CSimulation::nTruncateProfileMultiLineDifferentCoasts(CGeomProfile* pProfile
    for (int nSeg = 0; nSeg < nProfileLineSegments; nSeg++)
    {
       // Search each segment
-      int const nNumCoinc = pProfile->CGeomMultiLine::nGetNumCoincidentProfilesInLineSegment(nSeg);
+      int const nNumCoinc = pProfile->CGeomMultiLine::nGetNumCoincidentPairsForLineSegment(nSeg);
       for (int nCoinc = 0; nCoinc < nNumCoinc; nCoinc++)
       {
+         // Get the points (start or end points of each line segment)
          vector<CGeom2DPoint>& pVPt = pProfile->CGeomMultiLine::pGetPoints();
 
          for (int nLin = 0; nLin < static_cast<int>(pVPt.size())-1; nLin++)

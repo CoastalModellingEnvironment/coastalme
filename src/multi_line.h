@@ -35,7 +35,7 @@ using std::make_pair;
 class CGeomMultiLine : public CGeomLine
 {
  private:
-   //! A vector of line segments, each element is a vector of pairs. The first of the pair is a co-incident profile number, the second is that profile's 'own' line segment number
+   //! Each CGeomMultiLine is a vector of vectors: a vector of line segments, with each line segment being a vector of pairs. The first element of each pair is a co-incident profile number, the second element is that profile's 'own' line segment number. Since the CGeomMultiLine is descended from a CGeomLine, the CGeomMultiLine also has a vector of points (m_VPoints). Each point is the start or finish of a line segment. Thus each CGeomMultiLine should have N line segments and N+1 points
    vector<vector<pair<int, int>>> m_prVVLineSegment;
 
  protected:
@@ -48,27 +48,31 @@ class CGeomMultiLine : public CGeomLine
 
    void AppendLineSegment(void);
    void AppendLineSegment(vector<pair<int, int>>*);
+
    // void AppendLineSegmentAndInherit(void);
    int nGetNumLineSegments(void) const;
    void TruncateLineSegments(int const);
-   void InsertLineSegment(int const);
-   vector<vector<pair<int, int>>> prVVGetAllLineSegAfter(int const);
+   void InsertLineSegmentWithInheritance(int const);
+   vector<vector<pair<int, int>>> prVVGetAllLineSegmentsAfter(int const);
    // void RemoveLineSegment(int const);
 
-   void AppendCoincidentProfileToLineSegments(pair<int, int> const);
-   void AddCoincidentProfileToExistingLineSegment(int const, int const, int const);
-   vector<pair<int, int>>* pprVGetPairedCoincidentProfilesForLineSegment(int const);
-   int nGetCoincidentProfileForLineSegment(int const, int const) const;
-   int nGetNumCoincidentProfilesInLineSegment(int const);
-   bool bFindProfileInCoincidentProfilesOfLastLineSegment(int const);
-   // bool bFindProfileInCoincidentProfilesOfLineSegment(int const, int const);
-   bool bFindProfileInCoincidentProfiles(int const);
-   void GetMostCoastwardSharedLineSegment(int const, int&, int &);
+   void AppendPairToFinalLineSegment(pair<int, int> const);
+   void AddCoincidentPairToExistingLineSegment(int const, int const, int const);
 
-   int nGetProf(int const, int const) const;
-   int nGetProfsLineSeg(int const, int const) const;
-   void SetProfsLineSeg(int const, int const, int const);
+   vector<pair<int, int>>* pprVGetCoincidentPairsForLineSegment(int const);
+   int pprVGetFirstFromCoincidentPairForLineSegment(int const, int const) const;
 
-   // int nFindProfilesLastSeg(int const) const;
+   int nGetNumCoincidentPairsForLineSegment(int const);
+
+   bool bFindFirstFromCoincidentPairsInLastLineSegment(int const);
+   // bool bFindFirstInCoincidentPairsOfLineSegment(int const, int const);
+   bool bFindFirstInCoincidentPairs(int const);
+   void SearchForLowestNumberedCoincidentLineSegments(int const, int&, int&);
+
+   int nGetPairFirst(int const, int const) const;
+   int nGetPairSecond(int const, int const) const;
+   void SetPairSecond(int const, int const, int const);
+
+   // int nFindLastSegForCoincPairFirst(int const) const;
 };
 #endif // MULTILINE_H

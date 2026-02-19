@@ -197,7 +197,7 @@ bool CGeomProfile::bInsertIntersection(double const dX, double const dY, int con
    CGeomMultiLine::m_VPoints.insert(it + nSeg + 1, CGeom2DPoint(dX, dY));
 
    // Now insert a line segment in the associated multi-line, this will inherit the profile/line seg details from the preceding line segment
-   CGeomMultiLine::InsertLineSegment(nSeg);
+   CGeomMultiLine::InsertLineSegmentWithInheritance(nSeg);
 
    return true;
 }

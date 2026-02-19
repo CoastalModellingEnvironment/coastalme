@@ -52,7 +52,7 @@ void CGeomMultiLine::AppendLineSegment(void)
    m_prVVLineSegment.push_back(vector<pair<int, int>>());
 }
 
-//! Appends a line segment which is supplied as a parameter
+//! Appends a new line segment which is supplied as a parameter
 void CGeomMultiLine::AppendLineSegment(vector<pair<int, int>>* pprVIn)
 {
    m_prVVLineSegment.push_back(*pprVIn);
@@ -91,8 +91,8 @@ void CGeomMultiLine::TruncateLineSegments(int const nSize)
    m_prVVLineSegment.resize(nSize);
 }
 
-//! Inserts a line segment, inheriting from preceding line segments
-void CGeomMultiLine::InsertLineSegment(int const nSegment)
+//! Inserts a line segment, inheriting coincident pairs from preceding line segments
+void CGeomMultiLine::InsertLineSegmentWithInheritance(int const nSegment)
 {
    // assert(nSegment < m_prVVLineSegment.size());
 
@@ -125,8 +125,8 @@ void CGeomMultiLine::InsertLineSegment(int const nSegment)
    }
 }
 
-//! Returns a vector of the line segments which succeed the specified line segment number
-vector<vector<pair<int, int>>> CGeomMultiLine::prVVGetAllLineSegAfter(int const nSegment)
+//! Returns a vector of the line segments which follow the specified line segment
+vector<vector<pair<int, int>>> CGeomMultiLine::prVVGetAllLineSegmentsAfter(int const nSegment)
 {
    vector<vector<pair<int, int>>> prVTmp;
 
@@ -142,30 +142,28 @@ vector<vector<pair<int, int>>> CGeomMultiLine::prVVGetAllLineSegAfter(int const 
 //    m_prVVLineSegment.erase(m_prVVLineSegment.begin() + nSegment);
 // }
 
-//! Appends a coincident profile pair to the CGeomMultiLine object's final line segment
-void CGeomMultiLine::AppendCoincidentProfileToLineSegments(pair<int, int> const prIn)
+//! Appends a line segment pair to the CGeomMultiLine object's final line segment
+void CGeomMultiLine::AppendPairToFinalLineSegment(pair<int, int> const prIn)
 {
-   long unsigned int const nSize = m_prVVLineSegment.size();
-   m_prVVLineSegment[nSize - 1].push_back(prIn);
-   // m_prVVLineSegment.back().push_back(prIn);
+   m_prVVLineSegment.back().push_back(prIn);
 }
 
-//! Adds a coincident profile to a pre-existing line segment of the CGeomMultiLine object
-void CGeomMultiLine::AddCoincidentProfileToExistingLineSegment(int const nSegment, int const nProfile, int const nLineSeg)
+//! Adds a coincident pair to a pre-existing line segment of the CGeomMultiLine object
+void CGeomMultiLine::AddCoincidentPairToExistingLineSegment(int const nSegment, int const nProfile, int const nLineSeg)
 {
    // assert(nSegment < m_prVVLineSegment.size());
    m_prVVLineSegment[nSegment].push_back(make_pair(nProfile, nLineSeg));
 }
 
 //! Returns a vector of pairs (a line segment)
-vector<pair<int, int>>* CGeomMultiLine::pprVGetPairedCoincidentProfilesForLineSegment(int const nSegment)
+vector<pair<int, int>>* CGeomMultiLine::pprVGetCoincidentPairsForLineSegment(int const nSegment)
 {
    // TODO 055 No check to see if nSegment < size()
    return &m_prVVLineSegment[nSegment];
 }
 
-//! Returns the numbers of coincident profiles
-int CGeomMultiLine::nGetCoincidentProfileForLineSegment(int const nSegment, int const nCoinc) const
+//! Returns the numbers of coincident pairs for a given line segment, or -1 if this line segment does not exist, or -2 if there are no coincident pairs for this line segment
+int CGeomMultiLine::pprVGetFirstFromCoincidentPairForLineSegment(int const nSegment, int const nCoinc) const
 {
    // Safety check
    if ((nSegment < 0) || (nSegment >= static_cast<int>(m_prVVLineSegment.size())))
@@ -173,13 +171,13 @@ int CGeomMultiLine::nGetCoincidentProfileForLineSegment(int const nSegment, int 
 
    // Safety check
    if ((nCoinc < 0) || (nCoinc >= static_cast<int>(m_prVVLineSegment[nSegment].size())))
-      return -1;
+      return -2;
 
    return m_prVVLineSegment[nSegment][nCoinc].first;
 }
 
 //! Returns the count of coincident profiles in a specified line segment, or -1 if the line segment does not exist
-int CGeomMultiLine::nGetNumCoincidentProfilesInLineSegment(int const nSegment)
+int CGeomMultiLine::nGetNumCoincidentPairsForLineSegment(int const nSegment)
 {
    // Safety check
    if (nSegment > static_cast<int>(m_prVVLineSegment.size()) - 1)
@@ -189,7 +187,7 @@ int CGeomMultiLine::nGetNumCoincidentProfilesInLineSegment(int const nSegment)
 }
 
 //! Returns true if the given profile number is amongst the coincident profiles of the CGeomMultiLine object's final line segment
-bool CGeomMultiLine::bFindProfileInCoincidentProfilesOfLastLineSegment(int const nProfile)
+bool CGeomMultiLine::bFindFirstFromCoincidentPairsInLastLineSegment(int const nProfile)
 {
    long unsigned int const nLineSegSize = m_prVVLineSegment.size();
 
@@ -205,21 +203,21 @@ bool CGeomMultiLine::bFindProfileInCoincidentProfilesOfLastLineSegment(int const
    return false;
 }
 
-//! Returns true if the given profile number is one of the coincident profiles of the a specified line segment
-// bool CGeomMultiLine::bFindProfileInCoincidentProfilesOfLineSegment(int const nProfile, int const nSegment)
+//! Returns true if the given pair-first is one of the coincident pair-firsts of the specified line segment
+// bool CGeomMultiLine::bFindFirstInCoincidentPairsOfLineSegment(int const nPairFirst, int const nSegment)
 // {
 //    // Note no check to see if nSegment < m_prVVLineSegment.size()
 // int nCoincidentSize = m_prVVLineSegment[nSegment].size();
 //
 // for (int i = 0; i < nCoincidentSize; i++)
-// if (m_prVVLineSegment[nSegment][i].first == nProfile)
+// if (m_prVVLineSegment[nSegment][i].first == nPairFirst)
 // return true;
 //
 // return false;
 // }
 
-//! Returns true if the given profile number is a coincident profile of any line segment of the CGeomMultiLine object
-bool CGeomMultiLine::bFindProfileInCoincidentProfiles(int const nProfile)
+//! Returns true if the given pair-first is a coincident pair of any line segment of the CGeomMultiLine object
+bool CGeomMultiLine::bFindFirstInCoincidentPairs(int const nPairFirst)
 {
    int const nSegSize = static_cast<int>(m_prVVLineSegment.size());
 
@@ -230,7 +228,7 @@ bool CGeomMultiLine::bFindProfileInCoincidentProfiles(int const nProfile)
    {
       for (unsigned int j = 0; j < m_prVVLineSegment[i].size(); j++)
       {
-         if (m_prVVLineSegment[i][j].first == nProfile)
+         if (m_prVVLineSegment[i][j].first == nPairFirst)
             return true;
       }
    }
@@ -238,8 +236,8 @@ bool CGeomMultiLine::bFindProfileInCoincidentProfiles(int const nProfile)
    return false;
 }
 
-//! Finds the number of the most coastward line segment for which the two profiles are coincident, or -1 if they are not coincident. If they are coincident, also finds the line segment of the other profile
-void CGeomMultiLine::GetMostCoastwardSharedLineSegment(int const nOtherProfile, int& nThisLineSegment, int& nOtherLineSegment)
+//! Searches for the lowest-numbered line segment for which the given pair-first is coincident, or -1 if not coincident. If coincident, also finds the line segment of the other profile
+void CGeomMultiLine::SearchForLowestNumberedCoincidentLineSegments(int const nPairFirst, int& nThisLineSegment, int& nOtherLineSegment)
 {
    nThisLineSegment = -1;
    nOtherLineSegment = -1;
@@ -253,7 +251,7 @@ void CGeomMultiLine::GetMostCoastwardSharedLineSegment(int const nOtherProfile, 
    {
       for (unsigned int j = 0; j < m_prVVLineSegment[i].size(); j++)
       {
-         if (m_prVVLineSegment[i][j].first == nOtherProfile)
+         if (m_prVVLineSegment[i][j].first == nPairFirst)
          {
             nThisLineSegment = i;
             nOtherLineSegment = m_prVVLineSegment[i][j].second;
@@ -264,34 +262,34 @@ void CGeomMultiLine::GetMostCoastwardSharedLineSegment(int const nOtherProfile, 
    }
 }
 
-//! Returns the profile number, given a line segment and the index of the co-incident profile for that line segment
-int CGeomMultiLine::nGetProf(int const nSegment, int const nCoinc) const
+//! Returns the pair-first, given a line segment number and the index of a co-incident pair-first
+int CGeomMultiLine::nGetPairFirst(int const nSegment, int const nCoinc) const
 {
    return m_prVVLineSegment[nSegment][nCoinc].first;
 }
 
-//! Returns the profile's own line segment, given a line segment and the index of the co-incident profile for that line segment
-int CGeomMultiLine::nGetProfsLineSeg(int const nSegment, int const nCoinc) const
+//! Returns the pair-second, given a line segment number and the index of a co-incident pair-first
+int CGeomMultiLine::nGetPairSecond(int const nSegment, int const nCoinc) const
 {
    return m_prVVLineSegment[nSegment][nCoinc].second;
 }
 
-//! Sets a profile's own line segment number, given a line segment and the index of the co-incident profile for that line segment
-void CGeomMultiLine::SetProfsLineSeg(int const nSegment, int const nCoinc, int const nLineSeg)
+//! Sets the pair-second, given a line segment number and the index of a co-incident pair-first
+void CGeomMultiLine::SetPairSecond(int const nSegment, int const nCoinc, int const nLineSeg)
 {
    // Note no check to see if nSegment < m_prVVLineSegment.size() or to see if nCoinc < m_prVVLineSegment[nSegment].size()
    m_prVVLineSegment[nSegment][nCoinc].second = nLineSeg;
 }
 
-// //! Returns the number of the last line segment which includes the given profile number as a co-incident profile
-// int CGeomMultiLine::nFindProfilesLastSeg(int const nProfile) const
+// //! Returns the number of the last line segment which includes the given pair-first as a co-incident
+// int CGeomMultiLine::nFindLastSegForCoincPairFirst(int const nPairFirst) const
 // {
 // int nSeg = -1;
 // for (int i = static_cast<int>(m_prVVLineSegment.size()-1); i >= 0; i--)
 // {
 // for (unsigned int j = 0; j < m_prVVLineSegment[i].size(); j++)
 // {
-// if (m_prVVLineSegment[i][j].first == nProfile)
+// if (m_prVVLineSegment[i][j].first == nPairFirst)
 // nSeg = i;
 // }
 // }
