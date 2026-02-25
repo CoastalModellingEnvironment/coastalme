@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# Get and interpret flags
 verbose='false'
 cflag="false"
 iflag="false"
@@ -85,7 +87,7 @@ if [ "$iflag" = "true" ]; then
 	make install
 # 	ninja install #>output.txt
 	if [[ $OSTYPE == 'darwin'* ]]; then
-		# Let's sign to enable profiling
+		# Sign to enable profiling
 		codesign -s - -f --entitlements ../debug.plist ../cme
 		echo "signed to enable profiling"
 	fi

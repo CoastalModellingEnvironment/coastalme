@@ -57,7 +57,7 @@ class CGeomMultiLine : public CGeomLine
    // void RemoveLineSegment(int const);
 
    void AppendPairToFinalLineSegment(pair<int, int> const);
-   void AddCoincidentPairToExistingLineSegment(int const, int const, int const);
+   void AddCoincidentPairToExistingLineSegmentIfNotAlready(int const, int const, int const);
 
    vector<pair<int, int>>* pprVGetCoincidentPairsForLineSegment(int const);
    int pprVGetFirstFromCoincidentPairForLineSegment(int const, int const) const;

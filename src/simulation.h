@@ -1721,7 +1721,7 @@ class CSimulation
    void CheckAllProfilesForIntersection(void);
    static bool bCheckForIntersection(CGeomProfile* const, CGeomProfile* const, int&, int&, double&, double&, double&, double&);
    void MergeProfilesAtFinalLineSegments(int const, CGeomProfile*, CGeomProfile*, int const, int const, double const, double const, double const, double const);
-   void TruncateOneProfileRetainOtherProfile(int const, CGeomProfile*, CGeomProfile*, double, double, int, int, bool const);
+   void TruncateOneProfileRetainOtherProfile(int const, CGeomProfile*, CGeomProfile*, double, double, int, int);
    int nInsertPointIntoProfilesIfNeededThenUpdate(int const, CGeomProfile*, double const, double const, int const, CGeomProfile*, int const, bool const);
    void TruncateProfileAndAppendNew(int const, CGeomProfile*, int const, vector<CGeom2DPoint> const*, vector<vector<pair<int, int>>> const*);
    void CreateRasterizedProfile(int const, CGeomProfile*, vector<CGeom2DIPoint>*, vector<bool>*, bool&, bool const&, bool&, bool&, bool&/*, bool&*/);

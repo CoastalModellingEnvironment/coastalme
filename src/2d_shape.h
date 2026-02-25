@@ -29,6 +29,7 @@ using std::vector;
 using std::reverse;
 
 #include "2d_point.h"
+#include "cme.h"
 
 class CA2DShape
 {
@@ -44,7 +45,6 @@ class CA2DShape
 
    // void InsertAtFront(double const, double const);
    // void SetPoints(const vector<CGeom2DPoint>*);
-   // int nLookUp(CGeom2DPoint*);
    // double dGetLength(void) const;
    // CGeom2DPoint PtGetCentroid(void);
 
@@ -60,6 +60,7 @@ class CA2DShape
    void Append(double const, double const);
    void AppendIfNotPrevious(double const, double const);
    CGeom2DPoint* pPtBack(void);
+   bool bIsPresent(CGeom2DPoint*);
 
    CGeom2DPoint& operator[](int const);
    vector<CGeom2DPoint>* pPtVGetPoints(void);

@@ -96,14 +96,19 @@ CGeom2DPoint* CA2DShape::pPtBack(void)
 // m_VPoints = *VNewPoints;
 // }
 
-// int CA2DShape::nLookUp(CGeom2DPoint* Pt)
-// {
-// auto it = find(m_VPoints.begin(), m_VPoints.end(), *Pt);
-// if (it != m_VPoints.end())
-// return it - m_VPoints.begin();
-// else
-// return -1;
-// }
+bool CA2DShape::bIsPresent(CGeom2DPoint* Pt)
+{
+   double dPtX = Pt->dGetX();
+   double dPtY = Pt->dGetY();
+
+   for (size_t n = 0; n < m_VPoints.size(); n++)
+   {
+      if (bFPIsEqual(dPtX, m_VPoints[n].dGetX(), TOLERANCE) && bFPIsEqual(dPtY, m_VPoints[n].dGetY(), TOLERANCE))
+         return true;
+   }
+
+   return false;
+}
 
 // double CA2DShape::dGetLength(void) const
 // {

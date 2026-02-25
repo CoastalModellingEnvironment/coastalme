@@ -1,24 +1,48 @@
 calc_waves.cpp:505:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-create_profiles.cpp:3197:130: style: Condition 'bHitAnotherProfile' is always false [knownConditionTrueFalse]
-         if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention || bHitAnotherProfile || VCellsToMark.size() == 0)
-                                                                                                                                 ^
-create_profiles.cpp:3193:36: note: Assignment 'bHitAnotherProfile=false', assigned value is 0
-         bool bHitAnotherProfile = false;
-                                   ^
-create_profiles.cpp:3197:130: note: Condition 'bHitAnotherProfile' is always false
-         if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention || bHitAnotherProfile || VCellsToMark.size() == 0)
-                                                                                                                                 ^
-create_profiles.cpp:3242:170: style: Parameter 'bTruncatedSameCoast' can be declared as reference to const [constParameterReference]
-void CSimulation::CreateRasterizedProfile(int const nCoast, CGeomProfile* pProfile, vector<CGeom2DIPoint>* pVIPointsOut, vector<bool>* pbVShared, bool& bTooShort, bool& bTruncatedSameCoast, bool& bHitCoast, bool& bHitLand, bool& bHitIntervention/*, bool& bHitAnotherProfile*/)
-                                                                                                                                                                         ^
-create_profiles.cpp:1394:36: style: Variable 'pPtFirstEnd' can be declared as pointer to const [constVariablePointer]
-                     CGeom2DPoint* pPtFirstEnd = pFirstProfile->pPtGetPointInProfile(nFirstPointSize-1);
-                                   ^
-create_profiles.cpp:1397:36: style: Variable 'pPtSecondEnd' can be declared as pointer to const [constVariablePointer]
-                     CGeom2DPoint* pPtSecondEnd = pSecondProfile->pPtGetPointInProfile(nSecondPointSize-1);
-                                   ^
+check_profile_intersection.cpp:979:15: style: Condition 'bTruncatedSameCoast' is always false [knownConditionTrueFalse]
+         if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention /*|| bHitAnotherProfile*/ || VCellsToMark.size() == 0)
+              ^
+check_profile_intersection.cpp:971:37: note: Assignment 'bTruncatedSameCoast=false', assigned value is 0
+         bool bTruncatedSameCoast = false;
+                                    ^
+check_profile_intersection.cpp:979:15: note: Condition 'bTruncatedSameCoast' is always false
+         if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention /*|| bHitAnotherProfile*/ || VCellsToMark.size() == 0)
+              ^
+check_profile_intersection.cpp:1545:13: style: Condition 'nRet!=RTN_OK' is always false [knownConditionTrueFalse]
+   if (nRet != RTN_OK)
+            ^
+check_profile_intersection.cpp:1544:63: note: Calling function 'nInsertPointIntoProfilesIfNeededThenUpdate' returns 0
+   int const nRet = nInsertPointIntoProfilesIfNeededThenUpdate(nCoast, pProfileToRetain, dIntersectX, dIntersectY, nProfileToRetainIntersectLineSeg, pProfileToTruncate, nProfileToTruncateIntersectLineSeg, bAlreadyPresent);
+                                                              ^
+check_profile_intersection.cpp:1544:63: note: Assignment 'nRet=nInsertPointIntoProfilesIfNeededThenUpdate(nCoast,pProfileToRetain,dIntersectX,dIntersectY,nProfileToRetainIntersectLineSeg,pProfileToTruncate,nProfileToTruncateIntersectLineSeg,bAlreadyPresent)', assigned value is 0
+   int const nRet = nInsertPointIntoProfilesIfNeededThenUpdate(nCoast, pProfileToRetain, dIntersectX, dIntersectY, nProfileToRetainIntersectLineSeg, pProfileToTruncate, nProfileToTruncateIntersectLineSeg, bAlreadyPresent);
+                                                              ^
+check_profile_intersection.cpp:1545:13: note: Condition 'nRet!=RTN_OK' is always false
+   if (nRet != RTN_OK)
+            ^
+check_profile_intersection.cpp:1748:238: style: Condition 'nThisProfile==nProfileToRetain' is always true [knownConditionTrueFalse]
+            LogStream << WARN << m_ulIter << ": cannot insert intersection point {" << dIntersectX << ", " << dIntersectY << "} nThisLineSeg = " << nThisLineSeg << " into profile " << pThisProfile->nGetCoastID() << " (" << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile) which has length " << pThisProfile->nGetProfileSize() << ", abandoning" << endl;
+                                                                                                                                                                                                                                             ^
+check_profile_intersection.cpp:1734:27: note: Assuming that condition 'nThisProfile!=nProfileToRetain' is not redundant
+         if (nThisProfile != nProfileToRetain)
+                          ^
+check_profile_intersection.cpp:1738:27: note: Assuming condition is false
+         if (nThisLineSeg >= pThisProfile->nGetNumLineSegments())
+                          ^
+check_profile_intersection.cpp:1748:238: note: Condition 'nThisProfile==nProfileToRetain' is always true
+            LogStream << WARN << m_ulIter << ": cannot insert intersection point {" << dIntersectX << ", " << dIntersectY << "} nThisLineSeg = " << nThisLineSeg << " into profile " << pThisProfile->nGetCoastID() << " (" << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile) which has length " << pThisProfile->nGetProfileSize() << ", abandoning" << endl;
+                                                                                                                                                                                                                                             ^
+check_profile_intersection.cpp:198:42: style: Variable 'pPtFirstEnd' can be declared as pointer to const [constVariablePointer]
+                     CGeom2DPoint* const pPtFirstEnd = pFirstProfile->pPtGetPointInProfile(nFirstPointSize-1);
+                                         ^
+check_profile_intersection.cpp:201:42: style: Variable 'pPtSecondEnd' can be declared as pointer to const [constVariablePointer]
+                     CGeom2DPoint* const pPtSecondEnd = pSecondProfile->pPtGetPointInProfile(nSecondPointSize-1);
+                                         ^
+check_profile_intersection.cpp:1753:30: style: Variable 'pPtThis' can be declared as pointer to const [constVariablePointer]
+               CGeom2DPoint* pPtThis = pThisProfile->pPtGetPointInProfile(mmm);
+                             ^
 do_uncons_sediment_slumping.cpp:176:14: style: struct member 'Neighbour::slope' is never used. [unusedStructMember]
       double slope;
              ^
@@ -52,15 +76,6 @@ nanoflann.hpp:831:5: style: Struct 'SearchParameters' has a constructor with 1 a
 nanoflann.hpp:633:5: style: Struct 'L2_Simple_Adaptor < double , PointCloud , double , long >' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
     L2_Simple_Adaptor(const DataSource& _data_source)
     ^
-gis_raster.cpp:157:11: style: Condition '!m_strGDALBasementDEMProjection.empty()' is always true [knownConditionTrueFalse]
-      if (! m_strGDALBasementDEMProjection.empty())
-          ^
-gis_raster.cpp:138:44: note: Assuming that condition 'm_strGDALBasementDEMProjection.empty()' is not redundant
-   if (m_strGDALBasementDEMProjection.empty())
-                                           ^
-gis_raster.cpp:157:11: note: Condition '!m_strGDALBasementDEMProjection.empty()' is always true
-      if (! m_strGDALBasementDEMProjection.empty())
-          ^
 nanoflann.hpp:694:29: style: Redundant initialization for 'result'. The initialized value is overwritten before it is read. [redundantInitialization]
         result              = b - a;
                             ^
@@ -82,15 +97,12 @@ nanoflann.hpp:693:22: note: Shadow variable
 nanoflann.hpp:2091:44: style: Consider using std::fill or std::generate algorithm instead of a raw loop. [useStlAlgorithm]
         for (auto& v : Base::root_bbox_) v = {};
                                            ^
-gis_raster.cpp:2225:15: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+gis_raster.cpp:2221:15: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       nPoints += static_cast<unsigned int>(transect.VdX.size());
               ^
 nanoflann.hpp:2554:13: performance: Prefer prefix ++/-- operators for non-primitive types. [postfixOperator]
             pointCount_++;
             ^
-locate_coast.cpp:701:9: style: The scope of the variable 'bOnCoast' can be reduced. [variableScope]
-   bool bOnCoast = false;
-        ^
 read_input.cpp:4777:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
                          ^
@@ -130,7 +142,7 @@ spatial_interpolation.cpp:252:37: style: Variable 'indices' is assigned a value 
 spatial_interpolation.cpp:253:32: style: Variable 'sq_dists' is assigned a value that is never used. [unreadVariable]
    std::vector<double> sq_dists(k);
                                ^
-yaml_parser.cpp:167:18: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+yaml_parser.cpp:170:18: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
       VstrResult.push_back(*node.pstrGetValue());
                  ^
 2di_shape.cpp:54:0: style: The function 'Clear' is never used. [unusedFunction]
@@ -301,10 +313,10 @@ nanoflann.hpp:2690:0: style: The function 'query' is never used. [unusedFunction
 nanoflann.hpp:2702:0: style: The function 'derived' is never used. [unusedFunction]
     const self_t& derived() const { return *this; }
 ^
-spatial_interpolation.h:120:0: style: The function 'GetKDTree' is never used. [unusedFunction]
+spatial_interpolation.h:123:0: style: The function 'GetKDTree' is never used. [unusedFunction]
    KDTree const* GetKDTree() const { return m_kdtree; }
 ^
-spatial_interpolation.h:123:0: style: The function 'GetPointCloud' is never used. [unusedFunction]
+spatial_interpolation.h:126:0: style: The function 'GetPointCloud' is never used. [unusedFunction]
    PointCloud const& GetPointCloud() const { return m_cloud; }
 ^
 utils.cpp:2468:0: style: The function 'pstrChangeToBackslash' is never used. [unusedFunction]
@@ -313,9 +325,9 @@ string CSimulation::pstrChangeToBackslash(string const* strIn)
 utils.cpp:2478:0: style: The function 'pstrChangeToForwardSlash' is never used. [unusedFunction]
 string CSimulation::pstrChangeToForwardSlash(string const* strIn)
 ^
-yaml_parser.cpp:100:0: style: The function 'nGetSequenceSize' is never used. [unusedFunction]
+yaml_parser.cpp:103:0: style: The function 'nGetSequenceSize' is never used. [unusedFunction]
 int CYamlNode::nGetSequenceSize() const
 ^
-yaml_parser.cpp:220:0: style: The function 'bHasError' is never used. [unusedFunction]
+yaml_parser.cpp:223:0: style: The function 'bHasError' is never used. [unusedFunction]
 bool CYamlParser::bHasError() const
 ^

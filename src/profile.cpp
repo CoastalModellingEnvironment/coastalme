@@ -186,10 +186,7 @@ void CGeomProfile::AppendPointInProfile(CGeom2DPoint const* pPt)
 //! Inserts an intersection (at a point specified in external CRS, with a line segment) into the profile
 bool CGeomProfile::bInsertIntersection(double const dX, double const dY, int const nSeg)
 {
-   // Safety check
-   if (nSeg >= nGetNumLineSegments())
-      return false;
-
+   // Note no safety check to see if nSeg < nGetNumLineSegments()
    vector<CGeom2DPoint>::iterator it;
    it = CGeomMultiLine::m_VPoints.begin();
 

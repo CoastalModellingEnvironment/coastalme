@@ -1,3 +1,6 @@
+/home/dave/coast/CoastalME/src/2d_shape.cpp:101:14: warning: no header providing "std::find" is directly included [misc-include-cleaner]
+   22 |    auto it = find(m_VPoints.begin(), m_VPoints.end(), *Pt);
+      |              ^
 /home/dave/coast/CoastalME/src/2d_shape.h:38:25: warning: member variable 'm_VPoints' has protected visibility [misc-non-private-member-variables-in-classes]
    38 |    vector<CGeom2DPoint> m_VPoints;
       |                         ^
@@ -8,14 +11,70 @@
    37 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
    38 | 
-/home/dave/coast/CoastalME/src/calc_curvature.cpp:161:4: warning: variable 'dCrosProd' of type 'double' can be declared 'const' [misc-const-correctness]
-  161 |    double dCrosProd = (pPtThis->dGetX() - pPtBefore->dGetX()) * (pPtAfter->dGetY() - pPtBefore->dGetY()) - (pPtThis->dGetY() - pPtBefore->dGetY()) * (pPtAfter->dGetX() - pPtBefore->dGetX());
-      |    ^
-      |           const 
 /home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:37:1: warning: included header coast.h is not used directly [misc-include-cleaner]
    37 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
    38 | #include "simulation.h"
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:24:1: warning: included header cstdio is not used directly [misc-include-cleaner]
+   24 | #include <cstdio>
+      | ^~~~~~~~~~~~~~~~~
+   25 | #include <cmath>
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:25:1: warning: included header cmath is not used directly [misc-include-cleaner]
+   25 | #include <cmath>
+      | ^~~~~~~~~~~~~~~~
+   26 | 
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:28:12: warning: using decl 'cerr' is unused [misc-unused-using-decls]
+   28 | using std::cerr;
+      |            ^
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:28:12: note: remove the using
+   28 | using std::cerr;
+      | ~~~~~~~~~~~^~~~~
+   29 | using std::endl;
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:34:12: warning: using decl 'sort' is unused [misc-unused-using-decls]
+   34 | using std::sort;
+      |            ^
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:34:12: note: remove the using
+   34 | using std::sort;
+      | ~~~~~~~~~~~^~~~~
+   35 | 
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:37:12: warning: using decl 'make_pair' is unused [misc-unused-using-decls]
+   37 | using std::make_pair;
+      |            ^
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:37:12: note: remove the using
+   37 | using std::make_pair;
+      | ~~~~~~~~~~~^~~~~~~~~~
+   38 | using std::pair;
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:44:12: warning: using decl 'to_string' is unused [misc-unused-using-decls]
+   44 | using std::to_string;
+      |            ^
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:44:12: note: remove the using
+   44 | using std::to_string;
+      | ~~~~~~~~~~~^~~~~~~~~~
+   45 | 
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:971:10: warning: variable 'bTruncatedSameCoast' of type 'bool' can be declared 'const' [misc-const-correctness]
+  971 |          bool bTruncatedSameCoast = false;
+      |          ^
+      |               const 
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1541:4: warning: variable 'bAlreadyPresent' of type 'bool' can be declared 'const' [misc-const-correctness]
+ 1541 |    bool bAlreadyPresent = pProfileToRetain->bIsPresent(&PtIntersect);
+      |    ^
+      |         const 
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1638:7: warning: variable 'nThisLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1638 |       int nThisLineSeg = prVCoincidentProfiles[nn].second; // The line segment of this profile
+      |       ^
+      |           const 
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1759:13: warning: variable 'nNumLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1759 |             int nNumLineSeg = pThisProfile->nGetNumLineSegments();
+      |             ^
+      |                 const 
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1763:16: warning: variable 'VprTmp' of type 'vector<pair<int, int>>' can be declared 'const' [misc-const-correctness]
+ 1763 |                vector<pair<int, int>> VprTmp = *pThisProfile->pprVGetCoincidentPairsForLineSegment(nSeg);
+      |                ^
+      |                                       const 
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1764:16: warning: variable 'nNumPairedCoinc' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1764 |                int nNumPairedCoinc = static_cast<int>(VprTmp.size());
+      |                ^
+      |                    const 
 /home/dave/coast/CoastalME/src/cme.h:1271:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
  1271 |    char chFill;
       |         ^
@@ -126,33 +185,6 @@
    51 |    bool m_bUseSystemTimeForSeed;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    52 | 
-/home/dave/coast/CoastalME/src/create_profiles.cpp:43:12: warning: using decl 'to_string' is unused [misc-unused-using-decls]
-   43 | using std::to_string;
-      |            ^
-/home/dave/coast/CoastalME/src/create_profiles.cpp:43:12: note: remove the using
-   43 | using std::to_string;
-      | ~~~~~~~~~~~^~~~~~~~~~
-   44 | 
-/home/dave/coast/CoastalME/src/create_profiles.cpp:146:13: warning: variable 'strErr' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
-  146 |             string strErr = WARN + "timestep " + strDblToStr(m_ulIter) + ": could not create coast-normal profiles for coastline " + strDblToStr(nCoast) + " continuing however\n";
-      |             ^
-      |                    const 
-/home/dave/coast/CoastalME/src/create_profiles.cpp:693:4: warning: variable 'nPointsSize' of type 'int' can be declared 'const' [misc-const-correctness]
-  693 |    int nPointsSize = static_cast<int>(VPtiNormalPoints.size());
-      |    ^
-      |        const 
-/home/dave/coast/CoastalME/src/create_profiles.cpp:1393:22: warning: variable 'nFirstPointSize' of type 'int' can be declared 'const' [misc-const-correctness]
- 1393 |                      int nFirstPointSize = pFirstProfile->nGetProfileSize();
-      |                      ^
-      |                          const 
-/home/dave/coast/CoastalME/src/create_profiles.cpp:1396:22: warning: variable 'nSecondPointSize' of type 'int' can be declared 'const' [misc-const-correctness]
- 1396 |                      int nSecondPointSize = pSecondProfile->nGetProfileSize();
-      |                      ^
-      |                          const 
-/home/dave/coast/CoastalME/src/create_profiles.cpp:3193:10: warning: variable 'bHitAnotherProfile' of type 'bool' can be declared 'const' [misc-const-correctness]
- 3193 |          bool bHitAnotherProfile = false;
-      |          ^
-      |               const 
 /home/dave/coast/CoastalME/src/do_surge_flood.cpp:34:1: warning: included header cme.h is not used directly [misc-include-cleaner]
    34 | #include "cme.h"
       | ^~~~~~~~~~~~~~~~
@@ -174,14 +206,10 @@
    35 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
    36 | #include "simulation.h"
-/home/dave/coast/CoastalME/src/locate_coast.cpp:705:4: warning: variable 'bHereBefore' of type 'bool' can be declared 'const' [misc-const-correctness]
-  705 |    bool bHereBefore = false;
-      |    ^
-      |         const 
-/home/dave/coast/CoastalME/src/locate_coast.cpp:1201:13: warning: variable 'nCoastAlready' of type 'int' can be declared 'const' [misc-const-correctness]
- 1201 |             int nCoastAlready = m_pRasterGrid->m_Cell[nX][nY].nGetCoastline();
-      |             ^
-      |                 const 
+/home/dave/coast/CoastalME/src/locate_coast.cpp:1194:7: warning: variable 'bOnCoast' of type 'bool' can be declared 'const' [misc-const-correctness]
+ 1194 |       bool bOnCoast = nAdjacentCellIsSea(nX, nY);
+      |       ^
+      |            const 
 /home/dave/coast/CoastalME/src/nanoflann.hpp:188:18: warning: member variable 'first' has public visibility [misc-non-private-member-variables-in-classes]
   188 |     IndexType    first;  //!< Index of the sample in the dataset
       |                  ^
@@ -418,9 +446,6 @@
 /home/dave/coast/CoastalME/src/nanoflann.hpp:2680:52: warning: member variable 'm_data_matrix' has public visibility [misc-non-private-member-variables-in-classes]
  2680 |     const std::reference_wrapper<const MatrixType> m_data_matrix;
       |                                                    ^
-/home/dave/coast/CoastalME/src/profile.cpp:48:24: warning: no header providing "PROFILE_STATUS_OK" is directly included [misc-include-cleaner]
-   21 |       m_nProfileStatus(PROFILE_STATUS_OK),
-      |                        ^
 /home/dave/coast/CoastalME/src/read_input.cpp:4662:19: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
  4661 |                for (auto const &node : seq)
  4662 |                   vecNums.push_back(node.nGetIntValue());
@@ -454,30 +479,14 @@
 /home/dave/coast/CoastalME/src/simulation.h:1938:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
  1938 |    ofstream LogStream;
       |             ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:319:4: warning: variable 'num_found' of type 'unsigned long' can be declared 'const' [misc-const-correctness]
-  319 |    long unsigned int num_found = m_kdtree->knnSearch(query_pt, k,
-      |    ^
-      |                      const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:346:10: warning: variable 'weight' of type 'double' can be declared 'const' [misc-const-correctness]
-  346 |          double weight = 1.0 / sq_dists[i];
-      |          ^
-      |                 const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:356:10: warning: variable 'dist' of type 'double' can be declared 'const' [misc-const-correctness]
-  356 |          double dist = std::sqrt(sq_dists[i]);
-      |          ^
-      |                 const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.cpp:357:10: warning: variable 'weight' of type 'double' can be declared 'const' [misc-const-correctness]
-  357 |          double weight = 1.0 / std::pow(dist, m_power);
-      |          ^
-      |                 const 
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:74:11: warning: member variable 'x' has public visibility [misc-non-private-member-variables-in-classes]
-   74 |    double x, y;
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:77:11: warning: member variable 'x' has public visibility [misc-non-private-member-variables-in-classes]
+   77 |    double x, y;
       |           ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:74:14: warning: member variable 'y' has public visibility [misc-non-private-member-variables-in-classes]
-   74 |    double x, y;
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:77:14: warning: member variable 'y' has public visibility [misc-non-private-member-variables-in-classes]
+   77 |    double x, y;
       |              ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:83:25: warning: member variable 'pts' has public visibility [misc-non-private-member-variables-in-classes]
-   83 |    std::vector<Point2D> pts;
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:86:25: warning: member variable 'pts' has public visibility [misc-non-private-member-variables-in-classes]
+   86 |    std::vector<Point2D> pts;
       |                         ^
 /home/dave/coast/CoastalME/src/update_grid.cpp:30:1: warning: included header coast.h is not used directly [misc-include-cleaner]
    30 | #include "coast.h"
@@ -487,54 +496,21 @@
    83 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
    84 | #include "2di_point.h"
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:22:12: warning: using decl 'cerr' is unused [misc-unused-using-decls]
-   22 | using std::cerr;
-      |            ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:22:12: note: remove the using
-   22 | using std::cerr;
-      | ~~~~~~~~~~~^~~~~
-   23 | using std::endl;
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:23:12: warning: using decl 'endl' is unused [misc-unused-using-decls]
-   23 | using std::endl;
-      |            ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:23:12: note: remove the using
-   23 | using std::endl;
-      | ~~~~~~~~~~~^~~~~
-   24 | 
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:34:1: warning: included header algorithm is not used directly [misc-include-cleaner]
-   34 | #include <algorithm>
-      | ^~~~~~~~~~~~~~~~~~~~
-   35 | 
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:152:4: warning: variable 'strLower' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
-  152 |    string strLower = CSimulation::strToLower(&m_strValue);
-      |    ^
-      |           const 
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:167:7: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
-  165 |    for (auto const& node : m_VYamlChildren)
-  166 |    {
-  167 |       VstrResult.push_back(*node.pstrGetValue());
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:170:7: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
+  168 |    for (auto const& node : m_VYamlChildren)
+  169 |    {
+  170 |       VstrResult.push_back(*node.pstrGetValue());
       |       ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:228:9: warning: variable 'c' of type 'char' can be declared 'const' [misc-const-correctness]
-  228 |    for (char c : strLine)
-      |         ^
-      |              const 
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:288:4: warning: variable 'nColonPos' of type 'size_t' (aka 'unsigned long') can be declared 'const' [misc-const-correctness]
-  288 |    size_t nColonPos = strTrimmed.find(':');
-      |    ^
-      |           const 
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:288:4: warning: no header providing "size_t" is directly included [misc-include-cleaner]
-   21 |    size_t nColonPos = strTrimmed.find(':');
-      |    ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:322:24: warning: function 'ParseSection' is within a recursive call chain [misc-no-recursion]
-  322 | CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:325:24: warning: function 'ParseSection' is within a recursive call chain [misc-no-recursion]
+  325 | CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
       |                        ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:322:24: note: example recursive call chain, starting from function 'ParseSection'
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:363:27: note: Frame #1: function 'ParseSection' calls function 'ParseSection' here:
-  363 |                itemNode = ParseSection(fileStream, nIndent);
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:325:24: note: example recursive call chain, starting from function 'ParseSection'
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:366:27: note: Frame #1: function 'ParseSection' calls function 'ParseSection' here:
+  366 |                itemNode = ParseSection(fileStream, nIndent);
       |                           ^
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:363:27: note: ... which was the starting point of the recursive call chain; there may be other cycles
-/home/dave/coast/CoastalME/src/yaml_parser.cpp:335:7: warning: variable 'nIndent' of type 'int' can be declared 'const' [misc-const-correctness]
-  335 |       int nIndent = nGetIndentLevel(strLine);
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:366:27: note: ... which was the starting point of the recursive call chain; there may be other cycles
+/home/dave/coast/CoastalME/src/yaml_parser.cpp:338:7: warning: variable 'nIndent' of type 'int' can be declared 'const' [misc-const-correctness]
+  338 |       int nIndent = nGetIndentLevel(strLine);
       |       ^
       |           const 
 /home/dave/coast/CoastalME/src/yaml_parser.h:39:7: warning: function 'CYamlNode' is within a recursive call chain [misc-no-recursion]
@@ -914,23 +890,12 @@
 /home/dave/coast/CoastalME/src/simulation.h:1938:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
  1938 |    ofstream LogStream;
       |             ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:64:1: warning: included header cmath is not used directly [misc-include-cleaner]
-   64 | #include <cmath>
-      | ^~~~~~~~~~~~~~~~
-   65 | #include <algorithm>
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:65:1: warning: included header algorithm is not used directly [misc-include-cleaner]
-   65 | #include <algorithm>
-      | ^~~~~~~~~~~~~~~~~~~~
-   66 | 
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:74:11: warning: member variable 'x' has public visibility [misc-non-private-member-variables-in-classes]
-   74 |    double x, y;
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:77:11: warning: member variable 'x' has public visibility [misc-non-private-member-variables-in-classes]
+   77 |    double x, y;
       |           ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:74:14: warning: member variable 'y' has public visibility [misc-non-private-member-variables-in-classes]
-   74 |    double x, y;
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:77:14: warning: member variable 'y' has public visibility [misc-non-private-member-variables-in-classes]
+   77 |    double x, y;
       |              ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:83:25: warning: member variable 'pts' has public visibility [misc-non-private-member-variables-in-classes]
-   83 |    std::vector<Point2D> pts;
+/home/dave/coast/CoastalME/src/spatial_interpolation.h:86:25: warning: member variable 'pts' has public visibility [misc-non-private-member-variables-in-classes]
+   86 |    std::vector<Point2D> pts;
       |                         ^
-/home/dave/coast/CoastalME/src/spatial_interpolation.h:85:11: warning: no header providing "size_t" is directly included [misc-include-cleaner]
-   61 |    inline size_t kdtree_get_point_count() const
-      |           ^

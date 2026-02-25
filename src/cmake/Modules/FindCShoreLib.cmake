@@ -17,6 +17,7 @@
 #########################################################################################
 # Control verbosity
 set(CMAKE_REQUIRED_QUIET true)
+#set(CMAKE_REQUIRED_QUIET false)
 
 if (CSHORE_LIBRARY_LC STREQUAL "static")
    set (CSHORE_LIB_NAME "libcshore.a")
@@ -36,10 +37,10 @@ endif ()
 set (CSHORE_HEADER_NAME "cshore.h")
 
 find_path(CSHORELIB_INCLUDE_DIR ${CSHORE_HEADER_NAME} HINTS ${CMAKE_SOURCE_DIR}/inc ${CMAKE_INSTALL_DIR}/inc PATH_SUFFIXES inc)
-#message (STATUS, "CSHORELIB_INCLUDE_DIR=${CSHORELIB_INCLUDE_DIR}")
+message (STATUS, "CSHORELIB_INCLUDE_DIR=${CSHORELIB_INCLUDE_DIR}")
 
-find_library(CSHORELIB_DIR NAMES ${CSHORE_LIB_NAME} HINTS $ENV{LD_LIBRARY_PATH} ${CMAKE_SOURCE_DIR}/lib ${CMAKE_INSTALL_DIR}/lib)
-#message (STATUS, "CSHORELIB_DIR=${CSHORELIB_DIR}")
+find_library(CSHORELIB_DIR NAMES ${CSHORE_LIB_NAME} HINTS ${CMAKE_SOURCE_DIR}/lib ${CMAKE_INSTALL_DIR}/lib $ENV{LD_LIBRARY_PATH})
+message (STATUS, "CSHORELIB_DIR=${CSHORELIB_DIR}")
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(CShoreLib DEFAULT_MSG CSHORELIB_DIR CSHORELIB_INCLUDE_DIR)

@@ -142,16 +142,22 @@ vector<vector<pair<int, int>>> CGeomMultiLine::prVVGetAllLineSegmentsAfter(int c
 //    m_prVVLineSegment.erase(m_prVVLineSegment.begin() + nSegment);
 // }
 
-//! Appends a line segment pair to the CGeomMultiLine object's final line segment
+//! Appends a line segment pair (profile and line segment) to the CGeomMultiLine object's final line segment, if the profiule isn't already present in the line segment
 void CGeomMultiLine::AppendPairToFinalLineSegment(pair<int, int> const prIn)
 {
    m_prVVLineSegment.back().push_back(prIn);
 }
 
-//! Adds a coincident pair to a pre-existing line segment of the CGeomMultiLine object
-void CGeomMultiLine::AddCoincidentPairToExistingLineSegment(int const nSegment, int const nProfile, int const nLineSeg)
+//! Adds a coincident pair (profile and line segment) to a pre-existing line segment of the CGeomMultiLine object, if the profile isn't already present in the line segment
+void CGeomMultiLine::AddCoincidentPairToExistingLineSegmentIfNotAlready(int const nSegment, int const nProfile, int const nLineSeg)
 {
    // assert(nSegment < m_prVVLineSegment.size());
+   for (int n = 0; n < m_prVVLineSegment[nSegment].size(); n++)
+   {
+      if (m_prVVLineSegment[nSegment][n].first == nProfile)
+         return;
+   }
+
    m_prVVLineSegment[nSegment].push_back(make_pair(nProfile, nLineSeg));
 }
 
