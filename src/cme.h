@@ -714,6 +714,9 @@ int const RUNUP_EQUATION_STOCKDON = 3;                      // Runup equation is
 //! Maximum number of avalanche iterations per timestep. Safety limit to prevent infinite loops in case of numerical issues.
 int const MAX_SLUMP_ITERATIONS = 100;
 
+//! Maximum number of along-coast passes to identify and correct coast-normal profile intersectionms
+int const MAX_ALONG_COAST_PASSES = 5;
+
 unsigned long const MASK = 0xfffffffful;
 unsigned long const SEDIMENT_INPUT_EVENT_ERROR = -1;
 unsigned long const UNSIGNED_LONG_NODATA = 9999;
@@ -766,7 +769,7 @@ double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
 double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (25 Feb 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (26 Feb 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";
@@ -1261,6 +1264,7 @@ bool bFPIsEqual(const T d1, const T d2, const T dEpsilon)
 // Definitions are in utilsglobal.cpp
 double dRound(double const);
 int nRound(double const);
+double dRoundToPoint5(double const);
 // bool bIsWhole(double const);
 bool bIsStringValidDouble(string &);
 bool bIsStringValidInt(string &);

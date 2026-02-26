@@ -34,7 +34,7 @@ using std::right;
 #include "cme.h"
 
 //===============================================================================================================================
-//! Correctly rounds doubles
+//! Correctly rounds doubles, returns an integer-valued double
 //===============================================================================================================================
 double dRound(double const d)
 {
@@ -49,6 +49,14 @@ int nRound(double const d)
 {
    // Rounds positive or negative doubles correctly
    return static_cast<int>((d < 0.0) ? ceil(d - 0.5) : floor(d + 0.5));
+}
+
+//===============================================================================================================================
+//! Rounds a double to the nearest 0.5 (i.e. always returns a double ending in .5)
+//===============================================================================================================================
+double dRoundToPoint5(double const d)
+{
+   return (floor((d * 2) + 0.5) / 2);
 }
 
 // bool bIsWhole(double d)

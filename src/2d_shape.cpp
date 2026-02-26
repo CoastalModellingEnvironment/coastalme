@@ -96,10 +96,10 @@ CGeom2DPoint* CA2DShape::pPtBack(void)
 // m_VPoints = *VNewPoints;
 // }
 
-bool CA2DShape::bIsPresent(CGeom2DPoint* Pt)
+bool CA2DShape::bIsPresent(CGeom2DPoint const* pPt)
 {
-   double dPtX = Pt->dGetX();
-   double dPtY = Pt->dGetY();
+   double dPtX = pPt->dGetX();
+   double dPtY = pPt->dGetY();
 
    for (size_t n = 0; n < m_VPoints.size(); n++)
    {

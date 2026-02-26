@@ -316,7 +316,6 @@ int CSimulation::nReadVectorGISFile(int const nDataItem)
             if (m_bSedimentInputAtPoint || m_bSedimentInputAtCoast)
                // Save the ID for the point
                m_VnSedimentInputLocationID.push_back(nID);
-
             else if (m_bSedimentInputAlongLine)
             {
                // Save the ID for every point in the line
@@ -618,15 +617,23 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
    strFilePathName.append("_");
    stringstream ststrTmp;
 
-   if (m_bGISSaveDigitsSequential)
+   if (! strExtra.empty())
    {
-      // Save number is sequential
-      ststrTmp << FillToWidth('0', m_nGISMaxSaveDigits) << m_nGISSave;
+      // We are debugging, so save number is iteration
+      ststrTmp << FillToWidth('0', m_nGISMaxSaveDigits) << m_ulIter;
    }
    else
    {
-      // Save number is iteration
-      ststrTmp << FillToWidth('0', m_nGISMaxSaveDigits) << m_ulIter;
+      if (m_bGISSaveDigitsSequential)
+      {
+         // Save number is sequential
+         ststrTmp << FillToWidth('0', m_nGISMaxSaveDigits) << m_nGISSave;
+      }
+      else
+      {
+         // Save number is iteration
+         ststrTmp << FillToWidth('0', m_nGISMaxSaveDigits) << m_ulIter;
+      }
    }
 
    strFilePathName.append(ststrTmp.str());
@@ -635,8 +642,11 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
    // Make a copy of the filename without any extension
    // string strFilePathNameNoExt = strFilePathName;
 
-   // Append the extra string (useful when debugging)
-   strFilePathName.append(strExtra);
+   if (! strExtra.empty())
+   {
+      // We are debugging, so append the extra string
+      strFilePathName.append(strExtra);
+   }
 
    // If desired, append an extension
    if (! m_strOGRVectorOutputExtension.empty())
@@ -678,7 +688,6 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
    // }
 
    OGRLayer* pOGRLayer = pGDALDataSet->CreateLayer(strstrFileName.str().c_str(), &OGRSpatialRef, eGType, m_papszGDALVectorOptions);
-
    if (pOGRLayer == NULL)
    {
       cerr << ERR << "cannot create '" << strType << "' layer in " << strFilePathName << endl
@@ -2013,7 +2022,7 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
       }
 
       break;
-   }
+      }
    }
 
    CPLPopErrorHandler();

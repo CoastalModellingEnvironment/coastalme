@@ -60,7 +60,7 @@ class CA2DShape
    void Append(double const, double const);
    void AppendIfNotPrevious(double const, double const);
    CGeom2DPoint* pPtBack(void);
-   bool bIsPresent(CGeom2DPoint*);
+   bool bIsPresent(CGeom2DPoint const*);
 
    CGeom2DPoint& operator[](int const);
    vector<CGeom2DPoint>* pPtVGetPoints(void);

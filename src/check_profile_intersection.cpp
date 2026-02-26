@@ -70,8 +70,11 @@ void CSimulation::CheckAllProfilesForIntersection(void)
          bChanged = false;
          nPass++;
          LogStream << "***************************** nPass = " << nPass << endl;
-         if (nPass == 20)
+         if (nPass >= MAX_ALONG_COAST_PASSES)
+         {
+            LogStream << m_ulIter << ":\t Reached maximum number (" << MAX_ALONG_COAST_PASSES << ") of along-coast passes for coast-normal intersection checks, abandoning check" << endl;
             break;
+         }
 
          // Search in alternate directions, first down-coast (in the direction of increasing coast point numbers) then up-coast
          int nFirstProfileStartCoastPoint;
@@ -133,7 +136,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
 
                      // LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << pFirstProfile->nGetProfileID() << " (coast point " << nFirstCoastPoint << ") and second profile " << pSecondProfile->nGetProfileID() << " (coast point " << nSecondCoastPoint << ")" << endl;
 
-                     // Safety check: don't check this second profile if it is a start- or end-of-coast profile
+                     // Don't check this second profile if it is a start- or end-of-coast profile
                      if (pSecondProfile->bIsStartOrEndOfCoast())
                      {
                         // LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << nFirstProfile << " second profile = " << pSecondProfile->nGetProfileID() << " is a start- or end-of-coast profile, do not check" << endl << endl;
@@ -195,10 +198,10 @@ void CSimulation::CheckAllProfilesForIntersection(void)
 
                      // Is the point of intersection also the end point of the first profile and the second profile? (Uncommon, but it happens occasionally)
                      int const nFirstPointSize = pFirstProfile->nGetProfileSize();
-                     CGeom2DPoint* const pPtFirstEnd = pFirstProfile->pPtGetPointInProfile(nFirstPointSize-1);
+                     CGeom2DPoint const* pPtFirstEnd = pFirstProfile->pPtGetPointInProfile(nFirstPointSize-1);
 
                      int const nSecondPointSize = pSecondProfile->nGetProfileSize();
-                     CGeom2DPoint* const pPtSecondEnd = pSecondProfile->pPtGetPointInProfile(nSecondPointSize-1);
+                     CGeom2DPoint const* pPtSecondEnd = pSecondProfile->pPtGetPointInProfile(nSecondPointSize-1);
 
                      if (bFPIsEqual(dIntersectX, pPtFirstEnd->dGetX(), TOLERANCE) && bFPIsEqual(dIntersectY, pPtFirstEnd->dGetY(), TOLERANCE) && bFPIsEqual(dIntersectX, pPtSecondEnd->dGetX(), TOLERANCE) && bFPIsEqual(dIntersectY, pPtSecondEnd->dGetY(), TOLERANCE))
                      {
@@ -218,56 +221,9 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         LogStream << m_ulIter << ": profiles " << nFirstProfile << " and " << nSecondProfile << " intersect, truncate first profile " << nFirstProfile << " at {" << dIntersectX << ", " << dIntersectY << "} since it is an intervention profile" << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg);
-
-                        // // DEBUG CODE ****************************************************************
-                        // m_nExtra++;
-                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUNCATE FIRST (INTERVENTION) PROFILE m_nExtra = " << m_nExtra << endl;
-                        // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                        //
-                        // int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
-                        // int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
-                        // int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
-                        // int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
-                        //
-                        // LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-                        // LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
-                        // for (int m = 0; m < nFirstProfilePoints; m++)
-                        //    LogStream << "{" << pFirstProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pFirstProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        // LogStream << endl;
-                        //
-                        // LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-                        // for (int m = 0; m < nFirstProfileLineSeg; m++)
-                        // {
-                        //    vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //    for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //       LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //    LogStream << " " << endl;
-                        // }
-                        //
-                        // LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-                        // LogStream << "\tPoints for profile " << pSecondProfile->nGetProfileID() << " are ";
-                        // for (int m = 0; m < nSecondProfilePoints; m++)
-                        //    LogStream << "{" << pSecondProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pSecondProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        // LogStream << endl;
-                        //
-                        // LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-                        // for (int m = 0; m < nSecondProfileLineSeg; m++)
-                        // {
-                        //    vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //    for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //       LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //    LogStream << " " << endl;
-                        // }
-                        //
-                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-                        //
-                        // string strExtra = "_" + to_string(m_nExtra);
-                        // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                        // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                        // // DEBUG CODE ******************************************************************
-
+#ifdef _DEBUG
+                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+#endif
                         continue;
                      }
 
@@ -278,56 +234,9 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         LogStream << m_ulIter << ": profiles " << nFirstProfile << " and " << nSecondProfile << " intersect, truncate second profile " << nSecondProfile << " at {" << dIntersectX << ", " << dIntersectY << "} since it is an intervention profile" << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg);
-
-                        // // DEBUG CODE ****************************************************************
-                        // m_nExtra++;
-                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUNCATE SECOND (INTERVENTION) PROFILE m_nExtra = " << m_nExtra << endl;
-                        // LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                        //
-                        // int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
-                        // int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
-                        // int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
-                        // int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
-                        //
-                        // LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-                        // LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
-                        // for (int m = 0; m < nFirstProfilePoints; m++)
-                        //    LogStream << "{" << pFirstProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pFirstProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        // LogStream << endl;
-                        //
-                        // LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-                        // for (int m = 0; m < nFirstProfileLineSeg; m++)
-                        // {
-                        //    vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //    for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //       LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //    LogStream << " " << endl;
-                        // }
-                        //
-                        // LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-                        // LogStream << "\tPoints for profile " << pSecondProfile->nGetProfileID() << " are ";
-                        // for (int m = 0; m < nSecondProfilePoints; m++)
-                        //    LogStream << "{" << pSecondProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pSecondProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        // LogStream << endl;
-                        //
-                        // LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-                        // for (int m = 0; m < nSecondProfileLineSeg; m++)
-                        // {
-                        //    vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //    LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //    for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //       LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //    LogStream << " " << endl;
-                        // }
-                        //
-                        // LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-                        //
-                        // string strExtra = "_" + to_string(m_nExtra);
-                        // bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                        // bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                        // // DEBUG CODE ******************************************************************
-
+#ifdef _DEBUG
+                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+#endif
                         continue;
                      }
 
@@ -348,59 +257,9 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         MergeProfilesAtFinalLineSegments(nCoast, pFirstProfile, pSecondProfile, nFirstProfileLineSegments, nSecondProfileLineSegments, dIntersectX, dIntersectY, dAvgEndX, dAvgEndY);
 
                         LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, merged first profile " << nFirstProfile << " and second profile " << nSecondProfile << " at {" << dIntersectX << ", " << dIntersectY << "}, averaged endpoint is {" << dAvgEndX << ", " << dAvgEndY << "}" << endl;
-
-                        // // DEBUG CODE ****************************************************************
-                        // if (m_ulIter == 7855)
-                        // {
-                        //    m_nExtra++;
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% AFTER MERGE PROFILES SEAWARD OF INTERSECTION m_nExtra = " << m_nExtra << endl;
-                        //    LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                        //
-                        //    int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
-                        //    int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
-                        //    int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
-                        //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nFirstProfilePoints; m++)
-                        //       LogStream << "{" << pFirstProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pFirstProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nFirstProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nSecondProfilePoints; m++)
-                        //       LogStream << "{" << pSecondProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pSecondProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nSecondProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-                        //
-                        //    string strExtra = "_" + to_string(m_nExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                        // }
-                        // // DEBUG CODE ******************************************************************
-
+#ifdef _DEBUG
+                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+#endif
                         continue;
                      }
 
@@ -414,59 +273,9 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << nFirstProfile << " second profile = " << nSecondProfile << ", first profile is an intervention profile, so truncate first profile (" << nFirstProfile << ") at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg);
-
-                        // // DEBUG CODE ****************************************************************
-                        // if (m_ulIter == 7855)
-                        // {
-                        //    m_nExtra++;
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUNCATE (NOT IN FINAL LINE SEGMENT) FIRST (INTERVENTION) PROFILE m_nExtra = " << m_nExtra << endl;
-                        //    LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                        //
-                        //    int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
-                        //    int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
-                        //    int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
-                        //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nFirstProfilePoints; m++)
-                        //       LogStream << "{" << pFirstProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pFirstProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nFirstProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nSecondProfilePoints; m++)
-                        //       LogStream << "{" << pSecondProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pSecondProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nSecondProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-                        //
-                        //    string strExtra = "_" + to_string(m_nExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                        // }
-                        // // DEBUG CODE ******************************************************************
-                        //
+#ifdef _DEBUG
+                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+#endif
                         continue;
                      }
 
@@ -476,58 +285,9 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << nFirstProfile << " second profile = " << nSecondProfile << ", second profile is an intervention profile, so truncate second profile (" << nSecondProfile << ") at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg);
-
-                        // // DEBUG CODE ****************************************************************
-                        // if (m_ulIter == 7855)
-                        // {
-                        //    m_nExtra++;
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUNCATE (NOT IN FINAL LINE SEGMENT) SECOND (INTERVENTION) PROFILE m_nExtra = " << m_nExtra << endl;                                LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                        //
-                        //    int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
-                        //    int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
-                        //    int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
-                        //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nFirstProfilePoints; m++)
-                        //       LogStream << "{" << pFirstProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pFirstProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nFirstProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nSecondProfilePoints; m++)
-                        //       LogStream << "{" << pSecondProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pSecondProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nSecondProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-                        //
-                        //    string strExtra = "_" + to_string(m_nExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                        // }
-                        // // DEBUG CODE ******************************************************************
-
+#ifdef _DEBUG
+                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+#endif
                         continue;
                      }
 
@@ -537,59 +297,9 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << nFirstProfile << " has a smaller number of line segments, so truncate profile " << nFirstProfile << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg);
-
-                        // // DEBUG CODE ****************************************************************
-                        // if (m_ulIter == 7855)
-                        // {
-                        //    m_nExtra++;
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUNCATE (NOT IN FINAL LINE SEGMENT) FIRST (FEWER LINE SEGMENTS) PROFILE m_nExtra = " << m_nExtra << endl;
-                        //    LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                        //
-                        //    int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
-                        //    int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
-                        //    int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
-                        //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nFirstProfilePoints; m++)
-                        //       LogStream << "{" << pFirstProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pFirstProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nFirstProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nSecondProfilePoints; m++)
-                        //       LogStream << "{" << pSecondProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pSecondProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nSecondProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-                        //
-                        //    string strExtra = "_" + to_string(m_nExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                        // }
-                        // // DEBUG CODE ******************************************************************
-
+#ifdef _DEBUG
+                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+#endif
                         continue;
                      }
 
@@ -599,181 +309,31 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                         LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << nSecondProfile << " has a smaller number of line segments, so truncate profile " << nSecondProfile << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg);
-
-                        // // DEBUG CODE ****************************************************************
-                        // if (m_ulIter == 7855)
-                        // {
-                        //    m_nExtra++;
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUNCATE (NOT IN FINAL LINE SEGMENT) SECOND (FEWER LINE SEGMENTS) PROFILE m_nExtra = " << m_nExtra << endl;
-                        //    LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                        //
-                        //    int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
-                        //    int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
-                        //    int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
-                        //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nFirstProfilePoints; m++)
-                        //       LogStream << "{" << pFirstProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pFirstProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nFirstProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nSecondProfilePoints; m++)
-                        //       LogStream << "{" << pSecondProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pSecondProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nSecondProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-                        //
-                        //    string strExtra = "_" + to_string(m_nExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                        // }
-                        // // DEBUG CODE ******************************************************************
-
+#ifdef _DEBUG
+                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+#endif
                         continue;
                      }
 
                      // Both profiles have the same number of line segments, so choose randomly. Draw a sample from the unit normal distribution using random number generator 1
                      double const dRand = m_dGetFromUnitNormalDist(m_Rand[1]);
-                     if (dRand >= 0.0)
+                     if (dRand >= 0)
                      {
                         LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, dRand = " << dRand << ", same number of line segments so randomly truncate first profile = " << nFirstProfile << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg);
-
-                        // // DEBUG CODE ****************************************************************
-                        // if (m_ulIter == 7855)
-                        // {
-                        //    m_nExtra++;
-                        //    if (m_nExtra == 9)
-                        //       LogStream << endl;
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUNCATE (NOT IN FINAL LINE SEGMENT, RANDOM CHOICE) FIRST PROFILE m_nExtra = " << m_nExtra << endl;
-                        //    LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                        //
-                        //    int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
-                        //    int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
-                        //    int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
-                        //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nFirstProfilePoints; m++)
-                        //       LogStream << "{" << pFirstProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pFirstProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nFirstProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nSecondProfilePoints; m++)
-                        //       LogStream << "{" << pSecondProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pSecondProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nSecondProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-                        //
-                        //    string strExtra = "_" + to_string(m_nExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                        // }
-                        // // DEBUG CODE ******************************************************************
+#ifdef _DEBUG
+                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+#endif
                      }
                      else
                      {
                         LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, dRand = " << dRand << ", same number of line segments so randomly truncate second profile = " << nSecondProfile << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg);
-
-                        // // DEBUG CODE ****************************************************************
-                        // if (m_ulIter == 7855)
-                        // {
-                        //    m_nExtra++;
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUNCATE (NOT IN FINAL LINE SEGMENT, RANDOM CHOICE) SECOND PROFILE m_nExtra = " << m_nExtra << endl;
-                        //    LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-                        //
-                        //    int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
-                        //    int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
-                        //    int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
-                        //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nFirstProfilePoints; m++)
-                        //       LogStream << "{" << pFirstProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pFirstProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nFirstProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pFirstProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-                        //    LogStream << "\tPoints for profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //    for (int m = 0; m < nSecondProfilePoints; m++)
-                        //       LogStream << "{" << pSecondProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pSecondProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-                        //    LogStream << endl;
-                        //
-                        //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-                        //    for (int m = 0; m < nSecondProfileLineSeg; m++)
-                        //    {
-                        //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetCoincidentPairsForLineSegment(m);
-                        //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pSecondProfile->nGetProfileID() << " are ";
-                        //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-                        //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-                        //       LogStream << " " << endl;
-                        //    }
-                        //
-                        //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-                        //
-                        //    string strExtra = "_" + to_string(m_nExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-                        //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-                        // }
-                        // // DEBUG CODE ******************************************************************
+#ifdef _DEBUG
+                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+#endif
                      }
                   }
                }
@@ -892,6 +452,13 @@ bool CSimulation::bCheckForIntersection(CGeomProfile* const pVProfile1, CGeomPro
             // And calc the average end-point coordinates
             dXAvgEnd = (dX2 + dX4) / 2;
             dYAvgEnd = (dY2 + dY4) / 2;
+
+            // TEST CODE ===========================
+            dXIntersect = dRoundToPoint5(dXIntersect);
+            dYIntersect = dRoundToPoint5(dYIntersect);
+            dXAvgEnd = dRoundToPoint5(dXAvgEnd);
+            dYAvgEnd = dRoundToPoint5(dYAvgEnd);
+            // TEST CODE ===========================
 
             // Get the line segments at which intersection occurred
             nProfile1LineSegment = i;
@@ -1104,22 +671,7 @@ void CSimulation::CreateRasterizedProfile(int const nCoast, CGeomProfile* pProfi
          // Do some checking of this interpolated point, but only if this is not a grid-edge profile (these profiles are always valid)
          if (! pProfile->bIsStartOrEndOfCoast())
          {
-            // // Is the interpolated point within the valid raster grid?
-            // if (! bIsWithinValidGrid(nX, nY))
-            // {
-            //    // It is outside the valid grid, so mark this profile and quit the loop
-            //    bTruncatedSameCoast = true;
-            //
-            //    if (! ACCEPT_TRUNCATED_PROFILES)
-            //       pProfile->SetTruncated();
-            //
-            //    if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-            //       LogStream << m_ulIter << ": profile " << nProfile << " is truncated, and ACCEPT_TRUNCATED_PROFILES is true, invalid, truncated at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
-            //
-            //    break;
-            // }
-
-            // Do more checks: does this profile cross another profile (despite our best efforts so far to make sure that this doesn't happen)? Test by finding out whether this cell (or an adjacent cell: does not matter which) is already marked as 'under' a profile
+            // Does this profile cross another profile (despite our best efforts so far to make sure that this doesn't happen)? Test by finding out whether this cell (or an adjacent cell: does not matter which) is already marked as 'under' a profile
             int nYTmp = nY+1;
             if (nY+1 >= m_nYGridSize)
                nYTmp = nY-1;
@@ -1427,59 +979,6 @@ void CSimulation::MergeProfilesAtFinalLineSegments(int const nCoast, CGeomProfil
          pThisProfile->AppendPairToFinalLineSegment(prVCombinedProfilesCoincidentProfilesLastSeg[m]);
 
    }
-
-   // // DEBUG CODE ****************************************************************
-   // if (m_ulIter == 7855)
-   // {
-   //    m_nExtra++;
-   //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% AT END OF MergeProfilesAtFinalLineSegments() m_nExtra = " << m_nExtra << endl;
-   //    LogStream << "First profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
-   //
-   //    int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
-   //    int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
-   //    int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
-   //    int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
-   //
-   //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-   //    LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
-   //    for (int m = 0; m < nFirstProfilePoints; m++)
-   //       LogStream << "{" << pFirstProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pFirstProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-   //    LogStream << endl;
-   //
-   //    LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-   //    for (int m = 0; m < nFirstProfileLineSeg; m++)
-   //    {
-   //       vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetCoincidentPairsForLineSegment(m);
-   //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pFirstProfile->nGetProfileID() << " are ";
-   //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-   //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-   //       LogStream << " " << endl;
-   //    }
-   //
-   //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-   //    LogStream << "\tPoints for profile " << pSecondProfile->nGetProfileID() << " are ";
-   //    for (int m = 0; m < nSecondProfilePoints; m++)
-   //       LogStream << "{" << pSecondProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pSecondProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-   //    LogStream << endl;
-   //
-   //    LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-   //    for (int m = 0; m < nSecondProfileLineSeg; m++)
-   //    {
-   //       vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetCoincidentPairsForLineSegment(m);
-   //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pSecondProfile->nGetProfileID() << " are ";
-   //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-   //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-   //       LogStream << " " << endl;
-   //    }
-   //
-   //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-   //
-   //    string strExtra = "_" + to_string(m_nExtra);
-   //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-   //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-   // }
-   // // DEBUG CODE ******************************************************************
-
 }
 
 //===============================================================================================================================
@@ -1487,58 +986,6 @@ void CSimulation::MergeProfilesAtFinalLineSegments(int const nCoast, CGeomProfil
 //===============================================================================================================================
 void CSimulation::TruncateOneProfileRetainOtherProfile(int const nCoast, CGeomProfile* pProfileToTruncate, CGeomProfile* pProfileToRetain, double dIntersectX, double dIntersectY, int nProfileToTruncateIntersectLineSeg, int nProfileToRetainIntersectLineSeg)
 {
-   // // DEBUG CODE ****************************************************************
-   // if (m_nExtra == 9)
-   // {
-   //    m_nExtra++;
-   //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% *** START *** TRUNCATE ONE INTERSECTING PROFILE m_nExtra = " << m_nExtra << endl;
-   //    LogStream << "profile to retain = " << pProfileToRetain->nGetProfileID() << " profile to truncate = " << pProfileToTruncate->nGetProfileID() << endl;
-   //
-   //    int nFirstProfilePoints = pProfileToRetain->nGetProfileSize();
-   //    int nSecondProfilePoints = pProfileToTruncate->nGetProfileSize();
-   //    int nFirstProfileLineSeg = pProfileToRetain->nGetNumLineSegments();
-   //    int nSecondProfileLineSeg = pProfileToTruncate->nGetNumLineSegments();
-   //
-   //    LogStream << "\tFirst profile = " << pProfileToRetain->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-   //    LogStream << "\tPoints for profile " << pProfileToRetain->nGetProfileID() << " are ";
-   //    for (int m = 0; m < nFirstProfilePoints; m++)
-   //       LogStream << "{" << pProfileToRetain->pPtGetPointInProfile(m)->dGetX() << ", " << pProfileToRetain->pPtGetPointInProfile(m)->dGetY() << "} ";
-   //    LogStream << endl;
-   //
-   //    LogStream << "\tFirst profile = " << pProfileToRetain->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-   //    for (int m = 0; m < nFirstProfileLineSeg; m++)
-   //    {
-   //       vector<pair<int, int> > prVCoincidentProfiles = *pProfileToRetain->pprVGetCoincidentPairsForLineSegment(m);
-   //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pProfileToRetain->nGetProfileID() << " are ";
-   //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-   //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-   //       LogStream << " " << endl;
-   //    }
-   //
-   //    LogStream << "\tSecond profile = " << pProfileToTruncate->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-   //    LogStream << "\tPoints for profile " << pProfileToTruncate->nGetProfileID() << " are ";
-   //    for (int m = 0; m < nSecondProfilePoints; m++)
-   //       LogStream << "{" << pProfileToTruncate->pPtGetPointInProfile(m)->dGetX() << ", " << pProfileToTruncate->pPtGetPointInProfile(m)->dGetY() << "} ";
-   //    LogStream << endl;
-   //
-   //    LogStream << "\tSecond profile = " << pProfileToTruncate->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-   //    for (int m = 0; m < nSecondProfileLineSeg; m++)
-   //    {
-   //       vector<pair<int, int> > prVCoincidentProfiles = *pProfileToTruncate->pprVGetCoincidentPairsForLineSegment(m);
-   //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pProfileToTruncate->nGetProfileID() << " are ";
-   //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-   //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-   //       LogStream << " " << endl;
-   //    }
-   //
-   //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-   //
-   //    string strExtra = "_" + to_string(m_nExtra);
-   //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-   //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-   // }
-   // // DEBUG CODE ******************************************************************
-
    CGeom2DPoint PtIntersect(dIntersectX, dIntersectY);
    bool bAlreadyPresent = pProfileToRetain->bIsPresent(&PtIntersect);
 
@@ -1549,58 +996,6 @@ void CSimulation::TruncateOneProfileRetainOtherProfile(int const nCoast, CGeomPr
       LogStream << m_ulIter << ": error in nInsertPointIntoProfilesIfNeededThenUpdate()" << endl;
       return;
    }
-
-   // // DEBUG CODE ****************************************************************
-   // if (m_nExtra >= 9)
-   // {
-   //    m_nExtra++;
-   //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% *** NEXT *** TRUNCATE ONE INTERSECTING PROFILE m_nExtra = " << m_nExtra << endl;
-   //    LogStream << "profile to retain = " << pProfileToRetain->nGetProfileID() << " profile to truncate = " << pProfileToTruncate->nGetProfileID() << endl;
-   //
-   //    int nFirstProfilePoints = pProfileToRetain->nGetProfileSize();
-   //    int nSecondProfilePoints = pProfileToTruncate->nGetProfileSize();
-   //    int nFirstProfileLineSeg = pProfileToRetain->nGetNumLineSegments();
-   //    int nSecondProfileLineSeg = pProfileToTruncate->nGetNumLineSegments();
-   //
-   //    LogStream << "\tFirst profile = " << pProfileToRetain->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-   //    LogStream << "\tPoints for profile " << pProfileToRetain->nGetProfileID() << " are ";
-   //    for (int m = 0; m < nFirstProfilePoints; m++)
-   //       LogStream << "{" << pProfileToRetain->pPtGetPointInProfile(m)->dGetX() << ", " << pProfileToRetain->pPtGetPointInProfile(m)->dGetY() << "} ";
-   //    LogStream << endl;
-   //
-   //    LogStream << "\tFirst profile = " << pProfileToRetain->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-   //    for (int m = 0; m < nFirstProfileLineSeg; m++)
-   //    {
-   //       vector<pair<int, int> > prVCoincidentProfiles = *pProfileToRetain->pprVGetCoincidentPairsForLineSegment(m);
-   //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pProfileToRetain->nGetProfileID() << " are ";
-   //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-   //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-   //       LogStream << " " << endl;
-   //    }
-   //
-   //    LogStream << "\tSecond profile = " << pProfileToTruncate->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-   //    LogStream << "\tPoints for profile " << pProfileToTruncate->nGetProfileID() << " are ";
-   //    for (int m = 0; m < nSecondProfilePoints; m++)
-   //       LogStream << "{" << pProfileToTruncate->pPtGetPointInProfile(m)->dGetX() << ", " << pProfileToTruncate->pPtGetPointInProfile(m)->dGetY() << "} ";
-   //    LogStream << endl;
-   //
-   //    LogStream << "\tSecond profile = " << pProfileToTruncate->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-   //    for (int m = 0; m < nSecondProfileLineSeg; m++)
-   //    {
-   //       vector<pair<int, int> > prVCoincidentProfiles = *pProfileToTruncate->pprVGetCoincidentPairsForLineSegment(m);
-   //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pProfileToTruncate->nGetProfileID() << " are ";
-   //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-   //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-   //       LogStream << " " << endl;
-   //    }
-   //
-   //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-   //
-   //    string strExtra = "_" + to_string(m_nExtra);
-   //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-   //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-   // }
-   // // DEBUG CODE ******************************************************************
 
    // Get all profile points of the main retain-profile seawards from the intersection point, and do the same for the corresponding line segments (including coincident profiles). This also includes details of the main to-truncate profile (and all its coincident profiles)
    vector<CGeom2DPoint> PtVProfileLastPart;
@@ -1641,104 +1036,9 @@ int CSimulation::nInsertPointIntoProfilesIfNeededThenUpdate(int const nCoast, CG
 
       CGeomProfile* pThisProfile = m_VCoast[nCoast].pGetProfile(nThisProfile);
 
-      // // DEBUG CODE ****************************************************************
-      // if (m_ulIter == 7855)
-      // {
-      //    m_nExtra++;
-      //    if (m_nExtra == 8)
-      //       LogStream << endl;
-      //
-      //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% IN nInsertPointIntoProfilesIfNeededThenUpdate() *** FIRST LOOP = " << nn << " INSERT POINT INTO PROFILES m_nExtra = " << m_nExtra << endl;
-      //    LogStream << "Profile to retain = " << pProfileToRetain->nGetProfileID() << " profile to truncate = " << pProfileToTruncate->nGetProfileID() << " this profile = " << pThisProfile->nGetProfileID() << endl;
-      //
-      //    int nRetainProfilePoints = pProfileToRetain->nGetProfileSize();
-      //    int nTruncateProfilePoints = pProfileToTruncate->nGetProfileSize();
-      //    int nThisProfilePoints = pThisProfile->nGetProfileSize();
-      //    int nRetainProfileLineSeg = pProfileToRetain->nGetNumLineSegments();
-      //    int nTruncateProfileLineSeg = pProfileToTruncate->nGetNumLineSegments();
-      //    int nThisProfileLineSeg = pThisProfile->nGetNumLineSegments();
-      //
-      //    LogStream << "\tProfile to retain = " << pProfileToRetain->nGetProfileID() << " now has " << nRetainProfilePoints << " points" << endl;
-      //    LogStream << "\tPoints for profile " << pProfileToRetain->nGetProfileID() << " are ";
-      //    for (int m = 0; m < nRetainProfilePoints; m++)
-      //       LogStream << "{" << pProfileToRetain->pPtGetPointInProfile(m)->dGetX() << ", " << pProfileToRetain->pPtGetPointInProfile(m)->dGetY() << "} ";
-      //    LogStream << endl;
-      //
-      //    LogStream << "\tProfile to retain = " << pProfileToRetain->nGetProfileID() << " now has " << nRetainProfileLineSeg << " line segments" << endl;
-      //    for (int m = 0; m < nRetainProfileLineSeg; m++)
-      //    {
-      //       vector<pair<int, int> > prVCoincidentProfiles = *pProfileToRetain->pprVGetCoincidentPairsForLineSegment(m);
-      //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pProfileToRetain->nGetProfileID() << " are ";
-      //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-      //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-      //       LogStream << " " << endl;
-      //    }
-      //
-      //    LogStream << "\tProfile to truncate = " << pProfileToTruncate->nGetProfileID() << " now has " << nRetainProfilePoints << " points" << endl;
-      //    LogStream << "\tPoints for profile " << pProfileToTruncate->nGetProfileID() << " are ";
-      //    for (int m = 0; m < nTruncateProfilePoints; m++)
-      //       LogStream << "{" << pProfileToTruncate->pPtGetPointInProfile(m)->dGetX() << ", " << pProfileToTruncate->pPtGetPointInProfile(m)->dGetY() << "} ";
-      //    LogStream << endl;
-      //
-      //    LogStream << "\tProfile to truuncate = " << pProfileToTruncate->nGetProfileID() << " now has " << nTruncateProfileLineSeg << " line segments" << endl;
-      //    for (int m = 0; m < nTruncateProfileLineSeg; m++)
-      //    {
-      //       vector<pair<int, int> > prVCoincidentProfiles = *pProfileToTruncate->pprVGetCoincidentPairsForLineSegment(m);
-      //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pProfileToTruncate->nGetProfileID() << " are ";
-      //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-      //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-      //       LogStream << " " << endl;
-      //    }
-      //
-      //    LogStream << "\tThis profile = " << pThisProfile->nGetProfileID() << " now has " << nThisProfilePoints << " points" << endl;
-      //    LogStream << "\tPoints for profile " << pThisProfile->nGetProfileID() << " are ";
-      //    for (int m = 0; m < nThisProfilePoints; m++)
-      //       LogStream << "{" << pThisProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pThisProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-      //    LogStream << endl;
-      //
-      //    LogStream << "\tThis profile = " << pThisProfile->nGetProfileID() << " now has " << nThisProfileLineSeg << " line segments" << endl;
-      //    for (int m = 0; m < nThisProfileLineSeg; m++)
-      //    {
-      //       vector<pair<int, int> > prVCoincidentProfiles = *pThisProfile->pprVGetCoincidentPairsForLineSegment(m);
-      //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pThisProfile->nGetProfileID() << " are ";
-      //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-      //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-      //       LogStream << " " << endl;
-      //    }
-      //
-      //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-      //
-      //    string strExtra = "_" + to_string(m_nExtra);
-      //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-      //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-      // }
-      // // DEBUG CODE ******************************************************************
-
       // Is the intersection point already present in the to-retain profile?
       if (! bAlreadyPresent)
       {
-         if ((m_ulIter == 7855) && (m_nExtra >= 8))
-            LogStream << endl;
-
-         // // DEBUG CODE ========================
-         // if (nThisLineSeg >= pThisProfile->nGetProfileSize())
-         // {
-         //    LogStream << "***?????????????? nThisLineSeg = " << nThisLineSeg << " pThisProfile->nGetProfileSize() = " << pThisProfile->nGetProfileSize() << endl;
-         //    continue;
-         // }
-         //
-         // int nNumLineSeg = pThisProfile->nGetNumLineSegments();
-         // if (nThisLineSeg >= nNumLineSeg)
-         // {
-         //    LogStream << "***?????????????? nThisLineSeg = " << nThisLineSeg << " pThisProfile->nGetNumLineSegments() = " << pThisProfile->nGetNumLineSegments() << " nThisLineSeg now = " << nNumLineSeg << endl;
-         //
-         //    nThisLineSeg = nNumLineSeg;
-         //    prVCoincidentProfiles[nn].second = nNumLineSeg;
-         //    // *pProfileToRetain->pprVGetCoincidentPairsForLineSegment(nProfileToRetainIntersectLineSeg)
-         //
-         // }
-         // // DEBUG CODE ========================
-
          if (nThisProfile != nProfileToRetain)
             continue;
 
@@ -1758,7 +1058,7 @@ int CSimulation::nInsertPointIntoProfilesIfNeededThenUpdate(int const nCoast, CG
             LogStream << "Profile points for profile " << pThisProfile->nGetProfileID() << endl;
             for (int mmm = 0; mmm < pThisProfile->nGetProfileSize(); mmm++)
             {
-               CGeom2DPoint* pPtThis = pThisProfile->pPtGetPointInProfile(mmm);
+               CGeom2DPoint const* pPtThis = pThisProfile->pPtGetPointInProfile(mmm);
                LogStream << "{" << pPtThis->dGetX() << ", " << pPtThis->dGetY() << "}\t";
             }
             LogStream << endl;
@@ -1786,24 +1086,11 @@ int CSimulation::nInsertPointIntoProfilesIfNeededThenUpdate(int const nCoast, CG
             // return RTN_ERR_CANNOT_INSERT_POINT;
             continue;
          }
-
-         // // DEBUG CODE =====================
-         // if ((m_ulIter == 7855) && (m_nExtra >= 8))
-         //    LogStream << "\tIntersection point {" << dIntersectX << ", " << dIntersectY << "} not already in profile " << nThisProfile << " (" << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile), inserted it, nn = " << nn << endl;
-         // // DEBUG CODE =====================
       }
 
       // Get the line segment after intersection
       VnLineSegAfterIntersect[nn] = nThisLineSeg + 1;
    }
-
-   // // DEBUG CODE =====================
-   // if ((m_ulIter == 7855) && (m_nExtra >= 8))
-   // {
-   //    for (int nn = 0; nn < nNumCoincident; nn++)
-   //       LogStream << "\tFor profile " << prVCoincidentProfiles[nn].first << " line segment [" << VnLineSegAfterIntersect[nn] << "] is immediately after the intersection point" << endl;
-   // }
-   // // DEBUG CODE =====================
 
    // Get the coincident profiles for the to-truncate profile, at the line segment where intersection occurs
    vector<pair<int, int>> prVToTruncateCoincidentProfiles = *pProfileToTruncate->pprVGetCoincidentPairsForLineSegment(nProfileToTruncateIntersectLineSeg);
@@ -1819,72 +1106,12 @@ int CSimulation::nInsertPointIntoProfilesIfNeededThenUpdate(int const nCoast, CG
 
       CGeomProfile* pThisProfile = m_VCoast[nCoast].pGetProfile(nThisProfile);
 
-      // // DEBUG CODE ****************************************************************
-      // if ((m_ulIter == 7855) && (m_nExtra >= 8))
-      // {
-      //    m_nExtra++;
-      //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% *** SECOND LOOP = " << nCoinc << " INSERT POINT INTO PROFILES m_nExtra = " << m_nExtra << endl;
-      //    LogStream << "profile to retain = " << pProfileToRetain->nGetProfileID() << " nThisProfile = " << pThisProfile->nGetProfileID() << endl;
-      //
-      //    int nFirstProfilePoints = pProfileToRetain->nGetProfileSize();
-      //    int nSecondProfilePoints = pThisProfile->nGetProfileSize();
-      //    int nFirstProfileLineSeg = pProfileToRetain->nGetNumLineSegments();
-      //    int nSecondProfileLineSeg = pThisProfile->nGetNumLineSegments();
-      //
-      //    LogStream << "\tFirst profile = " << pProfileToRetain->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
-      //    LogStream << "\tPoints for profile " << pProfileToRetain->nGetProfileID() << " are ";
-      //    for (int m = 0; m < nFirstProfilePoints; m++)
-      //       LogStream << "{" << pProfileToRetain->pPtGetPointInProfile(m)->dGetX() << ", " << pProfileToRetain->pPtGetPointInProfile(m)->dGetY() << "} ";
-      //    LogStream << endl;
-      //
-      //    LogStream << "\tFirst profile = " << pProfileToRetain->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
-      //    for (int m = 0; m < nFirstProfileLineSeg; m++)
-      //    {
-      //       vector<pair<int, int> > prVCoincidentProfiles = *pProfileToRetain->pprVGetCoincidentPairsForLineSegment(m);
-      //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pProfileToRetain->nGetProfileID() << " are ";
-      //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-      //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-      //       LogStream << " " << endl;
-      //    }
-      //
-      //    LogStream << "\tnThisProfile = " << pThisProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
-      //    LogStream << "\tPoints for profile " << pThisProfile->nGetProfileID() << " are ";
-      //    for (int m = 0; m < nSecondProfilePoints; m++)
-      //       LogStream << "{" << pThisProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pThisProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
-      //    LogStream << endl;
-      //
-      //    LogStream << "\tSecond profile = " << pThisProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
-      //    for (int m = 0; m < nSecondProfileLineSeg; m++)
-      //    {
-      //       vector<pair<int, int> > prVCoincidentProfiles = *pThisProfile->pprVGetCoincidentPairsForLineSegment(m);
-      //       LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pThisProfile->nGetProfileID() << " are ";
-      //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-      //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-      //       LogStream << " " << endl;
-      //    }
-      //
-      //    LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
-      //
-      //    string strExtra = "_" + to_string(m_nExtra);
-      //    bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-      //    bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-      // }
-      // // DEBUG CODE ******************************************************************
-
       // Get the number of line segments for this to-retain profile (will have just increased, if we just inserted a point)
       int const nNumLineSegs = pThisProfile->nGetNumLineSegments();
 
       // Do for all line segments seaward of the point of intersection
       for (int nLineSeg = VnLineSegAfterIntersect[nCoinc], nIncr = 0; nLineSeg < nNumLineSegs; nLineSeg++, nIncr++)
       {
-         // // This can happen occasionally
-         // if (nThisProfile == nProfileToTruncateIntersectLineSeg)
-         // {
-         // LogStream << "\t*** ERROR nThisProfile = " << nThisProfile << " nProfileToTruncateIntersectLineSeg = " << nProfileToTruncateIntersectLineSeg << ", ignoring" << endl;
-         // pThisProfile->SetHitAnotherProfile(true);
-         // continue;
-         // }
-
          // Safety check TODO ugly
          if (nLineSeg == INT_NODATA)
          {
@@ -1892,21 +1119,11 @@ int CSimulation::nInsertPointIntoProfilesIfNeededThenUpdate(int const nCoast, CG
             break;
          }
 
-         // if ((m_ulIter == 7855) && (m_nExtra >= 8))
-            // LogStream << "XXXXXXXXXX BREAK HERE XXXXXXXXXXXXXXXXXXXX" << endl;
-
          // Add the number of the to-truncate profile, and all its coincident profiles, to this line segment
          for (int m = 0; m < nNumToTruncateCoincident; m++)
          {
             int const nProfileToAdd = prVToTruncateCoincidentProfiles[m].first;
             int const nProfileToAddLineSeg = prVToTruncateCoincidentProfiles[m].second;
-
-            // // DEBUG CODE =======================
-            // if ((m_ulIter == 7855) && (m_nExtra >= 8))
-            // {
-            //    LogStream << "\tAdding " << (nProfileToAdd == nProfileToTruncateIntersectLineSeg ? "main" : "co-incident") << " truncate-profile " << nProfileToAdd << ", line segment [" << nProfileToAddLineSeg + nIncr << "] to line segment " << nLineSeg << " of " << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " to-retain profile " << nThisProfile << endl;
-            // }
-            // // DEBUG CODE =======================
 
             pThisProfile->AddCoincidentPairToExistingLineSegmentIfNotAlready(nLineSeg, nProfileToAdd, nProfileToAddLineSeg + nIncr);
          }
@@ -1992,3 +1209,57 @@ void CSimulation::TruncateProfileAndAppendNew(int const nCoast, CGeomProfile* pP
    }
 }
 
+#ifdef _DEBUG
+void CSimulation::DEBUG_PrintProfileDetails(CGeomProfile* pFirstProfile, CGeomProfile* pSecondProfile)
+{
+   // if (m_ulIter == 7359)
+   {
+      m_nExtra++;
+      LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUNCATE FIRST (INTERVENTION) PROFILE m_nExtra = " << m_nExtra << endl;
+      LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
+
+      int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
+      int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
+      int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
+      int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+
+      LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
+      LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
+      for (int m = 0; m < nFirstProfilePoints; m++)
+         LogStream << "{" << pFirstProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pFirstProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
+      LogStream << endl;
+
+      LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfileLineSeg << " line segments" << endl;
+      for (int m = 0; m < nFirstProfileLineSeg; m++)
+      {
+         vector<pair<int, int> > prVCoincidentProfiles = *pFirstProfile->pprVGetCoincidentPairsForLineSegment(m);
+         LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pFirstProfile->nGetProfileID() << " are ";
+         for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
+            LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
+         LogStream << " " << endl;
+      }
+
+      LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfilePoints << " points" << endl;
+      LogStream << "\tPoints for profile " << pSecondProfile->nGetProfileID() << " are ";
+      for (int m = 0; m < nSecondProfilePoints; m++)
+         LogStream << "{" << pSecondProfile->pPtGetPointInProfile(m)->dGetX() << ", " << pSecondProfile->pPtGetPointInProfile(m)->dGetY() << "} ";
+      LogStream << endl;
+
+      LogStream << "\tSecond profile = " << pSecondProfile->nGetProfileID() << " now has " << nSecondProfileLineSeg << " line segments" << endl;
+      for (int m = 0; m < nSecondProfileLineSeg; m++)
+      {
+         vector<pair<int, int> > prVCoincidentProfiles = *pSecondProfile->pprVGetCoincidentPairsForLineSegment(m);
+         LogStream << "\tCo-incident profiles and line segments for line segment " << m << " of profile " << pSecondProfile->nGetProfileID() << " are ";
+         for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
+            LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
+         LogStream << " " << endl;
+      }
+
+      LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+
+      string strExtra = "_" + to_string(m_nExtra);
+      bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+      bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+   }
+}
+#endif
