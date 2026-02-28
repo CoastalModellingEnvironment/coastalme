@@ -51,14 +51,6 @@ int nRound(double const d)
    return static_cast<int>((d < 0.0) ? ceil(d - 0.5) : floor(d + 0.5));
 }
 
-//===============================================================================================================================
-//! Rounds a double to the nearest 0.5 (i.e. always returns a double ending in .5)
-//===============================================================================================================================
-double dRoundToPoint5(double const d)
-{
-   return (floor((d * 2) + 0.5) / 2);
-}
-
 // bool bIsWhole(double d)
 // {
 //    // From http://answers.yahoo.com/question/index?qid=20110320132617AAMdb7u

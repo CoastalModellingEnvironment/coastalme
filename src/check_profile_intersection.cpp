@@ -453,13 +453,6 @@ bool CSimulation::bCheckForIntersection(CGeomProfile* const pVProfile1, CGeomPro
             dXAvgEnd = (dX2 + dX4) / 2;
             dYAvgEnd = (dY2 + dY4) / 2;
 
-            // TEST CODE ===========================
-            dXIntersect = dRoundToPoint5(dXIntersect);
-            dYIntersect = dRoundToPoint5(dYIntersect);
-            dXAvgEnd = dRoundToPoint5(dXAvgEnd);
-            dYAvgEnd = dRoundToPoint5(dYAvgEnd);
-            // TEST CODE ===========================
-
             // Get the line segments at which intersection occurred
             nProfile1LineSegment = i;
             nProfile2LineSegment = j;

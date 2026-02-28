@@ -152,7 +152,7 @@ void CGeomMultiLine::AppendPairToFinalLineSegment(pair<int, int> const prIn)
 void CGeomMultiLine::AddCoincidentPairToExistingLineSegmentIfNotAlready(int const nSegment, int const nProfile, int const nLineSeg)
 {
    // assert(nSegment < m_prVVLineSegment.size());
-   for (int n = 0; n < m_prVVLineSegment[nSegment].size(); n++)
+   for (size_t n = 0; n < m_prVVLineSegment[nSegment].size(); n++)
    {
       if (m_prVVLineSegment[nSegment][n].first == nProfile)
          return;

@@ -769,7 +769,7 @@ double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
 double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (26 Feb 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (28 Feb 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";
@@ -1264,7 +1264,6 @@ bool bFPIsEqual(const T d1, const T d2, const T dEpsilon)
 // Definitions are in utilsglobal.cpp
 double dRound(double const);
 int nRound(double const);
-double dRoundToPoint5(double const);
 // bool bIsWhole(double const);
 bool bIsStringValidDouble(string &);
 bool bIsStringValidInt(string &);
