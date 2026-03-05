@@ -1087,7 +1087,7 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer)
 //===============================================================================================================================
 //! Writes GIS raster files using GDAL, using data from the RasterGrid array
 //===============================================================================================================================
-bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlotTitle, int const nLayer, double const dElev)
+bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlotTitle, int const nLayer, double const dElev, string strExtra)
 {
    bool bIsInteger = false;
    bool bIsUnsignedLong = false;
@@ -1401,19 +1401,32 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
    ststrTmp.clear();
 
    strFilePathName.append("_");
-
-   if (m_bGISSaveDigitsSequential)
+      if (! strExtra.empty())
    {
-      // Save number is m_bGISSaveDigitsSequential
-      ststrTmp << FillToWidth('0', m_nGISMaxSaveDigits) << m_nGISSave;
+      // We are debugging, so save number is iteration
+      ststrTmp << FillToWidth('0', m_nGISMaxSaveDigits) << m_ulIter;
    }
    else
    {
-      // Save number is iteration
-      ststrTmp << FillToWidth('0', m_nGISMaxSaveDigits) << m_ulIter;
+      if (m_bGISSaveDigitsSequential)
+      {
+         // Save number is sequential
+         ststrTmp << FillToWidth('0', m_nGISMaxSaveDigits) << m_nGISSave;
+      }
+      else
+      {
+         // Save number is iteration
+         ststrTmp << FillToWidth('0', m_nGISMaxSaveDigits) << m_ulIter;
+      }
    }
 
    strFilePathName.append(ststrTmp.str());
+
+   if (! strExtra.empty())
+   {
+      // We are debugging, so append the extra string
+      strFilePathName.append(strExtra);
+   }
 
    // Finally, maybe append the extension
    if (! m_strGDALRasterOutputDriverExtension.empty())

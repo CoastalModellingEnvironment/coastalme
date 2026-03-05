@@ -1191,7 +1191,7 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
       }
 
       // First, find out if any adjacent cell is flagged as sea
-      bool bOnCoast = nAdjacentCellIsSea(nX, nY);
+      bool const bOnCoast = nAdjacentCellIsSea(nX, nY);
       if (bOnCoast)
       {
          // Has the current cell already marked been marked as a coast cell (belonging to another coast)?

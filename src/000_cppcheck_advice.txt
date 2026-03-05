@@ -1,51 +1,39 @@
-2d_shape.cpp:99:42: style: Parameter 'Pt' can be declared as pointer to const [constParameterPointer]
-bool CA2DShape::bIsPresent(CGeom2DPoint* Pt)
-                                         ^
 calc_waves.cpp:505:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-check_profile_intersection.cpp:548:15: style: Condition 'bTruncatedSameCoast' is always false [knownConditionTrueFalse]
+check_profile_intersection.cpp:541:15: style: Condition 'bTruncatedSameCoast' is always false [knownConditionTrueFalse]
          if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention /*|| bHitAnotherProfile*/ || VCellsToMark.size() == 0)
               ^
-check_profile_intersection.cpp:540:37: note: Assignment 'bTruncatedSameCoast=false', assigned value is 0
+check_profile_intersection.cpp:533:37: note: Assignment 'bTruncatedSameCoast=false', assigned value is 0
          bool bTruncatedSameCoast = false;
                                     ^
-check_profile_intersection.cpp:548:15: note: Condition 'bTruncatedSameCoast' is always false
+check_profile_intersection.cpp:541:15: note: Condition 'bTruncatedSameCoast' is always false
          if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention /*|| bHitAnotherProfile*/ || VCellsToMark.size() == 0)
               ^
-check_profile_intersection.cpp:994:13: style: Condition 'nRet!=RTN_OK' is always false [knownConditionTrueFalse]
+check_profile_intersection.cpp:987:13: style: Condition 'nRet!=RTN_OK' is always false [knownConditionTrueFalse]
    if (nRet != RTN_OK)
             ^
-check_profile_intersection.cpp:993:63: note: Calling function 'nInsertPointIntoProfilesIfNeededThenUpdate' returns 0
+check_profile_intersection.cpp:986:63: note: Calling function 'nInsertPointIntoProfilesIfNeededThenUpdate' returns 0
    int const nRet = nInsertPointIntoProfilesIfNeededThenUpdate(nCoast, pProfileToRetain, dIntersectX, dIntersectY, nProfileToRetainIntersectLineSeg, pProfileToTruncate, nProfileToTruncateIntersectLineSeg, bAlreadyPresent);
                                                               ^
-check_profile_intersection.cpp:993:63: note: Assignment 'nRet=nInsertPointIntoProfilesIfNeededThenUpdate(nCoast,pProfileToRetain,dIntersectX,dIntersectY,nProfileToRetainIntersectLineSeg,pProfileToTruncate,nProfileToTruncateIntersectLineSeg,bAlreadyPresent)', assigned value is 0
+check_profile_intersection.cpp:986:63: note: Assignment 'nRet=nInsertPointIntoProfilesIfNeededThenUpdate(nCoast,pProfileToRetain,dIntersectX,dIntersectY,nProfileToRetainIntersectLineSeg,pProfileToTruncate,nProfileToTruncateIntersectLineSeg,bAlreadyPresent)', assigned value is 0
    int const nRet = nInsertPointIntoProfilesIfNeededThenUpdate(nCoast, pProfileToRetain, dIntersectX, dIntersectY, nProfileToRetainIntersectLineSeg, pProfileToTruncate, nProfileToTruncateIntersectLineSeg, bAlreadyPresent);
                                                               ^
-check_profile_intersection.cpp:994:13: note: Condition 'nRet!=RTN_OK' is always false
+check_profile_intersection.cpp:987:13: note: Condition 'nRet!=RTN_OK' is always false
    if (nRet != RTN_OK)
             ^
-check_profile_intersection.cpp:1059:238: style: Condition 'nThisProfile==nProfileToRetain' is always true [knownConditionTrueFalse]
+check_profile_intersection.cpp:1049:238: style: Condition 'nThisProfile==nProfileToRetain' is always true [knownConditionTrueFalse]
             LogStream << WARN << m_ulIter << ": cannot insert intersection point {" << dIntersectX << ", " << dIntersectY << "} nThisLineSeg = " << nThisLineSeg << " into profile " << pThisProfile->nGetCoastID() << " (" << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile) which has length " << pThisProfile->nGetProfileSize() << ", abandoning" << endl;
                                                                                                                                                                                                                                              ^
-check_profile_intersection.cpp:1045:27: note: Assuming that condition 'nThisProfile!=nProfileToRetain' is not redundant
+check_profile_intersection.cpp:1035:27: note: Assuming that condition 'nThisProfile!=nProfileToRetain' is not redundant
          if (nThisProfile != nProfileToRetain)
                           ^
-check_profile_intersection.cpp:1049:27: note: Assuming condition is false
+check_profile_intersection.cpp:1039:27: note: Assuming condition is false
          if (nThisLineSeg >= pThisProfile->nGetNumLineSegments())
                           ^
-check_profile_intersection.cpp:1059:238: note: Condition 'nThisProfile==nProfileToRetain' is always true
+check_profile_intersection.cpp:1049:238: note: Condition 'nThisProfile==nProfileToRetain' is always true
             LogStream << WARN << m_ulIter << ": cannot insert intersection point {" << dIntersectX << ", " << dIntersectY << "} nThisLineSeg = " << nThisLineSeg << " into profile " << pThisProfile->nGetCoastID() << " (" << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile) which has length " << pThisProfile->nGetProfileSize() << ", abandoning" << endl;
                                                                                                                                                                                                                                              ^
-check_profile_intersection.cpp:201:42: style: Variable 'pPtFirstEnd' can be declared as pointer to const [constVariablePointer]
-                     CGeom2DPoint* const pPtFirstEnd = pFirstProfile->pPtGetPointInProfile(nFirstPointSize-1);
-                                         ^
-check_profile_intersection.cpp:204:42: style: Variable 'pPtSecondEnd' can be declared as pointer to const [constVariablePointer]
-                     CGeom2DPoint* const pPtSecondEnd = pSecondProfile->pPtGetPointInProfile(nSecondPointSize-1);
-                                         ^
-check_profile_intersection.cpp:1064:30: style: Variable 'pPtThis' can be declared as pointer to const [constVariablePointer]
-               CGeom2DPoint* pPtThis = pThisProfile->pPtGetPointInProfile(mmm);
-                             ^
 do_uncons_sediment_slumping.cpp:176:14: style: struct member 'Neighbour::slope' is never used. [unusedStructMember]
       double slope;
              ^
@@ -229,16 +217,16 @@ CGeomILine* CRWCoast::pILGetCoastlineGridCRS(void)
 coast.cpp:623:0: style: The function 'dGetLevel' is never used. [unusedFunction]
 double CRWCoast::dGetLevel(int const nCoastPoint, int const level) const
 ^
-coast_polygon.cpp:582:0: style: The function 'AddCliffCollapseUnconsSandDeposition' is never used. [unusedFunction]
+coast_polygon.cpp:583:0: style: The function 'AddCliffCollapseUnconsSandDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseUnconsSandDeposition(double const dDepth)
 ^
-coast_polygon.cpp:594:0: style: The function 'AddCliffCollapseUnconsCoarseDeposition' is never used. [unusedFunction]
+coast_polygon.cpp:595:0: style: The function 'AddCliffCollapseUnconsCoarseDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseUnconsCoarseDeposition(double const dDepth)
 ^
-coast_polygon.cpp:606:0: style: The function 'AddCliffCollapseSandErodedDeanProfile' is never used. [unusedFunction]
+coast_polygon.cpp:607:0: style: The function 'AddCliffCollapseSandErodedDeanProfile' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseSandErodedDeanProfile(double const dDepth)
 ^
-coast_polygon.cpp:618:0: style: The function 'AddCliffCollapseCoarseErodedDeanProfile' is never used. [unusedFunction]
+coast_polygon.cpp:619:0: style: The function 'AddCliffCollapseCoarseErodedDeanProfile' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseCoarseErodedDeanProfile(double const dDepth)
 ^
 configuration.h:216:0: style: The function 'UseSystemTimeForSeed' is never used. [unusedFunction]
@@ -283,10 +271,10 @@ configuration.h:1178:0: style: The function 'nGetCliffEdgePolynomialOrder' is ne
 gis_utils.cpp:177:0: style: The function 'dTriangleAreax2' is never used. [unusedFunction]
 double CSimulation::dTriangleAreax2(CGeom2DPoint const* pPtA, CGeom2DPoint const* pPtB, CGeom2DPoint const* pPtC)
 ^
-gis_utils.cpp:1814:0: style: The function 'nGetOppositeDirection' is never used. [unusedFunction]
+gis_utils.cpp:1810:0: style: The function 'nGetOppositeDirection' is never used. [unusedFunction]
 int CSimulation::nGetOppositeDirection(int const nDirection)
 ^
-gis_utils.cpp:1981:0: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]
+gis_utils.cpp:1977:0: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]
 bool CSimulation::bIsAdjacentEdgeCell(CGeom2DIPoint const* pPt1, CGeom2DIPoint const* pPt2)
 ^
 nanoflann.hpp:427:0: style: The function 'worst_item' is never used. [unusedFunction]

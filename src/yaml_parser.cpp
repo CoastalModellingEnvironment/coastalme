@@ -335,7 +335,7 @@ CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
       if (bIsComment(strLine) || bIsEmpty(strLine))
          continue;
 
-      int nIndent = nGetIndentLevel(strLine);
+      int const nIndent = nGetIndentLevel(strLine);
 
       // If we've gone back to a lower indentation level, we're done with this section
       if (nBaseIndent >= 0 && nIndent <= nBaseIndent)

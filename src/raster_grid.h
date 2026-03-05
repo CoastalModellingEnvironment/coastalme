@@ -56,7 +56,7 @@ class CGeomRasterGrid
    ~CGeomRasterGrid(void);
 
    CSimulation* pGetSim(void);
-   // CGeomCell* pGetCell(int const, int const);
+   CGeomCell* pGetCell(int const, int const);
    int nCreateGrid(void);
 };
 #endif // RASTERGRID_H

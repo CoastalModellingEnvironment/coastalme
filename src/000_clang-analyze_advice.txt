@@ -1,9 +1,9 @@
 /home/dave/coast/CoastalME/src/2d_shape.cpp:101:4: warning: variable 'dPtX' of type 'double' can be declared 'const' [misc-const-correctness]
-  101 |    double dPtX = Pt->dGetX();
+  101 |    double dPtX = pPt->dGetX();
       |    ^
       |           const 
 /home/dave/coast/CoastalME/src/2d_shape.cpp:102:4: warning: variable 'dPtY' of type 'double' can be declared 'const' [misc-const-correctness]
-  102 |    double dPtY = Pt->dGetY();
+  102 |    double dPtY = pPt->dGetY();
       |    ^
       |           const 
 /home/dave/coast/CoastalME/src/2d_shape.cpp:104:9: warning: no header providing "size_t" is directly included [misc-include-cleaner]
@@ -58,55 +58,59 @@
    37 | using std::make_pair;
       | ~~~~~~~~~~~^~~~~~~~~~
    38 | using std::pair;
-/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:540:10: warning: variable 'bTruncatedSameCoast' of type 'bool' can be declared 'const' [misc-const-correctness]
-  540 |          bool bTruncatedSameCoast = false;
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:533:10: warning: variable 'bTruncatedSameCoast' of type 'bool' can be declared 'const' [misc-const-correctness]
+  533 |          bool bTruncatedSameCoast = false;
       |          ^
       |               const 
-/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:990:4: warning: variable 'bAlreadyPresent' of type 'bool' can be declared 'const' [misc-const-correctness]
-  990 |    bool bAlreadyPresent = pProfileToRetain->bIsPresent(&PtIntersect);
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:982:4: warning: variable 'PtIntersect' of type 'CGeom2DPoint' can be declared 'const' [misc-const-correctness]
+  982 |    CGeom2DPoint PtIntersect(dIntersectX, dIntersectY);
+      |    ^
+      |                 const 
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:983:4: warning: variable 'bAlreadyPresent' of type 'bool' can be declared 'const' [misc-const-correctness]
+  983 |    bool bAlreadyPresent = pProfileToRetain->bIsPresent(&PtIntersect);
       |    ^
       |         const 
-/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1035:7: warning: variable 'nThisLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
- 1035 |       int nThisLineSeg = prVCoincidentProfiles[nn].second; // The line segment of this profile
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1028:7: warning: variable 'nThisLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1028 |       int nThisLineSeg = prVCoincidentProfiles[nn].second; // The line segment of this profile
       |       ^
       |           const 
-/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1070:13: warning: variable 'nNumLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
- 1070 |             int nNumLineSeg = pThisProfile->nGetNumLineSegments();
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1060:13: warning: variable 'nNumLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1060 |             int nNumLineSeg = pThisProfile->nGetNumLineSegments();
       |             ^
       |                 const 
-/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1074:16: warning: variable 'VprTmp' of type 'vector<pair<int, int>>' can be declared 'const' [misc-const-correctness]
- 1074 |                vector<pair<int, int>> VprTmp = *pThisProfile->pprVGetCoincidentPairsForLineSegment(nSeg);
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1064:16: warning: variable 'VprTmp' of type 'vector<pair<int, int>>' can be declared 'const' [misc-const-correctness]
+ 1064 |                vector<pair<int, int>> VprTmp = *pThisProfile->pprVGetCoincidentPairsForLineSegment(nSeg);
       |                ^
       |                                       const 
-/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1075:16: warning: variable 'nNumPairedCoinc' of type 'int' can be declared 'const' [misc-const-correctness]
- 1075 |                int nNumPairedCoinc = static_cast<int>(VprTmp.size());
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1065:16: warning: variable 'nNumPairedCoinc' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1065 |                int nNumPairedCoinc = static_cast<int>(VprTmp.size());
       |                ^
       |                    const 
-/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1224:7: warning: variable 'nFirstProfilePoints' of type 'int' can be declared 'const' [misc-const-correctness]
- 1224 |       int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1217:7: warning: variable 'nFirstProfilePoints' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1217 |       int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
       |       ^
       |           const 
-/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1225:7: warning: variable 'nSecondProfilePoints' of type 'int' can be declared 'const' [misc-const-correctness]
- 1225 |       int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1218:7: warning: variable 'nSecondProfilePoints' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1218 |       int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
       |       ^
       |           const 
-/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1226:7: warning: variable 'nFirstProfileLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
- 1226 |       int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1219:7: warning: variable 'nFirstProfileLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1219 |       int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
       |       ^
       |           const 
-/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1227:7: warning: variable 'nSecondProfileLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
- 1227 |       int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1220:7: warning: variable 'nSecondProfileLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1220 |       int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
       |       ^
       |           const 
-/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1263:7: warning: variable 'strExtra' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
- 1263 |       string strExtra = "_" + to_string(m_nExtra);
+/home/dave/coast/CoastalME/src/check_profile_intersection.cpp:1256:7: warning: variable 'strExtra' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 1256 |       string strExtra = "_" + to_string(m_nExtra);
       |       ^
       |              const 
-/home/dave/coast/CoastalME/src/cme.h:1275:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
- 1275 |    char chFill;
+/home/dave/coast/CoastalME/src/cme.h:1274:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
+ 1274 |    char chFill;
       |         ^
-/home/dave/coast/CoastalME/src/cme.h:1276:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
- 1276 |    int nWidth;
+/home/dave/coast/CoastalME/src/cme.h:1275:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
+ 1275 |    int nWidth;
       |        ^
 /home/dave/coast/CoastalME/src/coast.h:28:10: warning: circular header file dependency detected while including 'coast_landform.h', please check the include path [misc-header-include-cycle]
    28 | #include "coast_landform.h"
@@ -141,6 +145,17 @@
 /home/dave/coast/CoastalME/src/coast_landform.h:48:14: warning: member variable 'pCoast' has protected visibility [misc-non-private-member-variables-in-classes]
    48 |    CRWCoast* pCoast;
       |              ^
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:794:55: warning: no header providing "CGeomRasterGrid" is directly included [misc-include-cleaner]
+   21 | CGeom2DIPoint CGeomCoastPolygon::PtiGetFillStartPoint(CGeomRasterGrid* pRasterGrid, CRWCoast* pCoast)
+      |                                                       ^
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:797:4: warning: variable 'nHandedness' of type 'int' can be declared 'const' [misc-const-correctness]
+  797 |    int nHandedness = pCoast->nGetSeaHandedness();
+      |    ^
+      |        const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:800:4: warning: variable 'PtiAdjToNode' of type 'CGeom2DIPoint' can be declared 'const' [misc-const-correctness]
+  800 |    CGeom2DIPoint PtiAdjToNode = *pCoast->pPtiGetCellMarkedAsCoastline(m_nCoastNode + 1);
+      |    ^
+      |                  const 
 /home/dave/coast/CoastalME/src/configuration.h:34:10: warning: circular header file dependency detected while including 'simulation.h', please check the include path [misc-header-include-cycle]
    34 | #include "simulation.h"
       |          ^
@@ -212,6 +227,34 @@
    51 |    bool m_bUseSystemTimeForSeed;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    52 | 
+/home/dave/coast/CoastalME/src/create_polygons.cpp:1065:7: warning: variable 'nNumUpCoastPolygons' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1065 |       int nNumUpCoastPolygons = pPolygon->nGetNumUpCoastAdjacentPolygons();
+      |       ^
+      |           const 
+/home/dave/coast/CoastalME/src/create_polygons.cpp:1071:7: warning: variable 'nNumDownCoastPolygons' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1071 |       int nNumDownCoastPolygons = pPolygon->nGetNumDownCoastAdjacentPolygons();
+      |       ^
+      |           const 
+/home/dave/coast/CoastalME/src/create_polygons.cpp:1091:7: warning: variable 'nUpCoastProfileSize' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1091 |       int nUpCoastProfileSize = pUpCoastProfile->nGetSize();
+      |       ^
+      |           const 
+/home/dave/coast/CoastalME/src/create_polygons.cpp:1101:7: warning: variable 'nDownCoastProfileSize' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1101 |       int nDownCoastProfileSize = pDownCoastProfile->nGetSize();
+      |       ^
+      |           const 
+/home/dave/coast/CoastalME/src/create_polygons.cpp:1109:7: warning: variable 'nUpCoastProfileLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1109 |       int nUpCoastProfileLineSeg = pUpCoastProfile->nGetNumLineSegments();
+      |       ^
+      |           const 
+/home/dave/coast/CoastalME/src/create_polygons.cpp:1110:7: warning: variable 'nDownCoastProfileLineSeg' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1110 |       int nDownCoastProfileLineSeg = pDownCoastProfile->nGetNumLineSegments();
+      |       ^
+      |           const 
+/home/dave/coast/CoastalME/src/create_polygons.cpp:1134:7: warning: variable 'strExtra' of type 'string' (aka 'basic_string<char>') can be declared 'const' [misc-const-correctness]
+ 1134 |       string strExtra = "_" + to_string(m_nExtra);
+      |       ^
+      |              const 
 /home/dave/coast/CoastalME/src/do_surge_flood.cpp:34:1: warning: included header cme.h is not used directly [misc-include-cleaner]
    34 | #include "cme.h"
       | ^~~~~~~~~~~~~~~~
@@ -237,6 +280,9 @@
  1194 |       bool bOnCoast = nAdjacentCellIsSea(nX, nY);
       |       ^
       |            const 
+/home/dave/coast/CoastalME/src/multi_line.cpp:155:9: warning: no header providing "size_t" is directly included [misc-include-cleaner]
+   22 |    for (size_t n = 0; n < m_prVVLineSegment[nSegment].size(); n++)
+      |         ^
 /home/dave/coast/CoastalME/src/nanoflann.hpp:188:18: warning: member variable 'first' has public visibility [misc-non-private-member-variables-in-classes]
   188 |     IndexType    first;  //!< Index of the sample in the dataset
       |                  ^
@@ -503,8 +549,8 @@
 /home/dave/coast/CoastalME/src/configuration.cpp:26:10: note: 'configuration.h' included from here
    26 | #include "configuration.h"
       |          ^
-/home/dave/coast/CoastalME/src/simulation.h:1942:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
- 1942 |    ofstream LogStream;
+/home/dave/coast/CoastalME/src/simulation.h:1943:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
+ 1943 |    ofstream LogStream;
       |             ^
 /home/dave/coast/CoastalME/src/spatial_interpolation.h:77:11: warning: member variable 'x' has public visibility [misc-non-private-member-variables-in-classes]
    77 |    double x, y;
@@ -632,11 +678,11 @@
   221 | #include <csignal>      // Only for programmatic debug breakpoints using gdb i.e. std::raise(SIGINT);
       | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   222 | 
-/home/dave/coast/CoastalME/src/cme.h:1275:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
- 1275 |    char chFill;
+/home/dave/coast/CoastalME/src/cme.h:1274:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
+ 1274 |    char chFill;
       |         ^
-/home/dave/coast/CoastalME/src/cme.h:1276:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
- 1276 |    int nWidth;
+/home/dave/coast/CoastalME/src/cme.h:1275:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
+ 1275 |    int nWidth;
       |        ^
 /home/dave/coast/CoastalME/src/coast.h:28:10: warning: circular header file dependency detected while including 'coast_landform.h', please check the include path [misc-header-include-cycle]
    28 | #include "coast_landform.h"
@@ -665,6 +711,12 @@
 /home/dave/coast/CoastalME/src/coast_landform.h:48:14: warning: member variable 'pCoast' has protected visibility [misc-non-private-member-variables-in-classes]
    48 |    CRWCoast* pCoast;
       |              ^
+/home/dave/coast/CoastalME/src/coast_polygon.h:350:39: error: unknown type name 'CGeomRasterGrid' [clang-diagnostic-error]
+  350 |    CGeom2DIPoint PtiGetFillStartPoint(CGeomRasterGrid*, CRWCoast*);
+      |                                       ^
+/home/dave/coast/CoastalME/src/coast_polygon.h:350:57: error: unknown type name 'CRWCoast' [clang-diagnostic-error]
+  350 |    CGeom2DIPoint PtiGetFillStartPoint(CGeomRasterGrid*, CRWCoast*);
+      |                                                         ^
 /home/dave/coast/CoastalME/src/configuration.h:24:1: warning: included header algorithm is not used directly [misc-include-cleaner]
    24 | #include <algorithm>
       | ^~~~~~~~~~~~~~~~~~~~
@@ -918,8 +970,8 @@
 /home/dave/coast/CoastalME/src/simulation.h:62:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
    62 | #include "configuration.h"
       |          ^
-/home/dave/coast/CoastalME/src/simulation.h:1942:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
- 1942 |    ofstream LogStream;
+/home/dave/coast/CoastalME/src/simulation.h:1943:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
+ 1943 |    ofstream LogStream;
       |             ^
 /home/dave/coast/CoastalME/src/spatial_interpolation.h:77:11: warning: member variable 'x' has public visibility [misc-non-private-member-variables-in-classes]
    77 |    double x, y;

@@ -427,7 +427,7 @@ int CSimulation::nDoAllActualBeachErosionAndDeposition(void)
             {
                // We had some sand unconsolidated sediment which we were unable to deoosit on the last polygon (which could have been the last polygon of the previous iteration). So add it to the total to be deposited here
                if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-                  LogStream << m_ulIter << ": nPolygon = " << nPolygon << " dSandDepositionTarget was = " << dSandDepositionTarget * m_dCellArea << " adding m_dDepositionSandDiff = " << m_dDepositionSandDiff * m_dCellArea;
+                  LogStream << m_ulIter << ":\t nPolygon = " << nPolygon << " dSandDepositionTarget was = " << dSandDepositionTarget * m_dCellArea << " adding m_dDepositionSandDiff = " << m_dDepositionSandDiff * m_dCellArea;
 
                dSandDepositionTarget += m_dDepositionSandDiff;
                m_dDepositionSandDiff = 0;
@@ -829,7 +829,7 @@ int CSimulation::nDoAllActualBeachErosionAndDeposition(void)
                m_dDepositionSandDiff += dSandNotDeposited;
 
             if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-               LogStream << m_ulIter << ":\t coast << " << nCoast << " re-processing nThisPoly = " << nThisPoly << " dSandDeposited = " << dSandDeposited * m_dCellArea << " dSandNotDeposited = " << dSandNotDeposited * m_dCellArea << " m_dDepositionSandDiff = " << m_dDepositionSandDiff * m_dCellArea << endl;
+               LogStream << m_ulIter << ":\t coast " << nCoast << " re-processing nThisPoly = " << nThisPoly << " dSandDeposited = " << dSandDeposited * m_dCellArea << " dSandNotDeposited = " << dSandNotDeposited * m_dCellArea << " m_dDepositionSandDiff = " << m_dDepositionSandDiff * m_dCellArea << endl;
          }
 
          double const dCoarseToDepositOnPoly = pThisPolygon->dGetToDoBeachDepositionUnconsCoarse();

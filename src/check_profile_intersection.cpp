@@ -25,16 +25,16 @@
 #include <cmath>
 
 #include <iostream>
-using std::cerr;
+// using std::cerr;
 using std::endl;
 using std::ios;
 
 #include <algorithm>
 using std::find;
-using std::sort;
+// using std::sort;
 
 #include <utility>
-using std::make_pair;
+// using std::make_pair;
 using std::pair;
 
 #include <random>
@@ -530,15 +530,15 @@ int CSimulation::nMarkProfilesOnGrid(void)
          vector<CGeom2DIPoint> VCellsToMark;
          vector<bool> bVShared;
          bool bTooShort = false;
-         bool bTruncatedSameCoast = false;
+         // bool const bTruncatedSameCoast = false;
          bool bHitCoast = false;
          bool bHitLand = false;
          bool bHitIntervention = false;
          // bool bHitAnotherProfile = false;
 
-         CreateRasterizedProfile(nCoast, pProfile, &VCellsToMark, &bVShared, bTooShort, bTruncatedSameCoast, bHitCoast, bHitLand, bHitIntervention/*, bHitAnotherProfile*/);
+         CreateRasterizedProfile(nCoast, pProfile, &VCellsToMark, &bVShared, bTooShort, /*bTruncatedSameCoast,*/ bHitCoast, bHitLand, bHitIntervention/*, bHitAnotherProfile*/);
 
-         if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention /*|| bHitAnotherProfile*/ || VCellsToMark.size() == 0)
+         if ((/*bTruncatedSameCoast &&*/ (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention /*|| bHitAnotherProfile*/ || VCellsToMark.size() == 0)
          {
             VCellsToMark.clear();
             bVShared.clear();
@@ -583,7 +583,7 @@ int CSimulation::nMarkProfilesOnGrid(void)
 //===============================================================================================================================
 //! Given a pointer to a coastline-normal profile, returns an output vector of cells which are 'under' every line segment of the profile. If there is a problem with the profile (e.g. a rasterized cell is dry land or coast, or the profile has to be truncated) then we pass this back as an error code
 //===============================================================================================================================
-void CSimulation::CreateRasterizedProfile(int const nCoast, CGeomProfile* pProfile, vector<CGeom2DIPoint>* pVIPointsOut, vector<bool>* pbVShared, bool& bTooShort, bool const& bTruncatedSameCoast, bool& bHitCoast, bool& bHitLand, bool& bHitIntervention/*, bool& bHitAnotherProfile*/)
+void CSimulation::CreateRasterizedProfile(int const nCoast, CGeomProfile* pProfile, vector<CGeom2DIPoint>* pVIPointsOut, vector<bool>* pbVShared, bool& bTooShort, /*bool const& bTruncatedSameCoast,*/ bool& bHitCoast, bool& bHitLand, bool& bHitIntervention/*, bool& bHitAnotherProfile*/)
 {
    int const nProfile = pProfile->nGetProfileID();
    int nSeg = 0;
@@ -816,23 +816,23 @@ void CSimulation::CreateRasterizedProfile(int const nCoast, CGeomProfile* pProfi
       nXEndLast = nXEnd;
       nYEndLast = nYEnd;
 
-      if (bTruncatedSameCoast)
-         break;
+      // if (bTruncatedSameCoast)
+      //    break;
    }
 
-   if (bTruncatedSameCoast)
-   {
-      if (nSeg < (nNumSegments - 1))
-         // We are truncating the profile, so remove any line segments after this one
-         pProfile->TruncateLineSegments(nSeg);
-
-      // Shorten the vector input. Ignore CPPCheck errors here, since we know that pVIPointsOut is not empty
-      int const nLastX = pVIPointsOut->at(pVIPointsOut->size() - 1).nGetX();
-      int const nLastY = pVIPointsOut->at(pVIPointsOut->size() - 1).nGetY();
-
-      pProfile->pPtGetPointInProfile(nSeg + 1)->SetX(dGridCentroidXToExtCRSX(nLastX));
-      pProfile->pPtGetPointInProfile(nSeg + 1)->SetY(dGridCentroidYToExtCRSY(nLastY));
-   }
+   // if (bTruncatedSameCoast)
+   // {
+   //    if (nSeg < (nNumSegments - 1))
+   //       // We are truncating the profile, so remove any line segments after this one
+   //       pProfile->TruncateLineSegments(nSeg);
+   //
+   //    // Shorten the vector input. Ignore CPPCheck errors here, since we know that pVIPointsOut is not empty
+   //    int const nLastX = pVIPointsOut->at(pVIPointsOut->size() - 1).nGetX();
+   //    int const nLastY = pVIPointsOut->at(pVIPointsOut->size() - 1).nGetY();
+   //
+   //    pProfile->pPtGetPointInProfile(nSeg + 1)->SetX(dGridCentroidXToExtCRSX(nLastX));
+   //    pProfile->pPtGetPointInProfile(nSeg + 1)->SetY(dGridCentroidYToExtCRSY(nLastY));
+   // }
 
    if (pVIPointsOut->size() < 3)
    {
@@ -979,8 +979,8 @@ void CSimulation::MergeProfilesAtFinalLineSegments(int const nCoast, CGeomProfil
 //===============================================================================================================================
 void CSimulation::TruncateOneProfileRetainOtherProfile(int const nCoast, CGeomProfile* pProfileToTruncate, CGeomProfile* pProfileToRetain, double dIntersectX, double dIntersectY, int nProfileToTruncateIntersectLineSeg, int nProfileToRetainIntersectLineSeg)
 {
-   CGeom2DPoint PtIntersect(dIntersectX, dIntersectY);
-   bool bAlreadyPresent = pProfileToRetain->bIsPresent(&PtIntersect);
+   CGeom2DPoint const PtIntersect(dIntersectX, dIntersectY);
+   bool const bAlreadyPresent = pProfileToRetain->bIsPresent(&PtIntersect);
 
    // Insert the intersection point into the main retain-profile if it is not already in the profile, and do the same for all co-incident profiles of the main retain-profile. Also add details of the to-truncate profile (and all its coincident profiles) to every line segment of the main to-retain profile which is seaward of the point of intersection
    int const nRet = nInsertPointIntoProfilesIfNeededThenUpdate(nCoast, pProfileToRetain, dIntersectX, dIntersectY, nProfileToRetainIntersectLineSeg, pProfileToTruncate, nProfileToTruncateIntersectLineSeg, bAlreadyPresent);
@@ -1025,7 +1025,7 @@ int CSimulation::nInsertPointIntoProfilesIfNeededThenUpdate(int const nCoast, CG
    for (int nn = 0; nn < nNumCoincident; nn++)
    {
       int const nThisProfile = prVCoincidentProfiles[nn].first;  // The number of this profile
-      int nThisLineSeg = prVCoincidentProfiles[nn].second; // The line segment of this profile
+      int const nThisLineSeg = prVCoincidentProfiles[nn].second; // The line segment of this profile
 
       CGeomProfile* pThisProfile = m_VCoast[nCoast].pGetProfile(nThisProfile);
 
@@ -1057,12 +1057,12 @@ int CSimulation::nInsertPointIntoProfilesIfNeededThenUpdate(int const nCoast, CG
             LogStream << endl;
 
             LogStream << "Line segments for profile " << pThisProfile->nGetProfileID() << endl;
-            int nNumLineSeg = pThisProfile->nGetNumLineSegments();
+            int const nNumLineSeg = pThisProfile->nGetNumLineSegments();
             for (int nSeg = 0; nSeg < nNumLineSeg; nSeg++)
             {
                LogStream << "Line segment " << nSeg << endl;
-               vector<pair<int, int>> VprTmp = *pThisProfile->pprVGetCoincidentPairsForLineSegment(nSeg);
-               int nNumPairedCoinc = static_cast<int>(VprTmp.size());
+               vector<pair<int, int>> const VprTmp = *pThisProfile->pprVGetCoincidentPairsForLineSegment(nSeg);
+               int const nNumPairedCoinc = static_cast<int>(VprTmp.size());
 
                for (int nCoinc = 0; nCoinc < nNumPairedCoinc; nCoinc++)
                {
@@ -1203,18 +1203,21 @@ void CSimulation::TruncateProfileAndAppendNew(int const nCoast, CGeomProfile* pP
 }
 
 #ifdef _DEBUG
+//===============================================================================================================================
+//! DEBUG ONLY: print profile details to logfile
+//===============================================================================================================================
 void CSimulation::DEBUG_PrintProfileDetails(CGeomProfile* pFirstProfile, CGeomProfile* pSecondProfile)
 {
-   // if (m_ulIter == 7359)
+   if (m_ulIter == 9999)
    {
       m_nExtra++;
-      LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUNCATE FIRST (INTERVENTION) PROFILE m_nExtra = " << m_nExtra << endl;
+      LogStream << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% m_ulIter = " << m_ulIter << " m_nExtra = " << m_nExtra << endl;
       LogStream << "first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << endl;
 
-      int nFirstProfilePoints = pFirstProfile->nGetProfileSize();
-      int nSecondProfilePoints = pSecondProfile->nGetProfileSize();
-      int nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
-      int nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
+      int const nFirstProfilePoints = pFirstProfile->nGetProfileSize();
+      int const nSecondProfilePoints = pSecondProfile->nGetProfileSize();
+      int const nFirstProfileLineSeg = pFirstProfile->nGetNumLineSegments();
+      int const nSecondProfileLineSeg = pSecondProfile->nGetNumLineSegments();
 
       LogStream << "\tFirst profile = " << pFirstProfile->nGetProfileID() << " now has " << nFirstProfilePoints << " points" << endl;
       LogStream << "\tPoints for profile " << pFirstProfile->nGetProfileID() << " are ";
@@ -1248,9 +1251,9 @@ void CSimulation::DEBUG_PrintProfileDetails(CGeomProfile* pFirstProfile, CGeomPr
          LogStream << " " << endl;
       }
 
-      LogStream << " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
+      LogStream << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
 
-      string strExtra = "_" + to_string(m_nExtra);
+      string const strExtra = "_" + to_string(m_nExtra);
       bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
       bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
    }

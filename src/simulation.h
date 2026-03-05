@@ -1654,8 +1654,8 @@ class CSimulation
    int nReadTideDataFile(void);
    int nSaveProfile(int const, CGeomProfile const*, int const, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<CGeom2DIPoint>*const, vector<double> const*) const;
    bool bWriteProfileData(int const, CGeomProfile const*, int const, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<CGeom2DIPoint>*const, vector<double> const*) const;
-   int nSaveParProfile(int const, CGeomProfile const*, int const, int const, int const, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<CGeom2DIPoint>*const, vector<double> const*) const;
-   bool bWriteParProfileData(int const, int const, int const, int const, int const, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<CGeom2DIPoint>*const, vector<double> const*) const;
+   int nSaveParProfile(int const, CGeomProfile const*, int const, int const, int const, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<CGeom2DIPoint>* const, vector<double> const*) const;
+   bool bWriteParProfileData(int const, int const, int const, int const, int const, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<CGeom2DIPoint>* const, vector<double> const*) const;
    void WriteLookUpData(void);
 
    // GIS input and output stuff
@@ -1663,7 +1663,7 @@ class CSimulation
    int nReadRasterBasementDEM(void);
    int nReadRasterGISFile(int const, int const);
    int nReadVectorGISFile(int const);
-   bool bWriteRasterGISFile(int const, string const*, int const = 0, double const = 0);
+   bool bWriteRasterGISFile(int const, string const*, int const = 0, double const = 0, string = "");
    bool bWriteVectorGISFile(int const, string const*, string = "");
    void GetRasterOutputMinMax(int const, double&, double&, int const, double const);
    void SetRasterFileCreationDefaults(void);
@@ -1724,7 +1724,7 @@ class CSimulation
    void TruncateOneProfileRetainOtherProfile(int const, CGeomProfile*, CGeomProfile*, double, double, int, int);
    int nInsertPointIntoProfilesIfNeededThenUpdate(int const, CGeomProfile*, double const, double const, int const, CGeomProfile*, int const, bool const);
    void TruncateProfileAndAppendNew(int const, CGeomProfile*, int const, vector<CGeom2DPoint> const*, vector<vector<pair<int, int>>> const*);
-   void CreateRasterizedProfile(int const, CGeomProfile*, vector<CGeom2DIPoint>*, vector<bool>*, bool&, bool const&, bool&, bool&, bool&/*, bool&*/);
+   void CreateRasterizedProfile(int const, CGeomProfile*, vector<CGeom2DIPoint>*, vector<bool>*, bool&, /*bool const&,*/ bool&, bool&, bool&/*, bool&*/);
    static void CalcDeanProfile(vector<double>*, double const, double const, double const, bool const, int const, double const);
    static double dSubtractProfiles(vector<double> const*, vector<double> const*, vector<bool> const*);
    int nCalcPotentialPlatformErosionOnProfile(int const, CGeomProfile*);
@@ -1935,6 +1935,7 @@ class CSimulation
 
 #ifdef _DEBUG
    void DEBUG_PrintProfileDetails(CGeomProfile*, CGeomProfile*);
+   void DEBUG_PrintPolygonDetails(int const, CGeomCoastPolygon*);
 #endif
 
  protected:
@@ -1982,6 +1983,5 @@ class CSimulation
 
    //! Returns a pointer to the lower case version of a string
    static string strToLower(string const*);
-
 };
 #endif // SIMULATION_H

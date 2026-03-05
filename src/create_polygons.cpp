@@ -23,6 +23,9 @@
 #include <iostream>
 using std::endl;
 
+#include <string>
+using std::to_string;
+
 #include <stack>
 using std::stack;
 
@@ -217,14 +220,9 @@ int CSimulation::nCreateAllPolygons(void)
             if (! bMeetsAtAPoint)
                pPolygon->AppendVertex(pNextProfile->pPtiGetEndPoint());
 
-            // // DEBUG CODE =================================================================================
-            // LogStream << m_ulIter << ": vertices for coast " << nCoast << " polygon = " << nPolygon << endl;
-            // for (int n = 0; n < pPolygon->nGetNumVertices(); n++)
-            // LogStream << "[" << pPolygon->PtiGetVertex(n).nGetX() << "][" << pPolygon->PtiGetVertex(n).nGetY() << "]\t";
-            // LogStream << endl;
-            // // DEBUG CODE =================================================================================
-
-            // assert(nPolygon < m_VCoast[nCoast].nGetNumPolygons());
+#ifdef _DEBUG
+            DEBUG_PrintPolygonDetails(nCoast, pPolygon);
+#endif
 
             // Now rasterize the polygon boundaries: first, the coastline. This is necessary so that sand/coarse sediment derived from platform erosion of the coast cells is correctly added to the containing polygon's unconsolidated sediment
             for (int i = nCoastPoint; i <= nNextProfileCoastPoint; i++)
@@ -451,8 +449,26 @@ void CSimulation::MarkPolygonCells(void)
          // LogStream << endl;
          // // DEBUG CODE ==============================================================================================
 
+         // DEBUG CODE ==============================
+         if ((m_ulIter == 466) && (nPolyID == 17))
+            LogStream << endl;
+
          // Use the centroid as the start point for the cell-by-cell fill procedure
-         CGeom2DIPoint const PtiStart = pPolygon->PtiGetFillStartPoint();
+         CGeom2DIPoint const PtiStart = pPolygon->PtiGetFillStartPoint(m_pRasterGrid, &m_VCoast[nCoast]);
+
+         // Safety check
+         if ((PtiStart.nGetX() == INT_NODATA) && (PtiStart.nGetY() == INT_NODATA))
+         {
+            LogStream << "************ NO FILL ***************" << endl;
+            continue;
+         }
+
+         // DEBUG CODE ============================
+         CGeom2DIPoint* pNode = pPolygon->pPtiGetNode();
+         CGeom2DIPoint* pAntiNode = pPolygon->pPtiGetAntiNode();
+
+         LogStream << "poly = " << nPolyID << " node is [" << pNode->nGetX() << "][" << pNode->nGetY() << "] = {" << dGridXToExtCRSX(pNode->nGetX()) << ", " << dGridYToExtCRSY(pNode->nGetY()) << "} antinode is [" << pAntiNode->nGetX() << "][" << pAntiNode->nGetY() << "] = {" << dGridXToExtCRSX(pAntiNode->nGetX()) << ", " << dGridYToExtCRSY(pAntiNode->nGetY()) << "} start point for fill is [" << PtiStart.nGetX() << "][" << PtiStart.nGetY() << "] = {" << dGridXToExtCRSX(PtiStart.nGetX()) << ", " << dGridYToExtCRSY(PtiStart.nGetY()) << "}" << endl;
+         // DEBUG CODE ============================
 
          // // Is the centroid within the inner buffer?
          // if (! bIsWithinPolygon(&PtStart, &PtVInnerBuffer))
@@ -586,6 +602,16 @@ void CSimulation::MarkPolygonCells(void)
          double const dSeaVolume = dTotDepth * m_dCellSide;
          pPolygon->SetSeawaterVolume(dSeaVolume);
       }
+
+#ifdef _DEBUG
+      if (m_ulIter == 466)
+      {
+         m_nExtra++;
+         string const strExtra = "_" + to_string(m_nExtra);
+         bWriteRasterGISFile(RASTER_PLOT_POLYGON, &RASTER_PLOT_POLYGON_TITLE, 0, 0, strExtra);
+      }
+#endif
+
    }
 
    // // DEBUG CODE ===========================================================================================================
@@ -1048,3 +1074,103 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
 //
 //    return PtStart;
 // }
+
+
+#ifdef _DEBUG
+//===============================================================================================================================
+//! DEBUG ONLY: print polygon details to logfile
+//===============================================================================================================================
+void CSimulation::DEBUG_PrintPolygonDetails(int const nCoast, CGeomCoastPolygon* pPolygon)
+{
+   if (m_ulIter == 466)
+   {
+      m_nExtra++;
+      LogStream << "################################################ m_ulIter = " << m_ulIter << " m_nExtra = " << m_nExtra << endl;
+      LogStream << "coast = " << nCoast << " polygon = " << pPolygon->nGetPolygonCoastID() << endl;
+
+      // assert(nPolygon < m_VCoast[nCoast].nGetNumPolygons());
+      CGeom2DIPoint* pNode = pPolygon->pPtiGetNode();
+      CGeom2DIPoint* pAntiNode = pPolygon->pPtiGetAntiNode();
+
+      LogStream << "node is [" << pNode->nGetX() << "][" << pNode->nGetY() << "] = {" << dGridXToExtCRSX(pNode->nGetX()) << ", " << dGridYToExtCRSY(pNode->nGetY()) << "} antinode is [" << pAntiNode->nGetX() << "][" << pAntiNode->nGetY() << "] = {" << dGridXToExtCRSX(pAntiNode->nGetX()) << ", " << dGridYToExtCRSY(pAntiNode->nGetY()) << "}" << endl;
+
+      int const nNumUpCoastPolygons = pPolygon->nGetNumUpCoastAdjacentPolygons();
+      LogStream << "adjacent up-coast polygons: ";
+      for (int nAdjPoly = 0; nAdjPoly < nNumUpCoastPolygons; nAdjPoly++)
+         LogStream << pPolygon->nGetUpCoastAdjacentPolygon(nAdjPoly) << " ";
+      LogStream << endl;
+
+      int const nNumDownCoastPolygons = pPolygon->nGetNumDownCoastAdjacentPolygons();
+      LogStream << "adjacent down-coast polygons: ";
+      for (int nAdjPoly = 0; nAdjPoly < nNumDownCoastPolygons; nAdjPoly++)
+         LogStream << pPolygon->nGetDownCoastAdjacentPolygon(nAdjPoly) << " ";
+      LogStream << endl;
+
+      LogStream << "polygon vertices: ";
+      for (int n = 0; n < pPolygon->nGetBoundarySize(); n++)
+         LogStream << "{" << pPolygon->pPtGetBoundaryPoint(n)->dGetX() << ", " << pPolygon->pPtGetBoundaryPoint(n)->dGetY() << "} ";
+      LogStream << endl << endl;
+
+      int const nUpCoastProfile = pPolygon->nGetUpCoastProfile();
+      int const nDownCoastProfile = pPolygon->nGetDownCoastProfile();
+      LogStream << "up-coast profile = " << nUpCoastProfile << " down-coast profile = " << nDownCoastProfile << endl;
+
+      CGeomProfile* pUpCoastProfile = m_VCoast[nCoast].pGetProfile(nUpCoastProfile);
+      CGeomProfile* pDownCoastProfile = m_VCoast[nCoast].pGetProfile(nDownCoastProfile);
+
+      int const nPointsInUpCoastProfile = pPolygon->nGetNumPointsUsedUpCoastProfile();
+      LogStream << "from polygon, N points in up-coast profile = " << nPointsInUpCoastProfile << endl;
+      int const nUpCoastProfileSize = pUpCoastProfile->nGetSize();
+      LogStream << "from profile, N points in up-coast profile (" << nUpCoastProfile << ") = " << nUpCoastProfileSize << endl;
+
+      LogStream << "points in up-coast profile: ";
+      for (int nPoint = 0; nPoint < nUpCoastProfileSize; nPoint++)
+         LogStream << "{" << pUpCoastProfile->pPtGetPointInProfile(nPoint)->dGetX() << ", " << pUpCoastProfile->pPtGetPointInProfile(nPoint)->dGetY() << "} ";
+      LogStream << endl;
+
+      int const nPointsInDownCoastProfile = pPolygon->nGetNumPointsUsedDownCoastProfile();
+      LogStream << "from polygon, N points in down-coast profile = " << nPointsInDownCoastProfile << endl;
+      int const nDownCoastProfileSize = pDownCoastProfile->nGetSize();
+      LogStream << "from profile, N points in down-coast profile (" << nDownCoastProfile << ") = " << nDownCoastProfileSize << endl;
+
+      LogStream << "points in down-coast profile: ";
+      for (int nPoint = 0; nPoint < nDownCoastProfileSize; nPoint++)
+         LogStream << "{" << pDownCoastProfile->pPtGetPointInProfile(nPoint)->dGetX() << ", " << pDownCoastProfile->pPtGetPointInProfile(nPoint)->dGetY() << "} ";
+      LogStream << endl << endl;
+
+      int const nUpCoastProfileLineSeg = pUpCoastProfile->nGetNumLineSegments();
+      int const nDownCoastProfileLineSeg = pDownCoastProfile->nGetNumLineSegments();
+
+      LogStream << "up-coast profile = " << pUpCoastProfile->nGetProfileID() << " has " << nUpCoastProfileLineSeg << " line segments" << endl;
+      for (int m = 0; m < nUpCoastProfileLineSeg; m++)
+      {
+         vector<pair<int, int> > prVCoincidentProfiles = *pUpCoastProfile->pprVGetCoincidentPairsForLineSegment(m);
+         LogStream << "co-incident profiles and line segments for line segment " << m << " of profile " << pUpCoastProfile->nGetProfileID() << " are ";
+         for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
+            LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
+         LogStream << " " << endl;
+      }
+
+      LogStream << "down-coast profile = " << pDownCoastProfile->nGetProfileID() << " has " << nDownCoastProfileLineSeg << " line segments" << endl;
+      for (int m = 0; m < nDownCoastProfileLineSeg; m++)
+      {
+         vector<pair<int, int> > prVCoincidentProfiles = *pDownCoastProfile->pprVGetCoincidentPairsForLineSegment(m);
+         LogStream << "co-incident profiles and line segments for line segment " << m << " of profile " << pDownCoastProfile->nGetProfileID() << " are ";
+         for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
+            LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
+         LogStream << " " << endl;
+      }
+
+      LogStream << "################################################" << endl;
+
+      string const strExtra = "_" + to_string(m_nExtra);
+
+      if (m_nExtra == 1)
+      {
+         bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+         bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+      }
+      bWriteVectorGISFile(VECTOR_PLOT_POLYGON_BOUNDARY, &VECTOR_PLOT_POLYGON_BOUNDARY_TITLE, strExtra);
+   }
+}
+#endif

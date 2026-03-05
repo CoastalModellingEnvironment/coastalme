@@ -58,10 +58,11 @@ CSimulation* CGeomRasterGrid::pGetSim(void)
    return m_pSim;
 }
 
-// CGeomCell* CGeomRasterGrid::pGetCell(int const nX, int const nY)
-// {
-// return &m_Cell[nX][nY];
-// }
+//! Returns a pointer to a cell
+CGeomCell* CGeomRasterGrid::pGetCell(int const nX, int const nY)
+{
+return &m_Cell[nX][nY];
+}
 
 //! Creates the 2D CGeomCell array
 int CGeomRasterGrid::nCreateGrid(void)

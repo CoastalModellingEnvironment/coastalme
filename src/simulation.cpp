@@ -923,7 +923,6 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
          LogStream << "TIMESTEP " << m_ulIter << " " << string(154, '=') << endl;
 
       LogStream << fixed << setprecision(3);
-      m_nExtra = 0;
 
       // Note: m_prSlumpDirtyCells is NOT cleared here - it accumulates across timesteps. It will be cleared after GIS output is written (when saving at intervals)
 

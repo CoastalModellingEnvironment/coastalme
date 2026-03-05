@@ -632,7 +632,7 @@ CGeom2DIPoint CSimulation::PtiPolygonCentroid(vector<CGeom2DIPoint>* pVIn)
 // }
 
 //===============================================================================================================================
-//! Returns a CGeom2DIPoint (grid CRS) which is the 'other' point of a two-point vector passing through PtiStart, and which is perpendicular to the two-point vector from PtiStart to PtiNext
+//! Returns a CGeom2DIPoint (grid CRS) which is the inland (i.e. on the right of a left-handed coast) point of a two-point vector passing through PtiStart, and which is perpendicular to the two-point vector from PtiStart to PtiNext
 //===============================================================================================================================
 CGeom2DIPoint CSimulation::PtiGetPerpendicular(CGeom2DIPoint const* PtiStart, CGeom2DIPoint const* PtiNext, double const dDesiredLength, int const nHandedness)
 {
@@ -642,10 +642,8 @@ CGeom2DIPoint CSimulation::PtiGetPerpendicular(CGeom2DIPoint const* PtiStart, CG
 
    if (bFPIsEqual(dXLen, 0.0, TOLERANCE))
       dLength = dYLen;
-
    else if (bFPIsEqual(dYLen, 0.0, TOLERANCE))
       dLength = dXLen;
-
    else
       dLength = hypot(dXLen, dYLen);
 
@@ -654,12 +652,12 @@ CGeom2DIPoint CSimulation::PtiGetPerpendicular(CGeom2DIPoint const* PtiStart, CG
    // The difference vector is (dXLen, dYLen), so the perpendicular difference vector is (-dYLen, dXLen) or (dYLen, -dXLen)
    CGeom2DIPoint EndPti;
 
+   // Choose the inland point
    if (nHandedness == RIGHT_HANDED)
    {
       EndPti.SetX(PtiStart->nGetX() + nRound(dScaleFactor * dYLen));
       EndPti.SetY(PtiStart->nGetY() - nRound(dScaleFactor * dXLen));
    }
-
    else
    {
       EndPti.SetX(PtiStart->nGetX() - nRound(dScaleFactor * dYLen));
@@ -670,7 +668,7 @@ CGeom2DIPoint CSimulation::PtiGetPerpendicular(CGeom2DIPoint const* PtiStart, CG
 }
 
 //===============================================================================================================================
-//! Returns a CGeom2DIPoint (grid CRS) which is the 'other' point of a two-point vector passing through [nStartX][nStartY], and which is perpendicular to the two-point vector from [nStartX][nStartY] to [nNextX][nNextY]
+//! Returns a CGeom2DIPoint (grid CRS) which is which is the inland (i.e. on the right of a left-handed coast) point of a two-point vector passing through [nStartX][nStartY], and which is perpendicular to the two-point vector from [nStartX][nStartY] to [nNextX][nNextY]
 //===============================================================================================================================
 CGeom2DIPoint CSimulation::PtiGetPerpendicular(int const nStartX, int const nStartY, int const nNextX, int const nNextY, double const dDesiredLength, int const nHandedness)
 {
@@ -680,10 +678,8 @@ CGeom2DIPoint CSimulation::PtiGetPerpendicular(int const nStartX, int const nSta
 
    if (bFPIsEqual(dXLen, 0.0, TOLERANCE))
       dLength = dYLen;
-
    else if (bFPIsEqual(dYLen, 0.0, TOLERANCE))
       dLength = dXLen;
-
    else
       dLength = hypot(dXLen, dYLen);
 
@@ -692,12 +688,12 @@ CGeom2DIPoint CSimulation::PtiGetPerpendicular(int const nStartX, int const nSta
    // The difference vector is (dXLen, dYLen), so the perpendicular difference vector is (-dYLen, dXLen) or (dYLen, -dXLen)
    CGeom2DIPoint EndPti;
 
+   // Chhose the inland point
    if (nHandedness == RIGHT_HANDED)
    {
       EndPti.SetX(nStartX + nRound(dScaleFactor * dYLen));
       EndPti.SetY(nStartY - nRound(dScaleFactor * dXLen));
    }
-
    else
    {
       EndPti.SetX(nStartX - nRound(dScaleFactor * dYLen));
