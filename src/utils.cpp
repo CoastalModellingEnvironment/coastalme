@@ -1768,12 +1768,13 @@ void CSimulation::AnnounceProgress(void)
       cout << " total expected " << strDispTime(sdExpectedRuntime, false, false) << ")  ";
 
       // Add a 'marker' for GIS saves etc.
+      cout << setw(6);
       if (m_bSaveGISThisIter)
-         cout << setw(9) << "GIS" + to_string(m_nGISSave);
+         cout << "GIS" + to_string(m_nGISSave) + "   ";
       else if (m_bSedimentInputThisIter)
-         cout << setw(9) << "SED INPUT";
+         cout << "SED INPUT ";
       else
-         cout << setw(9) << SPACE;
+         cout << setw(10) << SPACE;
 
       cout.flush();
    }
