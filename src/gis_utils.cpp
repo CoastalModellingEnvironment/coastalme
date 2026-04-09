@@ -1000,7 +1000,7 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
          return false;
 
    if (m_bWaveAngleSave)
-      if (! bWriteRasterGISFile(RASTER_PLOT_WAVE_ORIENTATION, &RASTER_PLOT_WAVE_ORIENTATION_TITLE))
+      if (! bWriteRasterGISFile(RASTER_PLOT_WAVE_ANGLE, &RASTER_PLOT_WAVE_ANGLE_TITLE))
          return false;
 
    // Don't write platform erosion files if there is no platform erosion
@@ -1064,7 +1064,7 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
          return false;
 
    if (m_bAvgWaveAngleSave)
-      if (! bWriteRasterGISFile(RASTER_PLOT_AVG_WAVE_ORIENTATION, &RASTER_PLOT_AVG_WAVE_ORIENTATION_TITLE))
+      if (! bWriteRasterGISFile(RASTER_PLOT_AVG_WAVE_ANGLE, &RASTER_PLOT_AVG_WAVE_ANGLE_TITLE))
          return false;
 
    if (m_bAvgSeaDepthSave)
@@ -1286,7 +1286,7 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
 
    if (m_bDeepWaterWaveAngleSave)
    {
-      if (! bWriteRasterGISFile(RASTER_PLOT_DEEP_WATER_WAVE_ORIENTATION, &RASTER_PLOT_DEEP_WATER_WAVE_ORIENTATION_TITLE))
+      if (! bWriteRasterGISFile(RASTER_PLOT_DEEP_WATER_WAVE_ANGLE, &RASTER_PLOT_DEEP_WATER_WAVE_ANGLE_TITLE))
          return false;
    }
 
@@ -1569,7 +1569,7 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
             dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetTotWaveHeight() / static_cast<double>(m_ulIter);
             break;
 
-         case (RASTER_PLOT_WAVE_ORIENTATION):
+         case (RASTER_PLOT_WAVE_ANGLE):
             if (! m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea())
                dTmp = m_dMissingValue;
 
@@ -1578,7 +1578,7 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
 
             break;
 
-         case (RASTER_PLOT_AVG_WAVE_ORIENTATION):
+         case (RASTER_PLOT_AVG_WAVE_ANGLE):
             dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetTotWaveAngle() / static_cast<double>(m_ulIter);
             break;
 
@@ -1711,7 +1711,7 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
             dTmp = m_pRasterGrid->m_Cell[nX][nY].nGetDownDriftZoneNumber();
             break;
 
-         case (RASTER_PLOT_DEEP_WATER_WAVE_ORIENTATION):
+         case (RASTER_PLOT_DEEP_WATER_WAVE_ANGLE):
             dTmp = m_pRasterGrid->m_Cell[nX][nY].nGetDownDriftZoneNumber();
             break;
 

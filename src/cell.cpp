@@ -922,14 +922,12 @@ void CGeomCell::InitCell(void)
    m_VLayerAboveBasement[nThisLayer].pGetUnconsolidatedSediment()->InitThisIterSedimentInputAll();
 }
 
-//! Sets the wave height on this cell, also increments the total wave height
+//! Sets the wave height on this cell
 void CGeomCell::SetWaveHeight(double const dWaveHeight)
 {
-   m_dWaveHeight = dWaveHeight;
-   m_dTotWaveHeight += dWaveHeight;
-
-   // if (m_dWaveHeight != DBL_NODATA)
+   // assert(m_dWaveHeight != DBL_NODATA);
    // assert(m_dWaveHeight >= 0);
+   m_dWaveHeight = dWaveHeight;
 }
 
 //! Returns the wave height on this cell
@@ -944,17 +942,28 @@ double CGeomCell::dGetTotWaveHeight(void) const
    return m_dTotWaveHeight;
 }
 
-//! Sets the wave orientation on this cell, also increments the total wave orientation
+//! Increments the total wave height on this cell
+void CGeomCell::IncrTotWaveHeight(const double dWaveHeight)
+{
+   m_dTotWaveHeight += dWaveHeight;
+}
+
+//! Sets the wave orientation on this cell
 void CGeomCell::SetWaveAngle(double const dWaveAngle)
 {
    m_dWaveAngle = dWaveAngle;
-   m_dTotWaveAngle += dWaveAngle;
 }
 
 //! Returns the wave orientation on this cell
 double CGeomCell::dGetWaveAngle(void) const
 {
    return m_dWaveAngle;
+}
+
+//! Increments to total wave orientation on this cell
+void CGeomCell::IncrTotWaveAngle(double const dWaveAngle)
+{
+   m_dTotWaveAngle += dWaveAngle;
 }
 
 //! Returns the total wave orientation on this cell

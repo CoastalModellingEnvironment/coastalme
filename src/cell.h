@@ -328,9 +328,11 @@ class CGeomCell
 
    void SetWaveHeight(double const);
    double dGetWaveHeight(void) const;
+   void IncrTotWaveHeight(double const);
    double dGetTotWaveHeight(void) const;
    void SetWaveAngle(double const);
    double dGetWaveAngle(void) const;
+   void IncrTotWaveAngle(double const);
    double dGetTotWaveAngle(void) const;
 
    void SetCellDeepWaterWaveHeight(double const);

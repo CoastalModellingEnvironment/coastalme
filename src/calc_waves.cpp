@@ -1526,7 +1526,7 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
    }
    else if (m_nRunUpEquation == RUNUP_EQUATION_STOCKDON)
    {
-      // Compute the run-up using Stockdon, H. F., Holman, R. A., Howd, P. A. & Sallenger JR, A. H. 2006. Empirical parameterization of setup, swash, and runup. Coastal Engineering, 53, 573-588. This version coded  by Tom Ashby
+      // Compute the run-up using Stockdon, H. F., Holman, R. A., Howd, P. A. & Sallenger JR, A. H. 2006. Empirical parameterization of setup, swash, and runup. Coastal Engineering, 53, 573-588. This version coded by Tom Ashby
       double const dS0 = 2 * PI * dWaveHeight / (9.81 * dDeepWaterWavePeriod * dDeepWaterWavePeriod);
       dRunUp = 1.1 * ((0.35 * dtanBeta * pow((1.0 / dS0) * dWaveHeight * dWaveHeight, 0.5)) + (0.5 * pow((1.0 / dS0) * dWaveHeight * dWaveHeight * (0.563 * dtanBeta * dtanBeta + 0.004), 0.5)));
 
@@ -1566,7 +1566,6 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
 
       // LogStream << m_ulIter << ": nProfile = " << nProfile << ", nCoastPoint = " << nCoastPoint << " in active zone, dBreakingWaveHeight = " << dBreakingWaveHeight << endl;
    }
-
    else
    {
       // This coast point is not in the active zone, so breaking wave height, breaking wave angle, and depth of breaking are all meaningless
@@ -1954,7 +1953,7 @@ void CSimulation::InterpolateCShoreOutput(vector<double> const *pVdProfileDistXY
    vector<double> VdXYDistCShoreTmp(nProfileSize);
    copy(pVdXYDistFromCShore->begin(), pVdXYDistFromCShore->begin() + nProfileSize, begin(VdXYDistCShoreTmp));
 
-   // The CShore cross-shore distance has its origin at the seaward end, but the CoastalME convention has its origin at the shoreline. So we mst reverse the other vectors to conform with the CoastalMEME convention
+   // The CShore cross-shore distance has its origin at the seaward end, but the CoastalME convention has its origin at the shoreline. So we mst reverse the other vectors to conform with the CoastalME convention
    vector<double> VdFreeSurfaceStdCShoreTmp(nProfileSize);
    reverse_copy(pVdFreeSurfaceStdCShore->begin(), pVdFreeSurfaceStdCShore->begin() + nProfileSize, begin(VdFreeSurfaceStdCShoreTmp));
 

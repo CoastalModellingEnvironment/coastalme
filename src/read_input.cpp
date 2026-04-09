@@ -552,7 +552,6 @@ bool CSimulation::bReadRunDataFile(void)
                   strGroup = strOriginal.substr(nCommaPos, nNextComma - nCommaPos);
                   nCommaPos = nNextComma + 1;
                }
-
                else
                {
                   strGroup = strOriginal.substr(nCommaPos);
@@ -589,7 +588,7 @@ bool CSimulation::bReadRunDataFile(void)
 
                // Parse numbers in this group
                size_t nSpacePos = 0;
-               strNumbers += SPACE; // Add trailing space to help parsing
+               strNumbers += SPACE;       // Add trailing space to help parsing
 
                do
                {
@@ -634,7 +633,6 @@ bool CSimulation::bReadRunDataFile(void)
                else
                   m_dRegularSaveTime = m_dRegularSaveInterval;
             }
-
             else if (m_nUSave > 1)
             {
                // Multiple values - sort them and validate
@@ -649,7 +647,6 @@ bool CSimulation::bReadRunDataFile(void)
                // Put a dummy save interval as the last entry in the array
                m_dUSaveTime[m_nUSave] = m_dSimDuration + 1;
             }
-
             else
             {
                strErr = "line " + to_string(nLine) + ": no save times specified";
@@ -669,7 +666,6 @@ bool CSimulation::bReadRunDataFile(void)
                for (int n = 1; n < NUMBER_OF_RNGS; n++)
                   m_ulRandSeed[n] = m_ulRandSeed[n - 1];
             }
-
             else
             {
                // User did specify at least one random number seed. Next find out whether we're dealing with a single seed or more than one: check for a space
@@ -684,7 +680,6 @@ bool CSimulation::bReadRunDataFile(void)
                   for (int n = 1; n < NUMBER_OF_RNGS; n++)
                      m_ulRandSeed[n] = m_ulRandSeed[n - 1];
                }
-
                else
                {
                   // The user has supplied more than one random number seed
@@ -923,10 +918,10 @@ bool CSimulation::bReadRunDataFile(void)
                      strRH = strRemoveSubstr(&strRH, &RASTER_WAVE_HEIGHT_CODE);
                   }
 
-                  if (strRH.find(RASTER_WAVE_ORIENTATION_CODE) != string::npos)
+                  if (strRH.find(RASTER_WAVE_ANGLE_CODE) != string::npos)
                   {
                      m_bWaveAngleSave = true;
-                     strRH = strRemoveSubstr(&strRH, &RASTER_WAVE_ORIENTATION_CODE);
+                     strRH = strRemoveSubstr(&strRH, &RASTER_WAVE_ANGLE_CODE);
                   }
 
                   if (strRH.find(RASTER_WAVE_PERIOD_CODE) != string::npos)
@@ -1001,10 +996,10 @@ bool CSimulation::bReadRunDataFile(void)
                      strRH = strRemoveSubstr(&strRH, &RASTER_AVG_WAVE_HEIGHT_CODE);
                   }
 
-                  if (strRH.find(RASTER_AVG_WAVE_ORIENTATION_CODE) != string::npos)
+                  if (strRH.find(RASTER_AVG_WAVE_ANGLE_CODE) != string::npos)
                   {
                      m_bAvgWaveAngleSave = true;
-                     strRH = strRemoveSubstr(&strRH, &RASTER_AVG_WAVE_ORIENTATION_CODE);
+                     strRH = strRemoveSubstr(&strRH, &RASTER_AVG_WAVE_ANGLE_CODE);
                   }
 
                   if (strRH.find(RASTER_BEACH_PROTECTION_CODE) != string::npos)
@@ -1187,10 +1182,10 @@ bool CSimulation::bReadRunDataFile(void)
                      strRH = strRemoveSubstr(&strRH, &RASTER_SHADOW_ZONE_CODE);
                   }
 
-                  if (strRH.find(RASTER_DEEP_WATER_WAVE_ORIENTATION_CODE) != string::npos)
+                  if (strRH.find(RASTER_DEEP_WATER_WAVE_ANGLE_CODE) != string::npos)
                   {
                      m_bDeepWaterWaveAngleSave = true;
-                     strRH = strRemoveSubstr(&strRH, &RASTER_DEEP_WATER_WAVE_ORIENTATION_CODE);
+                     strRH = strRemoveSubstr(&strRH, &RASTER_DEEP_WATER_WAVE_ANGLE_CODE);
                   }
 
                   if (strRH.find(RASTER_DEEP_WATER_WAVE_HEIGHT_CODE) != string::npos)
@@ -4418,8 +4413,8 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
             // Read fixed wave condition inputs
             if (hydro.bHasChild("wave_height"))
                config.SetDeepWaterWaveHeight(hydro.GetChild("wave_height").dGetDoubleValue());
-            if (hydro.bHasChild("wave_orientation"))
-               config.SetDeepWaterWaveOrientation(hydro.GetChild("wave_orientation").dGetDoubleValue());
+            if (hydro.bHasChild("wave_angle"))
+               config.SetDeepWaterWaveOrientation(hydro.GetChild("wave_angle").dGetDoubleValue());
             if (hydro.bHasChild("wave_period"))
                config.SetWavePeriod(hydro.GetChild("wave_period").dGetDoubleValue());
          }
@@ -4777,6 +4772,8 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
          else if (strNumeric.find("day") != string::npos)
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
+         else if (strNumeric.find("week") != string::npos)
+            strNumeric = strNumeric.substr(0, strNumeric.find("week"));
          else if (strNumeric.find("month") != string::npos)
             strNumeric = strNumeric.substr(0, strNumeric.find("month"));
          else if (strNumeric.find("year") != string::npos)
@@ -4804,6 +4801,8 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
          else if (strNumeric.find("day") != string::npos)
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
+         else if (strNumeric.find("week") != string::npos)
+            strNumeric = strNumeric.substr(0, strNumeric.find("week"));
          else if (strNumeric.find("month") != string::npos)
             strNumeric = strNumeric.substr(0, strNumeric.find("month"));
          else if (strNumeric.find("year") != string::npos)
@@ -5003,7 +5002,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
             m_bSeaDepthSave = true;
          else if (code == "wave_height")
             m_bWaveHeightSave = true;
-         else if (code == "wave_orientation")
+         else if (code == "wave_angle")
             m_bWaveAngleSave = true;
          else if (code == "wave_period")
             m_bDeepWaterWavePeriodSave = true;
@@ -5039,7 +5038,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
             m_bAvgSeaDepthSave = true;
          else if (code == "avg_wave_height")
             m_bAvgWaveHeightSave = true;
-         else if (code == "avg_wave_orientation")
+         else if (code == "avg_wave_angle")
             m_bAvgWaveAngleSave = true;
          else if (code == "beach_protection")
             m_bBeachProtectionSave = true;

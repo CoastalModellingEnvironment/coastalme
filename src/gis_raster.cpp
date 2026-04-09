@@ -1146,12 +1146,12 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
          strFilePathName.append(RASTER_AVG_WAVE_HEIGHT_NAME);
          break;
 
-      case (RASTER_PLOT_WAVE_ORIENTATION):
-         strFilePathName.append(RASTER_WAVE_ORIENTATION_NAME);
+      case (RASTER_PLOT_WAVE_ANGLE):
+         strFilePathName.append(RASTER_WAVE_ANGLE_NAME);
          break;
 
-      case (RASTER_PLOT_AVG_WAVE_ORIENTATION):
-         strFilePathName.append(RASTER_AVG_WAVE_ORIENTATION_NAME);
+      case (RASTER_PLOT_AVG_WAVE_ANGLE):
+         strFilePathName.append(RASTER_AVG_WAVE_ANGLE_NAME);
          break;
 
       case (RASTER_PLOT_BEACH_PROTECTION):
@@ -1288,8 +1288,8 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
          strFilePathName.append(RASTER_INTERVENTION_HEIGHT_NAME);
          break;
 
-      case (RASTER_PLOT_DEEP_WATER_WAVE_ORIENTATION):
-         strFilePathName.append(RASTER_DEEP_WATER_WAVE_ORIENTATION_NAME);
+      case (RASTER_PLOT_DEEP_WATER_WAVE_ANGLE):
+         strFilePathName.append(RASTER_DEEP_WATER_WAVE_ANGLE_NAME);
          break;
 
       case (RASTER_PLOT_DEEP_WATER_WAVE_HEIGHT):
@@ -1592,14 +1592,14 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
                   dTmp = 0;
                break;
 
-            case (RASTER_PLOT_WAVE_ORIENTATION):
+            case (RASTER_PLOT_WAVE_ANGLE):
                if (m_pRasterGrid->m_Cell[nX][nY].bIsInundated())
                   dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetWaveAngle();
                else
                   dTmp = 0;
                break;
 
-            case (RASTER_PLOT_AVG_WAVE_ORIENTATION):
+            case (RASTER_PLOT_AVG_WAVE_ANGLE):
                if (m_pRasterGrid->m_Cell[nX][nY].bIsInundated())
                   dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetTotWaveAngle() / static_cast<double>(m_ulIter);
                else
@@ -1740,7 +1740,7 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
                dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetInterventionHeight();
                break;
 
-            case (RASTER_PLOT_DEEP_WATER_WAVE_ORIENTATION):
+            case (RASTER_PLOT_DEEP_WATER_WAVE_ANGLE):
                if (m_pRasterGrid->m_Cell[nX][nY].bIsInundated())
                   dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetCellDeepWaterWaveAngle();
                else
@@ -1953,8 +1953,8 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
          break;
 
          strUnits = "degrees";
-      case (RASTER_PLOT_AVG_WAVE_ORIENTATION):
-      case (RASTER_PLOT_WAVE_ORIENTATION):
+      case (RASTER_PLOT_AVG_WAVE_ANGLE):
+      case (RASTER_PLOT_WAVE_ANGLE):
          break;
 
       case (RASTER_PLOT_POLYGON_GAIN_OR_LOSS):

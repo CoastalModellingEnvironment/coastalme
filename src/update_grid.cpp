@@ -61,6 +61,12 @@ int CSimulation::nUpdateGrid(void)
          {
             // Is a sea cell
             m_dThisIterTotSeaDepth += m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth();
+
+            double dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetWaveAngle();
+            m_pRasterGrid->m_Cell[nX][nY].IncrTotWaveAngle(dTmp);
+
+            dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetWaveHeight();
+            m_pRasterGrid->m_Cell[nX][nY].IncrTotWaveHeight(dTmp);
          }
 
          double const dTopElev = m_pRasterGrid->m_Cell[nX][nY].dGetTopElevIncSea();

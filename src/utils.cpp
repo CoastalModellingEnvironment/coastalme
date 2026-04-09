@@ -383,19 +383,23 @@ double CSimulation::dGetTimeMultiplier(string const* strIn)
       break;
 
    case TIME_HOURS:
-      return 1; // Multiplier for hours
+      return 1;               // Multiplier for hours
       break;
 
    case TIME_DAYS:
-      return 24; // Multiplier for days -> hours
+      return 24;              // Multiplier for days -> hours
+      break;
+
+   case TIME_WEEKS:
+      return 24 * 7;          // Multiplier for days -> weeks
       break;
 
    case TIME_MONTHS:
-      return 24 * 30.416667; // Multiplier for months -> hours (assume 30 + 5/12 day months, no leap years)
+      return 24 * 30.416667;  // Multiplier for months -> hours (assume 30 + 5/12 day months, no leap years)
       break;
 
    case TIME_YEARS:
-      return 24 * 365.25; // Multiplier for years -> hours
+      return 24 * 365.25;     // Multiplier for years -> hours
       break;
    }
 
@@ -796,7 +800,7 @@ string CSimulation::strListRasterFiles(void) const
 
    if (m_bWaveAngleSave)
    {
-      strTmp.append(RASTER_WAVE_ORIENTATION_CODE);
+      strTmp.append(RASTER_WAVE_ANGLE_CODE);
       strTmp.append(", ");
    }
 
@@ -1767,10 +1771,10 @@ void CSimulation::AnnounceProgress(void)
       cout << " remaining " << strDispTime(sdToGo, false, false);
       cout << " total expected " << strDispTime(sdExpectedRuntime, false, false) << ")  ";
 
-      // Add a 'marker' for GIS saves etc.
+      // Add a marker for GIS saves etc.
       cout << setw(6);
       if (m_bSaveGISThisIter)
-         cout << "GIS" + to_string(m_nGISSave) + "   ";
+         cout << "GIS" + to_string(m_nGISSave) + "    ";
       else if (m_bSedimentInputThisIter)
          cout << "SED INPUT ";
       else
