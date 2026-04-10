@@ -979,7 +979,7 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
       if (! bWriteRasterGISFile(RASTER_PLOT_TALUS, &RASTER_PLOT_TALUS_TITLE))
          return false;
 
-   if (m_bSlopeConsSedSave)
+   if (m_bConsSedSlopeSave)
       if (! bWriteRasterGISFile(RASTER_PLOT_CONS_SED_SLOPE, &RASTER_PLOT_CONS_SED_SLOPE_TITLE))
          return false;
 

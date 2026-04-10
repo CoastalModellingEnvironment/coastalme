@@ -93,7 +93,7 @@ CSimulation::CSimulation(void)
    m_bBeachDepositionSave = false;
    m_bTotalBeachDepositionSave = false;
    m_bLandformSave = false;
-   m_bSlopeConsSedSave = false;
+   m_bConsSedSlopeSave = false;
    m_bSlopeSaveForCliffToe = false;
    m_bInterventionClassSave = false;
    m_bInterventionHeightSave = false;
@@ -884,7 +884,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
    // For beach erosion/deposition, conversion from immersed weight to bulk volumetric (sand and voids) transport rate (Leo Van Rijn) TODO 007 need full reference
    m_dInmersedToBulkVolumetric = 1 / ((m_dBeachSedimentDensity - m_dSeaWaterDensity) * (1 - m_dBeachSedimentPorosity) * m_dG);
 
-   m_bConsChangedThisIter.resize(m_nLayers, false);
+   m_bConsSedChangedThisIter.resize(m_nLayers, false);
    m_bUnconsChangedThisIter.resize(m_nLayers, false);
 
    // Normalize sediment erodibility values, so that none are > 1
@@ -1311,7 +1311,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       //       // DEBUG CODE ===========================================================================================================
 
       // Do some end-of-timestep updates to the raster grid, also update per-timestep and running totals
-      nRet = nUpdateGrid();
+      nRet = nEndOfTimestepUpdateGrid();
       if (nRet != RTN_OK)
          return nRet;
 

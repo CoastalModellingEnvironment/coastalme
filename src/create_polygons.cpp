@@ -449,11 +449,11 @@ void CSimulation::MarkPolygonCells(void)
          // LogStream << endl;
          // // DEBUG CODE ==============================================================================================
 
-         // DEBUG CODE ==============================
-         if ((m_ulIter == 466) && (nPolyID == 17))
-            LogStream << endl;
+         // // DEBUG CODE ==============================
+         // if ((m_ulIter == 466) && (nPolyID == 17))
+         //    LogStream << endl;
 
-         // Use the centroid as the start point for the cell-by-cell fill procedure
+         // Get the start point for the cell-by-cell fill procedure
          CGeom2DIPoint const PtiStart = pPolygon->PtiGetFillStartPoint(m_pRasterGrid, &m_VCoast[nCoast]);
 
          // Safety check
@@ -463,12 +463,12 @@ void CSimulation::MarkPolygonCells(void)
             continue;
          }
 
-         // DEBUG CODE ============================
-         CGeom2DIPoint* pNode = pPolygon->pPtiGetNode();
-         CGeom2DIPoint* pAntiNode = pPolygon->pPtiGetAntiNode();
-
-         LogStream << "poly = " << nPolyID << " node is [" << pNode->nGetX() << "][" << pNode->nGetY() << "] = {" << dGridXToExtCRSX(pNode->nGetX()) << ", " << dGridYToExtCRSY(pNode->nGetY()) << "} antinode is [" << pAntiNode->nGetX() << "][" << pAntiNode->nGetY() << "] = {" << dGridXToExtCRSX(pAntiNode->nGetX()) << ", " << dGridYToExtCRSY(pAntiNode->nGetY()) << "} start point for fill is [" << PtiStart.nGetX() << "][" << PtiStart.nGetY() << "] = {" << dGridXToExtCRSX(PtiStart.nGetX()) << ", " << dGridYToExtCRSY(PtiStart.nGetY()) << "}" << endl;
-         // DEBUG CODE ============================
+         // // DEBUG CODE ============================
+         // CGeom2DIPoint* pNode = pPolygon->pPtiGetNode();
+         // CGeom2DIPoint* pAntiNode = pPolygon->pPtiGetAntiNode();
+         //
+         // LogStream << "poly = " << nPolyID << " node is [" << pNode->nGetX() << "][" << pNode->nGetY() << "] = {" << dGridXToExtCRSX(pNode->nGetX()) << ", " << dGridYToExtCRSY(pNode->nGetY()) << "} antinode is [" << pAntiNode->nGetX() << "][" << pAntiNode->nGetY() << "] = {" << dGridXToExtCRSX(pAntiNode->nGetX()) << ", " << dGridYToExtCRSY(pAntiNode->nGetY()) << "} start point for fill is [" << PtiStart.nGetX() << "][" << PtiStart.nGetY() << "] = {" << dGridXToExtCRSX(PtiStart.nGetX()) << ", " << dGridYToExtCRSY(PtiStart.nGetY()) << "}" << endl;
+         // // DEBUG CODE ============================
 
          // // Is the centroid within the inner buffer?
          // if (! bIsWithinPolygon(&PtStart, &PtVInnerBuffer))

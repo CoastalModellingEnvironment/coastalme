@@ -26,7 +26,7 @@ Content of log file                       [0 = no log file, 1 = least detail, 4 
 Output per-timestep results in CSV format?                                              [y/n]: n
 
 Simulation start date and time                                          [hh-mm-ss dd/mm/yyyy]: 00-00-00 01/01/1999
-Duration of simulation                                           [hours, days, months, years]: 3 days
+Duration of simulation                                           [hours, days, months, years]: 3 years
 Timestep (hours or days)                                                                     : 1 hour
 Save times                                                       [hours, days, months, years]: 1 hour       ; 72 hours     ; 1 12 24 32 48 72  hours
 
@@ -143,7 +143,7 @@ Gravitational acceleration (m2/s)                                               
 
 ; MOVE THESE?
 Typical spacing of coastline normals (m)                                        [0 = default]: 0
-Random factor for spacing of normals                              [0 to 1, 0 = deterministic]: 0.25
+Random factor for spacing of normals                              [0 to 1, 0 = deterministic]: 0      ; *** 0.25
 Length of coastline normals (m)                                                              : 140
 
 Start depth for wave calcs (ratio to deep water wave height)                                 : 30         ; was 10 30 15

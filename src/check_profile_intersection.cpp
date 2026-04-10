@@ -69,7 +69,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
       {
          bChanged = false;
          nPass++;
-         LogStream << "***************************** nPass = " << nPass << endl;
+         // LogStream << "***************************** nPass = " << nPass << endl;
          if (nPass >= MAX_ALONG_COAST_PASSES)
          {
             LogStream << m_ulIter << ":\t Reached maximum number (" << MAX_ALONG_COAST_PASSES << ") of along-coast passes for coast-normal intersection checks, abandoning check" << endl;

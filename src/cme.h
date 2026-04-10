@@ -144,7 +144,6 @@
    TODO 013 Change calculation (need user input?) of coastline smoothing convexity threshold
    TODO 014 Profile spacing, could try gradually increasing the profile spacing with increasing concavity, and decreasing the profile spacing with increasing convexity
    TODO 016 Check mass balance for recirculating unconsolidated sediment option
-   TODO 023 Only calculate shore platform erosion if cell is in a polygon
    TODO 024 Should we calculate platform erosion on a profile that has hit dry land?
    TODO 044 Implement estuaries
    TODO 051 Implement other ways of calculating depth of closure, see TODO 045
@@ -205,6 +204,7 @@
    TODO 037 Need more info on nFindIndex() DONE 1.2.3, 2 Dec 2024 Improve coast normals DONE 1.2.3, 20 Dec 2024
    TODO 057 Check this please Manuel DONE 1.2.4, 4 Jan 2025
    TODO 087 Is there a problem if profile is not long enough for user-input depth of closure? DONE 1.3.0 2 Feb 2025
+   TODO 023 Only calculate shore platform erosion if cell is in a polygon
 */
 
 #ifndef CME_H
@@ -770,7 +770,7 @@ double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
 double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (09 Apr 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (10 Apr 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

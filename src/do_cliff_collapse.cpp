@@ -129,8 +129,8 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
                nRet = nDoCliffCollapse(nCoast, pCliff, dFineCollapse, dSandCollapse, dCoarseCollapse, nNotchLayer, dCliffElevPreCollapse, dCliffElevPostCollapse);
                if (nRet != RTN_OK)
                {
-                  if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-                     LogStream << m_ulIter << ": " << WARN << "problem with cliff collapse, continuing however" << endl;
+                  // if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
+                  //    LogStream << m_ulIter << ": " << WARN << "problem with cliff collapse, continuing however" << endl;
                }
 
                // Deposit all sand and/or coarse sediment derived from this cliff collapse as talus, on the cell on which collapse occurred
@@ -259,7 +259,7 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    // Set flags to say that the notch layer, and all layers above it, have changed
    for (int nLayer = nNotchLayer; nLayer <= nTopLayer; nLayer++)
    {
-      m_bConsChangedThisIter[nLayer] = true;
+      m_bConsSedChangedThisIter[nLayer] = true;
       m_bUnconsChangedThisIter[nLayer] = true;
    }
 
@@ -452,7 +452,7 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    m_dThisIterCliffCollapseErosionFineUncons += dFineUnconsLost;
    m_dThisIterCliffCollapseErosionFineCons += dFineConsLost;
 
-   // Also add to the total suspended load. Note that this addition to the suspended load has not yet been added to all cells, this happens in nUpdateGrid()
+   // Also add to the total suspended load. Note that this addition to the suspended load has not yet been added to all cells, this happens in nEndOfTimestepUpdateGrid()
    m_dThisIterFineSedimentToSuspension += (dFineConsLost + dFineUnconsLost);
 
    // Add to this-iteration totals of sand and coarse sediment (consolidated and unconsolidated) eroded via cliff collapse

@@ -30,9 +30,9 @@
 #include "coast.h"
 
 //===============================================================================================================================
-//! Update all cells in the raster raster grid and do some per-timestep accounting
+//! At the end of each timestep, updates all cells in the raster raster grid and does some per-timestep accounting
 //===============================================================================================================================
-int CSimulation::nUpdateGrid(void)
+int CSimulation::nEndOfTimestepUpdateGrid(void)
 {
    // Go through all cells in the raster grid and calculate some this-timestep totals
    m_dThisIterTopElevMax = -DBL_MAX;
@@ -77,6 +77,9 @@ int CSimulation::nUpdateGrid(void)
 
          if (dTopElev < m_dThisIterTopElevMin)
             m_dThisIterTopElevMin = dTopElev;
+
+         // Reset the switch for platform erosion this timestep
+         m_pRasterGrid->m_Cell[nX][nY].SetPlatformErosionThisIter(false);
       }
    }
 

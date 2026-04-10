@@ -93,7 +93,7 @@ int CSimulation::nInitGridAndCalcStillWaterLevel(void)
 
    for (int n = 0; n < m_nLayers; n++)
    {
-      m_bConsChangedThisIter[n] = false;
+      m_bConsSedChangedThisIter[n] = false;
       m_bUnconsChangedThisIter[n] = false;
    }
 

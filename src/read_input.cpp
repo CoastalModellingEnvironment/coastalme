@@ -809,7 +809,7 @@ bool CSimulation::bReadRunDataFile(void)
                   m_bBeachDepositionSave = true;
                   m_bTotalBeachDepositionSave = true;
                   m_bLandformSave = true;
-                  m_bSlopeConsSedSave = true;
+                  m_bConsSedSlopeSave = true;
                   m_bSlopeSaveForCliffToe = true;
                   m_bCliffToeSave = true;
                   m_bAvgSeaDepthSave = true;
@@ -865,7 +865,7 @@ bool CSimulation::bReadRunDataFile(void)
                   m_bBeachDepositionSave = true;
                   m_bTotalBeachDepositionSave = true;
                   m_bLandformSave = true;
-                  m_bSlopeConsSedSave = true;
+                  m_bConsSedSlopeSave = true;
                   m_bSlopeSaveForCliffToe = true;
                   m_bAvgWaveHeightSave = true;
                   m_bAvgWaveAngleSave = true;

@@ -46,6 +46,7 @@ CGeomCell::CGeomCell()
      m_bShadowBoundary(false),
      m_bPossibleCoastStartCell(false),
      // m_bPossibleFloodStartCell(false),
+     m_bPlatformErosionThisTimestep(false),
      m_nBoundingBoxEdge(NO_DIRECTION),
      m_nCoastlineID(INT_NODATA),
      m_nProfileID(INT_NODATA),
@@ -1281,4 +1282,16 @@ double CGeomCell::dGetInterventionHeight(void) const
 double CGeomCell::dGetInterventionTopElev(void) const
 {
    return m_VdAllHorizonTopElev.back() + m_dInterventionHeight;
+}
+
+//! Set the switch to show platform erosion this timestep
+void CGeomCell::SetPlatformErosionThisIter(bool const bSwitch)
+{
+   m_bPlatformErosionThisTimestep = bSwitch;
+}
+
+//! Returns the value of the switch that shows platform erosion this timestep
+bool CGeomCell::bGetPlatformErosionThisIter(void) const
+{
+   return m_bPlatformErosionThisTimestep;
 }

@@ -77,6 +77,9 @@ class CGeomCell
    //! TODO 007 Finish surge and runup stuff
    bool m_bFloodBySetupSurgeRunup;
 
+   //! Switch to show platform erosion on this cell during this timestep
+   bool m_bPlatformErosionThisTimestep;
+
    //! If this cell is an edge (or bounding box) cell, this specifies the edge
    int m_nBoundingBoxEdge;
 
@@ -343,6 +346,9 @@ class CGeomCell
    double dGetCellDeepWaterWavePeriod(void) const;
 
    void SetWaveValuesToDeepWaterWaveValues(void);
+
+   void SetPlatformErosionThisIter(bool const);
+   bool bGetPlatformErosionThisIter(void) const;
 
    void SetBeachProtectionFactor(double const);
    double dGetBeachProtectionFactor(void) const;

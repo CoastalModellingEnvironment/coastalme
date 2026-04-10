@@ -894,7 +894,7 @@ string CSimulation::strListRasterFiles(void) const
       strTmp.append(", ");
    }
 
-   if (m_bSlopeConsSedSave)
+   if (m_bConsSedSlopeSave)
    {
       strTmp.append(RASTER_SLOPE_OF_CONSOLIDATED_SEDIMENT_CODE);
       strTmp.append(", ");

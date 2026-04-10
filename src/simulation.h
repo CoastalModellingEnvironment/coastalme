@@ -176,7 +176,7 @@ class CSimulation
    bool m_bLandformSave;
 
    //! Save slope of consolidated sediment raster GIS files?
-   bool m_bSlopeConsSedSave;
+   bool m_bConsSedSlopeSave;
 
    //! Save intervention class raster GIS files?
    bool m_bInterventionClassSave;
@@ -1401,7 +1401,7 @@ class CSimulation
    ofstream CliffNotchElevTSStream;
 
    //! One element per layer: has the consolidated sediment of this layer been changed during this iteration?
-   vector<bool> m_bConsChangedThisIter;
+   vector<bool> m_bConsSedChangedThisIter;
 
    //! One element per layer: has the consolidated sediment of this layer been changed during this iteration?
    vector<bool> m_bUnconsChangedThisIter;
@@ -1690,7 +1690,7 @@ class CSimulation
    void DoCliffCollapseTalusDeposition(/*int const,*/ CRWCliff const*, double const, double const, int const);
    int nMoveCliffTalusToUnconsolidated(void);
    double dCalcSlopeForUnconsSlumping(int const, int const, int const, int const) const;
-   int nUpdateGrid(void);
+   int nEndOfTimestepUpdateGrid(void);
 
    // For cliff toe location
    // int nLocateCliffToe(void);
