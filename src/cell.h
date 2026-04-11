@@ -315,8 +315,8 @@ class CGeomCell
    void UnSetCheckFloodCell(void);
    bool bIsCellFloodCheck(void) const;
 
-   void SetLocalConsSlope(double const);
-   double dGetConsSedSlope(void) const;
+   void SetLocalConsSedSlope(double const);
+   double dGetLocalConsSedSlope(void) const;
 
    // void SetSlopeForCliffToe(double const);
    // double dGetSlopeForCliffToe(void) const;

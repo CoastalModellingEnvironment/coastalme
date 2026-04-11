@@ -1728,7 +1728,7 @@ class CSimulation
    static void CalcDeanProfile(vector<double>*, double const, double const, double const, bool const, int const, double const);
    static double dSubtractProfiles(vector<double> const*, vector<double> const*, vector<bool> const*);
    int nCalcPotentialPlatformErosionOnProfile(int const, CGeomProfile*);
-   int nCalcPotentialPlatformErosionBetweenProfiles(int const, CGeomProfile*, int const);
+   int nCalcPotentialPlatformErosionBetweenProfiles(int const, CGeomProfile*, int);
    void ConstructParallelProfile(int const, int const, int const, int const, int const, vector<CGeom2DIPoint>* const, vector<CGeom2DIPoint>*, vector<CGeom2DPoint> *);
    double dCalcBeachProtectionFactor(int const, int const, double const);
    void FillInBeachProtectionHolesAndRemoveLegacyCliffs(void);

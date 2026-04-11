@@ -469,13 +469,13 @@ CRWCellLandform* CGeomCell::pGetLandform(void)
 }
 
 //! Sets the local slope of the consolidated sediment only
-void CGeomCell::SetLocalConsSlope(double const dNewSlope)
+void CGeomCell::SetLocalConsSedSlope(double const dNewSlope)
 {
    m_dLocalConsSlope = dNewSlope;
 }
 
 //! Returns the local slope of the consolidated sediment only
-double CGeomCell::dGetConsSedSlope(void) const
+double CGeomCell::dGetLocalConsSedSlope(void) const
 {
    return m_dLocalConsSlope;
 }

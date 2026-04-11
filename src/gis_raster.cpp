@@ -1559,7 +1559,7 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
                break;
 
             case (RASTER_PLOT_CONS_SED_SLOPE):
-               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetConsSedSlope();
+               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetLocalConsSedSlope();
                break;
 
             // case (RASTER_PLOT_SLOPE_FOR_CLIFF_TOE):

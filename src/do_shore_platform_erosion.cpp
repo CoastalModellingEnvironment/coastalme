@@ -353,7 +353,7 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
       int const nY = pProfile->pPtiVGetCellsInProfile()->at(i).nGetY();
 
       // Store the local slope of the consolidated sediment, this is just for output display purposes
-      m_pRasterGrid->m_Cell[nX][nY].SetLocalConsSlope(dVConsSlope[i]);
+      m_pRasterGrid->m_Cell[nX][nY].SetLocalConsSedSlope(dVConsSlope[i]);
 
       // dDeltaZ is zero or -ve: if dDeltaZ is zero then do nothing, if -ve then remove some sediment from this cell
       if (dDeltaZ < 0)
@@ -403,7 +403,7 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
 //===============================================================================================================================
 //! Calculates potential platform erosion on cells to one side of a given coastline-normal profile, up to the next profile
 //===============================================================================================================================
-int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, CGeomProfile *pProfile, int const nDirection)
+int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, CGeomProfile *pProfile, int nDirection)
 {
    // Only work on this profile if it is problem-free
    if (! pProfile->bProfileOK())
@@ -421,6 +421,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
    // Start at the coast end of this coastline-normal profile, then move one cell (forward or backward) along the coast, then construct a parallel profile from this new coastline start cell. Calculate erosion along this parallel profile in the same way as above. Move another cell forward along the coastline, do the same. Keep going until both ends of the parallel profile have hit another profile
    bool bHitCoastEnd = false;
    bool bHitSeawardEnd = false;
+   bool bEndProfileOnly = false;
    int nCellOK = 0;
 
    // Start the temporary parallel profile nDistFromProfile cells along the coastline from the coastline-normal profile, direction depending on nDirection
@@ -438,15 +439,41 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       // Is the coast end of the parallel profile at the beginning of the coast?
       if ((nDirection == DIRECTION_UPCOAST) && (nThisPointOnCoast < 0))
       {
-         LogStream << m_ulIter << ": LEAVING LOOP since temporary profile hit nThisPointOnCoast = " << nThisPointOnCoast << " while doing potential platform erosion " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from start profile = " << pProfile->nGetProfileID() << ", dist from profile = " <<  nDistFromProfile << endl;
-         break;
+         // TEST CODE ================
+         pProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(0);
+         bEndProfileOnly = true;
+         nDirection = DIRECTION_DOWNCOAST;
+         nDistFromProfile = 0;
+         nThisPointOnCoast++;
+         nParCoastXLast = INT_NODATA;
+         nParCoastYLast = INT_NODATA;
+         nCellOK = 0;
+
+         LogStream << m_ulIter << ": CHANGED DIRECTION since temporary profile hit nThisPointOnCoast = " << nThisPointOnCoast << " while doing potential platform erosion " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from profile = " << pProfile->nGetProfileID() << ", dist from profile = " <<  nDistFromProfile << endl;
+         // TEST CODE ================
+
+         // LogStream << m_ulIter << ": LEAVING LOOP since temporary profile hit nThisPointOnCoast = " << nThisPointOnCoast << " while doing potential platform erosion " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from start profile = " << pProfile->nGetProfileID() << ", dist from profile = " <<  nDistFromProfile << endl;
+         // break;
       }
 
       // Is the coast end of the parallel profile at the end of the coast?
       if ((nDirection == DIRECTION_DOWNCOAST) && (nThisPointOnCoast >= nCoastMax))
       {
-         LogStream << m_ulIter << ": LEAVING LOOP since temporary profile hit nThisPointOnCoast = " << nThisPointOnCoast << " while doing potential platform erosion " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from profile = " << pProfile->nGetProfileID() << ", dist from profile = " <<  nDistFromProfile << endl;
-         break;
+         // TEST CODE ================
+         pProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nCoastMax-1);
+         bEndProfileOnly = true;
+         nDirection = DIRECTION_UPCOAST;
+         nDistFromProfile = 0;
+         nThisPointOnCoast--;
+         nParCoastXLast = INT_NODATA;
+         nParCoastYLast = INT_NODATA;
+         nCellOK = 0;
+
+         LogStream << m_ulIter << ": CHANGED DIRECTION since temporary profile hit nThisPointOnCoast = " << nThisPointOnCoast << " while doing potential platform erosion " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from profile = " << pProfile->nGetProfileID() << ", dist from profile = " <<  nDistFromProfile << endl;
+         // TEST CODE ================
+
+         // LogStream << m_ulIter << ": LEAVING LOOP since temporary profile hit nThisPointOnCoast = " << nThisPointOnCoast << " while doing potential platform erosion " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from profile = " << pProfile->nGetProfileID() << ", dist from profile = " <<  nDistFromProfile << endl;
+         // break;
       }
 
       LogStream << m_ulIter << ": from start profile " << pProfile->nGetProfileID() << ", doing potential platform erosion " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast, dist from profile = " <<  nDistFromProfile << endl;
@@ -460,7 +487,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
          continue;
       }
 
-      LogStream << m_ulIter << ": BETWEEN PROFILES " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from start profile " << pProfile->nGetProfileID() << " nThisPointOnCoast = " << nThisPointOnCoast << " dDepthOfBreaking = " << dDepthOfBreaking << endl;
+      LogStream << m_ulIter << ": between profiles " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from start profile " << pProfile->nGetProfileID() << " nThisPointOnCoast = " << nThisPointOnCoast << " dDepthOfBreaking = " << dDepthOfBreaking << endl;
 
       // All is OK, so get the grid coordinates of this point, which is the coastline start point for the parallel profile
       int const nParCoastX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nThisPointOnCoast)->nGetX();
@@ -711,7 +738,8 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
             dDeltaZ = 0;
 
          // Store the local slope of the consolidated sediment, this is just for output display purposes
-         m_pRasterGrid->m_Cell[nXPar][nYPar].SetLocalConsSlope(dVParConsSlope[i]);
+         LogStream << m_ulIter << ": [" << nXPar << "][" << nYPar << "] local slope = " << dVParConsSlope[i] << endl;
+         m_pRasterGrid->m_Cell[nXPar][nYPar].SetLocalConsSedSlope(dVParConsSlope[i]);
 
          // dDeltaZ is zero or -ve: if dDeltaZ is zero then do nothing, if -ve then remove some sediment from this cell
          if (dDeltaZ < 0)
@@ -782,7 +810,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       // If we did not calculate potential platform on any cells while processing this temporary profile, then quit
       if (nCellOK == 0)
       {
-         LogStream << m_ulIter << ": coast " << nCoast << ", no cells have potential platform erosion while processing temporary parallel profile from start profile " << pProfile->nGetProfileID() << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from profile = " << pProfile->nGetProfileID() << ", dist from start profile = " <<  nDistFromProfile << endl;
+         LogStream << m_ulIter << ": coast " << nCoast << ", no cells have potential platform erosion while processing temporary parallel profile from start profile " << pProfile->nGetProfileID() << " " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from profile = " << pProfile->nGetProfileID() << ", dist from start profile = " <<  nDistFromProfile << endl;
          break;
       }
 

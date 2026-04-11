@@ -1546,7 +1546,7 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
             break;
 
          case (RASTER_PLOT_CONS_SED_SLOPE):
-            dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetConsSedSlope();
+            dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetLocalConsSedSlope();
             break;
 
          case (RASTER_PLOT_SEA_DEPTH):
