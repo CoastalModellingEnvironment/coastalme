@@ -130,7 +130,7 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
                if (nRet != RTN_OK)
                {
                   // if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-                  //    LogStream << m_ulIter << ": " << WARN << "problem with cliff collapse, continuing however" << endl;
+                  //    LogStream << m_ulIter << ":\t" << WARN << "problem with cliff collapse, continuing however" << endl;
                }
 
                // Deposit all sand and/or coarse sediment derived from this cliff collapse as talus, on the cell on which collapse occurred
@@ -208,7 +208,7 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    if (nPoly == INT_NODATA)
    {
       // This cell isn't in a polygon
-      LogStream << m_ulIter << ": " << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} is not in a polygon" << endl;
+      LogStream << m_ulIter << ":\t" << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} is not in a polygon" << endl;
       return RTN_ERR_CLIFF_NOT_IN_POLYGON;
    }
 
@@ -234,13 +234,13 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    // More safety checks
    if (nNotchLayer == ELEV_IN_BASEMENT)
    {
-      LogStream << m_ulIter << ": " << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] nNotchLayer is in basement" << endl;
+      LogStream << m_ulIter << ":\t" << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] nNotchLayer is in basement" << endl;
       return RTN_ERR_CLIFF_NOTCH;
    }
 
    if (nNotchLayer < 0)
    {
-      LogStream << m_ulIter << ": " << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} notch layer = " << nNotchLayer << ", dNotchElev = " << dNotchElev << " m_dNotchApexAboveMHW = " << m_dNotchApexAboveMHW << " dPreCollapseCellElev = " << dPreCollapseCellElev << endl;
+      LogStream << m_ulIter << ":\t" << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} notch layer = " << nNotchLayer << ", dNotchElev = " << dNotchElev << " m_dNotchApexAboveMHW = " << m_dNotchApexAboveMHW << " dPreCollapseCellElev = " << dPreCollapseCellElev << endl;
       return RTN_ERR_CLIFF_NOTCH;
    }
 
@@ -252,7 +252,7 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    // Safety check
    if (nTopLayer == INT_NODATA)
    {
-      LogStream << m_ulIter << ": " << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] nTopLayer = " << nTopLayer << endl;
+      LogStream << m_ulIter << ":\t" << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] nTopLayer = " << nTopLayer << endl;
       return RTN_ERR_NO_TOP_LAYER_DURING_CLIFF_COLLAPSE_CALC;
    }
 
@@ -494,7 +494,7 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
    if (! bFPIsEqual(dNotchApexElev, DBL_NODATA, TOLERANCE))
    {
       // This is a notch in this cliff object
-      double const dSedTopElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus();
+      // double const dSedTopElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus();
 
       // assert(dNotchApexElev <= dSedTopElevNoTalus);
 
@@ -504,9 +504,9 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
       if (dWaveElev < dCutoffElev)
       {
          // SWL is below the cutoff elevation, so no incision of this existing notch
-         double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
+         // double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
 
-         LogStream << m_ulIter << ":\t NO incision of existing notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << endl;
+         // LogStream << m_ulIter << ":\t NO incision of existing notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << endl;
 
          return false;
       }
@@ -529,7 +529,7 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
       // And add to the cell's accumulated wave energy
       m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->AddToAccumWaveEnergy(dWaveEnergy* dWeight);
 
-      LogStream << m_ulIter << ":\t incision of existing notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dNotchIncision = " << dNotchIncision << endl;
+      // LogStream << m_ulIter << ":\t incision of existing notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dNotchIncision = " << dNotchIncision << endl;
 
       return true;
    }
@@ -550,9 +550,9 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
          if (dWaveElev < dCutoffElev)
          {
             // SWL is below the cutoff elevation, so no incision of this existing notch
-            double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
+            // double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
 
-            LogStream << m_ulIter << ":\t NO incision of new notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << endl;
+            // LogStream << m_ulIter << ":\t NO incision of new notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << endl;
 
             return false;
          }

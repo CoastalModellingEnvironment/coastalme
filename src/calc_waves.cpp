@@ -1208,7 +1208,7 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
       {
          // CShore sometimes returns only one row of results, which contains data only for the seaward point of the profile. This happens when all other (more coastward) points give an invalid result during CShore's calculations. This is a problem. We don't want to abandon the simulation just because of this, so instead we just put some dummy data into the second row, and carry on with these two rows. The profile will get ignored later, since it is too small to be useful
          if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-            LogStream << m_ulIter << ": " << WARN << "for coast " << nCoast << " profile " << pProfile->nGetProfileID() << ", only " << nOutSize << " CShore output rows, abandoning this profile" << endl;
+            LogStream << m_ulIter << ":\t" << WARN << "for coast " << nCoast << " profile " << pProfile->nGetProfileID() << ", only " << nOutSize << " CShore output rows, abandoning this profile" << endl;
 
          // // Set dummy data in the second row
          // VdXYDistFromCShoreOut[1] = 1e-5;    // Dummy data, must not be the same as VdXYDistFromCShoreOut[0] tho', or get crash in linear interpolation routine
@@ -1725,7 +1725,7 @@ int CSimulation::nGetThisProfileElevationsForCShore(int const nCoast, CGeomProfi
             VdVZ->push_back(0.1); // TODO 053 Set it to a small +ve elevation (compared with SWL). However there must be a better way of doing this
 
             // Could not create the profile elevation vectors
-            LogStream << m_ulIter << ": " << WARN << "coast " << nCoast << " profile " << pProfile->nGetProfileID() << " elevation at the landward end is " << dTopElev << " m. This is lower than this-iteration SWL (" << m_dThisIterSWL << " m). For CShore, changing the landward elevation for profile " << pProfile->nGetProfileID() << " to " << m_dThisIterSWL + 0.1 << "m" << endl;
+            LogStream << m_ulIter << ":\t" << WARN << "coast " << nCoast << " profile " << pProfile->nGetProfileID() << " elevation at the landward end is " << dTopElev << " m. This is lower than this-iteration SWL (" << m_dThisIterSWL << " m). For CShore, changing the landward elevation for profile " << pProfile->nGetProfileID() << " to " << m_dThisIterSWL + 0.1 << "m" << endl;
          }
 
          else
@@ -1850,7 +1850,7 @@ int CSimulation::nReadCShoreOutput(int const nProfile, string const *strCShoreFi
    {
       // CShore sometimes returns only one row, which contains data for the seaward point of the profile. This happens when all other (more coastward) points give an invalid result during CShore's calculations. This is a problem. We don't want to abandon the simulation just because of this, so instead we just duplicate the row, so that the profile will later get marked as invalid
       if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-         LogStream << m_ulIter << ": " << WARN << "for profile " << nProfile << ", only " << nReadRows << " CShore output rows in file " << *strCShoreFilename << endl;
+         LogStream << m_ulIter << ":\t" << WARN << "for profile " << nProfile << ", only " << nReadRows << " CShore output rows in file " << *strCShoreFilename << endl;
 
       // Duplicate the data
       VdXYDistCShore.push_back(VdXYDistCShore[0]);

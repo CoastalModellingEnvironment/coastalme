@@ -141,7 +141,7 @@ int CSimulation::nInitGridAndCalcStillWaterLevel(void)
 #ifdef _OPENMP
 #pragma omp critical(logging)
 #endif
-                  LogStream << m_ulIter << ": " << WARN << "total sediment thickness is " << dSedThickness << " at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+                  LogStream << m_ulIter << ":\t" << WARN << "total sediment thickness is " << dSedThickness << " at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
                }
             }
 
@@ -197,8 +197,8 @@ int CSimulation::nInitGridAndCalcStillWaterLevel(void)
 
    if (nZeroThickness > 0)
    {
-      cerr << m_ulIter << ": " << WARN << nZeroThickness << (nZeroThickness > 1 ? " cells" : " cell") << "( out of " << m_nXGridSize * m_nYGridSize << ") have no sediment, is this correct?" << endl;
-      LogStream << m_ulIter << ": " << WARN << nZeroThickness << " cells have no sediment, is this correct?" << endl;
+      cerr << m_ulIter << ":\t" << WARN << nZeroThickness << (nZeroThickness > 1 ? " cells" : " cell") << "( out of " << m_nXGridSize * m_nYGridSize << ") have no sediment, is this correct?" << endl;
+      LogStream << m_ulIter << ":\t" << WARN << nZeroThickness << " cells have no sediment, is this correct?" << endl;
    }
 
    //    // DEBUG CODE ===========================================================================================================

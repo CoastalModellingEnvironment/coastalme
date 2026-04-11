@@ -1062,7 +1062,7 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
       {
          // Uh-oh, we have a problem
          if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-            LogStream << m_ulIter << ": " << WARN << "platform erosion on cell [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} but this is not in a polygon" << endl;
+            LogStream << m_ulIter << ":\t" << WARN << "platform erosion on cell [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} but this is not in a polygon" << endl;
 
          // m_dDepositionSandDiff and m_dDepositionCoarseDiff are both +ve
          m_dDepositionSandDiff += dSandEroded;

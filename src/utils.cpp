@@ -454,6 +454,8 @@ int CSimulation::nDoTimeUnits(string const* strIn)
       return TIME_HOURS;
    else if (strIn->find("day") != string::npos)
       return TIME_DAYS;
+   else if (strIn->find("week") != string::npos)
+      return TIME_WEEKS;
    else if (strIn->find("month") != string::npos)
       return TIME_MONTHS;
    else if (strIn->find("year") != string::npos)
