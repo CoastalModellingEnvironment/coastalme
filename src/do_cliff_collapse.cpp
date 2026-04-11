@@ -784,7 +784,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
 
             if (bFPIsEqual(dWeight, 0.0, TOLERANCE))
             {
-               LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] dWeight = " << dWeight << endl;
+               // LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] dWeight = " << dWeight << endl;
 
                continue;
             }
@@ -995,7 +995,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                   // Set the changed-this-timestep switch re. the adjacent cell
                   m_bUnconsChangedThisIter[nTopLayer] = true;
 
-                  LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " talus sand deposited at [" << nXAdj << "][" << nYAdj << "], talus sand still to deposit on [" << nX << "][" << nY << "] = " << std::scientific << dTalusSandToMove << " talus sand removed = " << dTalusSandMoved << std::fixed << endl;
+                  // LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " talus sand deposited at [" << nXAdj << "][" << nYAdj << "], talus sand still to deposit on [" << nX << "][" << nY << "] = " << std::scientific << dTalusSandToMove << " talus sand removed = " << dTalusSandMoved << std::fixed << endl;
 
                   // TODO Update the adjacent cell's talus deposition, and total talus deposition, values
                   // m_pRasterGrid->m_Cell[nX][nY].IncrBeachDeposition(dActualDepthToMove);
@@ -1019,7 +1019,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
 
                   // assert(dTalusCoarseToMove >= 0.0);
 
-                  LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " talus coarse deposited at [" << nXAdj << "][" << nYAdj << "], talus coarse still to deposit on [" << nX << "][" << nY << "] = " << std::scientific << dTalusCoarseToMove << " talus coarse removed = " << dTalusCoarseMoved << std::fixed << endl;
+                  // LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " talus coarse deposited at [" << nXAdj << "][" << nYAdj << "], talus coarse still to deposit on [" << nX << "][" << nY << "] = " << std::scientific << dTalusCoarseToMove << " talus coarse removed = " << dTalusCoarseMoved << std::fixed << endl;
 
                   // Set the changed-this-timestep switch re. the adjacent cell
                   m_bUnconsChangedThisIter[nTopLayer] = true;
@@ -1055,7 +1055,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
             // And update the cell's sea depth
             m_pRasterGrid->m_Cell[nX][nY].SetSeaDepth();
 
-            LogStream << m_ulIter << ":\t talus moved from [" << nX << "][" << nY << "] sea depth = " << m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth() << endl;
+            // LogStream << m_ulIter << ":\t talus moved from [" << nX << "][" << nY << "] sea depth = " << m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth() << endl;
          }
       }
    }

@@ -191,6 +191,7 @@ CSimulation::CSimulation(void)
    m_bCliffToeLocate = false;
    m_bHighestSWLSoFar = false;
    m_bLowestSWLSoFar = false;
+   m_bCoastPlatformChangeDirectionThisIter = false;
 
    m_bGDALCanCreate = true;
    m_bCSVPerTimestepResults = true; // Default to CSV output format

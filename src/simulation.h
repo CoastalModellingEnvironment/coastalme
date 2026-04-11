@@ -484,6 +484,9 @@ class CSimulation
    //! In order to go from low elevation (sea) to high elevation (land), process the west edge cells forward (i.e. ascending indices)?
    bool m_bSearchWestEdgeForward = false;
 
+   //! Switch to endure that there is no more than one change of along-coast direction when calculating coast platform erosion
+   bool m_bCoastPlatformChangeDirectionThisIter = false;
+
    //! Options for GDAL when handling raster files
    char **m_papszGDALRasterOptions;
 
