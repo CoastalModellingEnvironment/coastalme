@@ -409,19 +409,19 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
    if (! pProfile->bProfileOK())
       return RTN_OK;
 
-   int const nProfSize = pProfile->nGetNumCellsInProfile();
-   int const nCoastProfileStart = pProfile->nGetCoastPoint();
-   int const nProfileStartX = pProfile->pPtiVGetCellsInProfile()->at(0).nGetX();
-   int const nProfileStartY = pProfile->pPtiVGetCellsInProfile()->at(0).nGetY();
+   int nProfSize = pProfile->nGetNumCellsInProfile();
+   int nCoastProfileStart = pProfile->nGetCoastPoint();
+   int nProfileStartX = pProfile->pPtiVGetCellsInProfile()->at(0).nGetX();
+   int nProfileStartY = pProfile->pPtiVGetCellsInProfile()->at(0).nGetY();
    int const nCoastMax = m_VCoast[nCoast].nGetCoastlineSize();
    int nDistFromProfile = 0;
    int nParCoastXLast = nProfileStartX;
    int nParCoastYLast = nProfileStartY;
 
    // Start at the coast end of this coastline-normal profile, then move one cell (forward or backward) along the coast, then construct a parallel profile from this new coastline start cell. Calculate erosion along this parallel profile in the same way as above. Move another cell forward along the coastline, do the same. Keep going until both ends of the parallel profile have hit another profile
+   bool bEndProfileOnly = false;
    bool bHitCoastEnd = false;
    bool bHitSeawardEnd = false;
-   bool bEndProfileOnly = false;
    int nCellOK = 0;
 
    // Start the temporary parallel profile nDistFromProfile cells along the coastline from the coastline-normal profile, direction depending on nDirection
@@ -441,10 +441,14 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       {
          // TEST CODE ================
          pProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(0);
-         bEndProfileOnly = true;
+         nProfSize = pProfile->nGetNumCellsInProfile();
+         nCoastProfileStart = pProfile->nGetCoastPoint();
+         nProfileStartX = pProfile->pPtiVGetCellsInProfile()->at(0).nGetX();
+         nProfileStartY = pProfile->pPtiVGetCellsInProfile()->at(0).nGetY();
+
          nDirection = DIRECTION_DOWNCOAST;
-         nDistFromProfile = 0;
-         nThisPointOnCoast++;
+         nDistFromProfile = 1;
+         nThisPointOnCoast += 2;
          nParCoastXLast = INT_NODATA;
          nParCoastYLast = INT_NODATA;
          nCellOK = 0;
@@ -461,10 +465,15 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       {
          // TEST CODE ================
          pProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nCoastMax-1);
+         nProfSize = pProfile->nGetNumCellsInProfile();
+         nCoastProfileStart = pProfile->nGetCoastPoint();
+         nProfileStartX = pProfile->pPtiVGetCellsInProfile()->at(0).nGetX();
+         nProfileStartY = pProfile->pPtiVGetCellsInProfile()->at(0).nGetY();
+
          bEndProfileOnly = true;
          nDirection = DIRECTION_UPCOAST;
-         nDistFromProfile = 0;
-         nThisPointOnCoast--;
+         nDistFromProfile = 1;
+         nThisPointOnCoast = nCoastMax - 2;
          nParCoastXLast = INT_NODATA;
          nParCoastYLast = INT_NODATA;
          nCellOK = 0;
@@ -738,7 +747,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
             dDeltaZ = 0;
 
          // Store the local slope of the consolidated sediment, this is just for output display purposes
-         LogStream << m_ulIter << ": [" << nXPar << "][" << nYPar << "] local slope = " << dVParConsSlope[i] << endl;
+         // LogStream << m_ulIter << ": [" << nXPar << "][" << nYPar << "] = {" << dGridCentroidXToExtCRSX(nXPar) << ", " <<  dGridCentroidYToExtCRSY(nYPar) << "} local slope = " << dVParConsSlope[i] << endl;
          m_pRasterGrid->m_Cell[nXPar][nYPar].SetLocalConsSedSlope(dVParConsSlope[i]);
 
          // dDeltaZ is zero or -ve: if dDeltaZ is zero then do nothing, if -ve then remove some sediment from this cell
@@ -1468,16 +1477,9 @@ void CSimulation::ConstructParallelProfile(int const nProfileStartX, int const n
       // Is this cell within the grid? If not, cut short the profile
       if (! bIsWithinValidGrid(nXPar, nYPar))
       {
-         LogStream << "NOT WITHIN GRID [" << nXPar << "][" << nYPar << "]" << endl;
+         LogStream << "NOT WITHIN GRID [" << nXPar << "][" << nYPar << "] = {" << dGridCentroidXToExtCRSX(nXPar) << ", " <<  dGridCentroidYToExtCRSY(nYPar) << "}"<< endl;
          return;
       }
-
-      // // Have we hit an adjacent coastline-normal profile? If so, cut short
-      // if (m_pRasterGrid->m_Cell[nXPar][nYPar].bIsProfile())
-      // {
-      //    // LogStream << "HIT PROFILE " << m_pRasterGrid->m_Cell[nXPar][nYPar].nGetProfileID() << " at [" << nXPar << "][" << nYPar << "] = {" << dGridCentroidXToExtCRSX(nXPar) << ", " <<  dGridCentroidYToExtCRSY(nYPar) << "}" << endl;
-      //    return;
-      // }
 
       // OK, append the cell details
       pPtiVGridParProfile->push_back(CGeom2DIPoint(nXPar, nYPar));
