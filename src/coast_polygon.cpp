@@ -792,7 +792,7 @@ void CGeomCoastPolygon::AppendVertex(CGeom2DIPoint const* pPti)
 // }
 
 //! Calculates the starting point for polygon infilling, a weighted distance along the straight line joining the polygon's node and antinode. This empirical approach works better with small triangular polygons next to the coast (a previous approach calculated the starting point as the approximate centroid of the polygon, determined by averaging all polygon edge points)
-CGeom2DIPoint CGeomCoastPolygon::PtiGetFillStartPoint(CGeomRasterGrid* pRasterGrid, CRWCoast* pCoast)
+CGeom2DIPoint CGeomCoastPolygon::PtiGetFillStartPoint(CGeomRasterGrid* pRasterGrid/*, CRWCoast* pCoast*/)
 {
    // Is this polygon's coast left- or right-handed? Direction of the sea from the coastline, travelling down-coast (i.e. in direction of increasing coast point indices)
    // int const nHandedness = pCoast->nGetSeaHandedness();

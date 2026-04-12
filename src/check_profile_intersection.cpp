@@ -95,7 +95,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
 
                // There is a first profile at this coast point
                CGeomProfile* pFirstProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nFirstCoastPoint);
-               int const nFirstProfile = pFirstProfile->nGetProfileID();
+               // int const nFirstProfile = pFirstProfile->nGetProfileID();
 
                // Safety check: don't check this first profile if it is a start- or end-of-coast profile
                if (pFirstProfile->bIsStartOrEndOfCoast())
@@ -132,7 +132,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
 
                      // There is a second profile at this coast point, so get a pointer to the profile
                      CGeomProfile* pSecondProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nSecondCoastPoint);
-                     int const nSecondProfile = pSecondProfile->nGetProfileID();
+                     // int const nSecondProfile = pSecondProfile->nGetProfileID();
 
                      // LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << pFirstProfile->nGetProfileID() << " (coast point " << nFirstCoastPoint << ") and second profile " << pSecondProfile->nGetProfileID() << " (coast point " << nSecondCoastPoint << ")" << endl;
 

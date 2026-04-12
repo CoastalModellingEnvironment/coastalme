@@ -347,6 +347,6 @@ class CGeomCoastPolygon : public CA2DShape
    // int nGetNumVertices(void) const;
    // CGeom2DIPoint PtiGetVertex(int const) const;
 
-   CGeom2DIPoint PtiGetFillStartPoint(CGeomRasterGrid*, CRWCoast*);
+   CGeom2DIPoint PtiGetFillStartPoint(CGeomRasterGrid*/*, CRWCoast**/);
 };
 #endif // COASTPOLYGON_H

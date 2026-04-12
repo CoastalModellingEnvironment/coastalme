@@ -454,7 +454,7 @@ void CSimulation::MarkPolygonCells(void)
          //    LogStream << endl;
 
          // Get the start point for the cell-by-cell fill procedure
-         CGeom2DIPoint const PtiStart = pPolygon->PtiGetFillStartPoint(m_pRasterGrid, &m_VCoast[nCoast]);
+         CGeom2DIPoint const PtiStart = pPolygon->PtiGetFillStartPoint(m_pRasterGrid/*, &m_VCoast[nCoast]*/);
 
          // Safety check
          if ((PtiStart.nGetX() == INT_NODATA) && (PtiStart.nGetY() == INT_NODATA))
