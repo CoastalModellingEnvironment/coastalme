@@ -1721,7 +1721,7 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
 
          case (RASTER_PLOT_POLYGON_GAIN_OR_LOSS):
             int const nPoly = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID();
-            int const nPolyCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonCoastID();
+            int const nPolyCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonThisCoastID();
 
             if (nPoly == INT_NODATA)
                dTmp = m_dMissingValue;

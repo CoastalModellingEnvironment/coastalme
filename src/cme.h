@@ -607,7 +607,7 @@ int const RTN_ERR_VECTOR_FILE_WRITE = 21;
 int const RTN_ERR_TIMESERIES_FILE_WRITE = 22;
 int const RTN_ERR_LINETOGRID = 23;
 int const RTN_ERR_PROFILE_SPACING = 24;
-// 25 is now missing
+int const RTN_ERR_CHECK_INTERSECTION = 25;
 int const RTN_ERR_PROFILE_ENDPOINT_IS_INLAND = 26;
 int const RTN_ERR_NO_SOLUTION_FOR_ENDPOINT = 27;
 int const RTN_ERR_PROFILE_END_INSUFFICIENT_DEPTH = 28;
@@ -669,6 +669,7 @@ int const RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE = 85;
 int const RTN_ERR_CELL_IN_POLY_BUT_NO_POLY_COAST = 86;
 int const RTN_ERR_CLIFF_TALUS_TO_UNCONS = 87;
 int const RTN_ERR_COAST_TRACING_SAME_EDGE_START_FINISH = 88;
+int const RTN_ERR_POLYGON_FILL_START_POINT = 89;
 int const RTN_ERR_UNKNOWN = 999;
 
 // Coast-normal profile status codes
@@ -770,7 +771,7 @@ double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
 double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (12 Apr 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (13 Apr 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

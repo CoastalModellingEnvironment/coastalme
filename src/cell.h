@@ -300,7 +300,7 @@ class CGeomCell
    bool bIsPossibleFloodStartCell(void) const;
 
    int nGetPolygonID(void) const;
-   int nGetPolygonCoastID(void) const;
+   int nGetPolygonThisCoastID(void) const;
    void SetCoastAndPolygonID(int const, int const);
 
    CRWCellLandform* pGetLandform(void);

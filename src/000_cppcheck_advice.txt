@@ -1,39 +1,12 @@
 calc_waves.cpp:505:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-check_profile_intersection.cpp:541:15: style: Condition 'bTruncatedSameCoast' is always false [knownConditionTrueFalse]
-         if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention /*|| bHitAnotherProfile*/ || VCellsToMark.size() == 0)
-              ^
-check_profile_intersection.cpp:533:37: note: Assignment 'bTruncatedSameCoast=false', assigned value is 0
-         bool bTruncatedSameCoast = false;
-                                    ^
-check_profile_intersection.cpp:541:15: note: Condition 'bTruncatedSameCoast' is always false
-         if ((bTruncatedSameCoast && (! ACCEPT_TRUNCATED_PROFILES)) || bTooShort || bHitCoast || bHitLand || bHitIntervention /*|| bHitAnotherProfile*/ || VCellsToMark.size() == 0)
-              ^
-check_profile_intersection.cpp:987:13: style: Condition 'nRet!=RTN_OK' is always false [knownConditionTrueFalse]
-   if (nRet != RTN_OK)
-            ^
-check_profile_intersection.cpp:986:63: note: Calling function 'nInsertPointIntoProfilesIfNeededThenUpdate' returns 0
-   int const nRet = nInsertPointIntoProfilesIfNeededThenUpdate(nCoast, pProfileToRetain, dIntersectX, dIntersectY, nProfileToRetainIntersectLineSeg, pProfileToTruncate, nProfileToTruncateIntersectLineSeg, bAlreadyPresent);
-                                                              ^
-check_profile_intersection.cpp:986:63: note: Assignment 'nRet=nInsertPointIntoProfilesIfNeededThenUpdate(nCoast,pProfileToRetain,dIntersectX,dIntersectY,nProfileToRetainIntersectLineSeg,pProfileToTruncate,nProfileToTruncateIntersectLineSeg,bAlreadyPresent)', assigned value is 0
-   int const nRet = nInsertPointIntoProfilesIfNeededThenUpdate(nCoast, pProfileToRetain, dIntersectX, dIntersectY, nProfileToRetainIntersectLineSeg, pProfileToTruncate, nProfileToTruncateIntersectLineSeg, bAlreadyPresent);
-                                                              ^
-check_profile_intersection.cpp:987:13: note: Condition 'nRet!=RTN_OK' is always false
-   if (nRet != RTN_OK)
-            ^
-check_profile_intersection.cpp:1049:238: style: Condition 'nThisProfile==nProfileToRetain' is always true [knownConditionTrueFalse]
-            LogStream << WARN << m_ulIter << ": cannot insert intersection point {" << dIntersectX << ", " << dIntersectY << "} nThisLineSeg = " << nThisLineSeg << " into profile " << pThisProfile->nGetCoastID() << " (" << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile) which has length " << pThisProfile->nGetProfileSize() << ", abandoning" << endl;
-                                                                                                                                                                                                                                             ^
-check_profile_intersection.cpp:1035:27: note: Assuming that condition 'nThisProfile!=nProfileToRetain' is not redundant
-         if (nThisProfile != nProfileToRetain)
-                          ^
-check_profile_intersection.cpp:1039:27: note: Assuming condition is false
-         if (nThisLineSeg >= pThisProfile->nGetNumLineSegments())
-                          ^
-check_profile_intersection.cpp:1049:238: note: Condition 'nThisProfile==nProfileToRetain' is always true
-            LogStream << WARN << m_ulIter << ": cannot insert intersection point {" << dIntersectX << ", " << dIntersectY << "} nThisLineSeg = " << nThisLineSeg << " into profile " << pThisProfile->nGetCoastID() << " (" << (nThisProfile == nProfileToRetain ? "main" : "co-incident") << " profile) which has length " << pThisProfile->nGetProfileSize() << ", abandoning" << endl;
-                                                                                                                                                                                                                                             ^
+create_polygons.cpp:1092:22: style: Variable 'pNode' can be declared as pointer to const [constVariablePointer]
+      CGeom2DIPoint* pNode = pPolygon->pPtiGetNode();
+                     ^
+create_polygons.cpp:1093:22: style: Variable 'pAntiNode' can be declared as pointer to const [constVariablePointer]
+      CGeom2DIPoint* pAntiNode = pPolygon->pPtiGetAntiNode();
+                     ^
 do_uncons_sediment_slumping.cpp:176:14: style: struct member 'Neighbour::slope' is never used. [unusedStructMember]
       double slope;
              ^
@@ -79,7 +52,7 @@ nanoflann.hpp:694:29: note: result is overwritten
 nanoflann.hpp:693:22: style: Local variable 'PI' shadows outer variable [shadowVariable]
         DistanceType PI     = pi_const<DistanceType>();
                      ^
-cme.h:724:14: note: Shadowed declaration
+cme.h:725:14: note: Shadowed declaration
 double const PI = 3.141592653589793238462643;
              ^
 nanoflann.hpp:693:22: note: Shadow variable
@@ -88,43 +61,49 @@ nanoflann.hpp:693:22: note: Shadow variable
 nanoflann.hpp:2091:44: style: Consider using std::fill or std::generate algorithm instead of a raw loop. [useStlAlgorithm]
         for (auto& v : Base::root_bbox_) v = {};
                                            ^
-gis_raster.cpp:2221:15: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+gis_raster.cpp:2234:15: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       nPoints += static_cast<unsigned int>(transect.VdX.size());
               ^
 nanoflann.hpp:2554:13: performance: Prefer prefix ++/-- operators for non-primitive types. [postfixOperator]
             pointCount_++;
             ^
-read_input.cpp:4777:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4772:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
                          ^
-read_input.cpp:4779:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4774:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
                          ^
-read_input.cpp:4781:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4776:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+            strNumeric = strNumeric.substr(0, strNumeric.find("week"));
+                         ^
+read_input.cpp:4778:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("month"));
                          ^
-read_input.cpp:4783:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4780:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("year"));
                          ^
-read_input.cpp:4804:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4801:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
                          ^
-read_input.cpp:4806:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4803:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
                          ^
-read_input.cpp:4808:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4805:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+            strNumeric = strNumeric.substr(0, strNumeric.find("week"));
+                         ^
+read_input.cpp:4807:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("month"));
                          ^
-read_input.cpp:4810:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4809:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("year"));
                          ^
-read_input.cpp:4662:27: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:4657:27: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
                   vecNums.push_back(node.nGetIntValue());
                           ^
-read_input.cpp:4674:28: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:4669:28: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
                   vecTimes.push_back(node.GetULongValue());
                            ^
-read_input.cpp:4908:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
+read_input.cpp:4907:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
       strErr = "max save digits for GIS output file names must be > 1";
              ^
 spatial_interpolation.cpp:252:37: style: Variable 'indices' is assigned a value that is never used. [unreadVariable]
@@ -139,49 +118,49 @@ yaml_parser.cpp:170:18: style: Consider using std::transform algorithm instead o
 2di_shape.cpp:54:0: style: The function 'Clear' is never used. [unusedFunction]
 void CA2DIShape::Clear(void)
 ^
-cell.cpp:210:0: style: The function 'bIsPossibleCoastStartCell' is never used. [unusedFunction]
+cell.cpp:211:0: style: The function 'bIsPossibleCoastStartCell' is never used. [unusedFunction]
 bool CGeomCell::bIsPossibleCoastStartCell(void) const
 ^
-cell.cpp:216:0: style: The function 'SetPossibleFloodStartCell' is never used. [unusedFunction]
+cell.cpp:217:0: style: The function 'SetPossibleFloodStartCell' is never used. [unusedFunction]
 void CGeomCell::SetPossibleFloodStartCell(void)
 ^
-cell.cpp:222:0: style: The function 'bIsPossibleFloodStartCell' is never used. [unusedFunction]
+cell.cpp:223:0: style: The function 'bIsPossibleFloodStartCell' is never used. [unusedFunction]
 bool CGeomCell::bIsPossibleFloodStartCell(void) const
 ^
-cell.cpp:234:0: style: The function 'bActualPlatformErosion' is never used. [unusedFunction]
+cell.cpp:235:0: style: The function 'bActualPlatformErosion' is never used. [unusedFunction]
 bool CGeomCell::bActualPlatformErosion(void) const
 ^
-cell.cpp:413:0: style: The function 'bElevLessThanSWL' is never used. [unusedFunction]
+cell.cpp:414:0: style: The function 'bElevLessThanSWL' is never used. [unusedFunction]
 bool CGeomCell::bElevLessThanSWL(void) const
 ^
-cell.cpp:435:0: style: The function 'SetCheckFloodCell' is never used. [unusedFunction]
+cell.cpp:436:0: style: The function 'SetCheckFloodCell' is never used. [unusedFunction]
 void CGeomCell::SetCheckFloodCell(void)
 ^
-cell.cpp:441:0: style: The function 'UnSetCheckFloodCell' is never used. [unusedFunction]
+cell.cpp:442:0: style: The function 'UnSetCheckFloodCell' is never used. [unusedFunction]
 void CGeomCell::UnSetCheckFloodCell(void)
 ^
-cell.cpp:447:0: style: The function 'bIsCellFloodCheck' is never used. [unusedFunction]
+cell.cpp:448:0: style: The function 'bIsCellFloodCheck' is never used. [unusedFunction]
 bool CGeomCell::bIsCellFloodCheck(void) const
 ^
-cell.cpp:1109:0: style: The function 'AddSandTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1119:0: style: The function 'AddSandTalusToUncons' is never used. [unusedFunction]
 void CGeomCell::AddSandTalusToUncons(double const dSandTalus)
 ^
-cell.cpp:1116:0: style: The function 'dGetThisIterSandTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1126:0: style: The function 'dGetThisIterSandTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetThisIterSandTalusToUncons(void)
 ^
-cell.cpp:1122:0: style: The function 'dGetTotSandTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1132:0: style: The function 'dGetTotSandTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetTotSandTalusToUncons(void)
 ^
-cell.cpp:1128:0: style: The function 'AddCoarseTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1138:0: style: The function 'AddCoarseTalusToUncons' is never used. [unusedFunction]
 void CGeomCell::AddCoarseTalusToUncons(double const dCoarseTalus)
 ^
-cell.cpp:1135:0: style: The function 'dGetThisIterCoarseTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1145:0: style: The function 'dGetThisIterCoarseTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetThisIterCoarseTalusToUncons(void)
 ^
-cell.cpp:1141:0: style: The function 'dGetTotCoarseTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1151:0: style: The function 'dGetTotCoarseTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetTotCoarseTalusToUncons(void)
 ^
-cell.cpp:1244:0: style: The function 'dGetTotAvalancheDeposition' is never used. [unusedFunction]
+cell.cpp:1254:0: style: The function 'dGetTotAvalancheDeposition' is never used. [unusedFunction]
 double CGeomCell::dGetTotAvalancheDeposition(void) const
 ^
 cell_landform.cpp:54:0: style: The function 'SetCoast' is never used. [unusedFunction]
@@ -217,16 +196,16 @@ CGeomILine* CRWCoast::pILGetCoastlineGridCRS(void)
 coast.cpp:623:0: style: The function 'dGetLevel' is never used. [unusedFunction]
 double CRWCoast::dGetLevel(int const nCoastPoint, int const level) const
 ^
-coast_polygon.cpp:583:0: style: The function 'AddCliffCollapseUnconsSandDeposition' is never used. [unusedFunction]
+coast_polygon.cpp:584:0: style: The function 'AddCliffCollapseUnconsSandDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseUnconsSandDeposition(double const dDepth)
 ^
-coast_polygon.cpp:595:0: style: The function 'AddCliffCollapseUnconsCoarseDeposition' is never used. [unusedFunction]
+coast_polygon.cpp:596:0: style: The function 'AddCliffCollapseUnconsCoarseDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseUnconsCoarseDeposition(double const dDepth)
 ^
-coast_polygon.cpp:607:0: style: The function 'AddCliffCollapseSandErodedDeanProfile' is never used. [unusedFunction]
+coast_polygon.cpp:608:0: style: The function 'AddCliffCollapseSandErodedDeanProfile' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseSandErodedDeanProfile(double const dDepth)
 ^
-coast_polygon.cpp:619:0: style: The function 'AddCliffCollapseCoarseErodedDeanProfile' is never used. [unusedFunction]
+coast_polygon.cpp:620:0: style: The function 'AddCliffCollapseCoarseErodedDeanProfile' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseCoarseErodedDeanProfile(double const dDepth)
 ^
 configuration.h:216:0: style: The function 'UseSystemTimeForSeed' is never used. [unusedFunction]
@@ -310,10 +289,10 @@ spatial_interpolation.h:123:0: style: The function 'GetKDTree' is never used. [u
 spatial_interpolation.h:126:0: style: The function 'GetPointCloud' is never used. [unusedFunction]
    PointCloud const& GetPointCloud() const { return m_cloud; }
 ^
-utils.cpp:2468:0: style: The function 'pstrChangeToBackslash' is never used. [unusedFunction]
+utils.cpp:2479:0: style: The function 'pstrChangeToBackslash' is never used. [unusedFunction]
 string CSimulation::pstrChangeToBackslash(string const* strIn)
 ^
-utils.cpp:2478:0: style: The function 'pstrChangeToForwardSlash' is never used. [unusedFunction]
+utils.cpp:2489:0: style: The function 'pstrChangeToForwardSlash' is never used. [unusedFunction]
 string CSimulation::pstrChangeToForwardSlash(string const* strIn)
 ^
 yaml_parser.cpp:103:0: style: The function 'nGetSequenceSize' is never used. [unusedFunction]

@@ -2439,7 +2439,7 @@ bool CSimulation::bReadRunDataFile(void)
 
          // ----------------------------------------------------- Sediment data ------------------------------------------------
          case 43:
-            // Simulate coast platform erosion?
+            // Simulate shore platform erosion?
             strRH = strToLower(&strRH);
 
             if (strRH.find('y') != string::npos)
@@ -2448,20 +2448,20 @@ bool CSimulation::bReadRunDataFile(void)
             break;
 
          case 44:
-            // If simulating coast platform erosion, R (coast platform resistance to erosion) values along profile, see Walkden & Hall, 2011
+            // If simulating shore platform erosion, R (shore platform resistance to erosion) values along profile, see Walkden & Hall, 2011
             if (m_bDoShorePlatformErosion)
             {
                // First check that this is a valid double
                if (! bIsStringValidDouble(strRH))
                {
-                  strErr = "line " + to_string(nLine) + ": invalid floating point number for R (coast platform resistance to erosion) '" + strRH + "' in " + m_strDataPathName;
+                  strErr = "line " + to_string(nLine) + ": invalid floating point number for R (shore platform resistance to erosion) '" + strRH + "' in " + m_strDataPathName;
                   break;
                }
 
                m_dR = strtod(strRH.c_str(), NULL);
 
                if (m_dR <= 0)
-                  strErr = "line " + to_string(nLine) + ": R (coast platform resistance to erosion) value must be > 0";
+                  strErr = "line " + to_string(nLine) + ": R (shore platform resistance to erosion) value must be > 0";
             }
 
             break;
@@ -5385,10 +5385,10 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
    // Case 42: Breaking wave height-to-depth ratio, check that this is a valid double
    m_dBreakingWaveHeightDepthRatio = config.dGetBreakingWaveRatio();
 
-   // Case 43: Simulate coast platform erosion?
+   // Case 43: Simulate shore platform erosion?
    m_bDoShorePlatformErosion = config.bGetCoastPlatformErosion();
 
-   // Case 44: If simulating coast platform erosion, R (coast platform resistance to erosion) values along profile, see Walkden & Hall, 2011
+   // Case 44: If simulating shore platform erosion, R (shore platform resistance to erosion) values along profile, see Walkden & Hall, 2011
    if (m_bDoShorePlatformErosion)
    {
       m_dR = config.dGetPlatformErosionResistance();

@@ -172,7 +172,7 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
                // double dTmpSandErosion = m_pVCoastPolygon[n]->dGetCliffCollapseErosionSand() * m_dCellArea ;
                // double dTmpSandDeposition = m_pVCoastPolygon[n]->dGetCliffCollapseUnconsSandDeposition() * m_dCellArea ;
                //
-               // LogStream << m_ulIter << ": polygon = " << m_pVCoastPolygon[n]->nGetPolygonCoastID() << " sand erosion = " << dTmpSandErosion << " sand deposition = " << dTmpSandDeposition << endl;
+               // LogStream << m_ulIter << ": polygon = " << m_pVCoastPolygon[n]->nGetPolygonThisCoastID() << " sand erosion = " << dTmpSandErosion << " sand deposition = " << dTmpSandDeposition << endl;
                //
                // dTmpAllPolySandErosion += dTmpSandErosion;
                // dTmpAllPolySandDeposition += dTmpSandDeposition;
@@ -345,6 +345,17 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    double const dNotchLayerTop = m_pRasterGrid->m_Cell[nX][nY].dCalcLayerElev(nNotchLayer);
    double const dNotchLayerThickness = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nNotchLayer)->dGetTotalThickness();
    double const dNotchLayerFracRemoved = (dNotchLayerTop - dNotchElev) / dNotchLayerThickness;
+
+
+   // DEBUG CODE =======================================================
+   double dTmp = dNotchElev + dFineConsLost + dFineUnconsLost + dSandConsLost + dSandUnconsLost + dCoarseConsLost + dCoarseUnconsLost;
+
+   if (dTmp > m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus())
+      LogStream << m_ulIter << ":\t TOO MUCH SEDIMENT AT CLIFF COLLAPSE sediment depth = " << dTmp << " sediment top elevation inc talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << endl;
+
+   if (dTmp > m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus())
+      LogStream << m_ulIter << ":\t TOO MUCH SEDIMENT AT CLIFF COLLAPSE sediment depth = " << dTmp << " sediment top elevation noy inc talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << endl;
+   // DEBUG CODE =======================================================
 
    // Sort out the notched layer's sediment, both consolidated and unconsolidated, for this cell. First the unconsolidated sediment
    double dFineDepth = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nNotchLayer)->pGetUnconsolidatedSediment()->dGetFineDepth();

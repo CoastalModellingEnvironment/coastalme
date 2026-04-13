@@ -2027,55 +2027,55 @@ string CSimulation::strGetErrorText(int const nErr)
       break;
 
    case RTN_ERR_BADPARAM:
-      strErr = "error in command-line parameter";
+      strErr = "in command-line parameter";
       break;
 
    case RTN_ERR_INI:
-      strErr = "error reading initialisation file";
+      strErr = "reading initialisation file";
       break;
 
    case RTN_ERR_CMEDIR:
-      strErr = "error in directory name";
+      strErr = "in directory name";
       break;
 
    case RTN_ERR_RUNDATA:
-      strErr = "error reading run details file";
+      strErr = "reading run details file";
       break;
 
    case RTN_ERR_SCAPE_SHAPE_FUNCTION_FILE:
-      strErr = "error reading SCAPE shape function file";
+      strErr = "reading SCAPE shape function file";
       break;
 
    case RTN_ERR_TIDEDATAFILE:
-      strErr = "error reading tide data file";
+      strErr = "reading tide data file";
       break;
 
    case RTN_ERR_LOGFILE:
-      strErr = "error creating log file";
+      strErr = "creating log file";
       break;
 
    case RTN_ERR_OUTFILE:
-      strErr = "error creating text output file";
+      strErr = "creating text output file";
       break;
 
    case RTN_ERR_TSFILE:
-      strErr = "error creating time series file";
+      strErr = "creating time series file";
       break;
 
    case RTN_ERR_DEMFILE:
-      strErr = "error reading initial DEM file";
+      strErr = "reading initial DEM file";
       break;
 
    case RTN_ERR_RASTER_FILE_READ:
-      strErr = "error reading raster GIS file";
+      strErr = "reading raster GIS file";
       break;
 
    case RTN_ERR_VECTOR_FILE_READ:
-      strErr = "error reading vector GIS file";
+      strErr = "reading vector GIS file";
       break;
 
    case RTN_ERR_MEMALLOC:
-      strErr = "error allocating memory";
+      strErr = "allocating memory";
       break;
 
    case RTN_ERR_RASTER_GIS_OUT_FORMAT:
@@ -2087,23 +2087,23 @@ string CSimulation::strGetErrorText(int const nErr)
       break;
 
    case RTN_ERR_TEXT_FILE_WRITE:
-      strErr = "error writing text output file";
+      strErr = "writing text output file";
       break;
 
    case RTN_ERR_RASTER_FILE_WRITE:
-      strErr = "error writing raster GIS output file";
+      strErr = "writing raster GIS output file";
       break;
 
    case RTN_ERR_VECTOR_FILE_WRITE:
-      strErr = "error writing vector GIS output file";
+      strErr = "writing vector GIS output file";
       break;
 
    case RTN_ERR_TIMESERIES_FILE_WRITE:
-      strErr = "error writing time series output file";
+      strErr = "writing time series output file";
       break;
 
    case RTN_ERR_LINETOGRID:
-      strErr = "error putting linear feature onto raster grid";
+      strErr = "putting linear feature onto raster grid";
       break;
 
    case RTN_ERR_NOSEACELLS:
@@ -2111,7 +2111,7 @@ string CSimulation::strGetErrorText(int const nErr)
       break;
 
    case RTN_ERR_GRID_TO_LINE:
-      strErr = "error when searching grid for linear feature";
+      strErr = "when searching grid for linear feature";
       break;
 
    case RTN_ERR_NO_COAST:
@@ -2119,15 +2119,19 @@ string CSimulation::strGetErrorText(int const nErr)
       break;
 
    case RTN_ERR_PROFILE_WRITE:
-      strErr = "error writing coastline-normal profiles";
+      strErr = "writing coastline-normal profiles";
       break;
 
    case RTN_ERR_TIME_UNITS:
-      strErr = "error in time units";
+      strErr = "in time units";
       break;
 
    case RTN_ERR_NO_SOLUTION_FOR_ENDPOINT:
       strErr = "no solution when finding end point for coastline-normal line";
+      break;
+
+   case RTN_ERR_CHECK_INTERSECTION:
+      strErr = "while checking for profile intersections";
       break;
 
    case RTN_ERR_PROFILE_ENDPOINT_IS_INLAND:
@@ -2283,43 +2287,43 @@ string CSimulation::strGetErrorText(int const nErr)
       break;
 
    case RTN_ERR_TRACING_FLOOD:
-      strErr = "error tracing flood line on grid";
+      strErr = "tracing flood line on grid";
       break;
 
    case RTN_ERR_NO_START_FINISH_POINTS_TRACING_COAST:
-      strErr = "error tracing coastline on grid, no coast start-finish points found";
+      strErr = "tracing coastline on grid, no coast start-finish points found";
       break;
 
    case RTN_ERR_NO_VALID_COAST:
-      strErr = "error tracing coastline on grid, no valid coast found";
+      strErr = "tracing coastline on grid, no valid coast found";
       break;
 
    case RTN_ERR_COAST_TRACING_REPEATING:
-      strErr = "error tracing coastline on grid, coast search just repeats";
+      strErr = "tracing coastline on grid, coast search just repeats";
       break;
 
    case RTN_ERR_COAST_TRACING_SAME_START_FINISH:
-      strErr = "error tracing coastline on grid, start cell is the same as the finish cell";
+      strErr = "tracing coastline on grid, start cell is the same as the finish cell";
       break;
 
    case RTN_ERR_COAST_TRACING_SAME_EDGE_START_FINISH:
-      strErr = "error tracing coastline on grid, TEST cost starts and ends on same edge";
+      strErr = "tracing coastline on grid, TEST cost starts and ends on same edge";
       break;
 
    case RTN_ERR_COAST_TRACING_ZERO_LENGTH:
-      strErr = "error tracing coastline on grid, zero length coast";
+      strErr = "tracing coastline on grid, zero length coast";
       break;
 
    case RTN_ERR_COAST_TRACING_TOO_SHORT:
-      strErr = "error tracing coastline on grid, coast less than minimum length";
+      strErr = "tracing coastline on grid, coast less than minimum length";
       break;
 
    case RTN_ERR_COAST_TRACING_OFF_EDGE:
-      strErr = "error tracing coastline on grid, hit off-edge cell";
+      strErr = "tracing coastline on grid, hit off-edge cell";
       break;
 
    case RTN_ERR_COAST_TRACING_TOO_LONG:
-      strErr = "error tracing coastline on grid, too many times round tracing loop";
+      strErr = "tracing coastline on grid, too many times round tracing loop";
       break;
 
    case RTN_ERR_CELL_NOT_FOUND_IN_HIT_PROFILE_DIFFERENT_COASTS:
@@ -2340,6 +2344,10 @@ string CSimulation::strGetErrorText(int const nErr)
 
    case RTN_ERR_CLIFF_TALUS_TO_UNCONS:
       strErr = "cannot find closest point to coast when moving talus to unconsolidated sediment";
+      break;
+
+   case RTN_ERR_POLYGON_FILL_START_POINT:
+      strErr = "cannot find a start point for cell-by-cell polygon infilling";
       break;
 
    case RTN_ERR_UNKNOWN:

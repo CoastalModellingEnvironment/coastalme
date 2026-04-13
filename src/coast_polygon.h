@@ -43,7 +43,7 @@ class CGeomCoastPolygon : public CA2DShape
    bool m_bCoastStartPolygon;
 
    //! This-coast-only number of this polygon
-   int m_nCoastID;
+   int m_nPolygonID;
 
    //! The point on this polygon's coastline segment with maximum concave curvature, roughly at the middle of the coastline segment
    int m_nCoastNode;
@@ -204,7 +204,7 @@ class CGeomCoastPolygon : public CA2DShape
    // void SetCoastStartPolygon(void);
    bool bIsCoastStartPolygon(void) const;
 
-   int nGetPolygonCoastID(void) const;
+   int nGetPolygonThisCoastID(void) const;
 
    // void SetCoastNode(int const);
    int nGetNodeCoastPoint(void) const;
@@ -347,6 +347,7 @@ class CGeomCoastPolygon : public CA2DShape
    // int nGetNumVertices(void) const;
    // CGeom2DIPoint PtiGetVertex(int const) const;
 
-   CGeom2DIPoint PtiGetFillStartPoint(CGeomRasterGrid*/*, CRWCoast**/);
+   CGeom2DIPoint PtiGetFillStartPoint1(CGeomRasterGrid*/*, CRWCoast**/);
+   CGeom2DIPoint PtiGetFillStartPoint2(CGeomRasterGrid*, CRWCoast*);
 };
 #endif // COASTPOLYGON_H

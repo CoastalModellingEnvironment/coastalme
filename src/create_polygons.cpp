@@ -326,7 +326,7 @@ void CSimulation::RasterizePolygonJoiningLine(int nCoast, CGeom2DIPoint const* p
 //===============================================================================================================================
 //! Marks cells of the raster grid that are within each coastal polygon. The cell-by-cell fill (aka 'floodfill') code used here is adapted from an example by Lode Vandevenne (http://lodev.org/cgtutor/floodfill.html#Scanline_Floodfill_Algorithm_With_Stack)
 //===============================================================================================================================
-void CSimulation::MarkPolygonCells(void)
+int CSimulation::nMarkPolygonCells(void)
 {
    // // DEBUG CODE =================================================================================
    // vector<CGeom2DIPoint> VPtiCentroids;
@@ -340,10 +340,10 @@ void CSimulation::MarkPolygonCells(void)
    // {
    // CGeomCoastPolygon* pPolygon = m_VCoast[nCoast].pGetPolygon(nPoly);
    //
-   // int nPolyID = pPolygon->nGetPolygonCoastID();
+   // int nPolyID = pPolygon->nGetPolygonThisCoastID();
    // VnID.push_back(nPolyID);
    //
-   // CGeom2DIPoint PtiStart = pPolygon->PtiGetFillStartPoint();
+   // CGeom2DIPoint PtiStart = pPolygon->PtiGetFillStartPoint1();
    // VPtiCentroids.push_back(PtiStart);
    // }
    // }
@@ -411,9 +411,9 @@ void CSimulation::MarkPolygonCells(void)
          double dSedimentInputCoarse = 0;
 
          CGeomCoastPolygon* pPolygon = m_VCoast[nCoast].pGetPolygon(nPoly);
-         int const nPolyID = pPolygon->nGetPolygonCoastID();
+         int const nPolyID = pPolygon->nGetPolygonThisCoastID();
 
-         // LogStream << m_ulIter << ": in MarkPolygonCells() nPoly = " << nPoly << " nPolyID = " << nPolyID << endl;
+         // LogStream << m_ulIter << ": in nMarkPolygonCells() nPoly = " << nPoly << " nPolyID = " << nPolyID << endl;
 
          // Create an empty stack
          stack<CGeom2DIPoint> PtiStack;
@@ -453,14 +453,25 @@ void CSimulation::MarkPolygonCells(void)
          // if ((m_ulIter == 466) && (nPolyID == 17))
          //    LogStream << endl;
 
-         // Get the start point for the cell-by-cell fill procedure
-         CGeom2DIPoint const PtiStart = pPolygon->PtiGetFillStartPoint(m_pRasterGrid/*, &m_VCoast[nCoast]*/);
+         // Get the start point for the cell-by-cell fill procedure, using method 1
+         CGeom2DIPoint PtiStart = pPolygon->PtiGetFillStartPoint1(m_pRasterGrid/*, &m_VCoast[nCoast]*/);
 
          // Safety check
          if ((PtiStart.nGetX() == INT_NODATA) && (PtiStart.nGetY() == INT_NODATA))
          {
-            LogStream << "************ NO FILL ***************" << endl;
-            continue;
+            LogStream << m_ulIter << ":\t " << WARN << "first method for finding start point for polygon infilling did not work for coast " << nCoast << " polygon " << pPolygon->nGetPolygonThisCoastID() << " so now trying method 2" << endl;
+
+            // Method 1 did not work, so now try method 2
+            PtiStart = pPolygon->PtiGetFillStartPoint1(m_pRasterGrid/*, &m_VCoast[nCoast]*/);
+         }
+
+         // Safety check
+         if ((PtiStart.nGetX() == INT_NODATA) && (PtiStart.nGetY() == INT_NODATA))
+         {
+            // Uh-oh, method 2 also did not work
+            LogStream << m_ulIter << ":\t " << ERR << "second method for finding start point for polygon infilling also did not work for coast " << nCoast << " polygon " << pPolygon->nGetPolygonThisCoastID() << ", ending run" << endl;
+
+            return RTN_ERR_POLYGON_FILL_START_POINT;
          }
 
          // // DEBUG CODE ============================
@@ -596,7 +607,7 @@ void CSimulation::MarkPolygonCells(void)
 
          // Store the number of cells in the interior of the polygon
          pPolygon->SetNumCellsInPolygon(nCellsInPolygon);
-         // LogStream << m_ulIter << ": in MarkPolygonCells() N cells = " << nCellsInPolygon << " in polygon " << nPolyID << endl;
+         // LogStream << m_ulIter << ": in nMarkPolygonCells() N cells = " << nCellsInPolygon << " in polygon " << nPolyID << endl;
 
          // Calculate the total volume of seawater on the polygon (m3) and store it
          double const dSeaVolume = dTotDepth * m_dCellSide;
@@ -661,6 +672,8 @@ void CSimulation::MarkPolygonCells(void)
    // LogStream << "==================" << endl;
    // }
    // // DEBUG CODE ===========================================================================================================
+
+   return RTN_OK;
 }
 
 //===============================================================================================================================
@@ -695,7 +708,7 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
       for (int nn = 0; nn < nNumPolygons; nn++)
       {
          CGeomCoastPolygon* pThisPolygon = m_VCoast[nCoast].pGetPolygon(nn);
-         int const nThisPolygon = pThisPolygon->nGetPolygonCoastID();
+         int const nThisPolygon = pThisPolygon->nGetPolygonThisCoastID();
 
          vector<int> nVUpCoastAdjacentPolygon;
          vector<int> nVDownCoastAdjacentPolygon;
@@ -1086,11 +1099,11 @@ void CSimulation::DEBUG_PrintPolygonDetails(int const nCoast, CGeomCoastPolygon*
    {
       m_nExtra++;
       LogStream << "################################################ m_ulIter = " << m_ulIter << " m_nExtra = " << m_nExtra << endl;
-      LogStream << "coast = " << nCoast << " polygon = " << pPolygon->nGetPolygonCoastID() << endl;
+      LogStream << "coast = " << nCoast << " polygon = " << pPolygon->nGetPolygonThisCoastID() << endl;
 
       // assert(nPolygon < m_VCoast[nCoast].nGetNumPolygons());
-      CGeom2DIPoint* pNode = pPolygon->pPtiGetNode();
-      CGeom2DIPoint* pAntiNode = pPolygon->pPtiGetAntiNode();
+      CGeom2DIPoint const* pNode = pPolygon->pPtiGetNode();
+      CGeom2DIPoint const* pAntiNode = pPolygon->pPtiGetAntiNode();
 
       LogStream << "node is [" << pNode->nGetX() << "][" << pNode->nGetY() << "] = {" << dGridXToExtCRSX(pNode->nGetX()) << ", " << dGridYToExtCRSY(pNode->nGetY()) << "} antinode is [" << pAntiNode->nGetX() << "][" << pAntiNode->nGetY() << "] = {" << dGridXToExtCRSX(pAntiNode->nGetX()) << ", " << dGridYToExtCRSY(pAntiNode->nGetY()) << "}" << endl;
 

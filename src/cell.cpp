@@ -317,7 +317,7 @@ int CGeomCell::nGetPolygonID(void) const
 }
 
 //! Returns the coast number of the polygon which 'contains' this cell (returns INT_NODATA if the cell is not 'in' a polygon)
-int CGeomCell::nGetPolygonCoastID(void) const
+int CGeomCell::nGetPolygonThisCoastID(void) const
 {
    return m_nPolygonCoastID;
 }

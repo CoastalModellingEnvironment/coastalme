@@ -1763,7 +1763,7 @@ class CSimulation
    void RasterizePolygonJoiningLine(int const, CGeom2DIPoint const*, CGeom2DIPoint const*, int const);
    // static bool bIsWithinPolygon(CGeom2DPoint const*, vector<CGeom2DPoint> const*);
    // static CGeom2DPoint PtFindPointInPolygon(vector<CGeom2DPoint> const*, int const);
-   void MarkPolygonCells(void);
+   int nMarkPolygonCells(void);
    int nDoPolygonSharedBoundaries(void);
    void DoAllPotentialBeachErosion(void);
    int nDoAllActualBeachErosionAndDeposition(void);

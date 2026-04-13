@@ -1004,7 +1004,9 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
          return nRet;
 
       // Mark cells of the raster grid that are within each polygon, and do some polygon initialisation
-      MarkPolygonCells();
+      nRet = nMarkPolygonCells();
+      if (nRet != RTN_OK)
+         return nRet;
 
       // // DEBUG CODE ================
       // m_nGISSave++;

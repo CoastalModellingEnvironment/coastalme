@@ -1763,7 +1763,7 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
 
             case (RASTER_PLOT_POLYGON_GAIN_OR_LOSS):
                nPoly = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID();
-               nPolyCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonCoastID();
+               nPolyCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonThisCoastID();
 
                if (nPoly == INT_NODATA)
                   dTmp = m_dMissingValue;
@@ -1844,7 +1844,7 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
 
             case (RASTER_PLOT_POLYGON_UPDRIFT_OR_DOWNDRIFT):
                nPoly = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID();
-               nPolyCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonCoastID();
+               nPolyCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonThisCoastID();
                bIsInteger = true;
 
                if (nPoly == INT_NODATA)

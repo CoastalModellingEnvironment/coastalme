@@ -494,7 +494,7 @@ void CSimulation::WriteStartRunDetails(void)
    OutStream << " Start depth for wave calcs (*deep water wave height)      \t: " << m_dWaveDepthRatioForWaveCalcs << endl;
    OutStream << "*Depth of closure                                          \t: " << resetiosflags(ios::floatfield) << fixed << setprecision(3) << m_dDepthOfClosure << " m" << endl;
    OutStream << " Tide data file                                            \t: " << m_strTideDataFile << endl;
-   OutStream << " Do coast platform erosion?                                \t: " << (m_bDoShorePlatformErosion ? "Y" : "N") << endl;
+   OutStream << " Do shore platform erosion?                                \t: " << (m_bDoShorePlatformErosion ? "Y" : "N") << endl;
    OutStream << resetiosflags(ios::floatfield);
    OutStream << scientific << setprecision(2);
    OutStream << " Coast platform resistance to erosion                      \t: " << m_dR << endl;
@@ -1656,7 +1656,7 @@ void CSimulation::WritePolygonInfoTable(void)
       {
          CGeomCoastPolygon const* pPolygon = m_VCoast[nCoast].pGetPolygon(n);
 
-         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonCoastID(), 11) << "|" << strIntRight(pPolygon->nGetUpCoastProfile(), 11) << "|" << strIntRight(pPolygon->nGetDownCoastProfile(), 11) << "|" << strDblRight(pPolygon->dGetSeawaterVolume(), 0, 14) << "|" << strDblRight(pPolygon->dGetAvgUnconsD50(), 2, 14) << "| " << endl;
+         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonThisCoastID(), 11) << "|" << strIntRight(pPolygon->nGetUpCoastProfile(), 11) << "|" << strIntRight(pPolygon->nGetDownCoastProfile(), 11) << "|" << strDblRight(pPolygon->dGetSeawaterVolume(), 0, 14) << "|" << strDblRight(pPolygon->dGetAvgUnconsD50(), 2, 14) << "| " << endl;
       }
    }
 
@@ -1710,7 +1710,7 @@ void CSimulation::WritePolygonPreExistingSedimentTable(void)
          double const dThisSand = pPolygon->dGetPreExistingUnconsSand() + pPolygon->dGetSedimentInputUnconsSand();
          double const dThisCoarse = pPolygon->dGetPreExistingUnconsCoarse() + pPolygon->dGetSedimentInputUnconsCoarse();
 
-         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonCoastID(), 11) << "|" << strDblRight((dThisFine + dThisSand + dThisCoarse) * m_dCellArea, 0, 14) << "|" << strDblRight(dThisFine * m_dCellArea, 0, 14) << "|" << strDblRight(dThisSand * m_dCellArea, 0, 14) << "|" << strDblRight(dThisCoarse * m_dCellArea, 0, 14) << "|" << endl;
+         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonThisCoastID(), 11) << "|" << strDblRight((dThisFine + dThisSand + dThisCoarse) * m_dCellArea, 0, 14) << "|" << strDblRight(dThisFine * m_dCellArea, 0, 14) << "|" << strDblRight(dThisSand * m_dCellArea, 0, 14) << "|" << strDblRight(dThisCoarse * m_dCellArea, 0, 14) << "|" << endl;
 
          dTmpFineTot += (dThisFine * m_dCellArea);
          dTmpSandTot += (dThisSand * m_dCellArea);
@@ -1756,7 +1756,7 @@ void CSimulation::WritePolygonSedimentInputEventTable(void)
          double const dThisSand = pPolygon->dGetSedimentInputUnconsSand();
          double const dThisCoarse = pPolygon->dGetSedimentInputUnconsCoarse();
 
-         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonCoastID(), 11) << "|" << strDblRight((dThisFine + dThisSand + dThisCoarse) * m_dCellArea, 0, 14) << "|" << strDblRight(dThisFine * m_dCellArea, 0, 14) << "|" << strDblRight(dThisSand * m_dCellArea, 0, 14) << "|" << strDblRight(dThisCoarse * m_dCellArea, 0, 14) << "|" << endl;
+         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonThisCoastID(), 11) << "|" << strDblRight((dThisFine + dThisSand + dThisCoarse) * m_dCellArea, 0, 14) << "|" << strDblRight(dThisFine * m_dCellArea, 0, 14) << "|" << strDblRight(dThisSand * m_dCellArea, 0, 14) << "|" << strDblRight(dThisCoarse * m_dCellArea, 0, 14) << "|" << endl;
 
          dTmpFineTot += (dThisFine * m_dCellArea);
          dTmpSandTot += (dThisSand * m_dCellArea);
@@ -1793,7 +1793,7 @@ void CSimulation::WritePolygonShorePlatformErosion(void)
       {
          CGeomCoastPolygon const* pPolygon = m_VCoast[nCoast].pGetPolygon(n);
 
-         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonCoastID(), 11) << "|" << strDblRight((pPolygon->dGetPlatformErosionUnconsSand() + pPolygon->dGetPlatformErosionUnconsCoarse()) * m_dCellArea, 0, 14) << "|" << strDblRight(0, 0, 14) << "|" << strDblRight(pPolygon->dGetPlatformErosionUnconsSand() * m_dCellArea, 0, 14) << "|" << strDblRight(pPolygon->dGetPlatformErosionUnconsCoarse() * m_dCellArea, 0, 14) << "|" << endl;
+         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonThisCoastID(), 11) << "|" << strDblRight((pPolygon->dGetPlatformErosionUnconsSand() + pPolygon->dGetPlatformErosionUnconsCoarse()) * m_dCellArea, 0, 14) << "|" << strDblRight(0, 0, 14) << "|" << strDblRight(pPolygon->dGetPlatformErosionUnconsSand() * m_dCellArea, 0, 14) << "|" << strDblRight(pPolygon->dGetPlatformErosionUnconsCoarse() * m_dCellArea, 0, 14) << "|" << endl;
 
          dTmpTot += (pPolygon->dGetPlatformErosionUnconsSand() + pPolygon->dGetPlatformErosionUnconsCoarse()) * m_dCellArea;
          dTmpSandTot += (pPolygon->dGetPlatformErosionUnconsSand() * m_dCellArea);
@@ -1839,7 +1839,7 @@ void CSimulation::WritePolygonCliffCollapseErosion(void)
       {
          CGeomCoastPolygon const* pPolygon = m_VCoast[nCoast].pGetPolygon(n);
 
-         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonCoastID(), 11)
+         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonThisCoastID(), 11)
                   // All
                   << "|" << strDblRight((pPolygon->dGetCliffCollapseErosionFine() + pPolygon->dGetCliffCollapseErosionSand() + pPolygon->dGetCliffCollapseErosionCoarse()) * m_dCellArea, 0, 14) << " " << strDblRight((pPolygon->dGetCliffCollapseSandErodedDeanProfile() + pPolygon->dGetCliffCollapseCoarseErodedDeanProfile()) * m_dCellArea, 0, 14) << "|" << strDblRight((pPolygon->dGetCliffCollapseToSuspensionFine() + pPolygon->dGetCliffCollapseUnconsSandDeposition() + pPolygon->dGetCliffCollapseUnconsCoarseDeposition()) * m_dCellArea, 0, 14) << "|"
                   // Fine
@@ -1903,7 +1903,7 @@ void CSimulation::WritePolygonSedimentBeforeMovement(void)
          double const dSand = pPolygon->dGetPreExistingUnconsSand();
          double const dCoarse = pPolygon->dGetPreExistingUnconsCoarse();
 
-         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonCoastID(), 11) << "|" << strDblRight((dFine + dSand + dCoarse) * m_dCellArea, 0, 14) << "|" << strDblRight(dFine * m_dCellArea, 0, 14) << "|" << strDblRight(dSand * m_dCellArea, 0, 14) << "|" << strDblRight(dCoarse * m_dCellArea, 0, 14) << "|" << endl;
+         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonThisCoastID(), 11) << "|" << strDblRight((dFine + dSand + dCoarse) * m_dCellArea, 0, 14) << "|" << strDblRight(dFine * m_dCellArea, 0, 14) << "|" << strDblRight(dSand * m_dCellArea, 0, 14) << "|" << strDblRight(dCoarse * m_dCellArea, 0, 14) << "|" << endl;
 
          dTmpTot += (dFine + dSand + dCoarse) * m_dCellArea;
          dTmpFineTot += (dFine * m_dCellArea);
@@ -1945,7 +1945,7 @@ void CSimulation::WritePolygonPotentialErosion(void)
       {
          CGeomCoastPolygon const* pPolygon = m_VCoast[nCoast].pGetPolygon(n);
 
-         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonCoastID(), 11) << "|" << strDblRight(pPolygon->dGetPotentialErosion() * m_dCellArea, 0, 14) << "|" << endl;
+         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonThisCoastID(), 11) << "|" << strDblRight(pPolygon->dGetPotentialErosion() * m_dCellArea, 0, 14) << "|" << endl;
 
          dTmpTot += (pPolygon->dGetPotentialErosion() * m_dCellArea);
       }
@@ -1978,7 +1978,7 @@ void CSimulation::WritePolygonPotentialErosion(void)
 // {
 // CGeomCoastPolygon const* pPolygon = m_VCoast[nCoast].pGetPolygon(nPoly);
 //
-// LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(m_VCoast[nCoast].pGetPolygon(nPoly)->nGetPolygonCoastID(), 11) << "|" << strDblRight((pPolygon->dGetBeachErosionUnconsFine() + pPolygon->dGetBeachErosionUnconsSand() + pPolygon->dGetBeachErosionUnconsCoarse()) * m_dCellArea, 0, 14) << "|" << strDblRight(pPolygon->dGetBeachErosionUnconsFine() * m_dCellArea, 0, 14) << "|" << strDblRight(pPolygon->dGetBeachErosionUnconsSand() * m_dCellArea, 0, 14) << "|" << strDblRight(pPolygon->dGetBeachErosionUnconsCoarse() * m_dCellArea, 0, 14) << "|" << endl;
+// LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(m_VCoast[nCoast].pGetPolygon(nPoly)->nGetPolygonThisCoastID(), 11) << "|" << strDblRight((pPolygon->dGetBeachErosionUnconsFine() + pPolygon->dGetBeachErosionUnconsSand() + pPolygon->dGetBeachErosionUnconsCoarse()) * m_dCellArea, 0, 14) << "|" << strDblRight(pPolygon->dGetBeachErosionUnconsFine() * m_dCellArea, 0, 14) << "|" << strDblRight(pPolygon->dGetBeachErosionUnconsSand() * m_dCellArea, 0, 14) << "|" << strDblRight(pPolygon->dGetBeachErosionUnconsCoarse() * m_dCellArea, 0, 14) << "|" << endl;
 //
 // dTmpTot += (pPolygon->dGetBeachErosionUnconsFine() + pPolygon->dGetBeachErosionUnconsSand() + pPolygon->dGetBeachErosionUnconsCoarse()) * m_dCellArea;
 // dTmpFineTot += (pPolygon->dGetBeachErosionUnconsFine() * m_dCellArea);
@@ -2016,7 +2016,7 @@ void CSimulation::WritePolygonUnsortedSequence(vector<vector<vector<int>>>& pnVV
             if (m == 0)
             {
                LogStream << strIntRight(nCoast, 11) << "|";
-               LogStream << strIntRight(pPolygon->nGetPolygonCoastID(), 11) << "|";
+               LogStream << strIntRight(pPolygon->nGetPolygonThisCoastID(), 11) << "|";
                continue;
             }
 
@@ -2082,7 +2082,7 @@ void CSimulation::WritePolygonSortedSequence(vector<vector<vector<int>>>& pnVVVA
          const CGeomCoastPolygon* pPoly = m_VCoast[nCoast].pGetPolygon(pnVVVAllCoastPolyAndAdjacent[nCoast][nPoly][0]);
          vector<int> VCirc = *pPoly->VnGetCircularities();
 
-         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPoly->nGetPolygonCoastID(), 11) << "|";
+         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPoly->nGetPolygonThisCoastID(), 11) << "|";
 
          // Up-coast or down-coast sediment movement?
          if (pnVVVAllCoastPolyAndAdjacent[nCoast][nPoly][1] == true)
@@ -2177,7 +2177,7 @@ void CSimulation::WritePolygonActualMovement(vector<vector<vector<int>>>& pnVVVA
          double const dSandErosionNotDDPD = -m_VCoast[nCoast].pGetPolygon(nPoly)->dGetBeachErosionUnconsSand() - m_VCoast[nCoast].pGetPolygon(nPoly)->dGetBeachSandErodedDeanProfile();
          double const dCoarseErosionNotDDPD = -m_VCoast[nCoast].pGetPolygon(nPoly)->dGetBeachErosionUnconsCoarse() - m_VCoast[nCoast].pGetPolygon(nPoly)->dGetBeachCoarseErodedDeanProfile();
 
-         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(m_VCoast[nCoast].pGetPolygon(nPoly)->nGetPolygonCoastID(), 11) << "|"
+         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(m_VCoast[nCoast].pGetPolygon(nPoly)->nGetPolygonThisCoastID(), 11) << "|"
                   // All
                   << strDblRight(dAllErosionNotDDPD * m_dCellArea, 0, 14) << " " << strDblRight((m_VCoast[nCoast].pGetPolygon(nPoly)->dGetBeachSandErodedDeanProfile() + m_VCoast[nCoast].pGetPolygon(nPoly)->dGetBeachCoarseErodedDeanProfile()) * m_dCellArea, 0, 14) << "|" << strDblRight(m_VCoast[nCoast].pGetPolygon(nPoly)->dGetBeachDepositionAndSuspensionAllUncons() * m_dCellArea, 0, 14) << "|"
                   // Fine

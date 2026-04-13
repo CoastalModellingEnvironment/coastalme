@@ -491,7 +491,7 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
       {
-         LogStream << m_ulIter << ":\t possible profile from coast " << nCoast << " point " << nProfileStartPoint  << " [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << PtStart.dGetX() << ", " << PtStart.dGetY() << "} is too short for depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, continuing however" << endl;
+         // LogStream << m_ulIter << ":\t possible profile from coast " << nCoast << " point " << nProfileStartPoint  << " [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << PtStart.dGetX() << ", " << PtStart.dGetY() << "} is too short for depth of closure " << m_dDepthOfClosure << " at end point [" << nXEnd << "][" << nYEnd << "] = {" << dGridCentroidXToExtCRSX(nXEnd) << ", " << dGridCentroidYToExtCRSY(nYEnd) << "}, continuing however" << endl;
       }
 
       // return RTN_ERR_PROFILE_END_INSUFFICIENT_DEPTH;
