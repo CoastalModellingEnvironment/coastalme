@@ -38,7 +38,7 @@ class CA2DShape
  private:
  protected:
    //! The points which comprise the float-coordinate 2D shape
-   vector<CGeom2DPoint> m_VPoints;
+   vector<CGeom2DPoint> m_VPtPoints;
 
    CA2DShape(void);
    virtual ~CA2DShape(void);

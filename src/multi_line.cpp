@@ -37,13 +37,13 @@ CGeomMultiLine::~CGeomMultiLine(void)
 //! Returns a pointer to the points of the CGeomLine
 vector<CGeom2DPoint>& CGeomMultiLine::pGetPoints(void)
 {
-   return CGeomLine::m_VPoints;
+   return CGeomLine::m_VPtPoints;
 }
 
 // //! Replaces the points of the CGeomLine
 // void CGeomMultiLine::SetPoints(vector<CGeom2DPoint> const& pVPts)
 // {
-//    CGeomLine::m_VPoints = pVPts;
+//    CGeomLine::m_VPtPoints = pVPts;
 // }
 
 //! Appends a new empty line segment

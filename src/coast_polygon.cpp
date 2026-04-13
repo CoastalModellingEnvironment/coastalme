@@ -34,7 +34,7 @@ using std::find;
 #include "raster_grid.h"
 
 //! Constructor with 10 parameters and initialisation list
-CGeomCoastPolygon::CGeomCoastPolygon(int const nCoastID, int const nNode, int const nProfileUpCoast, int const nProfileDownCoast, vector<CGeom2DPoint> const* pVIn, int const nLastPointUpCoast, const int nLastPointDownCoast, CGeom2DIPoint const* PtiNode, CGeom2DIPoint const* PtiAntinode, bool const bStartCoast, bool const bEndCoast)
+CGeomCoastPolygon::CGeomCoastPolygon(CSimulation* pSim, int const nCoastID, int const nNode, int const nProfileUpCoast, int const nProfileDownCoast, vector<CGeom2DPoint> const* pVIn, int const nLastPointUpCoast, const int nLastPointDownCoast, CGeom2DIPoint const* PtiNode, CGeom2DIPoint const* PtiAntinode, bool const bStartCoast, bool const bEndCoast)
     : // m_bIsPointedSeaward(true),
       m_bUnconsSedimentMovementDownCoastThisIter(false),
       m_bCoastEndPolygon(bEndCoast),
@@ -80,15 +80,22 @@ CGeomCoastPolygon::CGeomCoastPolygon(int const nCoastID, int const nNode, int co
       m_dSedimentInputSand(0),
       m_dSedimentInputCoarse(0),
       m_dLength(0),
+      m_pSim(pSim),
       m_PtiNode(*PtiNode),
       m_PtiAntinode(*PtiAntinode)
 {
-   m_VPoints = *pVIn;
+   m_VPtPoints = *pVIn;      // external CRS
 }
 
 //! Destructor
 CGeomCoastPolygon::~CGeomCoastPolygon(void)
 {
+}
+
+//! Returns a pointer to the simulation object
+CSimulation* CGeomCoastPolygon::pGetSim(void) const
+{
+   return m_pSim;
 }
 
 // void CGeomCoastPolygon::SetNotPointed(void)
@@ -204,25 +211,25 @@ int CGeomCoastPolygon::nGetDownCoastProfile(void) const
 
 // void CGeomCoastPolygon::SetBoundary(vector<CGeom2DPoint> const* pVIn)
 // {
-// m_VPoints = *pVIn;
+// m_VPtPoints = *pVIn;
 // }
 
 // vector<CGeom2DPoint>* CGeomCoastPolygon::pPtVGetBoundary(void)
 // {
-// return &m_VPoints;
+// return &m_VPtPoints;
 // }
 
 //! Get the coordinates (external CRS) of a specified point on the polygon's boundary
 CGeom2DPoint* CGeomCoastPolygon::pPtGetBoundaryPoint(int const nPoint)
 {
-   // TODO 055 No check to see if nPoint < m_VPoints.size()
-   return &m_VPoints[nPoint];
+   // TODO 055 No check to see if nPoint < m_VPtPoints.size()
+   return &m_VPtPoints[nPoint];
 }
 
 //! Get the number of points in the polygon's boundary
 int CGeomCoastPolygon::nGetBoundarySize(void) const
 {
-   return static_cast<int>(m_VPoints.size());
+   return static_cast<int>(m_VPtPoints.size());
 }
 
 //! Return the number of points in the up-coast profile
@@ -796,15 +803,16 @@ CGeom2DIPoint CGeomCoastPolygon::PtiGetVertex(int const nIndex) const
 //===============================================================================================================================
 CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 {
+   int const nPolySize = static_cast<int>(m_VPtPoints.size());      // external CRS
+
    int const nStartPoint = 0;
-   int const nPolySize = static_cast<int>(m_VPtiVertices.size());
    int nOffSet = 0;
-   CGeom2DIPoint PtiStart;
-   vector<CGeom2DIPoint> VPtiTestPoints(3);
+   CGeom2DPoint PtStart;
+   vector<CGeom2DPoint> VPtTestPoints(3);
 
    do
    {
-      // Choose three consecutive points from the polygon
+      // Choose three consecutive boundary points from the polygon
       for (int n = 0; n < 3; n++)
       {
          int nIndex = n + nStartPoint + nOffSet;
@@ -814,9 +822,9 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 
          // Safety check
          if (nIndex < 0)
-            return CGeom2DIPoint(INT_NODATA, INT_NODATA);
+            return CGeom2DIPoint(INT_NODATA, INT_NODATA);      // grid CRS
 
-         VPtiTestPoints[n] = m_VPtiVertices[nIndex];
+         VPtTestPoints[n] = m_VPtPoints[nIndex];
       }
 
       // Increment ready for next time
@@ -824,28 +832,31 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 
       // Safety check
       if (nOffSet >= (nPolySize + 3))
-         return CGeom2DIPoint(INT_NODATA, INT_NODATA);
+         return CGeom2DIPoint(INT_NODATA, INT_NODATA);         // grid CRS
 
       // Check if the halfway point between the first and the third point is inside the polygon
-      PtiStart.SetX((VPtiTestPoints[0].nGetX() + VPtiTestPoints[2].nGetX()) / 2);
-      PtiStart.SetY((VPtiTestPoints[0].nGetY() + VPtiTestPoints[2].nGetY()) / 2);
-   } while (! bIsWithinPolygon(&PtiStart));
+      PtStart.SetX((VPtTestPoints[0].dGetX() + VPtTestPoints[2].dGetX()) / 2);
+      PtStart.SetY((VPtTestPoints[0].dGetY() + VPtTestPoints[2].dGetY()) / 2);
+   } while (! bIsWithinPolygon(&PtStart));
+
+   // Convert to grid CRS
+   CGeom2DIPoint PtiStart = pGetSim()->PtiExtCRSToGridRound(&PtStart);
 
    return PtiStart;
 }
 
 //===============================================================================================================================
-//! Determines whether a point is within the polygon: however if the point is exactly on the edge of the polygon, then the result is indeterminate. Modified from code at http://alienryderflex.com/polygon/, our thanks to Darel Rex Finley (DarelRex@gmail.com)
+//! Determines whether a point (external CRS) is within the polygon: however if the point is exactly on the edge of the polygon, then the result is indeterminate. Modified from code at http://alienryderflex.com/polygon/, our thanks to Darel Rex Finley (DarelRex@gmail.com)
 //===============================================================================================================================
-bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart)
+bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DPoint const* pPtStart)
 {
-   int nVertices = m_VPtiVertices.size();
+   int nPoints = m_VPtPoints.size();
    bool bInside = true;
 
-   for (int i = 0, j = nVertices - 1; i < nVertices; j = i++)
+   for (int i = 0, j = nPoints - 1; i < nPoints; j = i++)
    {
       // Check if the point's y-coordinate is within the edge's y-range then check if the point is to the left of the intersection of the ray and edge
-      if (((m_VPtiVertices[i].nGetY() > pPtiStart->nGetY()) != (m_VPtiVertices[j].nGetY() > pPtiStart->nGetY())) && (pPtiStart->nGetX() < (m_VPtiVertices[j].nGetX() - m_VPtiVertices[i].nGetX()) * (pPtiStart->nGetY() - m_VPtiVertices[i].nGetY()) / (m_VPtiVertices[j].nGetY() - m_VPtiVertices[i].nGetY()) + m_VPtiVertices[i].nGetX()))
+      if (((m_VPtPoints[i].dGetY() > pPtStart->dGetY()) != (m_VPtPoints[j].dGetY() > pPtStart->dGetY())) && (pPtStart->dGetX() < (m_VPtPoints[j].dGetX() - m_VPtPoints[i].dGetX()) * (pPtStart->dGetY() - m_VPtPoints[i].dGetY()) / (m_VPtPoints[j].dGetY() - m_VPtPoints[i].dGetY()) + m_VPtPoints[i].dGetX()))
       {
          bInside = ! bInside;
       }

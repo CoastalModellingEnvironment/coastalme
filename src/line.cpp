@@ -32,18 +32,18 @@ CGeomLine::CGeomLine(void)
 //! Overloaded constructor with two points as parameters
 CGeomLine::CGeomLine(CGeom2DPoint const* pPt1, CGeom2DPoint const* pPt2)
 {
-   m_VPoints.push_back(*pPt1);
-   m_VPoints.push_back(*pPt2);
+   m_VPtPoints.push_back(*pPt1);
+   m_VPtPoints.push_back(*pPt2);
 }
 
 //! Overloaded constructor with one parameter, this creates a given number of uninitialised points
 CGeomLine::CGeomLine(int const nNum)
 {
    CGeom2DPoint const pPt;
-   m_VPoints.reserve(nNum);
+   m_VPtPoints.reserve(nNum);
 
    for (int n = 0; n <= nNum; n++)
-      m_VPoints.push_back(pPt);
+      m_VPtPoints.push_back(pPt);
 }
 
 //! Destructor
@@ -54,36 +54,36 @@ CGeomLine::~CGeomLine(void)
 //! Returns the X value at a given place in the line
 double CGeomLine::dGetXAt(int const n)
 {
-   return m_VPoints[n].dGetX();
+   return m_VPtPoints[n].dGetX();
 }
 
 //! Returns the Y value at a given place in the line
 double CGeomLine::dGetYAt(int const n)
 {
-   return m_VPoints[n].dGetY();
+   return m_VPtPoints[n].dGetY();
 }
 
 //! Returns the point at a given place in the line
 CGeom2DPoint* CGeomLine::pPtGetAt(int const n)
 {
-   return &m_VPoints[n];
+   return &m_VPtPoints[n];
 }
 
 // //! Sets the X value at a given place in the line
 // void CGeomLine::SetXAt(int const n, double const x)
 // {
-// m_VPoints[n].SetX(x);
+// m_VPtPoints[n].SetX(x);
 // }
 
 // //! Sets the Y value at a given place in the line
 // void CGeomLine::SetYAt(int const n, double const y)
 // {
-// m_VPoints[n].SetY(y);
+// m_VPtPoints[n].SetY(y);
 // }
 
 // bool CGeomLine::bIsPresent(CGeom2DPoint* Pt)
 // {
-// if (find(m_VPoints.begin(), m_VPoints.end(), *Pt) != m_VPoints.end())
+// if (find(m_VPtPoints.begin(), m_VPtPoints.end(), *Pt) != m_VPtPoints.end())
 // return true;
 //
 // return false;

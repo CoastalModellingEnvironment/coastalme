@@ -37,7 +37,7 @@ using std::make_pair;
 class CGeomMultiLine : public CGeomLine
 {
  private:
-   //! Each CGeomMultiLine is a vector of vectors: a vector of line segments, with each line segment being a vector of pairs. The first element of each pair is a co-incident profile number, the second element is that profile's 'own' line segment number. Since the CGeomMultiLine is descended from a CGeomLine, the CGeomMultiLine also has a vector of points (m_VPoints). Each point is the start or finish of a line segment. Thus each CGeomMultiLine should have N line segments and N+1 points
+   //! Each CGeomMultiLine is a vector of vectors: a vector of line segments, with each line segment being a vector of pairs. The first element of each pair is a co-incident profile number, the second element is that profile's 'own' line segment number. Since the CGeomMultiLine is descended from a CGeomLine, the CGeomMultiLine also has a vector of points (m_VPtPoints). Each point is the start or finish of a line segment. Thus each CGeomMultiLine should have N line segments and N+1 points
    vector<vector<pair<int, int>>> m_prVVLineSegment;
 
  protected:

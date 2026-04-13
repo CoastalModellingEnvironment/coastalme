@@ -38,54 +38,54 @@ CA2DIShape::~CA2DIShape(void)
 CGeom2DIPoint& CA2DIShape::operator[](int const n)
 {
    // TODO 055 Maybe add a safety check?
-   return m_VPoints[n];
+   return m_VPtiPoints[n];
 }
 
 //! Returns the last integer point from the vector which represents this 2D shape
 CGeom2DIPoint& CA2DIShape::Back(void)
 {
-   return m_VPoints.back();
+   return m_VPtiPoints.back();
 }
 
 //! Returns the address of the vector which represents this 2D shape
 vector<CGeom2DIPoint>* CA2DIShape::pPtiVGetPoints(void)
 {
-   return &m_VPoints;
+   return &m_VPtiPoints;
 }
 
 //! Clears the vector which represents this 2D shape
 void CA2DIShape::Clear(void)
 {
-   m_VPoints.clear();
+   m_VPtiPoints.clear();
 }
 
 //! Resizes the vector which represents this 2D shape
 void CA2DIShape::Resize(const int nSize)
 {
-   m_VPoints.resize(nSize);
+   m_VPtiPoints.resize(nSize);
 }
 
 //! Returns the number of integer point in the vector which represents this 2D shape
 int CA2DIShape::nGetSize(void) const
 {
-   return static_cast<int>(m_VPoints.size());
+   return static_cast<int>(m_VPtiPoints.size());
 }
 
 // void CA2DIShape::InsertAtFront(int const nX, int const nY)
 // {
-// m_VPoints.insert(m_VPoints.begin(), CGeom2DIPoint(nX, nY));
+// m_VPtPoints.insert(m_VPtiPoints.begin(), CGeom2DIPoint(nX, nY));
 // }
 
 //! Appends a new integer point to the vector which represents this 2D shape
 void CA2DIShape::Append(CGeom2DIPoint const* pPtiNew)
 {
-   m_VPoints.push_back(*pPtiNew);
+   m_VPtiPoints.push_back(*pPtiNew);
 }
 
 //! Appends a new integer point to the vector which represents this 2D shape
 void CA2DIShape::Append(int const nX, int const nY)
 {
-   m_VPoints.push_back(CGeom2DIPoint(nX, nY));
+   m_VPtiPoints.push_back(CGeom2DIPoint(nX, nY));
 }
 
 //! Appends a new integer point to the vector which represents this 2D shape, but only if the point is not the same as the previous point in the vector
@@ -93,33 +93,33 @@ void CA2DIShape::AppendIfNotPrevious(int const nX, int const nY)
 {
    CGeom2DIPoint const PtiIn(nX, nY);
 
-   if (m_VPoints.empty())
-      m_VPoints.push_back(PtiIn);
+   if (m_VPtiPoints.empty())
+      m_VPtiPoints.push_back(PtiIn);
 
-   else if (m_VPoints.back() != &PtiIn)
-      m_VPoints.push_back(PtiIn);
+   else if (m_VPtiPoints.back() != &PtiIn)
+      m_VPtiPoints.push_back(PtiIn);
 }
 
 //! Appends a new integer point to the vector which represents this 2D shape, but only if the point is not the same as the previous point in the vector
 void CA2DIShape::AppendIfNotPrevious(CGeom2DIPoint const* pPtiIn)
 {
-   if (m_VPoints.empty())
-      m_VPoints.push_back(*pPtiIn);
+   if (m_VPtiPoints.empty())
+      m_VPtiPoints.push_back(*pPtiIn);
 
-   else if (m_VPoints.back() != pPtiIn)
-      m_VPoints.push_back(*pPtiIn);
+   else if (m_VPtiPoints.back() != pPtiIn)
+      m_VPtiPoints.push_back(*pPtiIn);
 }
 
 // void CA2DIShape::SetPoints(const vector<CGeom2DIPoint>* VNewPoints)
 // {
-// m_VPoints = *VNewPoints;
+// m_VPtiPoints = *VNewPoints;
 // }
 
 // int CA2DIShape::nLookUp(CGeom2DIPoint* Pti)
 // {
-// auto it = find(m_VPoints.begin(), m_VPoints.end(), *Pti);
-// if (it != m_VPoints.end())
-// return it - m_VPoints.begin();
+// auto it = find(m_VPtiPoints.begin(), m_VPtiPoints.end(), *Pti);
+// if (it != m_VPtiPoints.end())
+// return it - m_VPtiPoints.begin();
 // else
 // return -1;
 // }

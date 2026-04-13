@@ -154,7 +154,7 @@ class CRWCoast
    explicit CRWCoast(CSimulation*);
    ~CRWCoast(void);
 
-   // CSimulation* pGetSim(void) const;
+   CSimulation* pGetSim(void) const;
 
    void SetSeaHandedness(int const);
    int nGetSeaHandedness(void) const;

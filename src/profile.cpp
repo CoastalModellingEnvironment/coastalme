@@ -158,29 +158,29 @@ bool CGeomProfile::bProfileOK(void) const
 //! Sets points (external CRS) in the profile. Note that only two points, the start and end point, are initially stored each profile
 void CGeomProfile::SetPointsInProfile(vector<CGeom2DPoint> const* VNewPoints)
 {
-   CGeomMultiLine::m_VPoints = *VNewPoints;
+   CGeomMultiLine::m_VPtPoints = *VNewPoints;
 }
 
 //! Sets a single point (external CRS) in the profile, returns false if the point is out of range
 bool CGeomProfile::bSetPointInProfile(int const nPoint, double const dNewX, double const dNewY)
 {
-   if (nPoint >= static_cast<int>(CGeomMultiLine::m_VPoints.size()))
+   if (nPoint >= static_cast<int>(CGeomMultiLine::m_VPtPoints.size()))
       return false;
 
-   CGeomMultiLine::m_VPoints[nPoint] = CGeom2DPoint(dNewX, dNewY);
+   CGeomMultiLine::m_VPtPoints[nPoint] = CGeom2DPoint(dNewX, dNewY);
    return true;
 }
 
 //! Appends a point (external CRS) to the profile
 void CGeomProfile::AppendPointInProfile(double const dNewX, double const dNewY)
 {
-   CGeomMultiLine::m_VPoints.push_back(CGeom2DPoint(dNewX, dNewY));
+   CGeomMultiLine::m_VPtPoints.push_back(CGeom2DPoint(dNewX, dNewY));
 }
 
 //! Appends a point (external CRS) to the profile (overloaded version)
 void CGeomProfile::AppendPointInProfile(CGeom2DPoint const* pPt)
 {
-   CGeomMultiLine::m_VPoints.push_back(*pPt);
+   CGeomMultiLine::m_VPtPoints.push_back(*pPt);
 }
 
 //! Inserts an intersection (at a point specified in external CRS, with a line segment) into the profile
@@ -188,10 +188,10 @@ bool CGeomProfile::bInsertIntersection(double const dX, double const dY, int con
 {
    // Note no safety check to see if nSeg < nGetNumLineSegments()
    vector<CGeom2DPoint>::iterator it;
-   it = CGeomMultiLine::m_VPoints.begin();
+   it = CGeomMultiLine::m_VPtPoints.begin();
 
    // Do the insertion
-   CGeomMultiLine::m_VPoints.insert(it + nSeg + 1, CGeom2DPoint(dX, dY));
+   CGeomMultiLine::m_VPtPoints.insert(it + nSeg + 1, CGeom2DPoint(dX, dY));
 
    // Now insert a line segment in the associated multi-line, this will inherit the profile/line seg details from the preceding line segment
    CGeomMultiLine::InsertLineSegmentWithInheritance(nSeg);
@@ -202,45 +202,45 @@ bool CGeomProfile::bInsertIntersection(double const dX, double const dY, int con
 //! Truncates the profile's CGeomLine (external CRS points)
 void CGeomProfile::TruncateProfile(int const nSize)
 {
-   CGeomMultiLine::m_VPoints.resize(nSize);
+   CGeomMultiLine::m_VPtPoints.resize(nSize);
 }
 
 // void CGeomProfile::TruncateAndbSetPointInProfile(int const nPoint, double const dNewX, double const dNewY)
 // {
-// CGeomMultiLine::m_VPoints.resize(nPoint+1);
-// CGeomMultiLine::m_VPoints[nPoint] = CGeom2DPoint(dNewX, dNewY);
+// CGeomMultiLine::m_VPtPoints.resize(nPoint+1);
+// CGeomMultiLine::m_VPtPoints[nPoint] = CGeom2DPoint(dNewX, dNewY);
 // }
 
 // void CGeomProfile::ShowProfile(void) const
 // {
-// for (int n = 0; n < CGeomMultiLine::m_VPoints.size(); n++)
+// for (int n = 0; n < CGeomMultiLine::m_VPtPoints.size(); n++)
 // {
-// cout << n << " [" << CGeomMultiLine::m_VPoints[n].dGetX() << "][" << CGeomMultiLine::m_VPoints[n].dGetY() << "]" << endl;
+// cout << n << " [" << CGeomMultiLine::m_VPtPoints[n].dGetX() << "][" << CGeomMultiLine::m_VPtPoints[n].dGetY() << "]" << endl;
 // }
 // }
 
 //! Returns the number of external CRS points in the profile (only two, initally; and always just two for grid-edge profiles). These points are stored even if the profile is later marked as invalid
 int CGeomProfile::nGetProfileSize(void) const
 {
-   return static_cast<int>(CGeomMultiLine::m_VPoints.size());
+   return static_cast<int>(CGeomMultiLine::m_VPtPoints.size());
 }
 
 //! Returns a single point (external CRS) from the profile
 CGeom2DPoint* CGeomProfile::pPtGetPointInProfile(int const n)
 {
-   return &CGeomMultiLine::m_VPoints[n];
+   return &CGeomMultiLine::m_VPtPoints[n];
 }
 
 //! Returns a given external CRS point from the profile, and all points after this
 vector<CGeom2DPoint> CGeomProfile::PtVGetThisPointAndAllAfter(int const nStart)
 {
-   return vector<CGeom2DPoint>(CGeomMultiLine::m_VPoints.begin() + nStart, CGeomMultiLine::m_VPoints.end());
+   return vector<CGeom2DPoint>(CGeomMultiLine::m_VPtPoints.begin() + nStart, CGeomMultiLine::m_VPtPoints.end());
 }
 
 //! Removes a line segment from the profile
 // void CGeomProfile::RemoveLineSegment(int const nPoint)
 // {
-// m_VPoints.erase(CGeomMultiLine::m_VPoints.begin() + nPoint);
+// m_VPtPoints.erase(CGeomMultiLine::m_VPtPoints.begin() + nPoint);
 // CGeomMultiLine::RemoveLineSegment(nPoint);
 // }
 
@@ -248,9 +248,9 @@ vector<CGeom2DPoint> CGeomProfile::PtVGetThisPointAndAllAfter(int const nStart)
 bool CGeomProfile::bIsPointInProfile(double const dX, double const dY)
 {
    CGeom2DPoint const Pt(dX, dY);
-   auto it = find(CGeomMultiLine::m_VPoints.begin(), CGeomMultiLine::m_VPoints.end(), &Pt);
+   auto it = find(CGeomMultiLine::m_VPtPoints.begin(), CGeomMultiLine::m_VPtPoints.end(), &Pt);
 
-   if (it != CGeomMultiLine::m_VPoints.end())
+   if (it != CGeomMultiLine::m_VPtPoints.end())
       return true;
    else
       return false;
@@ -260,12 +260,12 @@ bool CGeomProfile::bIsPointInProfile(double const dX, double const dY)
 bool CGeomProfile::bIsPointInProfile(double const dX, double const dY, int& nPoint)
 {
    CGeom2DPoint const Pt(dX, dY);
-   auto it = find(CGeomMultiLine::m_VPoints.begin(), CGeomMultiLine::m_VPoints.end(), &Pt);
+   auto it = find(CGeomMultiLine::m_VPtPoints.begin(), CGeomMultiLine::m_VPtPoints.end(), &Pt);
 
-   if (it != CGeomMultiLine::m_VPoints.end())
+   if (it != CGeomMultiLine::m_VPtPoints.end())
    {
       // Found, so return true and set nPoint to be the index of the point which was found
-      nPoint = static_cast<int>(it - CGeomMultiLine::m_VPoints.begin());
+      nPoint = static_cast<int>(it - CGeomMultiLine::m_VPtPoints.begin());
       return true;
    }
 
@@ -275,13 +275,13 @@ bool CGeomProfile::bIsPointInProfile(double const dX, double const dY, int& nPoi
 
 // int CGeomProfile::nFindInsertionLineSeg(double const dInsertX, double const dInsertY)
 // {
-// for (int n = 0; n < CGeomMultiLine::m_VPoints.back(); n++)
+// for (int n = 0; n < CGeomMultiLine::m_VPtPoints.back(); n++)
 // {
 // double
-// dThisX = CGeomMultiLine::m_VPoints[n].dGetX(),
-// dThisY = CGeomMultiLine::m_VPoints[n].dGetY(),
-// dNextX = CGeomMultiLine::m_VPoints[n+1].dGetX(),
-// dNextY = CGeomMultiLine::m_VPoints[n+1].dGetY();
+// dThisX = CGeomMultiLine::m_VPtPoints[n].dGetX(),
+// dThisY = CGeomMultiLine::m_VPtPoints[n].dGetY(),
+// dNextX = CGeomMultiLine::m_VPtPoints[n+1].dGetX(),
+// dNextY = CGeomMultiLine::m_VPtPoints[n+1].dGetY();
 //
 // bool
 // bBetweenX = false,

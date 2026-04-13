@@ -32,7 +32,7 @@ class CA2DIShape
  private:
  protected:
    //! The integer points which comprise the integer-coordinate 2D shape
-   vector<CGeom2DIPoint> m_VPoints;
+   vector<CGeom2DIPoint> m_VPtiPoints;
 
    CA2DIShape(void);
    virtual ~CA2DIShape(void);

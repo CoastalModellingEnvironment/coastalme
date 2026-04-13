@@ -36,42 +36,42 @@ CGeomILine::~CGeomILine(void)
 // //! Returns the point at a given place in the line
 // CGeom2DIPoint* CGeomILine::pPtiGetAt(int const n)
 // {
-// return &m_VPoints[n];
+// return &m_VPtiPoints[n];
 // }
 
 // int CGeomILine::nGetXAt(int const n)
 // {
-// return m_VPoints[n].nGetX();
+// return m_VPtiPoints[n].nGetX();
 // }
 //
 // int CGeomILine::nGetYAt(int const n)
 // {
-// return m_VPoints[n].nGetY();
+// return m_VPtiPoints[n].nGetY();
 // }
 
 // //! Sets the X value of a point at a given place in the line
 // void CGeomILine::SetXAt(int const n, int const nX)
 // {
-// m_VPoints[n].SetX(nX);
+// m_VPtiPoints[n].SetX(nX);
 // }
 
 // //! Sets the Y value of a point at a given place in the line
 // void CGeomILine::SetYAt(int const n, int const nY)
 // {
-// m_VPoints[n].SetY(nY);
+// m_VPtiPoints[n].SetY(nY);
 // }
 
 //! Returns true if the point is present in the line
 bool CGeomILine::bIsPresent(int const nX, int const nY)
 {
-   int const nSize = static_cast<int>(m_VPoints.size());
+   int const nSize = static_cast<int>(m_VPtiPoints.size());
 
    if (nSize == 0)
       return false;
 
    for (int n = 0; n < nSize; n++)
    {
-      if ((nX == m_VPoints[n].nGetX()) && (nY == m_VPoints[n].nGetY()))
+      if ((nX == m_VPtiPoints[n].nGetX()) && (nY == m_VPtiPoints[n].nGetY()))
          return true;
    }
 

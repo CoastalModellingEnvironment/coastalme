@@ -35,42 +35,42 @@ CA2DShape::~CA2DShape(void)
 CGeom2DPoint& CA2DShape::operator[](int const n)
 {
    // TODO 055 Maybe add a safety check?
-   return m_VPoints[n];
+   return m_VPtPoints[n];
 }
 
 // //! Clears this 2D shape
 // void CA2DShape::Clear(void)
 // {
-//    m_VPoints.clear();
+//    m_VPtPoints.clear();
 // }
 
 //! Resizes the vector which represents this 2D shape
 void CA2DShape::Resize(int const nSize)
 {
-   m_VPoints.resize(nSize);
+   m_VPtPoints.resize(nSize);
 }
 
 // Returns the number of elements in this 2D shape
 int CA2DShape::nGetSize(void) const
 {
-   return static_cast<int>(m_VPoints.size());
+   return static_cast<int>(m_VPtPoints.size());
 }
 
 // void CA2DShape::InsertAtFront(double const dX, double const dY)
 // {
-// m_VPoints.insert(m_VPoints.begin(), CGeom2DPoint(dX, dY));
+// m_VPtPoints.insert(m_VPtPoints.begin(), CGeom2DPoint(dX, dY));
 // }
 
 //! Appends a point to this 2D shape
 void CA2DShape::Append(CGeom2DPoint const* pPtNew)
 {
-   m_VPoints.push_back(*pPtNew);
+   m_VPtPoints.push_back(*pPtNew);
 }
 
 //! Appends a point to this 2D shape
 void CA2DShape::Append(double const dX, double const dY)
 {
-   m_VPoints.push_back(CGeom2DPoint(dX, dY));
+   m_VPtPoints.push_back(CGeom2DPoint(dX, dY));
 }
 
 //! Appends a point to this 2D shape only if the point is not the same as the previous point in the vector
@@ -78,22 +78,22 @@ void CA2DShape::AppendIfNotPrevious(double const dX, double const dY)
 {
    CGeom2DPoint const PtIn(dX, dY);
 
-   if (m_VPoints.empty())
-      m_VPoints.push_back(PtIn);
+   if (m_VPtPoints.empty())
+      m_VPtPoints.push_back(PtIn);
 
-   else if (m_VPoints.back() != &PtIn)
-      m_VPoints.push_back(PtIn);
+   else if (m_VPtPoints.back() != &PtIn)
+      m_VPtPoints.push_back(PtIn);
 }
 
 //! Returns the last element of this 2D shape
 CGeom2DPoint* CA2DShape::pPtBack(void)
 {
-   return &m_VPoints.back();
+   return &m_VPtPoints.back();
 }
 
 // void CA2DShape::SetPoints(const vector<CGeom2DPoint>* VNewPoints)
 // {
-// m_VPoints = *VNewPoints;
+// m_VPtPoints = *VNewPoints;
 // }
 
 bool CA2DShape::bIsPresent(CGeom2DPoint const* pPt)
@@ -101,9 +101,9 @@ bool CA2DShape::bIsPresent(CGeom2DPoint const* pPt)
    double const dPtX = pPt->dGetX();
    double const dPtY = pPt->dGetY();
 
-   for (size_t n = 0; n < m_VPoints.size(); n++)
+   for (size_t n = 0; n < m_VPtPoints.size(); n++)
    {
-      if (bFPIsEqual(dPtX, m_VPoints[n].dGetX(), TOLERANCE) && bFPIsEqual(dPtY, m_VPoints[n].dGetY(), TOLERANCE))
+      if (bFPIsEqual(dPtX, m_VPtPoints[n].dGetX(), TOLERANCE) && bFPIsEqual(dPtY, m_VPtPoints[n].dGetY(), TOLERANCE))
          return true;
    }
 
@@ -112,7 +112,7 @@ bool CA2DShape::bIsPresent(CGeom2DPoint const* pPt)
 
 // double CA2DShape::dGetLength(void) const
 // {
-// int nSize = m_VPoints.size();
+// int nSize = m_VPtPoints.size();
 //
 // if (nSize < 2)
 // return -1;
@@ -120,8 +120,8 @@ bool CA2DShape::bIsPresent(CGeom2DPoint const* pPt)
 // double dLength = 0;
 // for (int n = 1; n < nSize; n++)
 // {
-// double dXlen = m_VPoints[n].dGetX() - m_VPoints[n-1].dGetX();
-// double dYlen = m_VPoints[n].dGetY() - m_VPoints[n-1].dGetY();
+// double dXlen = m_VPtPoints[n].dGetX() - m_VPtPoints[n-1].dGetX();
+// double dYlen = m_VPtPoints[n].dGetY() - m_VPtPoints[n-1].dGetY();
 //
 // dLength += hypot(dXlen, dYlen);
 // }
@@ -132,13 +132,13 @@ bool CA2DShape::bIsPresent(CGeom2DPoint const* pPt)
 //! Returns the address of the vector which represents this 2D shape
 vector<CGeom2DPoint>* CA2DShape::pPtVGetPoints(void)
 {
-   return &m_VPoints;
+   return &m_VPtPoints;
 }
 
 // //! Computes the centroid of this 2D polygon (which may be outside, if this is a concave polygon). From http://stackoverflow.com/questions/2792443/finding-the-centroid-of-a-polygon
 // CGeom2DPoint CA2DShape::PtGetCentroid(void)
 // {
-// int nVertexCount = static_cast<int>(m_VPoints.size());
+// int nVertexCount = static_cast<int>(m_VPtPoints.size());
 // double dSignedArea = 0;
 // double dCentroidX = 0;
 // double dCentroidY = 0;
@@ -146,10 +146,10 @@ vector<CGeom2DPoint>* CA2DShape::pPtVGetPoints(void)
 //    // For all vertices
 // for (int i = 0; i < nVertexCount; ++i)
 // {
-// double dXThis = m_VPoints[i].dGetX();
-// double dYThis = m_VPoints[i].dGetY();
-// double dXNext = m_VPoints[(i+1) % nVertexCount].dGetX();
-// double dYNext = m_VPoints[(i+1) % nVertexCount].dGetY();
+// double dXThis = m_VPtPoints[i].dGetX();
+// double dYThis = m_VPtPoints[i].dGetY();
+// double dXNext = m_VPtPoints[(i+1) % nVertexCount].dGetX();
+// double dYNext = m_VPtPoints[(i+1) % nVertexCount].dGetY();
 //
 // double dA = (dXThis * dYNext) - (dXNext * dYThis);
 // dSignedArea += dA;
@@ -168,5 +168,5 @@ vector<CGeom2DPoint>* CA2DShape::pPtVGetPoints(void)
 //! Reverses the sequence of points in the vector which represents this 2D polygon
 void CA2DShape::Reverse(void)
 {
-   reverse(m_VPoints.begin(), m_VPoints.end());
+   reverse(m_VPtPoints.begin(), m_VPtPoints.end());
 }

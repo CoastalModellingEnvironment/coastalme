@@ -167,6 +167,9 @@ class CGeomCoastPolygon : public CA2DShape
    //! Coast polygon length
    double m_dLength;
 
+   //! A pointer to the CSimulation object
+   CSimulation* m_pSim;
+
    //! Coordinates of the coast node cell (raster grid CRS)
    CGeom2DIPoint m_PtiNode;
 
@@ -193,8 +196,10 @@ class CGeomCoastPolygon : public CA2DShape
 
  protected:
  public:
-   CGeomCoastPolygon(int const, int const, int const, int const, vector<CGeom2DPoint> const*, int const, int const, CGeom2DIPoint const*, CGeom2DIPoint const*, bool const, bool const);
+   CGeomCoastPolygon(CSimulation*, int const, int const, int const, int const, vector<CGeom2DPoint> const*, int const, int const, CGeom2DIPoint const*, CGeom2DIPoint const*, bool const, bool const);
    ~CGeomCoastPolygon(void) override;
+
+   CSimulation* pGetSim(void) const;
 
    void SetDownCoastThisIter(bool const);
    bool bDownCoastThisIter(void) const;
@@ -348,6 +353,6 @@ class CGeomCoastPolygon : public CA2DShape
    CGeom2DIPoint PtiGetVertex(int const) const;
 
    CGeom2DIPoint PtiFindPointInPolygon(void);
-   bool bIsWithinPolygon(CGeom2DIPoint const*);
+   bool bIsWithinPolygon(CGeom2DPoint const*);
 };
 #endif // COASTPOLYGON_H

@@ -1805,7 +1805,6 @@ class CSimulation
    double dGridYToExtCRSY(double const) const;
    // double dExtCRSXToGridCentroidX(double const) const;
    // double dExtCRSYToGridCentroidY(double const) const;
-   CGeom2DIPoint PtiExtCRSToGridRound(CGeom2DPoint const*) const;
    CGeom2DPoint PtGridCentroidToExt(CGeom2DIPoint const*) const;
    double dExtCRSXToGridX(double const) const;
    double dExtCRSYToGridY(double const) const;
@@ -1981,5 +1980,8 @@ class CSimulation
 
    //! Returns a pointer to the lower case version of a string
    static string strToLower(string const*);
+
+   CGeom2DIPoint PtiExtCRSToGridRound(CGeom2DPoint const*) const;
+
 };
 #endif // SIMULATION_H
