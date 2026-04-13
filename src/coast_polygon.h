@@ -344,10 +344,10 @@ class CGeomCoastPolygon : public CA2DShape
    double dGetSedimentInputUnconsCoarse(void) const;
 
    void AppendVertex(CGeom2DIPoint const*);
-   // int nGetNumVertices(void) const;
-   // CGeom2DIPoint PtiGetVertex(int const) const;
+   int nGetNumVertices(void) const;
+   CGeom2DIPoint PtiGetVertex(int const) const;
 
-   CGeom2DIPoint PtiGetFillStartPoint1(CGeomRasterGrid*/*, CRWCoast**/);
-   CGeom2DIPoint PtiGetFillStartPoint2(CGeomRasterGrid*, CRWCoast*);
+   CGeom2DIPoint PtiFindPointInPolygon(void);
+   bool bIsWithinPolygon(CGeom2DIPoint const*);
 };
 #endif // COASTPOLYGON_H

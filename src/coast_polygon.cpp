@@ -778,196 +778,108 @@ void CGeomCoastPolygon::AppendVertex(CGeom2DIPoint const* pPti)
    m_VPtiVertices.push_back(*pPti);
 }
 
-// //! Returns the number of vertices for this polygon
-// int CGeomCoastPolygon::nGetNumVertices(void) const
-// {
-//    return static_cast<int>(m_VPtiVertices.size());
-// }
-
-// //! Returns the point coordinates (grid CRS) for a single vertex of this polygon
-// CGeom2DIPoint CGeomCoastPolygon::PtiGetVertex(int const nIndex) const
-// {
-//    // Note no check to see if nUndex < m_VPtiVertices.size()
-//    return m_VPtiVertices[nIndex];
-// }
-
-//! Calculates the starting point for polygon infilling using method 1: a weighted distance along the straight line joining the polygon's node and antinode
-CGeom2DIPoint CGeomCoastPolygon::PtiGetFillStartPoint1(CGeomRasterGrid* pRasterGrid/*, CRWCoast* pCoast*/)
+//! Returns the number of vertices for this polygon
+int CGeomCoastPolygon::nGetNumVertices(void) const
 {
-   // Is this polygon's coast left- or right-handed? Direction of the sea from the coastline, travelling down-coast (i.e. in direction of increasing coast point indices)
-   // int const nHandedness = pCoast->nGetSeaHandedness();
-   // int nInc = -1;
-   // int const nDist = 2;
-   CGeom2DIPoint PtiFound(INT_NODATA, INT_NODATA);
-
-   int const nXStart = m_PtiNode.nGetX();
-   int const nYStart = m_PtiNode.nGetY();
-   int const nXEnd = m_PtiAntinode.nGetX();
-   int const nYEnd = m_PtiAntinode.nGetY();
-
-   // Interpolate between the polygon's node and antinode cells using a simple DDA line algorithm, see http://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)
-   double dXInc = nXEnd - nXStart;
-   double dYInc = nYEnd - nYStart;
-   double const dLength = tMax(tAbs(dXInc), tAbs(dYInc));
-
-   dXInc /= dLength;
-   dYInc /= dLength;
-
-   double dX = nXStart;
-   double dY = nYStart;
-
-   // Process each interpolated point
-   for (int m = 1; m <= nRound(dLength); m++)
-   {
-      dX += dXInc;
-      dY += dYInc;
-
-      int const nX = nRound(dX);
-      int const nY = nRound(dY);
-
-      bool const bIsSea = pRasterGrid->pGetCell(nX, nY)->bIsInContiguousSea();
-      int const nPoly = pRasterGrid->pGetCell(nX, nY)->nGetPolygonID();
-      if (bIsSea && (nPoly == INT_NODATA))
-      {
-         PtiFound.SetX(nX);
-         PtiFound.SetY(nY);
-         break;
-      }
-   }
-
-   return PtiFound;
+   return static_cast<int>(m_VPtiVertices.size());
 }
 
-//! Calculates the starting point for polygon infilling using method 2: calculate the starting point as the approximate centroid of the polygon, determined by averaging all polygon edge points
-CGeom2DIPoint CGeomCoastPolygon::PtiGetFillStartPoint2(CGeomRasterGrid* pRasterGrid, CRWCoast* pCoast)
+//! Returns the point coordinates (grid CRS) for a single vertex of this polygon
+CGeom2DIPoint CGeomCoastPolygon::PtiGetVertex(int const nIndex) const
 {
-   // Is this polygon's coast left- or right-handed? Direction of the sea from the coastline, travelling down-coast (i.e. in direction of increasing coast point indices)
-   int const nHandedness = pCoast->nGetSeaHandedness();
-   int nInc = -1;
-   int const nDist = 2;
-   CGeom2DIPoint PtiFound(INT_NODATA, INT_NODATA);
-   CGeom2DIPoint PtiEnd;
+   // Note no check to see if nUndex < m_VPtiVertices.size()
+   return m_VPtiVertices[nIndex];
+}
+
+//===============================================================================================================================
+//! Finds a point in a polygon: is guaranteed to succeed, as every strictly closed polygon has at least one triangle that is completely contained within the polygon. Derived from an algorithm at http://stackoverflow.com/questions/9797448/get-a-point-inside-the-polygon
+//===============================================================================================================================
+CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
+{
+   int const nStartPoint = 0;
+   int const nPolySize = static_cast<int>(m_VPtiVertices.size());
+   int nOffSet = 0;
+   CGeom2DIPoint PtiStart;
+   vector<CGeom2DIPoint> VPtiTestPoints(3);
 
    do
    {
-      nInc++;
-
-      // Get the grid CRS coordinates of the polygon's coast node, plus an along-coast offset
-      CGeom2DIPoint PtiNode = *pCoast->pPtiGetCellMarkedAsCoastline(m_nCoastNode + nInc);
-
-      PtiEnd = PtiNode;
-
-      // Now get the grid CRS coordinates of the cell adjacent to, and downcoast from, the polygon's coast node
-      CGeom2DIPoint const PtiAdjToNode = *pCoast->pPtiGetCellMarkedAsCoastline(m_nCoastNode + nInc + 1);
-
-      int const nXDiff = m_PtiNode.nGetX() - PtiAdjToNode.nGetX();
-      int const nYDiff = m_PtiNode.nGetY() - PtiAdjToNode.nGetY();
-
-      if (nXDiff == 0)
+      // Choose three consecutive points from the polygon
+      for (int n = 0; n < 3; n++)
       {
-         if (nYDiff > 0)
-         {
-            // Coast runs S to N
-            if (nHandedness == LEFT_HANDED)
-               PtiEnd.SetX(m_PtiNode.nGetX() - nDist);
-            else
-               PtiEnd.SetX(m_PtiNode.nGetX() + nDist);
-         }
-         else
-         {
-            // Coast runs N to S
-            if (nHandedness == LEFT_HANDED)
-               PtiEnd.SetX(m_PtiNode.nGetX() + nDist);
-            else
-               PtiEnd.SetX(m_PtiNode.nGetX() - nDist);
-         }
-      }
-      else if (nYDiff == 0)
-      {
-         if (nXDiff > 0)
-         {
-            // Coast runs E to W
-            if (nHandedness == LEFT_HANDED)
-               PtiEnd.SetY(m_PtiNode.nGetY() + nDist);
-            else
-               PtiEnd.SetY(m_PtiNode.nGetY() - nDist);
-         }
-         else
-         {
-            // Coast runs W to E
-            if (nHandedness == LEFT_HANDED)
-               PtiEnd.SetY(m_PtiNode.nGetY() - nDist);
-            else
-               PtiEnd.SetY(m_PtiNode.nGetY() + nDist);
-         }
-      }
-      else
-      {
-         if ((nXDiff > 0) && (nYDiff > 0))
-         {
-            // Coast runs SE to NW
-            if (nHandedness == LEFT_HANDED)
-            {
-               PtiEnd.SetX(m_PtiNode.nGetX() - nDist);
-               PtiEnd.SetY(m_PtiNode.nGetY() + nDist);
-            }
-            else
-            {
-               PtiEnd.SetX(m_PtiNode.nGetX() + nDist);
-               PtiEnd.SetY(m_PtiNode.nGetY() - nDist);
-            }
-         }
-         else if ((nXDiff > 0) && (nYDiff < 0))
-         {
-            // Coast runs NE to SW
-            if (nHandedness == LEFT_HANDED)
-            {
-               PtiEnd.SetX(m_PtiNode.nGetX() - nDist);
-               PtiEnd.SetY(m_PtiNode.nGetY() + nDist);
-            }
-            else
-            {
-               PtiEnd.SetX(m_PtiNode.nGetX() + nDist);
-               PtiEnd.SetY(m_PtiNode.nGetY() - nDist);
-            }
-         }
-         else if ((nXDiff < 0) && (nYDiff > 0))
-         {
-            // Coast runs SW to NE
-            if (nHandedness == LEFT_HANDED)
-            {
-               PtiEnd.SetX(m_PtiNode.nGetX() - nDist);
-               PtiEnd.SetY(m_PtiNode.nGetY() - nDist);
-            }
-            else
-            {
-               PtiEnd.SetX(m_PtiNode.nGetX() + nDist);
-               PtiEnd.SetY(m_PtiNode.nGetY() + nDist);
-            }
-         }
-         else if ((nXDiff < 0) && (nYDiff < 0))
-         {
-            // Coast runs NW to SE
-            if (nHandedness == LEFT_HANDED)
-            {
-               PtiEnd.SetX(m_PtiNode.nGetX() + nDist);
-               PtiEnd.SetY(m_PtiNode.nGetY() - nDist);
-            }
-            else
-            {
-               PtiEnd.SetX(m_PtiNode.nGetX() - nDist);
-               PtiEnd.SetY(m_PtiNode.nGetY() + nDist);
-            }
-         }
-      }
-      int const nX = PtiEnd.nGetX();
-      int const nY = PtiEnd.nGetY();
-      bool bIsSea = pRasterGrid->pGetCell(nX, nY)->bIsInContiguousSea();
-      int nPoly = pRasterGrid->pGetCell(nX, nY)->nGetPolygonID();
-      if (bIsSea && (nPoly == INT_NODATA))
-         break;
+         int nIndex = n + nStartPoint + nOffSet;
 
-   } while (true);
+         if (nIndex > nPolySize - 1)
+            nIndex -= nPolySize;
 
-   return PtiFound;
+         // Safety check
+         if (nIndex < 0)
+            return CGeom2DIPoint(INT_NODATA, INT_NODATA);
+
+         VPtiTestPoints[n] = m_VPtiVertices[nIndex];
+      }
+
+      // Increment ready for next time
+      nOffSet++;
+
+      // Safety check
+      if (nOffSet >= (nPolySize + 3))
+         return CGeom2DIPoint(INT_NODATA, INT_NODATA);
+
+      // Check if the halfway point between the first and the third point is inside the polygon
+      PtiStart.SetX((VPtiTestPoints[0].nGetX() + VPtiTestPoints[2].nGetX()) / 2);
+      PtiStart.SetY((VPtiTestPoints[0].nGetY() + VPtiTestPoints[2].nGetY()) / 2);
+   } while (! bIsWithinPolygon(&PtiStart));
+
+   return PtiStart;
 }
+
+//===============================================================================================================================
+//! Determines whether a point is within the polygon: however if the point is exactly on the edge of the polygon, then the result is indeterminate. Modified from code at http://alienryderflex.com/polygon/, our thanks to Darel Rex Finley (DarelRex@gmail.com)
+//===============================================================================================================================
+bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart)
+{
+   int nVertices = m_VPtiVertices.size();
+   bool bInside = true;
+
+   for (int i = 0, j = nVertices - 1; i < nVertices; j = i++)
+   {
+      // Check if the point's y-coordinate is within the edge's y-range then check if the point is to the left of the intersection of the ray and edge
+      if (((m_VPtiVertices[i].nGetY() > pPtiStart->nGetY()) != (m_VPtiVertices[j].nGetY() > pPtiStart->nGetY())) && (pPtiStart->nGetX() < (m_VPtiVertices[j].nGetX() - m_VPtiVertices[i].nGetX()) * (pPtiStart->nGetY() - m_VPtiVertices[i].nGetY()) / (m_VPtiVertices[j].nGetY() - m_VPtiVertices[i].nGetY()) + m_VPtiVertices[i].nGetX()))
+      {
+         bInside = ! bInside;
+      }
+   }
+   return bInside;
+
+
+
+   // bool bOddNodes = false;
+   //
+   // int const nPolyCorners = static_cast<int>(m_VPtiVertices.size());
+   // int j = nPolyCorners - 1;
+   //
+   // int const nX = pPtiStart->nGetX();
+   // int const nY = pPtiStart->nGetY();
+   //
+   // for (int i = 0; i < nPolyCorners; i++)
+   // {
+   //    int const nCorneriX = m_VPtiVertices[i].nGetX();
+   //    int const nCorneriY = m_VPtiVertices[i].nGetY();
+   //    int const nCornerjX = m_VPtiVertices[j].nGetX();
+   //    int const nCornerjY = m_VPtiVertices[j].nGetY();
+   //
+   //    if ((nCorneriY < nY && nCornerjY >= nY) || (nCornerjY < nY && nCorneriY >= nY))
+   //    {
+   //       if (nCorneriX + (nY - nCorneriY) / (nCornerjY - nCorneriY) * (nCornerjX - nCorneriX) < nX)
+   //       {
+   //          bOddNodes = ! bOddNodes;
+   //       }
+   //    }
+   //
+   //    j = i;
+   // }
+   //
+   // return bOddNodes;
+}
+

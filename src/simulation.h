@@ -1761,8 +1761,6 @@ class CSimulation
    void ProcessShadowZoneCell(int const, int const, int const, CGeom2DIPoint const*, int const, int const, int const);
    int nCreateAllPolygons(void);
    void RasterizePolygonJoiningLine(int const, CGeom2DIPoint const*, CGeom2DIPoint const*, int const);
-   // static bool bIsWithinPolygon(CGeom2DPoint const*, vector<CGeom2DPoint> const*);
-   // static CGeom2DPoint PtFindPointInPolygon(vector<CGeom2DPoint> const*, int const);
    int nMarkPolygonCells(void);
    int nDoPolygonSharedBoundaries(void);
    void DoAllPotentialBeachErosion(void);
@@ -1827,8 +1825,8 @@ class CSimulation
    static CGeom2DIPoint PtiGetPerpendicular(int const, int const, int const, int const, double const, int const);
    static CGeom2DPoint PtAverage(CGeom2DPoint const*, CGeom2DPoint const*);
    static CGeom2DPoint PtAverage(vector<CGeom2DPoint>*);
-   // static CGeom2DIPoint PtiAverage(CGeom2DIPoint const*, CGeom2DIPoint const*);
-   // static CGeom2DIPoint PtiAverage(vector<CGeom2DIPoint>*);
+   static CGeom2DIPoint PtiAverage(CGeom2DIPoint const*, CGeom2DIPoint const*);
+   static CGeom2DIPoint PtiAverage(vector<CGeom2DIPoint>*);
    static CGeom2DIPoint PtiWeightedAverage(CGeom2DIPoint const*, CGeom2DIPoint const*, double const);
    static CGeom2DIPoint PtiPolygonCentroid(vector<CGeom2DIPoint>*);
    static double dAngleSubtended(CGeom2DIPoint const*, CGeom2DIPoint const*, CGeom2DIPoint const*);

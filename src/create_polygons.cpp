@@ -328,68 +328,6 @@ void CSimulation::RasterizePolygonJoiningLine(int nCoast, CGeom2DIPoint const* p
 //===============================================================================================================================
 int CSimulation::nMarkPolygonCells(void)
 {
-   // // DEBUG CODE =================================================================================
-   // vector<CGeom2DIPoint> VPtiCentroids;
-   // vector<int> VnID;
-   //
-   // // Do this for each coast
-   // for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
-   // {
-   //    // Do this for every coastal polygon
-   // for (int nPoly = 0; nPoly < m_VCoast[nCoast].nGetNumPolygons(); nPoly++)
-   // {
-   // CGeomCoastPolygon* pPolygon = m_VCoast[nCoast].pGetPolygon(nPoly);
-   //
-   // int nPolyID = pPolygon->nGetPolygonThisCoastID();
-   // VnID.push_back(nPolyID);
-   //
-   // CGeom2DIPoint PtiStart = pPolygon->PtiGetFillStartPoint1();
-   // VPtiCentroids.push_back(PtiStart);
-   // }
-   // }
-   //
-   // string strOutFile = m_strOutPath;
-   // strOutFile += "00_polygon_flood_fill_start_point_";
-   // strOutFile += to_string(m_ulIter);
-   // strOutFile += ".tif";
-   //
-   // GDALDriver* pDriver = GetGDALDriverManager()->GetDriverByName("gtiff");
-   // GDALDataset* pDataSet = pDriver->Create(strOutFile.c_str(), m_nXGridSize, m_nYGridSize, 1, GDT_Float64, m_papszGDALRasterOptions);
-   // pDataSet->SetProjection(m_strGDALBasementDEMProjection.c_str());
-   // pDataSet->SetGeoTransform(m_dGeoTransform);
-   //
-   // int nn = 0;
-   // double* pdRaster = new double[m_nXGridSize * m_nYGridSize];
-   // for (int nY = 0; nY < m_nYGridSize; nY++)
-   // {
-   // for (int nX = 0; nX < m_nXGridSize; nX++)
-   // {
-   // pdRaster[nn] = INT_NODATA;
-   //
-   // for (int n = 0; n < static_cast<int>(VPtiCentroids.size()); n++)
-   // {
-   // if ((VPtiCentroids[n].nGetX() == nX) && (VPtiCentroids[n].nGetY() == nY))
-   // {
-   // pdRaster[nn] = VnID[n];
-   // LogStream << m_ulIter << ": cell-by-cell fill start point for polygon " << VnID[n] << " is [" << nX << "][" << nY << "]" << endl;
-   // break;
-   // }
-   // }
-   // nn++;
-   // }
-   // }
-   //
-   // GDALRasterBand* pBand = pDataSet->GetRasterBand(1);
-   // pBand->SetNoDataValue(m_dMissingValue);
-   // int nRet = pBand->RasterIO(GF_Write, 0, 0, m_nXGridSize, m_nYGridSize, pdRaster, m_nXGridSize, m_nYGridSize, GDT_Float64, 0, 0, NULL);
-   //
-   // if (nRet == CE_Failure)
-   // LogStream << nRet << endl;
-   //
-   // GDALClose(pDataSet);
-   // delete[] pdRaster;
-   // // DEBUG CODE ===========================================================================================================
-
    // Do this for each coast
    for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
    {
@@ -449,27 +387,18 @@ int CSimulation::nMarkPolygonCells(void)
          // LogStream << endl;
          // // DEBUG CODE ==============================================================================================
 
-         // // DEBUG CODE ==============================
-         // if ((m_ulIter == 466) && (nPolyID == 17))
-         //    LogStream << endl;
-
-         // Get the start point for the cell-by-cell fill procedure, using method 1
-         CGeom2DIPoint PtiStart = pPolygon->PtiGetFillStartPoint1(m_pRasterGrid/*, &m_VCoast[nCoast]*/);
+         // Find a point within the polygon from which to start the cell-by-cell polygon infill
+         CGeom2DIPoint PtiStart = pPolygon->PtiFindPointInPolygon();
 
          // Safety check
          if ((PtiStart.nGetX() == INT_NODATA) && (PtiStart.nGetY() == INT_NODATA))
          {
-            LogStream << m_ulIter << ":\t " << WARN << "first method for finding start point for polygon infilling did not work for coast " << nCoast << " polygon " << pPolygon->nGetPolygonThisCoastID() << " so now trying method 2" << endl;
-
-            // Method 1 did not work, so now try method 2
-            PtiStart = pPolygon->PtiGetFillStartPoint1(m_pRasterGrid/*, &m_VCoast[nCoast]*/);
-         }
-
-         // Safety check
-         if ((PtiStart.nGetX() == INT_NODATA) && (PtiStart.nGetY() == INT_NODATA))
-         {
-            // Uh-oh, method 2 also did not work
-            LogStream << m_ulIter << ":\t " << ERR << "second method for finding start point for polygon infilling also did not work for coast " << nCoast << " polygon " << pPolygon->nGetPolygonThisCoastID() << ", ending run" << endl;
+            // Uh-oh, could not find a point within this polygon
+            LogStream << m_ulIter << ":\t " << ERR << "could not find a within-polygon start point for polygon infilling, coast " << nCoast << " polygon " << pPolygon->nGetPolygonThisCoastID() << ", ending run" << endl;
+            for (int n = 0; n < pPolygon->nGetNumVertices(); n++)
+            {
+               LogStream << "[" << pPolygon->PtiGetVertex(n).nGetX() << "][" << pPolygon->PtiGetVertex(n).nGetY() << "]" << endl;
+            }
 
             return RTN_ERR_POLYGON_FILL_START_POINT;
          }
@@ -615,7 +544,7 @@ int CSimulation::nMarkPolygonCells(void)
       }
 
 #ifdef _DEBUG
-      if (m_ulIter == 466)
+      if (m_ulIter == 453)
       {
          m_nExtra++;
          string const strExtra = "_" + to_string(m_nExtra);
@@ -1012,90 +941,13 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
    return RTN_OK;
 }
 
-// //===============================================================================================================================
-// //! Determines whether a point is within a polygon: however if the point is exactly on the edge of the polygon, then the result is indeterminate. Modified from code at http://alienryderflex.com/polygon/, our thanks to Darel Rex Finley (DarelRex@gmail.com)
-// //===============================================================================================================================
-// bool CSimulation::bIsWithinPolygon(CGeom2DPoint const* pPtStart, vector<CGeom2DPoint> const* pPtPoints)
-// {
-//    bool bOddNodes = false;
-//
-//    int const nPolyCorners = static_cast<int>(pPtPoints->size());
-//    int j = nPolyCorners - 1;
-//
-//    double const dX = pPtStart->dGetX();
-//    double const dY = pPtStart->dGetY();
-//
-//    for (int i = 0; i < nPolyCorners; i++)
-//    {
-//       double const dCorneriX = pPtPoints->at(i).dGetX();
-//       double const dCorneriY = pPtPoints->at(i).dGetY();
-//       double const dCornerjX = pPtPoints->at(j).dGetX();
-//       double const dCornerjY = pPtPoints->at(j).dGetY();
-//
-//       if ((dCorneriY < dY && dCornerjY >= dY) || (dCornerjY < dY && dCorneriY >= dY))
-//       {
-//          if (dCorneriX + (dY - dCorneriY) / (dCornerjY - dCorneriY) * (dCornerjX - dCorneriX) < dX)
-//          {
-//             bOddNodes = ! bOddNodes;
-//          }
-//       }
-//
-//       j = i;
-//    }
-//
-//    return bOddNodes;
-// }
-
-// //===============================================================================================================================
-// //! Finds a point in a polygon: is guaranteed to succeed, as every strictly closed polygon has at least one triangle that is completely contained within the polygon. Derived from an algorithm at http://stackoverflow.com/questions/9797448/get-a-point-inside-the-polygon
-// //===============================================================================================================================
-// CGeom2DPoint CSimulation::PtFindPointInPolygon(vector<CGeom2DPoint> const* pPtPoints, int const nStartPoint)
-// {
-//    int const nPolySize = static_cast<int>(pPtPoints->size());
-//    int nOffSet = 0;
-//    CGeom2DPoint PtStart;
-//
-//    do
-//    {
-//       // Choose three consecutive points from the polygon
-//       vector<CGeom2DPoint> nVTestPoints;
-//
-//       for (int n = 0; n < 3; n++)
-//       {
-//          int nIndex = n + nStartPoint + nOffSet;
-//
-//          if (nIndex > nPolySize - 1)
-//             nIndex -= nPolySize;
-//
-//          // Safety check
-//          if (nIndex < 0)
-//             return CGeom2DPoint(DBL_NODATA, DBL_NODATA);
-//
-//          nVTestPoints.push_back(pPtPoints->at(nIndex));
-//       }
-//
-//       // Increment ready for next time
-//       nOffSet++;
-//
-//       // Safety check
-//       if (nOffSet >= (nPolySize + 3))
-//          return CGeom2DPoint(DBL_NODATA, DBL_NODATA);
-//
-//       // Check if the halfway point between the first and the third point is inside the polygon
-//       PtStart = PtAverage(&nVTestPoints[0], &nVTestPoints[2]);
-//    } while (! bIsWithinPolygon(&PtStart, pPtPoints));
-//
-//    return PtStart;
-// }
-
-
 #ifdef _DEBUG
 //===============================================================================================================================
 //! DEBUG ONLY: print polygon details to logfile
 //===============================================================================================================================
 void CSimulation::DEBUG_PrintPolygonDetails(int const nCoast, CGeomCoastPolygon* pPolygon)
 {
-   if (m_ulIter == 466)
+   if (m_ulIter == 453)
    {
       m_nExtra++;
       LogStream << "################################################ m_ulIter = " << m_ulIter << " m_nExtra = " << m_nExtra << endl;
