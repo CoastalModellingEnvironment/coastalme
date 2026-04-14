@@ -1981,6 +1981,7 @@ class CSimulation
    //! Returns a pointer to the lower case version of a string
    static string strToLower(string const*);
 
+   //! Transforms a pointer to a CGeom2DPoint in the external CRS to the equivalent CGeom2DIPoint in the raster grid CRS (both values rounded). The result may be outside the grid
    CGeom2DIPoint PtiExtCRSToGridRound(CGeom2DPoint const*) const;
 
 };

@@ -679,6 +679,7 @@ int const PROFILE_STATUS_HIT_LAND = 2;                   // Has this profile inv
 int const PROFILE_STATUS_HIT_COAST = 3;                  // Has this profile invalid because it hit a coast?
 int const PROFILE_STATUS_HIT_PROFILE = 4;                // Has this profile invalid because it hit another profile?
 int const PROFILE_STATUS_HIT_INTERVENTION = 5;           // Has this profile invalid because it hit an intervention?
+int const PROFILE_STATUS_TOO_MANY_SEGMENTS = 6;          // Too many line segments for this profile?
 
 // Elevation and 'slice' codes
 int const ELEV_IN_BASEMENT = -1;
@@ -718,6 +719,9 @@ int const MAX_SLUMP_ITERATIONS = 100;
 
 //! Maximum number of along-coast passes to identify and correct coast-normal profile intersectionms
 int const MAX_ALONG_COAST_PASSES = 5;
+
+//! Maximum number of line segments into which a profile can be divided
+int const MAX_SEGMENTS = 10;
 
 unsigned long const MASK = 0xfffffffful;
 unsigned long const SEDIMENT_INPUT_EVENT_ERROR = -1;
@@ -771,7 +775,7 @@ double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
 double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (13 Apr 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (14 Apr 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

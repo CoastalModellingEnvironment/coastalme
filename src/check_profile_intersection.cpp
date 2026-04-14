@@ -113,6 +113,17 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                   continue;
                }
 
+               // Does this profile have too many line segments?
+               if (pFirstProfile->nGetNumLineSegments() > MAX_SEGMENTS)
+               {
+                  // Yes, too many line segments, so mark profile as invalid
+                  pFirstProfile->SetProfileStatus(PROFILE_STATUS_TOO_MANY_SEGMENTS);
+
+                  LogStream << m_ulIter << ":\t coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, nFirstCoastPoint = " << nFirstCoastPoint << " first profile " << pFirstProfile->nGetProfileID() << " has more than " << MAX_SEGMENTS << " line segments, marking as invalid ))))))))))))))" << endl << endl;
+
+                  continue;
+               }
+
                // Now search in alternate directions, starting from one point either side of the first profile coast point, first down-coast (in the direction of increasing coast point numbers) then up-coast
                for (int nSecondSearchDirection = DIRECTION_DOWNCOAST; nSecondSearchDirection <= DIRECTION_UPCOAST; nSecondSearchDirection++)
                {
@@ -222,7 +233,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg);
 #ifdef _DEBUG
-                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
 #endif
                         continue;
                      }
@@ -235,7 +246,7 @@ void CSimulation::CheckAllProfilesForIntersection(void)
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg);
 #ifdef _DEBUG
-                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
 #endif
                         continue;
                      }
@@ -244,37 +255,78 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                      int const nFirstProfileLineSegments = pFirstProfile->nGetNumLineSegments();
                      int const nSecondProfileLineSegments = pSecondProfile->nGetNumLineSegments();
 
-                     // assert(nProf1LineSeg < nFirstProfileLineSegments);
-                     // assert(nProf2LineSeg < nSecondProfileLineSegments);
+                     // // DEBUG CODE ====================================================
+                     // if (nFirstProfileLineSegments > 20)
+                     // {
+                     //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                     //    LogStream << "FIRST PROFILE ************************" << endl;
+                     // }
+                     //
+                     // if (nSecondProfileLineSegments > 20)
+                     // {
+                     //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                     //    LogStream << "SECOND PROFILE ************************" << endl;
+                     // }
+                     // // DEBUG CODE ====================================================
 
                      // Next check whether the point of intersection is in the final line segment of both profiles
                      if ((nProf1LineSeg == (nFirstProfileLineSegments-1)) && (nProf2LineSeg == (nSecondProfileLineSegments-1)))
                      {
                         // Yes, the point of intersection is on the final line segment of both profiles
-                        // LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, end-segment intersection between profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " at [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} in line segment [" << nProf1LineSeg << "] of " << nFirstProfileLineSegments << " and line segment [" << nProf2LineSeg << "] of " << nSecondProfileLineSegments << " respectively" << endl;
+                        if ((nFirstProfileLineSegments > 20) || (nSecondProfileLineSegments > 20))
+                           LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, end-segment intersection between profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " at [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} in line segment [" << nProf1LineSeg << "] of " << nFirstProfileLineSegments << " and line segment [" << nProf2LineSeg << "] of " << nSecondProfileLineSegments << " respectively" << endl;
 
                         // Merge the profiles seaward of the point of intersection
                         MergeProfilesAtFinalLineSegments(nCoast, pFirstProfile, pSecondProfile, nFirstProfileLineSegments, nSecondProfileLineSegments, dIntersectX, dIntersectY, dAvgEndX, dAvgEndY);
 
-                        // LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, merged first profile " << pFirstProfile->nGetProfileID() << " and second profile " << pSecondProfile->nGetProfileID() << " at {" << dIntersectX << ", " << dIntersectY << "}, averaged endpoint is {" << dAvgEndX << ", " << dAvgEndY << "}" << endl;
+                        if ((nFirstProfileLineSegments > 20) || (nSecondProfileLineSegments > 20))
+                           LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, merged first profile " << pFirstProfile->nGetProfileID() << " and second profile " << pSecondProfile->nGetProfileID() << " at {" << dIntersectX << ", " << dIntersectY << "}, averaged endpoint is {" << dAvgEndX << ", " << dAvgEndY << "}" << endl;
 #ifdef _DEBUG
-                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG CODE ====================================================
+                        // if (nFirstProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "FIRST PROFILE ************************" << endl;
+                        // }
+                        //
+                        // if (nSecondProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "SECOND PROFILE ************************" << endl;
+                        // }
+                        // // DEBUG CODE ====================================================
 #endif
                         continue;
                      }
 
                      // The profiles intersect, but the point of intersection is not in the final line segment of both profiles. One of the profiles will be truncated, the other profile will be retained
-                     // LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, intersection (not in both end segments) between profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " at [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} in line segment [" << nProf1LineSeg << "] of " << nFirstProfileLineSegments << " and line segment [" << nProf2LineSeg << "] of " << nSecondProfileLineSegments << ", respectively" << endl;
+                     if ((nFirstProfileLineSegments > 20) || (nSecondProfileLineSegments > 20))
+                        LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, intersection (not in both end segments) between profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " at [" << nIntersectX << "][" << nIntersectY << "] = {" << dIntersectX << ", " << dIntersectY << "} in line segment [" << nProf1LineSeg << "] of " << nFirstProfileLineSegments << " and line segment [" << nProf2LineSeg << "] of " << nSecondProfileLineSegments << ", respectively" << endl;
 
                      // Decide which profile to truncate, and which to retain
                      if (pFirstProfile->bIsIntervention())
                      {
                         // Truncate the first profile, since it is an intervention profile
-                        // LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << ", first profile is an intervention profile, so truncate first profile (" << pFirstProfile->nGetProfileID() << ") at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
+                        if ((nFirstProfileLineSegments > 20) || (nSecondProfileLineSegments > 20))
+                           LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << ", first profile is an intervention profile, so truncate first profile (" << pFirstProfile->nGetProfileID() << ") at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg);
 #ifdef _DEBUG
-                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG CODE ====================================================
+                        // if (nFirstProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "FIRST PROFILE ************************" << endl;
+                        // }
+                        //
+                        // if (nSecondProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "SECOND PROFILE ************************" << endl;
+                        // }
+                        // // DEBUG CODE ====================================================
 #endif
                         continue;
                      }
@@ -282,11 +334,25 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                      if (pSecondProfile->bIsIntervention())
                      {
                         // Truncate the second profile, since it is an intervention profile
-                        // LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << ", second profile is an intervention profile, so truncate second profile (" << pSecondProfile->nGetProfileID() << ") at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
+                        if ((nFirstProfileLineSegments > 20) || (nSecondProfileLineSegments > 20))
+                           LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << pFirstProfile->nGetProfileID() << " second profile = " << pSecondProfile->nGetProfileID() << ", second profile is an intervention profile, so truncate second profile (" << pSecondProfile->nGetProfileID() << ") at {" << dIntersectX << ", " << dIntersectY << "}" << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg);
 #ifdef _DEBUG
-                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG CODE ====================================================
+                        // if (nFirstProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "FIRST PROFILE ************************" << endl;
+                        // }
+                        //
+                        // if (nSecondProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "SECOND PROFILE ************************" << endl;
+                        // }
+                        // // DEBUG CODE ====================================================
 #endif
                         continue;
                      }
@@ -294,11 +360,25 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                      if (nFirstProfileLineSegments < nSecondProfileLineSegments)
                      {
                         // Truncate the first profile, since it has a smaller number of line segments
-                        // LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << pFirstProfile->nGetProfileID() << " has a smaller number of line segments, so truncate profile " << pFirstProfile->nGetProfileID() << endl;
+                        if ((nFirstProfileLineSegments > 20) || (nSecondProfileLineSegments > 20))
+                           LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile " << pFirstProfile->nGetProfileID() << " has a smaller number of line segments, so truncate profile " << pFirstProfile->nGetProfileID() << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg);
 #ifdef _DEBUG
-                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG CODE ====================================================
+                        // if (nFirstProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "FIRST PROFILE ************************" << endl;
+                        // }
+                        //
+                        // if (nSecondProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "SECOND PROFILE ************************" << endl;
+                        // }
+                        // // DEBUG CODE ====================================================
 #endif
                         continue;
                      }
@@ -306,11 +386,25 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                      if (nFirstProfileLineSegments > nSecondProfileLineSegments)
                      {
                         // Truncate the second profile, since it has a smaller number of line segments
-                        // LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << pSecondProfile->nGetProfileID() << " has a smaller number of line segments, so truncate profile " << pSecondProfile->nGetProfileID() << endl;
+                        if ((nFirstProfileLineSegments > 20) || (nSecondProfileLineSegments > 20))
+                           LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, second profile " << pSecondProfile->nGetProfileID() << " has a smaller number of line segments, so truncate profile " << pSecondProfile->nGetProfileID() << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg);
 #ifdef _DEBUG
-                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG CODE ====================================================
+                        // if (nFirstProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "FIRST PROFILE ************************" << endl;
+                        // }
+                        //
+                        // if (nSecondProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "SECOND PROFILE ************************" << endl;
+                        // }
+                        // // DEBUG CODE ====================================================
 #endif
                         continue;
                      }
@@ -319,20 +413,48 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                      double const dRand = m_dGetFromUnitNormalDist(m_Rand[1]);
                      if (dRand >= 0)
                      {
-                        // LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, dRand = " << dRand << ", same number of line segments so randomly truncate first profile = " << pFirstProfile->nGetProfileID() << endl;
+                        if ((nFirstProfileLineSegments > 20) || (nSecondProfileLineSegments > 20))
+                           LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, dRand = " << dRand << ", same number of line segments so randomly truncate first profile = " << pFirstProfile->nGetProfileID() << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pFirstProfile, pSecondProfile, dIntersectX, dIntersectY, nProf1LineSeg, nProf2LineSeg);
 #ifdef _DEBUG
-                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG CODE ====================================================
+                        // if (nFirstProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "FIRST PROFILE ************************" << endl;
+                        // }
+                        //
+                        // if (nSecondProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "SECOND PROFILE ************************" << endl;
+                        // }
+                        // // DEBUG CODE ====================================================
 #endif
                      }
                      else
                      {
-                        // LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, dRand = " << dRand << ", same number of line segments so randomly truncate second profile = " << pSecondProfile->nGetProfileID() << endl;
+                        if ((nFirstProfileLineSegments > 20) || (nSecondProfileLineSegments > 20))
+                           LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, dRand = " << dRand << ", same number of line segments so randomly truncate second profile = " << pSecondProfile->nGetProfileID() << endl;
 
                         TruncateOneProfileRetainOtherProfile(nCoast, pSecondProfile, pFirstProfile, dIntersectX, dIntersectY, nProf2LineSeg, nProf1LineSeg);
 #ifdef _DEBUG
-                        DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        // // DEBUG CODE ====================================================
+                        // if (nFirstProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "FIRST PROFILE ************************" << endl;
+                        // }
+                        //
+                        // if (nSecondProfileLineSegments > 20)
+                        // {
+                        //    DEBUG_PrintProfileDetails(pFirstProfile, pSecondProfile);
+                        //    LogStream << "SECOND PROFILE ************************" << endl;
+                        // }
+                        // // DEBUG CODE ====================================================
 #endif
                      }
                   }
@@ -970,7 +1092,6 @@ void CSimulation::MergeProfilesAtFinalLineSegments(int const nCoast, CGeomProfil
       pThisProfile->AppendLineSegment();
       for (int m = 0; m < nCombinedLastSeg; m++)
          pThisProfile->AppendPairToFinalLineSegment(prVCombinedProfilesCoincidentProfilesLastSeg[m]);
-
    }
 }
 
@@ -1209,7 +1330,7 @@ void CSimulation::TruncateProfileAndAppendNew(int const nCoast, CGeomProfile* pP
 //===============================================================================================================================
 void CSimulation::DEBUG_PrintProfileDetails(CGeomProfile* pFirstProfile, CGeomProfile* pSecondProfile)
 {
-   if (m_ulIter == 453)
+   // if ((nFirstProfileLineSegments > 20) || (nSecondProfileLineSegments > 20))
    {
       m_nExtra++;
       LogStream << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% m_ulIter = " << m_ulIter << " m_nExtra = " << m_nExtra << endl;
@@ -1257,6 +1378,7 @@ void CSimulation::DEBUG_PrintProfileDetails(CGeomProfile* pFirstProfile, CGeomPr
       string const strExtra = "_" + to_string(m_nExtra);
       bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
       bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+      bWriteVectorGISFile(VECTOR_PLOT_COAST, &VECTOR_PLOT_COAST_TITLE, strExtra);
    }
 }
 #endif

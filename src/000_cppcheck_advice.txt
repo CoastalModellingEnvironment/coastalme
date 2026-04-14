@@ -1,12 +1,6 @@
 calc_waves.cpp:505:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-create_polygons.cpp:1092:22: style: Variable 'pNode' can be declared as pointer to const [constVariablePointer]
-      CGeom2DIPoint* pNode = pPolygon->pPtiGetNode();
-                     ^
-create_polygons.cpp:1093:22: style: Variable 'pAntiNode' can be declared as pointer to const [constVariablePointer]
-      CGeom2DIPoint* pAntiNode = pPolygon->pPtiGetAntiNode();
-                     ^
 do_uncons_sediment_slumping.cpp:176:14: style: struct member 'Neighbour::slope' is never used. [unusedStructMember]
       double slope;
              ^
@@ -52,7 +46,7 @@ nanoflann.hpp:694:29: note: result is overwritten
 nanoflann.hpp:693:22: style: Local variable 'PI' shadows outer variable [shadowVariable]
         DistanceType PI     = pi_const<DistanceType>();
                      ^
-cme.h:725:14: note: Shadowed declaration
+cme.h:726:14: note: Shadowed declaration
 double const PI = 3.141592653589793238462643;
              ^
 nanoflann.hpp:693:22: note: Shadow variable
@@ -115,7 +109,7 @@ spatial_interpolation.cpp:253:32: style: Variable 'sq_dists' is assigned a value
 yaml_parser.cpp:170:18: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
       VstrResult.push_back(*node.pstrGetValue());
                  ^
-2di_shape.cpp:54:0: style: The function 'Clear' is never used. [unusedFunction]
+2di_shape.cpp:57:0: style: The function 'Clear' is never used. [unusedFunction]
 void CA2DIShape::Clear(void)
 ^
 cell.cpp:211:0: style: The function 'bIsPossibleCoastStartCell' is never used. [unusedFunction]
@@ -196,16 +190,16 @@ CGeomILine* CRWCoast::pILGetCoastlineGridCRS(void)
 coast.cpp:623:0: style: The function 'dGetLevel' is never used. [unusedFunction]
 double CRWCoast::dGetLevel(int const nCoastPoint, int const level) const
 ^
-coast_polygon.cpp:584:0: style: The function 'AddCliffCollapseUnconsSandDeposition' is never used. [unusedFunction]
+coast_polygon.cpp:591:0: style: The function 'AddCliffCollapseUnconsSandDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseUnconsSandDeposition(double const dDepth)
 ^
-coast_polygon.cpp:596:0: style: The function 'AddCliffCollapseUnconsCoarseDeposition' is never used. [unusedFunction]
+coast_polygon.cpp:603:0: style: The function 'AddCliffCollapseUnconsCoarseDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseUnconsCoarseDeposition(double const dDepth)
 ^
-coast_polygon.cpp:608:0: style: The function 'AddCliffCollapseSandErodedDeanProfile' is never used. [unusedFunction]
+coast_polygon.cpp:615:0: style: The function 'AddCliffCollapseSandErodedDeanProfile' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseSandErodedDeanProfile(double const dDepth)
 ^
-coast_polygon.cpp:620:0: style: The function 'AddCliffCollapseCoarseErodedDeanProfile' is never used. [unusedFunction]
+coast_polygon.cpp:627:0: style: The function 'AddCliffCollapseCoarseErodedDeanProfile' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseCoarseErodedDeanProfile(double const dDepth)
 ^
 configuration.h:216:0: style: The function 'UseSystemTimeForSeed' is never used. [unusedFunction]
@@ -250,6 +244,9 @@ configuration.h:1178:0: style: The function 'nGetCliffEdgePolynomialOrder' is ne
 gis_utils.cpp:177:0: style: The function 'dTriangleAreax2' is never used. [unusedFunction]
 double CSimulation::dTriangleAreax2(CGeom2DPoint const* pPtA, CGeom2DPoint const* pPtB, CGeom2DPoint const* pPtC)
 ^
+gis_utils.cpp:442:0: style: The function 'PtiAverage' is never used. [unusedFunction]
+CGeom2DIPoint CSimulation::PtiAverage(CGeom2DIPoint const* pPti1, CGeom2DIPoint const* pPti2)
+^
 gis_utils.cpp:1810:0: style: The function 'nGetOppositeDirection' is never used. [unusedFunction]
 int CSimulation::nGetOppositeDirection(int const nDirection)
 ^
@@ -283,16 +280,19 @@ nanoflann.hpp:2690:0: style: The function 'query' is never used. [unusedFunction
 nanoflann.hpp:2702:0: style: The function 'derived' is never used. [unusedFunction]
     const self_t& derived() const { return *this; }
 ^
+raster_grid.cpp:62:0: style: The function 'pGetCell' is never used. [unusedFunction]
+CGeomCell* CGeomRasterGrid::pGetCell(int const nX, int const nY)
+^
 spatial_interpolation.h:123:0: style: The function 'GetKDTree' is never used. [unusedFunction]
    KDTree const* GetKDTree() const { return m_kdtree; }
 ^
 spatial_interpolation.h:126:0: style: The function 'GetPointCloud' is never used. [unusedFunction]
    PointCloud const& GetPointCloud() const { return m_cloud; }
 ^
-utils.cpp:2479:0: style: The function 'pstrChangeToBackslash' is never used. [unusedFunction]
+utils.cpp:2483:0: style: The function 'pstrChangeToBackslash' is never used. [unusedFunction]
 string CSimulation::pstrChangeToBackslash(string const* strIn)
 ^
-utils.cpp:2489:0: style: The function 'pstrChangeToForwardSlash' is never used. [unusedFunction]
+utils.cpp:2493:0: style: The function 'pstrChangeToForwardSlash' is never used. [unusedFunction]
 string CSimulation::pstrChangeToForwardSlash(string const* strIn)
 ^
 yaml_parser.cpp:103:0: style: The function 'nGetSequenceSize' is never used. [unusedFunction]

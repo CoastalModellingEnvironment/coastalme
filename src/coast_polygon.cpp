@@ -846,11 +846,11 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 }
 
 //===============================================================================================================================
-//! Determines whether a point (external CRS) is within the polygon: however if the point is exactly on the edge of the polygon, then the result is indeterminate. Modified from code at http://alienryderflex.com/polygon/, our thanks to Darel Rex Finley (DarelRex@gmail.com)
+//! Determines whether a point (external CRS) is within the polygon. Modified from code at https://wrfranklin.org/Research/Short_Notes/pnpoly.html
 //===============================================================================================================================
 bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DPoint const* pPtStart)
 {
-   int nPoints = m_VPtPoints.size();
+   int nPoints = static_cast<int>(m_VPtPoints.size());
    bool bInside = true;
 
    for (int i = 0, j = nPoints - 1; i < nPoints; j = i++)
@@ -862,35 +862,5 @@ bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DPoint const* pPtStart)
       }
    }
    return bInside;
-
-
-
-   // bool bOddNodes = false;
-   //
-   // int const nPolyCorners = static_cast<int>(m_VPtiVertices.size());
-   // int j = nPolyCorners - 1;
-   //
-   // int const nX = pPtiStart->nGetX();
-   // int const nY = pPtiStart->nGetY();
-   //
-   // for (int i = 0; i < nPolyCorners; i++)
-   // {
-   //    int const nCorneriX = m_VPtiVertices[i].nGetX();
-   //    int const nCorneriY = m_VPtiVertices[i].nGetY();
-   //    int const nCornerjX = m_VPtiVertices[j].nGetX();
-   //    int const nCornerjY = m_VPtiVertices[j].nGetY();
-   //
-   //    if ((nCorneriY < nY && nCornerjY >= nY) || (nCornerjY < nY && nCorneriY >= nY))
-   //    {
-   //       if (nCorneriX + (nY - nCorneriY) / (nCornerjY - nCorneriY) * (nCornerjX - nCorneriX) < nX)
-   //       {
-   //          bOddNodes = ! bOddNodes;
-   //       }
-   //    }
-   //
-   //    j = i;
-   // }
-   //
-   // return bOddNodes;
 }
 

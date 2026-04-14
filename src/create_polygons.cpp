@@ -387,11 +387,6 @@ int CSimulation::nMarkPolygonCells(void)
          // LogStream << endl;
          // // DEBUG CODE ==============================================================================================
 
-         // DEBUG CODE ==============================================================================================
-         if ((m_ulIter == 142) && (nCoast == 0) && (nPoly == 9))
-            LogStream << endl;
-         // DEBUG CODE ==============================================================================================
-
          // Find a point (grid CRS) within the polygon from which to start the cell-by-cell polygon infill
          CGeom2DIPoint PtiStart = pPolygon->PtiFindPointInPolygon();
 
