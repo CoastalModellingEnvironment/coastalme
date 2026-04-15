@@ -184,7 +184,7 @@ elseif(CMAKE_BUILD_TYPE_LC STREQUAL "relwithdebinfo")
          -gdwarf-3
          -fopenmp
          # -foffload=nvidia-ptx
-         -ffast-math
+         # -ffast-math  DO NOT USE! Enabling this gives different results (and possibly different bugs) for debug and release builds
          -fno-omit-frame-pointer
          # -Wall
          -fno-delete-null-pointer-checks

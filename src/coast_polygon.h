@@ -353,6 +353,6 @@ class CGeomCoastPolygon : public CA2DShape
    CGeom2DIPoint PtiGetVertex(int const) const;
 
    CGeom2DIPoint PtiFindPointInPolygon(void);
-   bool bIsWithinPolygon(CGeom2DPoint const*);
+   bool bIsWithinPolygon(CGeom2DIPoint const*, vector<CGeom2DIPoint> const*);
 };
 #endif // COASTPOLYGON_H

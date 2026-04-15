@@ -356,37 +356,6 @@ int CSimulation::nMarkPolygonCells(void)
          // Create an empty stack
          stack<CGeom2DIPoint> PtiStack;
 
-         //          // Since the polygon's vector boundary does not coincide exactly with the polygon's raster boundary, and the point-in-polygon check gives an indeterminate result if the point is exactly on the polygon's boundary, for safety we must construct a vector 'inner buffer' which is smaller than, and inside, the vector boundary TODO *** STILL NEEDED?
-         // int nHand = m_VCoast[nCoast].nGetSeaHandedness();
-         // int nSize = pPolygon->nGetBoundarySize();
-         // vector<CGeom2DPoint> PtVInnerBuffer;
-         //
-         // for (int i = 0; i < nSize-1; i++)
-         // {
-         // int j = i + 1;
-         // if (i == nSize-2)       // We must ignore the duplicated node point
-         // j = 0;
-         //
-         // CGeom2DPoint PtThis = *pPolygon->pPtGetBoundaryPoint(i);
-         // CGeom2DPoint PtNext = *pPolygon->pPtGetBoundaryPoint(j);
-         //
-         //             // Safety check
-         // if (PtThis == PtNext)
-         // continue;
-         //
-         // CGeom2DPoint PtBuffer = PtGetPerpendicular(&PtThis, &PtNext, m_dCellSide, nHand);
-         //
-         // PtVInnerBuffer.push_back(PtBuffer);
-         // }
-
-         // // DEBUG CODE ==============================================================================================
-         // LogStream << endl << m_ulIter << ": coast " << nCoast << ", polygon " << nPoly << endl;
-         // LogStream << "Boundary\t\t\tBuffer" << endl;
-         // for (int i = 0; i < pPolygon->nGetBoundarySize()-1; i++)
-         // LogStream << "{" << pPolygon->pPtGetBoundaryPoint(i)->dGetX() << ", " << pPolygon->pPtGetBoundaryPoint(i)->dGetY() << "}\t{" << PtVInnerBuffer[i].dGetX() << ", " << PtVInnerBuffer[i].dGetY() << "}" << endl;
-         // LogStream << endl;
-         // // DEBUG CODE ==============================================================================================
-
          // Find a point (grid CRS) within the polygon from which to start the cell-by-cell polygon infill
          CGeom2DIPoint PtiStart = pPolygon->PtiFindPointInPolygon();
 
@@ -395,39 +364,16 @@ int CSimulation::nMarkPolygonCells(void)
          {
             // Uh-oh, could not find a point within this polygon
             LogStream << m_ulIter << ":\t " << ERR << "could not find a within-polygon start point for polygon infilling, coast " << nCoast << " polygon " << pPolygon->nGetPolygonThisCoastID() << ", ending run" << endl;
-            for (int n = 0; n < pPolygon->nGetNumVertices(); n++)
+            for (int n = 0; n < pPolygon->nGetBoundarySize(); n++)
             {
-               LogStream << "[" << pPolygon->PtiGetVertex(n).nGetX() << "][" << pPolygon->PtiGetVertex(n).nGetY() << "]" << endl;
+               CGeom2DPoint* pPtTmp = pPolygon->pPtGetBoundaryPoint(n);
+               CGeom2DIPoint PtiTmp = PtiExtCRSToGridRound(pPtTmp);
+
+               LogStream << "[" << PtiTmp.nGetX() << "][" << PtiTmp.nGetY() << "] = {" << pPtTmp->dGetX() << ", " << pPtTmp->dGetY() << "}" << endl;
             }
 
             return RTN_ERR_POLYGON_FILL_START_POINT;
          }
-
-         // // DEBUG CODE ============================
-         // CGeom2DIPoint* pNode = pPolygon->pPtiGetNode();
-         // CGeom2DIPoint* pAntiNode = pPolygon->pPtiGetAntiNode();
-         //
-         // LogStream << "poly = " << nPolyID << " node is [" << pNode->nGetX() << "][" << pNode->nGetY() << "] = {" << dGridXToExtCRSX(pNode->nGetX()) << ", " << dGridYToExtCRSY(pNode->nGetY()) << "} antinode is [" << pAntiNode->nGetX() << "][" << pAntiNode->nGetY() << "] = {" << dGridXToExtCRSX(pAntiNode->nGetX()) << ", " << dGridYToExtCRSY(pAntiNode->nGetY()) << "} start point for fill is [" << PtiStart.nGetX() << "][" << PtiStart.nGetY() << "] = {" << dGridXToExtCRSX(PtiStart.nGetX()) << ", " << dGridYToExtCRSY(PtiStart.nGetY()) << "}" << endl;
-         // // DEBUG CODE ============================
-
-         // // Is the centroid within the inner buffer?
-         // if (! bIsWithinPolygon(&PtStart, &PtVInnerBuffer))
-         // {
-         //    // No, it is not: the polygon must be a concave polygon. So keep looking for a point which is definitely inside the polygon, using an alternative method
-         // PtStart = PtFindPointInPolygon(&PtVInnerBuffer, pPolygon->nGetPointInPolygonSearchStartPoint());
-         // }
-         //
-         // // Safety check (PtFindPointInPolygon() returns CGeom2DPoint(DBL_NODATA, DBL_NODATA) if it cannot find a valid start point)
-         // if (bFPIsEqual(PtStart.dGetX(), DBL_NODATA, TOLERANCE))
-         // {
-         // LogStream << m_ulIter << ": " << ERR << "could not find a cell-by-cell fill start point for coast " << nCoast << ", polygon " << nPoly << endl;
-         // break;
-         // }
-
-         // We have a cell-by-cell fill start point which is definitely within the polygon so push this point onto the stack
-         // CGeom2DIPoint PtiStart;
-         // PtiStart.SetX(nRound(PtStart.dGetX()));               // Grid CRS
-         // PtiStart.SetY(nRound(PtStart.dGetY()));               // Grid CRS
 
          PtiStack.push(PtiStart);
 

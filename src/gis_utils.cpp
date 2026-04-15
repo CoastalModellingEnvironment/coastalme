@@ -220,6 +220,18 @@ void CSimulation::KeepWithinValidGrid(int& nX, int& nY) const
 }
 
 //===============================================================================================================================
+//! Constrains the supplied point (in the grid CRS) to be a valid cell within the raster grid
+//===============================================================================================================================
+void CSimulation::KeepWithinValidGrid(CGeom2DIPoint* pPtiTmp) const
+{
+   pPtiTmp->SetX(tMax(pPtiTmp->nGetX(), 0));
+   pPtiTmp->SetX(tMin(pPtiTmp->nGetX(), m_nXGridSize - 1));
+
+   pPtiTmp->SetY(tMax(pPtiTmp->nGetY(), 0));
+   pPtiTmp->SetY(tMin(pPtiTmp->nGetY(), m_nYGridSize - 1));
+}
+
+//===============================================================================================================================
 //! Constrains the second supplied point (both are CGeom2DIPoints, in the grid CRS) to be a valid cell within the raster grid
 //===============================================================================================================================
 void CSimulation::KeepWithinValidGrid(CGeom2DIPoint const* Pti0, CGeom2DIPoint* Pti1) const

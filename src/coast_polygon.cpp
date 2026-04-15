@@ -803,12 +803,22 @@ CGeom2DIPoint CGeomCoastPolygon::PtiGetVertex(int const nIndex) const
 //===============================================================================================================================
 CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 {
-   int const nPolySize = static_cast<int>(m_VPtPoints.size());      // external CRS
+   int const nPolySize = static_cast<int>(m_VPtPoints.size());       // external CRS
+   vector<CGeom2DIPoint> VPtiPoints(nPolySize);                      // grid CRS
+   for (int n = 0; n < nPolySize; n++)
+   {
+      CGeom2DIPoint PtiTmp = m_pSim->PtiExtCRSToGridRound(&m_VPtPoints[n]);
+
+      // Make sure is within grid
+      m_pSim->KeepWithinValidGrid(&PtiTmp);
+
+      VPtiPoints[n] = PtiTmp;
+   }
 
    int const nStartPoint = 0;
    int nOffSet = 0;
-   CGeom2DPoint PtStart;
-   vector<CGeom2DPoint> VPtTestPoints(3);
+   CGeom2DIPoint PtiStart;
+   vector<CGeom2DIPoint> VPtiTestPoints(3);
 
    do
    {
@@ -824,7 +834,7 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
          if (nIndex < 0)
             return CGeom2DIPoint(INT_NODATA, INT_NODATA);      // grid CRS
 
-         VPtTestPoints[n] = m_VPtPoints[nIndex];
+         VPtiTestPoints[n] = VPtiPoints[nIndex];
       }
 
       // Increment ready for next time
@@ -835,28 +845,28 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
          return CGeom2DIPoint(INT_NODATA, INT_NODATA);         // grid CRS
 
       // Check if the halfway point between the first and the third point is inside the polygon
-      PtStart.SetX((VPtTestPoints[0].dGetX() + VPtTestPoints[2].dGetX()) / 2);
-      PtStart.SetY((VPtTestPoints[0].dGetY() + VPtTestPoints[2].dGetY()) / 2);
-   } while (! bIsWithinPolygon(&PtStart));
+      PtiStart.SetX(nRound((VPtiPoints[0].nGetX() + VPtiPoints[2].nGetX()) / 2.0));
+      PtiStart.SetY(nRound((VPtiPoints[0].nGetY() + VPtiPoints[2].nGetY()) / 2.0));
 
-   // Convert to grid CRS
-   CGeom2DIPoint PtiStart = pGetSim()->PtiExtCRSToGridRound(&PtStart);
+      // Make sure is within grid
+      m_pSim->KeepWithinValidGrid(&PtiStart);
+   } while (! bIsWithinPolygon(&PtiStart, &VPtiPoints));
 
    return PtiStart;
 }
 
 //===============================================================================================================================
-//! Determines whether a point (external CRS) is within the polygon. Modified from code at https://wrfranklin.org/Research/Short_Notes/pnpoly.html
+//! Determines whether a point (grid CRS) is within the polygon, using semi-infinite ray edge counting. Modified from code at https://wrfranklin.org/Research/Short_Notes/pnpoly.html
 //===============================================================================================================================
-bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DPoint const* pPtStart)
+bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart, vector<CGeom2DIPoint> const* pVPtiPoints)
 {
-   int nPoints = static_cast<int>(m_VPtPoints.size());
+   int nPoints = static_cast<int>(pVPtiPoints->size());
    bool bInside = true;
 
    for (int i = 0, j = nPoints - 1; i < nPoints; j = i++)
    {
       // Check if the point's y-coordinate is within the edge's y-range then check if the point is to the left of the intersection of the ray and edge
-      if (((m_VPtPoints[i].dGetY() > pPtStart->dGetY()) != (m_VPtPoints[j].dGetY() > pPtStart->dGetY())) && (pPtStart->dGetX() < (m_VPtPoints[j].dGetX() - m_VPtPoints[i].dGetX()) * (pPtStart->dGetY() - m_VPtPoints[i].dGetY()) / (m_VPtPoints[j].dGetY() - m_VPtPoints[i].dGetY()) + m_VPtPoints[i].dGetX()))
+      if (((pVPtiPoints->at(i).nGetY() > pPtiStart->nGetY()) != (pVPtiPoints->at(j).nGetY() > pPtiStart->nGetY())) && (pPtiStart->nGetX() < (pVPtiPoints->at(j).nGetX() - pVPtiPoints->at(i).nGetX()) * (pPtiStart->nGetY() - pVPtiPoints->at(i).nGetY()) / (pVPtiPoints->at(j).nGetY() - pVPtiPoints->at(i).nGetY()) + pVPtiPoints->at(i).nGetX()))
       {
          bInside = ! bInside;
       }

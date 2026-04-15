@@ -1984,5 +1984,7 @@ class CSimulation
    //! Transforms a pointer to a CGeom2DPoint in the external CRS to the equivalent CGeom2DIPoint in the raster grid CRS (both values rounded). The result may be outside the grid
    CGeom2DIPoint PtiExtCRSToGridRound(CGeom2DPoint const*) const;
 
+   //! Constrains the supplied point (in the grid CRS) to be a valid cell within the raster grid
+   void KeepWithinValidGrid(CGeom2DIPoint*) const;
 };
 #endif // SIMULATION_H
