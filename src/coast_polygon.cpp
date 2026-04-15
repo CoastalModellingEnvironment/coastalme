@@ -20,6 +20,8 @@
 ===============================================================================================================================*/
 #include <assert.h>
 
+#include <climits>
+
 #include <vector>
 using std::vector;
 
@@ -805,6 +807,12 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 {
    int nPolySize = static_cast<int>(m_VPtPoints.size());       // external CRS
    vector<CGeom2DIPoint> VPtiPoints;                           // grid CRS
+   CGeom2DIPoint PtiStart;
+   int nMinX = INT_MAX;
+   int nMaxX = INT_MIN;
+   int nMinY = INT_MAX;
+   int nMaxY = INT_MIN;
+
    for (int n = 0; n < nPolySize; n++)
    {
       CGeom2DIPoint PtiTmp = m_pSim->PtiExtCRSToGridRound(&m_VPtPoints[n]);
@@ -819,14 +827,50 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
             continue;
       }
 
+      if (n == nPolySize-1)
+      {
+         if (PtiTmp == VPtiPoints[0])
+            continue;
+      }
+
+      if (PtiTmp.nGetX() > nMaxX)
+         nMaxX = PtiTmp.nGetX();
+      if (PtiTmp.nGetX() < nMinX)
+         nMinX = PtiTmp.nGetX();
+      if (PtiTmp.nGetY() > nMaxY)
+         nMaxY = PtiTmp.nGetY();
+      if (PtiTmp.nGetY() < nMinY)
+         nMinY = PtiTmp.nGetY();
+
       VPtiPoints.push_back(PtiTmp);
+   }
+
+   nPolySize = static_cast<int>(VPtiPoints.size());
+
+   // If this is a very small polygon, then just calculate a simple average of the points
+   if (((nMaxX - nMinX) <= 3) || ((nMaxY - nMinY) <= 3))
+   {
+      int nTmpX = 0;
+      int nTmpY = 0;
+      for (int n = 0; n < nPolySize; n++)
+      {
+         nTmpX += VPtiPoints[n].nGetX();
+         nTmpY += VPtiPoints[n].nGetY();
+      }
+
+      PtiStart.SetX(nTmpX / nPolySize);
+      PtiStart.SetY(nTmpY / nPolySize);
+
+      // Check that this point is within the polygon
+      if (bIsWithinPolygon(&PtiStart, &VPtiPoints))
+         return PtiStart;
+      else
+         return CGeom2DIPoint(INT_NODATA, INT_NODATA);
    }
 
    int const nStartPoint = 0;
    int nOffSet = 0;
-   CGeom2DIPoint PtiStart;
    vector<CGeom2DIPoint> VPtiTestPoints(3);
-   nPolySize = static_cast<int>(VPtiPoints.size());
 
    do
    {
@@ -839,7 +883,7 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
             nIndex -= nPolySize;
 
          // Safety check
-         if (nIndex < 0)
+         if ((nIndex < 0) || (nIndex > nPolySize - 1))
             return CGeom2DIPoint(INT_NODATA, INT_NODATA);      // grid CRS
 
          VPtiTestPoints[n] = VPtiPoints[nIndex];
@@ -879,18 +923,6 @@ bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart, vector<
 {
    int nPoints = static_cast<int>(pVPtiPoints->size());
    int c = 0;
-   // bool bInside = true;
-
-   /*
-    * if ( ((verty[i]>testy) != (verty[j]>testy)) &&
-	 (testx < (vertx[j]-vertx[i]) * (testy-verty[i]) / (verty[j]-verty[i]) + vertx[i]) )
-    * */
-
-   /*
-    * if ((((yp[i]<=y) && (y<ypj)) ||
-             ((yp[j]<=y) && (y<yp[i]))) &&
-            (x < (xp[j] - xp[i]) * (y - yp[i]) / (yp[j] - yp[i]) + xp[i]))
-    * */
 
    for (int i = 0, j = nPoints - 1; i < nPoints; j = i++)
    {
@@ -903,28 +935,12 @@ bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart, vector<
 
       // Check if the point's y-coordinate is within the edge's y-range then check if the point is to the left of the intersection of the ray and edge
       if ((((ypi <= y) && (y < ypj)) ||
-             ((ypj <= y) && (y < ypi))) &&
+           ((ypj <= y) && (y < ypi))) &&
             (x < (xpj - xpi) * (y - ypi) / (ypj - ypi) + xpi))
-
-
-
-
-
-
-
-
-
-//          ((pVPtiPoints->at(i).nGetY() > pPtiStart->nGetY()) != (pVPtiPoints->at(j).nGetY() > pPtiStart->nGetY())) &&
-//
-//          (pPtiStart->nGetX() < (pVPtiPoints->at(j).nGetX() - pVPtiPoints->at(i).nGetX()) * (pPtiStart->nGetY() - pVPtiPoints->at(i).nGetY()) / (pVPtiPoints->at(j).nGetY() - pVPtiPoints->at(i).nGetY()) + pVPtiPoints->at(i).nGetX())
-//
-//       )
       {
          c = ! c;
-         // bInside = ! bInside;
       }
    }
    return c;
-   // return bInside;
 }
 

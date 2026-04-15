@@ -72,19 +72,8 @@ int CSimulation::nCreateAllPolygons(void)
             CGeomProfile* pNextProfile = pThisProfile->pGetDownCoastAdjacentProfile();
 
             bool bNextProfileIsOK = false;
-
             do
             {
-               // if (pNextProfile == NULL)       // TODO THIS GIVES CPPCHECK ERROR
-               // {
-               // LogStream << m_ulIter << ": nThisProfile = " << nThisProfile << " invalid down-coast adjacent profile, trying next down-coast adjacent profile" << endl;
-               //
-               //    // Try the next-after-next profile
-               // CGeomProfile* pNextNextProfile = pNextProfile->pGetDownCoastAdjacentProfile();
-               // pNextProfile = pNextNextProfile;
-               // continue;
-               // }
-
                // Get the ID of the next (down-coast) profile
                nNextProfile = pNextProfile->nGetProfileID();
 
@@ -123,18 +112,6 @@ int CSimulation::nCreateAllPolygons(void)
             int nThisProfileEnd = pThisProfile->nGetProfileSize() - 1;
             bool bMeetsAtAPoint = false;
             CGeom2DPoint PtCoastwardTip;
-
-            //                // DEBUG CODE =============================================================================================
-            // CGeom2DPoint PtNextEndTmp = *pNextProfile->pPtGetPointInProfile(nNextProfileEnd);
-            // double dXTmp = dExtCRSXToGridX(PtNextEndTmp.dGetX());
-            // double dYTmp = dExtCRSYToGridY(PtNextEndTmp.dGetY());
-            // assert(bIsWithinValidGrid(dXTmp, dYTmp));
-            //
-            // CGeom2DPoint PtThisEndTmp = *pThisProfile->pPtGetPointInProfile(nThisProfileEnd);
-            // dXTmp = dExtCRSXToGridX(PtThisEndTmp.dGetX());
-            // dYTmp = dExtCRSYToGridY(PtThisEndTmp.dGetY());
-            // assert(bIsWithinValidGrid(dXTmp, dYTmp));
-            //                // DEBUG CODE =============================================================================================
 
             // Now check to see if the two normals do meet i.e. if they are coincident
             if (pThisProfile->bFindFirstInCoincidentPairs(nNextProfile))
@@ -356,11 +333,6 @@ int CSimulation::nMarkPolygonCells(void)
          // Create an empty stack
          stack<CGeom2DIPoint> PtiStack;
 
-         // DEBUG CODE ==========================================
-         if ((m_ulIter == 501) && (pPolygon->nGetPolygonThisCoastID() == 13))
-            LogStream << endl;
-         // DEBUG CODE ==========================================
-
          // Find a point (grid CRS) within the polygon from which to start the cell-by-cell polygon infill
          CGeom2DIPoint PtiStart = pPolygon->PtiFindPointInPolygon();
 
@@ -377,7 +349,8 @@ int CSimulation::nMarkPolygonCells(void)
                LogStream << "[" << PtiTmp.nGetX() << "][" << PtiTmp.nGetY() << "] = {" << pPtTmp->dGetX() << ", " << pPtTmp->dGetY() << "}" << endl;
             }
 
-            return RTN_ERR_POLYGON_FILL_START_POINT;
+            continue;
+            // return RTN_ERR_POLYGON_FILL_START_POINT;
          }
 
          PtiStack.push(PtiStart);
