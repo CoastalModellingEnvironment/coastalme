@@ -804,7 +804,7 @@ CGeom2DIPoint CGeomCoastPolygon::PtiGetVertex(int const nIndex) const
 CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 {
    int nPolySize = static_cast<int>(m_VPtPoints.size());       // external CRS
-   vector<CGeom2DIPoint> VPtiPoints;                                 // grid CRS
+   vector<CGeom2DIPoint> VPtiPoints;                           // grid CRS
    for (int n = 0; n < nPolySize; n++)
    {
       CGeom2DIPoint PtiTmp = m_pSim->PtiExtCRSToGridRound(&m_VPtPoints[n]);
@@ -878,16 +878,53 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart, vector<CGeom2DIPoint> const* pVPtiPoints)
 {
    int nPoints = static_cast<int>(pVPtiPoints->size());
-   bool bInside = true;
+   int c = 0;
+   // bool bInside = true;
+
+   /*
+    * if ( ((verty[i]>testy) != (verty[j]>testy)) &&
+	 (testx < (vertx[j]-vertx[i]) * (testy-verty[i]) / (verty[j]-verty[i]) + vertx[i]) )
+    * */
+
+   /*
+    * if ((((yp[i]<=y) && (y<ypj)) ||
+             ((yp[j]<=y) && (y<yp[i]))) &&
+            (x < (xp[j] - xp[i]) * (y - yp[i]) / (yp[j] - yp[i]) + xp[i]))
+    * */
 
    for (int i = 0, j = nPoints - 1; i < nPoints; j = i++)
    {
+      int ypi = pVPtiPoints->at(i).nGetY();
+      int y = pPtiStart->nGetY();
+      int ypj = pVPtiPoints->at(j).nGetY();
+      int x = pPtiStart->nGetX();
+      int xpj = pVPtiPoints->at(j).nGetX();
+      int xpi = pVPtiPoints->at(i).nGetX();
+
       // Check if the point's y-coordinate is within the edge's y-range then check if the point is to the left of the intersection of the ray and edge
-      if (((pVPtiPoints->at(i).nGetY() > pPtiStart->nGetY()) != (pVPtiPoints->at(j).nGetY() > pPtiStart->nGetY())) && (pPtiStart->nGetX() < (pVPtiPoints->at(j).nGetX() - pVPtiPoints->at(i).nGetX()) * (pPtiStart->nGetY() - pVPtiPoints->at(i).nGetY()) / (pVPtiPoints->at(j).nGetY() - pVPtiPoints->at(i).nGetY()) + pVPtiPoints->at(i).nGetX()))
+      if ((((ypi <= y) && (y < ypj)) ||
+             ((ypj <= y) && (y < ypi))) &&
+            (x < (xpj - xpi) * (y - ypi) / (ypj - ypi) + xpi))
+
+
+
+
+
+
+
+
+
+//          ((pVPtiPoints->at(i).nGetY() > pPtiStart->nGetY()) != (pVPtiPoints->at(j).nGetY() > pPtiStart->nGetY())) &&
+//
+//          (pPtiStart->nGetX() < (pVPtiPoints->at(j).nGetX() - pVPtiPoints->at(i).nGetX()) * (pPtiStart->nGetY() - pVPtiPoints->at(i).nGetY()) / (pVPtiPoints->at(j).nGetY() - pVPtiPoints->at(i).nGetY()) + pVPtiPoints->at(i).nGetX())
+//
+//       )
       {
-         bInside = ! bInside;
+         c = ! c;
+         // bInside = ! bInside;
       }
    }
-   return bInside;
+   return c;
+   // return bInside;
 }
 

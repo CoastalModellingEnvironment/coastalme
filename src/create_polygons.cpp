@@ -160,24 +160,24 @@ int CSimulation::nCreateAllPolygons(void)
                PtCoastwardTip = *pThisProfile->pPtGetPointInProfile(nThisProfileEnd);
             }
 
-            // Create the vector in which to store the polygon's boundary (external CRS). Note that these points are not in sequence
+            // Create the vector in which to store the polygon's boundary (external CRS)
             vector<CGeom2DPoint> PtVBoundary;
 
-            // Start appending points: begin by appending the points in this normal, in reverse order
+            // Start appending points: begin by appending the points in this normal, in reverse (landward) order
             for (int i = nThisProfileEnd; i >= 0; i--)
             {
                CGeom2DPoint const PtThis = *pThisProfile->pPtGetPointInProfile(i);
                PtVBoundary.push_back(PtThis);
             }
 
-            // Next add coast points: from the start point of this normal, moving down-coast as far as the down-coast norma
+            // Next add coast points: from the start point of this normal, moving down-coast as far as the down-coast normal
             for (int i = nCoastPoint; i <= nNextProfileCoastPoint; i++)
             {
                CGeom2DPoint const PtThis = *m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(i);
                PtVBoundary.push_back(PtThis);
             }
 
-            // Append the points in the down-coast (next) normal
+            // Append the points in the down-coast (next) normal, in normal (seaward) order
             for (int i = 0; i <= nNextProfileEnd; i++)
             {
                CGeom2DPoint const PtThis = *pNextProfile->pPtGetPointInProfile(i);
@@ -357,7 +357,7 @@ int CSimulation::nMarkPolygonCells(void)
          stack<CGeom2DIPoint> PtiStack;
 
          // DEBUG CODE ==========================================
-         if ((m_ulIter == 888) && (pPolygon->nGetPolygonThisCoastID() == 4))
+         if ((m_ulIter == 501) && (pPolygon->nGetPolygonThisCoastID() == 13))
             LogStream << endl;
          // DEBUG CODE ==========================================
 
