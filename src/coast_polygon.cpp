@@ -803,8 +803,8 @@ CGeom2DIPoint CGeomCoastPolygon::PtiGetVertex(int const nIndex) const
 //===============================================================================================================================
 CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 {
-   int const nPolySize = static_cast<int>(m_VPtPoints.size());       // external CRS
-   vector<CGeom2DIPoint> VPtiPoints(nPolySize);                      // grid CRS
+   int nPolySize = static_cast<int>(m_VPtPoints.size());       // external CRS
+   vector<CGeom2DIPoint> VPtiPoints;                                 // grid CRS
    for (int n = 0; n < nPolySize; n++)
    {
       CGeom2DIPoint PtiTmp = m_pSim->PtiExtCRSToGridRound(&m_VPtPoints[n]);
@@ -812,13 +812,21 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
       // Make sure is within grid
       m_pSim->KeepWithinValidGrid(&PtiTmp);
 
-      VPtiPoints[n] = PtiTmp;
+      // We must not have duplicates (produced by rounding)
+      if (n > 0)
+      {
+         if (PtiTmp == VPtiPoints.back())
+            continue;
+      }
+
+      VPtiPoints.push_back(PtiTmp);
    }
 
    int const nStartPoint = 0;
    int nOffSet = 0;
    CGeom2DIPoint PtiStart;
    vector<CGeom2DIPoint> VPtiTestPoints(3);
+   nPolySize = static_cast<int>(VPtiPoints.size());
 
    do
    {
@@ -845,12 +853,15 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
          return CGeom2DIPoint(INT_NODATA, INT_NODATA);         // grid CRS
 
       // Check if the halfway point between the first and the third point is inside the polygon
-      PtiStart.SetX(nRound((VPtiPoints[0].nGetX() + VPtiPoints[2].nGetX()) / 2.0));
-      PtiStart.SetY(nRound((VPtiPoints[0].nGetY() + VPtiPoints[2].nGetY()) / 2.0));
+      PtiStart.SetX(nRound((VPtiTestPoints[0].nGetX() + VPtiTestPoints[2].nGetX()) / 2.0));
+      PtiStart.SetY(nRound((VPtiTestPoints[0].nGetY() + VPtiTestPoints[2].nGetY()) / 2.0));
 
-      // Make sure is within grid
+      // Make sure this point is within the grid
       m_pSim->KeepWithinValidGrid(&PtiStart);
-   } while (! bIsWithinPolygon(&PtiStart, &VPtiPoints));
+
+      if (bIsWithinPolygon(&PtiStart, &VPtiPoints))
+         break;
+   } while (true);
 
    return PtiStart;
 }
