@@ -812,7 +812,7 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
       // Make sure is within grid
       m_pSim->KeepWithinValidGrid(&PtiTmp);
 
-      // We must not have duplicates (produced by rounding)
+      // We must not have duplicates (which are produced by rounding)
       if (n > 0)
       {
          if (PtiTmp == VPtiPoints.back())
@@ -848,17 +848,23 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
       // Increment ready for next time
       nOffSet++;
 
-      // Safety check
+      // Have we traversed the whole polygon boundary?
       if (nOffSet >= (nPolySize + 3))
          return CGeom2DIPoint(INT_NODATA, INT_NODATA);         // grid CRS
 
-      // Check if the halfway point between the first and the third point is inside the polygon
-      PtiStart.SetX(nRound((VPtiTestPoints[0].nGetX() + VPtiTestPoints[2].nGetX()) / 2.0));
-      PtiStart.SetY(nRound((VPtiTestPoints[0].nGetY() + VPtiTestPoints[2].nGetY()) / 2.0));
+      // Calculate the average of the first and the third points
+      double dXTmp = (VPtiTestPoints[0].nGetX() + VPtiTestPoints[2].nGetX()) / 2.0;
+      double dYTmp = (VPtiTestPoints[0].nGetY() + VPtiTestPoints[2].nGetY()) / 2.0;
+      int nXTmp = nRound(dXTmp);
+      int nYTmp = nRound(dYTmp);
+
+      PtiStart.SetX(nXTmp);
+      PtiStart.SetY(nYTmp);
 
       // Make sure this point is within the grid
       m_pSim->KeepWithinValidGrid(&PtiStart);
 
+      // Is this average point inside the polygon?
       if (bIsWithinPolygon(&PtiStart, &VPtiPoints))
          break;
    } while (true);

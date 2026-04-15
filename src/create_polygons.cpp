@@ -356,6 +356,11 @@ int CSimulation::nMarkPolygonCells(void)
          // Create an empty stack
          stack<CGeom2DIPoint> PtiStack;
 
+         // DEBUG CODE ==========================================
+         if ((m_ulIter == 888) && (pPolygon->nGetPolygonThisCoastID() == 4))
+            LogStream << endl;
+         // DEBUG CODE ==========================================
+
          // Find a point (grid CRS) within the polygon from which to start the cell-by-cell polygon infill
          CGeom2DIPoint PtiStart = pPolygon->PtiFindPointInPolygon();
 
