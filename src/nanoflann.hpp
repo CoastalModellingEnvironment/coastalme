@@ -1890,12 +1890,12 @@ class KDTreeSingleIndexAdaptor
         /* If this is a leaf node, then do check and return. */
         if ((node->child1 == nullptr) && (node->child2 == nullptr))
         {
-            DistanceType worst_dist = result_set.worstDist();
+            DistanceType const worst_dist = result_set.worstDist();
             for (Offset i = node->node_type.lr.left;
                  i < node->node_type.lr.right; ++i)
             {
                 const IndexType accessor = Base::vAcc_[i];  // reorder... : i;
-                DistanceType    dist     = distance_.evalMetric(
+                DistanceType const dist     = distance_.evalMetric(
                            vec, accessor, (DIM > 0 ? DIM : Base::dim_));
                 if (dist < worst_dist)
                 {
@@ -1910,11 +1910,11 @@ class KDTreeSingleIndexAdaptor
             return true;
         }
 
-        /* Which child branch should be taken first? */
-        Dimension    idx   = node->node_type.sub.divfeat;
-        ElementType  val   = vec[idx];
-        DistanceType diff1 = val - node->node_type.sub.divlow;
-        DistanceType diff2 = val - node->node_type.sub.divhigh;
+        // Which child branch should be taken first?
+        Dimension const idx   = node->node_type.sub.divfeat;
+        ElementType const val   = vec[idx];
+        DistanceType const diff1 = val - node->node_type.sub.divlow;
+        DistanceType const diff2 = val - node->node_type.sub.divhigh;
 
         NodePtr      bestChild;
         NodePtr      otherChild;
@@ -1923,26 +1923,23 @@ class KDTreeSingleIndexAdaptor
         {
             bestChild  = node->child1;
             otherChild = node->child2;
-            cut_dist =
-                distance_.accum_dist(val, node->node_type.sub.divhigh, idx);
+            cut_dist = distance_.accum_dist(val, node->node_type.sub.divhigh, idx);
         }
         else
         {
             bestChild  = node->child2;
             otherChild = node->child1;
-            cut_dist =
-                distance_.accum_dist(val, node->node_type.sub.divlow, idx);
+            cut_dist = distance_.accum_dist(val, node->node_type.sub.divlow, idx);
         }
 
-        /* Call recursively to search next level down. */
+        // Call recursively to search next level down
         if (!searchLevel(result_set, vec, bestChild, mindist, dists, epsError))
         {
-            // the resultset doesn't want to receive any more points, we're done
-            // searching!
+            // the resultset doesn't want to receive any more points, we're done searching!
             return false;
         }
 
-        DistanceType dst = dists[idx];
+        DistanceType const dst = dists[idx];
         mindist          = mindist + cut_dist - dst;
         dists[idx]       = cut_dist;
         if (mindist * epsError <= result_set.worstDist())

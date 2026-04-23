@@ -71,22 +71,22 @@ int CSimulation::nCreateAllPolygons(void)
             // Now get a pointer to the next (down-coast) profile
             CGeomProfile* pNextProfile = pThisProfile->pGetDownCoastAdjacentProfile();
 
-            // Safety check
-            if (pNextProfile == NULL)
-            {
-               // This profile is at the downcoast end of the coast. We should not have hit it, but since we have then abandon the profile which is being constructed
-               LogStream << m_ulIter << ":\t hit profile " << nThisProfile << " at downcoast end of coast, coast point = " << nCoastPoint << " of " << nCoastSize << endl;
-
-               nPolygon--;
-
-               // Make sure that the up-coast profile is marked as end-of-coast
-               CGeomProfile* pUpCoastProfile = pThisProfile->pGetUpCoastAdjacentProfile();
-
-               if (pUpCoastProfile != NULL)
-                  pUpCoastProfile->SetEndOfCoast(true);
-
-               return RTN_OK;
-            }
+            // // Safety check
+            // if (pNextProfile == NULL)
+            // {
+            //    // This profile is at the downcoast end of the coast. We should not have hit it, but since we have then abandon the profile which is being constructed
+            //    LogStream << m_ulIter << ":\t hit profile " << nThisProfile << " at downcoast end of coast, coast point = " << nCoastPoint << " of " << nCoastSize << endl;
+            //
+            //    nPolygon--;
+            //
+            //    // Make sure that the up-coast profile is marked as end-of-coast
+            //    CGeomProfile* pUpCoastProfile = pThisProfile->pGetUpCoastAdjacentProfile();
+            //
+            //    if (pUpCoastProfile != NULL)
+            //       pUpCoastProfile->SetEndOfCoast(true);
+            //
+            //    return RTN_OK;
+            // }
 
             bool bNextProfileIsOK = false;
             do
@@ -358,7 +358,7 @@ int CSimulation::nMarkPolygonCells(void)
             LogStream << m_ulIter << ":\t " << ERR << "could not find a within-polygon start point for polygon infilling, coast " << nCoast << " polygon " << pPolygon->nGetPolygonThisCoastID() << ", ending run" << endl;
             for (int n = 0; n < pPolygon->nGetBoundarySize(); n++)
             {
-               CGeom2DPoint* pPtTmp = pPolygon->pPtGetBoundaryPoint(n);
+               CGeom2DPoint const* pPtTmp = pPolygon->pPtGetBoundaryPoint(n);
                CGeom2DIPoint PtiTmp = PtiExtCRSToGridRound(pPtTmp);
 
                LogStream << "[" << PtiTmp.nGetX() << "][" << PtiTmp.nGetY() << "] = {" << pPtTmp->dGetX() << ", " << pPtTmp->dGetY() << "}" << endl;

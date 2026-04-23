@@ -1,6 +1,27 @@
 calc_waves.cpp:505:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
+coast_polygon.cpp:851:16: error: Signed integer underflow for expression 'nMaxX-nMinX'. [integerOverflow]
+   if (((nMaxX - nMinX) <= 3) || ((nMaxY - nMinY) <= 3))
+               ^
+coast_polygon.cpp:812:16: note: Assignment 'nMaxX=-2147483647-1', assigned value is -2147483648
+   int nMaxX = INT_MIN;
+               ^
+coast_polygon.cpp:816:22: note: Assuming condition is false
+   for (int n = 0; n < nPolySize; n++)
+                     ^
+coast_polygon.cpp:811:16: note: Assignment 'nMinX=2147483647', assigned value is 2147483647
+   int nMinX = INT_MAX;
+               ^
+coast_polygon.cpp:851:16: note: Integer underflow
+   if (((nMaxX - nMinX) <= 3) || ((nMaxY - nMinY) <= 3))
+               ^
+create_polygons.cpp:361:30: style: Variable 'pPtTmp' can be declared as pointer to const [constVariablePointer]
+               CGeom2DPoint* pPtTmp = pPolygon->pPtGetBoundaryPoint(n);
+                             ^
+create_polygons.cpp:80:24: style: Variable 'nPolygon' is assigned a value that is never used. [unreadVariable]
+               nPolygon--;
+                       ^
 do_uncons_sediment_slumping.cpp:176:14: style: struct member 'Neighbour::slope' is never used. [unusedStructMember]
       double slope;
              ^
@@ -46,7 +67,7 @@ nanoflann.hpp:694:29: note: result is overwritten
 nanoflann.hpp:693:22: style: Local variable 'PI' shadows outer variable [shadowVariable]
         DistanceType PI     = pi_const<DistanceType>();
                      ^
-cme.h:726:14: note: Shadowed declaration
+cme.h:730:14: note: Shadowed declaration
 double const PI = 3.141592653589793238462643;
              ^
 nanoflann.hpp:693:22: note: Shadow variable
@@ -109,7 +130,7 @@ spatial_interpolation.cpp:253:32: style: Variable 'sq_dists' is assigned a value
 yaml_parser.cpp:170:18: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
       VstrResult.push_back(*node.pstrGetValue());
                  ^
-2di_shape.cpp:57:0: style: The function 'Clear' is never used. [unusedFunction]
+2di_shape.cpp:54:0: style: The function 'Clear' is never used. [unusedFunction]
 void CA2DIShape::Clear(void)
 ^
 cell.cpp:211:0: style: The function 'bIsPossibleCoastStartCell' is never used. [unusedFunction]
@@ -184,23 +205,32 @@ double CRWCellTalus::dGetTotCoarseAdded(void) const
 cell_talus.cpp:119:0: style: The function 'dGetTotCoarseLost' is never used. [unusedFunction]
 double CRWCellTalus::dGetTotCoarseLost(void) const
 ^
+check_profile_intersection.cpp:1328:0: style: The function 'DEBUG_PrintProfileDetails' is never used. [unusedFunction]
+void CSimulation::DEBUG_PrintProfileDetails(CGeomProfile* pFirstProfile, CGeomProfile* pSecondProfile)
+^
 coast.cpp:206:0: style: The function 'pILGetCoastlineGridCRS' is never used. [unusedFunction]
 CGeomILine* CRWCoast::pILGetCoastlineGridCRS(void)
 ^
 coast.cpp:623:0: style: The function 'dGetLevel' is never used. [unusedFunction]
 double CRWCoast::dGetLevel(int const nCoastPoint, int const level) const
 ^
-coast_polygon.cpp:591:0: style: The function 'AddCliffCollapseUnconsSandDeposition' is never used. [unusedFunction]
+coast_polygon.cpp:593:0: style: The function 'AddCliffCollapseUnconsSandDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseUnconsSandDeposition(double const dDepth)
 ^
-coast_polygon.cpp:603:0: style: The function 'AddCliffCollapseUnconsCoarseDeposition' is never used. [unusedFunction]
+coast_polygon.cpp:605:0: style: The function 'AddCliffCollapseUnconsCoarseDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseUnconsCoarseDeposition(double const dDepth)
 ^
-coast_polygon.cpp:615:0: style: The function 'AddCliffCollapseSandErodedDeanProfile' is never used. [unusedFunction]
+coast_polygon.cpp:617:0: style: The function 'AddCliffCollapseSandErodedDeanProfile' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseSandErodedDeanProfile(double const dDepth)
 ^
-coast_polygon.cpp:627:0: style: The function 'AddCliffCollapseCoarseErodedDeanProfile' is never used. [unusedFunction]
+coast_polygon.cpp:629:0: style: The function 'AddCliffCollapseCoarseErodedDeanProfile' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseCoarseErodedDeanProfile(double const dDepth)
+^
+coast_polygon.cpp:791:0: style: The function 'nGetNumVertices' is never used. [unusedFunction]
+int CGeomCoastPolygon::nGetNumVertices(void) const
+^
+coast_polygon.cpp:797:0: style: The function 'PtiGetVertex' is never used. [unusedFunction]
+CGeom2DIPoint CGeomCoastPolygon::PtiGetVertex(int const nIndex) const
 ^
 configuration.h:216:0: style: The function 'UseSystemTimeForSeed' is never used. [unusedFunction]
    void UseSystemTimeForSeed()
@@ -244,13 +274,13 @@ configuration.h:1178:0: style: The function 'nGetCliffEdgePolynomialOrder' is ne
 gis_utils.cpp:177:0: style: The function 'dTriangleAreax2' is never used. [unusedFunction]
 double CSimulation::dTriangleAreax2(CGeom2DPoint const* pPtA, CGeom2DPoint const* pPtB, CGeom2DPoint const* pPtC)
 ^
-gis_utils.cpp:442:0: style: The function 'PtiAverage' is never used. [unusedFunction]
+gis_utils.cpp:454:0: style: The function 'PtiAverage' is never used. [unusedFunction]
 CGeom2DIPoint CSimulation::PtiAverage(CGeom2DIPoint const* pPti1, CGeom2DIPoint const* pPti2)
 ^
-gis_utils.cpp:1810:0: style: The function 'nGetOppositeDirection' is never used. [unusedFunction]
+gis_utils.cpp:1822:0: style: The function 'nGetOppositeDirection' is never used. [unusedFunction]
 int CSimulation::nGetOppositeDirection(int const nDirection)
 ^
-gis_utils.cpp:1977:0: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]
+gis_utils.cpp:1989:0: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]
 bool CSimulation::bIsAdjacentEdgeCell(CGeom2DIPoint const* pPt1, CGeom2DIPoint const* pPt2)
 ^
 nanoflann.hpp:427:0: style: The function 'worst_item' is never used. [unusedFunction]

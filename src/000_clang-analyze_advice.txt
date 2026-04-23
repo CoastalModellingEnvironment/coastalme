@@ -1,23 +1,6 @@
-/home/dave/coast/CoastalME/src/2d_shape.cpp:104:9: warning: no header providing "size_t" is directly included [misc-include-cleaner]
-   22 |    for (size_t n = 0; n < m_VPtPoints.size(); n++)
-      |         ^
-/home/dave/coast/CoastalME/src/2d_shape.cpp:106:11: warning: no header providing "bFPIsEqual" is directly included [misc-include-cleaner]
-   22 |       if (bFPIsEqual(dPtX, m_VPtPoints[n].dGetX(), TOLERANCE) && bFPIsEqual(dPtY, m_VPtPoints[n].dGetY(), TOLERANCE))
-      |           ^
-/home/dave/coast/CoastalME/src/2d_shape.cpp:106:52: warning: no header providing "TOLERANCE" is directly included [misc-include-cleaner]
-  106 |       if (bFPIsEqual(dPtX, m_VPtPoints[n].dGetX(), TOLERANCE) && bFPIsEqual(dPtY, m_VPtPoints[n].dGetY(), TOLERANCE))
-      |                                                    ^
 /home/dave/coast/CoastalME/src/2d_shape.h:41:25: warning: member variable 'm_VPtPoints' has protected visibility [misc-non-private-member-variables-in-classes]
    41 |    vector<CGeom2DPoint> m_VPtPoints;
       |                         ^
-/home/dave/coast/CoastalME/src/2di_shape.cpp:21:1: warning: included header cstddef is not used directly [misc-include-cleaner]
-   21 | #include <cstddef>
-      | ^~~~~~~~~~~~~~~~~~
-   22 | 
-/home/dave/coast/CoastalME/src/2di_shape.cpp:23:1: warning: included header cme.h is not used directly [misc-include-cleaner]
-   23 | #include "cme.h"
-      | ^~~~~~~~~~~~~~~~
-   24 | #include "2di_point.h"
 /home/dave/coast/CoastalME/src/2di_shape.h:35:26: warning: member variable 'm_VPtiPoints' has protected visibility [misc-non-private-member-variables-in-classes]
    35 |    vector<CGeom2DIPoint> m_VPtiPoints;
       |                          ^
@@ -37,11 +20,11 @@
    25 | #include <cmath>
       | ^~~~~~~~~~~~~~~~
    26 | 
-/home/dave/coast/CoastalME/src/cme.h:1276:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
- 1276 |    char chFill;
+/home/dave/coast/CoastalME/src/cme.h:1280:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
+ 1280 |    char chFill;
       |         ^
-/home/dave/coast/CoastalME/src/cme.h:1277:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
- 1277 |    int nWidth;
+/home/dave/coast/CoastalME/src/cme.h:1281:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
+ 1281 |    int nWidth;
       |        ^
 /home/dave/coast/CoastalME/src/coast.h:28:10: warning: circular header file dependency detected while including 'coast_landform.h', please check the include path [misc-header-include-cycle]
    28 | #include "coast_landform.h"
@@ -76,10 +59,75 @@
 /home/dave/coast/CoastalME/src/coast_landform.h:48:14: warning: member variable 'pCoast' has protected visibility [misc-non-private-member-variables-in-classes]
    48 |    CRWCoast* pCoast;
       |              ^
-/home/dave/coast/CoastalME/src/coast_polygon.cpp:853:4: warning: variable 'nPoints' of type 'int' can be declared 'const' [misc-const-correctness]
-  853 |    int nPoints = m_VPtPoints.size();
-      |    ^
-      |        const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:861:29: warning: Division by zero [clang-analyzer-core.DivideZero]
+  861 |       PtiStart.SetX(nTmpX / nPolySize);
+      |                       ~~~~~~^~~~~~~~~~~
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:816:22: note: Assuming 'n' is >= 'nPolySize'
+  816 |    for (int n = 0; n < nPolySize; n++)
+      |                      ^~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:816:6: note: Loop condition is false. Execution continues on line 848
+  816 |    for (int n = 0; n < nPolySize; n++)
+      |      ^
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:848:6: note: Value assigned to 'nPolySize'
+  848 |    nPolySize = static_cast<int>(VPtiPoints.size());
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  849 | 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:851:33: note: Left side of '||' is true
+  851 |    if (((nMaxX - nMinX) <= 3) || ((nMaxY - nMinY) <= 3))
+      |                                 ^
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:855:25: note: Assuming 'n' is >= 'nPolySize'
+  855 |       for (int n = 0; n < nPolySize; n++)
+      |                         ^~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:855:9: note: Loop condition is false. Execution continues on line 861
+  855 |       for (int n = 0; n < nPolySize; n++)
+      |         ^
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:861:29: note: Division by zero
+  861 |       PtiStart.SetX(nTmpX / nPolySize);
+      |                       ~~~~~~^~~~~~~~~~~
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:900:9: warning: variable 'dXTmp' of type 'double' can be declared 'const' [misc-const-correctness]
+  900 |       double dXTmp = (VPtiTestPoints[0].nGetX() + VPtiTestPoints[2].nGetX()) / 2.0;
+      |         ^      
+      |                const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:901:9: warning: variable 'dYTmp' of type 'double' can be declared 'const' [misc-const-correctness]
+  901 |       double dYTmp = (VPtiTestPoints[0].nGetY() + VPtiTestPoints[2].nGetY()) / 2.0;
+      |         ^      
+      |                const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:902:9: warning: variable 'nXTmp' of type 'int' can be declared 'const' [misc-const-correctness]
+  902 |       int nXTmp = nRound(dXTmp);
+      |         ^   
+      |             const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:903:9: warning: variable 'nYTmp' of type 'int' can be declared 'const' [misc-const-correctness]
+  903 |       int nYTmp = nRound(dYTmp);
+      |         ^   
+      |             const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:924:6: warning: variable 'nPoints' of type 'int' can be declared 'const' [misc-const-correctness]
+  924 |    int nPoints = static_cast<int>(pVPtiPoints->size());
+      |      ^   
+      |          const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:929:9: warning: variable 'ypi' of type 'int' can be declared 'const' [misc-const-correctness]
+  929 |       int ypi = pVPtiPoints->at(i).nGetY();
+      |         ^   
+      |             const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:930:9: warning: variable 'y' of type 'int' can be declared 'const' [misc-const-correctness]
+  930 |       int y = pPtiStart->nGetY();
+      |         ^
+      |             const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:931:9: warning: variable 'ypj' of type 'int' can be declared 'const' [misc-const-correctness]
+  931 |       int ypj = pVPtiPoints->at(j).nGetY();
+      |         ^   
+      |             const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:932:9: warning: variable 'x' of type 'int' can be declared 'const' [misc-const-correctness]
+  932 |       int x = pPtiStart->nGetX();
+      |         ^
+      |             const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:933:9: warning: variable 'xpj' of type 'int' can be declared 'const' [misc-const-correctness]
+  933 |       int xpj = pVPtiPoints->at(j).nGetX();
+      |         ^   
+      |             const 
+/home/dave/coast/CoastalME/src/coast_polygon.cpp:934:9: warning: variable 'xpi' of type 'int' can be declared 'const' [misc-const-correctness]
+  934 |       int xpi = pVPtiPoints->at(i).nGetX();
+      |         ^   
+      |             const 
 /home/dave/coast/CoastalME/src/configuration.h:34:10: warning: circular header file dependency detected while including 'simulation.h', please check the include path [misc-header-include-cycle]
    34 | #include "simulation.h"
       |          ^
@@ -151,10 +199,17 @@
    51 |    bool m_bUseSystemTimeForSeed;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    52 | 
-/home/dave/coast/CoastalME/src/create_polygons.cpp:391:10: warning: variable 'PtiStart' of type 'CGeom2DIPoint' can be declared 'const' [misc-const-correctness]
-  391 |          CGeom2DIPoint PtiStart = pPolygon->PtiFindPointInPolygon();
+/home/dave/coast/CoastalME/src/create_polygons.cpp:75:33: warning: no header providing "NULL" is directly included [misc-include-cleaner]
+   23 |             if (pNextProfile == NULL)
+      |                                 ^
+/home/dave/coast/CoastalME/src/create_polygons.cpp:352:10: warning: variable 'PtiStart' of type 'CGeom2DIPoint' can be declared 'const' [misc-const-correctness]
+  352 |          CGeom2DIPoint PtiStart = pPolygon->PtiFindPointInPolygon();
       |          ^
       |                        const 
+/home/dave/coast/CoastalME/src/create_polygons.cpp:362:16: warning: variable 'PtiTmp' of type 'CGeom2DIPoint' can be declared 'const' [misc-const-correctness]
+  362 |                CGeom2DIPoint PtiTmp = PtiExtCRSToGridRound(pPtTmp);
+      |                ^
+      |                              const 
 /home/dave/coast/CoastalME/src/do_cliff_collapse.cpp:351:4: warning: variable 'dTmp' of type 'double' can be declared 'const' [misc-const-correctness]
   351 |    double dTmp = dNotchElev + dFineConsLost + dFineUnconsLost + dSandConsLost + dSandUnconsLost + dCoarseConsLost + dCoarseUnconsLost;
       |    ^
@@ -173,11 +228,11 @@
 /home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:450:10: note: Value stored to 'nCoastProfileStart' is never read
   450 |          nCoastProfileStart = pProfile->nGetCoastPoint();
       |          ^                    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:476:10: warning: Value stored to 'nCoastProfileStart' is never read [clang-analyzer-deadcode.DeadStores]
-  476 |          nCoastProfileStart = pProfile->nGetCoastPoint();
+/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:475:10: warning: Value stored to 'nCoastProfileStart' is never read [clang-analyzer-deadcode.DeadStores]
+  475 |          nCoastProfileStart = pProfile->nGetCoastPoint();
       |          ^                    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:476:10: note: Value stored to 'nCoastProfileStart' is never read
-  476 |          nCoastProfileStart = pProfile->nGetCoastPoint();
+/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:475:10: note: Value stored to 'nCoastProfileStart' is never read
+  475 |          nCoastProfileStart = pProfile->nGetCoastPoint();
       |          ^                    ~~~~~~~~~~~~~~~~~~~~~~~~~~
 /home/dave/coast/CoastalME/src/do_surge_flood.cpp:34:1: warning: included header cme.h is not used directly [misc-include-cleaner]
    34 | #include "cme.h"
@@ -196,8 +251,8 @@
  1090 | bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlotTitle, int const nLayer, double const dElev, string strExtra)
       |                                                                                                                                     ^
       |                                                                                                                              const &
-/home/dave/coast/CoastalME/src/gis_utils.cpp:501:4: warning: variable 'nSize' of type 'int' can be declared 'const' [misc-const-correctness]
-  501 |    int nSize = static_cast<int>(pVIn->size());
+/home/dave/coast/CoastalME/src/gis_utils.cpp:513:4: warning: variable 'nSize' of type 'int' can be declared 'const' [misc-const-correctness]
+  513 |    int nSize = static_cast<int>(pVIn->size());
       |    ^
       |        const 
 /home/dave/coast/CoastalME/src/gis_vector.cpp:404:95: warning: the parameter 'strExtra' is copied for each invocation but only used as a const reference; consider making it a const reference [performance-unnecessary-value-param]
@@ -606,11 +661,11 @@
   221 | #include <csignal>      // Only for programmatic debug breakpoints using gdb i.e. std::raise(SIGINT);
       | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   222 | 
-/home/dave/coast/CoastalME/src/cme.h:1276:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
- 1276 |    char chFill;
+/home/dave/coast/CoastalME/src/cme.h:1280:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
+ 1280 |    char chFill;
       |         ^
-/home/dave/coast/CoastalME/src/cme.h:1277:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
- 1277 |    int nWidth;
+/home/dave/coast/CoastalME/src/cme.h:1281:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
+ 1281 |    int nWidth;
       |        ^
 /home/dave/coast/CoastalME/src/coast.h:28:10: warning: circular header file dependency detected while including 'coast_landform.h', please check the include path [misc-header-include-cycle]
    28 | #include "coast_landform.h"

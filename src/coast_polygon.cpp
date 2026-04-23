@@ -808,10 +808,10 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
    int nPolySize = static_cast<int>(m_VPtPoints.size());       // external CRS
    vector<CGeom2DIPoint> VPtiPoints;                           // grid CRS
    CGeom2DIPoint PtiStart;
-   int nMinX = INT_MAX;
-   int nMaxX = INT_MIN;
-   int nMinY = INT_MAX;
-   int nMaxY = INT_MIN;
+   int nMinX = 999999;
+   int nMaxX = -999999;
+   int nMinY = 999999;
+   int nMaxY = -999999;
 
    for (int n = 0; n < nPolySize; n++)
    {
@@ -897,10 +897,10 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
          return CGeom2DIPoint(INT_NODATA, INT_NODATA);         // grid CRS
 
       // Calculate the average of the first and the third points
-      double dXTmp = (VPtiTestPoints[0].nGetX() + VPtiTestPoints[2].nGetX()) / 2.0;
-      double dYTmp = (VPtiTestPoints[0].nGetY() + VPtiTestPoints[2].nGetY()) / 2.0;
-      int nXTmp = nRound(dXTmp);
-      int nYTmp = nRound(dYTmp);
+      double const dXTmp = (VPtiTestPoints[0].nGetX() + VPtiTestPoints[2].nGetX()) / 2.0;
+      double const dYTmp = (VPtiTestPoints[0].nGetY() + VPtiTestPoints[2].nGetY()) / 2.0;
+      int const nXTmp = nRound(dXTmp);
+      int const nYTmp = nRound(dYTmp);
 
       PtiStart.SetX(nXTmp);
       PtiStart.SetY(nYTmp);
@@ -921,17 +921,17 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 //===============================================================================================================================
 bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart, vector<CGeom2DIPoint> const* pVPtiPoints)
 {
-   int nPoints = static_cast<int>(pVPtiPoints->size());
+   int const nPoints = static_cast<int>(pVPtiPoints->size());
    int c = 0;
 
    for (int i = 0, j = nPoints - 1; i < nPoints; j = i++)
    {
-      int ypi = pVPtiPoints->at(i).nGetY();
-      int y = pPtiStart->nGetY();
-      int ypj = pVPtiPoints->at(j).nGetY();
-      int x = pPtiStart->nGetX();
-      int xpj = pVPtiPoints->at(j).nGetX();
-      int xpi = pVPtiPoints->at(i).nGetX();
+      int const ypi = pVPtiPoints->at(i).nGetY();
+      int const y = pPtiStart->nGetY();
+      int const ypj = pVPtiPoints->at(j).nGetY();
+      int const x = pPtiStart->nGetX();
+      int const xpj = pVPtiPoints->at(j).nGetX();
+      int const xpi = pVPtiPoints->at(i).nGetX();
 
       // Check if the point's y-coordinate is within the edge's y-range then check if the point is to the left of the intersection of the ray and edge
       if ((((ypi <= y) && (y < ypj)) ||
