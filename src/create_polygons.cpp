@@ -71,19 +71,33 @@ int CSimulation::nCreateAllPolygons(void)
             // Now get a pointer to the next (down-coast) profile
             CGeomProfile* pNextProfile = pThisProfile->pGetDownCoastAdjacentProfile();
 
+            // Safety check
+            if (pNextProfile == NULL)
+            {
+               // This profile is at the downcoast end of the coast. We should not have hit it, but since we have then abandon the profile which is being constructed
+               LogStream << m_ulIter << ":\t hit profile " << nThisProfile << " at downcoast end of coast, coast point = " << nCoastPoint << " of " << nCoastSize << endl;
+
+               nPolygon--;
+
+               // Make sure that the up-coast profile is marked as end-of-coast
+               CGeomProfile* pUpCoastProfile = pThisProfile->pGetUpCoastAdjacentProfile();
+
+               if (pUpCoastProfile != NULL)
+                  pUpCoastProfile->SetEndOfCoast(true);
+
+               return RTN_OK;
+            }
+
             bool bNextProfileIsOK = false;
             do
             {
-               // Get the ID of the next (down-coast) profile
-               nNextProfile = pNextProfile->nGetProfileID();
-
-               // Is the next profile OK?
+               // Is the next (down-coast) profile OK?
                bNextProfileIsOK = pNextProfile->bProfileOK();
 
                if (! bNextProfileIsOK)
                {
                   // Nope, the next profile is not OK
-                  // LogStream << m_ulIter << ": down-coast adjacent profile = " << nNextProfile << " is not OK" << endl;
+                  LogStream << m_ulIter << ":\t down-coast adjacent profile = " << pNextProfile->nGetProfileID() << " is not OK" << endl;
 
                   // So try the following profile
                   CGeomProfile* pNextNextProfile = pNextProfile->pGetDownCoastAdjacentProfile();
@@ -93,6 +107,7 @@ int CSimulation::nCreateAllPolygons(void)
             } while (! bNextProfileIsOK);
 
             // LogStream << "Profile " << pNextProfile->nGetProfileID() << " is OK" << endl;
+            nNextProfile = pNextProfile->nGetProfileID();
 
             // Get the coast point at which this next profile starts
             int const nNextProfileCoastPoint = pNextProfile->nGetCoastPoint();

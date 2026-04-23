@@ -386,7 +386,7 @@ int const MAX_NUM_SHADOW_ZONES = 10;                     // Consider at most thi
 int const MIN_INLAND_OFFSET_UNCONS_EROSION = 5;          // Used in estimation of beach erosion
 int const MIN_PARALLEL_PROFILE_SIZE = 3;                 // In cells: min size for valid unconsolidated sediment parallel profile
 int const MIN_PROFILE_SIZE = 3;                          // In cells: min size for valid unconsolidated sediment profile
-int const DEFAULT_PROFILE_SPACING = 15;                  // In cells: profile creation does not work well if profiles are too closely spaced
+int const DEFAULT_PROFILE_SPACING = 20;                  // In cells: profile creation does not work well if profiles are too closely spaced
 int const SAVGOL_POLYNOMIAL_MAX_ORDER = 6;               // Maximum order of Savitzky-Golay smoothing polynomial
 
 // Log file detail level
@@ -718,7 +718,7 @@ int const RUNUP_EQUATION_STOCKDON = 3;                      // Runup equation is
 int const MAX_SLUMP_ITERATIONS = 100;
 
 //! Maximum number of along-coast passes to identify and correct coast-normal profile intersectionms
-int const MAX_ALONG_COAST_PASSES = 5;
+int const MAX_ALONG_COAST_PASSES = 20;
 
 //! Maximum number of line segments into which a profile can be divided
 int const MAX_SEGMENTS = 10;
@@ -775,7 +775,7 @@ double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
 double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (20 Apr 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (23 Apr 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

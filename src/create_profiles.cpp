@@ -186,16 +186,14 @@ int CSimulation::nCreateAllProfiles(void)
          if (m_VCoast[nCoast].bIsProfileAtCoastPoint(nCoastPoint))
          {
             pThisProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nCoastPoint);
-            // nThisProfile = pThisProfile->nGetProfileID();
 
             if (nCoastPoint == 0)
             {
+               // This is the profile at the upcoast end of the coast, so set this profile's up-coast profile to NULL
                pThisProfile->SetUpCoastAdjacentProfile(NULL);
 
-               // LogStream << "nCoastPoint = " << nCoastPoint << " ThisProfile = " << nThisProfile << " ThisProfile UpCoast = " << pThisProfile->pGetUpCoastAdjacentProfile() << " ThisProfile DownCoast = " << pThisProfile->pGetDownCoastAdjacentProfile() << endl;
-
                pLastProfile = pThisProfile;
-               // nLastProfile = nThisProfile;
+
                continue;
             }
 
@@ -203,11 +201,36 @@ int CSimulation::nCreateAllProfiles(void)
             pThisProfile->SetUpCoastAdjacentProfile(pLastProfile);
 
             if (nCoastPoint == nCoastSize - 1)
+            {
+               // This is the profile at the downcoast end of the coast, so set this profile's down-coast profile to NULL
                pThisProfile->SetDownCoastAdjacentProfile(NULL);
+            }
 
             pLastProfile = pThisProfile;
          }
       }
+
+      // DEBUG CODE ============================
+      for (int nCoastPoint = 0; nCoastPoint < nCoastSize; nCoastPoint++)
+      {
+         if (m_VCoast[nCoast].bIsProfileAtCoastPoint(nCoastPoint))
+         {
+            pThisProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nCoastPoint);
+
+            LogStream << m_ulIter << ":\t NULL PROFILE CHECK nCoastPoint = " << nCoastPoint << " nCoastSize = " << nCoastSize << " this profile = " << pThisProfile->nGetProfileID() << " upcoast profile = ";
+            if (pThisProfile->pGetUpCoastAdjacentProfile() == NULL)
+               LogStream << "NULL";
+            else
+               LogStream << pThisProfile->pGetUpCoastAdjacentProfile()->nGetProfileID();
+            LogStream << " downcoast profile = ";
+            if (pThisProfile->pGetDownCoastAdjacentProfile() == NULL)
+               LogStream << "NULL";
+            else
+               LogStream << pThisProfile->pGetDownCoastAdjacentProfile()->nGetProfileID();
+            LogStream << endl;
+         }
+      }
+      // DEBUG CODE ============================
 
       // And create an index to this coast's profiles in along-coastline sequence
       m_VCoast[nCoast].CreateProfileDownCoastIndex();

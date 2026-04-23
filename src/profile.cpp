@@ -337,11 +337,11 @@ void CGeomProfile::SetUpCoastAdjacentProfile(CGeomProfile* pProfile)
    m_pUpCoastAdjacentProfile = pProfile;
 }
 
-// //! Returns the up-coast adjacent profile, returns NULL if there is no up-coast adjacent profile
-// CGeomProfile* CGeomProfile::pGetUpCoastAdjacentProfile(void) const
-// {
-//    return m_pUpCoastAdjacentProfile;
-// }
+//! Returns the up-coast adjacent profile, returns NULL if there is no up-coast adjacent profile
+CGeomProfile* CGeomProfile::pGetUpCoastAdjacentProfile(void) const
+{
+   return m_pUpCoastAdjacentProfile;
+}
 
 //! Sets the down-coast adjacent profile
 void CGeomProfile::SetDownCoastAdjacentProfile(CGeomProfile* pProfile)

@@ -117,7 +117,7 @@ class CGeomProfile : public CGeomMultiLine
    // int nFindInsertionLineSeg(double const, double const);
 
    void SetUpCoastAdjacentProfile(CGeomProfile*);
-   // CGeomProfile* pGetUpCoastAdjacentProfile(void) const;
+   CGeomProfile* pGetUpCoastAdjacentProfile(void) const;
    void SetDownCoastAdjacentProfile(CGeomProfile*);
    CGeomProfile* pGetDownCoastAdjacentProfile(void) const;
 

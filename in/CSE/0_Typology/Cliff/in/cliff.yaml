@@ -26,7 +26,7 @@ run_information:
 
   # Boolean: Output per-timestep results in CSV format instead of fixed-width
   # true = CSV format (recommended), false = fixed-width format
-  csv_per_timestep_results: true
+  csv_per_timestep_results: false
 
 # =============================================================================
 # SIMULATION - Timing and duration settings
@@ -39,7 +39,7 @@ simulation:
   # String: Total simulation duration with units
   # Units can be: hours, days, months, years
   # Examples: "365 days", "24 hours", "2 years", "6 months"
-  duration: "30 years"
+  duration: "1 year"
 
   # String: Simulation timestep with units
   # Smaller timesteps = more accuracy but longer computation time
@@ -49,9 +49,9 @@ simulation:
   # List of strings: Times at which to save outputs
   # Each entry should include value and unit
   save_times:
-    # - "6 hours"
+    - "6 hours"
     # - "1 years"
-    - "6 months"
+    # - "6 months"
     # - "6 hours"
     # - "14 days"
 
@@ -458,7 +458,7 @@ physics_and_geometry:
   # Float: Start depth for wave calculations (ratio to wave height)
   # Depth where wave calculations begin as multiple of wave height
   # Typical values: 10-30 (deeper = more accurate but slower)
-  start_depth_ratio: 30
+  start_depth_ratio: 20
 
   synthetic_transect_spacing: 10.0 # Target minimum spacing in meters
 

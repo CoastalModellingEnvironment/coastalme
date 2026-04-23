@@ -1197,9 +1197,8 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
          // Has the current cell already marked been marked as a coast cell (belonging to another coast)?
          if (m_pRasterGrid->m_Cell[nX][nY].bIsCoastline())
          {
-            // Yes it is already marked as a coast cell, so get the number of the coast
-            int const nCoastAlready = m_pRasterGrid->m_Cell[nX][nY].nGetCoastline();
-            LogStream << m_ulIter << ":\t cell [" << nX << "][" << nY << "] already marked as coastline " << nCoastAlready << endl;
+            // Yes it is already marked as a coast cell
+            // LogStream << m_ulIter << ":\t cell [" << nX << "][" << nY << "] already marked as coastline " << m_pRasterGrid->m_Cell[nX][nY].nGetCoastline() << endl;
          }
          else
          {
