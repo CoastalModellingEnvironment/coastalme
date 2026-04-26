@@ -1033,7 +1033,7 @@ void CSimulation::MergeProfilesAtFinalLineSegments(int const nCoast, CGeomProfil
    int const nNumFirstProfileCoincidentProfilesLastSeg = static_cast<int>(prVFirstProfileCoincidentProfilesLastSeg.size());
    int const nNumSecondProfileCoincidentProfilesLastSeg = static_cast<int>(prVSecondProfileCoincidentProfilesLastSeg.size());
 
-   LogStream << m_ulIter << ":\t   coast " << nCoast << " profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " end-segment intersection at line segment " << nFirstProfileLineSegments-1 << " of " << nFirstProfileLineSegments << ", and line segment " << nSecondProfileLineSegments-1 << " of " << nSecondProfileLineSegments << ", respectively. Both truncated at {" << dIntersectX << ", " << dIntersectY << "}, combined profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " extended to {" << dAvgEndX << ", " << dAvgEndY << "}" << endl;
+   // LogStream << m_ulIter << ":\t   coast " << nCoast << " profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " end-segment intersection at line segment " << nFirstProfileLineSegments-1 << " of " << nFirstProfileLineSegments << ", and line segment " << nSecondProfileLineSegments-1 << " of " << nSecondProfileLineSegments << ", respectively. Both truncated at {" << dIntersectX << ", " << dIntersectY << "}, combined profiles " << pFirstProfile->nGetProfileID() << " and " << pSecondProfile->nGetProfileID() << " extended to {" << dAvgEndX << ", " << dAvgEndY << "}" << endl;
 
    // Truncate the first profile, and all co-incident profiles, at the point of intersection
    for (int n = 0; n < nNumFirstProfileCoincidentProfilesLastSeg; n++)

@@ -236,6 +236,20 @@ elseif(CMAKE_BUILD_TYPE_LC STREQUAL "prerelease")
          )
          # Note  -fsanitize-ignorelist=sanitize_ignorelist.txt not yet working for gcc, need this to hide GDAL errors
          add_link_options(
+            -fsanitize=undefined
+            -fsanitize=shift
+            -fsanitize=integer-divide-by-zero
+            -fsanitize=unreachable
+            -fsanitize=null
+            -fsanitize=return
+            -fsanitize=vla-bound
+            -fsanitize=float-divide-by-zero
+            -fsanitize=float-cast-overflow
+            -fsanitize=bounds
+            -fsanitize=alignment
+            -fsanitize=object-size
+            -fsanitize=vptr
+            -fsanitize=address
             -flto=auto
             -rdynamic
          )

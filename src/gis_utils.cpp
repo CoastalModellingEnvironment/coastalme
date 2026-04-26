@@ -659,6 +659,10 @@ CGeom2DIPoint CSimulation::PtiGetPerpendicular(CGeom2DIPoint const* PtiStart, CG
    else
       dLength = hypot(dXLen, dYLen);
 
+   // Safety check
+   if (bFPIsEqual(dLength, 0.0, TOLERANCE))
+      return CGeom2DIPoint(INT_NODATA, INT_NODATA);
+
    double const dScaleFactor = dDesiredLength / dLength;
 
    // The difference vector is (dXLen, dYLen), so the perpendicular difference vector is (-dYLen, dXLen) or (dYLen, -dXLen)
@@ -695,12 +699,16 @@ CGeom2DIPoint CSimulation::PtiGetPerpendicular(int const nStartX, int const nSta
    else
       dLength = hypot(dXLen, dYLen);
 
+   // Safety check
+   if (bFPIsEqual(dLength, 0.0, TOLERANCE))
+      return CGeom2DIPoint(INT_NODATA, INT_NODATA);
+
    double const dScaleFactor = dDesiredLength / dLength;
 
    // The difference vector is (dXLen, dYLen), so the perpendicular difference vector is (-dYLen, dXLen) or (dYLen, -dXLen)
    CGeom2DIPoint EndPti;
 
-   // Chhose the inland point
+   // Choose the inland point
    if (nHandedness == RIGHT_HANDED)
    {
       EndPti.SetX(nStartX + nRound(dScaleFactor * dYLen));

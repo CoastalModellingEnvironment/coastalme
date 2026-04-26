@@ -625,7 +625,8 @@ bool CSimulation::bCreateNotchInland(int const nCoast, int const nCoastPoint, /*
       // Get an inland point, planview orthogonal to the coastline at the coast point
       CGeom2DIPoint const PtiTmp = PtiGetPerpendicular(pPtiBefore, pPtiAfter, n, nSeaHandedness);
 
-      if (! bIsWithinValidGrid(&PtiTmp))
+      // Safety check
+      if ((PtiTmp.nGetX() == INT_NODATA) || (! bIsWithinValidGrid(&PtiTmp)))
          return false;
 
       int const nXTmp = PtiTmp.nGetX();

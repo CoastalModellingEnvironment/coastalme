@@ -264,7 +264,7 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
                   {
                      CGeom2DIPoint const PtiTmp = PtiGetPerpendicular(nCoastXBefore, nCoastYBefore, nCoastXAfter, nCoastYAfter, n, nPerpHand);
 
-                     if (bIsWithinValidGrid(&PtiTmp))
+                     if ((PtiTmp.nGetX() != INT_NODATA) && bIsWithinValidGrid(&PtiTmp))
                      {
                         VPoints.push_back(PtiTmp);
 

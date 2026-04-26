@@ -49,9 +49,9 @@ simulation:
   # List of strings: Times at which to save outputs
   # Each entry should include value and unit
   save_times:
-    - "6 hours"
+    # - "6 hours"
     # - "1 years"
-    # - "6 months"
+     - "1 month"
     # - "6 hours"
     # - "14 days"
 
@@ -453,12 +453,12 @@ physics_and_geometry:
   # Float: Length of coastline normal profiles (meters)
   # How far offshore/onshore the profiles extend
   # Should be long enough to capture relevant processes
-  normal_length: 300
+  normal_length: 500
 
   # Float: Start depth for wave calculations (ratio to wave height)
   # Depth where wave calculations begin as multiple of wave height
   # Typical values: 10-30 (deeper = more accurate but slower)
-  start_depth_ratio: 20
+  start_depth_ratio: 30
 
   synthetic_transect_spacing: 10.0 # Target minimum spacing in meters
 

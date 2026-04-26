@@ -1154,10 +1154,10 @@ void CSimulation::DoShadowZoneAndDownDriftZone(int const nCoast, int const nZone
                      CGeom2DIPoint const PtiLeft = PtiGetPerpendicular(VnShadowCellX[mm], VnShadowCellY[mm], VnShadowCellX[mm - 1], VnShadowCellY[mm - 1], 1, RIGHT_HANDED);
                      CGeom2DIPoint const PtiRight = PtiGetPerpendicular(VnShadowCellX[mm], VnShadowCellY[mm], VnShadowCellX[mm - 1], VnShadowCellY[mm - 1], 1, LEFT_HANDED);
 
-                     if (bIsWithinValidGrid(&PtiLeft))
+                     if ((PtiLeft.nGetX() != INT_NODATA) && bIsWithinValidGrid(&PtiLeft))
                         ProcessShadowZoneCell(PtiLeft.nGetX(), PtiLeft.nGetY(), nShadowZoneCoastToCapeSeaHand, pPtiCoast, VnShadowCellX.back(), VnShadowCellY.back(), nZone);
 
-                     if (bIsWithinValidGrid(&PtiRight))
+                     if ((PtiRight.nGetX() != INT_NODATA) && bIsWithinValidGrid(&PtiRight))
                         ProcessShadowZoneCell(PtiRight.nGetX(), PtiRight.nGetY(), nShadowZoneCoastToCapeSeaHand, pPtiCoast, VnShadowCellX.back(), VnShadowCellY.back(), nZone);
                   }
                }
@@ -1184,10 +1184,10 @@ void CSimulation::DoShadowZoneAndDownDriftZone(int const nCoast, int const nZone
                CGeom2DIPoint const PtiLeft = PtiGetPerpendicular(nX, nY, nXLast, nYLast, 1, RIGHT_HANDED);
                CGeom2DIPoint const PtiRight = PtiGetPerpendicular(nX, nY, nXLast, nYLast, 1, LEFT_HANDED);
 
-               if (bIsWithinValidGrid(&PtiLeft))
+               if ((PtiLeft.nGetX() != INT_NODATA) && bIsWithinValidGrid(&PtiLeft))
                   ProcessDownDriftCell(PtiLeft.nGetX(), PtiLeft.nGetY(), (m - nShadowZoneLength), (dLinkingLineLength - nShadowZoneLength), nZone);
 
-               if (bIsWithinValidGrid(&PtiRight))
+               if ((PtiRight.nGetX() != INT_NODATA) && bIsWithinValidGrid(&PtiRight))
                   ProcessDownDriftCell(PtiRight.nGetX(), PtiRight.nGetY(), (m - nShadowZoneLength), (dLinkingLineLength - nShadowZoneLength), nZone);
             }
          }
@@ -1206,10 +1206,10 @@ void CSimulation::DoShadowZoneAndDownDriftZone(int const nCoast, int const nZone
                CGeom2DIPoint const PtiLeft = PtiGetPerpendicular(nX, nY, nXLast, nYLast, 1, RIGHT_HANDED);
                CGeom2DIPoint const PtiRight = PtiGetPerpendicular(nX, nY, nXLast, nYLast, 1, LEFT_HANDED);
 
-               if (bIsWithinValidGrid(&PtiLeft))
+               if ((PtiLeft.nGetX() != INT_NODATA) && bIsWithinValidGrid(&PtiLeft))
                   ProcessDownDriftCell(PtiLeft.nGetX(), PtiLeft.nGetY(), m, dLinkingLineLength, nZone);
 
-               if (bIsWithinValidGrid(&PtiRight))
+               if ((PtiRight.nGetX() != INT_NODATA) && bIsWithinValidGrid(&PtiRight))
                   ProcessDownDriftCell(PtiRight.nGetX(), PtiRight.nGetY(), m, dLinkingLineLength, nZone);
             }
          }
