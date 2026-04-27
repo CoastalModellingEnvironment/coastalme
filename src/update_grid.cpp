@@ -105,17 +105,17 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
       }
    }
 
-   // Go along each coastline and update the grid with landform attributes, ready for next timestep
-   for (int i = 0; i < static_cast<int>(m_VCoast.size()); i++)
-   {
-      for (int j = 0; j < m_VCoast[i].nGetCoastlineSize(); j++)
-      {
-         int const nRet = nLandformToGrid(i, j);
-
-         if (nRet != RTN_OK)
-            return nRet;
-      }
-   }
+   // // Go along each coastline and update the grid with landform attributes, ready for next timestep
+   // for (int i = 0; i < static_cast<int>(m_VCoast.size()); i++)
+   // {
+   //    for (int j = 0; j < m_VCoast[i].nGetCoastlineSize(); j++)
+   //    {
+   //       int const nRet = nLandformToGrid(i, j);
+   //
+   //       if (nRet != RTN_OK)
+   //          return nRet;
+   //    }
+   // }
 
    return RTN_OK;
 }

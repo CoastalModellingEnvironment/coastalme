@@ -56,7 +56,7 @@ int CSimulation::nAssignLandformsForAllCells(void)
       {
          // Get this cell's existing landform category
          CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetLandform();
-         int const nCat = pLandform->nGetLFCategory();
+         int const nCat = pLandform->nGetLandformCategory();
 
          // OK, use these rules to set landform categories
          if (nCat == LF_INTERVENTION_STRUCT)
@@ -151,63 +151,58 @@ int CSimulation::nAssignLandformsForAllCells(void)
          {
          case LF_UNKNOWN:
             // Set to unknown landform
-            pLandform->SetLFCategory(LF_UNKNOWN);
+            pLandform->SetLandformCategory(LF_UNKNOWN);
             break;
 
          case LF_HINTERLAND:
             // Set to hinterland
-            pLandform->SetLFCategory(LF_HINTERLAND);
+            pLandform->SetLandformCategory(LF_HINTERLAND);
             break;
 
-         case LF_CLIFF_ON_COASTLINE:
-            // Set to cliff on coastline
-            pLandform->SetLFCategory(LF_CLIFF_ON_COASTLINE);
-            break;
-
-         case LF_CLIFF_INLAND:
-            // Set to cliff inland
-            pLandform->SetLFCategory(LF_CLIFF_INLAND);
+         case LF_CLIFF:
+            // Set to cliff
+            pLandform->SetLandformCategory(LF_CLIFF);
             break;
 
          case LF_DRIFT_TALUS:
             // Set to talus
-            pLandform->SetLFCategory(LF_DRIFT_TALUS);
+            pLandform->SetLandformCategory(LF_DRIFT_TALUS);
             break;
 
          case LF_DRIFT_BEACH:
             // Set to beach
-            pLandform->SetLFCategory(LF_DRIFT_BEACH);
+            pLandform->SetLandformCategory(LF_DRIFT_BEACH);
             break;
 
          case LF_DRIFT_DUNES:
             // TODO not yet implemented
             // Set to dunes
-            pLandform->SetLFCategory(LF_DRIFT_DUNES);
+            pLandform->SetLandformCategory(LF_DRIFT_DUNES);
             break;
 
          case LF_INTERVENTION_STRUCT:
             // Set to structural intervention
-            pLandform->SetLFCategory(LF_INTERVENTION_STRUCT);
+            pLandform->SetLandformCategory(LF_INTERVENTION_STRUCT);
             break;
 
          case LF_INTERVENTION_NON_STRUCT:
             // Set to non-structural intervention
-            pLandform->SetLFCategory(LF_INTERVENTION_NON_STRUCT);
+            pLandform->SetLandformCategory(LF_INTERVENTION_NON_STRUCT);
             break;
 
          case LF_ISLAND:
             // Set to island
-            pLandform->SetLFCategory(LF_ISLAND);
+            pLandform->SetLandformCategory(LF_ISLAND);
             break;
 
          case LF_SEDIMENT_INPUT_UNCONSOLIDATED:
             // Set to unconsolidated sediment input
-            pLandform->SetLFCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
+            pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
             break;
 
          case LF_SEDIMENT_INPUT_CONSOLIDATED:
             // Set to consolidated sediment input
-            pLandform->SetLFCategory(LF_SEDIMENT_INPUT_CONSOLIDATED);
+            pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_CONSOLIDATED);
             break;
          }
       }
@@ -234,14 +229,14 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
          m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetPointOnCoast(nCoastPoint);
 
          // OK, start assigning coastal landforms. First, is there an intervention on this cell?
-         int nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory();
+         int nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLandformCategory();
          if ((nCat == LF_INTERVENTION_STRUCT) || (nCat == LF_INTERVENTION_NON_STRUCT))
          {
             // There is, so create an intervention object on the vector coastline with these attributes
             CACoastLandform* pIntervention = new CRWIntervention(&m_VCoast[nCoast], nCoast, nCoastPoint, nCat);
             m_VCoast[nCoast].AppendCoastLandform(pIntervention);
 
-            // LogStream << nCoastPoint << " [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} " << m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory() << " " << m_pRasterGrid->m_Cell[nX][nY].dGetInterventionHeight() << endl;
+            // LogStream << nCoastPoint << " [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} " << m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLandformCategory() << " " << m_pRasterGrid->m_Cell[nX][nY].dGetInterventionHeight() << endl;
 
             continue;
          }
@@ -253,7 +248,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
          if (pTopLayer->bHasTalus())
          {
             // There is talus on this cell
-            m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_DRIFT_TALUS);
+            m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_DRIFT_TALUS);
 
             CACoastLandform* pDrift = new CRWDrift(&m_VCoast[nCoast], nCoast, nCoastPoint, LF_DRIFT_TALUS);
             m_VCoast[nCoast].AppendCoastLandform(pDrift);
@@ -281,7 +276,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
             CACoastLandform* pDrift = new CRWDrift(&m_VCoast[nCoast], nCoast, nCoastPoint, LF_DRIFT_BEACH);
             m_VCoast[nCoast].AppendCoastLandform(pDrift);
 
-            m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_DRIFT_BEACH);
+            m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_DRIFT_BEACH);
             continue;
             // TODO DFM bodge ========================
 
@@ -295,9 +290,11 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
             // We have consolidated sediment at or above SWL on this cell. Are we considering cliff collapse?
             if (m_bDoCliffCollapse)
             {
+               if (nX == 237 && nY == 0)
+                  LogStream << endl;
                // OK we are considering cliff collapse, and we have consolidated sediment at SWL, so this is a cliff cell. Get the existing landform category for this cell
-               nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory();
-               if ((nCat == LF_CLIFF_ON_COASTLINE) || (nCat == LF_CLIFF_INLAND))
+               nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLandformCategory();
+               if (nCat == LF_CLIFF)
                {
                   // This cell was a cliff in some previous timestep. Is the pre-existing notch still below the top of the consolidated sediment?
                   double dNotchApexElev = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetCliffNotchApexElev();
@@ -309,14 +306,13 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                      double const dNotchIncision = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetCliffNotchIncisionDepth();
 
                      // Set this as a cliff cell on the coastline
-                     m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_CLIFF_ON_COASTLINE);
+                     m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_CLIFF);
 
                      // Create a cliff object on the vector coastline with these attributes
                      CACoastLandform* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
                      m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
-                     // double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
-                     // LogStream << m_ulIter << ":\t continues to be a cliff at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << " dNotchIncision = " << dNotchIncision << endl;
+                     LogStream << m_ulIter << ":\t continues to be a cliff at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << endl;
                   }
                   else
                   {
@@ -326,7 +322,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                      dNotchApexElev = DBL_NODATA;
 
                      // This is a cliff cell on the coastline without a notch
-                     m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_CLIFF_ON_COASTLINE);
+                     m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_CLIFF);
                      m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetCliffNotchApexElev(dNotchApexElev);
                      m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetCliffNotchIncisionDepth(dNotchIncision);
 
@@ -342,7 +338,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                else
                {
                   // This was not a cliff in the previous timestep, but it is now
-                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_CLIFF_ON_COASTLINE);
+                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_CLIFF);
 
                   // Get the pre-existing wave energy stored in the cell
                   double const dAccumWaveEnergy = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetAccumWaveEnergy();
@@ -355,7 +351,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                   double const dSedTopElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevOmitTalus();
                   if (m_dThisIterNewNotchApexElev < dSedTopElevNoTalus)
                   {
-                     // Yes it would, so this cliff object has a notch
+                     // Yes it would, so this new cliff object has a notch
                      dNotchIncision = 0;
                      dNotchApexElev = m_dThisIterNewNotchApexElev - SED_ELEV_TOLERANCE;
                   }
@@ -364,12 +360,10 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                   CACoastLandform* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
                   m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
-                  // double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
-
-                  // if (bFPIsEqual(dNotchIncision, 0.0, TOLERANCE))
-                  //    LogStream << m_ulIter << ":\t cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << " dNotchIncision = " << dNotchIncision << endl;
-                  // else
-                  //    LogStream << m_ulIter << ":\t NO NOTCH cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << endl;
+                  if (bFPIsEqual(dNotchIncision, 0.0, TOLERANCE))
+                     LogStream << m_ulIter << ":\t coastline cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << endl;
+                  else
+                     LogStream << m_ulIter << ":\t SWL NO NOTCH cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << endl;
                }
             }
             else
@@ -381,7 +375,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                CACoastLandform* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, DBL_NODATA, DBL_NODATA, dAccumWaveEnergy);
                m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
-               // LogStream << m_ulIter << ":\t cliff created (cliff collapse not considered) at " << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dAllSedTopElevNoTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus() << " dAllSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dConsSedTopElevNoTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevOmitTalus() << " dConsSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevIncTalus() << endl;
+               LogStream << m_ulIter << ":\t coastline cliff created (cliff collapse not considered) at " << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dAllSedTopElevNoTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus() << " dAllSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dConsSedTopElevNoTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevOmitTalus() << " dConsSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevIncTalus() << " dNotchApexElev = " << DBL_NODATA << " dNotchIncision = " << DBL_NODATA << endl;
             }
          }
          else
@@ -390,7 +384,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
             CACoastLandform* pDrift = new CRWDrift(&m_VCoast[nCoast], nCoast, nCoastPoint, LF_DRIFT_BEACH);
             m_VCoast[nCoast].AppendCoastLandform(pDrift);
 
-            m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_DRIFT_BEACH);
+            m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_DRIFT_BEACH);
 
 // #ifdef _DEBUG
 //             LogStream << m_ulIter << ":\t drift created at [" << nX << "][" << nY << "]" << endl;
@@ -409,7 +403,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
    //
    //       LogStream << m_ulIter << ": coast cell " << j << " at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} has landform category = ";
    //
-   //       int nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory();
+   //       int nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLandformCategory();
    //       int nSubCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFSubCategory();
    //
    //       switch (nCat)
@@ -447,12 +441,8 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
    //
    //       switch (nSubCat)
    //       {
-   //          case LF_CLIFF_ON_COASTLINE:
-   //             LogStream << "cliff on coastline";
-   //             break;
-   //
-   //          case LF_CLIFF_INLAND:
-   //             LogStream << "cliff inland";
+   //          case LF_CLIFF:
+   //             LogStream << "cliff";
    //             break;
    //
    //          case LF_DRIFT_TALUS:
@@ -499,7 +489,7 @@ int CSimulation::nLandformToGrid(int const nCoast, int const nPoint)
    // What is the coastal landform here?
    CACoastLandform* pCoastLandform = m_VCoast[nCoast].pGetCoastLandform(nPoint);
    int const nCat = pCoastLandform->nGetLandFormCategory();
-   if ((nCat == LF_CLIFF_ON_COASTLINE) || (nCat == LF_CLIFF_INLAND))
+   if (nCat == LF_CLIFF)
    {
       // It's a cliff
       CRWCliff const* pCliff = reinterpret_cast<CRWCliff*>(pCoastLandform);
@@ -507,47 +497,32 @@ int CSimulation::nLandformToGrid(int const nCoast, int const nPoint)
       int const nX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nPoint)->nGetX();
       int const nY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nPoint)->nGetY();
 
-      // if (! pCliff->bHasCollapsed())
-      // {
-      //    // The cliff has not collapsed. Get attribute values from the cliff object
-      //    double const dNotchBaseElev = pCliff->dGetNotchApexElev();
-      //    double const dNotchIncision = pCliff->dGetNotchIncision();
-      //
-      //    // And store some attribute values in the cliff cell
-      //    m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFSubCategory(LF_CLIFF_ON_COASTLINE);
-      //    m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetCliffNotchApexElev(dNotchBaseElev);
-      //    m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetCliffNotchIncisionDepth(dNotchIncision);
-      // }
-      // else
-      // {
-      //    // // The cliff has collapsed: all sediment above the base of the erosional notch is gone from this cliff object via cliff collapse, so this cell is no longer a cliff
-      //    // m_pRasterGrid->m_Cell[nX][nY].SetInContiguousSea();
-      //    //
-      //    // // Check the x-y extremities of the contiguous sea for the bounding box (used later in wave propagation)
-      //    // if (nX < m_nXMinBoundingBox)
-      //    //    m_nXMinBoundingBox = nX;
-      //    //
-      //    // if (nX > m_nXMaxBoundingBox)
-      //    //    m_nXMaxBoundingBox = nX;
-      //    //
-      //    // if (nY < m_nYMinBoundingBox)
-      //    //    m_nYMinBoundingBox = nY;
-      //    //
-      //    // if (nY > m_nYMaxBoundingBox)
-      //    //    m_nYMaxBoundingBox = nY;
-      //
-      //    int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetNumOfTopLayerAboveBasement();
-      //
-      //    // Safety check
-      //    if (nTopLayer == INT_NODATA)
-      //       return RTN_ERR_NO_TOP_LAYER;
-      //
-      //    // Update the cell's layer elevations
-      //    m_pRasterGrid->m_Cell[nX][nY].CalcAllLayerElevsAndD50();
-      //
-      //    // And update the cell's sea depth
-      //    m_pRasterGrid->m_Cell[nX][nY].SetSeaDepth();
-      // }
+      if (! pCliff->bHasCollapsed())
+      {
+         // The cliff has not collapsed. Get attribute values from the cliff object
+         double const dNotchBaseElev = pCliff->dGetNotchApexElev();
+         double const dNotchIncision = pCliff->dGetNotchIncision();
+
+         // And store some attribute values in the cliff cell
+         m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_CLIFF);
+         m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetCliffNotchApexElev(dNotchBaseElev);
+         m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetCliffNotchIncisionDepth(dNotchIncision);
+      }
+      else
+      {
+         // The cliff has collapsed: all sediment above the base of the erosional notch is gone from this cliff object via cliff collapse, so this cell is no longer a cliff
+//          int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetNumOfTopLayerAboveBasement();
+//
+//          // Safety check
+//          if (nTopLayer == INT_NODATA)
+//             return RTN_ERR_NO_TOP_LAYER;
+
+         // // Update the cell's layer elevations
+         // m_pRasterGrid->m_Cell[nX][nY].CalcAllLayerElevsAndD50();
+         //
+         // // And update the cell's sea depth
+         // m_pRasterGrid->m_Cell[nX][nY].SetSeaDepth();
+      }
 
       // Always accumulate wave energy
       m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetAccumWaveEnergy(pCliff->dGetTotAccumWaveEnergy());
@@ -576,9 +551,9 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
    if (bIsWithinValidGrid(nXTmp, nYTmp))
    {
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
-      int const nCat = pLandform->nGetLFCategory();
+      int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -589,9 +564,9 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
    if (bIsWithinValidGrid(nXTmp, nYTmp))
    {
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
-      int const nCat = pLandform->nGetLFCategory();
+      int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -602,9 +577,9 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
    if (bIsWithinValidGrid(nXTmp, nYTmp))
    {
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
-      int const nCat = pLandform->nGetLFCategory();
+      int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -615,9 +590,9 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
    if (bIsWithinValidGrid(nXTmp, nYTmp))
    {
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
-      int const nCat = pLandform->nGetLFCategory();
+      int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -628,9 +603,9 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
    if (bIsWithinValidGrid(nXTmp, nYTmp))
    {
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
-      int const nCat = pLandform->nGetLFCategory();
+      int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -641,9 +616,9 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
    if (bIsWithinValidGrid(nXTmp, nYTmp))
    {
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
-      int const nCat = pLandform->nGetLFCategory();
+      int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -654,9 +629,9 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
    if (bIsWithinValidGrid(nXTmp, nYTmp))
    {
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
-      int const nCat = pLandform->nGetLFCategory();
+      int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -667,9 +642,9 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
    if (bIsWithinValidGrid(nXTmp, nYTmp))
    {
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform();
-      int const nCat = pLandform->nGetLFCategory();
+      int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF_INLAND) || (nCat == LF_CLIFF_ON_COASTLINE))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 

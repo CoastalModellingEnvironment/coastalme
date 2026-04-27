@@ -65,8 +65,8 @@ class CRWCellLandform
    CRWCellLandform();
    ~CRWCellLandform(void);
 
-   void SetLFCategory(int const);
-   int nGetLFCategory(void) const;
+   void SetLandformCategory(int const);
+   int nGetLandformCategory(void) const;
 
    void SetCoast(int const);
    int nGetCoast(void) const;

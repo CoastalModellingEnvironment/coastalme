@@ -3088,7 +3088,7 @@ unsigned long CSimulation::ulConvertToTimestep(string const* pstrIn) const
 //===============================================================================================================================
 bool CSimulation::bIsInterventionCell(int const nX, int const nY) const
 {
-   int const nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory();
+   int const nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLandformCategory();
    if ((nCat == LF_INTERVENTION_STRUCT) || (nCat == LF_INTERVENTION_NON_STRUCT))
       return true;
 
@@ -3149,17 +3149,20 @@ void CSimulation::CalcMHWAndNewCliffNotchElevation(int const nTideDataCount)
       // Now calculate the average max tide for the next NUM_DAYS_FOR_MEAN_HIGH_WATER_CALC days
       double const dMaxTideAvg = dTotMaxTide / nTideValuesToRead;
 
-      // Finally, calculate MHW for this iteration (includes long-term SWL change)
+      // Calculate MHW for this iteration (includes long-term SWL change)
       m_dThisIterMHWElev = m_dThisIterMeanSWL + dMaxTideAvg;
+
+      // Set the apex elevation of any new cliff notches (i.e. cliff notches which will be created during this timestep) to be at or slightly above MHW level
+      m_dThisIterNewNotchApexElev = m_dThisIterMHWElev + m_dNotchApexAboveMHW;
    }
    else
    {
       // We do not have tide data
       m_dThisIterMHWElev = m_dThisIterMeanSWL;
-   }
 
-   // Finally, set the apex elevation of any new cliff notches (i.e. cliff notches which will be created during this timestep) to be at or slightly above MHW level
-   m_dThisIterNewNotchApexElev = m_dThisIterMHWElev + m_dNotchApexAboveMHW;
+      // Finally, set the apex elevation of any new cliff notches (i.e. cliff notches which will be created during this timestep) to be at SWL
+      m_dThisIterNewNotchApexElev = m_dThisIterMHWElev;
+   }
 
    // LogStream << m_ulIter << ": this-iteration MHW elevation = " << m_dThisIterMHWElev << " elevation of apex of new cliff notches = " << m_dThisIterNewNotchApexElev << endl;
 }

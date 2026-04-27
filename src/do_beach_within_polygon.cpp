@@ -659,10 +659,10 @@ int CSimulation::nDoParallelProfileUnconsErosion(CGeomCoastPolygon* pPolygon, in
 
                   // And set the landform category
                   CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetLandform();
-                  int const nCat = pLandform->nGetLFCategory();
+                  int const nCat = pLandform->nGetLandformCategory();
 
                   if ((nCat != LF_SEDIMENT_INPUT_UNCONSOLIDATED) && (nCat != LF_SEDIMENT_INPUT_CONSOLIDATED))
-                     pLandform->SetLFCategory(LF_DRIFT_BEACH);
+                     pLandform->SetLandformCategory(LF_DRIFT_BEACH);
 
                   // LogStream << m_ulIter << ": nPoly = " << nPoly << ", beach deposition = " << dTotToDeposit << " at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " <<  dGridCentroidYToExtCRSY(nY) << "} nCoastPoint = " << nCoastPoint << " nDistSeawardFromNewCoast = " << nDistSeawardFromNewCoast << endl;
                }
@@ -1202,10 +1202,10 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
                   m_pRasterGrid->m_Cell[nX][nY].SetSeaDepth();
 
                   // And set the landform category
-                  int const nCat = pLandform->nGetLFCategory();
+                  int const nCat = pLandform->nGetLandformCategory();
 
                   if ((nCat != LF_SEDIMENT_INPUT_CONSOLIDATED) && (nCat != LF_SEDIMENT_INPUT_UNCONSOLIDATED))
-                     pLandform->SetLFCategory(LF_DRIFT_BEACH);
+                     pLandform->SetLandformCategory(LF_DRIFT_BEACH);
 
                   // Update this-timestep totals
                   m_ulThisIterNumBeachDepositionCells++;
@@ -1689,10 +1689,10 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
                      // Update the cell's sea depth
                      m_pRasterGrid->m_Cell[nX][nY].SetSeaDepth();
 
-                     int const nCat = pLandform->nGetLFCategory();
+                     int const nCat = pLandform->nGetLandformCategory();
 
                      if ((nCat != LF_SEDIMENT_INPUT_CONSOLIDATED) && (nCat != LF_SEDIMENT_INPUT_UNCONSOLIDATED))
-                        pLandform->SetLFCategory(LF_DRIFT_BEACH);
+                        pLandform->SetLandformCategory(LF_DRIFT_BEACH);
 
                      // Update this-timestep totals
                      m_ulThisIterNumBeachDepositionCells++;
@@ -1842,7 +1842,7 @@ bool CSimulation::bElevAboveDeanElev(int const nX, int const nY, double const dE
       if (m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea())
          return true;
 
-      int const nCat = pLandform->nGetLFCategory();
+      int const nCat = pLandform->nGetLandformCategory();
 
       if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_SEDIMENT_INPUT_UNCONSOLIDATED))
          return true;

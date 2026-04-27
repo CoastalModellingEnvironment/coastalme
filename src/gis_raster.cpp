@@ -935,7 +935,7 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer)
                   nMissing++;
                }
 
-               m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(nTmp);
+               m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(nTmp);
                break;
 
             case (INTERVENTION_CLASS_RASTER):
@@ -955,10 +955,10 @@ int CSimulation::nReadRasterGISFile(int const nDataItem, int const nLayer)
                // OK we have an intervention here. Which kind?
                if (nTmp == 1)
                   // Structural intervention
-                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_INTERVENTION_STRUCT);
+                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_INTERVENTION_STRUCT);
                else if (nTmp == 2)
                   // Non-structural intervention
-                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_INTERVENTION_NON_STRUCT);
+                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_INTERVENTION_NON_STRUCT);
 
                break;
 
@@ -1804,7 +1804,7 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
                break;
 
             case (RASTER_PLOT_LANDFORM):
-               dTmp = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLFCategory();
+               dTmp = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLandformCategory();
                bIsInteger = true;
                break;
 

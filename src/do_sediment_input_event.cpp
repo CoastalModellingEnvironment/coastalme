@@ -147,7 +147,7 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
             m_dThisiterUnconsFineInput += dFineDepth;
 
             // And assign the cell's landform category
-            pLandform->SetLFCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
+            pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
          }
 
          // Is some sand-sized unconsolidated sediment being input?
@@ -169,7 +169,7 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
             m_dThisiterUnconsSandInput += dSandDepth;
 
             // And assign the cell's landform category
-            pLandform->SetLFCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
+            pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
          }
 
          // Is some coarse unconsolidated sediment being input?
@@ -191,7 +191,7 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
             m_dThisiterUnconsCoarseInput += dCoarseDepth;
 
             // And assign the cell's landform category
-            pLandform->SetLFCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
+            pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
          }
 
          if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
@@ -555,7 +555,7 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
          m_dThisiterUnconsFineInput += dFineDepth;
 
          // And assign the cell's landform category
-         pLandform->SetLFCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
+         pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
       }
 
       // Is some sand-sized unconsolidated sediment being input?
@@ -576,7 +576,7 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
          m_dThisiterUnconsSandInput += dSandDepth;
 
          // And assign the cell's landform category
-         pLandform->SetLFCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
+         pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
       }
 
       // Is some coarse unconsolidated sediment being input?
@@ -597,7 +597,7 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
          m_dThisiterUnconsCoarseInput += dCoarseDepth;
 
          // And assign the cell's landform category
-         pLandform->SetLFCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
+         pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
       }
 
       if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)

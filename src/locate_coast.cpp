@@ -301,7 +301,7 @@ void CSimulation::CellByCellFillSea(int const nXStart, int const nYStart)
          m_pRasterGrid->m_Cell[nX][nY].SetSeaDepth();
 
          CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetLandform();
-         int const nCat = pLandform->nGetLFCategory();
+         int const nCat = pLandform->nGetLandformCategory();
 
          // Have we had sediment input here?
          if ((nCat == LF_SEDIMENT_INPUT_CONSOLIDATED) || (nCat == LF_SEDIMENT_INPUT_UNCONSOLIDATED))
@@ -318,7 +318,7 @@ void CSimulation::CellByCellFillSea(int const nXStart, int const nYStart)
          {
             // No sediment input here, just mark as sea
             m_pRasterGrid->m_Cell[nX][nY].SetInContiguousSea();
-            pLandform->SetLFCategory(LF_SEA);
+            pLandform->SetLandformCategory(LF_SEA);
 
             // Set this sea cell to have deep water (off-shore) wave orientation and height, will change this later for cells closer to the shoreline if we have on-shore waves
             m_pRasterGrid->m_Cell[nX][nY].SetWaveValuesToDeepWaterWaveValues();

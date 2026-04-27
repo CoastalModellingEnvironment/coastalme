@@ -97,7 +97,7 @@ CGeomCell::CGeomCell()
      m_dTotSlumpingDeposition(0),
      m_dInterventionHeight(0)
 {
-   m_Landform.SetLFCategory(LF_UNKNOWN);
+   m_Landform.SetLandformCategory(LF_UNKNOWN);
 }
 
 //! Destructor
@@ -1259,7 +1259,7 @@ double CGeomCell::dGetTotAvalancheDeposition(void) const
 //! Gets the intervention class for this cell, or returns INT_NODATA if there is not an intervention here
 int CGeomCell::nGetInterventionClass(void) const
 {
-   int const nTmp = this->m_Landform.nGetLFCategory();
+   int const nTmp = this->m_Landform.nGetLandformCategory();
    if ((nTmp == LF_INTERVENTION_STRUCT) || (nTmp == LF_INTERVENTION_NON_STRUCT))
       return nTmp;
 

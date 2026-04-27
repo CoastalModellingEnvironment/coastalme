@@ -36,7 +36,7 @@ CRWCliff::CRWCliff(CRWCoast* pCoastIn, int const nCoast, int const nPointOnCoast
 
    m_nCoast = nCoast;
    m_nPointOnCoastline = nPointOnCoast;
-   m_nCategory = LF_CLIFF_ON_COASTLINE;
+   m_nCategory = LF_CLIFF;
 
    m_dMaxNotchIncision = dCellSide;
    m_dNotchIncision = dNotchIncisionIn;
@@ -99,6 +99,9 @@ void CRWCliff::IncreaseNotchIncision(double const dLenIn)
 //! Returns true if the horizontal incision of the erosional notch exceeds the critical notch incision
 bool CRWCliff::bReadyToCollapse(double const dThresholdNotchIncision) const
 {
+   if (bFPIsEqual(m_dNotchIncision, DBL_NODATA, TOLERANCE))
+      return false;
+
    if (m_dNotchIncision > dThresholdNotchIncision)
       return true;
    else

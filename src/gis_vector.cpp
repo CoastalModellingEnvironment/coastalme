@@ -1475,7 +1475,7 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
                   int const nCategory = pCoastLandform->nGetLandFormCategory();
                   double dNotchDepth = 0.0;
 
-                  if ((nCategory == LF_CLIFF_ON_COASTLINE) || (nCategory == LF_CLIFF_INLAND))
+                  if (nCategory == LF_CLIFF)
                   {
                      CRWCliff const* pCliff = reinterpret_cast<CRWCliff*>(pCoastLandform);
 

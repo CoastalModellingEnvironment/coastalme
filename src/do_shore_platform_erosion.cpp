@@ -1220,17 +1220,17 @@ void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
                if (pTopLayer->bHasTalus())
                {
                   // There is talus here
-                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_DRIFT_TALUS);
+                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_DRIFT_TALUS);
                }
                else if (pTopLayer->bHasUncons())
                {
                   // There is some unconsolidated sediment here
-                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_DRIFT_BEACH);
+                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_DRIFT_BEACH);
                }
                else
                {
                   // Set as hinterland
-                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLFCategory(LF_HINTERLAND);
+                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_HINTERLAND);
                }
             }
          }

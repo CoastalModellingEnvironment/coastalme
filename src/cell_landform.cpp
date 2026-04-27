@@ -39,13 +39,13 @@ CRWCellLandform::~CRWCellLandform(void)
 }
 
 //! Set the landform category
-void CRWCellLandform::SetLFCategory(int const nClassIn)
+void CRWCellLandform::SetLandformCategory(int const nClassIn)
 {
    m_nCategory = nClassIn;
 }
 
 //! Get the landform category
-int CRWCellLandform::nGetLFCategory(void) const
+int CRWCellLandform::nGetLandformCategory(void) const
 {
    return m_nCategory;
 }
