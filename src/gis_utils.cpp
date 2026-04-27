@@ -2015,3 +2015,32 @@ bool CSimulation::bIsAdjacentEdgeCell(CGeom2DIPoint const* pPt1, CGeom2DIPoint c
 
    return false;
 }
+
+//===============================================================================================================================
+//! Determines whether a point (grid CRS) is within the polygon (but is not on a polygon edge), using semi-infinite ray edge counting. Modified from code at https://wrfranklin.org/Research/Short_Notes/pnpoly.html
+//===============================================================================================================================
+bool CSimulation::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart, vector<CGeom2DIPoint> const* pVPtiPoints)
+{
+   int const nPoints = static_cast<int>(pVPtiPoints->size());
+   int c = 0;
+
+   for (int i = 0, j = nPoints - 1; i < nPoints; j = i++)
+   {
+      int const nYpi = pVPtiPoints->at(i).nGetY();
+      int const nY = pPtiStart->nGetY();
+      int const nYpj = pVPtiPoints->at(j).nGetY();
+      int const nX = pPtiStart->nGetX();
+      int const nXpj = pVPtiPoints->at(j).nGetX();
+      int const nXpi = pVPtiPoints->at(i).nGetX();
+
+      // Check if the point's y-coordinate is within the edge's y-range, then check if the point is to the left of the intersection of the ray and edge
+      if ((((nYpi <= nY) && (nY < nYpj)) ||
+           ((nYpj <= nY) && (nY < nYpi))) &&
+            (nX < (nXpj - nXpi) * (nY - nYpi) / (nYpj - nYpi) + nXpi) &&
+            (m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID() == INT_NODATA))
+      {
+         c = ! c;
+      }
+   }
+   return c;
+}

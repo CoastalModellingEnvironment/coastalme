@@ -355,7 +355,16 @@ int CSimulation::nMarkPolygonCells(void)
          if ((PtiStart.nGetX() == INT_NODATA) && (PtiStart.nGetY() == INT_NODATA))
          {
             // Uh-oh, could not find a point within this polygon
-            LogStream << m_ulIter << ":\t " << ERR << "could not find a within-polygon start point for polygon infilling, coast " << nCoast << " polygon " << pPolygon->nGetPolygonThisCoastID() << ", ending run" << endl;
+            LogStream << m_ulIter << ":\t " << ERR << "could not find a within-polygon start point for polygon infilling, coast " << nCoast << " polygon " << pPolygon->nGetPolygonThisCoastID() << endl;
+
+            for (int n = 0; n < pPolygon->nGetNumVertices(); n++)
+            {
+               CGeom2DIPoint PtiTmp = pPolygon->PtiGetVertex(n);
+               LogStream << "[" << PtiTmp.nGetX() << "][" << PtiTmp.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiTmp.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiTmp.nGetY()) << "}" << endl;
+            }
+
+            LogStream << endl;
+
             for (int n = 0; n < pPolygon->nGetBoundarySize(); n++)
             {
                CGeom2DPoint const* pPtTmp = pPolygon->pPtGetBoundaryPoint(n);
@@ -370,7 +379,8 @@ int CSimulation::nMarkPolygonCells(void)
 
          PtiStack.push(PtiStart);
 
-         // LogStream << m_ulIter << ": filling polygon " << nPoly << " from [" << PtiStart.nGetX() << "][" << PtiStart.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiStart.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiStart.nGetY()) << "}" << endl;
+         if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+            LogStream << m_ulIter << ": filling polygon " << nPoly << " from [" << PtiStart.nGetX() << "][" << PtiStart.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiStart.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiStart.nGetY()) << "}" << endl;
 
          // Then do the cell-by-cell fill: loop until there are no more cell coordinates on the stack
          while (! PtiStack.empty())
@@ -457,6 +467,9 @@ int CSimulation::nMarkPolygonCells(void)
                nX++;
             }
          }
+
+         if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+            LogStream << m_ulIter << ": \t polygon " << nPoly << " has " << nCellsInPolygon << " cells" << endl;
 
          // Store this polygon's stored unconsolidated sediment depths
          pPolygon->SetPreExistingUnconsFine(dStoredUnconsFine);

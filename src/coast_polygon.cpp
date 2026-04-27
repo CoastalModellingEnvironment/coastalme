@@ -805,22 +805,34 @@ CGeom2DIPoint CGeomCoastPolygon::PtiGetVertex(int const nIndex) const
 //===============================================================================================================================
 CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 {
+   // First try a simple averaging of the vertices to determine the centroid
+   int nVertexSize = static_cast<int>(m_VPtiVertices.size());
+   int nTmpX = 0;
+   int nTmpY = 0;
+   for (int n = 0; n < nVertexSize; n++)
+   {
+      nTmpX += m_VPtiVertices[n].nGetX();
+      nTmpY += m_VPtiVertices[n].nGetY();
+   }
+
+   nTmpX /= nVertexSize;
+   nTmpY /= nVertexSize;
+   CGeom2DIPoint PtiCentroid(nTmpX, nTmpY);
+
+   // Check that this point is within the polygon
+   if (m_pSim->bIsWithinPolygon(&PtiCentroid, &m_VPtiVertices))
+      return PtiCentroid;
+
+   // OK, now try the more complex approach
    int nPolySize = static_cast<int>(m_VPtPoints.size());       // external CRS
    vector<CGeom2DIPoint> VPtiPoints;                           // grid CRS
    CGeom2DIPoint PtiStart;
-   int nMinX = 999999;
-   int nMaxX = -999999;
-   int nMinY = 999999;
-   int nMaxY = -999999;
 
    for (int n = 0; n < nPolySize; n++)
    {
       CGeom2DIPoint PtiTmp = m_pSim->PtiExtCRSToGridRound(&m_VPtPoints[n]);
 
-      // Make sure is within grid
-      m_pSim->KeepWithinValidGrid(&PtiTmp);
-
-      // We must not have duplicates (which are produced by rounding)
+      // We must not have duplicates (if we get any, they have been produced by rounding)
       if (n > 0)
       {
          if (PtiTmp == VPtiPoints.back())
@@ -832,41 +844,10 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
          if (PtiTmp == VPtiPoints[0])
             continue;
       }
-
-      if (PtiTmp.nGetX() > nMaxX)
-         nMaxX = PtiTmp.nGetX();
-      if (PtiTmp.nGetX() < nMinX)
-         nMinX = PtiTmp.nGetX();
-      if (PtiTmp.nGetY() > nMaxY)
-         nMaxY = PtiTmp.nGetY();
-      if (PtiTmp.nGetY() < nMinY)
-         nMinY = PtiTmp.nGetY();
-
       VPtiPoints.push_back(PtiTmp);
    }
 
    nPolySize = static_cast<int>(VPtiPoints.size());
-
-   // If this is a very small polygon, then just calculate a simple average of the points
-   if (((nMaxX - nMinX) <= 3) || ((nMaxY - nMinY) <= 3))
-   {
-      int nTmpX = 0;
-      int nTmpY = 0;
-      for (int n = 0; n < nPolySize; n++)
-      {
-         nTmpX += VPtiPoints[n].nGetX();
-         nTmpY += VPtiPoints[n].nGetY();
-      }
-
-      PtiStart.SetX(nTmpX / nPolySize);
-      PtiStart.SetY(nTmpY / nPolySize);
-
-      // Check that this point is within the polygon
-      if (bIsWithinPolygon(&PtiStart, &VPtiPoints))
-         return PtiStart;
-      else
-         return CGeom2DIPoint(INT_NODATA, INT_NODATA);
-   }
 
    int const nStartPoint = 0;
    int nOffSet = 0;
@@ -894,6 +875,7 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 
       // Have we traversed the whole polygon boundary?
       if (nOffSet >= (nPolySize + 3))
+         // We have, and we could not find an internal point, so give up
          return CGeom2DIPoint(INT_NODATA, INT_NODATA);         // grid CRS
 
       // Calculate the average of the first and the third points
@@ -909,38 +891,12 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
       m_pSim->KeepWithinValidGrid(&PtiStart);
 
       // Is this average point inside the polygon?
-      if (bIsWithinPolygon(&PtiStart, &VPtiPoints))
+      if (m_pSim->bIsWithinPolygon(&PtiStart, &VPtiPoints))
          break;
    } while (true);
 
    return PtiStart;
 }
 
-//===============================================================================================================================
-//! Determines whether a point (grid CRS) is within the polygon, using semi-infinite ray edge counting. Modified from code at https://wrfranklin.org/Research/Short_Notes/pnpoly.html
-//===============================================================================================================================
-bool CGeomCoastPolygon::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart, vector<CGeom2DIPoint> const* pVPtiPoints)
-{
-   int const nPoints = static_cast<int>(pVPtiPoints->size());
-   int c = 0;
 
-   for (int i = 0, j = nPoints - 1; i < nPoints; j = i++)
-   {
-      int const ypi = pVPtiPoints->at(i).nGetY();
-      int const y = pPtiStart->nGetY();
-      int const ypj = pVPtiPoints->at(j).nGetY();
-      int const x = pPtiStart->nGetX();
-      int const xpj = pVPtiPoints->at(j).nGetX();
-      int const xpi = pVPtiPoints->at(i).nGetX();
-
-      // Check if the point's y-coordinate is within the edge's y-range then check if the point is to the left of the intersection of the ray and edge
-      if ((((ypi <= y) && (y < ypj)) ||
-           ((ypj <= y) && (y < ypi))) &&
-            (x < (xpj - xpi) * (y - ypi) / (ypj - ypi) + xpi))
-      {
-         c = ! c;
-      }
-   }
-   return c;
-}
 

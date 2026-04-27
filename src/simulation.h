@@ -1986,5 +1986,8 @@ class CSimulation
 
    //! Constrains the supplied point (in the grid CRS) to be a valid cell within the raster grid
    void KeepWithinValidGrid(CGeom2DIPoint*) const;
+
+   //! Determines whether a point (grid CRS) is within the polygon (but is not on a polygon edge)
+   bool bIsWithinPolygon(CGeom2DIPoint const*, vector<CGeom2DIPoint> const*);
 };
 #endif // SIMULATION_H

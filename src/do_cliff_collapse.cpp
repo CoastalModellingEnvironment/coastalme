@@ -764,7 +764,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
             if (dWaveElev < dThisTalusBottomElev)
             {
                // No talus moved
-               LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] since waves do not reach talus base: dWaveElev = " << dWaveElev << " dThisTalusBottomElev = " << dThisTalusBottomElev << endl;
+               if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                  LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] since waves do not reach talus base: dWaveElev = " << dWaveElev << " dThisTalusBottomElev = " << dThisTalusBottomElev << endl;
 
                continue;
             }
