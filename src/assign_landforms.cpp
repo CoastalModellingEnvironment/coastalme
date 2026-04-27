@@ -290,8 +290,6 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
             // We have consolidated sediment at or above SWL on this cell. Are we considering cliff collapse?
             if (m_bDoCliffCollapse)
             {
-               if (nX == 237 && nY == 0)
-                  LogStream << endl;
                // OK we are considering cliff collapse, and we have consolidated sediment at SWL, so this is a cliff cell. Get the existing landform category for this cell
                nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLandformCategory();
                if (nCat == LF_CLIFF)
@@ -312,7 +310,8 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                      CACoastLandform* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
                      m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
-                     LogStream << m_ulIter << ":\t continues to be a cliff at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << endl;
+                     if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                        LogStream << m_ulIter << ":\t continues to be a cliff at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << endl;
                   }
                   else
                   {
@@ -332,7 +331,8 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
 
                      double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
 
-                     LogStream << m_ulIter << ":\t PROBLEM cliff with notch above sediment top (inc any talus) at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << " dNotchIncision = " << dNotchIncision << endl;
+                     if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                        LogStream << m_ulIter << ":\t PROBLEM cliff with notch above sediment top (inc any talus) at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << " dNotchIncision = " << dNotchIncision << endl;
                   }
                }
                else
@@ -360,10 +360,13 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                   CACoastLandform* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
                   m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
-                  if (bFPIsEqual(dNotchIncision, 0.0, TOLERANCE))
-                     LogStream << m_ulIter << ":\t coastline cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << endl;
-                  else
-                     LogStream << m_ulIter << ":\t SWL NO NOTCH cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << endl;
+                  if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                  {
+                     if (bFPIsEqual(dNotchIncision, 0.0, TOLERANCE))
+                        LogStream << m_ulIter << ":\t coastline cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << endl;
+                     else
+                        LogStream << m_ulIter << ":\t coastline no-notch cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << endl;
+                  }
                }
             }
             else
@@ -375,7 +378,8 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                CACoastLandform* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, DBL_NODATA, DBL_NODATA, dAccumWaveEnergy);
                m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
-               LogStream << m_ulIter << ":\t coastline cliff created (cliff collapse not considered) at " << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dAllSedTopElevNoTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus() << " dAllSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dConsSedTopElevNoTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevOmitTalus() << " dConsSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevIncTalus() << " dNotchApexElev = " << DBL_NODATA << " dNotchIncision = " << DBL_NODATA << endl;
+               if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                  LogStream << m_ulIter << ":\t coastline cliff created (cliff collapse not considered) at " << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dAllSedTopElevNoTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus() << " dAllSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dConsSedTopElevNoTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevOmitTalus() << " dConsSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevIncTalus() << " dNotchApexElev = " << DBL_NODATA << " dNotchIncision = " << DBL_NODATA << endl;
             }
          }
          else
