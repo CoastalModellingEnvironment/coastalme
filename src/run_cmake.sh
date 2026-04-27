@@ -22,8 +22,8 @@ done
 
 # Change this to change build type
 #buildtype=DEBUG
-#buildtype=RELEASE
-buildtype=PRERELEASE
+buildtype=RELEASE
+#buildtype=PRERELEASE
 #buildtype=RELWITHDEBINFO
 #buildtype=MINSIZEREL            # Not yet implemented in CMakeLists.txt
 #buildtype=GCOV

@@ -2770,13 +2770,13 @@ bool CSimulation::bReadRunDataFile(void)
             break;
 
          case 62:
-            // Notch apex above mean high water (MHW) level (m)
+            // Notch apex elevation above mean high water (MHW) level (m)
             if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
             {
                m_dNotchApexAboveMHW = strtod(strRH.c_str(), NULL);
 
                if (m_dNotchApexAboveMHW < 0)
-                  strErr = "line " + to_string(nLine) + ": distance of cliff notch apex above MHW level must be >= 0";
+                  strErr = "line " + to_string(nLine) + ": distance (m) of cliff notch apex above MHW level must be >= 0";
             }
 
             break;

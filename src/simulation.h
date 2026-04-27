@@ -1671,7 +1671,7 @@ class CSimulation
 
    // Initialization
    bool bCreateErosionPotentialLookUp(vector<double>*, vector<double>*, vector<double>*);
-   void CalcMHWElevation(int const);
+   void CalcMHWAndNewCliffNotchElevation(int const);
 
    // Top-level simulation routines
    static int nUpdateIntervention(void);

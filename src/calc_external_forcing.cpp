@@ -41,6 +41,9 @@ int CSimulation::nCalcExternalForcing(void)
       // No tide data
       m_dThisIterSWL = m_dThisIterMeanSWL;
       m_dThisIterMHWElev = m_dThisIterMeanSWL;
+
+      if (m_bDoCliffCollapse)
+         CalcMHWAndNewCliffNotchElevation(-1);
    }
    else
    {
@@ -55,7 +58,7 @@ int CSimulation::nCalcExternalForcing(void)
       m_dThisIterSWL = m_dThisIterMeanSWL + m_VdTideData[snTideDataCount];
 
       if (m_bDoCliffCollapse)
-         CalcMHWElevation(snTideDataCount);
+         CalcMHWAndNewCliffNotchElevation(snTideDataCount);
 
       snTideDataCount++;
    }

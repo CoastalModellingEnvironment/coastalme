@@ -220,13 +220,13 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
 
    // Get the index of the layer containing the notch (layer 0 being just above basement)
    nNotchLayer = m_pRasterGrid->m_Cell[nX][nY].nGetLayerAtElev(dNotchElev);
+   double const dTopElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevOmitTalus();
+   double const dTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevIncTalus();
 
    // Safety check: is the notch elevation above the top of the consolidated sediment? If so, do no more
    if (nNotchLayer == ELEV_ABOVE_SEDIMENT_TOP)
    {
-      double const dTopElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevOmitTalus();
-      double const dTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevIncTalus();
-      LogStream << m_ulIter << ": cliff ready to collapse at [" << nX << "][" << nY << "] but notch apex is above sediment top, nNotchLayer = " << nNotchLayer << " dNotchElev = " << dNotchElev << " cons sediment top elev without talus = " << dTopElevNoTalus << " cons sediment top elev inc talus = " << dTopElevIncTalus << endl;
+      LogStream << m_ulIter << ": cliff ready to collapse at [" << nX << "][" << nY << "]  = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} nNotchLayer is above sediment top, notch layer = " << nNotchLayer << " dNotchElev = " << dNotchElev << " m_dNotchApexAboveMHW = " << m_dNotchApexAboveMHW << " dPreCollapseCellElev = " << dPreCollapseCellElev << " cons sediment top elev without talus = " << dTopElevNoTalus << " cons sediment top elev inc talus = " << dTopElevIncTalus << endl;
 
       return RTN_OK;
    }
@@ -234,13 +234,13 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    // More safety checks
    if (nNotchLayer == ELEV_IN_BASEMENT)
    {
-      LogStream << m_ulIter << ":\t" << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] nNotchLayer is in basement" << endl;
+      LogStream << m_ulIter << ":\t" << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} nNotchLayer is in basement, notch layer = " << nNotchLayer << " dNotchElev = " << dNotchElev << " m_dNotchApexAboveMHW = " << m_dNotchApexAboveMHW << " dPreCollapseCellElev = " << dPreCollapseCellElev << " cons sediment top elev without talus = " << dTopElevNoTalus << " cons sediment top elev inc talus = " << dTopElevIncTalus << endl;
       return RTN_ERR_CLIFF_NOTCH;
    }
 
    if (nNotchLayer < 0)
    {
-      LogStream << m_ulIter << ":\t" << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} notch layer = " << nNotchLayer << ", dNotchElev = " << dNotchElev << " m_dNotchApexAboveMHW = " << m_dNotchApexAboveMHW << " dPreCollapseCellElev = " << dPreCollapseCellElev << endl;
+      LogStream << m_ulIter << ":\t" << WARN << "in nDoCliffCollapse(), [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} nNotchLayer less than zero, notch layer = " << nNotchLayer << " dNotchElev = " << dNotchElev << " m_dNotchApexAboveMHW = " << m_dNotchApexAboveMHW << " dPreCollapseCellElev = " << dPreCollapseCellElev << " cons sediment top elev without talus = " << dTopElevNoTalus << " cons sediment top elev inc talus = " << dTopElevIncTalus << endl;
       return RTN_ERR_CLIFF_NOTCH;
    }
 
