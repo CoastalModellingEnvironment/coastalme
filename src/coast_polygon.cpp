@@ -819,12 +819,12 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
    nTmpY /= nVertexSize;
    CGeom2DIPoint PtiCentroid(nTmpX, nTmpY);
 
-   // Check that this point is within the polygon
+   // Check that this point is within the polygon, by looking at the polygon's vertices
    if (m_pSim->bIsWithinPolygon(&PtiCentroid, &m_VPtiVertices))
       return PtiCentroid;
 
-   // OK, now try the more complex approach
-   int nPolySize = static_cast<int>(m_VPtPoints.size());       // external CRS
+   // OK, now try the more complex approach, by looking at the polygon's boundary points
+   int nPolySize = static_cast<int>(m_VPtPoints.size()) - 1;   // external CRS, we ignore the last point since it is a duplicate of the first point
    vector<CGeom2DIPoint> VPtiPoints;                           // grid CRS
    CGeom2DIPoint PtiStart;
 

@@ -176,7 +176,7 @@ int CSimulation::nCreateAllPolygons(void)
                PtVBoundary.push_back(PtThis);
             }
 
-            // Finally, append the end point of this normal
+            // Finally, append the end point of this normal. This last point is a duplicate of the first boundary point (necessary, in order to construct the 'joining line')
             CGeom2DPoint const PtThis = *pThisProfile->pPtGetPointInProfile(nThisProfileEnd);
             PtVBoundary.push_back(PtThis);
 
@@ -204,11 +204,10 @@ int CSimulation::nCreateAllPolygons(void)
             // Create the coast polygon object, store it, and get a pointer to it
             CGeomCoastPolygon* pPolygon = m_VCoast[nCoast].pPolyCreateAndAppendPolygon(nPolygon, nNodePoint, &PtiNode, &PtiAntiNode, nThisProfile, nNextProfile, &PtVBoundary, nThisProfileEnd + 1, nNextProfileEnd + 1, bStartCoast, bEndCoast);
 
-            // Save the profile-end vertices (but omit the last one if the profiles meet at a point)
-            pPolygon->AppendVertex(pThisProfile->pPtiGetStartPoint());
+            // Save the profile-end vertices (but omit one if the profiles meet at a point)
             pPolygon->AppendVertex(pThisProfile->pPtiGetEndPoint());
+            pPolygon->AppendVertex(pThisProfile->pPtiGetStartPoint());
             pPolygon->AppendVertex(pNextProfile->pPtiGetStartPoint());
-
             if (! bMeetsAtAPoint)
                pPolygon->AppendVertex(pNextProfile->pPtiGetEndPoint());
 
@@ -357,14 +356,15 @@ int CSimulation::nMarkPolygonCells(void)
             // Uh-oh, could not find a point within this polygon
             LogStream << m_ulIter << ":\t " << ERR << "could not find a within-polygon start point for polygon infilling, coast " << nCoast << " polygon " << pPolygon->nGetPolygonThisCoastID() << endl;
 
+            LogStream << "Polygon vertices:" << endl;
             for (int n = 0; n < pPolygon->nGetNumVertices(); n++)
             {
                CGeom2DIPoint PtiTmp = pPolygon->PtiGetVertex(n);
                LogStream << "[" << PtiTmp.nGetX() << "][" << PtiTmp.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiTmp.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiTmp.nGetY()) << "}" << endl;
             }
-
             LogStream << endl;
 
+            LogStream << "Polygon boundary:" << endl;
             for (int n = 0; n < pPolygon->nGetBoundarySize(); n++)
             {
                CGeom2DPoint const* pPtTmp = pPolygon->pPtGetBoundaryPoint(n);
@@ -372,6 +372,7 @@ int CSimulation::nMarkPolygonCells(void)
 
                LogStream << "[" << PtiTmp.nGetX() << "][" << PtiTmp.nGetY() << "] = {" << pPtTmp->dGetX() << ", " << pPtTmp->dGetY() << "}" << endl;
             }
+            LogStream << endl;
 
             continue;
             // return RTN_ERR_POLYGON_FILL_START_POINT;
@@ -899,95 +900,108 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
 //===============================================================================================================================
 void CSimulation::DEBUG_PrintPolygonDetails(int const nCoast, CGeomCoastPolygon* pPolygon)
 {
-   if (m_ulIter == 453)
-   {
-      m_nExtra++;
-      LogStream << "################################################ m_ulIter = " << m_ulIter << " m_nExtra = " << m_nExtra << endl;
-      LogStream << "coast = " << nCoast << " polygon = " << pPolygon->nGetPolygonThisCoastID() << endl;
-
-      // assert(nPolygon < m_VCoast[nCoast].nGetNumPolygons());
-      CGeom2DIPoint const* pNode = pPolygon->pPtiGetNode();
-      CGeom2DIPoint const* pAntiNode = pPolygon->pPtiGetAntiNode();
-
-      LogStream << "node is [" << pNode->nGetX() << "][" << pNode->nGetY() << "] = {" << dGridXToExtCRSX(pNode->nGetX()) << ", " << dGridYToExtCRSY(pNode->nGetY()) << "} antinode is [" << pAntiNode->nGetX() << "][" << pAntiNode->nGetY() << "] = {" << dGridXToExtCRSX(pAntiNode->nGetX()) << ", " << dGridYToExtCRSY(pAntiNode->nGetY()) << "}" << endl;
-
-      int const nNumUpCoastPolygons = pPolygon->nGetNumUpCoastAdjacentPolygons();
-      LogStream << "adjacent up-coast polygons: ";
-      for (int nAdjPoly = 0; nAdjPoly < nNumUpCoastPolygons; nAdjPoly++)
-         LogStream << pPolygon->nGetUpCoastAdjacentPolygon(nAdjPoly) << " ";
-      LogStream << endl;
-
-      int const nNumDownCoastPolygons = pPolygon->nGetNumDownCoastAdjacentPolygons();
-      LogStream << "adjacent down-coast polygons: ";
-      for (int nAdjPoly = 0; nAdjPoly < nNumDownCoastPolygons; nAdjPoly++)
-         LogStream << pPolygon->nGetDownCoastAdjacentPolygon(nAdjPoly) << " ";
-      LogStream << endl;
-
-      LogStream << "polygon vertices: ";
-      for (int n = 0; n < pPolygon->nGetBoundarySize(); n++)
-         LogStream << "{" << pPolygon->pPtGetBoundaryPoint(n)->dGetX() << ", " << pPolygon->pPtGetBoundaryPoint(n)->dGetY() << "} ";
-      LogStream << endl << endl;
-
-      int const nUpCoastProfile = pPolygon->nGetUpCoastProfile();
-      int const nDownCoastProfile = pPolygon->nGetDownCoastProfile();
-      LogStream << "up-coast profile = " << nUpCoastProfile << " down-coast profile = " << nDownCoastProfile << endl;
-
-      CGeomProfile* pUpCoastProfile = m_VCoast[nCoast].pGetProfile(nUpCoastProfile);
-      CGeomProfile* pDownCoastProfile = m_VCoast[nCoast].pGetProfile(nDownCoastProfile);
-
-      int const nPointsInUpCoastProfile = pPolygon->nGetNumPointsUsedUpCoastProfile();
-      LogStream << "from polygon, N points in up-coast profile = " << nPointsInUpCoastProfile << endl;
-      int const nUpCoastProfileSize = pUpCoastProfile->nGetSize();
-      LogStream << "from profile, N points in up-coast profile (" << nUpCoastProfile << ") = " << nUpCoastProfileSize << endl;
-
-      LogStream << "points in up-coast profile: ";
-      for (int nPoint = 0; nPoint < nUpCoastProfileSize; nPoint++)
-         LogStream << "{" << pUpCoastProfile->pPtGetPointInProfile(nPoint)->dGetX() << ", " << pUpCoastProfile->pPtGetPointInProfile(nPoint)->dGetY() << "} ";
-      LogStream << endl;
-
-      int const nPointsInDownCoastProfile = pPolygon->nGetNumPointsUsedDownCoastProfile();
-      LogStream << "from polygon, N points in down-coast profile = " << nPointsInDownCoastProfile << endl;
-      int const nDownCoastProfileSize = pDownCoastProfile->nGetSize();
-      LogStream << "from profile, N points in down-coast profile (" << nDownCoastProfile << ") = " << nDownCoastProfileSize << endl;
-
-      LogStream << "points in down-coast profile: ";
-      for (int nPoint = 0; nPoint < nDownCoastProfileSize; nPoint++)
-         LogStream << "{" << pDownCoastProfile->pPtGetPointInProfile(nPoint)->dGetX() << ", " << pDownCoastProfile->pPtGetPointInProfile(nPoint)->dGetY() << "} ";
-      LogStream << endl << endl;
-
-      int const nUpCoastProfileLineSeg = pUpCoastProfile->nGetNumLineSegments();
-      int const nDownCoastProfileLineSeg = pDownCoastProfile->nGetNumLineSegments();
-
-      LogStream << "up-coast profile = " << pUpCoastProfile->nGetProfileID() << " has " << nUpCoastProfileLineSeg << " line segments" << endl;
-      for (int m = 0; m < nUpCoastProfileLineSeg; m++)
-      {
-         vector<pair<int, int> > prVCoincidentProfiles = *pUpCoastProfile->pprVGetCoincidentPairsForLineSegment(m);
-         LogStream << "co-incident profiles and line segments for line segment " << m << " of profile " << pUpCoastProfile->nGetProfileID() << " are ";
-         for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-            LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-         LogStream << " " << endl;
-      }
-
-      LogStream << "down-coast profile = " << pDownCoastProfile->nGetProfileID() << " has " << nDownCoastProfileLineSeg << " line segments" << endl;
-      for (int m = 0; m < nDownCoastProfileLineSeg; m++)
-      {
-         vector<pair<int, int> > prVCoincidentProfiles = *pDownCoastProfile->pprVGetCoincidentPairsForLineSegment(m);
-         LogStream << "co-incident profiles and line segments for line segment " << m << " of profile " << pDownCoastProfile->nGetProfileID() << " are ";
-         for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
-            LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
-         LogStream << " " << endl;
-      }
-
-      LogStream << "################################################" << endl;
-
-      string const strExtra = "_" + to_string(m_nExtra);
-
-      if (m_nExtra == 1)
-      {
-         bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
-         bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
-      }
-      bWriteVectorGISFile(VECTOR_PLOT_POLYGON_BOUNDARY, &VECTOR_PLOT_POLYGON_BOUNDARY_TITLE, strExtra);
-   }
+   // if (m_ulIter == 117)
+   // {
+   //    m_nExtra++;
+   //    LogStream << "################################################ m_ulIter = " << m_ulIter << " m_nExtra = " << m_nExtra << endl;
+   //    LogStream << "coast = " << nCoast << " polygon = " << pPolygon->nGetPolygonThisCoastID() << endl;
+   //
+   //    // assert(nPolygon < m_VCoast[nCoast].nGetNumPolygons());
+   //    CGeom2DIPoint const* pNode = pPolygon->pPtiGetNode();
+   //    CGeom2DIPoint const* pAntiNode = pPolygon->pPtiGetAntiNode();
+   //
+   //    LogStream << "node is [" << pNode->nGetX() << "][" << pNode->nGetY() << "] = {" << dGridXToExtCRSX(pNode->nGetX()) << ", " << dGridYToExtCRSY(pNode->nGetY()) << "} antinode is [" << pAntiNode->nGetX() << "][" << pAntiNode->nGetY() << "] = {" << dGridXToExtCRSX(pAntiNode->nGetX()) << ", " << dGridYToExtCRSY(pAntiNode->nGetY()) << "}" << endl;
+   //
+   //    int const nNumUpCoastPolygons = pPolygon->nGetNumUpCoastAdjacentPolygons();
+   //    LogStream << "adjacent up-coast polygons: ";
+   //    for (int nAdjPoly = 0; nAdjPoly < nNumUpCoastPolygons; nAdjPoly++)
+   //       LogStream << pPolygon->nGetUpCoastAdjacentPolygon(nAdjPoly) << " ";
+   //    LogStream << endl;
+   //
+   //    int const nNumDownCoastPolygons = pPolygon->nGetNumDownCoastAdjacentPolygons();
+   //    LogStream << "adjacent down-coast polygons: ";
+   //    for (int nAdjPoly = 0; nAdjPoly < nNumDownCoastPolygons; nAdjPoly++)
+   //       LogStream << pPolygon->nGetDownCoastAdjacentPolygon(nAdjPoly) << " ";
+   //    LogStream << endl << endl;
+   //
+   //    LogStream << "Polygon vertices:" << endl;
+   //    for (int n = 0; n < pPolygon->nGetNumVertices(); n++)
+   //    {
+   //       CGeom2DIPoint PtiTmp = pPolygon->PtiGetVertex(n);
+   //       LogStream << "[" << PtiTmp.nGetX() << "][" << PtiTmp.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiTmp.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiTmp.nGetY()) << "}" << endl;
+   //    }
+   //    LogStream << endl;
+   //
+   //    LogStream << "Polygon boundary:" << endl;
+   //    for (int n = 0; n < pPolygon->nGetBoundarySize(); n++)
+   //    {
+   //       CGeom2DPoint const* pPtTmp = pPolygon->pPtGetBoundaryPoint(n);
+   //       CGeom2DIPoint PtiTmp = PtiExtCRSToGridRound(pPtTmp);
+   //
+   //       LogStream << "[" << PtiTmp.nGetX() << "][" << PtiTmp.nGetY() << "] = {" << pPtTmp->dGetX() << ", " << pPtTmp->dGetY() << "}" << endl;
+   //    }
+   //    LogStream << endl;
+   //
+   //    int const nUpCoastProfile = pPolygon->nGetUpCoastProfile();
+   //    int const nDownCoastProfile = pPolygon->nGetDownCoastProfile();
+   //    LogStream << "up-coast profile = " << nUpCoastProfile << " down-coast profile = " << nDownCoastProfile << endl;
+   //
+   //    CGeomProfile* pUpCoastProfile = m_VCoast[nCoast].pGetProfile(nUpCoastProfile);
+   //    CGeomProfile* pDownCoastProfile = m_VCoast[nCoast].pGetProfile(nDownCoastProfile);
+   //
+   //    int const nPointsInUpCoastProfile = pPolygon->nGetNumPointsUsedUpCoastProfile();
+   //    LogStream << "from polygon, N points in up-coast profile = " << nPointsInUpCoastProfile << endl;
+   //    int const nUpCoastProfileSize = pUpCoastProfile->nGetSize();
+   //    LogStream << "from profile, N points in up-coast profile (" << nUpCoastProfile << ") = " << nUpCoastProfileSize << endl;
+   //
+   //    LogStream << "points in up-coast profile: ";
+   //    for (int nPoint = 0; nPoint < nUpCoastProfileSize; nPoint++)
+   //       LogStream << "{" << pUpCoastProfile->pPtGetPointInProfile(nPoint)->dGetX() << ", " << pUpCoastProfile->pPtGetPointInProfile(nPoint)->dGetY() << "} ";
+   //    LogStream << endl;
+   //
+   //    int const nPointsInDownCoastProfile = pPolygon->nGetNumPointsUsedDownCoastProfile();
+   //    LogStream << "from polygon, N points in down-coast profile = " << nPointsInDownCoastProfile << endl;
+   //    int const nDownCoastProfileSize = pDownCoastProfile->nGetSize();
+   //    LogStream << "from profile, N points in down-coast profile (" << nDownCoastProfile << ") = " << nDownCoastProfileSize << endl;
+   //
+   //    LogStream << "points in down-coast profile: ";
+   //    for (int nPoint = 0; nPoint < nDownCoastProfileSize; nPoint++)
+   //       LogStream << "{" << pDownCoastProfile->pPtGetPointInProfile(nPoint)->dGetX() << ", " << pDownCoastProfile->pPtGetPointInProfile(nPoint)->dGetY() << "} ";
+   //    LogStream << endl << endl;
+   //
+   //    int const nUpCoastProfileLineSeg = pUpCoastProfile->nGetNumLineSegments();
+   //    int const nDownCoastProfileLineSeg = pDownCoastProfile->nGetNumLineSegments();
+   //
+   //    LogStream << "up-coast profile = " << pUpCoastProfile->nGetProfileID() << " has " << nUpCoastProfileLineSeg << " line segments" << endl;
+   //    for (int m = 0; m < nUpCoastProfileLineSeg; m++)
+   //    {
+   //       vector<pair<int, int> > prVCoincidentProfiles = *pUpCoastProfile->pprVGetCoincidentPairsForLineSegment(m);
+   //       LogStream << "co-incident profiles and line segments for line segment " << m << " of profile " << pUpCoastProfile->nGetProfileID() << " are ";
+   //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
+   //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
+   //       LogStream << " " << endl;
+   //    }
+   //
+   //    LogStream << "down-coast profile = " << pDownCoastProfile->nGetProfileID() << " has " << nDownCoastProfileLineSeg << " line segments" << endl;
+   //    for (int m = 0; m < nDownCoastProfileLineSeg; m++)
+   //    {
+   //       vector<pair<int, int> > prVCoincidentProfiles = *pDownCoastProfile->pprVGetCoincidentPairsForLineSegment(m);
+   //       LogStream << "co-incident profiles and line segments for line segment " << m << " of profile " << pDownCoastProfile->nGetProfileID() << " are ";
+   //       for (int nn = 0; nn < static_cast<int>(prVCoincidentProfiles.size()); nn++)
+   //          LogStream << "{" << prVCoincidentProfiles[nn].first << ", " << prVCoincidentProfiles[nn].second << "} ";
+   //       LogStream << " " << endl;
+   //    }
+   //
+   //    LogStream << "################################################" << endl;
+   //
+   //    string const strExtra = "_" + to_string(m_nExtra);
+   //
+   //    if (m_nExtra == 1)
+   //    {
+   //       bWriteVectorGISFile(VECTOR_PLOT_NORMALS, &VECTOR_PLOT_NORMALS_TITLE, strExtra);
+   //       bWriteVectorGISFile(VECTOR_PLOT_INVALID_NORMALS, &VECTOR_PLOT_INVALID_NORMALS_TITLE, strExtra);
+   //    }
+   //    bWriteVectorGISFile(VECTOR_PLOT_POLYGON_BOUNDARY, &VECTOR_PLOT_POLYGON_BOUNDARY_TITLE, strExtra);
+   // }
 }
 #endif

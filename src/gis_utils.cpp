@@ -2017,30 +2017,69 @@ bool CSimulation::bIsAdjacentEdgeCell(CGeom2DIPoint const* pPt1, CGeom2DIPoint c
 }
 
 //===============================================================================================================================
-//! Determines whether a point (grid CRS) is within the polygon (but is not on a polygon edge), using semi-infinite ray edge counting. Modified from code at https://wrfranklin.org/Research/Short_Notes/pnpoly.html
+//! Determines whether a point (grid CRS) is within the polygon (but is not on a polygon edge). From https://stackoverflow.com/questions/16422101/points-inside-polygon-excluding-boundaries
+// Retrieved 2026-05-21, License - CC BY-SA 4.0//
 //===============================================================================================================================
 bool CSimulation::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart, vector<CGeom2DIPoint> const* pVPtiPoints)
 {
-   int const nPoints = static_cast<int>(pVPtiPoints->size());
-   int c = 0;
+   // nResult is 0 if the point not within the polygon, +1 if the point is with the polygon, or -1 if the point is on the polygon boundary
+   int nResult = 0;
+   size_t nSize = pVPtiPoints->size();
 
-   for (int i = 0, j = nPoints - 1; i < nPoints; j = i++)
+   if (nSize < 3)
+      return false;
+
+   CGeom2DIPoint ip = pVPtiPoints->at(0);
+   for (size_t i = 1; i <= nSize; ++i)
    {
-      int const nYpi = pVPtiPoints->at(i).nGetY();
-      int const nY = pPtiStart->nGetY();
-      int const nYpj = pVPtiPoints->at(j).nGetY();
-      int const nX = pPtiStart->nGetX();
-      int const nXpj = pVPtiPoints->at(j).nGetX();
-      int const nXpi = pVPtiPoints->at(i).nGetX();
+      CGeom2DIPoint ipNext = (i == nSize ? pVPtiPoints->at(0) : pVPtiPoints->at(i));
 
-      // Check if the point's y-coordinate is within the edge's y-range, then check if the point is to the left of the intersection of the ray and edge
-      if ((((nYpi <= nY) && (nY < nYpj)) ||
-           ((nYpj <= nY) && (nY < nYpi))) &&
-            (nX < (nXpj - nXpi) * (nY - nYpi) / (nYpj - nYpi) + nXpi) &&
-            (m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID() == INT_NODATA))
+      if (ipNext.nGetY() == pPtiStart->nGetY())
       {
-         c = ! c;
+         if ((ipNext.nGetX() == pPtiStart->nGetX()) || (ip.nGetY() == pPtiStart->nGetY() && ((ipNext.nGetX() > pPtiStart->nGetX()) == (ip.nGetX() < pPtiStart->nGetX()))))
+            // On boundary
+            return false;
       }
+
+      if ((ip.nGetY() < pPtiStart->nGetY()) != (ipNext.nGetY() < pPtiStart->nGetY()))
+      {
+         if (ip.nGetX() >= pPtiStart->nGetX())
+         {
+            if (ipNext.nGetX() > pPtiStart->nGetX())
+               nResult = 1 - nResult;
+            else
+            {
+               int d = (ip.nGetX() - pPtiStart->nGetX()) * (ipNext.nGetY() - pPtiStart->nGetY()) - (ipNext.nGetX() - pPtiStart->nGetX()) * (ip.nGetY() - pPtiStart->nGetY());
+
+               if (! d)
+                  // On boundary
+                  return false;
+
+               if ((d > 0) == (ipNext.nGetY() > ip.nGetY()))
+                  nResult = 1 - nResult;
+            }
+         }
+         else
+         {
+            if (ipNext.nGetX() > pPtiStart->nGetX())
+            {
+               int d = (ip.nGetX() - pPtiStart->nGetX()) * (ipNext.nGetY() - pPtiStart->nGetY()) - (ipNext.nGetX() - pPtiStart->nGetX()) * (ip.nGetY() - pPtiStart->nGetY());
+
+               if (! d)
+                  // On boundary
+                  return false;
+
+               if ((d > 0) == (ipNext.nGetY() > ip.nGetY()))
+                  nResult = 1 - nResult;
+            }
+         }
+      }
+      ip = ipNext;
    }
-   return c;
+
+   if (nResult == 1)
+      return true;
+
+   return false;
 }
+
