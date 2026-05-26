@@ -59,6 +59,10 @@ int CSimulation::nAssignLandformsForAllCells(void)
          int const nCat = pLandform->nGetLandformCategory();
 
          // OK, use these rules to set landform categories
+         if (nCat == LF_CLIFF)
+            // Don't change
+            continue;
+
          if (nCat == LF_INTERVENTION_STRUCT)
             // Already set to intervention, so don't change
             continue;
@@ -292,6 +296,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
             {
                // OK we are considering cliff collapse, and we have consolidated sediment at SWL, so this is a cliff cell. Get the existing landform category for this cell
                nCat = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLandformCategory();
+
                if (nCat == LF_CLIFF)
                {
                   // This cell was a cliff in some previous timestep. Is the pre-existing notch still below the top of the consolidated sediment?
@@ -307,7 +312,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                      m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_CLIFF);
 
                      // Create a cliff object on the vector coastline with these attributes
-                     CACoastLandform* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
+                     CRWCliff* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
                      m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
                      if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
@@ -326,7 +331,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                      m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetCliffNotchIncisionDepth(dNotchIncision);
 
                      // Create a cliff object on the vector coastline with these attributes
-                     CACoastLandform* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
+                     CRWCliff* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
                      m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
                      double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
@@ -353,20 +358,20 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                   {
                      // Yes it would, so this new cliff object has a notch
                      dNotchIncision = 0;
-                     dNotchApexElev = m_dThisIterNewNotchApexElev - SED_ELEV_TOLERANCE;
+                     dNotchApexElev = m_dThisIterNewNotchApexElev;
                   }
 
                   // Create a cliff object on the vector coastline with these attributes
-                  CACoastLandform* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
+                  CRWCliff* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
                   m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
-                  // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-                  // {
-                  //    if (bFPIsEqual(dNotchIncision, 0.0, TOLERANCE))
-                  //       LogStream << m_ulIter << ":\t coastline cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << endl;
-                  //    else
-                  //       LogStream << m_ulIter << ":\t coastline no-notch cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << endl;
-                  // }
+                  if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                  {
+                     if (bFPIsEqual(dNotchIncision, 0.0, TOLERANCE))
+                        LogStream << m_ulIter << ":\t coastline cliff with notch created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " total notch incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+                     else
+                        LogStream << m_ulIter << ":\t coastline no-notch cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " m_dThisIterNewNotchApexElev = " << m_dThisIterNewNotchApexElev << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " total notch incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+                  }
                }
             }
             else
@@ -375,7 +380,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                double const dAccumWaveEnergy = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetAccumWaveEnergy();
 
                // Create a cliff object on the vector coastline
-               CACoastLandform* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, DBL_NODATA, DBL_NODATA, dAccumWaveEnergy);
+               CRWCliff* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, DBL_NODATA, DBL_NODATA, dAccumWaveEnergy);
                m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
                if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)

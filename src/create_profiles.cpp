@@ -557,7 +557,7 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
 
    // assert(pProfile->nGetProfileSize() > 0);
 
-   LogStream << m_ulIter << ":\t  coast " << nCoast << " profile " << nProfile << " created at coast point " << nProfileStartPoint << " from [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << PtStart.dGetX() << ", " << PtStart.dGetY() << "} to [" << PtiEnd.nGetX() << "][" << PtiEnd.nGetY() << "] = {" << PtEnd.dGetX() << ", " << PtEnd.dGetY() << "}" << (pProfile->bIsIntervention() ? ", from intervention" : "") << endl;
+   // LogStream << m_ulIter << ":\t  coast " << nCoast << " profile " << nProfile << " created at coast point " << nProfileStartPoint << " from [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << PtStart.dGetX() << ", " << PtStart.dGetY() << "} to [" << PtiEnd.nGetX() << "][" << PtiEnd.nGetY() << "] = {" << PtEnd.dGetX() << ", " << PtEnd.dGetY() << "}" << (pProfile->bIsIntervention() ? ", from intervention" : "") << endl;
 
    return RTN_OK;
 }

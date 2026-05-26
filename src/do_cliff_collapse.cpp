@@ -518,7 +518,6 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
       // SWL is above the cutoff, so we have some incision of this existing notch
       double dWeight;
       if (dWaveElev > dNotchApexElev)
-         // Should not happen: safety check
          dWeight = 1;
       else
          // Assume a linear decrease in incision with distance downwards from notch apex
@@ -531,9 +530,9 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
       pCliff->IncreaseNotchIncision(dNotchIncision);
 
       // And add to the cell's accumulated wave energy
-      m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->AddToAccumWaveEnergy(dWaveEnergy* dWeight);
+      m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->AddToAccumWaveEnergy(dWaveEnergy * dWeight);
 
-      // LogStream << m_ulIter << ":\t incision of existing notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dNotchIncision = " << dNotchIncision << endl;
+      LogStream << m_ulIter << ":\t incision of existing notch at [" << nX << "][" << nY << "] accumulated wave energy = " << m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetAccumWaveEnergy() << " dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " increase in notch incision = " << dNotchIncision << " total notch incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
 
       return true;
    }
@@ -675,7 +674,7 @@ bool CSimulation::bCreateNotchInland(int const nCoast, int const nCoastPoint, /*
          // And add to the cell's accumulated wave energy
          m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform()->AddToAccumWaveEnergy(dWaveEnergy * dWeight);
 
-         LogStream << m_ulIter << ":\t inland cliff created (or re-created) at [" << nXTmp << "][" << nYTmp << "] dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetAllSedTopElevIncTalus() << " dNotchIncision = " << dNotchIncision << " dNotchApexElev = " << dNotchApexElev << endl;
+         LogStream << m_ulIter << ":\t inland cliff created (or re-created) at [" << nXTmp << "][" << nYTmp << "] dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetAllSedTopElevIncTalus() << " increase in notch incision = " << dNotchIncision << " total notch incision = " << m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetLandform()->dGetCliffNotchIncisionDepth() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
 
          bFound = true;
       }
