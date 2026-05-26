@@ -211,9 +211,9 @@ int CSimulation::nCreateAllPolygons(void)
             if (! bMeetsAtAPoint)
                pPolygon->AppendVertex(pNextProfile->pPtiGetEndPoint());
 
-#ifdef _DEBUG
-            DEBUG_PrintPolygonDetails(nCoast, pPolygon);
-#endif
+// #ifdef _DEBUG
+//             DEBUG_PrintPolygonDetails(nCoast, pPolygon);
+// #endif
 
             // Now rasterize the polygon boundaries: first, the coastline. This is necessary so that sand/coarse sediment derived from platform erosion of the coast cells is correctly added to the containing polygon's unconsolidated sediment
             for (int i = nCoastPoint; i <= nNextProfileCoastPoint; i++)
@@ -380,8 +380,8 @@ int CSimulation::nMarkPolygonCells(void)
 
          PtiStack.push(PtiStart);
 
-         if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-            LogStream << m_ulIter << ": filling polygon " << nPoly << " from [" << PtiStart.nGetX() << "][" << PtiStart.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiStart.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiStart.nGetY()) << "}" << endl;
+         // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+         //    LogStream << m_ulIter << ":\t filling polygon " << nPoly << " from [" << PtiStart.nGetX() << "][" << PtiStart.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiStart.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiStart.nGetY()) << "}" << endl;
 
          // Then do the cell-by-cell fill: loop until there are no more cell coordinates on the stack
          while (! PtiStack.empty())
@@ -469,8 +469,8 @@ int CSimulation::nMarkPolygonCells(void)
             }
          }
 
-         if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-            LogStream << m_ulIter << ": \t polygon " << nPoly << " has " << nCellsInPolygon << " cells" << endl;
+         // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+         //    LogStream << m_ulIter << ":\t polygon " << nPoly << " has " << nCellsInPolygon << " cells" << endl;
 
          // Store this polygon's stored unconsolidated sediment depths
          pPolygon->SetPreExistingUnconsFine(dStoredUnconsFine);
@@ -497,12 +497,12 @@ int CSimulation::nMarkPolygonCells(void)
       }
 
 #ifdef _DEBUG
-      if (m_ulIter == 453)
-      {
-         m_nExtra++;
-         string const strExtra = "_" + to_string(m_nExtra);
-         bWriteRasterGISFile(RASTER_PLOT_POLYGON, &RASTER_PLOT_POLYGON_TITLE, 0, 0, strExtra);
-      }
+      // if (m_ulIter == 453)
+      // {
+      //    m_nExtra++;
+      //    string const strExtra = "_" + to_string(m_nExtra);
+      //    bWriteRasterGISFile(RASTER_PLOT_POLYGON, &RASTER_PLOT_POLYGON_TITLE, 0, 0, strExtra);
+      // }
 #endif
 
    }
@@ -894,12 +894,12 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
    return RTN_OK;
 }
 
-#ifdef _DEBUG
-//===============================================================================================================================
-//! DEBUG ONLY: print polygon details to logfile
-//===============================================================================================================================
-void CSimulation::DEBUG_PrintPolygonDetails(int const nCoast, CGeomCoastPolygon* pPolygon)
-{
+// #ifdef _DEBUG
+// //===============================================================================================================================
+// //! DEBUG ONLY: print polygon details to logfile
+// //===============================================================================================================================
+// void CSimulation::DEBUG_PrintPolygonDetails(int const nCoast, CGeomCoastPolygon* pPolygon)
+// {
    // if (m_ulIter == 117)
    // {
    //    m_nExtra++;
@@ -1003,5 +1003,5 @@ void CSimulation::DEBUG_PrintPolygonDetails(int const nCoast, CGeomCoastPolygon*
    //    }
    //    bWriteVectorGISFile(VECTOR_PLOT_POLYGON_BOUNDARY, &VECTOR_PLOT_POLYGON_BOUNDARY_TITLE, strExtra);
    // }
-}
-#endif
+// }
+// #endif

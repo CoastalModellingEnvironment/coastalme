@@ -88,6 +88,9 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
             // OK, we've had some incision. So is the notch now extended enough to cause collapse (either because the overhang is greater than the threshold overhang, or because there is no sediment remaining)?
             if (pCliff->bReadyToCollapse(m_dNotchIncisionAtCollapse))
             {
+               if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                  LogStream << m_ulIter << ":\t ready to collapse, notch incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+
                // // DEBUG CODE ============================================================================================================================================
                // // Get total depths of sand consolidated and unconsolidated for every cell
                // if (m_ulIter == 5)
@@ -129,8 +132,8 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
                nRet = nDoCliffCollapse(nCoast, pCliff, dFineCollapse, dSandCollapse, dCoarseCollapse, nNotchLayer, dCliffElevPreCollapse, dCliffElevPostCollapse);
                if (nRet != RTN_OK)
                {
-                  // if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-                  //    LogStream << m_ulIter << ":\t" << WARN << "problem with cliff collapse, continuing however" << endl;
+                  if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
+                     LogStream << m_ulIter << ":\t" << WARN << "problem with cliff collapse, continuing however" << endl;
                }
 
                // Deposit all sand and/or coarse sediment derived from this cliff collapse as talus, on the cell on which collapse occurred
@@ -346,16 +349,13 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    double const dNotchLayerThickness = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nNotchLayer)->dGetTotalThickness();
    double const dNotchLayerFracRemoved = (dNotchLayerTop - dNotchElev) / dNotchLayerThickness;
 
-
-   // DEBUG CODE =======================================================
+   // Safety check
    double dTmp = dNotchElev + dFineConsLost + dFineUnconsLost + dSandConsLost + dSandUnconsLost + dCoarseConsLost + dCoarseUnconsLost;
-
    if (dTmp > m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus())
       LogStream << m_ulIter << ":\t TOO MUCH SEDIMENT AT CLIFF COLLAPSE sediment depth = " << dTmp << " sediment top elevation inc talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << endl;
 
    if (dTmp > m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus())
       LogStream << m_ulIter << ":\t TOO MUCH SEDIMENT AT CLIFF COLLAPSE sediment depth = " << dTmp << " sediment top elevation noy inc talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << endl;
-   // DEBUG CODE =======================================================
 
    // Sort out the notched layer's sediment, both consolidated and unconsolidated, for this cell. First the unconsolidated sediment
    double dFineDepth = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nNotchLayer)->pGetUnconsolidatedSediment()->dGetFineDepth();
@@ -446,7 +446,7 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    // Get the post-collapse cell elevation (talus will be deposited above this)
    dPostCollapseCellElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus();
 
-   if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
+   if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
       LogStream << m_ulIter << ":\t coast " << nCoast << " cliff collapse at [" << nX << "][" << nY << "]" << ((dSandCollapse > 0) || (dCoarseCollapse > 0) ? ", before talus deposition:" : "") << " original cell elevation = " << dPreCollapseCellElev << ", new cell elevation = " << dPostCollapseCellElevNoTalus << ", change in elevation = " << dPreCollapseCellElev - dPostCollapseCellElevNoTalus << endl;
 
    // Update this-polygon totals: add to the depths of cliff collapse erosion for this polygon

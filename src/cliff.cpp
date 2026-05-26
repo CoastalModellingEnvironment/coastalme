@@ -104,8 +104,8 @@ bool CRWCliff::bReadyToCollapse(double const dThresholdNotchIncision) const
 
    if (m_dNotchIncision > dThresholdNotchIncision)
       return true;
-   else
-      return false;
+
+   return false;
 }
 
 //! Instantiates the pure virtual function in the abstract parent class, so that CRWCliff is not an abstract class

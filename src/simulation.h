@@ -1930,10 +1930,10 @@ class CSimulation
    void WritePolygonActualMovement(vector<vector<vector<int>>>&);
    void DoEndOfRunDeletes(void);
 
-#ifdef _DEBUG
-   void DEBUG_PrintProfileDetails(CGeomProfile*, CGeomProfile*);
-   void DEBUG_PrintPolygonDetails(int const, CGeomCoastPolygon*);
-#endif
+// #ifdef _DEBUG
+//    void DEBUG_PrintProfileDetails(CGeomProfile*, CGeomProfile*);
+//    void DEBUG_PrintPolygonDetails(int const, CGeomCoastPolygon*);
+// #endif
 
  protected:
  public:
