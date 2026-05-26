@@ -153,61 +153,61 @@ int CSimulation::nAssignLandformsForAllCells(void)
 
          switch (nAction)
          {
-         case LF_UNKNOWN:
-            // Set to unknown landform
-            pLandform->SetLandformCategory(LF_UNKNOWN);
-            break;
+            case LF_UNKNOWN:
+               // Set to unknown landform
+               pLandform->SetLandformCategory(LF_UNKNOWN);
+               break;
 
-         case LF_HINTERLAND:
-            // Set to hinterland
-            pLandform->SetLandformCategory(LF_HINTERLAND);
-            break;
+            case LF_HINTERLAND:
+               // Set to hinterland
+               pLandform->SetLandformCategory(LF_HINTERLAND);
+               break;
 
-         case LF_CLIFF:
-            // Set to cliff
-            pLandform->SetLandformCategory(LF_CLIFF);
-            break;
+            case LF_CLIFF:
+               // Set to cliff
+               pLandform->SetLandformCategory(LF_CLIFF);
+               break;
 
-         case LF_DRIFT_TALUS:
-            // Set to talus
-            pLandform->SetLandformCategory(LF_DRIFT_TALUS);
-            break;
+            case LF_DRIFT_TALUS:
+               // Set to talus
+               pLandform->SetLandformCategory(LF_DRIFT_TALUS);
+               break;
 
-         case LF_DRIFT_BEACH:
-            // Set to beach
-            pLandform->SetLandformCategory(LF_DRIFT_BEACH);
-            break;
+            case LF_DRIFT_BEACH:
+               // Set to beach
+               pLandform->SetLandformCategory(LF_DRIFT_BEACH);
+               break;
 
-         case LF_DRIFT_DUNES:
-            // TODO not yet implemented
-            // Set to dunes
-            pLandform->SetLandformCategory(LF_DRIFT_DUNES);
-            break;
+            case LF_DRIFT_DUNES:
+               // TODO not yet implemented
+               // Set to dunes
+               pLandform->SetLandformCategory(LF_DRIFT_DUNES);
+               break;
 
-         case LF_INTERVENTION_STRUCT:
-            // Set to structural intervention
-            pLandform->SetLandformCategory(LF_INTERVENTION_STRUCT);
-            break;
+            case LF_INTERVENTION_STRUCT:
+               // Set to structural intervention
+               pLandform->SetLandformCategory(LF_INTERVENTION_STRUCT);
+               break;
 
-         case LF_INTERVENTION_NON_STRUCT:
-            // Set to non-structural intervention
-            pLandform->SetLandformCategory(LF_INTERVENTION_NON_STRUCT);
-            break;
+            case LF_INTERVENTION_NON_STRUCT:
+               // Set to non-structural intervention
+               pLandform->SetLandformCategory(LF_INTERVENTION_NON_STRUCT);
+               break;
 
-         case LF_ISLAND:
-            // Set to island
-            pLandform->SetLandformCategory(LF_ISLAND);
-            break;
+            case LF_ISLAND:
+               // Set to island
+               pLandform->SetLandformCategory(LF_ISLAND);
+               break;
 
-         case LF_SEDIMENT_INPUT_UNCONSOLIDATED:
-            // Set to unconsolidated sediment input
-            pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
-            break;
+            case LF_SEDIMENT_INPUT_UNCONSOLIDATED:
+               // Set to unconsolidated sediment input
+               pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_UNCONSOLIDATED);
+               break;
 
-         case LF_SEDIMENT_INPUT_CONSOLIDATED:
-            // Set to consolidated sediment input
-            pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_CONSOLIDATED);
-            break;
+            case LF_SEDIMENT_INPUT_CONSOLIDATED:
+               // Set to consolidated sediment input
+               pLandform->SetLandformCategory(LF_SEDIMENT_INPUT_CONSOLIDATED);
+               break;
          }
       }
    }

@@ -803,141 +803,141 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
 
                switch (nSearchDirection)
                {
-               case NORTH:
-                  nXAdj = nX;
-                  nYAdj = nY - 1;
+                  case NORTH:
+                     nXAdj = nX;
+                     nYAdj = nY - 1;
 
-                  if (bIsWithinValidGrid(nXAdj, nYAdj))
-                  {
-                     dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                     if (dAdjElev < dThisTalusTopElev)
+                     if (bIsWithinValidGrid(nXAdj, nYAdj))
                      {
-                        VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                        VdAdjElevDiff.push_back(dAdjElev);
-                        dTotElevDiff += dAdjElev;
+                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                        if (dAdjElev < dThisTalusTopElev)
+                        {
+                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                           VdAdjElevDiff.push_back(dAdjElev);
+                           dTotElevDiff += dAdjElev;
+                        }
                      }
-                  }
 
-                  break;
+                     break;
 
-               case NORTH_EAST:
-                  nXAdj = nX + 1;
-                  nYAdj = nY - 1;
+                  case NORTH_EAST:
+                     nXAdj = nX + 1;
+                     nYAdj = nY - 1;
 
-                  if (bIsWithinValidGrid(nXAdj, nYAdj))
-                  {
-                     dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                     if (dAdjElev < dThisTalusTopElev)
+                     if (bIsWithinValidGrid(nXAdj, nYAdj))
                      {
-                        VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                        VdAdjElevDiff.push_back(dAdjElev);
-                        dTotElevDiff += dAdjElev;
+                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                        if (dAdjElev < dThisTalusTopElev)
+                        {
+                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                           VdAdjElevDiff.push_back(dAdjElev);
+                           dTotElevDiff += dAdjElev;
+                        }
                      }
-                  }
 
-                  break;
+                     break;
 
-               case EAST:
-                  nXAdj = nX + 1;
-                  nYAdj = nY;
+                  case EAST:
+                     nXAdj = nX + 1;
+                     nYAdj = nY;
 
-                  if (bIsWithinValidGrid(nXAdj, nYAdj))
-                  {
-                     dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                     if (dAdjElev < dThisTalusTopElev)
+                     if (bIsWithinValidGrid(nXAdj, nYAdj))
                      {
-                        VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                        VdAdjElevDiff.push_back(dAdjElev);
-                        dTotElevDiff += dAdjElev;
+                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                        if (dAdjElev < dThisTalusTopElev)
+                        {
+                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                           VdAdjElevDiff.push_back(dAdjElev);
+                           dTotElevDiff += dAdjElev;
+                        }
                      }
-                  }
 
-                  break;
+                     break;
 
-               case SOUTH_EAST:
-                  nXAdj = nX + 1;
-                  nYAdj = nY + 1;
+                  case SOUTH_EAST:
+                     nXAdj = nX + 1;
+                     nYAdj = nY + 1;
 
-                  if (bIsWithinValidGrid(nXAdj, nYAdj))
-                  {
-                     dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                     if (dAdjElev < dThisTalusTopElev)
+                     if (bIsWithinValidGrid(nXAdj, nYAdj))
                      {
-                        VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                        VdAdjElevDiff.push_back(dAdjElev);
-                        dTotElevDiff += dAdjElev;
+                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                        if (dAdjElev < dThisTalusTopElev)
+                        {
+                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                           VdAdjElevDiff.push_back(dAdjElev);
+                           dTotElevDiff += dAdjElev;
+                        }
                      }
-                  }
 
-                  break;
+                     break;
 
-               case SOUTH:
-                  nXAdj = nX;
-                  nYAdj = nY + 1;
+                  case SOUTH:
+                     nXAdj = nX;
+                     nYAdj = nY + 1;
 
-                  if (bIsWithinValidGrid(nXAdj, nYAdj))
-                  {
-                     dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                     if (dAdjElev < dThisTalusTopElev)
+                     if (bIsWithinValidGrid(nXAdj, nYAdj))
                      {
-                        VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                        VdAdjElevDiff.push_back(dAdjElev);
-                        dTotElevDiff += dAdjElev;
+                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                        if (dAdjElev < dThisTalusTopElev)
+                        {
+                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                           VdAdjElevDiff.push_back(dAdjElev);
+                           dTotElevDiff += dAdjElev;
+                        }
                      }
-                  }
 
-                  break;
+                     break;
 
-               case SOUTH_WEST:
-                  nXAdj = nX - 1;
-                  nYAdj = nY + 1;
+                  case SOUTH_WEST:
+                     nXAdj = nX - 1;
+                     nYAdj = nY + 1;
 
-                  if (bIsWithinValidGrid(nXAdj, nYAdj))
-                  {
-                     dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                     if (dAdjElev < dThisTalusTopElev)
+                     if (bIsWithinValidGrid(nXAdj, nYAdj))
                      {
-                        VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                        VdAdjElevDiff.push_back(dAdjElev);
-                        dTotElevDiff += dAdjElev;
+                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                        if (dAdjElev < dThisTalusTopElev)
+                        {
+                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                           VdAdjElevDiff.push_back(dAdjElev);
+                           dTotElevDiff += dAdjElev;
+                        }
                      }
-                  }
 
-                  break;
+                     break;
 
-               case WEST:
-                  nXAdj = nX - 1;
-                  nYAdj = nY;
+                  case WEST:
+                     nXAdj = nX - 1;
+                     nYAdj = nY;
 
-                  if (bIsWithinValidGrid(nXAdj, nYAdj))
-                  {
-                     dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                     if (dAdjElev < dThisTalusTopElev)
+                     if (bIsWithinValidGrid(nXAdj, nYAdj))
                      {
-                        VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                        VdAdjElevDiff.push_back(dAdjElev);
-                        dTotElevDiff += dAdjElev;
+                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                        if (dAdjElev < dThisTalusTopElev)
+                        {
+                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                           VdAdjElevDiff.push_back(dAdjElev);
+                           dTotElevDiff += dAdjElev;
+                        }
                      }
-                  }
 
-                  break;
+                     break;
 
-               case NORTH_WEST:
-                  nXAdj = nX - 1;
-                  nYAdj = nY - 1;
+                  case NORTH_WEST:
+                     nXAdj = nX - 1;
+                     nYAdj = nY - 1;
 
-                  if (bIsWithinValidGrid(nXAdj, nYAdj))
-                  {
-                     dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                     if (dAdjElev < dThisTalusTopElev)
+                     if (bIsWithinValidGrid(nXAdj, nYAdj))
                      {
-                        VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                        VdAdjElevDiff.push_back(dAdjElev);
-                        dTotElevDiff += dAdjElev;
+                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                        if (dAdjElev < dThisTalusTopElev)
+                        {
+                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                           VdAdjElevDiff.push_back(dAdjElev);
+                           dTotElevDiff += dAdjElev;
+                        }
                      }
-                  }
 
-                  break;
+                     break;
                }
             }
 

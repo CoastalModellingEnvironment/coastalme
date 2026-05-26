@@ -1056,29 +1056,29 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
 
          switch (nRet)
          {
-         case -1:
-            strErr = "CShore WARNING 1 negative depth at the first node";
-            break;
+            case -1:
+               strErr = "CShore WARNING 1 negative depth at the first node";
+               break;
 
-         case 2:
-            strErr = "CShore WARNING 2 negative value at end of landward marching computation";
-            break;
+            case 2:
+               strErr = "CShore WARNING 2 negative value at end of landward marching computation";
+               break;
 
-         case 3:
-            strErr = "CShore WARNING 3 large energy gradients at the first node: small waves with short period at sea boundary";
-            break;
+            case 3:
+               strErr = "CShore WARNING 3 large energy gradients at the first node: small waves with short period at sea boundary";
+               break;
 
-         case 4:
-            strErr = "CShore WARNING 4 zero energy at the first node";
-            break;
+            case 4:
+               strErr = "CShore WARNING 4 zero energy at the first node";
+               break;
 
-         case 5:
-            strErr = "CShore WARNING 5 at end of landward marching computation, insufficient water depth";
-            break;
+            case 5:
+               strErr = "CShore WARNING 5 at end of landward marching computation, insufficient water depth";
+               break;
 
-         case 7:
-            strErr = "CShore WARNING 7 did not reach convergence";
-            break;
+            case 7:
+               strErr = "CShore WARNING 7 did not reach convergence";
+               break;
          }
 
          strErr += " on coast " + to_string(nCoast) + " profile " + to_string(pProfile->nGetProfileID()) + " profile length " + to_string(nOutSize);
@@ -1231,29 +1231,29 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
 
          switch (nRet)
          {
-         case -1:
-            strErr += "CShore WARNING 1 negative depth at the first node";
-            break;
+            case -1:
+               strErr += "CShore WARNING 1 negative depth at the first node";
+               break;
 
-         case 2:
-            strErr += "CShore WARNING 2 negative value at end of landward marching computation";
-            break;
+            case 2:
+               strErr += "CShore WARNING 2 negative value at end of landward marching computation";
+               break;
 
-         case 3:
-            strErr += "CShore WARNING 3 large energy gradients at the first node: small waves with short period at sea boundary";
-            break;
+            case 3:
+               strErr += "CShore WARNING 3 large energy gradients at the first node: small waves with short period at sea boundary";
+               break;
 
-         case 4:
-            strErr += "CShore WARNING 4 zero energy at the first node";
-            break;
+            case 4:
+               strErr += "CShore WARNING 4 zero energy at the first node";
+               break;
 
-         case 5:
-            strErr += "CShore WARNING 5 at end of landward marching computation, insufficient water depth";
-            break;
+            case 5:
+               strErr += "CShore WARNING 5 at end of landward marching computation, insufficient water depth";
+               break;
 
-         case 7:
-            strErr += "CShore WARNING 7 did not reach convergence";
-            break;
+            case 7:
+               strErr += "CShore WARNING 7 did not reach convergence";
+               break;
          }
 
          strErr += " on coast " + to_string(nCoast) + " profile " + to_string(pProfile->nGetProfileID()) + " profile length " + to_string(nOutSize);
