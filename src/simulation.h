@@ -1688,7 +1688,7 @@ class CSimulation
    int nDoAllWaveEnergyToCoastLandforms(void);
    int nDoCliffCollapse(int const, CRWCliff *, double&, double&, double&, int&, double&, double&);
    void DoCliffCollapseTalusDeposition(/*int const,*/ CRWCliff const*, double const, double const, int const);
-   int nMoveCliffTalusToUnconsolidated(void);
+   int nMoveCliffTalusToUnconsolidatedOrSuspension(void);
    double dCalcSlopeForUnconsSlumping(int const, int const, int const, int const) const;
    int nEndOfTimestepUpdateGrid(void);
 

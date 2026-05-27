@@ -2116,7 +2116,7 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
       }
    }
 
-   // CPLPopErrorHandler();
+   CPLPopErrorHandler();
 
    // Get rid of the dataset object
    GDALClose(pGDALDataSet);

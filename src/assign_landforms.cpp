@@ -299,8 +299,29 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
 
                if (nCat == LF_CLIFF)
                {
-                  // This cell was a cliff in some previous timestep. Is the pre-existing notch still below the top of the consolidated sediment?
                   double dNotchApexElev = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetCliffNotchApexElev();
+
+                  // DFM TEST
+                  if (bFPIsEqual(dNotchApexElev, DBL_NODATA, TOLERANCE))
+                  {
+                     // This was a no-notch cliff, so get the pre-existing data stored in the cell
+                     double const dAccumWaveEnergy = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetAccumWaveEnergy();
+                     double const dNotchIncision = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetCliffNotchIncisionDepth();
+
+                     // Set this as a cliff cell on the coastline
+                     m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_CLIFF);
+
+                     // Create a cliff object on the vector coastline with these attributes
+                     CRWCliff* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
+                     m_VCoast[nCoast].AppendCoastLandform(pCliff);
+
+                     if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                        LogStream << m_ulIter << ":\t continues to be a no-notch cliff at [" << nX << "][" << nY << "]" << endl;
+
+                     continue;
+                  }
+
+                  // This cell was a cliff in some previous timestep. Is the pre-existing notch still below the top of the consolidated sediment?
                   double const dSedTopElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevOmitTalus();
                   if (dNotchApexElev < dSedTopElevNoTalus)
                   {
@@ -323,6 +344,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                      // This was a cliff in the previous timestep, but the notch is no longer below the top of the consolidated sediment. Create a cliff object on the vector coastline without a notch
                      double const dAccumWaveEnergy = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetAccumWaveEnergy();
                      double const dNotchIncision = DBL_NODATA;
+                     double dOldNotchApexElev = dNotchApexElev;
                      dNotchApexElev = DBL_NODATA;
 
                      // This is a cliff cell on the coastline without a notch
@@ -337,7 +359,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                      double const dSedTopElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
 
                      if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-                        LogStream << m_ulIter << ":\t PROBLEM cliff with notch above sediment top (inc any talus) at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << " dNotchIncision = " << dNotchIncision << endl;
+                        LogStream << m_ulIter << ":\t cliff has notch removed (was " << dOldNotchApexElev << " so above sediment top, inc any talus) at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << dSedTopElevIncTalus << " dNotchIncision = " << dNotchIncision << endl;
                   }
                }
                else
@@ -368,9 +390,9 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                   if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
                   {
                      if (bFPIsEqual(dNotchIncision, 0.0, TOLERANCE))
-                        LogStream << m_ulIter << ":\t coastline cliff with notch created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " total notch incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+                        LogStream << m_ulIter << ":\t coastline cliff with notch created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " tot notch incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
                      else
-                        LogStream << m_ulIter << ":\t coastline no-notch cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " m_dThisIterNewNotchApexElev = " << m_dThisIterNewNotchApexElev << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " total notch incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+                        LogStream << m_ulIter << ":\t coastline no-notch cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " m_dThisIterNewNotchApexElev = " << m_dThisIterNewNotchApexElev << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " tot notch incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
                   }
                }
             }

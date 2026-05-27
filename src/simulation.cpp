@@ -1204,7 +1204,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
             WritePolygonCliffCollapseErosion();
 
          // Move some cliff collapse talus to unconsolidated sediment
-         nRet = nMoveCliffTalusToUnconsolidated();
+         nRet = nMoveCliffTalusToUnconsolidatedOrSuspension();
          if (nRet != RTN_OK)
             return nRet;
       }
