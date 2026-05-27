@@ -185,8 +185,14 @@ class CGeomCell
    //! Total depth of coarse sediment (consolidated and unconsolidated) removed via cliff collapse
    double m_dTotCoarseCliffCollapse;
 
+   //! Depth of unconsolidated fine sediment deposited as a result of cliff collapse this timestep
+   double m_dTalusFineDepositionThisIter;
+
    //! Depth of unconsolidated sand sediment deposited as a result of cliff collapse this timestep
    double m_dTalusSandDepositionThisIter;
+
+   //! Total depth of unconsolidated fine sediment deposited as a result of cliff collapse
+   double m_dTotTalusFineDeposition;
 
    //! Total depth of unconsolidated sand sediment deposited as a result of cliff collapse
    double m_dTotTalusSandDeposition;
@@ -407,6 +413,9 @@ class CGeomCell
    double dGetTotCliffCollapseSand(void) const;
    double dGetTotCliffCollapseCoarse(void) const;
 
+   void AddFineTalusDeposition(double const);
+   double dGetThisIterCliffCollapseFineTalusDeposition(void) const;
+   double dGetTotFineTalusDeposition(void) const;
    void AddSandTalusDeposition(double const);
    double dGetThisIterCliffCollapseSandTalusDeposition(void) const;
    double dGetTotSandTalusDeposition(void) const;

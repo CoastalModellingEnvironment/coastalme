@@ -136,8 +136,8 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
                      LogStream << m_ulIter << ":\t" << WARN << "problem with cliff collapse, continuing however" << endl;
                }
 
-               // Deposit all sand and/or coarse sediment derived from this cliff collapse as talus, on the cell on which collapse occurred
-               DoCliffCollapseTalusDeposition(/*nCoast,*/ pCliff, dSandCollapse, dCoarseCollapse, nNotchLayer);
+               // Deposit all sediment (fine, sand, coarse) derived from this cliff collapse as talus, on the cell on which collapse occurred
+               DoCliffCollapseTalusDeposition(/*nCoast,*/ pCliff, dFineCollapse, dSandCollapse, dCoarseCollapse, nNotchLayer);
 
                // // DEBUG CODE ============================================================================================================================================
                // // Get total depths of sand consolidated and unconsolidated for every cell
@@ -463,7 +463,7 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    m_dThisIterCliffCollapseErosionFineUncons += dFineUnconsLost;
    m_dThisIterCliffCollapseErosionFineCons += dFineConsLost;
 
-   // Also add to the total suspended load. Note that this addition to the suspended load has not yet been added to all cells, this happens in nEndOfTimestepUpdateGrid()
+   // Also add to the total suspended load. Note that this addition to the suspended load has not yet been shared amongst all sea cells, this happens in nEndOfTimestepUpdateGrid()
    m_dThisIterFineSedimentToSuspension += (dFineConsLost + dFineUnconsLost);
 
    // Add to this-iteration totals of sand and coarse sediment (consolidated and unconsolidated) eroded via cliff collapse
@@ -687,12 +687,12 @@ bool CSimulation::bCreateNotchInland(int const nCoast, int const nCoastPoint, /*
 }
 
 //===============================================================================================================================
-//! Deposit the unconsolidated sediment from cliff collapse as talus on the cell on which collapse occurred
+//! Deposit the unconsolidated sediment (fine, sand, coarse) from cliff collapse as talus on the cell on which collapse occurred
 //===============================================================================================================================
-void CSimulation::DoCliffCollapseTalusDeposition(/*int const nCoast,*/ CRWCliff const* pCliff, double const dSandFromCollapse, double const dCoarseFromCollapse, int const nNotchLayer)
+void CSimulation::DoCliffCollapseTalusDeposition(/*int const nCoast,*/ CRWCliff const* pCliff, double const dFineFromCollapse, double const dSandFromCollapse, double const dCoarseFromCollapse, int const nNotchLayer)
 {
-   // Check: is there some sand- or coarse-sized sediment to deposit?
-   if ((dSandFromCollapse + dCoarseFromCollapse) < SED_ELEV_TOLERANCE)
+   // Check: is there some sediment to deposit?
+   if ((dFineFromCollapse + dSandFromCollapse + dCoarseFromCollapse) < SED_ELEV_TOLERANCE)
       return;
 
    // Get the cliff cell's grid coords
@@ -704,6 +704,13 @@ void CSimulation::DoCliffCollapseTalusDeposition(/*int const nCoast,*/ CRWCliff 
 
    // And get a pointer to the cell layer's talus object
    CRWCellTalus* pTalus = pLayer->pGetOrCreateTalus();
+
+   if (dFineFromCollapse > 0)
+   {
+      // Add the fine-sized sediment from the collapse to the talus object for this layer
+      pTalus->AddFineDepth(dFineFromCollapse);
+      m_pRasterGrid->m_Cell[nX][nY].AddFineTalusDeposition(dFineFromCollapse);
+   }
 
    if (dSandFromCollapse > 0)
    {

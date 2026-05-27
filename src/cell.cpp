@@ -78,7 +78,9 @@ CGeomCell::CGeomCell()
      m_dTotFineCliffCollapse(0),
      m_dTotSandCliffCollapse(0),
      m_dTotCoarseCliffCollapse(0),
+     m_dTalusFineDepositionThisIter(0),
      m_dTalusSandDepositionThisIter(0),
+     m_dTotTalusFineDeposition(0),
      m_dTotTalusSandDeposition(0),
      m_dTalusCoarseDepositionThisIter(0),
      m_dTotTalusCoarseDeposition(0),
@@ -896,6 +898,7 @@ void CGeomCell::InitCell(void)
    m_dCliffCollapseFineThisIter = 0;
    m_dCliffCollapseSandThisIter = 0;
    m_dCliffCollapseCoarseThisIter = 0;
+   m_dTalusFineDepositionThisIter = 0;
    m_dTalusSandDepositionThisIter = 0;
    m_dTalusCoarseDepositionThisIter = 0;
    m_dSandTalusToUnconsThisIter = 0;
@@ -1075,6 +1078,13 @@ double CGeomCell::dGetTotCliffCollapseSand(void) const
 double CGeomCell::dGetTotCliffCollapseCoarse(void) const
 {
    return m_dTotCoarseCliffCollapse;
+}
+
+//! Increments the depth of this-timestep fine-sized cliff collapse talus on this cell, also increments the total
+void CGeomCell::AddFineTalusDeposition(double const dDepth)
+{
+   m_dTalusFineDepositionThisIter += dDepth;
+   m_dTotTalusFineDeposition += dDepth;
 }
 
 //! Increments the depth of this-timestep sand-sized cliff collapse talus on this cell, also increments the total
