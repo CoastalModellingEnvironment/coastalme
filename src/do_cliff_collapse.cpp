@@ -821,6 +821,233 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
 
                // assert(dTalusFineToMove >= 0.0);
 
+               LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " fine talus moved to suspension, fine talus still in place on [" << nX << "][" << nY << "] = " << std::scientific << dTalusSandToMove << " fine talus removed = " << dTalusFineMoved << std::fixed << endl;
+            }
+
+            if (dTalusSandToMove + dTalusCoarseToMove > 0)
+            {
+               // We have some sand and/or coarse talus to move. So determine the cells to which this talus will be moved. Find all surrounding cells with a top elevation (including talus) which is less than the top elevation (including talus) of this cell
+               double dAdjElev;
+               double dTotElevDiff = 0;
+               vector<double> VdAdjElevDiff;
+               vector<CGeom2DIPoint> VptAdj;
+
+               for (int nSearchDirection = NORTH; nSearchDirection <= NORTH_WEST; nSearchDirection++)
+               {
+                  int nXAdj;
+                  int nYAdj;
+
+                  switch (nSearchDirection)
+                  {
+                     case NORTH:
+                        nXAdj = nX;
+                        nYAdj = nY - 1;
+
+                        if (bIsWithinValidGrid(nXAdj, nYAdj))
+                        {
+                           dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                           if (dAdjElev < dThisTalusTopElev)
+                           {
+                              VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                              VdAdjElevDiff.push_back(dAdjElev);
+                              dTotElevDiff += dAdjElev;
+                           }
+                        }
+
+                        break;
+
+                     case NORTH_EAST:
+                        nXAdj = nX + 1;
+                        nYAdj = nY - 1;
+
+                        if (bIsWithinValidGrid(nXAdj, nYAdj))
+                        {
+                           dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                           if (dAdjElev < dThisTalusTopElev)
+                           {
+                              VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                              VdAdjElevDiff.push_back(dAdjElev);
+                              dTotElevDiff += dAdjElev;
+                           }
+                        }
+
+                        break;
+
+                     case EAST:
+                        nXAdj = nX + 1;
+                        nYAdj = nY;
+
+                        if (bIsWithinValidGrid(nXAdj, nYAdj))
+                        {
+                           dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                           if (dAdjElev < dThisTalusTopElev)
+                           {
+                              VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                              VdAdjElevDiff.push_back(dAdjElev);
+                              dTotElevDiff += dAdjElev;
+                           }
+                        }
+
+                        break;
+
+                     case SOUTH_EAST:
+                        nXAdj = nX + 1;
+                        nYAdj = nY + 1;
+
+                        if (bIsWithinValidGrid(nXAdj, nYAdj))
+                        {
+                           dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                           if (dAdjElev < dThisTalusTopElev)
+                           {
+                              VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                              VdAdjElevDiff.push_back(dAdjElev);
+                              dTotElevDiff += dAdjElev;
+                           }
+                        }
+
+                        break;
+
+                     case SOUTH:
+                        nXAdj = nX;
+                        nYAdj = nY + 1;
+
+                        if (bIsWithinValidGrid(nXAdj, nYAdj))
+                        {
+                           dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                           if (dAdjElev < dThisTalusTopElev)
+                           {
+                              VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                              VdAdjElevDiff.push_back(dAdjElev);
+                              dTotElevDiff += dAdjElev;
+                           }
+                        }
+
+                        break;
+
+                     case SOUTH_WEST:
+                        nXAdj = nX - 1;
+                        nYAdj = nY + 1;
+
+                        if (bIsWithinValidGrid(nXAdj, nYAdj))
+                        {
+                           dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                           if (dAdjElev < dThisTalusTopElev)
+                           {
+                              VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                              VdAdjElevDiff.push_back(dAdjElev);
+                              dTotElevDiff += dAdjElev;
+                           }
+                        }
+
+                        break;
+
+                     case WEST:
+                        nXAdj = nX - 1;
+                        nYAdj = nY;
+
+                        if (bIsWithinValidGrid(nXAdj, nYAdj))
+                        {
+                           dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                           if (dAdjElev < dThisTalusTopElev)
+                           {
+                              VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                              VdAdjElevDiff.push_back(dAdjElev);
+                              dTotElevDiff += dAdjElev;
+                           }
+                        }
+
+                        break;
+
+                     case NORTH_WEST:
+                        nXAdj = nX - 1;
+                        nYAdj = nY - 1;
+
+                        if (bIsWithinValidGrid(nXAdj, nYAdj))
+                        {
+                           dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
+                           if (dAdjElev < dThisTalusTopElev)
+                           {
+                              VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
+                              VdAdjElevDiff.push_back(dAdjElev);
+                              dTotElevDiff += dAdjElev;
+                           }
+                        }
+
+                        break;
+                  }
+               }
+
+               int const nLower = static_cast<int>(VptAdj.size());
+               if (nLower == 0)
+               {
+                  // None of the adjacent cells are lower
+                  // LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] since no adjacent cells are lower" << endl;
+                  continue;
+               }
+
+               // OK, at least one adjacent cell is lower. Move talus to each adjacent cell in proportion to the elevation difference
+               vector<double> VdPropToMove(nLower);
+               for (int n = 0; n < nLower; n++)
+                  VdPropToMove[n] = VdAdjElevDiff[n] / dTotElevDiff;
+
+               for (int n = 0; n < nLower; n++)
+               {
+                  if (dTalusSandToMove > 0)
+                  {
+                     // We will deposit some talus sand onto the top layer of this adjacent cell
+                     int const nXAdj = VptAdj[n].nGetX();
+                     int const nYAdj = VptAdj[n].nGetY();
+
+                     int const nTopLayer = m_pRasterGrid->m_Cell[nXAdj][nYAdj].nGetNumOfTopLayerAboveBasement();
+                     double const dSandOnAdj = m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetSandDepth();
+
+                     double const dPotentialDepthToMove = pTalus->dGetSandDepth() * dWeight * dSandRemovalRate * VdPropToMove[n] * m_dTimeStep;
+                     double const dActualDepthToMove = tMin(dTalusSandToMove, dPotentialDepthToMove);
+
+                     m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dSandOnAdj + dActualDepthToMove);
+                     dTalusSandToMove -= dActualDepthToMove;
+                     dTalusSandMoved += dActualDepthToMove;
+
+                     // assert(dTalusSandToMove >= 0.0);
+
+                     // Set the changed-this-timestep switch re. the adjacent cell
+                     m_bUnconsChangedThisIter[nTopLayer] = true;
+
+                     // LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " talus sand deposited at [" << nXAdj << "][" << nYAdj << "], talus sand still to deposit on [" << nX << "][" << nY << "] = " << std::scientific << dTalusSandToMove << " talus sand removed = " << dTalusSandMoved << std::fixed << endl;
+
+                     // TODO Update the adjacent cell's talus deposition, and total talus deposition, values
+                     // m_pRasterGrid->m_Cell[nX][nY].IncrBeachDeposition(dActualDepthToMove);
+                  }
+
+                  if (dTalusCoarseToMove > 0)
+                  {
+                     // We will deposit some talus coarse onto the top layer of this adjacent cell
+                     int const nXAdj = VptAdj[n].nGetX();
+                     int const nYAdj = VptAdj[n].nGetY();
+
+                     int const nTopLayer = m_pRasterGrid->m_Cell[nXAdj][nYAdj].nGetNumOfTopLayerAboveBasement();
+                     double const dCoarseOnAdj = m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetCoarseDepth();
+
+                     double const dPotentialDepthToMove = pTalus->dGetCoarseDepth() * dWeight * dCoarseRemovalRate * VdPropToMove[n] * m_dTimeStep;
+                     double const dActualDepthToMove = tMin(dTalusCoarseToMove, dPotentialDepthToMove);
+
+                     m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dCoarseOnAdj + dActualDepthToMove);
+                     dTalusCoarseToMove -= dActualDepthToMove;
+                     dTalusCoarseMoved += dActualDepthToMove;
+
+                     // assert(dTalusCoarseToMove >= 0.0);
+
+                     // LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " talus coarse deposited at [" << nXAdj << "][" << nYAdj << "], talus coarse still to deposit on [" << nX << "][" << nY << "] = " << std::scientific << dTalusCoarseToMove << " talus coarse removed = " << dTalusCoarseMoved << std::fixed << endl;
+
+                     // Set the changed-this-timestep switch re. the adjacent cell
+                     m_bUnconsChangedThisIter[nTopLayer] = true;
+
+                     // TODO Update the adjacent cell's talus deposition, and total talus deposition, values
+                     // m_pRasterGrid->m_Cell[nX][nY].IncrBeachDeposition(dActualDepthToMove);
+                  }
+               }
+            }
+
                if (dTalusFineMoved > 0)
                {
                   // For the source cell, update the fine talus value
@@ -829,235 +1056,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
                   pTalus->SetFineDepth(dTalusFineRemaining);
                }
 
-               LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " fine talus moved to suspension, fine talus still in place on [" << nX << "][" << nY << "] = " << std::scientific << dTalusSandToMove << " fine talus removed = " << dTalusFineMoved << std::fixed << endl;
-            }
-
-            // Finish here is we have no sand or coarse to move
-            if (bFPIsEqual(dTalusSandToMove + dTalusCoarseToMove, 0.0, TOLERANCE))
-               return RTN_OK;
-
-            // We have some sand and/or coarse talus to move. So determine the cells to which this talus will be moved. Find all surrounding cells with a top elevation (including talus) which is less than the top elevation (including talus) of this cell
-            double dAdjElev;
-            double dTotElevDiff = 0;
-            vector<double> VdAdjElevDiff;
-            vector<CGeom2DIPoint> VptAdj;
-
-            for (int nSearchDirection = NORTH; nSearchDirection <= NORTH_WEST; nSearchDirection++)
-            {
-               int nXAdj;
-               int nYAdj;
-
-               switch (nSearchDirection)
-               {
-                  case NORTH:
-                     nXAdj = nX;
-                     nYAdj = nY - 1;
-
-                     if (bIsWithinValidGrid(nXAdj, nYAdj))
-                     {
-                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                        if (dAdjElev < dThisTalusTopElev)
-                        {
-                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                           VdAdjElevDiff.push_back(dAdjElev);
-                           dTotElevDiff += dAdjElev;
-                        }
-                     }
-
-                     break;
-
-                  case NORTH_EAST:
-                     nXAdj = nX + 1;
-                     nYAdj = nY - 1;
-
-                     if (bIsWithinValidGrid(nXAdj, nYAdj))
-                     {
-                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                        if (dAdjElev < dThisTalusTopElev)
-                        {
-                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                           VdAdjElevDiff.push_back(dAdjElev);
-                           dTotElevDiff += dAdjElev;
-                        }
-                     }
-
-                     break;
-
-                  case EAST:
-                     nXAdj = nX + 1;
-                     nYAdj = nY;
-
-                     if (bIsWithinValidGrid(nXAdj, nYAdj))
-                     {
-                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                        if (dAdjElev < dThisTalusTopElev)
-                        {
-                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                           VdAdjElevDiff.push_back(dAdjElev);
-                           dTotElevDiff += dAdjElev;
-                        }
-                     }
-
-                     break;
-
-                  case SOUTH_EAST:
-                     nXAdj = nX + 1;
-                     nYAdj = nY + 1;
-
-                     if (bIsWithinValidGrid(nXAdj, nYAdj))
-                     {
-                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                        if (dAdjElev < dThisTalusTopElev)
-                        {
-                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                           VdAdjElevDiff.push_back(dAdjElev);
-                           dTotElevDiff += dAdjElev;
-                        }
-                     }
-
-                     break;
-
-                  case SOUTH:
-                     nXAdj = nX;
-                     nYAdj = nY + 1;
-
-                     if (bIsWithinValidGrid(nXAdj, nYAdj))
-                     {
-                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                        if (dAdjElev < dThisTalusTopElev)
-                        {
-                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                           VdAdjElevDiff.push_back(dAdjElev);
-                           dTotElevDiff += dAdjElev;
-                        }
-                     }
-
-                     break;
-
-                  case SOUTH_WEST:
-                     nXAdj = nX - 1;
-                     nYAdj = nY + 1;
-
-                     if (bIsWithinValidGrid(nXAdj, nYAdj))
-                     {
-                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                        if (dAdjElev < dThisTalusTopElev)
-                        {
-                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                           VdAdjElevDiff.push_back(dAdjElev);
-                           dTotElevDiff += dAdjElev;
-                        }
-                     }
-
-                     break;
-
-                  case WEST:
-                     nXAdj = nX - 1;
-                     nYAdj = nY;
-
-                     if (bIsWithinValidGrid(nXAdj, nYAdj))
-                     {
-                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                        if (dAdjElev < dThisTalusTopElev)
-                        {
-                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                           VdAdjElevDiff.push_back(dAdjElev);
-                           dTotElevDiff += dAdjElev;
-                        }
-                     }
-
-                     break;
-
-                  case NORTH_WEST:
-                     nXAdj = nX - 1;
-                     nYAdj = nY - 1;
-
-                     if (bIsWithinValidGrid(nXAdj, nYAdj))
-                     {
-                        dAdjElev = m_pRasterGrid->m_Cell[nXAdj][nYAdj].dGetAllSedTopElevIncTalus();
-                        if (dAdjElev < dThisTalusTopElev)
-                        {
-                           VptAdj.push_back(CGeom2DIPoint(nXAdj, nYAdj));
-                           VdAdjElevDiff.push_back(dAdjElev);
-                           dTotElevDiff += dAdjElev;
-                        }
-                     }
-
-                     break;
-               }
-            }
-
-            int const nLower = static_cast<int>(VptAdj.size());
-            if (nLower == 0)
-            {
-               // None of the adjacent cells are lower
-               // LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] since no adjacent cells are lower" << endl;
-               continue;
-            }
-
-            // OK, at least one adjacent cell is lower. Move talus to each adjacent cell in proportion to the elevation difference
-            vector<double> VdPropToMove(nLower);
-            for (int n = 0; n < nLower; n++)
-               VdPropToMove[n] = VdAdjElevDiff[n] / dTotElevDiff;
-
-            for (int n = 0; n < nLower; n++)
-            {
-               if (dTalusSandToMove > 0)
-               {
-                  // We will deposit some talus sand onto the top layer of this adjacent cell
-                  int const nXAdj = VptAdj[n].nGetX();
-                  int const nYAdj = VptAdj[n].nGetY();
-
-                  int const nTopLayer = m_pRasterGrid->m_Cell[nXAdj][nYAdj].nGetNumOfTopLayerAboveBasement();
-                  double const dSandOnAdj = m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetSandDepth();
-
-                  double const dPotentialDepthToMove = pTalus->dGetSandDepth() * dWeight * dSandRemovalRate * VdPropToMove[n] * m_dTimeStep;
-                  double const dActualDepthToMove = tMin(dTalusSandToMove, dPotentialDepthToMove);
-
-                  m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dSandOnAdj + dActualDepthToMove);
-                  dTalusSandToMove -= dActualDepthToMove;
-                  dTalusSandMoved += dActualDepthToMove;
-
-                  // assert(dTalusSandToMove >= 0.0);
-
-                  // Set the changed-this-timestep switch re. the adjacent cell
-                  m_bUnconsChangedThisIter[nTopLayer] = true;
-
-                  // LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " talus sand deposited at [" << nXAdj << "][" << nYAdj << "], talus sand still to deposit on [" << nX << "][" << nY << "] = " << std::scientific << dTalusSandToMove << " talus sand removed = " << dTalusSandMoved << std::fixed << endl;
-
-                  // TODO Update the adjacent cell's talus deposition, and total talus deposition, values
-                  // m_pRasterGrid->m_Cell[nX][nY].IncrBeachDeposition(dActualDepthToMove);
-               }
-
-               if (dTalusCoarseToMove > 0)
-               {
-                  // We will deposit some talus coarse onto the top layer of this adjacent cell
-                  int const nXAdj = VptAdj[n].nGetX();
-                  int const nYAdj = VptAdj[n].nGetY();
-
-                  int const nTopLayer = m_pRasterGrid->m_Cell[nXAdj][nYAdj].nGetNumOfTopLayerAboveBasement();
-                  double const dCoarseOnAdj = m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetCoarseDepth();
-
-                  double const dPotentialDepthToMove = pTalus->dGetCoarseDepth() * dWeight * dCoarseRemovalRate * VdPropToMove[n] * m_dTimeStep;
-                  double const dActualDepthToMove = tMin(dTalusCoarseToMove, dPotentialDepthToMove);
-
-                  m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dCoarseOnAdj + dActualDepthToMove);
-                  dTalusCoarseToMove -= dActualDepthToMove;
-                  dTalusCoarseMoved += dActualDepthToMove;
-
-                  // assert(dTalusCoarseToMove >= 0.0);
-
-                  // LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " talus coarse deposited at [" << nXAdj << "][" << nYAdj << "], talus coarse still to deposit on [" << nX << "][" << nY << "] = " << std::scientific << dTalusCoarseToMove << " talus coarse removed = " << dTalusCoarseMoved << std::fixed << endl;
-
-                  // Set the changed-this-timestep switch re. the adjacent cell
-                  m_bUnconsChangedThisIter[nTopLayer] = true;
-
-                  // TODO Update the adjacent cell's talus deposition, and total talus deposition, values
-                  // m_pRasterGrid->m_Cell[nX][nY].IncrBeachDeposition(dActualDepthToMove);
-               }
-            }
-
-            if (dTalusSandMoved > 0)
+               if (dTalusSandMoved > 0)
             {
                // For the source cell, update the sand talus value
                double const dTalusSandRemaining = tMax(dTalusSandOrig - dTalusSandMoved, 0.0);
@@ -1074,9 +1073,10 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
             }
 
             // Has all the talus gone from this layer? If so, then delete it
-            if (bFPIsEqual(pTalus->dGetSandDepth() + pTalus->dGetCoarseDepth(), 0.0, TOLERANCE))
+            double dTotTalusDepth = pTalus->dGetFineDepth() + pTalus->dGetSandDepth() + pTalus->dGetCoarseDepth();
+            if (bFPIsEqual(dTotTalusDepth, 0.0, TOLERANCE))
             {
-               LogStream << m_ulIter << ":\t pTalus->dGetSandDepth() + pTalus->dGetCoarseDepth() = " << std::scientific << pTalus->dGetSandDepth() + pTalus->dGetCoarseDepth() << std::fixed << " so deleting talus object at [" << nX << "][" << nY << "]" << endl;
+               LogStream << m_ulIter << ":\t total talus (all size classes) = " << std::scientific << dTotTalusDepth << std::fixed << " so deleting talus object at [" << nX << "][" << nY << "]" << endl;
                m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nLayer)->DeleteTalus();
             }
 
