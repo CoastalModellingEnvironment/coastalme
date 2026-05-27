@@ -24,17 +24,40 @@
 
 //! CRWCellTalus constructor with initialisation list
 CRWCellTalus::CRWCellTalus(void)
-    : m_dSand(0),
+    : m_dFine(0),
+      m_dSand(0),
       m_dCoarse(0),
+      m_dFineLostThisIter(0),
       m_dSandLostThisIter(0),
       m_dCoarseLostThisIter(0),
+      m_dFineInputThisIter(0),
       m_dSandInputThisIter(0),
       m_dCoarseInputThisIter(0),
+      m_dTotFineInput(0),
       m_dTotSandInput(0),
       m_dTotCoarseInput(0),
+      m_dTotFineLost(0),
       m_dTotSandLost(0),
       m_dTotCoarseLost(0)
 {
+}
+
+//! Sets this talus object's fine sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative)
+void CRWCellTalus::SetFineDepth(double const dNewSedDepth)
+{
+   m_dFine = dNewSedDepth;
+}
+
+//! Returns the fine sediment depth equivalent for this talus object
+double CRWCellTalus::dGetFineDepth(void) const
+{
+   return m_dFine;
+}
+
+//! Adds fine sediment (depth equivalent) to this talus object object's fine sediment
+void CRWCellTalus::AddFineDepth(double const dSedDepthToAdd)
+{
+   m_dFine += dSedDepthToAdd;
 }
 
 //! Sets this talus object's sand sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative)
@@ -71,6 +94,30 @@ double CRWCellTalus::dGetCoarseDepth(void) const
 void CRWCellTalus::AddCoarseDepth(double const dSedDepthToAdd)
 {
    m_dCoarse += dSedDepthToAdd;
+}
+
+//! Returns the value for fine talus added during this iteration
+double CRWCellTalus::dGetFineAddedThisIter(void) const
+{
+   return m_dFineInputThisIter;
+}
+
+//! Returns the value for fine talus lost during this iteration
+double CRWCellTalus::dGetFineLostThisIter(void) const
+{
+   return m_dFineLostThisIter;
+}
+
+//! Returns the value for total fine talus added
+double CRWCellTalus::dGetTotFineAdded(void) const
+{
+   return m_dTotFineInput;
+}
+
+//! Returns the value for total fine talus lost
+double CRWCellTalus::dGetTotFineLost(void) const
+{
+   return m_dTotFineLost;
 }
 
 //! Returns the value for sand talus added during this iteration

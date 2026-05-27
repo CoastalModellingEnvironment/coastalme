@@ -25,11 +25,17 @@
 class CRWCellTalus
 {
  private:
+   //! Current depth equivalent of talus fine sediment in m
+   double m_dFine;
+
    //! Current depth equivalent of talus sand sediment in m
    double m_dSand;
 
    //! Current depth equivalent of talus coarse sediment in m
    double m_dCoarse;
+
+   //! Depth equivalent (m) of talus fine sediment lost this iteration
+   double m_dFineLostThisIter;
 
    //! Depth equivalent (m) of talus sand sediment lost this iteration
    double m_dSandLostThisIter;
@@ -37,17 +43,26 @@ class CRWCellTalus
    //! Depth equivalent (m) of talus coarse sediment lost this iteration
    double m_dCoarseLostThisIter;
 
+   //! Depth equivalent (m) of talus fine sediment added this iteration
+   double m_dFineInputThisIter;
+
    //! Depth equivalent (m) of talus sand sediment added this iteration
    double m_dSandInputThisIter;
 
    //! Depth equivalent (m) of talus coarse sediment added this iteration
    double m_dCoarseInputThisIter;
 
+   //! Depth equivalent (m) of talus fine sediment added since start of simulation
+   double m_dTotFineInput;
+
    //! Depth equivalent (m) of talus sand sediment added since start of simulation
    double m_dTotSandInput;
 
    //! Depth equivalent (m) of talus coarse sediment added since start of simulation
    double m_dTotCoarseInput;
+
+   //! Depth equivalent (m) of talus fine sediment lost since start of simulation
+   double m_dTotFineLost;
 
    //! Depth equivalent (m) of talus sand sediment lost since start of simulation
    double m_dTotSandLost;
@@ -59,6 +74,10 @@ class CRWCellTalus
  public:
    CRWCellTalus(void);
 
+   void SetFineDepth(double const);
+   double dGetFineDepth(void) const;
+   void AddFineDepth(double const);
+
    void SetSandDepth(double const);
    double dGetSandDepth(void) const;
    void AddSandDepth(double const);
@@ -66,6 +85,11 @@ class CRWCellTalus
    void SetCoarseDepth(double const);
    double dGetCoarseDepth(void) const;
    void AddCoarseDepth(double const);
+
+   double dGetFineAddedThisIter(void) const;
+   double dGetTotFineAdded(void) const;
+   double dGetFineLostThisIter(void) const;
+   double dGetTotFineLost(void) const;
 
    double dGetSandAddedThisIter(void) const;
    double dGetTotSandAdded(void) const;

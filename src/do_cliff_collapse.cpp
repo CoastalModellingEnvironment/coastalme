@@ -726,7 +726,7 @@ void CSimulation::DoCliffCollapseTalusDeposition(/*int const nCoast,*/ CRWCliff 
 }
 
 //===============================================================================================================================
-//! Move talus from previous cliff collapse to unconsolidated sediment
+//! Move sand and coarse talus from previous cliff collapse to unconsolidated sediment; moves fine talus to suspension
 //===============================================================================================================================
 int CSimulation::nMoveCliffTalusToUnconsolidated(void)
 {
@@ -739,7 +739,6 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
          {
             // Is there talus on this cell layer?
             CRWCellTalus* pTalus = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nLayer)->pGetTalus();
-
             if (pTalus == NULL)
                // No talus
                continue;
@@ -784,13 +783,60 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
             if (bFPIsEqual(dWeight, 0.0, TOLERANCE))
             {
                // LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] dWeight = " << dWeight << endl;
-
                continue;
             }
 
             LogStream << m_ulIter << ":\t talus potentially moved from [" << nX << "][" << nY << "] dThisTalusBottomElev = " << dThisTalusBottomElev << " dThisTalusTopElev = " << dThisTalusTopElev << " dWeight = " << dWeight << endl;
 
-            // Next, determine the cells to which talus will be moved. Find all surrounding cells with a top elevation (including talus) which is less than the top elevation (including talus) of this cell
+            // TODO Removal rate:
+            // * to be different for fine, sand, and coarse
+            // * to include talus erodibility
+            // * must depend on SWL and runup.
+            // Note we are ignoring subaerial processes.
+
+            double const dTalusFineOrig = pTalus->dGetFineDepth();
+            double const dTalusSandOrig = pTalus->dGetSandDepth();
+            double const dTalusCoarseOrig = pTalus->dGetCoarseDepth();
+            double dTalusFineToMove = pTalus->dGetFineDepth();
+            double dTalusSandToMove = pTalus->dGetSandDepth();
+            double dTalusCoarseToMove = pTalus->dGetCoarseDepth();
+            double dTalusFineMoved = 0;
+            double dTalusSandMoved = 0;
+            double dTalusCoarseMoved = 0;
+            double const dTalusErodibility = 0.3;
+            double const dFineRemovalRate = 1 * dTalusErodibility;            // TEST external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
+            double const dSandRemovalRate = 0.9 * dTalusErodibility;          // TEST external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
+            double const dCoarseRemovalRate = 0.7 * dTalusErodibility;        // TEST external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
+
+            if (dTalusFineToMove > 0)
+            {
+               // Move some fine talus to suapension
+               double const dPotentialDepthToMove = pTalus->dGetFineDepth() * dWeight * dFineRemovalRate * m_dTimeStep;
+               double const dActualDepthToMove = tMin(dTalusFineToMove, dPotentialDepthToMove);
+
+               // Add to the suspended load
+               m_dThisIterFineSedimentToSuspension += dActualDepthToMove;
+               dTalusFineToMove -= dActualDepthToMove;
+               dTalusFineMoved += dActualDepthToMove;
+
+               // assert(dTalusFineToMove >= 0.0);
+
+               if (dTalusFineMoved > 0)
+               {
+                  // For the source cell, update the fine talus value
+                  double const dTalusFineRemaining = tMax(dTalusFineOrig - dTalusFineMoved, 0.0);
+
+                  pTalus->SetFineDepth(dTalusFineRemaining);
+               }
+
+               LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " fine talus moved to suspension, fine talus still in place on [" << nX << "][" << nY << "] = " << std::scientific << dTalusSandToMove << " fine talus removed = " << dTalusFineMoved << std::fixed << endl;
+            }
+
+            // Finish here is we have no sand or coarse to move
+            if (bFPIsEqual(dTalusSandToMove + dTalusCoarseToMove, 0.0, TOLERANCE))
+               return RTN_OK;
+
+            // We have some sand and/or coarse talus to move. So determine the cells to which this talus will be moved. Find all surrounding cells with a top elevation (including talus) which is less than the top elevation (including talus) of this cell
             double dAdjElev;
             double dTotElevDiff = 0;
             vector<double> VdAdjElevDiff;
@@ -946,7 +992,6 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
             {
                // None of the adjacent cells are lower
                // LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] since no adjacent cells are lower" << endl;
-
                continue;
             }
 
@@ -954,22 +999,6 @@ int CSimulation::nMoveCliffTalusToUnconsolidated(void)
             vector<double> VdPropToMove(nLower);
             for (int n = 0; n < nLower; n++)
                VdPropToMove[n] = VdAdjElevDiff[n] / dTotElevDiff;
-
-            // TODO Removal rate:
-            // * to be different for sand and coarse
-            // * to include talus erodibility
-            // * must depend on SWL and runup.
-            // Note we are ignoring subaerial processes.
-
-            double const dTalusSandOrig = pTalus->dGetSandDepth();
-            double const dTalusCoarseOrig = pTalus->dGetCoarseDepth();
-            double dTalusSandToMove = pTalus->dGetSandDepth();
-            double dTalusCoarseToMove = pTalus->dGetCoarseDepth();
-            double dTalusSandMoved = 0;
-            double dTalusCoarseMoved = 0;
-            double const dTalusErodibility = 0.3;
-            double const dSandRemovalRate = 1 * dTalusErodibility;            // TEST external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
-            double const dCoarseRemovalRate = 0.8 * dTalusErodibility;        // TEST external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
 
             for (int n = 0; n < nLower; n++)
             {
