@@ -1400,11 +1400,11 @@ bool CSimulation::bReadRunDataFile(void)
                      strRH = strRemoveSubstr(&strRH, &VECTOR_COAST_CODE);
                   }
 
-                  if (strRH.find(VECTOR_CLIFF_EDGE_CODE) != string::npos)
-                  {
-                     m_bCliffEdgeSave = true;
-                     strRH = strRemoveSubstr(&strRH, &VECTOR_CLIFF_EDGE_CODE);
-                  }
+                  // if (strRH.find(VECTOR_CLIFF_EDGE_CODE) != string::npos)
+                  // {
+                  //    m_bCliffEdgeSave = true;
+                  //    strRH = strRemoveSubstr(&strRH, &VECTOR_CLIFF_EDGE_CODE);
+                  // }
 
                   if (strRH.find(VECTOR_AVG_WAVE_ANGLE_AND_HEIGHT_CODE) != string::npos)
                   {

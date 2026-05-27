@@ -444,14 +444,14 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
 
       break;
 
-   case (VECTOR_PLOT_CLIFF_EDGE):
-      strFilePathName.append(VECTOR_CLIFF_EDGE_NAME);
-      strstrFileName << VECTOR_CLIFF_EDGE_NAME;
-
-      eGType = wkbLineString;
-      strType = "line";
-
-      break;
+   // case (VECTOR_PLOT_CLIFF_EDGE):
+   //    strFilePathName.append(VECTOR_CLIFF_EDGE_NAME);
+   //    strstrFileName << VECTOR_CLIFF_EDGE_NAME;
+   //
+   //    eGType = wkbLineString;
+   //    strType = "line";
+   //
+   //    break;
 
    case (VECTOR_PLOT_NORMALS):
       strFilePathName.append(VECTOR_NORMALS_NAME);
