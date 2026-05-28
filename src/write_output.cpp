@@ -1818,8 +1818,8 @@ void CSimulation::WritePolygonCliffCollapseErosion(void)
 
    LogStream << "-----------|-----------|-----------------------------|-----------------------------|-----------------------------|-----------------------------|" << endl;
    LogStream << strCentre("Coast", 11) << "|" << strCentre("Polygon", 11) << "|" << strCentre("All sediment", 29) << "|" << strCentre("Fine sediment", 29) << "|" << strCentre("Sand sediment", 29) << "|" << strCentre("Coarse sediment", 29) << "|" << endl;
-   LogStream << strCentre("ID", 11) << "|" << strCentre("ID", 11) << "|" << strCentre("Eroded", 14) << "|" << strCentre("Deposited", 14) << "|" << strCentre("Eroded", 14) << "|" << strCentre("Deposited", 14) << "|" << strCentre("Eroded", 14) << strCentre("Deposited", 14) << "|" << strCentre("Eroded", 14) << strCentre("Deposited", 14) << "|" << endl;
-   LogStream << "-----------|-----------|-----------------------------|-----------------------------|-----------------------------|-----------------------------|" << endl;
+   LogStream << strCentre("ID", 11) << "|" << strCentre("ID", 11) << "|" << strCentre("Eroded", 14) << "|" << strCentre("Deposited", 14) << "|" << strCentre("Eroded", 14) << "|" << strCentre("Deposited", 14) << "|" << strCentre("Eroded", 14) << "|" << strCentre("Deposited", 14) << "|" << strCentre("Eroded", 14) << "|"  << strCentre("Deposited", 14) << "|" << endl;
+   LogStream << "-----------|-----------|--------------|--------------|--------------|--------------|---------------|-------------|---------------|-------------|" << endl;
 
    double dTmpErosionTot = 0;
    double dTmpDepositTot = 0;
@@ -1841,26 +1841,26 @@ void CSimulation::WritePolygonCliffCollapseErosion(void)
 
          LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonThisCoastID(), 11)
                   // All
-                  << "|" << strDblRight((pPolygon->dGetCliffCollapseErosionFine() + pPolygon->dGetCliffCollapseErosionSand() + pPolygon->dGetCliffCollapseErosionCoarse()) * m_dCellArea, 0, 14) << " " << "|" << strDblRight((pPolygon->dGetCliffCollapseToSuspensionFine() + pPolygon->dGetCliffCollapseUnconsSandDeposition() + pPolygon->dGetCliffCollapseUnconsCoarseDeposition()) * m_dCellArea, 0, 14) << "|"
+                  << "|" << strDblRight((pPolygon->dGetCliffCollapseErosionFine() + pPolygon->dGetCliffCollapseErosionSand() + pPolygon->dGetCliffCollapseErosionCoarse()) * m_dCellArea, 0, 14) << " " << "|" << strDblRight((pPolygon->dGetCliffCollapseFineTalusDeposition() + pPolygon->dGetCliffCollapseSandTalusDeposition() + pPolygon->dGetCliffCollapseCoarseTalusDeposition()) * m_dCellArea, 0, 14) << "|"
                   // Fine
-                  << strDblRight(pPolygon->dGetCliffCollapseErosionFine(), 0, 14) << "|" << strDblRight(pPolygon->dGetCliffCollapseToSuspensionFine(), 0, 14) << "|"
+                  << strDblRight(pPolygon->dGetCliffCollapseErosionFine(), 0, 14) << "|" << strDblRight(pPolygon->dGetCliffCollapseFineTalusDeposition(), 0, 14) << "|"
                   // Sand
-                  << strDblRight(pPolygon->dGetCliffCollapseErosionSand(), 0, 14) << "|" << strDblRight(pPolygon->dGetCliffCollapseUnconsSandDeposition() * m_dCellArea, 0, 14) << "|"
+                  << strDblRight(pPolygon->dGetCliffCollapseErosionSand(), 0, 14) << "|" << strDblRight(pPolygon->dGetCliffCollapseSandTalusDeposition() * m_dCellArea, 0, 14) << "|"
                   // Coarse
-                  << strDblRight(pPolygon->dGetCliffCollapseErosionCoarse(), 0, 14) << "|" << strDblRight(pPolygon->dGetCliffCollapseUnconsCoarseDeposition() * m_dCellArea, 0, 14) << "|" << endl;
+                  << strDblRight(pPolygon->dGetCliffCollapseErosionCoarse(), 0, 14) << "|" << strDblRight(pPolygon->dGetCliffCollapseCoarseTalusDeposition() * m_dCellArea, 0, 14) << "|" << endl;
 
          dTmpErosionTot += ((pPolygon->dGetCliffCollapseErosionFine() + pPolygon->dGetCliffCollapseErosionSand() + pPolygon->dGetCliffCollapseErosionCoarse()) * m_dCellArea);
 
-         dTmpDepositTot += ((pPolygon->dGetCliffCollapseToSuspensionFine() + pPolygon->dGetCliffCollapseUnconsSandDeposition() + pPolygon->dGetCliffCollapseUnconsCoarseDeposition()) * m_dCellArea);
+         dTmpDepositTot += ((pPolygon->dGetCliffCollapseFineTalusDeposition() + pPolygon->dGetCliffCollapseSandTalusDeposition() + pPolygon->dGetCliffCollapseCoarseTalusDeposition()) * m_dCellArea);
 
          dTmpErosionFineTot += (pPolygon->dGetCliffCollapseErosionFine() * m_dCellArea);
-         dTmpDepositFineTot += (pPolygon->dGetCliffCollapseToSuspensionFine() * m_dCellArea);
+         dTmpDepositFineTot += (pPolygon->dGetCliffCollapseFineTalusDeposition() * m_dCellArea);
 
          dTmpErosionSandTot += ((pPolygon->dGetCliffCollapseErosionSand()) * m_dCellArea);
-         dTmpDepositSandTot += (pPolygon->dGetCliffCollapseUnconsSandDeposition() * m_dCellArea);
+         dTmpDepositSandTot += (pPolygon->dGetCliffCollapseSandTalusDeposition() * m_dCellArea);
 
          dTmpErosionCoarseTot += ((pPolygon->dGetCliffCollapseErosionCoarse()) * m_dCellArea);
-         dTmpDepositCoarseTot += pPolygon->dGetCliffCollapseUnconsCoarseDeposition() * m_dCellArea;
+         dTmpDepositCoarseTot += pPolygon->dGetCliffCollapseCoarseTalusDeposition() * m_dCellArea;
       }
    }
 

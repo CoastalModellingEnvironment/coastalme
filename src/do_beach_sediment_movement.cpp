@@ -879,11 +879,11 @@ void CSimulation::AllPolygonsUpdateStoredUncons(int const nCoast)
       pPolygon->SetPreExistingUnconsFine(dFine);
 
       // Include unconsolidated sand sediment derived from platform erosion, cliff collapse, and sediment input events
-      double const dSand = pPolygon->dGetPreExistingUnconsSand() + pPolygon->dGetPlatformErosionUnconsSand() + pPolygon->dGetCliffCollapseUnconsSandDeposition() + pPolygon->dGetSedimentInputUnconsSand();
+      double const dSand = pPolygon->dGetPreExistingUnconsSand() + pPolygon->dGetPlatformErosionUnconsSand() + pPolygon->dGetCliffCollapseSandTalusDeposition() + pPolygon->dGetSedimentInputUnconsSand();
       pPolygon->SetPreExistingUnconsSand(dSand);
 
       // Include unconsolidated coarse sediment derived from platform erosion, cliff collapse, and sediment input events
-      double const dCoarse = pPolygon->dGetPreExistingUnconsCoarse() + pPolygon->dGetPlatformErosionUnconsCoarse() + pPolygon->dGetCliffCollapseUnconsCoarseDeposition() + pPolygon->dGetSedimentInputUnconsCoarse();
+      double const dCoarse = pPolygon->dGetPreExistingUnconsCoarse() + pPolygon->dGetPlatformErosionUnconsCoarse() + pPolygon->dGetCliffCollapseCoarseTalusDeposition() + pPolygon->dGetSedimentInputUnconsCoarse();
       pPolygon->SetPreExistingUnconsCoarse(dCoarse);
    }
 }

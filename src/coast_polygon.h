@@ -300,12 +300,12 @@ class CGeomCoastPolygon : public CA2DShape
    void AddCliffCollapseErosionCoarse(double const);
    double dGetCliffCollapseErosionCoarse(void) const;
 
-   void AddCliffCollapseToSuspensionFine(double const);
-   double dGetCliffCollapseToSuspensionFine(void) const;
-   void AddCliffCollapseUnconsSandDeposition(double const);
-   double dGetCliffCollapseUnconsSandDeposition(void) const;
-   void AddCliffCollapseUnconsCoarseDeposition(double const);
-   double dGetCliffCollapseUnconsCoarseDeposition(void) const;
+   void AddCliffCollapseFineTalusDeposition(double const);
+   double dGetCliffCollapseFineTalusDeposition(void) const;
+   void AddCliffCollapseSandTalusDeposition(double const);
+   double dGetCliffCollapseSandTalusDeposition(void) const;
+   void AddCliffCollapseCoarseTalusDeposition(double const);
+   double dGetCliffCollapseCoarseTalusDeposition(void) const;
 
    void AddPlatformErosionUnconsFineToSuspension(double const);
    double dGetPlatformErosionUnconsFineToSuspension(void) const;

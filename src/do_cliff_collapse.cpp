@@ -173,7 +173,7 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
                // for (unsigned int n = 0; n < m_pVCoastPolygon.size(); n++)
                // {
                // double dTmpSandErosion = m_pVCoastPolygon[n]->dGetCliffCollapseErosionSand() * m_dCellArea ;
-               // double dTmpSandDeposition = m_pVCoastPolygon[n]->dGetCliffCollapseUnconsSandDeposition() * m_dCellArea ;
+               // double dTmpSandDeposition = m_pVCoastPolygon[n]->dGetCliffCollapseSandTalusDeposition() * m_dCellArea ;
                //
                // LogStream << m_ulIter << ": polygon = " << m_pVCoastPolygon[n]->nGetPolygonThisCoastID() << " sand erosion = " << dTmpSandErosion << " sand deposition = " << dTmpSandDeposition << endl;
                //
@@ -451,7 +451,7 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
 
    // Update this-polygon totals: add to the depths of cliff collapse erosion for this polygon
    pPolygon->AddCliffCollapseErosionFine(dFineCollapse);
-   pPolygon->AddCliffCollapseToSuspensionFine(dFineCollapse);
+   pPolygon->AddCliffCollapseFineTalusDeposition(dFineCollapse);
    pPolygon->AddCliffCollapseErosionSand(dSandCollapse);
    pPolygon->AddCliffCollapseErosionCoarse(dCoarseCollapse);
 
@@ -532,7 +532,7 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
       // And add to the cell's accumulated wave energy
       m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->AddToAccumWaveEnergy(dWaveEnergy * dWeight);
 
-      LogStream << m_ulIter << ":\t coast " << nCoast << " [" << nX << "][" << nY << "] incision of existing notch, acc wave energy = " << m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetAccumWaveEnergy() << " dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " incision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+      LogStream << m_ulIter << ":\t coast " << nCoast << " [" << nX << "][" << nY << "] existing notch incised, acc wave energy = " << m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetAccumWaveEnergy() << " dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " incision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
 
       return true;
    }

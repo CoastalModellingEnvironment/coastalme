@@ -539,74 +539,74 @@ vector<int> const* CGeomCoastPolygon::VnGetCircularities(void) const
    return &m_VnCircularityWith;
 }
 
-//! Add to the this-iteration total of unconsolidated fine sediment from cliff collapse which goes to suspension on this polygon
-void CGeomCoastPolygon::AddCliffCollapseToSuspensionFine(double const dDepth)
-{
-   m_dCliffCollapseTalusFine += dDepth;
-}
-
-//! Get the this-iteration total of unconsolidated fine sediment from cliff collapse which goes to suspension on this polygon
-double CGeomCoastPolygon::dGetCliffCollapseToSuspensionFine(void) const
-{
-   return m_dCliffCollapseTalusFine;
-}
-
-//! Add to the this-iteration total of unconsolidated fine sediment eroded from cliff collapse on this polygon
+//! Add to the this-iteration total of fine sediment from cliff collapse on this polygon
 void CGeomCoastPolygon::AddCliffCollapseErosionFine(double const dDepth)
 {
    m_dCliffCollapseErosionFine += dDepth;
 }
 
-//! Get the this-iteration total of unconsolidated fine sediment eroded from cliff collapse on this polygon
+//! Get the this-iteration total of fine sediment from cliff collapse on this polygon
 double CGeomCoastPolygon::dGetCliffCollapseErosionFine(void) const
 {
    return m_dCliffCollapseErosionFine;
 }
 
-//! Add to the this-iteration total of unconsolidated sand sediment from cliff collapse on this polygon, note that this does not include sand sediment eroded during Dean profile deposition of talus
+//! Add to the this-iteration total of sand sediment from cliff collapse on this polygon
 void CGeomCoastPolygon::AddCliffCollapseErosionSand(double const dDepth)
 {
    m_dCliffCollapseErosionSand += dDepth;
 }
 
-//! Get the this-iteration total of unconsolidated sand sediment from cliff collapse on this polygon, note that this does not include sand sediment eroded during Dean profile deposition of talus
+//! Get the this-iteration total of sand sediment from cliff collapse on this polygon
 double CGeomCoastPolygon::dGetCliffCollapseErosionSand(void) const
 {
    return m_dCliffCollapseErosionSand;
 }
 
-//! Add to the this-iteration total of unconsolidated coarse sediment from cliff collapse on this polygon, note that this does not include coarse sediment eroded during Dean profile deposition of talus
+//! Add to the this-iteration total of coarse sediment from cliff collapse on this polygon
 void CGeomCoastPolygon::AddCliffCollapseErosionCoarse(double const dDepth)
 {
    m_dCliffCollapseErosionCoarse += dDepth;
 }
 
-//! Get the this-iteration total of unconsolidated coarse sediment from cliff collapse on this polygon, note that this does not include coarse sediment eroded during Dean profile deposition of talus
+//! Get the this-iteration total of coarse sediment from cliff collapse on this polygon
 double CGeomCoastPolygon::dGetCliffCollapseErosionCoarse(void) const
 {
    return m_dCliffCollapseErosionCoarse;
 }
 
-//! Add to the this-iteration total of unconsolidated sand sediment deposited from cliff collapse on this polygon
-void CGeomCoastPolygon::AddCliffCollapseUnconsSandDeposition(double const dDepth)
+//! Add to the this-iteration total of fine sediment deposited as talus on this polygon due to cliff collapse
+void CGeomCoastPolygon::AddCliffCollapseFineTalusDeposition(double const dDepth)
+{
+   m_dCliffCollapseTalusFine += dDepth;
+}
+
+//! Get the this-iteration total of fine sediment deposited as talus on this polygon due to cliff collapse
+double CGeomCoastPolygon::dGetCliffCollapseFineTalusDeposition(void) const
+{
+   return m_dCliffCollapseTalusFine;
+}
+
+//! Add to the this-iteration total of sand sediment deposited as talus on this polygon due to cliff collapse
+void CGeomCoastPolygon::AddCliffCollapseSandTalusDeposition(double const dDepth)
 {
    m_dCliffCollapseTalusSand += dDepth;
 }
 
-//! Get the this-iteration total of unconsolidated sand sediment deposited from cliff collapse on this polygon
-double CGeomCoastPolygon::dGetCliffCollapseUnconsSandDeposition(void) const
+//! Get the this-iteration total of sand sediment deposited as talus on this polygon due to cliff collapse
+double CGeomCoastPolygon::dGetCliffCollapseSandTalusDeposition(void) const
 {
    return m_dCliffCollapseTalusSand;
 }
 
-//! Add to the this-iteration total of unconsolidated coarse sediment deposited from cliff collapse on this polygon
-void CGeomCoastPolygon::AddCliffCollapseUnconsCoarseDeposition(double const dDepth)
+//! Add to the this-iteration total of coarse sediment deposited as talus on this polygon due to cliff collapse
+void CGeomCoastPolygon::AddCliffCollapseCoarseTalusDeposition(double const dDepth)
 {
    m_dCliffCollapseTalusCoarse += dDepth;
 }
 
-//! Get the this-iteration total of unconsolidated coarse sediment deposited from cliff collapse on this polygon
-double CGeomCoastPolygon::dGetCliffCollapseUnconsCoarseDeposition(void) const
+//! Get the this-iteration total of coarse sediment deposited as talus on this polygon due to cliff collapse
+double CGeomCoastPolygon::dGetCliffCollapseCoarseTalusDeposition(void) const
 {
    return m_dCliffCollapseTalusCoarse;
 }
@@ -617,7 +617,7 @@ void CGeomCoastPolygon::AddPlatformErosionUnconsFineToSuspension(double const dD
    m_dPlatformErosionToSuspensionFine += dDepth;
 }
 
-//! Get the this-iteration total of unconsolidated sand sediment moved to suspension derived from shore platform erosion on this polygon TODO
+//! Get the this-iteration total of unconsolidated fine sediment moved to suspension derived from shore platform erosion on this polygon TODO
 double CGeomCoastPolygon::dGetPlatformErosionUnconsFineToSuspension(void) const
 {
    return m_dPlatformErosionToSuspensionFine;
