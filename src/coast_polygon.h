@@ -114,19 +114,13 @@ class CGeomCoastPolygon : public CA2DShape
    double m_dCliffCollapseErosionCoarse;
 
    //! Depth of unconsolidated fine sediment which goes to suspension from cliff collapse
-   double m_dCliffCollapseTalusFineToSuspension;
+   double m_dCliffCollapseTalusFine;
 
    //! Depth of unconsolidated sand talus from cliff collapse
    double m_dCliffCollapseTalusSand;
 
    //! Depth of unconsolidated coarse talus from cliff collapse
    double m_dCliffCollapseTalusCoarse;
-
-   //! Depth of sand unconsolidated sediment eroded during deposition of cliff collapse talus as a Dean profile
-   double m_dCliffCollapseSandErodedDeanProfile;
-
-   //! Depth of coarse unconsolidated sediment eroded during deposition of cliff collapse talus as a Dean profile
-   double m_dCliffCollapseCoarseErodedDeanProfile;
 
    //! Depth of fine sediment moved to suspension from shore platform erosion
    double m_dPlatformErosionToSuspensionFine;
@@ -313,15 +307,8 @@ class CGeomCoastPolygon : public CA2DShape
    void AddCliffCollapseUnconsCoarseDeposition(double const);
    double dGetCliffCollapseUnconsCoarseDeposition(void) const;
 
-   void AddCliffCollapseFineErodedDeanProfile(double const);
-   double dGetCliffCollapseFineErodedDeanProfile(void) const;
-   void AddCliffCollapseSandErodedDeanProfile(double const);
-   double dGetCliffCollapseSandErodedDeanProfile(void) const;
-   void AddCliffCollapseCoarseErodedDeanProfile(double const);
-   double dGetCliffCollapseCoarseErodedDeanProfile(void) const;
-
-   // void AddPlatformErosionToSuspensionUnconsFine(double const);
-   // double dGetPlatformErosionToSuspensionUnconsFine(void) const;
+   void AddPlatformErosionUnconsFineToSuspension(double const);
+   double dGetPlatformErosionUnconsFineToSuspension(void) const;
    void AddPlatformErosionUnconsSand(double const);
    double dGetPlatformErosionUnconsSand(void) const;
    void AddPlatformErosionUnconsCoarse(double const);
