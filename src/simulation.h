@@ -308,10 +308,7 @@ class CSimulation
    bool m_bCliffCollapseErosionTSSave;
 
    //! Save the cliff collapse deposition time series file?
-   bool m_bCliffCollapseDepositionTSSave;
-
-   //! Save the cliff collapse net change time series file?
-   bool m_bCliffCollapseNetTSSave;
+   bool m_bCliffCollapseTalusDepositionTSSave;
 
    //! Save the beach (unconsolidated sediment) erosion time series file?
    bool m_bBeachErosionTSSave;
@@ -910,15 +907,6 @@ class CSimulation
    //! Total coarse unconsolidated sediment lost from the grid this iteration (depth in m)
    double m_dThisIterLeftGridUnconsCoarse;
 
-   //! Total fine sediment eroded during Dean profile deposition of talus following cliff collapse (depth in m)
-   double m_dThisIterCliffCollapseFineErodedDuringDeposition;
-
-   //! Total sand sediment eroded during Dean profile deposition of talus following cliff collapse (depth in m)
-   double m_dThisIterCliffCollapseSandErodedDuringDeposition;
-
-   //! Total coarse sediment eroded during Dean profile deposition of talus following cliff collapse (depth in m)
-   double m_dThisIterCliffCollapseCoarseErodedDuringDeposition;
-
    //! Error term: if we are unable to deposit enough unconslidated sand on polygon(s), this is held over to be deposited the next iteration
    double m_dDepositionSandDiff;
 
@@ -982,11 +970,14 @@ class CSimulation
    //! This-iteration total of coarse consolidated sediment produced by cliff collapse (m^3)
    double m_dThisIterCliffCollapseErosionCoarseCons;
 
+   //! This-iteration total of fine unconsolidated sediment deposited due to cliff collapse (m^3)
+   double m_dThisIterFineCliffTalusDeposition;
+
    //! This-iteration total of sand unconsolidated sediment deposited due to cliff collapse (m^3)
-   double m_dThisIterUnconsSandCliffDeposition;
+   double m_dThisIterSandCliffTalusDeposition;
 
    //! This-iteration total of coarse unconsolidated sediment deposited due to cliff collapse (m^3)
-   double m_dThisIterUnconsCoarseCliffDeposition;
+   double m_dThisIterCoarseCliffTalusDeposition;
 
    //! Random factor for spacing of along-coast normals
    double m_dCoastNormalRandSpacingFactor;
@@ -1113,7 +1104,7 @@ class CSimulation
    long double m_ldGTotCliffCollapseCoarse;
 
    //! All-simulation total of fine sediment moved to suspension, due to cliff collapse (m)
-   long double m_ldGTotCliffTalusFineToSuspension;
+   long double m_ldGTotCliffTalusFineDeposition;
 
    //! All-simulation total of sand sediment deposited as talus following cliff collapse (m)
    long double m_ldGTotCliffTalusSandDeposition;

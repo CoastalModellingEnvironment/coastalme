@@ -879,14 +879,21 @@ bool CSimulation::bWritePerTimestepResultsFixedWidth(void)
    else
       OutStream << setw(4) << SPACE;
 
-   // Per-iteration cliff collapse deposition in m (average for all sea cells) ==================================================
-   if (m_dThisIterUnconsSandCliffDeposition > 0)
-      OutStream << setw(5) << 1000 * m_dThisIterUnconsSandCliffDeposition / static_cast<double>(m_ulThisIterNumSeaCells);
+   // Per-iteration fine cliff collapse talus deposition in m (average for all sea cells) ==================================================
+   if (m_dThisIterFineCliffTalusDeposition > 0)
+      OutStream << setw(5) << 1000 * m_dThisIterFineCliffTalusDeposition / static_cast<double>(m_ulThisIterNumSeaCells);
    else
       OutStream << setw(5) << SPACE;
 
-   if (m_dThisIterUnconsCoarseCliffDeposition > 0)
-      OutStream << setw(4) << 1000 * m_dThisIterUnconsCoarseCliffDeposition / static_cast<double>(m_ulThisIterNumSeaCells);
+   // Per-iteration sand cliff collapse talus deposition in m (average for all sea cells) ==================================================
+   if (m_dThisIterSandCliffTalusDeposition > 0)
+      OutStream << setw(5) << 1000 * m_dThisIterSandCliffTalusDeposition / static_cast<double>(m_ulThisIterNumSeaCells);
+   else
+      OutStream << setw(5) << SPACE;
+
+   // Per-iteration coarse cliff collapse talus deposition in m (average for all sea cells) ==================================================
+   if (m_dThisIterCoarseCliffTalusDeposition > 0)
+      OutStream << setw(4) << 1000 * m_dThisIterCoarseCliffTalusDeposition / static_cast<double>(m_ulThisIterNumSeaCells);
    else
       OutStream << setw(4) << SPACE;
 
@@ -1056,14 +1063,21 @@ bool CSimulation::bWritePerTimestepResultsCSV(void)
    else
       OutStream << ",";
 
-   // Cliff collapse deposition data
-   if (m_dThisIterUnconsSandCliffDeposition > 0)
-      OutStream << 1000 * m_dThisIterUnconsSandCliffDeposition / static_cast<double>(m_ulThisIterNumSeaCells) << ",";
+   // Cliff collapse fine talus deposition
+   if (m_dThisIterFineCliffTalusDeposition > 0)
+      OutStream << 1000 * m_dThisIterFineCliffTalusDeposition / static_cast<double>(m_ulThisIterNumSeaCells) << ",";
    else
       OutStream << ",";
 
-   if (m_dThisIterUnconsCoarseCliffDeposition > 0)
-      OutStream << 1000 * m_dThisIterUnconsCoarseCliffDeposition / static_cast<double>(m_ulThisIterNumSeaCells) << ",";
+   // Cliff collapse sand talus deposition
+   if (m_dThisIterSandCliffTalusDeposition > 0)
+      OutStream << 1000 * m_dThisIterSandCliffTalusDeposition / static_cast<double>(m_ulThisIterNumSeaCells) << ",";
+   else
+      OutStream << ",";
+
+   // Cliff collapse coarse talus deposition
+   if (m_dThisIterCoarseCliffTalusDeposition > 0)
+      OutStream << 1000 * m_dThisIterCoarseCliffTalusDeposition / static_cast<double>(m_ulThisIterNumSeaCells) << ",";
    else
       OutStream << ",";
 
@@ -1149,25 +1163,14 @@ bool CSimulation::bWriteTSFiles(void)
          return false;
    }
 
-   // This-iteration cliff talus collapse deposition (sand and coarse)
-   if (m_bCliffCollapseDepositionTSSave)
+   // This-iteration cliff talus collapse deposition (fine, sand, and coarse)
+   if (m_bCliffCollapseTalusDepositionTSSave)
    {
       // Output as is (m depth equivalent)
-      CliffCollapseDepositionTSStream << m_dSimElapsed << "\t,\t" << m_dThisIterUnconsSandCliffDeposition << ",\t" << m_dThisIterUnconsCoarseCliffDeposition << endl;
+      CliffCollapseDepositionTSStream << m_dSimElapsed << "\t,\t" << m_dThisIterFineCliffTalusDeposition << ",\t" << m_dThisIterSandCliffTalusDeposition << ",\t" << m_dThisIterCoarseCliffTalusDeposition << endl;
 
       // Did a time series file write error occur?
       if (CliffCollapseDepositionTSStream.fail())
-         return false;
-   }
-
-   // This-iteration cliff collapse net
-   if (m_bCliffCollapseNetTSSave)
-   {
-      // Output as is (m depth equivalent)
-      CliffCollapseNetChangeTSStream << noshowpos << m_dSimElapsed << "\t,\t" << showpos << -m_dThisIterCliffCollapseFineErodedDuringDeposition + (m_dThisIterUnconsSandCliffDeposition - m_dThisIterCliffCollapseSandErodedDuringDeposition) + (m_dThisIterUnconsCoarseCliffDeposition - m_dThisIterCliffCollapseCoarseErodedDuringDeposition) << endl;
-
-      // Did a time series file write error occur?
-      if (CliffCollapseNetChangeTSStream.fail())
          return false;
    }
 
@@ -1475,7 +1478,7 @@ int CSimulation::nWriteEndRunDetails(void)
    OutStream << endl;
 
    OutStream << "TOTAL DEPOSITION AND SUSPENSION OF CLIFF COLLAPSE TALUS" << endl;
-   OutStream << "Cliff collapse to suspension, fine                     = " << m_ldGTotCliffTalusFineToSuspension * m_dCellArea << " m^3" << endl;
+   OutStream << "Cliff collapse to suspension, fine                     = " << m_ldGTotCliffTalusFineDeposition * m_dCellArea << " m^3" << endl;
    OutStream << "Cliff collapse deposition, sand                        = " << m_ldGTotCliffTalusSandDeposition * m_dCellArea << " m^3" << endl;
    OutStream << "Cliff collapse deposition, coarse                      = " << m_ldGTotCliffTalusCoarseDeposition * m_dCellArea << " m^3" << endl;
    OutStream << "Cliff collapse deposition, sand and coarse             = " << (m_ldGTotCliffTalusSandDeposition + m_ldGTotCliffTalusCoarseDeposition) * m_dCellArea << " m^3" << endl;
@@ -2675,15 +2678,10 @@ void CSimulation::DoEndOfTimestepTotals(void)
    m_ldGTotCliffCollapseCoarse += m_dThisIterCliffCollapseErosionCoarseUncons;
    m_ldGTotCliffCollapseCoarse += m_dThisIterCliffCollapseErosionCoarseCons;
 
-   // Deposition (with fine to suspension) of unconsolidated talus from cliff collapse
-   m_ldGTotCliffTalusFineToSuspension += m_dThisIterCliffCollapseErosionFineUncons;
-   m_ldGTotCliffTalusSandDeposition += m_dThisIterUnconsSandCliffDeposition;
-   m_ldGTotCliffTalusCoarseDeposition += m_dThisIterUnconsCoarseCliffDeposition;
-
-   // Erosion of unconsolidated sediment during deposition of unconsolidated cliff collapse talus
-   m_ldGTotCliffCollapseFineErodedDuringDeposition += m_dThisIterCliffCollapseFineErodedDuringDeposition;
-   m_ldGTotCliffCollapseSandErodedDuringDeposition += m_dThisIterCliffCollapseSandErodedDuringDeposition;
-   m_ldGTotCliffCollapseCoarseErodedDuringDeposition += m_dThisIterCliffCollapseCoarseErodedDuringDeposition;
+   // Deposition of talus from cliff collapse
+   m_ldGTotCliffTalusFineDeposition += m_dThisIterFineCliffTalusDeposition;
+   m_ldGTotCliffTalusSandDeposition += m_dThisIterSandCliffTalusDeposition;
+   m_ldGTotCliffTalusCoarseDeposition += m_dThisIterCoarseCliffTalusDeposition;
 
    // Beach erosion of unconsolidated sediment
    m_ldGTotPotentialBeachErosion += m_dThisIterPotentialBeachErosion;

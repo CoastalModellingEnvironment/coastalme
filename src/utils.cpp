@@ -1140,15 +1140,9 @@ string CSimulation::strListTSFiles(void) const
       strTmp.append(", ");
    }
 
-   if (m_bCliffCollapseDepositionTSSave)
+   if (m_bCliffCollapseTalusDepositionTSSave)
    {
       strTmp.append(TIME_SERIES_CLIFF_COLLAPSE_DEPOSITION_CODE);
-      strTmp.append(", ");
-   }
-
-   if (m_bCliffCollapseNetTSSave)
-   {
-      strTmp.append(TIME_SERIES_CLIFF_COLLAPSE_NET_CODE);
       strTmp.append(", ");
    }
 
@@ -1276,7 +1270,7 @@ bool CSimulation::bSetUpTSFiles(void)
       }
    }
 
-   if (m_bCliffCollapseDepositionTSSave)
+   if (m_bCliffCollapseTalusDepositionTSSave)
    {
       // Deposition due to cliff collapse
       strTSFile = m_strOutPath;
@@ -1288,23 +1282,6 @@ bool CSimulation::bSetUpTSFiles(void)
       if (! CliffCollapseDepositionTSStream)
       {
          // Error, cannot open cliff collapse deposition time-series file
-         cerr << ERR << "cannot open " << strTSFile << " for output" << endl;
-         return false;
-      }
-   }
-
-   if (m_bCliffCollapseNetTSSave)
-   {
-      // Net change in unconsolidated sediment due to cliff collapse
-      strTSFile = m_strOutPath;
-      strTSFile.append(TIME_SERIES_CLIFF_COLLAPSE_NET_NAME);
-      strTSFile.append(CSVEXT);
-
-      // Open net cliff collapse time-series CSV file
-      CliffCollapseNetChangeTSStream.open(strTSFile.c_str(), ios::out | ios::trunc);
-      if (! CliffCollapseNetChangeTSStream)
-      {
-         // Error, cannot open net cliff collapse time-series file
          cerr << ERR << "cannot open " << strTSFile << " for output" << endl;
          return false;
       }

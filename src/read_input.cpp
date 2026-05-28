@@ -1544,8 +1544,7 @@ bool CSimulation::bReadRunDataFile(void)
                   m_bSWLTSSave = true;
                   m_bActualPlatformErosionTSSave = true;
                   m_bCliffCollapseErosionTSSave = true;
-                  m_bCliffCollapseDepositionTSSave = true;
-                  m_bCliffCollapseNetTSSave = true;
+                  m_bCliffCollapseTalusDepositionTSSave = true;
                   m_bBeachErosionTSSave = true;
                   m_bBeachDepositionTSSave = true;
                   m_bBeachSedimentChangeNetTSSave = true;
@@ -1582,14 +1581,8 @@ bool CSimulation::bReadRunDataFile(void)
 
                   if (strRH.find(TIME_SERIES_CLIFF_COLLAPSE_DEPOSITION_CODE) != string::npos)
                   {
-                     m_bCliffCollapseDepositionTSSave = true;
+                     m_bCliffCollapseTalusDepositionTSSave = true;
                      strRH = strRemoveSubstr(&strRH, &TIME_SERIES_CLIFF_COLLAPSE_DEPOSITION_CODE);
-                  }
-
-                  if (strRH.find(TIME_SERIES_CLIFF_COLLAPSE_NET_CODE) != string::npos)
-                  {
-                     m_bCliffCollapseNetTSSave = true;
-                     strRH = strRemoveSubstr(&strRH, &TIME_SERIES_CLIFF_COLLAPSE_NET_CODE);
                   }
 
                   if (strRH.find(TIME_SERIES_BEACH_EROSION_CODE) != string::npos)
@@ -5196,9 +5189,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
          if (code == "cliff_collapse_erosion")
             m_bCliffCollapseErosionTSSave = true;
          if (code == "cliff_collapse_deposition")
-            m_bCliffCollapseDepositionTSSave = true;
-         if (code == "cliff_collapse_net")
-            m_bCliffCollapseNetTSSave = true;
+            m_bCliffCollapseTalusDepositionTSSave = true;
          if (code == "beach_erosion")
             m_bBeachErosionTSSave = true;
          if (code == "beach_deposition")

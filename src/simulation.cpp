@@ -143,9 +143,8 @@ CSimulation::CSimulation(void)
    m_bSuspSedTSSave = false;
    m_bFloodSetupSurgeTSSave = false;
    m_bFloodSetupSurgeRunupTSSave = false;
-   m_bCliffCollapseDepositionTSSave = false;
+   m_bCliffCollapseTalusDepositionTSSave = false;
    m_bCliffCollapseErosionTSSave = false;
-   m_bCliffCollapseNetTSSave = false;
    m_bBeachErosionTSSave = false;
    m_bBeachDepositionTSSave = false;
    m_bBeachSedimentChangeNetTSSave = false;
@@ -365,11 +364,9 @@ CSimulation::CSimulation(void)
    m_dThisIterCliffCollapseErosionFineCons = 0;
    m_dThisIterCliffCollapseErosionSandCons = 0;
    m_dThisIterCliffCollapseErosionCoarseCons = 0;
-   m_dThisIterUnconsSandCliffDeposition = 0;
-   m_dThisIterUnconsCoarseCliffDeposition = 0;
-   m_dThisIterCliffCollapseFineErodedDuringDeposition = 0;
-   m_dThisIterCliffCollapseSandErodedDuringDeposition = 0;
-   m_dThisIterCliffCollapseCoarseErodedDuringDeposition = 0;
+   m_dThisIterFineCliffTalusDeposition = 0;
+   m_dThisIterSandCliffTalusDeposition = 0;
+   m_dThisIterCoarseCliffTalusDeposition = 0;
    m_dCoastNormalRandSpacingFactor = 0;
    m_dDeanProfileStartAboveSWL = 0;
    m_dAccumulatedSeaLevelChange = 0;
@@ -426,7 +423,7 @@ CSimulation::CSimulation(void)
    m_ldGTotCliffCollapseFine = 0;
    m_ldGTotCliffCollapseSand = 0;
    m_ldGTotCliffCollapseCoarse = 0;
-   m_ldGTotCliffTalusFineToSuspension = 0;
+   m_ldGTotCliffTalusFineDeposition = 0;
    m_ldGTotCliffTalusSandDeposition = 0;
    m_ldGTotCliffTalusCoarseDeposition = 0;
    m_ldGTotCliffCollapseFineErodedDuringDeposition = 0;
@@ -1239,11 +1236,6 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       nRet = nDoSedimentSlumping();
       if (nRet != RTN_OK)
          return nRet;
-
-      //       // Add the fine sediment that was eroded this timestep (from the shore platform, from cliff collapse, from erosion of existing fine sediment during cliff collapse talus deposition, and from beach erosion; minus the fine sediment from beach erosion that went off-grid) to the suspended sediment load
-      // double dFineThisIter = m_dThisIterActualPlatformErosionFineCons + m_dThisIterCliffCollapseErosionFineUncons + m_dThisIterCliffCollapseErosionFineCons + m_dThisIterCliffCollapseFineErodedDuringDeposition + m_dThisIterBeachErosionFine - m_dThisIterLeftGridUnconsFine;
-      //
-      // m_dThisIterFineSedimentToSuspension += dFineThisIter;
 
       // Tell the user how the simulation is progressing
       AnnounceProgress();
