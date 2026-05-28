@@ -1839,9 +1839,9 @@ void CSimulation::WritePolygonCliffCollapseErosion(void)
       {
          CGeomCoastPolygon const* pPolygon = m_VCoast[nCoast].pGetPolygon(n);
 
-         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonThisCoastID(), 11)
+         LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonThisCoastID(), 11) << "|"
                   // All
-                  << "|" << strDblRight((pPolygon->dGetCliffCollapseErosionFine() + pPolygon->dGetCliffCollapseErosionSand() + pPolygon->dGetCliffCollapseErosionCoarse()) * m_dCellArea, 0, 14) << " " << "|" << strDblRight((pPolygon->dGetCliffCollapseFineTalusDeposition() + pPolygon->dGetCliffCollapseSandTalusDeposition() + pPolygon->dGetCliffCollapseCoarseTalusDeposition()) * m_dCellArea, 0, 14) << "|"
+                  << strDblRight((pPolygon->dGetCliffCollapseErosionFine() + pPolygon->dGetCliffCollapseErosionSand() + pPolygon->dGetCliffCollapseErosionCoarse()) * m_dCellArea, 0, 14) << "|" << strDblRight((pPolygon->dGetCliffCollapseFineTalusDeposition() + pPolygon->dGetCliffCollapseSandTalusDeposition() + pPolygon->dGetCliffCollapseCoarseTalusDeposition()) * m_dCellArea, 0, 14) << "|"
                   // Fine
                   << strDblRight(pPolygon->dGetCliffCollapseErosionFine(), 0, 14) << "|" << strDblRight(pPolygon->dGetCliffCollapseFineTalusDeposition(), 0, 14) << "|"
                   // Sand
