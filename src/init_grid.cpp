@@ -82,6 +82,9 @@ int CSimulation::nInitGridAndCalcStillWaterLevel(void)
    m_dThisIterCliffCollapseErosionFineCons = 0;
    m_dThisIterCliffCollapseErosionSandCons = 0;
    m_dThisIterCliffCollapseErosionCoarseCons = 0;
+   m_dThisIterTotFineTalusDepth = 0;
+   m_dThisIterTotSandTalusDepth = 0;
+   m_dThisIterTotCoarseTalusDepth = 0;
    m_dThisIterActualPlatformErosionFineCons = 0;
    m_dThisIterActualPlatformErosionSandCons = 0;
    m_dThisIterActualPlatformErosionCoarseCons = 0;

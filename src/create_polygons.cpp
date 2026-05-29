@@ -340,7 +340,7 @@ int CSimulation::nMarkPolygonCells(void)
          double dSedimentInputCoarse = 0;
 
          CGeomCoastPolygon* pPolygon = m_VCoast[nCoast].pGetPolygon(nPoly);
-         int const nPolyID = pPolygon->nGetPolygonThisCoastID();
+         int const nPolyID = pPolygon->nGetPolygonCoastID();
 
          // LogStream << m_ulIter << ": in nMarkPolygonCells() nPoly = " << nPoly << " nPolyID = " << nPolyID << endl;
 
@@ -354,7 +354,7 @@ int CSimulation::nMarkPolygonCells(void)
          if ((PtiStart.nGetX() == INT_NODATA) && (PtiStart.nGetY() == INT_NODATA))
          {
             // Uh-oh, could not find a point within this polygon
-            LogStream << m_ulIter << ":\t " << ERR << "could not find a within-polygon start point for polygon infilling, coast " << nCoast << " polygon " << pPolygon->nGetPolygonThisCoastID() << endl;
+            LogStream << m_ulIter << ":\t " << ERR << "could not find a within-polygon start point for polygon infilling, coast " << nCoast << " polygon " << pPolygon->nGetPolygonCoastID() << endl;
 
             LogStream << "Polygon vertices:" << endl;
             for (int n = 0; n < pPolygon->nGetNumVertices(); n++)
@@ -408,13 +408,6 @@ int CSimulation::nMarkPolygonCells(void)
                m_pRasterGrid->m_Cell[nX][nY].SetCoastAndPolygonID(nCoast, nPolyID);
 
                // LogStream << "Marked [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
-
-               // Increment the running totals for this polygon
-               // dCliffCollapseErosionFine += m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionFine();
-               // dCliffCollapseErosionSand += m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionSand();
-               // dCliffCollapseErosionCoarse += m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionCoarse();
-               // dCliffCollapseTalusSand += m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseSandTalusDeposition();
-               // dCliffCollapseTalusCoarse += m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseCoarseTalusDeposition();
 
                // Get the number of the highest layer with non-zero thickness
                int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
@@ -590,7 +583,7 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
       for (int nn = 0; nn < nNumPolygons; nn++)
       {
          CGeomCoastPolygon* pThisPolygon = m_VCoast[nCoast].pGetPolygon(nn);
-         int const nThisPolygon = pThisPolygon->nGetPolygonThisCoastID();
+         int const nThisPolygon = pThisPolygon->nGetPolygonCoastID();
 
          vector<int> nVUpCoastAdjacentPolygon;
          vector<int> nVDownCoastAdjacentPolygon;
@@ -904,7 +897,7 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
    // {
    //    m_nExtra++;
    //    LogStream << "################################################ m_ulIter = " << m_ulIter << " m_nExtra = " << m_nExtra << endl;
-   //    LogStream << "coast = " << nCoast << " polygon = " << pPolygon->nGetPolygonThisCoastID() << endl;
+   //    LogStream << "coast = " << nCoast << " polygon = " << pPolygon->nGetPolygonCoastID() << endl;
    //
    //    // assert(nPolygon < m_VCoast[nCoast].nGetNumPolygons());
    //    CGeom2DIPoint const* pNode = pPolygon->pPtiGetNode();

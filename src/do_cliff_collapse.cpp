@@ -56,7 +56,7 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
          int const nY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
 
          // TODO Talus is protecting this cell
-         if (m_pRasterGrid->m_Cell[nX][nY].dGetTalusDepth() > 0)
+         if (m_pRasterGrid->m_Cell[nX][nY].dGetAllTalusDepth() > 0)
             continue;
 
          // First get wave energy for the coastal landform object
@@ -175,7 +175,7 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
                // double dTmpSandErosion = m_pVCoastPolygon[n]->dGetCliffCollapseErosionSand() * m_dCellArea ;
                // double dTmpSandDeposition = m_pVCoastPolygon[n]->dGetCliffCollapseSandTalusDeposition() * m_dCellArea ;
                //
-               // LogStream << m_ulIter << ": polygon = " << m_pVCoastPolygon[n]->nGetPolygonThisCoastID() << " sand erosion = " << dTmpSandErosion << " sand deposition = " << dTmpSandDeposition << endl;
+               // LogStream << m_ulIter << ": polygon = " << m_pVCoastPolygon[n]->nGetPolygonCoastID() << " sand erosion = " << dTmpSandErosion << " sand deposition = " << dTmpSandDeposition << endl;
                //
                // dTmpAllPolySandErosion += dTmpSandErosion;
                // dTmpAllPolySandDeposition += dTmpSandDeposition;
@@ -449,28 +449,28 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
       LogStream << m_ulIter << ":\t coast " << nCoast << " [" << nX << "][" << nY << "] cliff collapse, orig cell elev = " << dPreCollapseCellElev << " new cell elev = " << dPostCollapseCellElevNoTalus << " elev change = " << dPreCollapseCellElev - dPostCollapseCellElevNoTalus << " elev inc talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << endl;
 
-   // Update this-polygon totals: add to the depths of cliff collapse erosion for this polygon
+   // Update this-polygon totals: add to the depths of cliff collapse erosion and talus deposition for this polygon
    pPolygon->AddCliffCollapseErosionFine(dFineCollapse);
    pPolygon->AddCliffCollapseFineTalusDeposition(dFineCollapse);
    pPolygon->AddCliffCollapseErosionSand(dSandCollapse);
+   pPolygon->AddCliffCollapseSandTalusDeposition(dSandCollapse);
    pPolygon->AddCliffCollapseErosionCoarse(dCoarseCollapse);
+   pPolygon->AddCliffCollapseCoarseTalusDeposition(dCoarseCollapse);
 
    // And update the this-timestep totals and the grand totals for the number of cells with cliff collapse
    m_nNumThisIterCliffCollapse++;
    m_nNumTotCliffCollapse++;
 
-   // Add to this-iteration totals of fine sediment (consolidated and unconsolidated) eroded via cliff collapse
+   // Add to this-iteration totals of fine, sand, and coarse sediment (consolidated and unconsolidated) eroded via cliff collapse
    m_dThisIterCliffCollapseErosionFineUncons += dFineUnconsLost;
    m_dThisIterCliffCollapseErosionFineCons += dFineConsLost;
-
-   // Also add to the total suspended load. Note that this addition to the suspended load has not yet been shared amongst all sea cells, this happens in nEndOfTimestepUpdateGrid()
-   m_dThisIterFineSedimentToSuspension += (dFineConsLost + dFineUnconsLost);
-
-   // Add to this-iteration totals of sand and coarse sediment (consolidated and unconsolidated) eroded via cliff collapse
    m_dThisIterCliffCollapseErosionSandUncons += dSandUnconsLost;
    m_dThisIterCliffCollapseErosionSandCons += dSandConsLost;
    m_dThisIterCliffCollapseErosionCoarseUncons += dCoarseUnconsLost;
    m_dThisIterCliffCollapseErosionCoarseCons += dCoarseConsLost;
+
+   // Also add to the total suspended load. Note that this addition to the suspended load has not yet been shared amongst all sea cells, this happens in nEndOfTimestepUpdateGrid()
+   // m_dThisIterFineSedimentToSuspension += (dFineConsLost + dFineUnconsLost);
 
    // Save the timestep at which cliff collapse occurred
    m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetCliffCollapseTimestep(m_ulIter);

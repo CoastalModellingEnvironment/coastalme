@@ -2652,7 +2652,7 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
       for (int nPoly = 0; nPoly < m_VCoast[nCoast].nGetNumPolygons(); nPoly++)
       {
          CGeomCoastPolygon* pPolygon = m_VCoast[nCoast].pGetPolygon(nPoly);
-         int const nPolyID = pPolygon->nGetPolygonThisCoastID();
+         int const nPolyID = pPolygon->nGetPolygonCoastID();
 
          if (VnPolygonD50Count[nPolyID] > 0)
             VdPolygonD50[nPolyID] /= VnPolygonD50Count[nPolyID];

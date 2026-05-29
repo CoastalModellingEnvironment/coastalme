@@ -18,6 +18,9 @@
 
    You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ==============================================================================================================================*/
+#include <iostream>
+using std::endl;
+
 #include <cfloat>
 
 #ifdef _OPENMP
@@ -30,13 +33,36 @@
 #include "coast.h"
 
 //===============================================================================================================================
-//! At the end of each timestep, updates all cells in the raster raster grid and does some per-timestep accounting
+//! At the end of each timestep, updates all cells in the raster grid and does some per-timestep accounting
 //===============================================================================================================================
 int CSimulation::nEndOfTimestepUpdateGrid(void)
 {
    // Go through all cells in the raster grid and calculate some this-timestep totals
    m_dThisIterTopElevMax = -DBL_MAX;
    m_dThisIterTopElevMin = DBL_MAX;
+
+   // Resize vectors to store per-polygon totals of fine, sand, and coarse talus
+   int nCoastSize = static_cast<int>(m_VCoast.size());
+   m_VdFineTalus.resize(nCoastSize);
+   for (int n = 0; n < (nCoastSize); n++)
+   {
+      int nPoly = m_VCoast[n].nGetNumPolygons();
+      m_VdFineTalus[n].resize(nPoly);
+   }
+
+   m_VdSandTalus.resize(nCoastSize);
+   for (int n = 0; n < (nCoastSize); n++)
+   {
+      int nPoly = m_VCoast[n].nGetNumPolygons();
+      m_VdSandTalus[n].resize(nPoly);
+   }
+
+   m_VdCoarseTalus.resize(nCoastSize);
+   for (int n = 0; n < (nCoastSize); n++)
+   {
+      int nPoly = m_VCoast[n].nGetNumPolygons();
+      m_VdCoarseTalus[n].resize(nPoly);
+   }
 
    // Initialize reduction variables to zero
    m_ulThisIterNumCoastCells = 0;
@@ -80,6 +106,42 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
 
          // Reset the switch for platform erosion this timestep
          m_pRasterGrid->m_Cell[nX][nY].SetPlatformErosionThisIter(false);
+
+         // First get fine talus depth for this cell, and allocate to a polygon total
+         double dFineTalus = m_pRasterGrid->m_Cell[nX][nY].dGetFineTalusDepth();
+         if (dFineTalus > 0)
+         {
+            int nCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonCoastID();
+            int nPoly = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID();
+            if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
+               LogStream << m_ulIter << ":\t " << dFineTalus << " fine talus found on cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
+            else
+               m_VdFineTalus[nCoast][nPoly] += dFineTalus;
+         }
+
+         // Next get sand talus depth for this cell, and allocate to a polygon total
+         double dSandTalus = m_pRasterGrid->m_Cell[nX][nY].dGetSandTalusDepth();
+         if (dSandTalus > 0)
+         {
+            int nCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonCoastID();
+            int nPoly = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID();
+            if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
+               LogStream << m_ulIter << ":\t " << dSandTalus << " sand talus found on cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
+            else
+               m_VdSandTalus[nCoast][nPoly] += dFineTalus;
+         }
+
+         // Finally get coarse talus depth for this cell, and allocate to a polygon total
+         double dCoarseTalus = m_pRasterGrid->m_Cell[nX][nY].dGetCoarseTalusDepth();
+         if (dCoarseTalus > 0)
+         {
+            int nCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonCoastID();
+            int nPoly = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID();
+            if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
+               LogStream << m_ulIter << ":\t " << dCoarseTalus << " coarse talus found on cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
+            else
+               m_VdSandTalus[nCoast][nPoly] += dFineTalus;
+         }
       }
    }
 

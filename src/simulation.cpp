@@ -1214,7 +1214,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
          // Next simulate beach erosion and deposition i.e. simulate alongshore transport of unconsolidated sediment (longshore drift) between polygons. First calculate potential sediment movement between polygons
          DoAllPotentialBeachErosion();
 
-         // Do within-sediment redistribution of unconsolidated sediment, constraining potential sediment movement to give actual (i.e. supply-limited) sediment movement to/from each polygon in three size classes
+         // Do within-polygon redistribution of unconsolidated sediment, constraining potential sediment movement to give actual (i.e. supply-limited) sediment movement to/from each polygon in three size classes
          nRet = nDoAllActualBeachErosionAndDeposition();
          if (nRet != RTN_OK)
             return nRet;
@@ -1232,7 +1232,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
             WritePolygonSedimentInputEventTable();
       }
 
-      // Do slumping of unconsolidated sediment on dune areas, for cells that changed this timestep
+      // Do slumping of unconsolidated sediment on dune areas, for cells that changed this timestep TODO make this an option
       nRet = nDoSedimentSlumping();
       if (nRet != RTN_OK)
          return nRet;

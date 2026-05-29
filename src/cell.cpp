@@ -72,9 +72,9 @@ CGeomCell::CGeomCell()
      m_dTotPotentialPlatformErosion(0),
      m_dActualPlatformErosionThisIter(0),
      m_dTotActualPlatformErosion(0),
-     m_dCliffCollapseFineThisIter(0),
-     m_dCliffCollapseSandThisIter(0),
-     m_dCliffCollapseCoarseThisIter(0),
+     m_dCliffCollapseToFineTalusThisIter(0),
+     m_dCliffCollapseToSandTalusThisIter(0),
+     m_dCliffCollapseToCoarseTalusThisIter(0),
      m_dTotFineCliffCollapse(0),
      m_dTotSandCliffCollapse(0),
      m_dTotCoarseCliffCollapse(0),
@@ -319,7 +319,7 @@ int CGeomCell::nGetPolygonID(void) const
 }
 
 //! Returns the coast number of the polygon which 'contains' this cell (returns INT_NODATA if the cell is not 'in' a polygon)
-int CGeomCell::nGetPolygonThisCoastID(void) const
+int CGeomCell::nGetPolygonCoastID(void) const
 {
    return m_nPolygonCoastID;
 }
@@ -361,19 +361,69 @@ bool CGeomCell::bIsinAnyShadowZone(void) const
    return false;
 }
 
-//! Returns the depth of any talus that is on this cell, in any layer
-double CGeomCell::dGetTalusDepth(void) const
+//! Returns the depth of talus (all size clases) that is on this cell, in any layer
+double CGeomCell::dGetAllTalusDepth(void) const
 {
    double dTotTalusDepth = 0;
-
    for (int nLayer = 0; nLayer < static_cast<int>(m_VLayerAboveBasement.size()); nLayer++)
    {
       CRWCellTalus const* pTalus = m_VLayerAboveBasement[nLayer].pGetTalus();
       if (pTalus != NULL)
       {
          // There is some talus on this layer
-         double const dThisTalusDepth = pTalus->dGetSandDepth() + pTalus->dGetCoarseDepth();
+         double const dThisTalusDepth = pTalus->dGetFineDepth() + pTalus->dGetSandDepth() + pTalus->dGetCoarseDepth();
          dTotTalusDepth += dThisTalusDepth;
+      }
+   }
+
+   return dTotTalusDepth;
+}
+
+//! Returns the depth of fine talus that is on this cell, in any layer
+double CGeomCell::dGetFineTalusDepth(void) const
+{
+   double dTotTalusDepth = 0;
+   for (int nLayer = 0; nLayer < static_cast<int>(m_VLayerAboveBasement.size()); nLayer++)
+   {
+      CRWCellTalus const* pTalus = m_VLayerAboveBasement[nLayer].pGetTalus();
+      if (pTalus != NULL)
+      {
+         // There is some talus on this layer
+         dTotTalusDepth += pTalus->dGetFineDepth();
+      }
+   }
+
+   return dTotTalusDepth;
+}
+
+//! Returns the depth of sand talus that is on this cell, in any layer
+double CGeomCell::dGetSandTalusDepth(void) const
+{
+   double dTotTalusDepth = 0;
+   for (int nLayer = 0; nLayer < static_cast<int>(m_VLayerAboveBasement.size()); nLayer++)
+   {
+      CRWCellTalus const* pTalus = m_VLayerAboveBasement[nLayer].pGetTalus();
+      if (pTalus != NULL)
+      {
+         // There is some talus on this layer
+         dTotTalusDepth += pTalus->dGetSandDepth();
+      }
+   }
+
+   return dTotTalusDepth;
+}
+
+//! Returns the depth of coarse talus that is on this cell, in any layer
+double CGeomCell::dGetCoarseTalusDepth(void) const
+{
+   double dTotTalusDepth = 0;
+   for (int nLayer = 0; nLayer < static_cast<int>(m_VLayerAboveBasement.size()); nLayer++)
+   {
+      CRWCellTalus const* pTalus = m_VLayerAboveBasement[nLayer].pGetTalus();
+      if (pTalus != NULL)
+      {
+         // There is some talus on this layer
+         dTotTalusDepth += pTalus->dGetCoarseDepth();
       }
    }
 
@@ -416,10 +466,10 @@ double CGeomCell::dGetTalusDepth(void) const
 bool CGeomCell::bElevLessThanSWL(void) const
 {
    // // Note that m_pGrid->pGetSim()->dGetThisIterTotWaterLevel() is zero, since TODO 007 Finish surge and runup stuff
-   // return ((m_VdAllHorizonTopElev.back() + this->dGetTalusDepth() + m_dInterventionHeight) < (m_pGrid->pGetSim()->dGetThisIterTotWaterLevel() + m_pGrid->pGetSim()->dGetThisIterSWL()));
+   // return ((m_VdAllHorizonTopElev.back() + this->dGetAllTalusDepth() + m_dInterventionHeight) < (m_pGrid->pGetSim()->dGetThisIterTotWaterLevel() + m_pGrid->pGetSim()->dGetThisIterSWL()));
 
    // Will need to change this (see above) once surge and runup stuff is working
-   return ((m_VdAllHorizonTopElev.back() + this->dGetTalusDepth() + m_dInterventionHeight) < m_pGrid->pGetSim()->dGetThisIterSWL());
+   return ((m_VdAllHorizonTopElev.back() + this->dGetAllTalusDepth() + m_dInterventionHeight) < m_pGrid->pGetSim()->dGetThisIterSWL());
 }
 
 // //! Set this cell as checked TODO 007 Finish surge and runup stuff
@@ -621,7 +671,7 @@ double CGeomCell::dGetAllSedTopElevOmitTalus(void) const
 //! Returns the elevation of the top surface of sediment (both consolidated and unconsolidated) plus talus for this cell. If there is a cliff notch, ignore the missing volume
 double CGeomCell::dGetAllSedTopElevIncTalus(void)
 {
-   return this->dGetAllSedTopElevOmitTalus() + this->dGetTalusDepth();
+   return this->dGetAllSedTopElevOmitTalus() + this->dGetAllTalusDepth();
 }
 
 //! Returns the elevation of the top surface of sediment (both consolidated and unconsolidated) for this cell, but ignoring any talus. If there is a cliff notch, ignore the missing volume
@@ -633,19 +683,19 @@ double CGeomCell::dGetConsSedTopElevOmitTalus(void) const
 //! Returns the elevation of the top surface of sediment (both consolidated and unconsolidated) plus talus for this cell. If there is a cliff notch, ignore the missing volume
 double CGeomCell::dGetConsSedTopElevIncTalus(void)
 {
-   return this->dGetConsSedTopElevOmitTalus() + this->dGetTalusDepth();
+   return this->dGetConsSedTopElevOmitTalus() + this->dGetAllTalusDepth();
 }
 
 //! Returns the topmost elevation of the cell, including sea (sediment top elevation (both consolidated and unconsolidated), plus the depth of any talus, plus the height of any intervention, plus the sea depth)
 double CGeomCell::dGetTopElevIncSea(void)
 {
-   return m_VdAllHorizonTopElev.back() + this->dGetTalusDepth() + m_dInterventionHeight + m_dSeaDepth;
+   return m_VdAllHorizonTopElev.back() + this->dGetAllTalusDepth() + m_dInterventionHeight + m_dSeaDepth;
 }
 
 //! Returns true if the elevation of the sediment top surface (both consolidated and unconsolidated, and any talus) for this cell, plus any intervention, is less than the grid's this-timestep still water elevation
 bool CGeomCell::bIsInundated(void)
 {
-   return ((m_VdAllHorizonTopElev.back() + m_dInterventionHeight + this->dGetTalusDepth()) < m_pGrid->pGetSim()->CSimulation::dGetThisIterSWL());
+   return ((m_VdAllHorizonTopElev.back() + m_dInterventionHeight + this->dGetAllTalusDepth()) < m_pGrid->pGetSim()->CSimulation::dGetThisIterSWL());
 }
 
 //! Returns the sea surface elevation at the current iteration
@@ -866,7 +916,7 @@ double CGeomCell::dGetTotActualPlatformErosion(void) const
 //! Returns the depth of seawater on this cell if the sediment top (including talus and intervention) is < SWL, or zero
 void CGeomCell::SetSeaDepth(void)
 {
-   m_dSeaDepth = tMax(m_pGrid->pGetSim()->CSimulation::dGetThisIterSWL() - (m_VdAllHorizonTopElev.back() + this->dGetTalusDepth() + m_dInterventionHeight), 0.0);
+   m_dSeaDepth = tMax(m_pGrid->pGetSim()->CSimulation::dGetThisIterSWL() - (m_VdAllHorizonTopElev.back() + this->dGetAllTalusDepth() + m_dInterventionHeight), 0.0);
 }
 
 //! Initialise values for this cell
@@ -895,9 +945,9 @@ void CGeomCell::InitCell(void)
    m_dLocalConsSlope = 0;
    m_dPotentialPlatformErosionThisIter = 0;
    m_dActualPlatformErosionThisIter = 0;
-   m_dCliffCollapseFineThisIter = 0;
-   m_dCliffCollapseSandThisIter = 0;
-   m_dCliffCollapseCoarseThisIter = 0;
+   m_dCliffCollapseToFineTalusThisIter = 0;
+   m_dCliffCollapseToSandTalusThisIter = 0;
+   m_dCliffCollapseToCoarseTalusThisIter = 0;
    m_dTalusFineDepositionThisIter = 0;
    m_dTalusSandDepositionThisIter = 0;
    m_dTalusCoarseDepositionThisIter = 0;
@@ -1035,31 +1085,31 @@ double CGeomCell::dGetBeachProtectionFactor(void) const
 //! Increments the fine, sand, and coarse depths of this-timestep cliff collapse on this cell, also increments the totals
 void CGeomCell::IncrCliffCollapseErosion(double const dFineDepth, double const dSandDepth, double const dCoarseDepth)
 {
-   m_dCliffCollapseFineThisIter += dFineDepth;
-   m_dCliffCollapseSandThisIter += dSandDepth;
-   m_dCliffCollapseCoarseThisIter += dCoarseDepth;
+   m_dCliffCollapseToFineTalusThisIter += dFineDepth;
+   m_dCliffCollapseToSandTalusThisIter += dSandDepth;
+   m_dCliffCollapseToCoarseTalusThisIter += dCoarseDepth;
 
    m_dTotFineCliffCollapse += dFineDepth;
    m_dTotSandCliffCollapse += dSandDepth;
    m_dTotCoarseCliffCollapse += dCoarseDepth;
 }
 
-//! Returns the depth of this-timestep fine-sized sediment cliff collapse on this cell
-double CGeomCell::dGetThisIterCliffCollapseErosionFine(void) const
+//! Returns the depth of this-timestep cliff collapse fine-sized sediment moved to talus on this cell
+double CGeomCell::dGetThisIterCliffCollapseErosionFineToTalus(void) const
 {
-   return m_dCliffCollapseFineThisIter;
+   return m_dCliffCollapseToFineTalusThisIter;
 }
 
-//! Returns the depth of this-timestep sand-sized sediment cliff collapse on this cell
-double CGeomCell::dGetThisIterCliffCollapseErosionSand(void) const
+//! Returns the depth of this-timestep cliff collapse sand-sized sediment moved to talus on this cell
+double CGeomCell::dGetThisIterCliffCollapseErosionSandToTalus(void) const
 {
-   return m_dCliffCollapseSandThisIter;
+   return m_dCliffCollapseToSandTalusThisIter;
 }
 
-//! Returns the depth of this-timestep coarse-sized sediment cliff collapse on this cell
-double CGeomCell::dGetThisIterCliffCollapseErosionCoarse(void) const
+//! Returns the depth of this-timestep cliff collapse coarse-sized sediment moved to talus on this cell
+double CGeomCell::dGetThisIterCliffCollapseErosionCoarseToTalus(void) const
 {
-   return m_dCliffCollapseCoarseThisIter;
+   return m_dCliffCollapseToCoarseTalusThisIter;
 }
 
 //! Returns the running total depth of fine-sized sediment eroded by cliff collapse on this cell
@@ -1107,7 +1157,7 @@ double CGeomCell::dGetThisIterCliffCollapseSandTalusDeposition(void) const
    return m_dTalusSandDepositionThisIter;
 }
 
-//! Retuns the depth of this-timestep coarse talus deposition from cliff collapse on this cell
+//! Returns the depth of this-timestep coarse talus deposition from cliff collapse on this cell
 double CGeomCell::dGetThisIterCliffCollapseCoarseTalusDeposition(void) const
 {
    return m_dTalusCoarseDepositionThisIter;

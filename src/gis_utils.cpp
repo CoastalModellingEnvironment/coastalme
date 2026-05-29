@@ -1557,7 +1557,7 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
                break;
 
             case (RASTER_PLOT_TALUS):
-               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetTalusDepth();
+               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetAllTalusDepth();
                break;
 
             case (RASTER_PLOT_TOP_ELEV_INC_SEA):
@@ -1683,15 +1683,15 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
                break;
 
             case (RASTER_PLOT_CLIFF_COLLAPSE_EROSION_FINE):
-               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionFine();
+               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionFineToTalus();
                break;
 
             case (RASTER_PLOT_CLIFF_COLLAPSE_EROSION_SAND):
-               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionSand();
+               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionSandToTalus();
                break;
 
             case (RASTER_PLOT_CLIFF_COLLAPSE_EROSION_COARSE):
-               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionCoarse();
+               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionCoarseToTalus();
                break;
 
             case (RASTER_PLOT_TOTAL_CLIFF_COLLAPSE_EROSION_FINE):
@@ -1740,7 +1740,7 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
 
             case (RASTER_PLOT_POLYGON_GAIN_OR_LOSS):
                int const nPoly = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID();
-               int const nPolyCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonThisCoastID();
+               int const nPolyCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonCoastID();
 
                if (nPoly == INT_NODATA)
                   dTmp = m_dMissingValue;

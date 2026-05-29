@@ -112,7 +112,7 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
          if (nThisPoly != INT_NODATA)
          {
             // Yes we are in a polygon, so get the coast ID of the polygon for this cell
-            nThisPolyCoast = m_pRasterGrid->m_Cell[nPointGridX][nPointGridY].nGetPolygonThisCoastID();
+            nThisPolyCoast = m_pRasterGrid->m_Cell[nPointGridX][nPointGridY].nGetPolygonCoastID();
 
             // Safety check
             if (nThisPolyCoast == INT_NODATA)
@@ -520,7 +520,7 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
       if (nThisPoly != INT_NODATA)
       {
          // Yes we are in a polygon, so get the coast ID of the polygon for this cell
-         nThisPolyCoast = m_pRasterGrid->m_Cell[nCoastX][nCoastY].nGetPolygonThisCoastID();
+         nThisPolyCoast = m_pRasterGrid->m_Cell[nCoastX][nCoastY].nGetPolygonCoastID();
 
          // Safety check
          if (nThisPolyCoast == INT_NODATA)

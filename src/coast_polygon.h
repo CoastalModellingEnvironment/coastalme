@@ -104,58 +104,67 @@ class CGeomCoastPolygon : public CA2DShape
    //! Depth of coarse unconsolidated sediment eroded during beach deposition as a Dean profile
    double m_dBeachCoarseErodedDeanProfile;
 
-   //! Depth of eroded fine sediment from cliff collapse (is always equal to m_dCliffCollapseToSuspensionFine)
+   //! This-timestep total depth of eroded fine sediment from cliff collapse
    double m_dCliffCollapseErosionFine;
 
-   //! Depth of eroded sand sediment from cliff collapse, note that this does not include sand sediment eroded during Dean profile deposition of talus
+   //! This-timestep total depth of eroded sand sediment from cliff collapse
    double m_dCliffCollapseErosionSand;
 
-   //! Depth of eroded coarse sediment from cliff collapse, note that this does not include coarse sediment eroded during Dean profile deposition of talus
+   //! This-timestep total depth of eroded coarse sediment from cliff collapse
    double m_dCliffCollapseErosionCoarse;
 
-   //! Depth of unconsolidated fine sediment which goes to suspension from cliff collapse
+   //! This-timestep total depth of fine talus from cliff collapse
    double m_dCliffCollapseTalusFine;
 
-   //! Depth of unconsolidated sand talus from cliff collapse
+   //! This-timestep total depth of sand talus from cliff collapse
    double m_dCliffCollapseTalusSand;
 
-   //! Depth of unconsolidated coarse talus from cliff collapse
+   //! This-timestep total depth of coarse talus from cliff collapse
    double m_dCliffCollapseTalusCoarse;
 
-   //! Depth of fine sediment moved to suspension from shore platform erosion
+   //! This-timestep total depth of fine talus moved to suspension
+   double m_dCliffCollapseTalusFineToSuspension;
+
+   //! This-timestep total depth of sand talus moved to adjacent unconsolidated sediment
+   double m_dCliffCollapseTalusSandToUncons;
+
+   //! This-timestep total depth of coarse talus moved to adjacent unconsolidated sediment
+   double m_dCliffCollapseTalusCoarseToUncons;
+
+   //! This-timestep total depth of fine sediment moved to suspension from shore platform erosion
    double m_dPlatformErosionToSuspensionFine;
 
-   //! Depth of unconsolidated sand sediment from shore platform erosion
+   //! This-timestep total depth of unconsolidated sand sediment from shore platform erosion
    double m_dPlatformErosionUnconsSand;
 
-   //! Depth of unconsolidated coarse sediment from shore platform erosion
+   //! This-timestep total depth of unconsolidated coarse sediment from shore platform erosion
    double m_dPlatformErosionUnconsCoarse;
 
-   //! Depth of pre-existing unconsolidated fine sediment
+   //! This-timestep total depth of pre-existing unconsolidated fine sediment
    double m_dPreExistingUnconsFine;
 
-   //! Depth of pre-existing unconsolidated sand sediment
+   //! This-timestep total depth of pre-existing unconsolidated sand sediment
    double m_dPreExistingUnconsSand;
 
-   //! Depth of pre-existing unconsolidated coarse sedimet
+   //! This-timestep total depth of pre-existing unconsolidated coarse sedimet
    double m_dPreExistingUnconsCoarse;
 
-   //! Depth of pre-existing consolidated fine sediment
+   //! This-timestep total depth of pre-existing consolidated fine sediment
    double m_dPreExistingConsFine;
 
-   //! Depth of pre-existing consolidated sand sediment
+   //! This-timestep total depth of pre-existing consolidated sand sediment
    double m_dPreExistingConsSand;
 
-   //! Depth of pre-existing consolidated coarse sediment
+   //! This-timestep total depth of pre-existing consolidated coarse sediment
    double m_dPreExistingConsCoarse;
 
-   //! Depth of fine sediment added from this-iteration sediment input event(s)
+   //! This-timestep total depth of fine sediment added from this-iteration sediment input event(s)
    double m_dSedimentInputFine;
 
-   //! Depth of sand sediment added from this-iteration sediment input event(s)
+   //! This-timestep total depth of sand sediment added from this-iteration sediment input event(s)
    double m_dSedimentInputSand;
 
-   //! Depth of coarse sediment added from this-iteration sediment input event(s)
+   //! This-timestep total depth of coarse sediment added from this-iteration sediment input event(s)
    double m_dSedimentInputCoarse;
 
    //! Coast polygon length
@@ -203,7 +212,7 @@ class CGeomCoastPolygon : public CA2DShape
    // void SetCoastStartPolygon(void);
    bool bIsCoastStartPolygon(void) const;
 
-   int nGetPolygonThisCoastID(void) const;
+   int nGetPolygonCoastID(void) const;
 
    // void SetCoastNode(int const);
    int nGetNodeCoastPoint(void) const;
@@ -306,6 +315,13 @@ class CGeomCoastPolygon : public CA2DShape
    double dGetCliffCollapseSandTalusDeposition(void) const;
    void AddCliffCollapseCoarseTalusDeposition(double const);
    double dGetCliffCollapseCoarseTalusDeposition(void) const;
+
+   void AddCliffCollapseFineTalusToSuspension(double const);
+   double dGetCliffCollapseFineTalusToSuspension(void) const;
+   void AddCliffCollapseSandTalusToUncons(double const);
+   double dGetCliffCollapseSandTalusToUncons(void) const;
+   void AddCliffCollapseCoarseTalusToUncons(double const);
+   double dGetCliffCollapseCoarseTalusToUncons(void) const;
 
    void AddPlatformErosionUnconsFineToSuspension(double const);
    double dGetPlatformErosionUnconsFineToSuspension(void) const;

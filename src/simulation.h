@@ -907,6 +907,15 @@ class CSimulation
    //! Total coarse unconsolidated sediment lost from the grid this iteration (depth in m)
    double m_dThisIterLeftGridUnconsCoarse;
 
+   //! Total depth of fine talus for this iteration
+   double m_dThisIterTotFineTalusDepth;
+
+   //! Total depth of sand talus for this iteration
+   double m_dThisIterTotSandTalusDepth;
+
+   //! Total depth of coarse talus for this iteration
+   double m_dThisIterTotCoarseTalusDepth;
+
    //! Error term: if we are unable to deposit enough unconslidated sand on polygon(s), this is held over to be deposited the next iteration
    double m_dDepositionSandDiff;
 
@@ -1618,6 +1627,15 @@ class CSimulation
 
    //! c++11 unit normal distribution (mean = 0, stdev = 1)
    normal_distribution<double> m_dGetFromUnitNormalDist{0.0, 1.0};
+
+   //! Vector-of-vectors to hold per-polygon fine talus amounts
+   vector<vector<double>> m_VdFineTalus;
+
+   //! Vector-of-vectors to hold per-polygon sand talus amounts
+   vector<vector<double>> m_VdSandTalus;
+
+   //! Vector-of-vectors to hold per-polygon coarse talus amounts
+   vector<vector<double>> m_VdCoarseTalus;
 
  private:
    // Input and output routines

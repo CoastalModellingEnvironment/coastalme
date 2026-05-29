@@ -168,13 +168,13 @@ class CGeomCell
    double m_dTotActualPlatformErosion;
 
    //! Depth of fine sediment (consolidated and unconsolidated) removed via cliff collapse this timestep
-   double m_dCliffCollapseFineThisIter;
+   double m_dCliffCollapseToFineTalusThisIter;
 
    //! Depth of sand sediment (consolidated and unconsolidated) removed via cliff collapse this timestep
-   double m_dCliffCollapseSandThisIter;
+   double m_dCliffCollapseToSandTalusThisIter;
 
    //! Depth of coarse sediment (consolidated and unconsolidated) removed via cliff collapse this timestep
-   double m_dCliffCollapseCoarseThisIter;
+   double m_dCliffCollapseToCoarseTalusThisIter;
 
    //! Total depth of fine sediment (consolidated and unconsolidated) removed via cliff collapse
    double m_dTotFineCliffCollapse;
@@ -306,7 +306,7 @@ class CGeomCell
    bool bIsPossibleFloodStartCell(void) const;
 
    int nGetPolygonID(void) const;
-   int nGetPolygonThisCoastID(void) const;
+   int nGetPolygonCoastID(void) const;
    void SetCoastAndPolygonID(int const, int const);
 
    CRWCellLandform* pGetLandform(void);
@@ -386,7 +386,10 @@ class CGeomCell
    double dGetAllUnconsDepthAllLayers(void) const;
    double dGetAllSedDepthAllLayers(void) const;
 
-   double dGetTalusDepth(void) const;
+   double dGetAllTalusDepth(void) const;
+   double dGetFineTalusDepth(void) const;
+   double dGetSandTalusDepth(void) const;
+   double dGetCoarseTalusDepth(void) const;
 
    void SetBasementElev(double const);
    double dGetBasementElev(void) const;
@@ -406,9 +409,9 @@ class CGeomCell
    double dGetTotActualPlatformErosion(void) const;
 
    void IncrCliffCollapseErosion(double const, double const, double const);
-   double dGetThisIterCliffCollapseErosionFine(void) const;
-   double dGetThisIterCliffCollapseErosionSand(void) const;
-   double dGetThisIterCliffCollapseErosionCoarse(void) const;
+   double dGetThisIterCliffCollapseErosionFineToTalus(void) const;
+   double dGetThisIterCliffCollapseErosionSandToTalus(void) const;
+   double dGetThisIterCliffCollapseErosionCoarseToTalus(void) const;
    double dGetTotCliffCollapseFine(void) const;
    double dGetTotCliffCollapseSand(void) const;
    double dGetTotCliffCollapseCoarse(void) const;

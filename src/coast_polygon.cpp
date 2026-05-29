@@ -67,6 +67,9 @@ CGeomCoastPolygon::CGeomCoastPolygon(CSimulation* pSim, int const nCoastID, int 
       m_dCliffCollapseTalusFine(0),
       m_dCliffCollapseTalusSand(0),
       m_dCliffCollapseTalusCoarse(0),
+      m_dCliffCollapseTalusFineToSuspension(0),
+      m_dCliffCollapseTalusSandToUncons(0),
+      m_dCliffCollapseTalusCoarseToUncons(0),
       m_dPlatformErosionToSuspensionFine(0),
       m_dPlatformErosionUnconsSand(0),
       m_dPlatformErosionUnconsCoarse(0),
@@ -145,7 +148,7 @@ bool CGeomCoastPolygon::bIsCoastStartPolygon(void) const
 }
 
 //! Get the this-coast-only polygon ID, this is the same as the down-coast sequence of polygons
-int CGeomCoastPolygon::nGetPolygonThisCoastID(void) const
+int CGeomCoastPolygon::nGetPolygonCoastID(void) const
 {
    return m_nPolygonID;
 }
@@ -609,6 +612,42 @@ void CGeomCoastPolygon::AddCliffCollapseCoarseTalusDeposition(double const dDept
 double CGeomCoastPolygon::dGetCliffCollapseCoarseTalusDeposition(void) const
 {
    return m_dCliffCollapseTalusCoarse;
+}
+
+//! Add to the this-iteration total of fine talus moved to suspension on this polygon
+void CGeomCoastPolygon::AddCliffCollapseFineTalusToSuspension(double const dDepth)
+{
+   m_dCliffCollapseTalusFineToSuspension += dDepth;
+}
+
+//! Get the this-iteration total of fine talus moved to suspension on this polygon
+double CGeomCoastPolygon::dGetCliffCollapseFineTalusToSuspension(void) const
+{
+   return m_dCliffCollapseTalusFineToSuspension;
+}
+
+//! Add to the this-iteration total of sand talus moved to adjacent unconsolidated sediment on this polygon
+void CGeomCoastPolygon::AddCliffCollapseSandTalusToUncons(double const dDepth)
+{
+   m_dCliffCollapseTalusSandToUncons += dDepth;
+}
+
+//! Get the this-iteration total of sand talus moved to adjacent unconsolidated sediment on this polygon
+double CGeomCoastPolygon::dGetCliffCollapseSandTalusToUncons(void) const
+{
+   return m_dCliffCollapseTalusSandToUncons;
+}
+
+//! Add to the this-iteration total of coarse talus moved to adjacent unconsolidated sediment on this polygon
+void CGeomCoastPolygon::AddCliffCollapseCoarseTalusToUncons(double const dDepth)
+{
+   m_dCliffCollapseTalusCoarseToUncons += dDepth;
+}
+
+//! Get the this-iteration total of coarse talus moved to adjacent unconsolidated sediment on this polygon
+double CGeomCoastPolygon::dGetCliffCollapseCoarseTalusToUncons(void) const
+{
+   return m_dCliffCollapseTalusCoarseToUncons;
 }
 
 //! Add to the this-iteration total of unconsolidated fine sediment moved to suspension and derived from shore platform erosion on this polygon TODO
