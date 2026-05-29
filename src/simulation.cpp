@@ -1196,10 +1196,6 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
          if (nRet != RTN_OK)
             return nRet;
 
-         // Output cliff collapse table to log file
-         if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-            WritePolygonCliffCollapseErosion();
-
          // Move some cliff collapse talus to unconsolidated sediment
          nRet = nMoveCliffTalusToUnconsolidatedOrSuspension();
          if (nRet != RTN_OK)
@@ -1308,6 +1304,10 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       nRet = nEndOfTimestepUpdateGrid();
       if (nRet != RTN_OK)
          return nRet;
+
+      // Output cliff collapse table to log file
+      if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
+         WritePolygonCliffCollapseErosion();
 
       // // Make water level inundation on grid
       // if (m_bFloodSWLSetupSurgeLine || m_bSetupSurgeFloodMaskSave)
