@@ -1851,11 +1851,11 @@ void CSimulation::WritePolygonCliffCollapseErosion(void)
                   // All
                   << strDblRight((pPolygon->dGetCliffCollapseErosionFine() + pPolygon->dGetCliffCollapseErosionSand() + pPolygon->dGetCliffCollapseErosionCoarse()) * m_dCellArea, 0, 14) << "|" << strDblRight((m_VdFineTalus[nCoast][n] + m_VdSandTalus[nCoast][n] + m_VdCoarseTalus[nCoast][n]) * m_dCellArea, 0, 14) << "|"
                   // Fine
-                  << strDblRight(pPolygon->dGetCliffCollapseErosionFine(), 0, 14) << "|" << strDblRight(pPolygon->dGetCliffCollapseFineTalusDeposition(), 0, 14) << "|"
+                  << strDblRight(pPolygon->dGetCliffCollapseErosionFine() * m_dCellArea, 0, 14) << "|" << strDblRight(m_VdFineTalus[nCoast][n] * m_dCellArea, 0, 14) << "|" << strDblRight(m_VdFineTalus[nCoast][n] * m_dCellArea, 0, 14) << "|"
                   // Sand
-                  << strDblRight(pPolygon->dGetCliffCollapseErosionSand(), 0, 14) << "|" << strDblRight(pPolygon->dGetCliffCollapseSandTalusDeposition() * m_dCellArea, 0, 14) << "|"
+                  << strDblRight(pPolygon->dGetCliffCollapseErosionSand() * m_dCellArea, 0, 14) << "|" << strDblRight(m_VdSandTalus[nCoast][n] * m_dCellArea, 0, 14) << "|" << strDblRight(m_VdSandTalus[nCoast][n] * m_dCellArea, 0, 14) << "|"
                   // Coarse
-                  << strDblRight(pPolygon->dGetCliffCollapseErosionCoarse(), 0, 14) << "|" << strDblRight(pPolygon->dGetCliffCollapseCoarseTalusDeposition() * m_dCellArea, 0, 14) << "|" << endl;
+                  << strDblRight(pPolygon->dGetCliffCollapseErosionCoarse() * m_dCellArea, 0, 14) << "|" << strDblRight(m_VdCoarseTalus[nCoast][n] * m_dCellArea, 0, 14) << "|" << strDblRight(m_VdCoarseTalus[nCoast][n] * m_dCellArea, 0, 14) << "|" << endl;
 
          dTmpErosionAllTot += ((pPolygon->dGetCliffCollapseErosionFine() + pPolygon->dGetCliffCollapseErosionSand() + pPolygon->dGetCliffCollapseErosionCoarse()) * m_dCellArea);
          dTmpTalusStoredAllTot += ((pPolygon->dGetCliffCollapseErosionFine() + pPolygon->dGetCliffCollapseErosionSand() + pPolygon->dGetCliffCollapseErosionCoarse()) * m_dCellArea);
