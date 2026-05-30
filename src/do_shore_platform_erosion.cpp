@@ -852,7 +852,7 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
       // And set the changed-this-timestep switch
       m_bConsSedChangedThisIter[nThisLayer] = true;
 
-      // And increment the per-timestep total, also add to the suspended sediment load
+      // And increment the per-timestep total, also add to the suspended sediment load. Note that this addition to the suspended load has not yet been shared amongst all sea cells, this happens in nEndOfTimestepUpdateGrid()
       m_dThisIterActualPlatformErosionFineCons += dFineEroded;
       m_dThisIterFineSedimentToSuspension += dFineEroded;
    }

@@ -69,12 +69,12 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
    m_dThisIterTotSeaDepth = 0;
 
    // Use OpenMP parallel reduction for thread-safe accumulation and min/max calculations
-#ifdef _OPENMP
-#pragma omp parallel for collapse(2)                                 \
-    reduction(+ : m_ulThisIterNumCoastCells, m_dThisIterTotSeaDepth) \
-    reduction(max : m_dThisIterTopElevMax)                           \
-    reduction(min : m_dThisIterTopElevMin)
-#endif
+// #ifdef _OPENMP
+// #pragma omp parallel for collapse(2)                                 \
+//     reduction(+ : m_ulThisIterNumCoastCells, m_dThisIterTotSeaDepth) \
+//     reduction(max : m_dThisIterTopElevMax)                           \
+//     reduction(min : m_dThisIterTopElevMin)
+// #endif
 
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {
@@ -154,9 +154,9 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
    double const dSuspPerSeaCell = m_dThisIterFineSedimentToSuspension / static_cast<double>(m_ulThisIterNumSeaCells);
 
    // Parallelize the sediment distribution loop
-#ifdef _OPENMP
-#pragma omp parallel for collapse(2)
-#endif
+// #ifdef _OPENMP
+// #pragma omp parallel for collapse(2)
+// #endif
 
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {

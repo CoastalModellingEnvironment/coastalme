@@ -44,22 +44,22 @@ class CRWCellTalus
    double m_dCoarseLostThisIter;
 
    //! Depth equivalent (m) of talus fine sediment added this iteration
-   double m_dFineInputThisIter;
+   double m_dFineAddedThisIter;
 
    //! Depth equivalent (m) of talus sand sediment added this iteration
-   double m_dSandInputThisIter;
+   double m_dSandAddedThisIter;
 
    //! Depth equivalent (m) of talus coarse sediment added this iteration
-   double m_dCoarseInputThisIter;
+   double m_dCoarseAddedThisIter;
 
    //! Depth equivalent (m) of talus fine sediment added since start of simulation
-   double m_dTotFineInput;
+   double m_dTotFineAdded;
 
    //! Depth equivalent (m) of talus sand sediment added since start of simulation
-   double m_dTotSandInput;
+   double m_dTotSandAdded;
 
    //! Depth equivalent (m) of talus coarse sediment added since start of simulation
-   double m_dTotCoarseInput;
+   double m_dTotCoarseAdded;
 
    //! Depth equivalent (m) of talus fine sediment lost since start of simulation
    double m_dTotFineLost;
@@ -74,17 +74,22 @@ class CRWCellTalus
  public:
    CRWCellTalus(void);
 
+   void ResetThisIterValues(void);
+
    void SetFineDepth(double const);
    double dGetFineDepth(void) const;
    void AddFineDepth(double const);
+   void RemoveFineDepth(double const);
 
    void SetSandDepth(double const);
    double dGetSandDepth(void) const;
    void AddSandDepth(double const);
+   void RemoveSandDepth(double const);
 
    void SetCoarseDepth(double const);
    double dGetCoarseDepth(void) const;
    void AddCoarseDepth(double const);
+   void RemoveCoarseDepth(double const);
 
    double dGetFineAddedThisIter(void) const;
    double dGetTotFineAdded(void) const;

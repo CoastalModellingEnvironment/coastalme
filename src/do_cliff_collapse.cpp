@@ -487,7 +487,7 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
 }
 
 //===============================================================================================================================
-//! Increase the incision (if any) of a cliff notch, assuming a linear decrease in incision with distance downwards from notch apex. Returns false if no incision
+//! Increase the incision (if any) of an existing cliff notch, assuming a linear decrease in incision with distance downwards from notch apex. Returns false if no incision
 //===============================================================================================================================
 bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, int const nY, CRWCliff* pCliff, double const dWaveEnergy)
 {
@@ -770,7 +770,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
             {
                // No talus moved
                if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-                  LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] since waves do not reach talus base: dWaveElev = " << dWaveElev << " dThisTalusBottomElev = " << dThisTalusBottomElev << endl;
+                  LogStream << m_ulIter << ":\t no talus moved from [" << nX << "][" << nY << "] since waves do not reach talus base: dWaveElev = " << dWaveElev << " dThisTalusBottomElev = " << dThisTalusBottomElev << endl;
 
                continue;
             }
@@ -811,24 +811,23 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
             double dTalusSandMoved = 0;
             double dTalusCoarseMoved = 0;
             double const dTalusErodibility = 0.3;
-            double const dFineRemovalRate = 1 * dTalusErodibility;            // TEST external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
-            double const dSandRemovalRate = 0.9 * dTalusErodibility;          // TEST external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
-            double const dCoarseRemovalRate = 0.7 * dTalusErodibility;        // TEST external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
+            double const dFineRemovalRate = 1 * dTalusErodibility;            // TODO MAKE USER INPUT external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
+            double const dSandRemovalRate = 0.9 * dTalusErodibility;          // TODO MAKE USER INPUT external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
+            double const dCoarseRemovalRate = 0.7 * dTalusErodibility;        // TODO MAKE USER INPUT external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
 
             if (dTalusFineToMove > 0)
             {
-               // Move some fine talus to suapension
+               // We will move some fine talus to suspension
                double const dPotentialDepthToMove = pTalus->dGetFineDepth() * dWeight * dFineRemovalRate * m_dTimeStep;
                double const dActualDepthToMove = tMin(dTalusFineToMove, dPotentialDepthToMove);
 
-               // Add to the suspended load
+               // Remove the fine talus
+               pTalus->RemoveFineDepth(dActualDepthToMove);
+
+               // Add to the suspended load. Note that this addition to the suspended load has not yet been shared amongst all sea cells, this happens in nEndOfTimestepUpdateGrid()
                m_dThisIterFineSedimentToSuspension += dActualDepthToMove;
-               dTalusFineToMove -= dActualDepthToMove;
-               dTalusFineMoved += dActualDepthToMove;
 
-               // assert(dTalusFineToMove >= 0.0);
-
-               LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " fine talus moved to suspension, fine talus still in place on [" << nX << "][" << nY << "] = " << std::scientific << dTalusSandToMove << " fine talus removed = " << dTalusFineMoved << std::fixed << endl;
+               LogStream << m_ulIter << ":\t [" << nX << "][" << nY << " fine talus to suspension = " << dActualDepthToMove << " original fine talus = " << dTalusFineOrig << " fine talus now = " << pTalus->dGetFineDepth() - dActualDepthToMove << endl;
             }
 
             if (dTalusSandToMove + dTalusCoarseToMove > 0)
@@ -1020,10 +1019,10 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                      // Set the changed-this-timestep switch re. the adjacent cell
                      m_bUnconsChangedThisIter[nTopLayer] = true;
 
-                     // LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " talus sand deposited at [" << nXAdj << "][" << nYAdj << "], talus sand still to deposit on [" << nX << "][" << nY << "] = " << std::scientific << dTalusSandToMove << " talus sand removed = " << dTalusSandMoved << std::fixed << endl;
+                     LogStream << m_ulIter << ":\t [" << nX << "][" << "] sand talus moved to uncons sand on [" << nXAdj << "][" << nYAdj << "], sand talus moved = " << dActualDepthToMove << " sand talus remaining on [" << nX << "][" << nY << "] = " << dTalusSandToMove << endl;
 
-                     // TODO Update the adjacent cell's talus deposition, and total talus deposition, values
-                     // m_pRasterGrid->m_Cell[nX][nY].IncrBeachDeposition(dActualDepthToMove);
+                     // Update the adjacent cell's this-iteration sand talus deposition-to-uncons value, and total sand talus deposition-to-uncons value, for output TODO output
+                     m_pRasterGrid->m_Cell[nXAdj][nYAdj].AddSandTalusToUncons(dActualDepthToMove);
                   }
 
                   if (dTalusCoarseToMove > 0)
@@ -1044,39 +1043,31 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
 
                      // assert(dTalusCoarseToMove >= 0.0);
 
-                     // LogStream << m_ulIter << ":\t " << std::scientific << dActualDepthToMove << std::fixed << " talus coarse deposited at [" << nXAdj << "][" << nYAdj << "], talus coarse still to deposit on [" << nX << "][" << nY << "] = " << std::scientific << dTalusCoarseToMove << " talus coarse removed = " << dTalusCoarseMoved << std::fixed << endl;
+                     LogStream << m_ulIter << ":\t [" << nX << "][" << "] coarse talus moved to uncons coarse on [" << nXAdj << "][" << nYAdj << "], coarse talus moved = " << dActualDepthToMove << " coarse talus remaining on [" << nX << "][" << nY << "] = " << dTalusCoarseToMove << endl;
 
                      // Set the changed-this-timestep switch re. the adjacent cell
                      m_bUnconsChangedThisIter[nTopLayer] = true;
 
-                     // TODO Update the adjacent cell's talus deposition, and total talus deposition, values
-                     // m_pRasterGrid->m_Cell[nX][nY].IncrBeachDeposition(dActualDepthToMove);
+                     // Update the adjacent cell's this-iteration coarse talus deposition-to-uncons value, and total coarse talus deposition-to-uncons value, for output TODO output
+                     m_pRasterGrid->m_Cell[nXAdj][nYAdj].AddCoarseTalusToUncons(dActualDepthToMove);
                   }
-               }
-            }
-
-               if (dTalusFineMoved > 0)
-               {
-                  // For the source cell, update the fine talus value
-                  double const dTalusFineRemaining = tMax(dTalusFineOrig - dTalusFineMoved, 0.0);
-
-                  pTalus->SetFineDepth(dTalusFineRemaining);
                }
 
                if (dTalusSandMoved > 0)
-            {
-               // For the source cell, update the sand talus value
-               double const dTalusSandRemaining = tMax(dTalusSandOrig - dTalusSandMoved, 0.0);
+               {
+                  // For the source cell, update the sand talus value
+                  double const dTalusSandRemaining = tMax(dTalusSandOrig - dTalusSandMoved, 0.0);
 
-               pTalus->SetSandDepth(dTalusSandRemaining);
-            }
+                  pTalus->SetSandDepth(dTalusSandRemaining);
+               }
 
-            if (dTalusCoarseMoved > 0)
-            {
-               // For this cell, update the cell layer's coarse talus value
-               double const dTalusCoarseRemaining = tMax(dTalusCoarseOrig - dTalusCoarseMoved, 0.0);
+               if (dTalusCoarseMoved > 0)
+               {
+                  // For this cell, update the cell layer's coarse talus value
+                  double const dTalusCoarseRemaining = tMax(dTalusCoarseOrig - dTalusCoarseMoved, 0.0);
 
-               pTalus->SetCoarseDepth(dTalusCoarseRemaining);
+                  pTalus->SetCoarseDepth(dTalusCoarseRemaining);
+               }
             }
 
             // Has all the talus gone from this layer? If so, then delete it

@@ -30,16 +30,26 @@ CRWCellTalus::CRWCellTalus(void)
       m_dFineLostThisIter(0),
       m_dSandLostThisIter(0),
       m_dCoarseLostThisIter(0),
-      m_dFineInputThisIter(0),
-      m_dSandInputThisIter(0),
-      m_dCoarseInputThisIter(0),
-      m_dTotFineInput(0),
-      m_dTotSandInput(0),
-      m_dTotCoarseInput(0),
+      m_dFineAddedThisIter(0),
+      m_dSandAddedThisIter(0),
+      m_dCoarseAddedThisIter(0),
+      m_dTotFineAdded(0),
+      m_dTotSandAdded(0),
+      m_dTotCoarseAdded(0),
       m_dTotFineLost(0),
       m_dTotSandLost(0),
       m_dTotCoarseLost(0)
 {
+}
+
+void CRWCellTalus::ResetThisIterValues(void)
+{
+      m_dFineLostThisIter = 0;
+      m_dSandLostThisIter = 0;
+      m_dCoarseLostThisIter = 0;
+      m_dFineAddedThisIter = 0;
+      m_dSandAddedThisIter = 0;
+      m_dCoarseAddedThisIter = 0;
 }
 
 //! Sets this talus object's fine sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative)
@@ -55,9 +65,19 @@ double CRWCellTalus::dGetFineDepth(void) const
 }
 
 //! Adds fine sediment (depth equivalent) to this talus object object's fine sediment
-void CRWCellTalus::AddFineDepth(double const dSedDepthToAdd)
+void CRWCellTalus::AddFineDepth(double const dSedDepth)
 {
-   m_dFine += dSedDepthToAdd;
+   m_dFine += dSedDepth;
+   m_dFineAddedThisIter += dSedDepth;
+   m_dTotFineAdded += dSedDepth;
+}
+
+//! Removes fine sediment (depth equivalent) from this talus object object's fine sediment
+void CRWCellTalus::RemoveFineDepth(double const dSedDepth)
+{
+   m_dFine -= dSedDepth;
+   m_dFineLostThisIter += dSedDepth;
+   m_dTotFineLost += dSedDepth;
 }
 
 //! Sets this talus object's sand sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative)
@@ -73,9 +93,19 @@ double CRWCellTalus::dGetSandDepth(void) const
 }
 
 //! Adds sand sediment (depth equivalent) to this talus object object's sand sediment
-void CRWCellTalus::AddSandDepth(double const dSedDepthToAdd)
+void CRWCellTalus::AddSandDepth(double const dSedDepth)
 {
-   m_dSand += dSedDepthToAdd;
+   m_dSand += dSedDepth;
+   m_dSandAddedThisIter += dSedDepth;
+   m_dTotSandAdded += dSedDepth;
+}
+
+//! Removes sand sediment (depth equivalent) from this talus object object's sand sediment
+void CRWCellTalus::RemoveSandDepth(double const dSedDepth)
+{
+   m_dSand -= dSedDepth;
+   m_dSandLostThisIter += dSedDepth;
+   m_dTotSandLost += dSedDepth;
 }
 
 //! Sets this talus object object's coarse sediment depth equivalent. Note no checks here to see if new equiv depth is sensible (e.g. non-negative)
@@ -91,15 +121,25 @@ double CRWCellTalus::dGetCoarseDepth(void) const
 }
 
 //! Adds coarse sediment (depth equivalent) to this talus object object's coarse sediment
-void CRWCellTalus::AddCoarseDepth(double const dSedDepthToAdd)
+void CRWCellTalus::AddCoarseDepth(double const dSedDepth)
 {
-   m_dCoarse += dSedDepthToAdd;
+   m_dCoarse += dSedDepth;
+   m_dCoarseAddedThisIter += dSedDepth;
+   m_dTotCoarseAdded += dSedDepth;
+}
+
+//! Removes coarse sediment (depth equivalent) from this talus object object's coarse sediment
+void CRWCellTalus::RemoveCoarseDepth(double const dSedDepth)
+{
+   m_dCoarse -= dSedDepth;
+   m_dCoarseLostThisIter += dSedDepth;
+   m_dTotCoarseLost += dSedDepth;
 }
 
 //! Returns the value for fine talus added during this iteration
 double CRWCellTalus::dGetFineAddedThisIter(void) const
 {
-   return m_dFineInputThisIter;
+   return m_dFineAddedThisIter;
 }
 
 //! Returns the value for fine talus lost during this iteration
@@ -111,7 +151,7 @@ double CRWCellTalus::dGetFineLostThisIter(void) const
 //! Returns the value for total fine talus added
 double CRWCellTalus::dGetTotFineAdded(void) const
 {
-   return m_dTotFineInput;
+   return m_dTotFineAdded;
 }
 
 //! Returns the value for total fine talus lost
@@ -123,7 +163,7 @@ double CRWCellTalus::dGetTotFineLost(void) const
 //! Returns the value for sand talus added during this iteration
 double CRWCellTalus::dGetSandAddedThisIter(void) const
 {
-   return m_dSandInputThisIter;
+   return m_dSandAddedThisIter;
 }
 
 //! Returns the value for sand talus lost during this iteration
@@ -135,7 +175,7 @@ double CRWCellTalus::dGetSandLostThisIter(void) const
 //! Returns the value for total sand talus added
 double CRWCellTalus::dGetTotSandAdded(void) const
 {
-   return m_dTotSandInput;
+   return m_dTotSandAdded;
 }
 
 //! Returns the value for total sand talus lost
@@ -147,7 +187,7 @@ double CRWCellTalus::dGetTotSandLost(void) const
 //! Returns the value for coarse talus added during this iteration
 double CRWCellTalus::dGetCoarseAddedThisIter(void) const
 {
-   return m_dCoarseInputThisIter;
+   return m_dCoarseAddedThisIter;
 }
 
 //! Returns the value for coarse talus lost during this iteration
@@ -159,7 +199,7 @@ double CRWCellTalus::dGetCoarseLostThisIter(void) const
 //! Returns the value for total coarse talus added
 double CRWCellTalus::dGetTotCoarseAdded(void) const
 {
-   return m_dTotCoarseInput;
+   return m_dTotCoarseAdded;
 }
 
 //! Returns the value for total coarse talus lost

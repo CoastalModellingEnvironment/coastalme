@@ -127,8 +127,19 @@ int CSimulation::nInitGridAndCalcStillWaterLevel(void)
    {
       for (int nY = 0; nY < m_nYGridSize; nY++)
       {
-         // Re-initialise values for this cell
+         // Re-initialise thi-iteration values for this cell
          m_pRasterGrid->m_Cell[nX][nY].InitCell();
+
+         // Is there talus on any layer of this cell? If so, re-initialise the this-iteration values
+         int const nLayers = m_pRasterGrid->m_Cell[nX][nY].nGetNumLayers();
+         for (int nLayer = 0; nLayer < nLayers; nLayer++)
+         {
+            // Is there talus on this cell layer?
+            CRWCellTalus* pTalus = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nLayer)->pGetTalus();
+            if (pTalus != NULL)
+               // Re-initialise
+               pTalus->ResetThisIterValues();
+         }
 
          if (m_ulIter == 1)
          {

@@ -497,7 +497,7 @@ int CSimulation::nDoAllActualBeachErosionAndDeposition(void)
                   // We eroded some fine sediment, so add to the this-iteration total. Note that total this gets added in to the suspended load elsewhere, so no need to do it here
                   m_dThisIterBeachErosionFine += dFineEroded;
 
-                  // Also add to the suspended load
+                  // Also add to the suspended load. Note that this addition to the suspended load has not yet been shared amongst all sea cells, this happens in nEndOfTimestepUpdateGrid()
                   m_dThisIterFineSedimentToSuspension += dFineEroded;
 
                   // Store the amount of unconsolidated fine beach sediment eroded for this polygon

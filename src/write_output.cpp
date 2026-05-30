@@ -1814,7 +1814,7 @@ void CSimulation::WritePolygonShorePlatformErosion(void)
 //===============================================================================================================================
 void CSimulation::WritePolygonCliffCollapseErosion(void)
 {
-   LogStream << endl << m_ulIter << ": Per-polygon cliff collapse (all m^3). Sediment (consolidated and unconsolidated) eroded by cliff collapse is deposited as talus. Fine talus is then gradually removed to suspension, sand and coarse talus is gradually merged with adjacent unconsolidated sediment" << endl;
+   LogStream << endl << m_ulIter << ": Per-polygon cliff collapse (all m^3). Sediment (consolidated and unconsolidated) eroded by cliff collapse is deposited as talus. Fine talus is then gradually removed to suspension, sand and coarse talus is gradually merged with adjacent unconsolidated sediment." << endl;
 
    LogStream << "-----------|-----------|--------------------------------------------|--------------------------------------------|--------------------------------------------|--------------------------------------------|" << endl;
    LogStream << strCentre("Coast", 11) << "|" << strCentre("Polygon", 11) << "|" << strCentre("All sediment", 44) << "|" << strCentre("Fine sediment", 44) << "|" << strCentre("Sand sediment", 44) << "|" << strCentre("Coarse sediment", 44) << "|" << endl;
