@@ -1628,16 +1628,34 @@ class CSimulation
    //! c++11 unit normal distribution (mean = 0, stdev = 1)
    normal_distribution<double> m_dGetFromUnitNormalDist{0.0, 1.0};
 
-   //! Vector-of-vectors to hold per-polygon fine talus amounts
+   //! Vector-of-vectors to hold this-iteration per-polygon fine talus amounts
    vector<vector<double>> m_VdFineTalus;
 
-   //! Vector-of-vectors to hold per-polygon sand talus amounts
+   //! Vector-of-vectors to hold this-iteration per-polygon sand talus amounts
    vector<vector<double>> m_VdSandTalus;
 
-   //! Vector-of-vectors to hold per-polygon coarse talus amounts
+   //! Vector-of-vectors to hold this-iteration per-polygon coarse talus amounts
    vector<vector<double>> m_VdCoarseTalus;
 
- private:
+   //! Vector-of-vectors to hold this-iteration per-polygon fine talus amounts added
+   vector<vector<double>> m_VdFineTalusAdded;
+
+   //! Vector-of-vectors to hold this-iteration per-polygon sand talus amounts added
+   vector<vector<double>> m_VdSandTalusAdded;
+
+   //! Vector-of-vectors to hold this-iteration per-polygon coarse talus amounts added
+   vector<vector<double>> m_VdCoarseTalusAdded;
+
+   //! Vector-of-vectors to hold this-iteration per-polygon fine talus amounts removed
+   vector<vector<double>> m_VdFineTalusRemoved;
+
+   //! Vector-of-vectors to hold this-iteration per-polygon sand talus amounts removed
+   vector<vector<double>> m_VdSandTalusRemoved;
+
+   //! Vector-of-vectors to hold this-iteration per-polygon coarse talus amounts removed
+   vector<vector<double>> m_VdCoarseTalusRemoved;
+
+private:
    // Input and output routines
    int nHandleCommandLineParams(int, char const*[]);
    bool bReadIniFile(void);

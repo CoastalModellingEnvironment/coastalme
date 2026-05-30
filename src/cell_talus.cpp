@@ -142,7 +142,7 @@ double CRWCellTalus::dGetFineAddedThisIter(void) const
    return m_dFineAddedThisIter;
 }
 
-//! Returns the value for fine talus lost during this iteration
+//! Returns the value for fine talus lost to suspension during this iteration
 double CRWCellTalus::dGetFineLostThisIter(void) const
 {
    return m_dFineLostThisIter;

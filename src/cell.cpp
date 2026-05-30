@@ -84,6 +84,8 @@ CGeomCell::CGeomCell()
      m_dTotTalusSandDeposition(0),
      m_dTalusCoarseDepositionThisIter(0),
      m_dTotTalusCoarseDeposition(0),
+     m_dFineTalusToSuspensionThisIter(0),
+     m_dTotFineTalusToSuspension(0),
      m_dSandTalusToUnconsThisIter(0),
      m_dTotSandTalusToUncons(0),
      m_dCoarseTalusToUnconsThisIter(0),
@@ -951,6 +953,7 @@ void CGeomCell::InitCell(void)
    m_dTalusFineDepositionThisIter = 0;
    m_dTalusSandDepositionThisIter = 0;
    m_dTalusCoarseDepositionThisIter = 0;
+   m_dFineTalusToSuspensionThisIter = 0;
    m_dSandTalusToUnconsThisIter = 0;
    m_dCoarseTalusToUnconsThisIter = 0;
    m_dPotentialBeachErosionThisIter = 0;
@@ -1173,6 +1176,26 @@ double CGeomCell::dGetTotSandTalusDeposition(void) const
 double CGeomCell::dGetTotCoarseTalusDeposition(void) const
 {
    return m_dTotTalusCoarseDeposition;
+}
+
+//! Adds to the totals of fine-sized talus moved to suspension on this cell
+void CGeomCell::AddFineTalusToSuspension(double const dFineTalus)
+{
+   m_dFineTalusToSuspensionThisIter += dFineTalus;
+   m_dTotFineTalusToSuspension += dFineTalus;
+
+}
+
+//! Returns the this-iteration total of fine-sized talus moved to suspension on this cell
+double CGeomCell::dGetThisIterFineTalusToSuspension(void)
+{
+   return m_dFineTalusToSuspensionThisIter;
+}
+
+//! Returns the total depth of fine-sized talus moved to suspension on this cell
+double CGeomCell::dGetTotFineTalusToSuspension(void)
+{
+   return m_dTotFineTalusToSuspension;
 }
 
 //! Adds to the totals of sand-sized talus moved to unconsolidated sediment on this cell

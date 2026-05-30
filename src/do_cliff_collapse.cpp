@@ -449,7 +449,7 @@ int CSimulation::nDoCliffCollapse(int const nCoast, CRWCliff* pCliff, double& dF
    if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
       LogStream << m_ulIter << ":\t coast " << nCoast << " [" << nX << "][" << nY << "] cliff collapse, orig cell elev = " << dPreCollapseCellElev << " new cell elev = " << dPostCollapseCellElevNoTalus << " elev change = " << dPreCollapseCellElev - dPostCollapseCellElevNoTalus << " elev inc talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << endl;
 
-   // Update this-polygon totals: add to the depths of cliff collapse erosion and talus deposition for this polygon
+   // Update this-polygon totals: add to the depths of cliff collapse erosion and talus deposition for this polygon TODO MAYBE REMOVE THIS PER-POLYGON APPROPACH
    pPolygon->AddCliffCollapseErosionFine(dFineCollapse);
    pPolygon->AddCliffCollapseFineTalusDeposition(dFineCollapse);
    pPolygon->AddCliffCollapseErosionSand(dSandCollapse);
@@ -807,7 +807,6 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
             double dTalusFineToMove = pTalus->dGetFineDepth();
             double dTalusSandToMove = pTalus->dGetSandDepth();
             double dTalusCoarseToMove = pTalus->dGetCoarseDepth();
-            double dTalusFineMoved = 0;
             double dTalusSandMoved = 0;
             double dTalusCoarseMoved = 0;
             double const dTalusErodibility = 0.3;
@@ -824,7 +823,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                // Remove the fine talus
                pTalus->RemoveFineDepth(dActualDepthToMove);
 
-               // Add to the suspended load. Note that this addition to the suspended load has not yet been shared amongst all sea cells, this happens in nEndOfTimestepUpdateGrid()
+               // And add it to the suspended load. Note that this addition to the suspended load has not yet been shared amongst all sea cells, this happens in nEndOfTimestepUpdateGrid()
+               m_pRasterGrid->m_Cell[nX][nY].AddFineTalusToSuspension(dActualDepthToMove);
                m_dThisIterFineSedimentToSuspension += dActualDepthToMove;
 
                LogStream << m_ulIter << ":\t [" << nX << "][" << nY << " fine talus to suspension = " << dActualDepthToMove << " original fine talus = " << dTalusFineOrig << " fine talus now = " << pTalus->dGetFineDepth() - dActualDepthToMove << endl;
@@ -1000,7 +1000,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                {
                   if (dTalusSandToMove > 0)
                   {
-                     // We will deposit some talus sand onto the top layer of this adjacent cell
+                     // We will deposit some talus sand onto the top layer of the adjacent cell
                      int const nXAdj = VptAdj[n].nGetX();
                      int const nYAdj = VptAdj[n].nGetY();
 
@@ -1010,6 +1010,10 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                      double const dPotentialDepthToMove = pTalus->dGetSandDepth() * dWeight * dSandRemovalRate * VdPropToMove[n] * m_dTimeStep;
                      double const dActualDepthToMove = tMin(dTalusSandToMove, dPotentialDepthToMove);
 
+                     // First remove talus sand from 'this' cell
+                     pTalus->RemoveSandDepth(dActualDepthToMove);
+
+                     // Now add the talus sand to the unconsolidated sand sediment on the adjacent cell
                      m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dSandOnAdj + dActualDepthToMove);
                      dTalusSandToMove -= dActualDepthToMove;
                      dTalusSandMoved += dActualDepthToMove;
@@ -1027,7 +1031,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
 
                   if (dTalusCoarseToMove > 0)
                   {
-                     // We will deposit some talus coarse onto the top layer of this adjacent cell
+                     // We will deposit some talus coarse onto the top layer of the adjacent cell
                      int const nXAdj = VptAdj[n].nGetX();
                      int const nYAdj = VptAdj[n].nGetY();
 
@@ -1037,7 +1041,11 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                      double const dPotentialDepthToMove = pTalus->dGetCoarseDepth() * dWeight * dCoarseRemovalRate * VdPropToMove[n] * m_dTimeStep;
                      double const dActualDepthToMove = tMin(dTalusCoarseToMove, dPotentialDepthToMove);
 
-                     m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dCoarseOnAdj + dActualDepthToMove);
+                     // First remove coarse talus from 'this' cell
+                     pTalus->RemoveCoarseDepth(dActualDepthToMove);
+
+                     // Now add the coarse talus to the unconsolidated coarse sediment on the adjacent cell
+                     m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetCoarseDepth(dCoarseOnAdj + dActualDepthToMove);
                      dTalusCoarseToMove -= dActualDepthToMove;
                      dTalusCoarseMoved += dActualDepthToMove;
 
