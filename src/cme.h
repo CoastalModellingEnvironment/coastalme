@@ -774,7 +774,7 @@ double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
 double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (30 May 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (31 May 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";
