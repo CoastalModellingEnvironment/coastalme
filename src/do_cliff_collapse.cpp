@@ -789,11 +789,11 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
 
             if (bFPIsEqual(dWeight, 0.0, TOLERANCE))
             {
-               // LogStream << m_ulIter << ":\t NO talus moved from [" << nX << "][" << nY << "] dWeight = " << dWeight << endl;
+               // LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] no talus moved, dWeight = " << dWeight << endl;
                continue;
             }
 
-            LogStream << m_ulIter << ":\t talus potentially moved from [" << nX << "][" << nY << "] dThisTalusBottomElev = " << dThisTalusBottomElev << " dThisTalusTopElev = " << dThisTalusTopElev << " dWeight = " << dWeight << endl;
+            // LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] talus potentially moved, dThisTalusBottomElev = " << dThisTalusBottomElev << " dThisTalusTopElev = " << dThisTalusTopElev << " dWeight = " << dWeight << endl;
 
             // TODO Removal rate:
             // * to be different for fine, sand, and coarse
@@ -827,7 +827,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                m_pRasterGrid->m_Cell[nX][nY].AddFineTalusToSuspension(dActualDepthToMove);
                m_dThisIterFineSedimentToSuspension += dActualDepthToMove;
 
-               LogStream << m_ulIter << ":\t [" << nX << "][" << nY << " fine talus to suspension = " << dActualDepthToMove << " original fine talus = " << dTalusFineOrig << " fine talus now = " << pTalus->dGetFineDepth() - dActualDepthToMove << endl;
+               LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] fine talus to suspension, depth moved = " << dActualDepthToMove << " original depth = " << dTalusFineOrig << " fine talus depth now = " << pTalus->dGetFineDepth() << endl;
             }
 
             if (dTalusSandToMove + dTalusCoarseToMove > 0)

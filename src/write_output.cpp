@@ -1883,12 +1883,12 @@ void CSimulation::WritePolygonCliffCollapseErosion(void)
       }
    }
 
-   LogStream << "-----------|-----------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|" << endl;
-   LogStream << "TOTAL cliff collapse   |" << strDblRight(dTmpErosionAllTot, 0, 14) << "|" << strDblRight(dTmpTalusStoredAllTot, 0, 14) << "|" << strDblRight(dTmpTalusLostAllTot, 0, 14) << "|"
-      << strDblRight(dTmpErosionFineTot, 0, 14) << "|" << strDblRight(dTmpTalusStoredFineTot, 0, 14) << "|"<< strDblRight(dTmpTalusLostFineTot, 0, 14) << "|"
-      << strDblRight(dTmpErosionSandTot, 0, 14) << "|" << strDblRight(dTmpTalusStoredSandTot, 0, 14) << "|" << strDblRight(dTmpTalusLostSandTot, 0, 14) << "|"
-      << strDblRight(dTmpErosionCoarseTot, 0, 14) << "|" << strDblRight(dTmpTalusStoredCoarseTot, 0, 14) << "|"  << "|" << strDblRight(dTmpTalusLostCoarseTot, 0, 14) << "|"<< endl;
-   LogStream << "-----------|-----------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|" << endl << endl;
+   LogStream << "-----------|-----------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|" << endl;
+   LogStream << "TOTAL cliff collapse   |" << strDblRight(dTmpErosionAllTot, 1, 14) << "|" << strDblRight(dTmpTalusStoredAllTot, 1, 14) << "|" << strDblRight(dTmpTalusLostAllTot, 1, 14) << "|"
+      << strDblRight(dTmpErosionFineTot, 1, 14) << "|" << strDblRight(dTmpTalusStoredFineTot, 1, 14) << "|"<< strDblRight(dTmpTalusLostFineTot, 1, 14) << "|"
+      << strDblRight(dTmpErosionSandTot, 1, 14) << "|" << strDblRight(dTmpTalusStoredSandTot, 1, 14) << "|" << strDblRight(dTmpTalusLostSandTot, 1, 14) << "|"
+      << strDblRight(dTmpErosionCoarseTot, 1, 14) << "|" << strDblRight(dTmpTalusStoredCoarseTot, 1, 14) << "|"  << "|" << strDblRight(dTmpTalusLostCoarseTot, 1, 14) << "|"<< endl;
+   LogStream << "-----------|-----------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|" << endl << endl;
 }
 
 //===============================================================================================================================
