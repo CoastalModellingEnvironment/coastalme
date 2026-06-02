@@ -1713,20 +1713,11 @@ private:
    void GenerateSyntheticTransects(vector<TransectWaveData> const*, vector<TransectWaveData>*);
    int nDoAllShorePlatFormErosion(void);
    int nDoAllWaveEnergyToCoastLandforms(void);
-   int nDoCliffCollapse(int const, CRWCliff *, double&, double&, double&, int&, double&, double&);
+   int nDoCliffCollapse(int const, CRWCliff*);
    void DoCliffCollapseTalusDeposition(/*int const,*/ CRWCliff const*, double const, double const, double const, int const);
    int nMoveCliffTalusToUnconsolidatedOrSuspension(void);
    double dCalcSlopeForUnconsSlumping(int const, int const, int const, int const) const;
    int nEndOfTimestepUpdateGrid(void);
-
-   // For cliff toe location
-   // int nLocateCliffToe(void);
-   // void nCalcSlopeAtAllCells(void);
-   // void nLocateCliffCell(void);
-   // void nTraceSeawardCliffEdge(void);
-   // void nValidateCliffToeEdges(void);
-   // CGeomLine nValidateCliffToeDirection(CGeomLine& CliffEdge, bool bReverse);
-   // void nRemoveSmallCliffIslands(int const);
 
    // Lower-level simulation routines
    void FindAllSeaCells(void);
@@ -1952,9 +1943,9 @@ private:
    void WritePolygonSedimentBeforeMovement(void);
    void WritePolygonPotentialErosion(void);
    // void WritePolygonUnconsErosion(int const);
-   void WritePolygonUnsortedSequence(vector<vector<vector<int>>>&);
-   void WritePolygonSortedSequence(vector<vector<vector<int>>>&);
-   void WritePolygonActualMovement(vector<vector<vector<int>>>&);
+   void WritePolygonUnsortedSequence(vector<vector<vector<int>>> const&);
+   void WritePolygonSortedSequence(vector<vector<vector<int>>> const&);
+   void WritePolygonActualMovement(vector<vector<vector<int>>> const&);
    void DoEndOfRunDeletes(void);
 
 // #ifdef _DEBUG

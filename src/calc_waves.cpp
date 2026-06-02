@@ -305,14 +305,6 @@ int CSimulation::nDoAllPropagateWaves(void)
    // Set up vector to hold wave data for each transect/profile
    vector<TransectWaveData> VAllTransects;
 
-   // Set up all-profile vectors to hold the wave attribute data at every profile point on all profiles
-   const vector<bool> VbBreakingAll;
-
-   const vector<double> VdXAll;
-   const vector<double> VdYAll;
-   const vector<double> VdHeightXAll;
-   const vector<double> VdHeightYAll;
-
    // Calculate wave properties for every coast
    bool bSomeNonStartOrEndOfCoastProfiles = false;
 
@@ -2075,7 +2067,7 @@ void CSimulation::ModifyBreakingWavePropertiesWithinShadowZoneToCoastline(int co
 //===============================================================================================================================
 void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int const nCount)
 {
-   CGeomProfile *pProfile = m_VCoast[nCoast].pGetProfileWithDownCoastSeq(nCount);
+   CGeomProfile const* pProfile = m_VCoast[nCoast].pGetProfileWithDownCoastSeq(nCount);
 
    // Only do this for profiles without problems, including the start-of-coast profile (but not the end-of-coast profile)
    // if (! pProfile->bOKIncStartOfCoast())
@@ -2093,8 +2085,8 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
    double const dThisRunUp = m_VCoast[nCoast].dGetRunUp(nThisCoastPoint);
 
    // Get the next profile along the coast, in the down-coast direction. If this next profile has a problem, go to the one after that, etc
-   CGeomProfile const *pTmpProfile = pProfile;
-   CGeomProfile *pNextProfile;
+   CGeomProfile const* pTmpProfile = pProfile;
+   CGeomProfile const* pNextProfile;
 
    while (true)
    {

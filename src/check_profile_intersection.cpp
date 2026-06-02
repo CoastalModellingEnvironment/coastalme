@@ -521,11 +521,6 @@ bool CSimulation::bCheckForIntersection(CGeomProfile* const pVProfile1, CGeomPro
    // For both profiles, look at all line segments
    int const nProfile1NumSegments = pVProfile1->nGetNumLineSegments();
    int const nProfile2NumSegments = pVProfile2->nGetNumLineSegments();
-   // nProfile1Size = pVProfile1->nGetProfileSize(),
-   // nProfile2Size = pVProfile2->nGetProfileSize();
-
-   // assert(nProfile1Size == nProfile1NumSegments+1);
-   // assert(nProfile2Size == nProfile2NumSegments+1);
 
    for (int i = 0; i < nProfile1NumSegments; i++)
    {
@@ -550,17 +545,13 @@ bool CSimulation::bCheckForIntersection(CGeomProfile* const pVProfile1, CGeomPro
 
          double dS = -999;
          double dT = -999;
-         double dTmp = 0;
-
-         dTmp = -dDiffX2 * dDiffY1 + dDiffX1 * dDiffY2;
+         double dTmp = -dDiffX2 * dDiffY1 + dDiffX1 * dDiffY2;
 
          if (! bFPIsEqual(dTmp, 0.0, TOLERANCE))
+         {
             dS = (-dDiffY1 * (dX1 - dX3) + dDiffX1 * (dY1 - dY3)) / dTmp;
-
-         dTmp = -dDiffX2 * dDiffY1 + dDiffX1 * dDiffY2;
-
-         if (! bFPIsEqual(dTmp, 0.0, TOLERANCE))
             dT = (dDiffX2 * (dY1 - dY3) - dDiffY2 * (dX1 - dX3)) / dTmp;
+         }
 
          if (dS >= 0 && dS <= 1 && dT >= 0 && dT <= 1)
          {

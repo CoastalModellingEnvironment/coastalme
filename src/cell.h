@@ -264,7 +264,7 @@ class CGeomCell
 
  protected:
  public:
-   static CGeomRasterGrid *m_pGrid;
+   static CGeomRasterGrid* m_pGrid;
 
    CGeomCell();
    ~CGeomCell(void);

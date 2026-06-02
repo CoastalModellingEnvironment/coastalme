@@ -2009,7 +2009,7 @@ void CSimulation::WritePolygonPotentialErosion(void)
 //===============================================================================================================================
 //! Writes to the log file a table showing the unsorted sequence of polygon processing for all coasts
 //===============================================================================================================================
-void CSimulation::WritePolygonUnsortedSequence(vector<vector<vector<int>>>& pnVVVAllCoastPolyAndAdjacent)
+void CSimulation::WritePolygonUnsortedSequence(vector<vector<vector<int>>> const& pnVVVAllCoastPolyAndAdjacent)
 {
    LogStream << m_ulIter << ": Unsorted sequence of polygon processing (-9999 = leaves grid)" << endl;
    LogStream << "-----------|-----------|-----------|----------------------|" << endl;
@@ -2080,7 +2080,7 @@ void CSimulation::WritePolygonUnsortedSequence(vector<vector<vector<int>>>& pnVV
 //===============================================================================================================================
 //! Writes to the log file a table showing the sorted sequence of polygon processing for all coasts, and any circularities
 //===============================================================================================================================
-void CSimulation::WritePolygonSortedSequence(vector<vector<vector<int>>>& pnVVVAllCoastPolyAndAdjacent)
+void CSimulation::WritePolygonSortedSequence(vector<vector<vector<int>>> const& pnVVVAllCoastPolyAndAdjacent)
 {
    // Show sorted order of polygon processing, and any circularities
    LogStream << m_ulIter << ": Sorted sequence of polygon processing (" << INT_NODATA << " = leaves grid), and any X -> Y -> X circularities" << endl;
@@ -2156,7 +2156,7 @@ void CSimulation::WritePolygonSortedSequence(vector<vector<vector<int>>>& pnVVVA
 //===============================================================================================================================
 //! Writes to the log file a table showing per-polygon actual movement of unconsolidated beach sediment for all coasts
 //===============================================================================================================================
-void CSimulation::WritePolygonActualMovement(vector<vector<vector<int>>>& pnVVVAllCoastPolyAndAdjacent)
+void CSimulation::WritePolygonActualMovement(vector<vector<vector<int>>> const& pnVVVAllCoastPolyAndAdjacent)
 {
    // Show estimated polygon-to-polygon movement
    LogStream << m_ulIter << ": Per-polygon erosion and deposition of unconsolidated beach sediment, all m^3. Fine sediment is moved to suspension, not deposited (DDPD = During Dean Profile Deposition)." << endl;
@@ -2340,15 +2340,11 @@ void CSimulation::DoEndOfTimestepTotals(void)
                dEndIterConsSandInPolygons += m_pRasterGrid->m_Cell[nX][nY].dGetConsSandDepthAllLayers();
                dEndIterConsCoarseInPolygons += m_pRasterGrid->m_Cell[nX][nY].dGetConsCoarseDepthAllLayers();
 
-               dSuspFine = m_pRasterGrid->m_Cell[nX][nY].dGetSuspendedSediment();
-
                if (dSuspFine > 0)
                {
                   dEndIterSuspFineInPolygons += dSuspFine;
                   nSuspFineCellsInPolygons++;
                }
-
-               dUnconsFine = m_pRasterGrid->m_Cell[nX][nY].dGetUnconsFineDepthAllLayers();
 
                if (dUnconsFine > 0)
                {
@@ -2356,15 +2352,11 @@ void CSimulation::DoEndOfTimestepTotals(void)
                   nUnconsFineCellsInPolygons++;
                }
 
-               dUnconsSand = m_pRasterGrid->m_Cell[nX][nY].dGetUnconsSandDepthAllLayers();
-
                if (dUnconsSand > 0)
                {
                   dEndIterUnconsSandInPolygons += dUnconsSand;
                   nUnconsSandCellsInPolygons++;
                }
-
-               dUnconsCoarse = m_pRasterGrid->m_Cell[nX][nY].dGetUnconsCoarseDepthAllLayers();
 
                if (dUnconsCoarse > 0)
                {
