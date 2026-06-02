@@ -773,6 +773,8 @@ double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
 //! Fraction of excess sediment to redistribute per iteration. 0.5 = move 50% of unstable sediment each iteration. Lower values (0.2-0.3) are more stable but slower to converge.Higher values (0.6-0.8) converge faster but may overshoot.
 double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 
+//! If there is lees than this depth (m) of cliff-collapse talus on a cell, then remove all talus from the cell
+double const MIN_TALUS_DEPTH = 0.1;
 
 string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (02 Jun 2026)";
 string const PROGRAM_NAME_SHORT = "CME";

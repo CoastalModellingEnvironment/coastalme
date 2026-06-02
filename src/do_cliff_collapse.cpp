@@ -699,8 +699,6 @@ void CSimulation::DoCliffCollapseTalusDeposition(/*int const nCoast,*/ CRWCliff 
 //===============================================================================================================================
 int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
 {
-   double const MIN_DEPTH = 0.1;
-
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {
       for (int nY = 0; nY < m_nYGridSize; nY++)
@@ -781,13 +779,16 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
             if (dTalusFineToMove > 0)
             {
                // We will move some fine talus to suspension
-               double const dPotentialDepthToMove = pTalus->dGetFineDepth() * dWeight * dFineRemovalRate * m_dTimeStep;
-               double dActualDepthToMove = tMin(dTalusFineToMove, dPotentialDepthToMove);
+               double dActualDepthToMove;
 
-               // TEST =================
-               if (dTalusFineToMove <= MIN_DEPTH)
+               // If there is less than MIN_TALUS_DEPTH of fine talus left, then remove all fine talus
+               if (dTalusFineToMove <= MIN_TALUS_DEPTH)
                   dActualDepthToMove = dTalusFineToMove;
-               // TEST =================
+               else
+               {
+                  double const dPotentialDepthToMove = pTalus->dGetFineDepth() * dWeight * dFineRemovalRate * m_dTimeStep;
+                  dActualDepthToMove = tMin(dTalusFineToMove, dPotentialDepthToMove);
+               }
 
                // Remove the fine talus
                pTalus->RemoveFineDepth(dActualDepthToMove);
@@ -976,8 +977,16 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                      int const nTopLayer = m_pRasterGrid->m_Cell[nXAdj][nYAdj].nGetNumOfTopLayerAboveBasement();
                      double const dSandOnAdj = m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetSandDepth();
 
-                     double const dPotentialDepthToMove = pTalus->dGetSandDepth() * dWeight * dSandRemovalRate * VdPropToMove[n] * m_dTimeStep;
-                     double const dActualDepthToMove = tMin(dTalusSandToMove, dPotentialDepthToMove);
+                     double dActualDepthToMove;
+
+                     // If there is less than MIN_TALUS_DEPTH of sand talus left, then remove all sand talus
+                     if (dTalusSandToMove <= MIN_TALUS_DEPTH)
+                        dActualDepthToMove = dTalusSandToMove;
+                     else
+                     {
+                        double const dPotentialDepthToMove = pTalus->dGetSandDepth() * dWeight * dSandRemovalRate * VdPropToMove[n] * m_dTimeStep;
+                        dActualDepthToMove = tMin(dTalusSandToMove, dPotentialDepthToMove);
+                     }
 
                      // First remove talus sand from 'this' cell
                      pTalus->RemoveSandDepth(dActualDepthToMove);
@@ -1007,8 +1016,16 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                      int const nTopLayer = m_pRasterGrid->m_Cell[nXAdj][nYAdj].nGetNumOfTopLayerAboveBasement();
                      double const dCoarseOnAdj = m_pRasterGrid->m_Cell[nXAdj][nYAdj].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetCoarseDepth();
 
-                     double const dPotentialDepthToMove = pTalus->dGetCoarseDepth() * dWeight * dCoarseRemovalRate * VdPropToMove[n] * m_dTimeStep;
-                     double const dActualDepthToMove = tMin(dTalusCoarseToMove, dPotentialDepthToMove);
+                     double dActualDepthToMove;
+
+                     // If there is less than MIN_TALUS_DEPTH of coarse talus left, then remove all coarse talus
+                     if (dTalusCoarseToMove <= MIN_TALUS_DEPTH)
+                        dActualDepthToMove = dTalusCoarseToMove;
+                     else
+                     {
+                        double const dPotentialDepthToMove = pTalus->dGetCoarseDepth() * dWeight * dCoarseRemovalRate * VdPropToMove[n] * m_dTimeStep;
+                        dActualDepthToMove = tMin(dTalusCoarseToMove, dPotentialDepthToMove);
+                     }
 
                      // First remove coarse talus from 'this' cell
                      pTalus->RemoveCoarseDepth(dActualDepthToMove);
@@ -1051,7 +1068,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
             double dTotTalusDepth = pTalus->dGetFineDepth() + pTalus->dGetSandDepth() + pTalus->dGetCoarseDepth();
             if (bFPIsEqual(dTotTalusDepth, 0.0, TOLERANCE))
             {
-               LogStream << m_ulIter << ":\t total talus (all size classes) = " << std::scientific << dTotTalusDepth << std::fixed << " so deleting talus object at [" << nX << "][" << nY << "]" << endl;
+               LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] total talus (all size classes) = " << dTotTalusDepth << " so deleting talus object" << endl;
                m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nLayer)->DeleteTalus();
             }
 
