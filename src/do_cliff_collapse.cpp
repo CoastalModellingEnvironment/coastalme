@@ -699,6 +699,8 @@ void CSimulation::DoCliffCollapseTalusDeposition(/*int const nCoast,*/ CRWCliff 
 //===============================================================================================================================
 int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
 {
+   double const MIN_DEPTH = 0.1;
+
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {
       for (int nY = 0; nY < m_nYGridSize; nY++)
@@ -780,7 +782,12 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
             {
                // We will move some fine talus to suspension
                double const dPotentialDepthToMove = pTalus->dGetFineDepth() * dWeight * dFineRemovalRate * m_dTimeStep;
-               double const dActualDepthToMove = tMin(dTalusFineToMove, dPotentialDepthToMove);
+               double dActualDepthToMove = tMin(dTalusFineToMove, dPotentialDepthToMove);
+
+               // TEST =================
+               if (dTalusFineToMove <= MIN_DEPTH)
+                  dActualDepthToMove = dTalusFineToMove;
+               // TEST =================
 
                // Remove the fine talus
                pTalus->RemoveFineDepth(dActualDepthToMove);
