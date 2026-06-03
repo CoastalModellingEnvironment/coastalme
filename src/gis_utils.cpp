@@ -1529,14 +1529,14 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
                break;
 
             case (RASTER_PLOT_LANDFORM):
-               dTmp = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLandformCategory();
+               dTmp = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->nGetLandformCategory();
                break;
 
             case (RASTER_PLOT_INTERVENTION_CLASS):
                dTmp = INT_NODATA;
 
                if (bIsInterventionCell(nX, nY))
-                  dTmp = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->nGetLandformCategory();
+                  dTmp = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->nGetLandformCategory();
 
                break;
 

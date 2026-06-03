@@ -98,7 +98,7 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
          return RTN_ERR_SEDIMENT_INPUT_EVENT;
 
       // All OK, so get landform
-      CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nPointGridX][nPointGridY].pGetLandform();
+      CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nPointGridX][nPointGridY].pGetCellLandform();
 
       // Is this sediment input event at a pre-specified fixed point, or in a block on a coast, or where a line intersects with a coast?
       if (m_bSedimentInputAtPoint)
@@ -213,8 +213,8 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
          if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
             LogStream << m_ulIter << ": Closest coast point is on coast " << nCoastClosest << " at [" << nCoastX << "][" << nCoastY << "] = {" << dGridXToExtCRSX(nCoastX) << ", " << dGridYToExtCRSY(nCoastY) << "}, along-coast width of sediment block = " << dWidth << " m, coast-normal length of sediment block = " << dLen << " m" << endl;
 
-         int const nCoast = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetLandform()->nGetCoast();
-         int const nCoastPoint = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetLandform()->nGetPointOnCoast();
+         int const nCoast = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetCellLandform()->nGetCoast();
+         int const nCoastPoint = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetCellLandform()->nGetPointOnCoast();
          int const nHalfWidth = nRound(dWidth / m_dCellSide);
          int const nLength = nRound(dLen / m_dCellSide);
          int const nCoastLen = m_VCoast[nCoast].nGetCoastlineSize();
@@ -511,7 +511,7 @@ int CSimulation::nDoSedimentInputEvent(int const nEvent)
       }
 
       // OK we have an intersection of the line and coast. We will input the sediment here. Get landform and top layer
-      CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetLandform();
+      CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetCellLandform();
       int const nTopLayer = m_pRasterGrid->m_Cell[nCoastX][nCoastY].nGetNumOfTopLayerAboveBasement();
 
       // Is this intersection point in a polygon?

@@ -300,7 +300,7 @@ void CSimulation::CellByCellFillSea(int const nXStart, int const nYStart)
          // Set the sea depth for this cell
          m_pRasterGrid->m_Cell[nX][nY].SetSeaDepth();
 
-         CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetLandform();
+         CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform();
          int const nCat = pLandform->nGetLandformCategory();
 
          // Have we had sediment input here?

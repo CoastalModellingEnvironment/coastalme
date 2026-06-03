@@ -658,7 +658,7 @@ int CSimulation::nDoParallelProfileUnconsErosion(CGeomCoastPolygon* pPolygon, in
                   m_pRasterGrid->m_Cell[nX][nY].IncrBeachDeposition(dTotToDeposit);
 
                   // And set the landform category
-                  CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetLandform();
+                  CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform();
                   int const nCat = pLandform->nGetLandformCategory();
 
                   if ((nCat != LF_SEDIMENT_INPUT_UNCONSOLIDATED) && (nCat != LF_SEDIMENT_INPUT_CONSOLIDATED))
@@ -1107,7 +1107,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
 
             // Subtract the two elevations
             double const dElevDiff = VdParProfileDeanElev[nSeawardFromCoast] - dThisElevNow;
-            CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetLandform();
+            CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform();
 
             if (dElevDiff > SED_ELEV_TOLERANCE)
             {
@@ -1600,7 +1600,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
 
                // Subtract the two elevations
                double const dElevDiff = VdParProfileDeanElev[nSeawardFromCoast] - dThisElevNow;
-               CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetLandform();
+               CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform();
 
                if (dElevDiff > SED_ELEV_TOLERANCE)
                {

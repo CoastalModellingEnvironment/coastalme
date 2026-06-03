@@ -1202,7 +1202,7 @@ void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
       for (int nY = 0; nY < m_nYGridSize; nY++)
       {
          // Find any 'legacy' ciff cells: cells with an erosional notch apex elevation which is now - due to shore platform erosion - above the top of the consolidated sediment
-         double const dNotchApexElev = m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->dGetCliffNotchApexElev();
+         double const dNotchApexElev = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->dGetCliffNotchApexElev();
          if (! bFPIsEqual(dNotchApexElev, DBL_NODATA, TOLERANCE))
          {
             // This cell has an erosional notch
@@ -1210,8 +1210,8 @@ void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
             if (dNotchApexElev >= dSedTopElevNoTalus)
             {
                // The apex elevation of the notch is above the top of the consolidated sediment, so this notch has been removed
-               m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetCliffNotchApexElev(DBL_NODATA);
-               m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetCliffNotchIncisionDepth(DBL_NODATA);
+               m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->SetCliffNotchApexElev(DBL_NODATA);
+               m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->SetCliffNotchIncisionDepth(DBL_NODATA);
 
                // Now determine the landform category
                int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
@@ -1220,17 +1220,17 @@ void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
                if (pTopLayer->bHasTalus())
                {
                   // There is talus here
-                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_DRIFT_TALUS);
+                  m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->SetLandformCategory(LF_DRIFT_TALUS);
                }
                else if (pTopLayer->bHasUncons())
                {
                   // There is some unconsolidated sediment here
-                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_DRIFT_BEACH);
+                  m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->SetLandformCategory(LF_DRIFT_BEACH);
                }
                else
                {
                   // Set as hinterland
-                  m_pRasterGrid->m_Cell[nX][nY].pGetLandform()->SetLandformCategory(LF_HINTERLAND);
+                  m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->SetLandformCategory(LF_HINTERLAND);
                }
             }
          }

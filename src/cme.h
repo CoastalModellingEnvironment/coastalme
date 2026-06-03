@@ -776,7 +776,7 @@ double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 //! If there is lees than this depth (m) of cliff-collapse talus on a cell, then remove all talus from the cell
 double const MIN_TALUS_DEPTH = 0.1;
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (02 Jun 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (03 Jun 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

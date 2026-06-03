@@ -1713,8 +1713,8 @@ private:
    void GenerateSyntheticTransects(vector<TransectWaveData> const*, vector<TransectWaveData>*);
    int nDoAllShorePlatFormErosion(void);
    int nDoAllWaveEnergyToCoastLandforms(void);
-   int nDoCliffCollapse(int const, CRWCliff*);
-   void DoCliffCollapseTalusDeposition(/*int const,*/ CRWCliff const*, double const, double const, double const, int const);
+   int nDoCliffCollapse(int const, int const, int const, double const);
+   void DoCliffCollapseTalusDeposition(int const, int const, double const, double const, double const, int const);
    int nMoveCliffTalusToUnconsolidatedOrSuspension(void);
    double dCalcSlopeForUnconsSlumping(int const, int const, int const, int const) const;
    int nEndOfTimestepUpdateGrid(void);

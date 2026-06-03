@@ -517,7 +517,7 @@ int CGeomCell::nGetDownDriftZoneNumber(void) const
 }
 
 //! Returns a pointer to this cell's CRWCellLandform object
-CRWCellLandform* CGeomCell::pGetLandform(void)
+CRWCellLandform* CGeomCell::pGetCellLandform(void)
 {
    return &m_Landform;
 }

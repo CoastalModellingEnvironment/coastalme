@@ -104,15 +104,6 @@ class CGeomCoastPolygon : public CA2DShape
    //! Depth of coarse unconsolidated sediment eroded during beach deposition as a Dean profile
    double m_dBeachCoarseErodedDeanProfile;
 
-   //! This-timestep total depth of eroded fine sediment from cliff collapse
-   double m_dCliffCollapseErosionFine;
-
-   //! This-timestep total depth of eroded sand sediment from cliff collapse
-   double m_dCliffCollapseErosionSand;
-
-   //! This-timestep total depth of eroded coarse sediment from cliff collapse
-   double m_dCliffCollapseErosionCoarse;
-
    //! This-timestep total depth of fine talus from cliff collapse
    double m_dCliffCollapseTalusFine;
 
@@ -302,26 +293,17 @@ class CGeomCoastPolygon : public CA2DShape
    void AddCircularity(int const);
    vector<int> const* VnGetCircularities(void) const;
 
-   void AddCliffCollapseErosionFine(double const);
-   double dGetCliffCollapseErosionFine(void) const;
-   void AddCliffCollapseErosionSand(double const);
-   double dGetCliffCollapseErosionSand(void) const;
-   void AddCliffCollapseErosionCoarse(double const);
-   double dGetCliffCollapseErosionCoarse(void) const;
-
-   void AddCliffCollapseFineTalusDeposition(double const);
-   double dGetCliffCollapseFineTalusDeposition(void) const;
    void AddCliffCollapseSandTalusDeposition(double const);
    double dGetCliffCollapseSandTalusDeposition(void) const;
    void AddCliffCollapseCoarseTalusDeposition(double const);
    double dGetCliffCollapseCoarseTalusDeposition(void) const;
 
-   void AddCliffCollapseFineTalusToSuspension(double const);
-   double dGetCliffCollapseFineTalusToSuspension(void) const;
-   void AddCliffCollapseSandTalusToUncons(double const);
-   double dGetCliffCollapseSandTalusToUncons(void) const;
-   void AddCliffCollapseCoarseTalusToUncons(double const);
-   double dGetCliffCollapseCoarseTalusToUncons(void) const;
+   // void AddCliffCollapseFineTalusToSuspension(double const);
+   // double dGetCliffCollapseFineTalusToSuspension(void) const;
+   // void AddCliffCollapseSandTalusToUncons(double const);
+   // double dGetCliffCollapseSandTalusToUncons(void) const;
+   // void AddCliffCollapseCoarseTalusToUncons(double const);
+   // double dGetCliffCollapseCoarseTalusToUncons(void) const;
 
    void AddPlatformErosionUnconsFineToSuspension(double const);
    double dGetPlatformErosionUnconsFineToSuspension(void) const;
