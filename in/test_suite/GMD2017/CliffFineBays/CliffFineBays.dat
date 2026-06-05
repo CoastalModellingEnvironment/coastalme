@@ -148,11 +148,11 @@ Timesteps to save profile(s)                                                    
 Save parallel profiles?                                                                      : n
 Output erosion potential look-up values                                                      : n
 
-Cliff toe location?                                                                          : n
-   Cliff edge smoothing  [0 = none, 1 = running mean, 2 = Savitzky-Golay, only for cliff toe]: 1
-   Cliff edge smoothing window size                         [must be odd, only for cliff toe]: 33
-   Polynomial order for Savitzky-Golay cliff edge smoothing      [2 or 4, only for cliff toe]: 4
-   Cliff slope limit for cliff toe detection                             [only for cliff toe]: 0.3
+
+
+
+
+
 
 Runup equation                      [0 = none, 1 = Nielsen & Hanslow, 2 = Mase, 3 = Stockdon): 3
 Slumping?                                                                                    : n
