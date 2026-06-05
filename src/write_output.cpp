@@ -631,8 +631,12 @@ void CSimulation::WriteStartRunDetails(void)
       OutStream << "Mase (1989)";
    else if (m_nRunUpEquation == RUNUP_EQUATION_STOCKDON)
       OutStream << "Stockdon et al. (2006)";
+   OutStream << endl;
 
-   OutStream << endl << endl;
+   if (m_bSlumping)
+      OutStream << "Slumping?                                                  \t: " << (m_bSlumping ? "Y" : "N") << endl;
+
+   OutStream << endl;
 
    // -------------------------------------------------- Per-iteration output ----------------------------------------------------
    OutStream << fixed << setprecision(3);
@@ -1849,37 +1853,37 @@ void CSimulation::WritePolygonCliffCollapseErosion(void)
 
          LogStream << strIntRight(nCoast, 11) << "|" << strIntRight(pPolygon->nGetPolygonCoastID(), 11) << "|"
                   // All
-                  << strDblRight((m_VdFineTalusAdded[nCoast][n] + m_VdSandTalusAdded[nCoast][n] + m_VdCoarseTalusAdded[nCoast][n]) * m_dCellArea, 1, 14) << "|"
-                  << strDblRight((m_VdFineTalus[nCoast][n] + m_VdSandTalus[nCoast][n] + m_VdCoarseTalus[nCoast][n]) * m_dCellArea, 1, 14) << "|"
-                  << strDblRight((m_VdFineTalusRemoved[nCoast][n] + m_VdSandTalusRemoved[nCoast][n] + m_VdCoarseTalusRemoved[nCoast][n]) * m_dCellArea, 1, 14) << "|"
+                  << strDblRight((m_VVdFineTalusAdded[nCoast][n] + m_VVdSandTalusAdded[nCoast][n] + m_VVdCoarseTalusAdded[nCoast][n]) * m_dCellArea, 1, 14) << "|"
+                  << strDblRight((m_VVdFineTalus[nCoast][n] + m_VVdSandTalus[nCoast][n] + m_VVdCoarseTalus[nCoast][n]) * m_dCellArea, 1, 14) << "|"
+                  << strDblRight((m_VVdFineTalusRemoved[nCoast][n] + m_VVdSandTalusRemoved[nCoast][n] + m_VVdCoarseTalusRemoved[nCoast][n]) * m_dCellArea, 1, 14) << "|"
                   // Fine
-                  << strDblRight(m_VdFineTalusAdded[nCoast][n] * m_dCellArea, 1, 14) << "|"
-                  << strDblRight(m_VdFineTalus[nCoast][n] * m_dCellArea, 1, 14) << "|"
-                  << strDblRight(m_VdFineTalusRemoved[nCoast][n] * m_dCellArea, 1, 14) << "|"
+                  << strDblRight(m_VVdFineTalusAdded[nCoast][n] * m_dCellArea, 1, 14) << "|"
+                  << strDblRight(m_VVdFineTalus[nCoast][n] * m_dCellArea, 1, 14) << "|"
+                  << strDblRight(m_VVdFineTalusRemoved[nCoast][n] * m_dCellArea, 1, 14) << "|"
                   // Sand
-                  << strDblRight(m_VdSandTalusAdded[nCoast][n] * m_dCellArea, 1, 14) << "|"
-                  << strDblRight(m_VdSandTalus[nCoast][n] * m_dCellArea, 1, 14) << "|"
-                  << strDblRight(m_VdSandTalusRemoved[nCoast][n] * m_dCellArea, 1, 14) << "|"
+                  << strDblRight(m_VVdSandTalusAdded[nCoast][n] * m_dCellArea, 1, 14) << "|"
+                  << strDblRight(m_VVdSandTalus[nCoast][n] * m_dCellArea, 1, 14) << "|"
+                  << strDblRight(m_VVdSandTalusRemoved[nCoast][n] * m_dCellArea, 1, 14) << "|"
                   // Coarse
-                  << strDblRight(m_VdCoarseTalusAdded[nCoast][n] * m_dCellArea, 1, 14) << "|"
-                  << strDblRight(m_VdCoarseTalus[nCoast][n] * m_dCellArea, 1, 14) << "|"
-                  << strDblRight(m_VdCoarseTalusRemoved[nCoast][n], 1, 14) << "|" << endl;
+                  << strDblRight(m_VVdCoarseTalusAdded[nCoast][n] * m_dCellArea, 1, 14) << "|"
+                  << strDblRight(m_VVdCoarseTalus[nCoast][n] * m_dCellArea, 1, 14) << "|"
+                  << strDblRight(m_VVdCoarseTalusRemoved[nCoast][n], 1, 14) << "|" << endl;
 
-         dTmpErosionAllTot += ((m_VdFineTalusAdded[nCoast][n] + m_VdSandTalusAdded[nCoast][n] + m_VdCoarseTalusAdded[nCoast][n]) * m_dCellArea);
-         dTmpTalusStoredAllTot += ((m_VdFineTalus[nCoast][n] + m_VdSandTalus[nCoast][n] + m_VdCoarseTalus[nCoast][n]) * m_dCellArea);
-         dTmpTalusLostAllTot += ((m_VdFineTalusRemoved[nCoast][n] + m_VdSandTalusRemoved[nCoast][n] + m_VdCoarseTalusRemoved[nCoast][n]) * m_dCellArea);
+         dTmpErosionAllTot += ((m_VVdFineTalusAdded[nCoast][n] + m_VVdSandTalusAdded[nCoast][n] + m_VVdCoarseTalusAdded[nCoast][n]) * m_dCellArea);
+         dTmpTalusStoredAllTot += ((m_VVdFineTalus[nCoast][n] + m_VVdSandTalus[nCoast][n] + m_VVdCoarseTalus[nCoast][n]) * m_dCellArea);
+         dTmpTalusLostAllTot += ((m_VVdFineTalusRemoved[nCoast][n] + m_VVdSandTalusRemoved[nCoast][n] + m_VVdCoarseTalusRemoved[nCoast][n]) * m_dCellArea);
 
-         dTmpErosionFineTot += (m_VdFineTalusAdded[nCoast][n] * m_dCellArea);
-         dTmpTalusStoredFineTot += (m_VdFineTalus[nCoast][n] * m_dCellArea);
-         dTmpTalusLostFineTot += (m_VdFineTalusRemoved[nCoast][n] * m_dCellArea);
+         dTmpErosionFineTot += (m_VVdFineTalusAdded[nCoast][n] * m_dCellArea);
+         dTmpTalusStoredFineTot += (m_VVdFineTalus[nCoast][n] * m_dCellArea);
+         dTmpTalusLostFineTot += (m_VVdFineTalusRemoved[nCoast][n] * m_dCellArea);
 
-         dTmpErosionSandTot += (m_VdSandTalusAdded[nCoast][n] * m_dCellArea);
-         dTmpTalusStoredSandTot += (m_VdSandTalus[nCoast][n] * m_dCellArea);
-         dTmpTalusLostSandTot += (m_VdSandTalusRemoved[nCoast][n] * m_dCellArea);
+         dTmpErosionSandTot += (m_VVdSandTalusAdded[nCoast][n] * m_dCellArea);
+         dTmpTalusStoredSandTot += (m_VVdSandTalus[nCoast][n] * m_dCellArea);
+         dTmpTalusLostSandTot += (m_VVdSandTalusRemoved[nCoast][n] * m_dCellArea);
 
-         dTmpErosionCoarseTot += (m_VdCoarseTalusAdded[nCoast][n] * m_dCellArea);
-         dTmpTalusStoredCoarseTot += (m_VdCoarseTalus[nCoast][n] * m_dCellArea);
-         dTmpTalusLostFineTot += (m_VdCoarseTalusRemoved[nCoast][n] * m_dCellArea);
+         dTmpErosionCoarseTot += (m_VVdCoarseTalusAdded[nCoast][n] * m_dCellArea);
+         dTmpTalusStoredCoarseTot += (m_VVdCoarseTalus[nCoast][n] * m_dCellArea);
+         dTmpTalusLostFineTot += (m_VVdCoarseTalusRemoved[nCoast][n] * m_dCellArea);
       }
    }
 

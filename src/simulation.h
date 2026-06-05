@@ -394,7 +394,7 @@ class CSimulation
    //! Do we have sediment input events?
    bool m_bSedimentInput;
 
-   //! Do we have sediment inputat a point?
+   //! Do we have sediment input at a point?
    bool m_bSedimentInputAtPoint;
 
    //! Do we have sediment input at the coast?
@@ -403,7 +403,7 @@ class CSimulation
    //! Do we have sediment input along a line?
    bool m_bSedimentInputAlongLine;
 
-   //! Save sediment inut data?
+   //! Save sediment input data?
    bool m_bSedimentInputEventSave;
 
    //! Do we have a sediment input event this iteration?
@@ -480,6 +480,9 @@ class CSimulation
 
    //! In order to go from low elevation (sea) to high elevation (land), process the west edge cells forward (i.e. ascending indices)?
    bool m_bSearchWestEdgeForward = false;
+
+   //! Are we simulating slumping?
+   bool m_bSlumping = false;
 
    //! Options for GDAL when handling raster files
    char **m_papszGDALRasterOptions;
@@ -1629,31 +1632,31 @@ class CSimulation
    normal_distribution<double> m_dGetFromUnitNormalDist{0.0, 1.0};
 
    //! Vector-of-vectors to hold this-iteration per-polygon fine talus amounts
-   vector<vector<double>> m_VdFineTalus;
+   vector<vector<double>> m_VVdFineTalus;
 
    //! Vector-of-vectors to hold this-iteration per-polygon sand talus amounts
-   vector<vector<double>> m_VdSandTalus;
+   vector<vector<double>> m_VVdSandTalus;
 
    //! Vector-of-vectors to hold this-iteration per-polygon coarse talus amounts
-   vector<vector<double>> m_VdCoarseTalus;
+   vector<vector<double>> m_VVdCoarseTalus;
 
    //! Vector-of-vectors to hold this-iteration per-polygon fine talus amounts added
-   vector<vector<double>> m_VdFineTalusAdded;
+   vector<vector<double>> m_VVdFineTalusAdded;
 
    //! Vector-of-vectors to hold this-iteration per-polygon sand talus amounts added
-   vector<vector<double>> m_VdSandTalusAdded;
+   vector<vector<double>> m_VVdSandTalusAdded;
 
    //! Vector-of-vectors to hold this-iteration per-polygon coarse talus amounts added
-   vector<vector<double>> m_VdCoarseTalusAdded;
+   vector<vector<double>> m_VVdCoarseTalusAdded;
 
    //! Vector-of-vectors to hold this-iteration per-polygon fine talus amounts removed
-   vector<vector<double>> m_VdFineTalusRemoved;
+   vector<vector<double>> m_VVdFineTalusRemoved;
 
    //! Vector-of-vectors to hold this-iteration per-polygon sand talus amounts removed
-   vector<vector<double>> m_VdSandTalusRemoved;
+   vector<vector<double>> m_VVdSandTalusRemoved;
 
    //! Vector-of-vectors to hold this-iteration per-polygon coarse talus amounts removed
-   vector<vector<double>> m_VdCoarseTalusRemoved;
+   vector<vector<double>> m_VVdCoarseTalusRemoved;
 
 private:
    // Input and output routines
@@ -1947,6 +1950,7 @@ private:
    void WritePolygonSortedSequence(vector<vector<vector<int>>> const&);
    void WritePolygonActualMovement(vector<vector<vector<int>>> const&);
    void DoEndOfRunDeletes(void);
+   void DoRand1Shuffle(vector<int>*);
 
 // #ifdef _DEBUG
 //    void DEBUG_PrintProfileDetails(CGeomProfile*, CGeomProfile*);

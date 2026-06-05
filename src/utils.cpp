@@ -76,6 +76,9 @@ using std::stringstream;
 #include <algorithm>
 using std::transform;
 
+#include <random>
+using std::uniform_int_distribution;
+
 #include <gdal.h>
 
 #include "cme.h"
@@ -3143,3 +3146,24 @@ void CSimulation::CalcMHWAndNewCliffNotchElevation(int const nTideDataCount)
 
    // LogStream << m_ulIter << ": this-iteration MHW elevation = " << m_dThisIterMHWElev << " elevation of apex of new cliff notches = " << m_dThisIterNewNotchApexElev << endl;
 }
+
+//===============================================================================================================================
+//! Randomly swaps the elements of an array. On output nArray is a random permutation of its value on input. Modified from p145 of: Knuth, D.E. (1997). The Art of Computer Programming. Volume 2. Seminumerical Algorithms (Third Edition), Addison-Wesley Longman, Reading MA. 762 pp.
+//===============================================================================================================================
+void CSimulation::DoRand1Shuffle(vector<int>* pVn)
+{
+   int nLen = static_cast<int>(pVn->size()-1);
+
+   //! c++11 uniform normal distribution, get an int between and including 0 and nLen
+   uniform_int_distribution<> nGetIntFromUniformDist{0, nLen};
+
+   nLen--;
+   while (nLen > 0)
+   {
+      int n1 = nGetIntFromUniformDist(m_Rand[1]);      // uses Rand1()
+      int nTmp = pVn->at(n1);
+      pVn->at(n1) = pVn->at(nLen);
+      pVn->at(nLen--) = nTmp;
+   }
+}
+

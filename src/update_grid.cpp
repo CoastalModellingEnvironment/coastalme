@@ -43,37 +43,37 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
 
    // Resize vectors to store per-polygon totals of fine, sand, and coarse talus
    int nCoastSize = static_cast<int>(m_VCoast.size());
-   m_VdFineTalus.resize(nCoastSize);
-   m_VdFineTalusAdded.resize(nCoastSize);
-   m_VdFineTalusRemoved.resize(nCoastSize);
+   m_VVdFineTalus.resize(nCoastSize);
+   m_VVdFineTalusAdded.resize(nCoastSize);
+   m_VVdFineTalusRemoved.resize(nCoastSize);
    for (int n = 0; n < (nCoastSize); n++)
    {
       int nPoly = m_VCoast[n].nGetNumPolygons();
-      m_VdFineTalus[n].resize(nPoly);
-      m_VdFineTalusAdded[n].resize(nPoly);
-      m_VdFineTalusRemoved[n].resize(nPoly);
+      m_VVdFineTalus[n].resize(nPoly);
+      m_VVdFineTalusAdded[n].resize(nPoly);
+      m_VVdFineTalusRemoved[n].resize(nPoly);
    }
 
-   m_VdSandTalus.resize(nCoastSize);
-   m_VdSandTalusAdded.resize(nCoastSize);
-   m_VdSandTalusRemoved.resize(nCoastSize);
+   m_VVdSandTalus.resize(nCoastSize);
+   m_VVdSandTalusAdded.resize(nCoastSize);
+   m_VVdSandTalusRemoved.resize(nCoastSize);
    for (int n = 0; n < (nCoastSize); n++)
    {
       int nPoly = m_VCoast[n].nGetNumPolygons();
-      m_VdSandTalus[n].resize(nPoly);
-      m_VdSandTalusAdded[n].resize(nPoly);
-      m_VdSandTalusRemoved[n].resize(nPoly);
+      m_VVdSandTalus[n].resize(nPoly);
+      m_VVdSandTalusAdded[n].resize(nPoly);
+      m_VVdSandTalusRemoved[n].resize(nPoly);
    }
 
-   m_VdCoarseTalus.resize(nCoastSize);
-   m_VdCoarseTalusAdded.resize(nCoastSize);
-   m_VdCoarseTalusRemoved.resize(nCoastSize);
+   m_VVdCoarseTalus.resize(nCoastSize);
+   m_VVdCoarseTalusAdded.resize(nCoastSize);
+   m_VVdCoarseTalusRemoved.resize(nCoastSize);
    for (int n = 0; n < (nCoastSize); n++)
    {
       int nPoly = m_VCoast[n].nGetNumPolygons();
-      m_VdCoarseTalus[n].resize(nPoly);
-      m_VdCoarseTalusAdded[n].resize(nPoly);
-      m_VdCoarseTalusRemoved[n].resize(nPoly);
+      m_VVdCoarseTalus[n].resize(nPoly);
+      m_VVdCoarseTalusAdded[n].resize(nPoly);
+      m_VVdCoarseTalusRemoved[n].resize(nPoly);
    }
 
    // Initialize reduction variables to zero
@@ -81,13 +81,31 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
    m_dThisIterTotSeaDepth = 0;
 
    // Use OpenMP parallel reduction for thread-safe accumulation and min/max calculations
+   // 2. Declare the custom OpenMP reduction
+   // omp_out: Represents the global vector (the target of the reduction)
+   // omp_in:  Represents the thread-local private vector copy
+   // omp_priv: The uninitialized thread-local private vector variable
+   // omp_orig: The master copy of the vector used to guide size initialization
+
+// #ifdef _OPENMP
+// #pragma omp declare reduction(matrix_add : vector<vector<double>> : \
+//     for (size_t i = 0; i < omp_out.size(); ++i) { \
+//         for (size_t j = 0; j < omp_out[i].size(); ++j) { \
+//             omp_out[i][j] += omp_in[i][j]; \
+//         } \
+//     }) \
+//     initializer(omp_priv = vector<vector<double>>(omp_orig.size(), vector<double>(omp_orig[0].size(), 0)))
+// #endif
+//
 // #ifdef _OPENMP
 // #pragma omp parallel for collapse(2)                                 \
 //     reduction(+ : m_ulThisIterNumCoastCells, m_dThisIterTotSeaDepth) \
 //     reduction(max : m_dThisIterTopElevMax)                           \
 //     reduction(min : m_dThisIterTopElevMin)
 // #endif
-
+//
+//
+// #pragma omp parallel for reduction(matrix_add:global_matrix)
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {
       for (int nY = 0; nY < m_nYGridSize; nY++)
@@ -126,12 +144,12 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
             int nCoast = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonCoastID();
             int nPoly = m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID();
             if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
-               LogStream << m_ulIter << ":\t " << dFineTalus << " fine talus found on cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
+               LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] fine talus = " << dFineTalus << " found but cell is not in a polygon" << endl;
             else
-               m_VdFineTalus[nCoast][nPoly] += dFineTalus;
+               m_VVdFineTalus[nCoast][nPoly] += dFineTalus;
          }
 
-         // Get fine talus added for this cell, and allocate to a polygon total
+         // Get fine talus added to this cell, and allocate to a polygon total
          double dFineTalusAdded = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionFineToTalus();
          if (dFineTalusAdded > 0)
          {
@@ -140,10 +158,10 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
             if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
                LogStream << m_ulIter << ":\t " << dFineTalusAdded << " fine talus was added to cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
             else
-               m_VdFineTalusAdded[nCoast][nPoly] += dFineTalusAdded;
+               m_VVdFineTalusAdded[nCoast][nPoly] += dFineTalusAdded;
          }
 
-         // Get fine talus removed for this cell, and allocate to a polygon total
+         // Get fine talus removed from this cell, and allocate to a polygon total
          double dFineTalusRemoved = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterFineTalusToSuspension();
          if (dFineTalusRemoved > 0)
          {
@@ -152,7 +170,7 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
             if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
                LogStream << m_ulIter << ":\t " << dFineTalusRemoved << " fine talus was removed from cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
             else
-               m_VdFineTalusRemoved[nCoast][nPoly] += dFineTalusRemoved;
+               m_VVdFineTalusRemoved[nCoast][nPoly] += dFineTalusRemoved;
          }
 
          // Next get sand talus depth for this cell, and allocate to a polygon total
@@ -164,10 +182,10 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
             if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
                LogStream << m_ulIter << ":\t " << dSandTalus << " sand talus found on cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
             else
-               m_VdSandTalus[nCoast][nPoly] += dSandTalus;
+               m_VVdSandTalus[nCoast][nPoly] += dSandTalus;
          }
 
-         // Get sand talus added for this cell, and allocate to a polygon total
+         // Get sand talus added to this cell, and allocate to a polygon total
          double dSandTalusAdded = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionSandToTalus();
          if (dSandTalusAdded > 0)
          {
@@ -176,10 +194,10 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
             if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
                LogStream << m_ulIter << ":\t " << dSandTalusAdded << " sand talus was added to cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
             else
-               m_VdSandTalusAdded[nCoast][nPoly] += dSandTalusAdded;
+               m_VVdSandTalusAdded[nCoast][nPoly] += dSandTalusAdded;
          }
 
-         // Get sand talus removed for this cell, and allocate to a polygon total
+         // Get sand talus removed from this cell, and allocate to a polygon total
          double dSandTalusRemoved = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterSandTalusToUncons();
          if (dSandTalusRemoved > 0)
          {
@@ -188,7 +206,7 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
             if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
                LogStream << m_ulIter << ":\t " << dSandTalusRemoved << " sand talus was removed from cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
             else
-               m_VdSandTalusRemoved[nCoast][nPoly] += dSandTalusRemoved;
+               m_VVdSandTalusRemoved[nCoast][nPoly] += dSandTalusRemoved;
          }
 
          // Finally get coarse talus depth for this cell, and allocate to a polygon total
@@ -200,10 +218,10 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
             if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
                LogStream << m_ulIter << ":\t " << dCoarseTalus << " coarse talus found on cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
             else
-               m_VdCoarseTalus[nCoast][nPoly] += dCoarseTalus;
+               m_VVdCoarseTalus[nCoast][nPoly] += dCoarseTalus;
          }
 
-         // Get coarse talus added for this cell, and allocate to a polygon total
+         // Get coarse talus added to this cell, and allocate to a polygon total
          double dCoarseTalusAdded = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCliffCollapseErosionCoarseToTalus();
          if (dCoarseTalusAdded > 0)
          {
@@ -212,10 +230,10 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
             if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
                LogStream << m_ulIter << ":\t " << dCoarseTalusAdded << " coarse talus was added to cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
             else
-               m_VdCoarseTalusAdded[nCoast][nPoly] += dCoarseTalusAdded;
+               m_VVdCoarseTalusAdded[nCoast][nPoly] += dCoarseTalusAdded;
          }
 
-         // Get coarse talus removed for this cell, and allocate to a polygon total
+         // Get coarse talus removed from this cell, and allocate to a polygon total
          double dCoarseTalusRemoved = m_pRasterGrid->m_Cell[nX][nY].dGetThisIterCoarseTalusToUncons();
          if (dCoarseTalusRemoved > 0)
          {
@@ -224,7 +242,7 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
             if ((nPoly == INT_NODATA) || (nCoast == INT_NODATA))
                LogStream << m_ulIter << ":\t " << dCoarseTalusRemoved << " coarse talus was removed from cell [" << nX << "][" << nY << "] but cell is not in a polygon" << endl;
             else
-               m_VdCoarseTalusRemoved[nCoast][nPoly] += dCoarseTalusRemoved;
+               m_VVdCoarseTalusRemoved[nCoast][nPoly] += dCoarseTalusRemoved;
          }
       }
    }

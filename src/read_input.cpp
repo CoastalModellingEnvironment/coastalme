@@ -3331,6 +3331,17 @@ bool CSimulation::bReadRunDataFile(void)
                strErr = "line " + to_string(nLine) + ": runup equation code must be between 0 and 3";
 
             break;
+
+         case 91:
+            // Slumping?
+            strRH = strToLower(&strRH);
+
+            m_bSlumping = false;
+
+            if (strRH.find('y') != string::npos)
+               m_bSlumping = true;
+
+            break;
          }
 
          // Did an error occur?
@@ -5595,4 +5606,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
 
    // Case 90: Cliff slope limit for cliff toe detection
    m_dSlopeThresholdForCliffToe = config.dGetCliffSlopeLimit();
+
+   // Case 91: Slumping?
+   m_bSlumping = config.bGetSlumping();
 }

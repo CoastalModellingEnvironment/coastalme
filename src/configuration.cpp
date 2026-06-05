@@ -155,6 +155,9 @@ void CConfiguration::InitializeDefaults()
    m_strSedimentInputType = "";
    m_strSedimentInputDetails = "";
 
+   // Slumping
+   m_bSlumping = false;
+
    // Physics and Geometry
    m_dGravitationalAcceleration = 9.81;
    m_dNormalSpacing = 0.0;

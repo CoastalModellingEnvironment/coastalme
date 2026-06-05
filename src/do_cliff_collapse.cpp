@@ -55,9 +55,17 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
          int const nX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetX();
          int const nY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
 
-         // TODO Talus is protecting this cell
-         if (m_pRasterGrid->m_Cell[nX][nY].dGetAllTalusDepth() > 0)
-            continue;
+         // Is there some talus protecting this cell?
+         double dTalusDepth = m_pRasterGrid->m_Cell[nX][nY].dGetAllTalusDepth();
+         double dInvTalusProtection = 1;
+         if (dTalusDepth > 0)
+         {
+            // TEST TODO Assume a linear relationship, with minimum value 0.5
+            double dCliffHeightAboveSWL = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() - m_dThisIterSWL;
+            dInvTalusProtection = tMin(tMax((dTalusDepth / dCliffHeightAboveSWL), 1.0), 0.5);
+
+            LogStream << m_ulIter << ":\t cell[" << nX << "][" << nY << "] talus depth = " << dTalusDepth << " cliff height above SWL = " << dCliffHeightAboveSWL << " inverse talus protection factor = " << dInvTalusProtection << endl;
+         }
 
          // First get wave energy for the coastal landform object
          double const dWaveHeightAtCoast = m_VCoast[nCoast].dGetCoastWaveHeight(nCoastPoint);
@@ -67,7 +75,7 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
             continue;
 
          // OK we have on-shore waves so get the previously-calculated wave energy
-         double const dWaveEnergy = m_VCoast[nCoast].dGetWaveEnergyAtBreaking(nCoastPoint);
+         double const dWaveEnergy = m_VCoast[nCoast].dGetWaveEnergyAtBreaking(nCoastPoint) * dInvTalusProtection;
 
          // And save the accumulated value
          pCoastLandform->IncTotAccumWaveEnergy(dWaveEnergy);
@@ -94,14 +102,14 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
                {
                   if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
                   {
-                     LogStream << m_ulIter << ":\t" << WARN << "problem with cliff collapse, continuing however" << endl;
+                     LogStream << m_ulIter << ":\t" << WARN << "problem with coast cliff collapse, continuing however" << endl;
 
                      if (nRet == RTN_ERR_CLIFF_NOT_IN_POLYGON)
-                        LogStream << m_ulIter << ":\t cliff-collapse cell not in a polygon" << endl;
+                        LogStream << m_ulIter << ":\t coast cliff-collapse cell not in a polygon" << endl;
                      else if (nRet == RTN_ERR_CLIFF_NOTCH)
-                        LogStream << m_ulIter << ":\t cliff notch is incised into basement" << endl;
+                        LogStream << m_ulIter << ":\t coast cliff notch is incised into basement" << endl;
                      else if (nRet == RTN_ERR_NO_TOP_LAYER_DURING_CLIFF_COLLAPSE_CALC)
-                        LogStream << m_ulIter << ":\t no top layer during cliff collapse" << endl;
+                        LogStream << m_ulIter << ":\t no top layer during coast cliff collapse" << endl;
                   }
                }
 
@@ -590,14 +598,14 @@ bool CSimulation::bCreateNotchInland(int const nCoast, int const nCoastPoint, /*
             {
                if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
                {
-                  LogStream << m_ulIter << ":\t" << WARN << "problem with cliff collapse, continuing however" << endl;
+                  LogStream << m_ulIter << ":\t" << WARN << "problem with inland cliff collapse, continuing however" << endl;
 
                   if (nRet == RTN_ERR_CLIFF_NOT_IN_POLYGON)
-                     LogStream << m_ulIter << ":\t cliff-collapse cell not in a polygon" << endl;
+                     LogStream << m_ulIter << ":\t inland cliff-collapse cell not in a polygon" << endl;
                   else if (nRet == RTN_ERR_CLIFF_NOTCH)
-                     LogStream << m_ulIter << ":\t cliff notch is incised into basement" << endl;
+                     LogStream << m_ulIter << ":\t inland cliff notch is incised into basement" << endl;
                   else if (nRet == RTN_ERR_NO_TOP_LAYER_DURING_CLIFF_COLLAPSE_CALC)
-                     LogStream << m_ulIter << ":\t no top layer during cliff collapse" << endl;
+                     LogStream << m_ulIter << ":\t no top layer during inland cliff collapse" << endl;
                }
             }
          }
@@ -767,8 +775,12 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                vector<double> VdAdjElevDiff;
                vector<CGeom2DIPoint> VptAdj;
 
-               for (int nSearchDirection = NORTH; nSearchDirection <= NORTH_WEST; nSearchDirection++)
+               vector<int> VnSearchDirection = {NORTH, NORTH_EAST, EAST, SOUTH_EAST, SOUTH, SOUTH_WEST, WEST, NORTH_WEST};
+               DoRand1Shuffle(&VnSearchDirection);
+
+               for (int nDir = 0; nDir < 8; nDir++)
                {
+                  int nSearchDirection = VnSearchDirection[nDir];
                   int nXAdj;
                   int nYAdj;
 

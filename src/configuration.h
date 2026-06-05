@@ -146,6 +146,9 @@ private:
    string m_strSedimentInputType;
    string m_strSedimentInputDetails;
 
+   // Slumping
+   bool m_bSlumping;
+
    // Physics and Geometry
    double m_dGravitationalAcceleration;
    double m_dNormalSpacing;
@@ -169,8 +172,8 @@ private:
    double m_dCliffSlopeLimit;
 
 public:
-   CConfiguration();
-   ~CConfiguration();
+   CConfiguration(void);
+   ~CConfiguration(void);
 
    // Setters for all parameters
    void SetRunName(string const* pStr)
@@ -213,7 +216,7 @@ public:
       m_nRandomSeed = n;
       m_bUseSystemTimeForSeed = false;
    }
-   void UseSystemTimeForSeed()
+   void UseSystemTimeForSeed(void)
    {
       m_bUseSystemTimeForSeed = false;
    }
@@ -601,6 +604,11 @@ public:
       m_strSedimentInputDetails = *pStr;
    }
 
+   void SetSlumping(bool b)
+   {
+      m_bSlumping = b;
+   }
+
    void SetGravitationalAcceleration(double d)
    {
       m_dGravitationalAcceleration = d;
@@ -682,510 +690,516 @@ public:
    }
 
    // Getters for all parameters
-   string const* pstrGetRunName() const
+   string const* pstrGetRunName(void) const
    {
       return &m_strRunName;
    }
 
-   int nGetLogFileDetail() const
+   int nGetLogFileDetail(void) const
    {
       return m_nLogFileDetail;
    }
 
-   bool bGetCSVPerTimestepResults() const
+   bool bGetCSVPerTimestepResults(void) const
    {
       return m_bCSVPerTimestepResults;
    }
 
-   string const* pstrGetStartDateTime() const
+   string const* pstrGetStartDateTime(void) const
    {
       return &m_strStartDateTime;
    }
 
-   string const* pstrGetDuration() const
+   string const* pstrGetDuration(void) const
    {
       return &m_strDuration;
    }
 
-   string const* pstrGetTimestep() const
+   string const* pstrGetTimestep(void) const
    {
       return &m_strTimestep;
    }
 
-   vector<string> const* pVstrGetSaveTimes() const
+   vector<string> const* pVstrGetSaveTimes(void) const
    {
       return &m_VstrSaveTimes;
    }
 
-   int nGetRandomSeed() const
+   int nGetRandomSeed(void) const
    {
       return m_nRandomSeed;
    }
 
-   bool bUseSystemTimeForRandomSeed() const
+   bool bUseSystemTimeForRandomSeed(void) const
    {
       return m_bUseSystemTimeForSeed;
    }
 
-   int nGetMaxSaveDigits() const
+   int nGetMaxSaveDigits(void) const
    {
       return m_nMaxSaveDigits;
    }
 
-   string const* pstrGetSaveDigitsMode() const
+   string const* pstrGetSaveDigitsMode(void) const
    {
       return &m_strSaveDigitsMode;
    }
 
    void GetRasterFiles(vector<string>*) const;
 
-   string const* pstrGetRasterFormat() const
+   string const* pstrGetRasterFormat(void) const
    {
       return &m_strRasterFormat;
    }
 
-   bool bGetWorldFile() const
+   bool bGetWorldFile(void) const
    {
       return m_bWorldFile;
    }
 
-   bool bGetScaleValues() const
+   bool bGetScaleValues(void) const
    {
       return m_bScaleValues;
    }
 
-   vector<double> const* pVdGetSliceElevations() const
+   vector<double> const* pVdGetSliceElevations(void) const
    {
       return &m_VdSliceElevations;
    }
 
    void GetVectorFiles(vector<string>*) const;
 
-   string const* pstrGetVectorFormat() const
+   string const* pstrGetVectorFormat(void) const
    {
       return &m_strVectorFormat;
    }
 
    void GetTimeSeriesFiles(vector<string>*) const;
 
-   int nGetCoastlineSmoothing() const
+   int nGetCoastlineSmoothing(void) const
    {
       return m_nCoastlineSmoothing;
    }
 
-   int nGetCoastlineSmoothingWindow() const
+   int nGetCoastlineSmoothingWindow(void) const
    {
       return m_nCoastlineSmoothingWindow;
    }
 
-   int nGetPolynomialOrder() const
+   int nGetPolynomialOrder(void) const
    {
       return m_nPolynomialOrder;
    }
 
-   string const strGetOmitGridEdges() const;
+   string const strGetOmitGridEdges(void) const;
 
-   int nGetProfileSmoothingWindow() const
+   int nGetProfileSmoothingWindow(void) const
    {
       return m_nProfileSmoothingWindow;
    }
 
-   double nGetMaxLocalSlope() const
+   double nGetMaxLocalSlope(void) const
    {
       return m_dMaxLocalSlope;
    }
 
-   double dGetMaxBeachElevation() const
+   double dGetMaxBeachElevation(void) const
    {
       return m_dMaxBeachElevation;
    }
 
-   int nGetNumLayers() const
+   int nGetNumLayers(void) const
    {
       return m_nNumLayers;
    }
 
-   string const* pstrGetBasementDEMFile() const
+   string const* pstrGetBasementDEMFile(void) const
    {
       return &m_strBasementDEMFile;
    }
 
-   vector<string> const* pVstrGetUnconsFineFiles() const
+   vector<string> const* pVstrGetUnconsFineFiles(void) const
    {
       return &m_VstrUnconsFineFiles;
    }
 
-   vector<string> const* pVstrGetUnconsSandFiles() const
+   vector<string> const* pVstrGetUnconsSandFiles(void) const
    {
       return &m_VstrUnconsSandFiles;
    }
 
-   vector<string> const* pVstrGetUnconsCoarseFiles() const
+   vector<string> const* pVstrGetUnconsCoarseFiles(void) const
    {
       return &m_VStrUnconsCoarseFiles;
    }
 
-   vector<string> const* pVstrGetConsFineFiles() const
+   vector<string> const* pVstrGetConsFineFiles(void) const
    {
       return &m_VstrConsFineFiles;
    }
 
-   vector<string> const* pVstrGetConsSandFiles() const
+   vector<string> const* pVstrGetConsSandFiles(void) const
    {
       return &m_VstrConsSandFiles;
    }
 
-   vector<string> const* pVstrGetConsCoarseFiles() const
+   vector<string> const* pVstrGetConsCoarseFiles(void) const
    {
       return &m_VstrConsCoarseFiles;
    }
 
-   string const* pstrGetSuspendedSedFile() const
+   string const* pstrGetSuspendedSedFile(void) const
    {
       return &m_strSuspendedSedFile;
    }
 
-   string const* pstrGetLandformFile() const
+   string const* pstrGetLandformFile(void) const
    {
       return &m_strLandformFile;
    }
 
-   string const* pstrGetInterventionClassFile() const
+   string const* pstrGetInterventionClassFile(void) const
    {
       return &m_strInterventionClassFile;
    }
 
-   string const* pstrGetInterventionHeightFile() const
+   string const* pstrGetInterventionHeightFile(void) const
    {
       return &m_strInterventionHeightFile;
    }
 
-   int nGetWavePropagationModel() const
+   int nGetWavePropagationModel(void) const
    {
       return m_nWavePropagationModel;
    }
 
-   double dGetSeawaterDensity() const
+   double dGetSeawaterDensity(void) const
    {
       return m_dSeawaterDensity;
    }
 
-   double dGetInitialWaterLevel() const
+   double dGetInitialWaterLevel(void) const
    {
       return m_dInitialWaterLevel;
    }
 
-   double dGetFinalWaterLevel() const
+   double dGetFinalWaterLevel(void) const
    {
       return m_dFinalWaterLevel;
    }
 
-   bool bHasFinalWaterLevel() const
+   bool bHasFinalWaterLevel(void) const
    {
       return m_bbHasFinalWaterLevel;
    }
 
-   string const* pstrGetWaveInputMode() const
+   string const* pstrGetWaveInputMode(void) const
    {
       return &m_strWaveInputMode;
    }
 
    // Wave data configuration getters (Cases 37-40)
-   string const* pstrGetWaveHeightTimeSeries() const
+   string const* pstrGetWaveHeightTimeSeries(void) const
    {
       return &m_strWaveHeightTimeSeries;
    }
 
-   string const* pstrGetWaveStationDataFile() const
+   string const* pstrGetWaveStationDataFile(void) const
    {
       return &m_strWaveStationDataFile;
    }
 
-   double dGetDeepWaterWaveHeight() const
+   double dGetDeepWaterWaveHeight(void) const
    {
       return m_dDeepWaterWaveHeight;
    }
 
-   double dGetDeepWaterWaveOrientation() const
+   double dGetDeepWaterWaveOrientation(void) const
    {
       return m_dDeepWaterWaveOrientation;
    }
 
-   double dGetWavePeriod() const
+   double dGetWavePeriod(void) const
    {
       return m_dWavePeriod;
    }
 
-   string const* pstrGetTideDataFile() const
+   string const* pstrGetTideDataFile(void) const
    {
       return &m_strTideDataFile;
    }
 
-   double dGetBreakingWaveRatio() const
+   double dGetBreakingWaveRatio(void) const
    {
       return m_dBreakingWaveRatio;
    }
 
    // Sediment and Erosion parameters
-   bool bGetCoastPlatformErosion() const
+   bool bGetCoastPlatformErosion(void) const
    {
       return m_bCoastPlatformErosion;
    }
 
-   double dGetPlatformErosionResistance() const
+   double dGetPlatformErosionResistance(void) const
    {
       return m_dPlatformErosionResistance;
    }
 
-   bool bGetBeachSedimentTransport() const
+   bool bGetBeachSedimentTransport(void) const
    {
       return m_bBeachSedimentTransport;
    }
 
-   int nGetBeachTransportAtEdges() const
+   int nGetBeachTransportAtEdges(void) const
    {
       return m_nBeachTransportAtEdges;
    }
 
-   int nGetBeachErosionEquation() const
+   int nGetBeachErosionEquation(void) const
    {
       return m_nBeachErosionEquation;
    }
 
-   double dGetFineMedianSize() const
+   double dGetFineMedianSize(void) const
    {
       return m_dFineMedianSize;
    }
 
-   double dGetSandMedianSize() const
+   double dGetSandMedianSize(void) const
    {
       return m_dSandMedianSize;
    }
 
-   double dGetCoarseMedianSize() const
+   double dGetCoarseMedianSize(void) const
    {
       return m_dCoarseMedianSize;
    }
 
-   double dGetSedimentDensity() const
+   double dGetSedimentDensity(void) const
    {
       return m_dSedimentDensity;
    }
 
-   double dGetBeachSedimentPorosity() const
+   double dGetBeachSedimentPorosity(void) const
    {
       return m_dBeachSedimentPorosity;
    }
 
-   double dGetFineErosivity() const
+   double dGetFineErosivity(void) const
    {
       return m_dFineErosivity;
    }
 
-   double dGetSandErosivity() const
+   double dGetSandErosivity(void) const
    {
       return m_dSandErosivity;
    }
 
-   double dGetCoarseErosivity() const
+   double dGetCoarseErosivity(void) const
    {
       return m_dCoarseErosivity;
    }
 
-   double dGetTransportKLS() const
+   double dGetTransportKLS(void) const
    {
       return m_dTransportKLS;
    }
 
-   double dGetKamphuis() const
+   double dGetKamphuis(void) const
    {
       return m_dKamphuis;
    }
 
-   double dGetBermHeight() const
+   double dGetBermHeight(void) const
    {
       return m_dBermHeight;
    }
 
    // Cliff parameters
-   bool bGetCliffCollapse() const
+   bool bGetCliffCollapse(void) const
    {
       return m_bCliffCollapse;
    }
 
-   double dGetCliffErosionResistance() const
+   double dGetCliffErosionResistance(void) const
    {
       return m_dCliffErosionResistance;
    }
 
-   double dGetNotchOverhang() const
+   double dGetNotchOverhang(void) const
    {
       return m_dNotchOverhang;
    }
 
-   double dGetParamAScaleValue()const
+   double dGetParamAScaleValue(void)const
    {
       return m_dCliffDepositionA;
    }
 
-   double dGetNotchBase() const
+   double dGetNotchBase(void) const
    {
       return m_dNotchBase;
    }
 
-   double dGetCliffDepositionA() const
+   double dGetCliffDepositionA(void) const
    {
       return m_dCliffDepositionA;
    }
 
-   double dGetTalusWidth() const
+   double dGetTalusWidth(void) const
    {
       return m_dTalusWidth;
    }
 
-   double dGetMinTalusLength() const
+   double dGetMinTalusLength(void) const
    {
       return m_dMinTalusLength;
    }
 
-   double dGetMinTalusHeight() const
+   double dGetMinTalusHeight(void) const
    {
       return m_dMinTalusHeight;
    }
 
    // Flood parameters
-   bool bGetFloodInput() const
+   bool bGetFloodInput(void) const
    {
       return m_bFloodInput;
    }
 
    void GetFloodFiles(vector<string>*) const;
 
-   string const* pstrGetFloodCoastline() const
+   string const* pstrGetFloodCoastline(void) const
    {
       return &m_strFloodCoastline;
    }
 
-   int nGetRunupEquation() const
+   int nGetRunupEquation(void) const
    {
       return m_nRunupEquation;
    }
 
-   string const* pstrGetFloodLocations() const
+   string const* pstrGetFloodLocations(void) const
    {
       return &m_strFloodLocations;
    }
 
-   string const* pstrGetFloodInputLocation() const
+   string const* pstrGetFloodInputLocation(void) const
    {
       return &m_strFloodInputLocation;
    }
 
    // Sediment Input parameters
-   bool bGetSedimentInput() const
+   bool bGetSedimentInput(void) const
    {
       return m_bSedimentInput;
    }
 
-   string const* pstrGetSedimentInputLocation() const
+   string const* pstrGetSedimentInputLocation(void) const
    {
       return &m_strSedimentInputLocation;
    }
 
-   string const* pstrGetSedimentInputType() const
+   string const* pstrGetSedimentInputType(void) const
    {
       return &m_strSedimentInputType;
    }
 
-   string const* pstrGetSedimentInputDetails() const
+   string const* pstrGetSedimentInputDetails(void) const
    {
       return &m_strSedimentInputDetails;
    }
 
+   // Slumping
+   bool bGetSlumping(void) const
+   {
+      return m_bSlumping;
+   }
+
    // Physics and geometry parameters
-   double dGetGravitationalAcceleration() const
+   double dGetGravitationalAcceleration(void) const
    {
       return m_dGravitationalAcceleration;
    }
 
-   double dGetNormalSpacing() const
+   double dGetNormalSpacing(void) const
    {
       return m_dNormalSpacing;
    }
 
-   double dGetRandomFactor() const
+   double dGetRandomFactor(void) const
    {
       return m_dRandomFactor;
    }
 
-   double dGetNormalLength() const
+   double dGetNormalLength(void) const
    {
       return m_dNormalLength;
    }
 
-   double dGetStartDepthRatio() const
+   double dGetStartDepthRatio(void) const
    {
       return m_dStartDepthRatio;
    }
 
-   double dGetSyntheticTransectSpacing() const
+   double dGetSyntheticTransectSpacing(void) const
    {
       return m_dSyntheticTransectSpacing;
    }
 
    // Profile and Output Options
-   bool bGetSaveProfileData() const
+   bool bGetSaveProfileData(void) const
    {
       return m_bSaveProfileData;
    }
 
-   vector<int> const* pVnGetProfileNumbers() const
+   vector<int> const* pVnGetProfileNumbers(void) const
    {
       return &m_VnProfileNumbers;
    }
 
-   vector<unsigned long> const* pVulGetProfileTimesteps() const
+   vector<unsigned long> const* pVulGetProfileTimesteps(void) const
    {
       return &m_VulProfileTimesteps;
    }
 
-   bool bGetSaveParallelProfiles() const
+   bool bGetSaveParallelProfiles(void) const
    {
       return m_bSaveParallelProfiles;
    }
 
-   bool bGetOutputErosionPotential() const
+   bool bGetOutputErosionPotential(void) const
    {
       return m_bOutputErosionPotential;
    }
 
-   int nGetCurvatureWindow() const
+   int nGetCurvatureWindow(void) const
    {
       return m_nCurvatureWindow;
    }
 
    // Cliff Edge Processing
-   int nGetCliffEdgeSmoothing() const
+   int nGetCliffEdgeSmoothing(void) const
    {
       return m_nCliffEdgeSmoothing;
    }
 
-   int nGetCliffEdgeSmoothingWindow() const
+   int nGetCliffEdgeSmoothingWindow(void) const
    {
       return m_nCliffEdgeSmoothingWindow;
    }
 
-   int nGetCliffEdgePolynomialOrder() const
+   int nGetCliffEdgePolynomialOrder(void) const
    {
       return m_nCliffEdgePolynomialOrder;
    }
 
-   double dGetCliffSlopeLimit() const
+   double dGetCliffSlopeLimit(void) const
    {
       return m_dCliffSlopeLimit;
    }
 
    // Initialize with default values
-   void InitializeDefaults();
+   void InitializeDefaults(void);
 };
 #endif      //CONFIGURATION_H

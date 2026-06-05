@@ -1228,10 +1228,13 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
             WritePolygonSedimentInputEventTable();
       }
 
-      // Do slumping of unconsolidated sediment on dune areas, for cells that changed this timestep TODO make this an option
-      nRet = nDoSedimentSlumping();
-      if (nRet != RTN_OK)
-         return nRet;
+      // If the user has chosen this, doslumping of unconsolidated sediment on dune areas, for cells that changed this timestep TODO make this an option
+      if (m_bSlumping)
+      {
+         nRet = nDoSedimentSlumping();
+         if (nRet != RTN_OK)
+            return nRet;
+      }
 
       // Tell the user how the simulation is progressing
       AnnounceProgress();
