@@ -61,6 +61,9 @@ CGeomCoastPolygon::CGeomCoastPolygon(CSimulation* pSim, int const nCoastID, int 
       m_dToDoBeachDepositionUnconsCoarse(0),
       m_dBeachSandErodedDeanProfile(0),
       m_dBeachCoarseErodedDeanProfile(0),
+      m_dCliffCollapseTalusFine(0),
+      m_dCliffCollapseTalusSand(0),
+      m_dCliffCollapseTalusCoarse(0),
       m_dCliffCollapseTalusFineToSuspension(0),
       m_dCliffCollapseTalusSandToUncons(0),
       m_dCliffCollapseTalusCoarseToUncons(0),
@@ -560,42 +563,6 @@ double CGeomCoastPolygon::dGetCliffCollapseCoarseTalusDeposition(void) const
    return m_dCliffCollapseTalusCoarse;
 }
 
-// //! Add to the this-iteration total of fine talus moved to suspension on this polygon
-// void CGeomCoastPolygon::AddCliffCollapseFineTalusToSuspension(double const dDepth)
-// {
-//    m_dCliffCollapseTalusFineToSuspension += dDepth;
-// }
-//
-// //! Get the this-iteration total of fine talus moved to suspension on this polygon
-// double CGeomCoastPolygon::dGetCliffCollapseFineTalusToSuspension(void) const
-// {
-//    return m_dCliffCollapseTalusFineToSuspension;
-// }
-//
-// //! Add to the this-iteration total of sand talus moved to adjacent unconsolidated sediment on this polygon
-// void CGeomCoastPolygon::AddCliffCollapseSandTalusToUncons(double const dDepth)
-// {
-//    m_dCliffCollapseTalusSandToUncons += dDepth;
-// }
-//
-// //! Get the this-iteration total of sand talus moved to adjacent unconsolidated sediment on this polygon
-// double CGeomCoastPolygon::dGetCliffCollapseSandTalusToUncons(void) const
-// {
-//    return m_dCliffCollapseTalusSandToUncons;
-// }
-//
-// //! Add to the this-iteration total of coarse talus moved to adjacent unconsolidated sediment on this polygon
-// void CGeomCoastPolygon::AddCliffCollapseCoarseTalusToUncons(double const dDepth)
-// {
-//    m_dCliffCollapseTalusCoarseToUncons += dDepth;
-// }
-//
-// //! Get the this-iteration total of coarse talus moved to adjacent unconsolidated sediment on this polygon
-// double CGeomCoastPolygon::dGetCliffCollapseCoarseTalusToUncons(void) const
-// {
-//    return m_dCliffCollapseTalusCoarseToUncons;
-// }
-
 //! Add to the this-iteration total of unconsolidated fine sediment moved to suspension and derived from shore platform erosion on this polygon TODO
 void CGeomCoastPolygon::AddPlatformErosionUnconsFineToSuspension(double const dDepth)
 {
@@ -765,7 +732,12 @@ CGeom2DIPoint CGeomCoastPolygon::PtiGetVertex(int const nIndex) const
 CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 {
    // First try a simple averaging of the vertices to determine the centroid
-   int nVertexSize = static_cast<int>(m_VPtiVertices.size());
+   int const nVertexSize = static_cast<int>(m_VPtiVertices.size());
+
+   // Safety check
+   if (nVertexSize == 0)
+      return CGeom2DIPoint(INT_NODATA, INT_NODATA);
+
    int nTmpX = 0;
    int nTmpY = 0;
    for (int n = 0; n < nVertexSize; n++)
@@ -789,7 +761,7 @@ CGeom2DIPoint CGeomCoastPolygon::PtiFindPointInPolygon(void)
 
    for (int n = 0; n < nPolySize; n++)
    {
-      CGeom2DIPoint PtiTmp = m_pSim->PtiExtCRSToGridRound(&m_VPtPoints[n]);
+      CGeom2DIPoint const PtiTmp = m_pSim->PtiExtCRSToGridRound(&m_VPtPoints[n]);
 
       // We must not have duplicates (if we get any, they have been produced by rounding)
       if (n > 0)

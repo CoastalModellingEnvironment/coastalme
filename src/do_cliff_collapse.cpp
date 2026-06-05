@@ -736,8 +736,6 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
             double dTalusFineToMove = pTalus->dGetFineDepth();
             double dTalusSandToMove = pTalus->dGetSandDepth();
             double dTalusCoarseToMove = pTalus->dGetCoarseDepth();
-            double dTalusSandMoved = 0;
-            double dTalusCoarseMoved = 0;
             double const dTalusErodibility = 0.3;
             double const dFineRemovalRate = 1 * dTalusErodibility;            // TODO MAKE USER INPUT external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
             double const dSandRemovalRate = 0.9 * dTalusErodibility;          // TODO MAKE USER INPUT external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
@@ -933,6 +931,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                }
 
                // OK, at least one adjacent cell is lower. Move talus to each adjacent cell in proportion to the elevation difference
+               double dTalusSandMoved = 0;
+               double dTalusCoarseMoved = 0;
                vector<double> VdPropToMove(nLower);
                for (int n = 0; n < nLower; n++)
                   VdPropToMove[n] = VdAdjElevDiff[n] / dTotElevDiff;

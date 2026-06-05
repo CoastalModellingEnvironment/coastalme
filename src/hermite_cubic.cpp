@@ -343,7 +343,7 @@ void hermite_cubic_value(double const x1, double const f1, double const d1, doub
 //===============================================================================================================================
 //! This is part of a C++ library from http://people.sc.fsu.edu/~jburkardt/cpp_src/hermite_cubic/hermite_cubic.html. It demonstrates the use of cubic polynomials in the Hermite form: hermite_cubic_value() evaluates a Hermite cubic polynomial. Here, it is used in the calculation of erosion potetial for shore platform erosion
 //===============================================================================================================================
-void hermite_cubic_spline_value(int const nn, double* const xn, double* const fn, double* const dn, int const n, double* const x, double* f, double* d, double* s, double* t)
+void hermite_cubic_spline_value(int const nn, double const* xn, double const* fn, double const* dn, int const n, double const* x, double* f, double* d, double* s, double* t)
 {
    int left = n / 2;
 

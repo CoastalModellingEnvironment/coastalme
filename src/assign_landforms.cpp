@@ -344,7 +344,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                      // This was a cliff in the previous timestep, but the notch is no longer below the top of the consolidated sediment. Create a cliff object on the vector coastline without a notch
                      double const dAccumWaveEnergy = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->dGetAccumWaveEnergy();
                      double const dNotchIncision = DBL_NODATA;
-                     double dOldNotchApexElev = dNotchApexElev;
+                     double const dOldNotchApexElev = dNotchApexElev;
                      dNotchApexElev = DBL_NODATA;
 
                      // This is a cliff cell on the coastline without a notch

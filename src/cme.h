@@ -914,7 +914,6 @@ string const RASTER_CLIFF_COLLAPSE_TIMESTEP_CODE = "cliff_collapse_timestep";
 string const RASTER_CLIFF_COLLAPSE_TIMESTEP_NAME = "cliff_collapse_timestep_all";
 string const RASTER_CLIFF_NOTCH_ALL_CODE = "cliff_notch_all";
 string const RASTER_CLIFF_NOTCH_ALL_NAME = "cliff_notch_all";
-// string const RASTER_CLIFF_TOE_NAME = "cliff_toe";                 // Note no code for this, because is chosen by m_bCliffToeLocate in input file
 string const RASTER_COARSE_CONS_CODE = "cons_sed_coarse";
 string const RASTER_COARSE_CONS_NAME = "cons_sed_coarse";
 string const RASTER_COARSE_UNCONS_CODE = "uncons_sed_coarse";

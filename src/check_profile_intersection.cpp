@@ -37,9 +37,6 @@ using std::pair;
 #include <random>
 using std::normal_distribution;
 
-#include <string>
-using std::to_string;
-
 #include "cme.h"
 #include "simulation.h"
 #include "coast.h"
@@ -545,7 +542,7 @@ bool CSimulation::bCheckForIntersection(CGeomProfile* const pVProfile1, CGeomPro
 
          double dS = -999;
          double dT = -999;
-         double dTmp = -dDiffX2 * dDiffY1 + dDiffX1 * dDiffY2;
+         double const dTmp = -dDiffX2 * dDiffY1 + dDiffX1 * dDiffY2;
 
          if (! bFPIsEqual(dTmp, 0.0, TOLERANCE))
          {

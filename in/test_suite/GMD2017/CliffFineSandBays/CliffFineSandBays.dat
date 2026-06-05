@@ -87,7 +87,7 @@ Breaking wave height to water depth ratio (non dimensional)                     
 
 ; Sediment data -----------------------------------------------------------------------------------------------------------------------------------------------
 Simulate coast platform erosion?                                                             : y
-Resistance of coast platform (units ???)                                                     : 1e5       ; *** LAST 1e6       ; [2-6]e6 to produce 0.6 m/yr recession (Walkden & Hall, 2011), is 1/erodibility
+Resistance of coast platform (units ???)                                                     : 8e6       ; [2-6]e6 to produce 0.6 m/yr recession (Walkden & Hall, 2011), is 1/erodibility
 
 Simulate beach sediment transport?                                                           : y
 Beach sediment transport at grid edges                     [0 = closed, 1 = open, 2 = Mobius]: 1
@@ -113,7 +113,7 @@ Berm height i.e. height above SWL of start of depositional Dean profile (m)     
 
 ; Cliff collapse data -----------------------------------------------------------------------------------------------------------------------------------------
 Simulate cliff collapse?                                                                     : y
-Resistance to erosion of cliff (m^(9/4)s^(3/2))                                              : 1e5
+Resistance to erosion of cliff (m^(9/4)s^(3/2))                                              : 8e6
 Notch overhang to initiate collapse (m)                                                      : 0.5
 Notch-apex elevation above mean high water level (m)                                         : 1.2       ; was 0.3
 Scale parameter A for cliff deposition (m^(1/3))                                   [0 = auto]: 0         ; For a 0.2 mm D50, will be 0.1
@@ -155,5 +155,6 @@ Cliff toe location?                                                             
    Cliff slope limit for cliff toe detection                             [only for cliff toe]: 0.3
 
 Runup equation                      [0 = none, 1 = Nielsen & Hanslow, 2 = Mase, 3 = Stockdon): 3
+Slumping?                                                                                    : n
 
 ; END OF FILE -------------------------------------------------------------------------------------------------------------------------------------------------

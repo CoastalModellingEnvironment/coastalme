@@ -1003,14 +1003,6 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
       if (! bWriteRasterGISFile(RASTER_PLOT_CONS_SED_SLOPE, &RASTER_PLOT_CONS_SED_SLOPE_TITLE))
          return false;
 
-   // if (m_bSlopeSaveForCliffToe)
-   //    if (! bWriteRasterGISFile(RASTER_PLOT_SLOPE_FOR_CLIFF_TOE, &RASTER_PLOT_SLOPE_FOR_CLIFF_TOE_TITLE))
-   //       return false;
-   //
-   // if (m_bCliffToeSave)
-   //    if (! bWriteRasterGISFile(RASTER_PLOT_CLIFF_TOE, &RASTER_PLOT_CLIFF_TOE_TITLE))
-   //       return false;
-
    if (m_bSeaDepthSave)
       if (! bWriteRasterGISFile(RASTER_PLOT_SEA_DEPTH, &RASTER_PLOT_SEA_DEPTH_TITLE))
          return false;

@@ -162,6 +162,7 @@ Cliff toe location?                                                             
    Cliff slope limit for cliff toe detection                             [only for cliff toe]: 0.3
 
 Runup equation                      [0 = none, 1 = Nielsen & Hanslow, 2 = Mase, 3 = Stockdon): 3
+Slumping?                                                                                    : n
 
 ; END OF FILE ----------------------------------------------------------------------------------------------------------
 

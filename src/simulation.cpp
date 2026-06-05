@@ -94,7 +94,6 @@ CSimulation::CSimulation(void)
    m_bTotalBeachDepositionSave = false;
    m_bLandformSave = false;
    m_bConsSedSlopeSave = false;
-   m_bSlopeSaveForCliffToe = false;
    m_bInterventionClassSave = false;
    m_bInterventionHeightSave = false;
    m_bSuspSedSave = false;
@@ -136,7 +135,6 @@ CSimulation::CSimulation(void)
    m_bDeepWaterWavePeriodSave = false;
    m_bPolygonUnconsSedUpOrDownDriftSave = false;
    m_bPolygonUnconsSedGainOrLossSave = false;
-   m_bCliffToeSave = false;
    m_bSeaAreaTSSave = false;
    m_bSWLTSSave = false;
    m_bActualPlatformErosionTSSave = false;
@@ -187,7 +185,6 @@ CSimulation::CSimulation(void)
    m_bGISSaveDigitsSequential = false;
    m_bHaveConsolidatedSediment = false;
    m_bGDALOptimisations = false;
-   m_bCliffToeLocate = false;
    m_bHighestSWLSoFar = false;
    m_bLowestSWLSoFar = false;
 
@@ -202,8 +199,6 @@ CSimulation::CSimulation(void)
    m_nCoastSmooth = 0;
    m_nCoastSmoothingWindowSize = 0;
    m_nSavGolCoastPoly = 0;
-   m_nCliffEdgeSmooth = 0;
-   m_nCliffEdgeSmoothWindow = 0;
    m_nSavGolCliffEdgePoly = 0;
    m_nProfileSmoothWindow = 0;
    m_nCoastProfileSpacing = 0;
@@ -397,7 +392,6 @@ CSimulation::CSimulation(void)
    m_dTotalFineConsInPolygons = 0;
    m_dTotalSandConsInPolygons = 0;
    m_dTotalCoarseConsInPolygons = 0;
-   m_dSlopeThresholdForCliffToe = 0;
    m_dThisIterMHWElev = 0;
 
    m_dMinSWLSoFar = DBL_MAX;
@@ -1228,7 +1222,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
             WritePolygonSedimentInputEventTable();
       }
 
-      // If the user has chosen this, doslumping of unconsolidated sediment on dune areas, for cells that changed this timestep TODO make this an option
+      // If the user has chosen this, doslumping of unconsolidated sediment on dune areas, for cells that changed this timestep
       if (m_bSlumping)
       {
          nRet = nDoSedimentSlumping();

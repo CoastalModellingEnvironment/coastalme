@@ -94,12 +94,6 @@ class CSimulation
    //! Save talus depth?
    bool m_bTalusSave;
 
-   //! Save slope raster grids (used for cliff toe location)?
-   bool m_bSlopeSaveForCliffToe;
-
-   //! Save cliff toe raster grids?
-   bool m_bCliffToeSave;
-
    //! Save slices?
    bool m_bSliceSave;
 
@@ -460,9 +454,6 @@ class CSimulation
    //! GDAL optimisations enabled?
    bool m_bGDALOptimisations;
 
-   //! Cliff to location?
-   bool m_bCliffToeLocate;
-
    //! Do we have the highest SWL so far?
    bool m_bHighestSWLSoFar;
 
@@ -485,10 +476,10 @@ class CSimulation
    bool m_bSlumping = false;
 
    //! Options for GDAL when handling raster files
-   char **m_papszGDALRasterOptions;
+   char** m_papszGDALRasterOptions;
 
    //! Options for GDAL when handling vector files
-   char **m_papszGDALVectorOptions;
+   char** m_papszGDALVectorOptions;
 
    //! The size of the grid in the x direction
    int m_nXGridSize;
@@ -507,12 +498,6 @@ class CSimulation
 
    //! The order of the coastline profile smoothing polynomial if Savitzky-Golay smoothing is used (usually 2 or 4, max is 6)
    int m_nSavGolCoastPoly;
-
-   //! Which method to use for cliff edge smoothing
-   int m_nCliffEdgeSmooth;
-
-   //! The size of the window used for cliff edge smoothing. Must be an odd number
-   int m_nCliffEdgeSmoothWindow;
 
    //! The order of the cliff edge smoothing polynomial if Savitzky-Golay smoothing is used (usually 2 or 4, max is 6)
    int m_nSavGolCliffEdgePoly;
@@ -1071,9 +1056,6 @@ class CSimulation
 
    //! This iteration's Mean High Water (MHW) elevation, calculated using a moving time window. If we have no tide data, this is set to mean SWL
    double m_dThisIterMHWElev;
-
-   //! Slope limit for cliff toe detection
-   double m_dSlopeThresholdForCliffToe;
 
    // These grand totals are all long doubles. The aim is to minimize rounding errors when many very small numbers are added to a single much larger number, see e.g. http://www.ddj.com/cpp/184403224
    //! All-simulation total of potential platform erosion (m), all size classes

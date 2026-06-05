@@ -22,5 +22,5 @@
 ===============================================================================================================================*/
 void r8vec_bracket3(int const, double const*, double const, int*);
 void hermite_cubic_value(double const, double const, double const, double const, double const, double const, int const, double const*, double* const, double* const, double* const, double* const);
-void hermite_cubic_spline_value(int const, double* const, double* const, double* const, int const, double* const, double*, double*, double*, double*);
+void hermite_cubic_spline_value(int const, double const*, double const*, double const*, int const, double const*, double*, double*, double*, double*);
 #endif // HERMITE_H
