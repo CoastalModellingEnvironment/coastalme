@@ -736,7 +736,7 @@ double const D50_COARSE_DEFAULT = 19.0;                     // In mm
 double const BEACH_PROTECTION_HB_RATIO = 0.23;              // The beach protection factor is this times breaking depth
 double const WALKDEN_HALL_PARAM_1 = 3.25;                   // First parameter in Equation 4 from Walkden & Hall, 2005
 double const WALKDEN_HALL_PARAM_2 = 1.50;                   // Second parameter in Equation 4 from Walkden & Hall, 2005
-double const TAN_BERM_SLOPE = 0.176;                        // Seaward slope of top of berm (that part of beach coastward of the start of the Dean profile)
+double const TAN_BERM_SLOPE = 0.0874;                       // Seaward slope of top of berm (that part of beach coastward of the start of the Dean profile)
 
 double const DEPTH_OVER_DB_INCREMENT = 0.001;               // Depth over DB increment for erosion potential look-up function
 double const INVERSE_DEPTH_OVER_DB_INCREMENT = 1000;        // Inverse of the above
