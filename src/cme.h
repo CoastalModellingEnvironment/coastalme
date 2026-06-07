@@ -736,6 +736,7 @@ double const D50_COARSE_DEFAULT = 19.0;                     // In mm
 double const BEACH_PROTECTION_HB_RATIO = 0.23;              // The beach protection factor is this times breaking depth
 double const WALKDEN_HALL_PARAM_1 = 3.25;                   // First parameter in Equation 4 from Walkden & Hall, 2005
 double const WALKDEN_HALL_PARAM_2 = 1.50;                   // Second parameter in Equation 4 from Walkden & Hall, 2005
+double const TAN_BERM_SLOPE = 0.176;                        // Seaward slope of top of berm (that part of beach coastward of the start of the Dean profile)
 
 double const DEPTH_OVER_DB_INCREMENT = 0.001;               // Depth over DB increment for erosion potential look-up function
 double const INVERSE_DEPTH_OVER_DB_INCREMENT = 1000;        // Inverse of the above
@@ -770,13 +771,13 @@ double const TAN_ANGLE_OF_REPOSE = 0.6494075931;  // tan(33°)
 //! Minimum sediment volume (m³) to trigger avalanche redistribution. Prevents processing of trivially small amounts that don't affect morphology.
 double const MIN_SLUMP_VOLUME = 0.001;  // 1 mm average depth over 1 m² cell
 
-//! Fraction of excess sediment to redistribute per iteration. 0.5 = move 50% of unstable sediment each iteration. Lower values (0.2-0.3) are more stable but slower to converge.Higher values (0.6-0.8) converge faster but may overshoot.
+//! Fraction of excess sediment to redistribute per iteration. 0.5 = move 50% of unstable sediment each iteration. Lower values (0.2-0.3) are more stable but slower to converge. Higher values (0.6-0.8) converge faster but may overshoot.
 double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 
 //! If there is lees than this depth (m) of cliff-collapse talus on a cell, then remove all talus from the cell
 double const MIN_TALUS_DEPTH = 0.01;
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (05 Jun 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (07 Jun 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

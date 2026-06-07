@@ -2691,8 +2691,8 @@ void CSimulation::CalcDeanProfile(vector<double>* pdVDeanProfile, double const d
       for (int n = 1; n < static_cast<int>(pdVDeanProfile->size()); n++)
       {
          if (n <= nSeawardOffset)
-            // As we extend the profile seaward, the elevation of any points coastward of the new coast point of the Dean profile are set to the elevation of the original coast point
-            pdVDeanProfile->at(n) = dStartCellElev;
+            // As we extend the profile seaward, we create a berm. The elevation of each point in the berm (i.e. each point coastward of the start of the Dean profile) is set progressively below the elevation of the original coast point, so as to create a slight seaward slope to the berm
+            pdVDeanProfile->at(n) = dStartCellElev - (n * m_dCellSide / TAN_BERM_SLOPE);
          else
          {
             double const dDistBelowTop = dA * pow(dDistFromProfileStart, DEAN_POWER);
@@ -3145,25 +3145,5 @@ void CSimulation::CalcMHWAndNewCliffNotchElevation(int const nTideDataCount)
    }
 
    // LogStream << m_ulIter << ": this-iteration MHW elevation = " << m_dThisIterMHWElev << " elevation of apex of new cliff notches = " << m_dThisIterNewNotchApexElev << endl;
-}
-
-//===============================================================================================================================
-//! Randomly swaps the elements of an array. On output nArray is a random permutation of its value on input. Modified from p145 of: Knuth, D.E. (1997). The Art of Computer Programming. Volume 2. Seminumerical Algorithms (Third Edition), Addison-Wesley Longman, Reading MA. 762 pp.
-//===============================================================================================================================
-void CSimulation::DoRand1Shuffle(vector<int>* pVn)
-{
-   int nLen = static_cast<int>(pVn->size()-1);
-
-   //! c++11 uniform normal distribution, get an int between and including 0 and nLen
-   uniform_int_distribution<> nGetIntFromUniformDist{0, nLen};
-
-   nLen--;
-   while (nLen > 0)
-   {
-      int n1 = nGetIntFromUniformDist(m_Rand[1]);      // uses Rand1()
-      int nTmp = pVn->at(n1);
-      pVn->at(n1) = pVn->at(nLen);
-      pVn->at(nLen--) = nTmp;
-   }
 }
 

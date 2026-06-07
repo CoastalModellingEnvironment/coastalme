@@ -1728,7 +1728,7 @@ private:
    int nInsertPointIntoProfilesIfNeededThenUpdate(int const, CGeomProfile*, double const, double const, int const, CGeomProfile*, int const, bool const);
    void TruncateProfileAndAppendNew(int const, CGeomProfile*, int const, vector<CGeom2DPoint> const*, vector<vector<pair<int, int>>> const*);
    void CreateRasterizedProfile(int const, CGeomProfile*, vector<CGeom2DIPoint>*, vector<bool>*, bool&, /*bool const&,*/ bool&, bool&, bool&/*, bool&*/);
-   static void CalcDeanProfile(vector<double>*, double const, double const, double const, bool const, int const, double const);
+   void CalcDeanProfile(vector<double>*, double const, double const, double const, bool const, int const, double const);
    static double dSubtractProfiles(vector<double> const*, vector<double> const*, vector<bool> const*);
    int nCalcPotentialPlatformErosionOnProfile(int const, CGeomProfile*);
    int nCalcPotentialPlatformErosionBetweenProfiles(int const, CGeomProfile*, int);
@@ -1932,7 +1932,6 @@ private:
    void WritePolygonSortedSequence(vector<vector<vector<int>>> const&);
    void WritePolygonActualMovement(vector<vector<vector<int>>> const&);
    void DoEndOfRunDeletes(void);
-   void DoRand1Shuffle(vector<int>*);
 
 // #ifdef _DEBUG
 //    void DEBUG_PrintProfileDetails(CGeomProfile*, CGeomProfile*);

@@ -22,9 +22,14 @@
 #include <assert.h>
 
 #include <iostream>
-// using std::cerr;
 using std::endl;
 using std::ios;
+
+#include <array>
+using std::array;
+
+#include <algorithm>
+using std::shuffle;
 
 #include "cme.h"
 #include "simulation.h"
@@ -773,12 +778,12 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                vector<double> VdAdjElevDiff;
                vector<CGeom2DIPoint> VptAdj;
 
-               vector<int> VnSearchDirection = {NORTH, NORTH_EAST, EAST, SOUTH_EAST, SOUTH, SOUTH_WEST, WEST, NORTH_WEST};
-               DoRand1Shuffle(&VnSearchDirection);
+               array<int, 8> nDirection = {NORTH, NORTH_EAST, EAST, SOUTH_EAST, SOUTH, SOUTH_WEST, WEST, NORTH_WEST};
+               shuffle(nDirection.begin(), nDirection.end(), m_Rand[1]);
 
                for (int nDir = 0; nDir < 8; nDir++)
                {
-                  int nSearchDirection = VnSearchDirection[nDir];
+                  int nSearchDirection = nDirection[nDir];
                   int nXAdj;
                   int nYAdj;
 

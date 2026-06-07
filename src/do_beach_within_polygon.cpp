@@ -288,7 +288,7 @@ int CSimulation::nDoUnconsErosionOnPolygon(int const nCoast, CGeomCoastPolygon* 
          {
             // Can't have a meaningful Dean profile with a near-zero elevation difference
             // TODO 019 Need to improve this: at present we just abandon erosion on this coast point and move to another coast point
-            // LogStream << m_ulIter << ": zero gradient on parallel profile, abandoning" << endl;
+            LogStream << m_ulIter << ":\t zero gradient on parallel profile, abandoning" << endl;
 
             bZeroGradient = true;
             break;
