@@ -45,6 +45,7 @@ using std::tolower;
 
 #include <cmath>
 using std::floor;
+using std::tan;
 
 #include <ctime>
 using std::clock;
@@ -2691,8 +2692,8 @@ void CSimulation::CalcDeanProfile(vector<double>* pdVDeanProfile, double const d
       for (int n = 1; n < static_cast<int>(pdVDeanProfile->size()); n++)
       {
          if (n <= nSeawardOffset)
-            // As we extend the profile seaward, we create a berm. The elevation of each point in the berm (i.e. each point coastward of the start of the Dean profile) is set progressively below the elevation of the original coast point, so as to create a slight seaward slope to the berm
-            pdVDeanProfile->at(n) = dStartCellElev - (n * m_dCellSide * TAN_BERM_SLOPE);
+            // As we displace the Dean profile seaward (in order to fit a sufficient volume of unconsolidated sediment beneath it), we create a berm. The elevation of each point in the berm (i.e. each point coastward of the start of the Dean profile) is set progressively below the elevation of the original coast point, so as to create a slight seaward slope to the top of the berm
+            pdVDeanProfile->at(n) = dStartCellElev - (n * m_dCellSide * tan(BERM_SLOPE * PI / 180));
          else
          {
             double const dDistBelowTop = dA * pow(dDistFromProfileStart, DEAN_POWER);
