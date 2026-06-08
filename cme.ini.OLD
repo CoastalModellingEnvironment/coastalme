@@ -2,7 +2,7 @@
 ;
 ; Initialization file for CoastalME
 ;
-; Copyright (C) 2024 David Favis-Mortlock and Andres Payo
+; Copyright (C) 2026 David Favis-Mortlock and Andres Payo
 ;
 ;=====================================================================================================================
 ;
@@ -17,10 +17,11 @@
 ; Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ;
 ;======================================================================================================================
-Input data file (path and name)                      : in/test_suite/Manuel_C003_0001/C003_0001_sim_0001_cme_config.dat
+Input data file (path and name)                      : in/test_suite/minimal_cons_wave_angle_230/minimal.dat
 
 ;======================================================================================================================
-Path for output                                      : out/test_suite/Manuel_C003_0001/
+
+Path for output                                      : out/test_suite/minimal_cons_wave_angle_230/
 
 ;======================================================================================================================
 

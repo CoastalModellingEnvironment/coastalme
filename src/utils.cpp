@@ -2691,8 +2691,8 @@ void CSimulation::CalcDeanProfile(vector<double>* pdVDeanProfile, double const d
       for (int n = 1; n < static_cast<int>(pdVDeanProfile->size()); n++)
       {
          if (n <= nSeawardOffset)
-            // As we extend the profile seaward, we create a berm. Set the elevation of each point in the berm (i.e. each point coastward of the start of the Dean profile)
-            pdVDeanProfile->at(n) = dStartCellElev;
+            // As we extend the profile seaward, we create a berm. The elevation of each point in the berm (i.e. each point coastward of the start of the Dean profile) is set progressively below the elevation of the original coast point, so as to create a slight seaward slope to the berm
+            pdVDeanProfile->at(n) = dStartCellElev - (n * m_dCellSide * TAN_BERM_SLOPE);
          else
          {
             double const dDistBelowTop = dA * pow(dDistFromProfileStart, DEAN_POWER);

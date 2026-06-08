@@ -736,6 +736,7 @@ double const D50_COARSE_DEFAULT = 19.0;                     // In mm
 double const BEACH_PROTECTION_HB_RATIO = 0.23;              // The beach protection factor is this times breaking depth
 double const WALKDEN_HALL_PARAM_1 = 3.25;                   // First parameter in Equation 4 from Walkden & Hall, 2005
 double const WALKDEN_HALL_PARAM_2 = 1.50;                   // Second parameter in Equation 4 from Walkden & Hall, 2005
+double const TAN_BERM_SLOPE = 0.0874;                       // Tan of seaward slope of top of berm (that part of beach coastward of the start of the Dean profile)
 
 double const DEPTH_OVER_DB_INCREMENT = 0.001;               // Depth over DB increment for erosion potential look-up function
 double const INVERSE_DEPTH_OVER_DB_INCREMENT = 1000;        // Inverse of the above
@@ -776,7 +777,7 @@ double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 //! If there is lees than this depth (m) of cliff-collapse talus on a cell, then remove all talus from the cell
 double const MIN_TALUS_DEPTH = 0.01;
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (08 Jun 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (07 Jun 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";
