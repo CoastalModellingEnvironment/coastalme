@@ -87,7 +87,7 @@ Deep water wave height time series         [omit if deep water wave height is a 
 Deep water wave orientation (degrees)         [omit if deep water wave height from shapefile]: 230
 Wave period (sec)                             [omit if deep water wave height from shapefile]: 10
 
-Tide data file                                                                 [may be blank]:     ; *** TEST in/test_suite/minimal_cons_wave_angle_230/cme_1_hours_01_01_1999_00_00_00_CromerTide_15min_1999_2017.csv
+Tide data file                                                                 [may be blank]: in/test_suite/minimal_cons_wave_angle_230/cme_1_hours_01_01_1999_00_00_00_CromerTide_15min_1999_2017.csv
 
 Breaking wave height to water depth ratio (non dimensional)                                  : 0.8
 
@@ -118,8 +118,8 @@ Transport parameter                                                   [only for 
 Berm height i.e. height above SWL of start of depositional Dean profile (m)                  : 0.25
 
 ; Cliff collapse data --------------------------------------------------------------------------------------------------
-Simulate cliff collapse?                                                                     : n   ; *** TEST
-Resistance to erosion of cliff (m^(9/4)s^(3/2))                                              : 10e6
+Simulate cliff collapse?                                                                     : y
+Resistance to erosion of cliff (m^(9/4)s^(3/2))                                              : 5e7    ; *** 10e6
 Notch overhang to initiate collapse (m)                                                      : 0.5
 Notch-apex elevation above mean high water level (m)                                         : 0.3
 Scale parameter A for cliff deposition (m^(1/3))                                   [0 = auto]: 0            ; For a 0.2 mm D50, will be 0.1

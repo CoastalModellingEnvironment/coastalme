@@ -97,14 +97,42 @@ int CSimulation::nCreateAllPolygons(void)
                if (! bNextProfileIsOK)
                {
                   // Nope, the next profile is not OK
-                  LogStream << m_ulIter << ":\t down-coast adjacent profile = " << pNextProfile->nGetProfileID() << " is not OK" << endl;
+                  LogStream << m_ulIter << ":\t down-coast profile = " << pNextProfile->nGetProfileID() << " is not OK: ";
+                  if (pNextProfile->nGetProfileStatus() == PROFILE_STATUS_HIT_LAND)
+                     LogStream << " hit land ";
+                  if (pNextProfile->nGetProfileStatus() == PROFILE_STATUS_HIT_INTERVENTION)
+                     LogStream << "hit intervetion ";
+                  if (pNextProfile->nGetProfileStatus() == PROFILE_STATUS_HIT_COAST)
+                     LogStream << "hit coast ";
+                  if (pNextProfile->nGetProfileStatus() == PROFILE_STATUS_HIT_PROFILE)
+                     LogStream << "hit another profile ";
+                  if (pNextProfile->nGetProfileStatus() == PROFILE_STATUS_TOO_SHORT)
+                     LogStream << "profile is too short ";
 
-                  // So try the following profile
+                  if (pNextProfile->bIsStartOfCoast())
+                     LogStream << "(start of coast profile)";
+                  if (pNextProfile->bIsEndOfCoast())
+                     LogStream << "end of coast profile)";
+
+                  LogStream << endl;
+
+                  // So try the next profile after this one
                   CGeomProfile* pNextNextProfile = pNextProfile->pGetDownCoastAdjacentProfile();
                   pNextProfile = pNextNextProfile;
+
+                  // Safety check
+                  if (pNextProfile == NULL)
+                     break;
                }
 
             } while (! bNextProfileIsOK);
+
+            // Safety check
+            if (! bNextProfileIsOK)
+            {
+               LogStream << m_ulIter << ":\t could not find valid profile down-coast from profile " << nThisProfile << endl;
+               continue;
+            }
 
             // LogStream << "Profile " << pNextProfile->nGetProfileID() << " is OK" << endl;
             nNextProfile = pNextProfile->nGetProfileID();
