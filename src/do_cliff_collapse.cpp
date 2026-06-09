@@ -69,7 +69,7 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
             double dCliffHeightAboveSWL = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() - m_dThisIterSWL;
             dInvTalusProtection = tMin(tMax((dTalusDepth / dCliffHeightAboveSWL), 1.0), 0.5);
 
-            LogStream << m_ulIter << ":\t cell[" << nX << "][" << nY << "] talus depth = " << dTalusDepth << " cliff height above SWL = " << dCliffHeightAboveSWL << " inverse talus protection factor = " << dInvTalusProtection << endl;
+            LogStream << m_ulIter << ":\t cell[" << nX << "][" << nY << "] talus depth = " << dTalusDepth << " cliff height (in talus) above SWL = " << dCliffHeightAboveSWL << " inverse talus protection factor = " << dInvTalusProtection << endl;
          }
 
          // First get wave energy for the coastal landform object

@@ -3141,8 +3141,9 @@ void CSimulation::CalcMHWAndNewCliffNotchElevation(int const nTideDataCount)
       // We do not have tide data
       m_dThisIterMHWElev = m_dThisIterMeanSWL;
 
-      // Finally, set the apex elevation of any new cliff notches (i.e. cliff notches which will be created during this timestep) to be at SWL
-      m_dThisIterNewNotchApexElev = m_dThisIterMHWElev;
+      // Finally, set the apex elevation of any new cliff notches (i.e. cliff notches which will be created during this timestep) to be at SWL TEST
+      m_dThisIterNewNotchApexElev = m_dThisIterMHWElev - 0.001;;
+      // m_dThisIterNewNotchApexElev = m_dThisIterMHWElev;
    }
 
    // LogStream << m_ulIter << ": this-iteration MHW elevation = " << m_dThisIterMHWElev << " elevation of apex of new cliff notches = " << m_dThisIterNewNotchApexElev << endl;
