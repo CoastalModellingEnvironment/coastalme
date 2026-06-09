@@ -41,7 +41,7 @@ using std::inner_product;
 //===============================================================================================================================
 void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
 {
-   if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+   if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
       LogStream << m_ulIter << ":\t calculating curvatures for coast " << nCoast << endl;
 
    int const nCoastSize = m_VCoast[nCoast].nGetCoastlineSize();

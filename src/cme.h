@@ -777,7 +777,10 @@ double const SLUMP_REDISTRIBUTION_FRACTION = 0.5;
 //! If there is lees than this depth (m) of cliff-collapse talus on a cell, then remove all talus from the cell
 double const MIN_TALUS_DEPTH = 0.01;
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (07 Jun 2026)";
+//! The vertical distance (m) between the bottom of a cliff notch, and its mid point (i.e. half the notch vertical depth). This is necessary because without it, notches are not inundated post-collapse. This is most noticeable when SWL does mot change during the simulation
+double const NOTCH_HALF_VERTICAL_DISTANCE = 0.05;
+
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.1 (09 Jun 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

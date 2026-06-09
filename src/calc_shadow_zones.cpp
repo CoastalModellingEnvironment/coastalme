@@ -409,7 +409,8 @@ int CSimulation::nDoAllShadowZones(void)
                // Yes we have
                bHitEdge = true;
 
-               LogStream << m_ulIter << ":\t coast " << nCoast << " shadow boundary " << nStartPoint << " hit edge cell at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+               if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                  LogStream << m_ulIter << ":\t coast " << nCoast << " shadow boundary " << nStartPoint << " hit edge cell at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
 
                continue;
             }
@@ -463,7 +464,7 @@ int CSimulation::nDoAllShadowZones(void)
          if (bInLoop)
          {
             // Shadow line loops, so abandon it
-            if (m_nLogFileDetail >= LOG_FILE_ALL)
+            if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
                LogStream << m_ulIter << ":\t coast " << nCoast << " possible shadow boundary from start point " << nStartPoint << " forms a loop, abandoning. Starts at [" << ILShadowBoundary[0].nGetX() << "][" << ILShadowBoundary[0].nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILShadowBoundary[0].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILShadowBoundary[0].nGetY()) << "} abandoned at [" << ILShadowBoundary.Back().nGetX() << "][" << ILShadowBoundary.Back().nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILShadowBoundary.Back().nGetX()) << ", " << dGridCentroidYToExtCRSY(ILShadowBoundary.Back().nGetY()) << "}" << endl;
 
             continue;
@@ -486,7 +487,7 @@ int CSimulation::nDoAllShadowZones(void)
             if (dShadowLen < MIN_LENGTH_OF_SHADOW_ZONE_LINE)
             {
                // Too short, so forget about it
-               if (m_nLogFileDetail >= LOG_FILE_ALL)
+               if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
                   LogStream << m_ulIter << ":\t coast " << nCoast << ", possible shadow boundary from start point " << nStartPoint << " is too short. Length " << dShadowLen << " m minimum length " << MIN_LENGTH_OF_SHADOW_ZONE_LINE << " m. Starts at [" << ILShadowBoundary[0].nGetX() << "][" << ILShadowBoundary[0].nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILShadowBoundary[0].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILShadowBoundary[0].nGetY()) << "} hits coast at [" << ILShadowBoundary.Back().nGetX() << "][" << ILShadowBoundary.Back().nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILShadowBoundary.Back().nGetX()) << ", " << dGridCentroidYToExtCRSY(ILShadowBoundary.Back().nGetY()) << "}" << endl;
 
                continue;
@@ -511,7 +512,7 @@ int CSimulation::nDoAllShadowZones(void)
             VnShadowBoundaryStartCoastPoint.push_back(VnPossibleShadowBoundaryCoastPoint[nStartPoint]);
             VnShadowBoundaryEndCoastPoint.push_back(nShadowBoundaryCoastPoint);
 
-            if (m_nLogFileDetail >= LOG_FILE_ALL)
+            if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
                LogStream << m_ulIter << ":\t coast " << nCoast << " coast " << nCoast << " shadow boundary start point " << nStartPoint << " is valid shadow zone. Start [" << ILShadowBoundary[0].nGetX() << "][" << ILShadowBoundary[0].nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILShadowBoundary[0].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILShadowBoundary[0].nGetY()) << "} hits coast at [" << ILShadowBoundary.Back().nGetX() << "][" << ILShadowBoundary.Back().nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILShadowBoundary.Back().nGetX()) << ", " << dGridCentroidYToExtCRSY(ILShadowBoundary.Back().nGetY()) << "} coast point " << nShadowBoundaryCoastPoint << " is shadow zone " << VnShadowBoundaryEndCoastPoint.size() - 1 << endl;
          }
 
@@ -525,7 +526,7 @@ int CSimulation::nDoAllShadowZones(void)
                if (dShadowLen < MIN_LENGTH_OF_SHADOW_ZONE_LINE)
                {
                   // Too short, so forget about it
-                  if (m_nLogFileDetail >= LOG_FILE_ALL)
+                  if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
                      LogStream << m_ulIter << ":\t coast " << nCoast << " Possible shadow boundary start point " << nStartPoint << " too short. Length " << dShadowLen << " m minimum length is " << MIN_LENGTH_OF_SHADOW_ZONE_LINE << " m. Starts at [" << ILShadowBoundary[0].nGetX() << "][" << ILShadowBoundary[0].nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILShadowBoundary[0].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILShadowBoundary[0].nGetY()) << "} hits grid edge at [" << ILShadowBoundary.Back().nGetX() << "][" << ILShadowBoundary.Back().nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILShadowBoundary.Back().nGetX()) << ", " << dGridCentroidYToExtCRSY(ILShadowBoundary.Back().nGetY()) << "}" << endl;
 
                   continue;
@@ -549,7 +550,7 @@ int CSimulation::nDoAllShadowZones(void)
             else
             {
                // We are not creating shadow zones if we hit the grid edge
-               if (m_nLogFileDetail >= LOG_FILE_ALL)
+               if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
                   LogStream << m_ulIter << ":\t coast " << nCoast << " possible shadow boundary from start point " << nStartPoint << " hits a grid edge: ignored. Sarts at [" << ILShadowBoundary[0].nGetX() << "][" << ILShadowBoundary[0].nGetY() << "]" << endl;
             }
          }
@@ -739,7 +740,7 @@ int CSimulation::nCellByCellFillShadowZone(int const nCoast, int const nZone, CG
       return RTN_ERR_SHADOW_ZONE_FLOOD_START_POINT;
    }
 
-   if (m_nLogFileDetail >= LOG_FILE_ALL)
+   if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
       LogStream << m_ulIter << ":\t coast " << nCoast << " shadow zone cell-by-cell fill start point [" << PtiFloodFillStart.nGetX() << "][" << PtiFloodFillStart.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiFloodFillStart.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiFloodFillStart.nGetY()) << "} OK for shadow boundary from [" << pPtiShadowBoundaryStart->nGetX() << "][" << pPtiShadowBoundaryStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiShadowBoundaryStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiShadowBoundaryStart->nGetY()) << "} to [" << pPtiShadowBoundaryEnd->nGetX() << "][" << pPtiShadowBoundaryEnd->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiShadowBoundaryEnd->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiShadowBoundaryEnd->nGetY()) << "}" << endl;
 
    // All OK, so create an empty stack
