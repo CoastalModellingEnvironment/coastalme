@@ -2413,7 +2413,7 @@ bool CSimulation::bReadRunDataFile(void)
             break;
 
          case 42:
-            // Breaking wave height-to-depth ratio, check that this is a valid double
+            // Breaking wave height-to-depth ratio
             if (! bIsStringValidDouble(strRH))
             {
                strErr = "line " + to_string(nLine) + ": invalid floating point number for breaking wave height to depth ratio '" + strRH + "' in " + m_strDataPathName;
@@ -3079,7 +3079,7 @@ bool CSimulation::bReadRunDataFile(void)
             break;
 
          case 77:
-            // Random factor for spacing of normals  [0 to 1, 0 = deterministic], check that this is a valid double
+            // Random factor for spacing of normals  [0 to 1, 0 = deterministic]
             if (! bIsStringValidDouble(strRH))
             {
                strErr = "line " + to_string(nLine) + ": invalid floating point number for random factor for spacing of coastline normals '" + strRH + "' in " + m_strDataPathName;
@@ -3096,7 +3096,7 @@ bool CSimulation::bReadRunDataFile(void)
             break;
 
          case 78:
-            // Length of coastline normals (m), check that this is a valid double
+            // Length of coastline normals (m)
             if (! bIsStringValidDouble(strRH))
             {
                strErr = "line " + to_string(nLine) + ": invalid floating point number for length of coastline normals '" + strRH + "' in " + m_strDataPathName;
@@ -3111,7 +3111,7 @@ bool CSimulation::bReadRunDataFile(void)
             break;
 
          case 79:
-            // Start depth for wave calcs (ratio to deep water wave height), check that this is a valid double
+            // Start depth for wave calcs (ratio to deep water wave height)
             if (! bIsStringValidDouble(strRH))
             {
                strErr = "line " + to_string(nLine) + ": invalid floating point number for start depth for wave calcs '" + strRH + "' in " + m_strDataPathName;
@@ -3246,6 +3246,90 @@ bool CSimulation::bReadRunDataFile(void)
                m_bSlumping = true;
 
             break;
+
+         case 87:
+            // Cliff collapse talus erodibility
+            if (m_bDoCliffCollapse)
+            {
+               if (! bIsStringValidDouble(strRH))
+               {
+                  strErr = "line " + to_string(nLine) + ": invalid floating point number for cliff collapse talus erodibility '" + strRH + "' in " + m_strDataPathName;
+                  break;
+               }
+
+               m_dCliffCollapseTalusErodibility = strtod(strRH.c_str(), NULL);
+
+               if (m_dCliffCollapseTalusErodibility <= 0)
+                  strErr = "line " + to_string(nLine) + ": cliff collapse talus erodibility must be > 0";
+            }
+
+            break;
+
+         case 88:
+            // Cliff collapse fine talus removal rate [0 to 1]
+            if (m_bDoCliffCollapse)
+            {
+               if (! bIsStringValidDouble(strRH))
+               {
+                  strErr = "line " + to_string(nLine) + ": invalid floating point number for cliff collapse fine talus removal rate '" + strRH + "' in " + m_strDataPathName;
+                  break;
+               }
+
+               m_dCliffCollapseFineTalusRemovalRate = strtod(strRH.c_str(), NULL);
+
+               if ((m_dCliffCollapseFineTalusRemovalRate < 0) || (m_dCliffCollapseFineTalusRemovalRate > 1))
+                  strErr = "line " + to_string(nLine) + ": cliff collapse fine talus removal rate must be between 0 and 1";
+            }
+
+            break;
+
+         case 89:
+            // Cliff collapse sand talus removal rate [0 to 1]
+            if (m_bDoCliffCollapse)
+            {
+               if (! bIsStringValidDouble(strRH))
+               {
+                  strErr = "line " + to_string(nLine) + ": invalid floating point number for cliff collapse sand talus removal rate '" + strRH + "' in " + m_strDataPathName;
+                  break;
+               }
+
+               m_dCliffCollapseSandTalusRemovalRate = strtod(strRH.c_str(), NULL);
+
+               if ((m_dCliffCollapseSandTalusRemovalRate < 0) || (m_dCliffCollapseSandTalusRemovalRate > 1))
+                  strErr = "line " + to_string(nLine) + ": cliff collapse sand talus removal rate must be between 0 and 1";
+            }
+
+            break;
+
+         case 90:
+            // Cliff collapse coarse talus removal rate [0 to 1]
+            if (m_bDoCliffCollapse)
+            {
+               if (! bIsStringValidDouble(strRH))
+               {
+                  strErr = "line " + to_string(nLine) + ": invalid floating point number for cliff collapse coarse talus removal rate '" + strRH + "' in " + m_strDataPathName;
+                  break;
+               }
+
+               m_dCliffCollapseCoarseTalusRemovalRate = strtod(strRH.c_str(), NULL);
+
+               if ((m_dCliffCollapseCoarseTalusRemovalRate < 0) || (m_dCliffCollapseCoarseTalusRemovalRate > 1))
+                  strErr = "line " + to_string(nLine) + ": cliff collapse coarse talus removal rate must be between 0 and 1";
+            }
+
+            break;
+
+         case 91:
+            // Barrier formation?
+            strRH = strToLower(&strRH);
+
+            m_bBarrierFormation = false;
+
+            if (strRH.find('y') != string::npos)
+               m_bBarrierFormation = true;
+
+            break;
+
          }
 
          // Did an error occur?
@@ -4490,6 +4574,14 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
             config.SetMinTalusLength(cliff.GetChild("min_talus_length").dGetDoubleValue());
          if (cliff.bHasChild("min_talus_height"))
             config.SetMinTalusHeight(cliff.GetChild("min_talus_height").dGetDoubleValue());
+         if (cliff.bHasChild("talus_erodibility"))
+            config.SetCliffCollapseTalusErodibility(cliff.GetChild("talus_erodibility").dGetDoubleValue());
+         if (cliff.bHasChild("fine_talus_removal_rate"))
+            config.SetCliffCollapseFineTalusRemovalRate(cliff.GetChild("fine_talus_removal_rate").dGetDoubleValue());
+         if (cliff.bHasChild("sand_talus_removal_rate"))
+            config.SetCliffCollapseSandTalusRemovalRate(cliff.GetChild("sand_talus_removal_rate").dGetDoubleValue());
+         if (cliff.bHasChild("coarse_talus_removal_rate"))
+            config.SetCliffCollapseCoarseTalusRemovalRate(cliff.GetChild("coarse_talus_removal_rate").dGetDoubleValue());
       }
 
       // Flood parameters information
@@ -4578,30 +4670,6 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
                config.SetProfileTimesteps(vecTimes);
             }
          }
-      }
-
-      // Cliff edge processing information
-      if (root.bHasChild("cliff_edge_processing"))
-      {
-         CYamlNode const cliffEdge = root.GetChild("cliff_edge_processing");
-         if (cliffEdge.bHasChild("cliff_edge_smoothing"))
-         {
-            string const strSmoothing = *cliffEdge.GetChild("cliff_edge_smoothing").pstrGetValue();
-            if (strSmoothing == "none")
-               config.SetCliffEdgeSmoothing(0);
-            else if (strSmoothing == "running_mean")
-               config.SetCliffEdgeSmoothing(1);
-            else if (strSmoothing == "savitzky_golay")
-               config.SetCliffEdgeSmoothing(2);
-            else
-               config.SetCliffEdgeSmoothing(cliffEdge.GetChild("cliff_edge_smoothing").nGetIntValue());
-         }
-         if (cliffEdge.bHasChild("cliff_edge_smoothing_window"))
-            config.SetCliffEdgeSmoothingWindow(cliffEdge.GetChild("cliff_edge_smoothing_window").nGetIntValue());
-         if (cliffEdge.bHasChild("cliff_edge_polynomial_order"))
-            config.SetCliffEdgePolynomialOrder(cliffEdge.GetChild("cliff_edge_polynomial_order").nGetIntValue());
-         if (cliffEdge.bHasChild("cliff_slope_limit"))
-            config.SetCliffSlopeLimit(cliffEdge.GetChild("cliff_slope_limit").dGetDoubleValue());
       }
    }
    catch (exception const &e)
@@ -5288,7 +5356,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
    // Case 41: Tide data file (can be blank). This is the change (m) from still water level for each timestep
    m_strTideDataFile = *config.pstrGetTideDataFile();
 
-   // Case 42: Breaking wave height-to-depth ratio, check that this is a valid double
+   // Case 42: Breaking wave height-to-depth ratio
    m_dBreakingWaveHeightDepthRatio = config.dGetBreakingWaveRatio();
 
    // Case 43: Simulate shore platform erosion?
@@ -5469,10 +5537,10 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
    if (bFPIsEqual(m_dCoastProfileSpacing, 0.0, TOLERANCE))
       m_nCoastProfileSpacing = DEFAULT_PROFILE_SPACING;      // In cells, we will set m_dCoastProfileSpacing later when we know m_dCellSide
 
-   // Case 78: Random factor for spacing of normals  [0 to 1, 0 = deterministic], check that this is a valid double
+   // Case 78: Random factor for spacing of normals  [0 to 1, 0 = deterministic]
    m_dCoastNormalRandSpacingFactor = config.dGetRandomFactor();
 
-   // Case 79: Length of coastline normals (m), check that this is a valid double
+   // Case 79: Length of coastline normals (m)
    m_dCoastNormalLength = config.dGetNormalLength();
 
    // Approximate minimum spacing (m) between wave transects for interpolation densification
@@ -5501,4 +5569,32 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
 
    // Case 86: Slumping?
    m_bSlumping = config.bGetSlumping();
+
+   // Case 87: Cliff collapse talus erodibility
+   if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
+   {
+      m_dCliffCollapseTalusErodibility = config.dGetCliffCollapseTalusErodibility();
+   }
+
+   // Case 88: Cliff collapse fine talus remova; rate
+   if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
+   {
+      m_dCliffCollapseFineTalusRemovalRate = config.dGetCliffCollapseFineTalusRemovalRate();
+   }
+
+   // Case 89: Cliff collapse sand talus remova; rate
+   if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
+   {
+      m_dCliffCollapseSandTalusRemovalRate = config.dGetCliffCollapseSandTalusRemovalRate();
+   }
+
+   // Case 90: Cliff collapse coarse talus remova; rate
+   if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
+   {
+      m_dCliffCollapseCoarseTalusRemovalRate = config.dGetCliffCollapseCoarseTalusRemovalRate();
+   }
+
+   // Case 91: simulate barrier formation?
+   m_bBarrierFormation = config.bGetBarrier();
+
 }

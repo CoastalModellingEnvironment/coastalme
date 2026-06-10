@@ -475,6 +475,9 @@ class CSimulation
    //! Are we simulating slumping?
    bool m_bSlumping = false;
 
+   //! Are we simulating barriers?
+   bool m_bBarrierFormation = false;
+
    //! Options for GDAL when handling raster files
    char** m_papszGDALRasterOptions;
 
@@ -1056,6 +1059,18 @@ class CSimulation
 
    //! This iteration's Mean High Water (MHW) elevation, calculated using a moving time window. If we have no tide data, this is set to mean SWL
    double m_dThisIterMHWElev;
+
+   //! Erodibility of cliff collapse talus
+   double m_dCliffCollapseTalusErodibility;
+
+   //! Relative removal rate of fine talus from cliff collapse
+   double m_dCliffCollapseFineTalusRemovalRate;
+
+   //! Relative removal rate of sand talus from cliff collapse
+   double m_dCliffCollapseSandTalusRemovalRate;
+
+   //! Relative removal rate of coarse talus from cliff collapse
+   double m_dCliffCollapseCoarseTalusRemovalRate;
 
    // These grand totals are all long doubles. The aim is to minimize rounding errors when many very small numbers are added to a single much larger number, see e.g. http://www.ddj.com/cpp/184403224
    //! All-simulation total of potential platform erosion (m), all size classes
@@ -1703,6 +1718,7 @@ private:
    int nMoveCliffTalusToUnconsolidatedOrSuspension(void);
    double dCalcSlopeForUnconsSlumping(int const, int const, int const, int const) const;
    int nEndOfTimestepUpdateGrid(void);
+   int nDoBarrierFormation(void);
 
    // Lower-level simulation routines
    void FindAllSeaCells(void);
@@ -1792,6 +1808,7 @@ private:
    void SlumpMarkCellDirty(int const, int const);
    int nDoSedimentSlumping(void);
    bool bIdentifyPossibleCoastStart(int const, int const, int const, int const, vector<CGeom2DIPoint>*);
+   int nMoveUnconsLandward(void);
 
    // GIS utility routines
    int nMarkBoundingBoxEdgeCells(void);

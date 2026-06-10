@@ -131,6 +131,10 @@ private:
    double m_dTalusWidth;
    double m_dMinTalusLength;
    double m_dMinTalusHeight;
+   double m_dCliffCollapseTalusErodibility;
+   double m_dCliffCollapseFineTalusRemovalRate;
+   double m_dCliffCollapseSandTalusRemovalRate;
+   double m_dCliffCollapseCoarseTalusRemovalRate;
 
    // Flood parameters
    bool m_bFloodInput;
@@ -149,6 +153,9 @@ private:
    // Slumping
    bool m_bSlumping;
 
+   // Barrier
+   bool m_bBarrierFormation;
+
    // Physics and Geometry
    double m_dGravitationalAcceleration;
    double m_dNormalSpacing;
@@ -164,12 +171,6 @@ private:
    bool m_bSaveParallelProfiles;
    bool m_bOutputErosionPotential;
    int m_nCurvatureWindow;
-
-   // Cliff Edge Processing
-   int m_nCliffEdgeSmoothing;
-   int m_nCliffEdgeSmoothingWindow;
-   int m_nCliffEdgePolynomialOrder;
-   double m_dCliffSlopeLimit;
 
 public:
    CConfiguration(void);
@@ -609,6 +610,11 @@ public:
       m_bSlumping = b;
    }
 
+   void SetBarrier(bool b)
+   {
+      m_bBarrierFormation = b;
+   }
+
    void SetGravitationalAcceleration(double d)
    {
       m_dGravitationalAcceleration = d;
@@ -669,24 +675,24 @@ public:
       m_nCurvatureWindow = n;
    }
 
-   void SetCliffEdgeSmoothing(int n)
+   void SetCliffCollapseTalusErodibility(double d)
    {
-      m_nCliffEdgeSmoothing = n;
+      m_dCliffCollapseTalusErodibility = d;
    }
 
-   void SetCliffEdgeSmoothingWindow(int n)
+   void SetCliffCollapseFineTalusRemovalRate(double d)
    {
-      m_nCliffEdgeSmoothingWindow = n;
+      m_dCliffCollapseFineTalusRemovalRate = d;
    }
 
-   void SetCliffEdgePolynomialOrder(int n)
+   void SetCliffCollapseSandTalusRemovalRate(double d)
    {
-      m_nCliffEdgePolynomialOrder = n;
+      m_dCliffCollapseSandTalusRemovalRate = d;
    }
 
-   void SetCliffSlopeLimit(double d)
+   void SetCliffCollapseCoarseTalusRemovalRate(double d)
    {
-      m_dCliffSlopeLimit = d;
+      m_dCliffCollapseCoarseTalusRemovalRate = d;
    }
 
    // Getters for all parameters
@@ -1116,6 +1122,12 @@ public:
       return m_bSlumping;
    }
 
+   // Barriers
+   bool bGetBarrier(void) const
+   {
+      return m_bBarrierFormation;
+   }
+
    // Physics and geometry parameters
    double dGetGravitationalAcceleration(void) const
    {
@@ -1178,25 +1190,24 @@ public:
       return m_nCurvatureWindow;
    }
 
-   // Cliff Edge Processing
-   int nGetCliffEdgeSmoothing(void) const
+   double dGetCliffCollapseTalusErodibility(void) const
    {
-      return m_nCliffEdgeSmoothing;
+      return m_dCliffCollapseTalusErodibility;
    }
 
-   int nGetCliffEdgeSmoothingWindow(void) const
+   double dGetCliffCollapseFineTalusRemovalRate(void) const
    {
-      return m_nCliffEdgeSmoothingWindow;
+      return m_dCliffCollapseFineTalusRemovalRate;
    }
 
-   int nGetCliffEdgePolynomialOrder(void) const
+   double dGetCliffCollapseSandTalusRemovalRate(void) const
    {
-      return m_nCliffEdgePolynomialOrder;
+      return m_dCliffCollapseSandTalusRemovalRate;
    }
 
-   double dGetCliffSlopeLimit(void) const
+   double dGetCliffCollapseCoarseTalusRemovalRate(void) const
    {
-      return m_dCliffSlopeLimit;
+      return m_dCliffCollapseCoarseTalusRemovalRate;
    }
 
    // Initialize with default values

@@ -593,7 +593,8 @@ bool CSimulation::bCreateNotchInland(int const nCoast, int const nCoastPoint, /*
          // Get the new incision depth
          double const dIncisionDepth = pCellLandform->dGetCliffNotchIncisionDepth();
 
-         LogStream << m_ulIter << ":\t [" << nXTmp << "][" << nYTmp << "] inland cliff " << (bPreExistingNotch ? "rejuvenated" : "created") << ", dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetAllSedTopElevIncTalus() << " incision = " << dNotchIncision << " tot incision = " << dIncisionDepth << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+         if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+            LogStream << m_ulIter << ":\t [" << nXTmp << "][" << nYTmp << "] inland cliff " << (bPreExistingNotch ? "rejuvenated" : "created") << ", dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetAllSedTopElevIncTalus() << " incision = " << dNotchIncision << " tot incision = " << dIncisionDepth << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
 
          // OK, we've had some incision of this inland cliff. So is the notch now incised enough to cause collapse?
          if (dIncisionDepth >= m_dNotchIncisionAtCollapse)
@@ -729,22 +730,16 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
 
             // LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] talus potentially moved, dThisTalusBottomElev = " << dThisTalusBottomElev << " dThisTalusTopElev = " << dThisTalusTopElev << " dWeight = " << dWeight << endl;
 
-            // TODO Removal rate:
-            // * to be different for fine, sand, and coarse
-            // * to include talus erodibility
-            // * must depend on SWL and runup.
-            // Note we are ignoring subaerial processes.
-
+            // Calculate removal of cliff collapse talus, either to unconsolidated sediment (for sand and gravel), or to suspension (for fine sediment. Removal rate is different for fine, sand, and coarse. Note that we are ignoring subaerial processes
             double const dTalusFineOrig = pTalus->dGetFineDepth();
             double const dTalusSandOrig = pTalus->dGetSandDepth();
             double const dTalusCoarseOrig = pTalus->dGetCoarseDepth();
             double dTalusFineToMove = pTalus->dGetFineDepth();
             double dTalusSandToMove = pTalus->dGetSandDepth();
             double dTalusCoarseToMove = pTalus->dGetCoarseDepth();
-            double const dTalusErodibility = 0.3;
-            double const dFineRemovalRate = 1 * dTalusErodibility;            // TODO MAKE USER INPUT external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
-            double const dSandRemovalRate = 0.9 * dTalusErodibility;          // TODO MAKE USER INPUT external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
-            double const dCoarseRemovalRate = 0.7 * dTalusErodibility;        // TODO MAKE USER INPUT external CRS units per hour e.g. metres depth per hour (since timestep is in hours)
+            double const dFineRemovalRate = m_dCliffCollapseFineTalusRemovalRate * m_dCliffCollapseTalusErodibility;       // metres depth per hour (since timestep is in hours)
+            double const dSandRemovalRate = m_dCliffCollapseSandTalusRemovalRate * m_dCliffCollapseTalusErodibility;       // metres depth per hour (since timestep is in hours)
+            double const dCoarseRemovalRate = m_dCliffCollapseCoarseTalusRemovalRate * m_dCliffCollapseTalusErodibility;   // metres depth per hour (since timestep is in hours)
 
             if (dTalusFineToMove > 0)
             {

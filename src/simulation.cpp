@@ -393,6 +393,10 @@ CSimulation::CSimulation(void)
    m_dTotalSandConsInPolygons = 0;
    m_dTotalCoarseConsInPolygons = 0;
    m_dThisIterMHWElev = 0;
+   m_dCliffCollapseTalusErodibility = 0;
+   m_dCliffCollapseFineTalusRemovalRate = 0;
+   m_dCliffCollapseSandTalusRemovalRate = 0;
+   m_dCliffCollapseCoarseTalusRemovalRate = 0;
 
    m_dMinSWLSoFar = DBL_MAX;
    m_dMaxSWLSoFar = DBL_MIN;
@@ -1222,10 +1226,18 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
             WritePolygonSedimentInputEventTable();
       }
 
-      // If the user has chosen this, doslumping of unconsolidated sediment on dune areas, for cells that changed this timestep
+      // If the user has chosen this, do slumping of unconsolidated sediment on dune areas, for cells that changed this timestep
       if (m_bSlumping)
       {
          nRet = nDoSedimentSlumping();
+         if (nRet != RTN_OK)
+            return nRet;
+      }
+
+      // If the user has chosen this, do barrier formation
+      if (m_bBarrierFormation)
+      {
+         nRet = nDoBarrierFormation();
          if (nRet != RTN_OK)
             return nRet;
       }

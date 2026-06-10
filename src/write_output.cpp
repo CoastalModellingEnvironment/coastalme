@@ -636,6 +636,17 @@ void CSimulation::WriteStartRunDetails(void)
    if (m_bSlumping)
       OutStream << "Slumping?                                                  \t: " << (m_bSlumping ? "Y" : "N") << endl;
 
+   if (m_bDoCliffCollapse)
+   {
+      OutStream << " Erodibility of cliff collapse talus                       \t: " << m_dCliffCollapseTalusErodibility << endl;
+      OutStream << " Relative rmoval rate of fine talus after cliff collapse   \t: " << m_dCliffCollapseFineTalusRemovalRate << endl;
+      OutStream << " Relative rmoval rate of sand talus after cliff collapse   \t: " << m_dCliffCollapseSandTalusRemovalRate << endl;
+      OutStream << " Relative rmoval rate of coarse talus after cliff collapse \t: " << m_dCliffCollapseCoarseTalusRemovalRate << endl;
+   }
+
+   if (m_bBarrierFormation)
+      OutStream << "Barrier formation?                                         \t: " << (m_bSlumping ? "Y" : "N") << endl;
+
    OutStream << endl;
 
    // -------------------------------------------------- Per-iteration output ----------------------------------------------------

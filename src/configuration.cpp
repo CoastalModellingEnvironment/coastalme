@@ -141,6 +141,10 @@ void CConfiguration::InitializeDefaults()
    m_dTalusWidth = 15.0;
    m_dMinTalusLength = 10.0;
    m_dMinTalusHeight = 0.5;
+   m_dCliffCollapseTalusErodibility = 0.3;
+   m_dCliffCollapseFineTalusRemovalRate = 1;
+   m_dCliffCollapseSandTalusRemovalRate = 0.9;
+   m_dCliffCollapseCoarseTalusRemovalRate = 0.7;
 
    // Flood parameters
    m_bFloodInput = false;
@@ -158,6 +162,9 @@ void CConfiguration::InitializeDefaults()
    // Slumping
    m_bSlumping = false;
 
+   // Barriers
+   m_bBarrierFormation = false;
+
    // Physics and Geometry
    m_dGravitationalAcceleration = 9.81;
    m_dNormalSpacing = 0.0;
@@ -174,11 +181,6 @@ void CConfiguration::InitializeDefaults()
    m_bOutputErosionPotential = false;
    m_nCurvatureWindow = 11;
 
-   // Cliff Edge Processing
-   m_nCliffEdgeSmoothing = 1;
-   m_nCliffEdgeSmoothingWindow = 33;
-   m_nCliffEdgePolynomialOrder = 4;
-   m_dCliffSlopeLimit = 0.3;
 }
 
 //===============================================================================================================================

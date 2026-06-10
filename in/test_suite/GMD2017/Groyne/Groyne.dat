@@ -147,7 +147,17 @@ Profile number(s) to save                                                       
 Timesteps to save profile(s)                                                                 : 1
 Save parallel profiles?                                                                      : n
 Output erosion potential look-up values                                                      : n
+
+; TO MOVE
 Runup equation                      [0 = none, 1 = Nielsen & Hanslow, 2 = Mase, 3 = Stockdon): 3
+
 Slumping?                                                                                    : n
+
+Cliff collapse talus erodibility (units?)                                                    : 0.3
+Cliff collapse fine talus removal rate                                               [0 to 1]: 1
+Cliff collapse sand talus removal rate                                               [0 to 1]: 0.9
+Cliff collapse coarse talus removal rate                                             [0 to 1]: 0.7
+
+Barrier formation?                                                                           : n
 
 ; END OF FILE -------------------------------------------------------------------------------------------------------------------------------------------------
