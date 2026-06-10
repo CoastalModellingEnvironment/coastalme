@@ -22,7 +22,7 @@
 ;
 ; Run information ---------------------------------------------------------------------------------------------------------------------------------------------
 Main output/log file names                                          [omit path and extension]: C003_0001_sim_0001
-Content of log file                                               [0 = least detail, 4 = all]: 4
+Content of log file                       [0 = no log file, 1 = least detail, 4 = everything]: 1
 Output per-timestep results in CSV format?                                              [y/n]: n
 
 Simulation start date and time                                          [hh-mm-ss dd/mm/yyyy]: 00-00-00 01/01/2020
