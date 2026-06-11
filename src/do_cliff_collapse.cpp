@@ -81,6 +81,8 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
 
          // OK we have on-shore waves so get the previously-calculated wave energy
          double const dWaveEnergy = m_VCoast[nCoast].dGetWaveEnergyAtBreaking(nCoastPoint) * dInvTalusProtection;
+         if (bFPIsEqual(dWaveEnergy, 0.0, TOLERANCE)
+            continue;
 
          // And save the accumulated value
          pCoastLandform->IncTotAccumWaveEnergy(dWaveEnergy);

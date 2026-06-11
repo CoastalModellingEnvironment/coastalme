@@ -491,16 +491,16 @@ int CSimulation::nDoAllPropagateWaves(void)
    // Are the waves off-shore for every profile? If so, do nothing more
    // Check if any transect has breaking waves
    bool bHasBreakingWaves = false;
-   for (const auto& transect : VAllTransects)
+   for (const auto &transect : VAllTransects)
    {
-      if (!transect.VbBreaking.empty())
+      if (! transect.VbBreaking.empty())
       {
          bHasBreakingWaves = true;
          break;
       }
    }
 
-   if (!bHasBreakingWaves)
+   if (! bHasBreakingWaves)
    {
       LogStream << m_ulIter << ": waves off-shore for all profiles" << endl;
       return RTN_OK;
@@ -1350,8 +1350,9 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
          VbWaveIsBreaking[nProfilePoint] = bBreaking;
       }
 
+      // Safety check
       if (dProfileBreakingWaveHeight >= dProfileDeepWaterWaveHeight)
-         dProfileBreakingWaveHeight = DBL_NODATA;     // Checking poorly conditioned profiles problems for CShore
+         dProfileBreakingWaveHeight = dProfileDeepWaterWaveHeight;
    }
    else if (m_nWavePropagationModel == WAVE_MODEL_COVE)
    {
