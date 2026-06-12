@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-06-11T14:00:21" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.0.3-Norrköping">
+<qgis projectname="" saveDateTime="2026-06-12T16:23:36" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.0.3-Norrköping">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
@@ -1053,7 +1053,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="11">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="11">
         <customproperties>
           <Option/>
         </customproperties>
@@ -1225,7 +1225,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="1" groupLayer="" name="13">
+      <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="13">
         <customproperties>
           <Option/>
         </customproperties>
@@ -1249,7 +1249,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Checked" expanded="0" id="sediment_top_elevation_013_ba81da34_62fd_4102_9a20_b8f025c25e0c" legend_exp="" legend_split_behavior="0" name="sediment_top_elevation_013" patch_size="-1,-1" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/sediment_top_elevation_013.tif">
+        <layer-tree-layer checked="Qt::Unchecked" expanded="0" id="sediment_top_elevation_013_ba81da34_62fd_4102_9a20_b8f025c25e0c" legend_exp="" legend_split_behavior="0" name="sediment_top_elevation_013" patch_size="-1,-1" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/sediment_top_elevation_013.tif">
           <customproperties>
             <Option/>
           </customproperties>
@@ -1501,104 +1501,104 @@
   </layer-tree-group>
   <snapping-settings enabled="0" intersection-snapping="0" maxScale="0" minScale="0" mode="1" scaleDependencyMode="0" self-snapping="0" tolerance="0" type="1" unit="2">
     <individual-layer-settings>
-      <layer-setting enabled="0" id="waveangle0120160808171249476" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals0120160727192458855" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals_00320170602205757227" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="1" id="coast_SWL_lowest_006_de85e6dd_c1dc_4d1d_9943_52081a0819e9" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="polygon_01020161108120238829" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="invalid_normals_009_8d2e964e_328f_4c20_9aaf_fc4cd8df0a01" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="normals0420160808150941116" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0420160808150700998" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="coast_SWL_lowest_011_2c6f40e7_5e17_421f_b207_d37e14d466e0" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
       <layer-setting enabled="0" id="coast0620160725142132091" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="normals_009_4cd82a29_3516_4a31_8fa3_95dec42be1dc" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="normals_008_92335af6_a231_4703_a300_f23d6751e373" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="waveangle0320160808175731280" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="coast_SWL_highest_011_3fb5da00_4703_485f_963c_03afdaeb2cd5" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="shadow_zone_01120170304192719125" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="1" id="coast_SWL_highest_008_d5c1219d_f5da_40e8_be83_11722500e920" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="wave_angle_01020170424154515999" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="1" id="coast_SWL_lowest_004_08bf56ef_c200_4e70_8e14_b8ce412891e9" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="shadow_zone_00720170305142726047" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="wave_angle_00520170330160453713" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="polygon0120160727195316313" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="invalid_normals0120160808153933051" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_boundary_00820170330163647432" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="normals1120160727190712575" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00420170305142619209" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="1" id="coast_SWL_lowest_007_693626c1_8474_4394_b216_ec1c00b67e47" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="cliff_notch1120160724201629192" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="cliff_notch_active_007_85ec7a6e_847e_4a71_a082_d9e153aeaabd" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="invalid_normals_00620161102174235893" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast1120160718183635159" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="polygon_013_c92b4d97_6fb4_483d_a91c_5d270bd4729b" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="cliff_notch_active_006_89938155_3750_4431_8c9e_373499af2375" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="coast_SWL_lowest_013_b935e155_3e40_4abb_a8dc_c4aefa2efc87" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="coast0720160725142150046" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon_00920161108120332216" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals_00620161102174319956" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon0820160808152539674" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="coast_SWL_highest_007_d62d9b44_a3a9_44d3_af3b_df1397159f97" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="polygon_012_de8c93f1_c2d4_4bdf_b36f_7c136e905253" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="cliff_notch0120160725154913092" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_004_bc6699b5_d257_4cd2_a237_db292c3c9e9a" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="coast_013_266153e4_7544_4be6_94dc_dcc6777cb023" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="coast0820160725142214342" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="waveangle0420160808223119610" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="coast_SWL_lowest_009_f30714eb_160e_4539_a03d_7995af38db29" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="polygon1120160727195452840" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_00120171226160841623" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals_00720161103211305147" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0920160725142106066" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00620170305142705249" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="coast0220160808150543129" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="cliff_notch_active_011_1625b625_8b89_4ff8_9e70_ba374d014c38" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="downdrift_boundary_00120171206221411076" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon0520160808152401684" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="cliff_notch_active_004_df13a65b_e1ee_43ec_8804_3d532e27bff4" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_003_d19c418a_785b_4482_b7cc_3e425883f376" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="coast_SWL_lowest_003_98fe1026_858f_4512_a1b3_4e4d895a5193" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="cliff_notch_active_003_7440f2de_33f8_4cca_989c_e311310d2e87" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="polygon_00620161102174606593" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="coast_SWL_highest_004_ec6ecbbb_b6e4_45e8_b9a6_a894c29a74ce" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="wave_energy_00120171229162032331" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="waveangle1120160808172440346" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0520160718183654169" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="breaking_wave_height_00520161027175004281" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00920170305142754773" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="polygon_00320161110204759456" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00520170305142645205" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="downdrift_boundary_01120171226151418392" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="invalid_normals_00520161103162008375" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="1" id="coast_012_43175e78_891e_4366_8902_2adb720ed8ee" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="coast_curvature_00120170306124022825" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="1" id="coast_SWL_lowest_008_4e873dc0_1981_43e3_aa69_8a483bb39fee" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="cliff_notch_active_002_c160d661_f5b1_4de0_9586_24fde5ee6e78" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="coast_SWL_highest_009_df10c880_b14b_4e82_ae0c_bbad14473678" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="breaking_wave_height1120160718211819232" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="invalid_normals1120160808155744184" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="coast_SWL_highest_003_4940b3bb_7d85_4ee2_bfb1_0809295e2bba" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="wave_angle_008_189c03a9_7ff2_4840_9177_b57f57210725" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="normals1120160727190712575" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast1120160718183635159" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="0" id="shadow_zone_00220170304161920699" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00520170305142645205" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="waveangle0320160808175731280" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_00120171226160841623" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="cliff_notch_active_011_1625b625_8b89_4ff8_9e70_ba374d014c38" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="polygon_00920161108120332216" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0920160725142106066" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="coast_SWL_lowest_011_2c6f40e7_5e17_421f_b207_d37e14d466e0" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="polygon_013_c92b4d97_6fb4_483d_a91c_5d270bd4729b" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="coast_SWL_lowest_007_693626c1_8474_4394_b216_ec1c00b67e47" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="cliff_notch_active_007_85ec7a6e_847e_4a71_a082_d9e153aeaabd" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="cliff_notch1120160724201629192" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="coast_SWL_lowest_013_b935e155_3e40_4abb_a8dc_c4aefa2efc87" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="normals_00320170602205757227" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="1" id="coast_SWL_lowest_003_98fe1026_858f_4512_a1b3_4e4d895a5193" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="cliff_notch0120160725154913092" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="coast_SWL_highest_006_3e562138_aaa2_4679_8d49_6e2c2a6ca89c" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="coast_013_266153e4_7544_4be6_94dc_dcc6777cb023" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="normals_00720161103211305147" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals0420160808150941116" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="invalid_normals_00520161103162008375" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="invalid_normals_00620161102174235893" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="coast_SWL_lowest_004_08bf56ef_c200_4e70_8e14_b8ce412891e9" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="coast_SWL_lowest_006_de85e6dd_c1dc_4d1d_9943_52081a0819e9" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_003_d19c418a_785b_4482_b7cc_3e425883f376" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="coast0320160808150626424" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="wave_angle_00620170329173818248" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
       <layer-setting enabled="0" id="polygon_00720161027183621292" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="coast_SWL_highest_013_b55faaa3_e753_484e_b5e8_00c52fd6f60c" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_01120171226155834658" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0120160718183614891" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="invalid_normals_00720161103211341838" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="waveangle0220160808175657167" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon0120160727195316313" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="coast_SWL_lowest_009_f30714eb_160e_4539_a03d_7995af38db29" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="normals_00620161102174319956" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="wave_angle_01020170424154515999" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="coast0220160808150543129" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="normals_009_4cd82a29_3516_4a31_8fa3_95dec42be1dc" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="normals0120160727192458855" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="0" id="normals_00220170602205851572" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="cliff_notch_active_004_df13a65b_e1ee_43ec_8804_3d532e27bff4" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="waveangle1120160808172440346" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_zone_00720170305142726047" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="shadow_boundary_00820170330163647432" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00920170305142754773" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="breaking_wave_height1120160718211819232" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="cliff_notch_active_002_c160d661_f5b1_4de0_9586_24fde5ee6e78" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="coast_SWL_highest_004_ec6ecbbb_b6e4_45e8_b9a6_a894c29a74ce" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="polygon_00320161110204759456" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast_curvature_00120170306124022825" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="polygon_00620161102174606593" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon_01020161108120238829" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_zone_01120170304192719125" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="invalid_normals0120160808153933051" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="coast_SWL_highest_003_4940b3bb_7d85_4ee2_bfb1_0809295e2bba" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_01120171226155834658" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="0" id="shadow_zone_01020170305142816780" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
       <layer-setting enabled="0" id="polygon0420160808150743710" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0320160808150626424" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="coast_SWL_highest_006_3e562138_aaa2_4679_8d49_6e2c2a6ca89c" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="coast1020160725142003825" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00120170304145408070" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="wave_angle_00620170329173818248" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="wave_angle_00920170424154622391" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="shadow_zone_00320170305142544344" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="1" id="coast_SWL_lowest_008_4e873dc0_1981_43e3_aa69_8a483bb39fee" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="coast0420160808150700998" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_zone_00420170305142619209" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="1" id="coast_SWL_highest_007_d62d9b44_a3a9_44d3_af3b_df1397159f97" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_00520170330160453713" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="polygon1120160727195452840" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="downdrift_boundary_00120171206221411076" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon0520160808152401684" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="wave_energy_00120171229162032331" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0720160725142150046" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="waveangle0220160808175657167" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="coast_SWL_highest_013_b55faaa3_e753_484e_b5e8_00c52fd6f60c" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="coast0120160718183614891" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="coast_SWL_highest_011_3fb5da00_4703_485f_963c_03afdaeb2cd5" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
       <layer-setting enabled="0" id="polygon0220160808152223265" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_angle_007_38743709_3748_492e_ba0c_bd3e586f0e0d" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00320170305142544344" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="waveangle0120160808171249476" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0520160718183654169" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_zone_00620170305142705249" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="downdrift_boundary_01120171226151418392" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="0" id="normals_00520161103161924681" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="coast_SWL_highest_008_d5c1219d_f5da_40e8_be83_11722500e920" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_007_38743709_3748_492e_ba0c_bd3e586f0e0d" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="normals_008_92335af6_a231_4703_a300_f23d6751e373" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_00920170424154622391" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="1" id="polygon_012_de8c93f1_c2d4_4bdf_b36f_7c136e905253" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="coast_SWL_highest_009_df10c880_b14b_4e82_ae0c_bbad14473678" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="coast1020160725142003825" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="cliff_notch_active_006_89938155_3750_4431_8c9e_373499af2375" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_008_189c03a9_7ff2_4840_9177_b57f57210725" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="waveangle0420160808223119610" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon0820160808152539674" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="cliff_notch_active_003_7440f2de_33f8_4cca_989c_e311310d2e87" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="breaking_wave_height_00520161027175004281" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0820160725142214342" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="invalid_normals_00720161103211341838" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="invalid_normals1120160808155744184" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_004_bc6699b5_d257_4cd2_a237_db292c3c9e9a" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="invalid_normals_009_8d2e964e_328f_4c20_9aaf_fc4cd8df0a01" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00120170304145408070" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
     </individual-layer-settings>
   </snapping-settings>
   <relations/>
@@ -2595,15 +2595,15 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Checked" name="11" open="false">
+      <legendgroup checked="Qt::Unchecked" name="11" open="false">
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="coast_SWL_lowest_011" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="coast_SWL_lowest_011_2c6f40e7_5e17_421f_b207_d37e14d466e0" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="coast_SWL_lowest_011_2c6f40e7_5e17_421f_b207_d37e14d466e0" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="coast_SWL_highest_011" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="coast_SWL_highest_011_3fb5da00_4703_485f_963c_03afdaeb2cd5" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="coast_SWL_highest_011_3fb5da00_4703_485f_963c_03afdaeb2cd5" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="deep_water_wave_angle_011" open="true" showFeatureCount="0">
@@ -2613,12 +2613,12 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="coast11" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="coast1120160718183635159" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="coast1120160718183635159" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="normals11" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="normals1120160727190712575" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="normals1120160727190712575" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="invalid_normals11" open="true" showFeatureCount="0">
@@ -2738,7 +2738,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_11" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="1" layerid="landform_class_1120161102170754993" visible="1"/>
+            <legendlayerfile isInOverview="1" layerid="landform_class_1120161102170754993" visible="0"/>
           </filegroup>
         </legendlayer>
       </legendgroup>
@@ -2759,15 +2759,15 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Unchecked" name="13" open="true">
+      <legendgroup checked="Qt::Checked" name="13" open="true">
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="coast_SWL_lowest_013" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="coast_SWL_lowest_013_b935e155_3e40_4abb_a8dc_c4aefa2efc87" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="coast_SWL_lowest_013_b935e155_3e40_4abb_a8dc_c4aefa2efc87" visible="1"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="coast_SWL_highest_013" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="coast_SWL_highest_013_b55faaa3_e753_484e_b5e8_00c52fd6f60c" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="coast_SWL_highest_013_b55faaa3_e753_484e_b5e8_00c52fd6f60c" visible="1"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="coast_013" open="true" showFeatureCount="0">
@@ -2777,10 +2777,10 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="polygon_013" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="polygon_013_c92b4d97_6fb4_483d_a91c_5d270bd4729b" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="polygon_013_c92b4d97_6fb4_483d_a91c_5d270bd4729b" visible="1"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="sediment_top_elevation_013" open="false" showFeatureCount="0">
+        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="sediment_top_elevation_013" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
             <legendlayerfile isInOverview="0" layerid="sediment_top_elevation_013_ba81da34_62fd_4102_9a20_b8f025c25e0c" visible="0"/>
           </filegroup>
@@ -2792,7 +2792,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_013" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="landform_class_013_d2da27e6_2d1c_4d1b_9226_58e120f33fae" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="landform_class_013_d2da27e6_2d1c_4d1b_9226_58e120f33fae" visible="1"/>
           </filegroup>
         </legendlayer>
       </legendgroup>
@@ -21574,37 +21574,37 @@ def my_form_open(dialog, layer, feature):
       <srs>
         <spatialrefsys nativeFormat="Wkt">
           <wkt>ENGCRS["Plane",EDATUM["Unknown engineering datum"],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["Meter",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["Meter",1]]]</wkt>
-          <proj4/>
+          <proj4></proj4>
           <srsid>100000</srsid>
           <srid>0</srid>
           <authid>USER:100000</authid>
           <description>Plane</description>
-          <projectionacronym/>
-          <ellipsoidacronym/>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier/>
-        <parentidentifier/>
-        <language/>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
         <type>dataset</type>
-        <title/>
-        <abstract/>
+        <title></title>
+        <abstract></abstract>
         <links/>
         <dates/>
-        <fees/>
-        <encoding/>
+        <fees></fees>
+        <encoding></encoding>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt/>
-            <proj4/>
+            <wkt></wkt>
+            <proj4></proj4>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid/>
-            <description/>
-            <projectionacronym/>
-            <ellipsoidacronym/>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -21627,8 +21627,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal accumulate="0" durationField="" durationUnit="min" enabled="0" endExpression="" endField="" fixedDuration="0" limitMode="0" mode="0" startExpression="" startField="">
         <fixedRange>
-          <start/>
-          <end/>
+          <start></start>
+          <end></end>
         </fixedRange>
       </temporal>
       <elevation binding="Centroid" clamping="Terrain" customToleranceEnabled="0" extrusion="0" extrusionEnabled="0" respectLayerSymbol="1" showMarkerSymbolInSurfacePlots="0" symbology="Line" type="IndividualFeatures" zoffset="0" zscale="1">
@@ -22036,17 +22036,17 @@ def my_form_open(dialog, layer, feature):
       <dataDefinedFieldProperties/>
       <widgets/>
       <previewExpression>"Coast"</previewExpression>
-      <mapTip enabled="1"/>
+      <mapTip enabled="1"></mapTip>
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>128.72788975730148309</xmin>
+        <xmin>129.40826820238581263</xmin>
         <ymin>1.5</ymin>
         <xmax>141.78301110654047079</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>128.72788975730148309</xmin>
+        <xmin>129.40826820238581263</xmin>
         <ymin>1.5</ymin>
         <xmax>141.78301110654047079</xmax>
         <ymax>500.5</ymax>
@@ -22057,37 +22057,37 @@ def my_form_open(dialog, layer, feature):
       <srs>
         <spatialrefsys nativeFormat="Wkt">
           <wkt>ENGCRS["Plane",EDATUM["Unknown engineering datum"],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["Meter",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["Meter",1]]]</wkt>
-          <proj4/>
+          <proj4></proj4>
           <srsid>100000</srsid>
           <srid>0</srid>
           <authid>USER:100000</authid>
           <description>Plane</description>
-          <projectionacronym/>
-          <ellipsoidacronym/>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier/>
-        <parentidentifier/>
-        <language/>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
         <type>dataset</type>
-        <title/>
-        <abstract/>
+        <title></title>
+        <abstract></abstract>
         <links/>
         <dates/>
-        <fees/>
-        <encoding/>
+        <fees></fees>
+        <encoding></encoding>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt/>
-            <proj4/>
+            <wkt></wkt>
+            <proj4></proj4>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid/>
-            <description/>
-            <projectionacronym/>
-            <ellipsoidacronym/>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -22110,8 +22110,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal accumulate="0" durationField="" durationUnit="min" enabled="0" endExpression="" endField="" fixedDuration="0" limitMode="0" mode="0" startExpression="" startField="">
         <fixedRange>
-          <start/>
-          <end/>
+          <start></start>
+          <end></end>
         </fixedRange>
       </temporal>
       <elevation binding="Centroid" clamping="Terrain" customToleranceEnabled="0" extrusion="0" extrusionEnabled="0" respectLayerSymbol="1" showMarkerSymbolInSurfacePlots="0" symbology="Line" type="IndividualFeatures" zoffset="0" zscale="1">
@@ -22519,7 +22519,7 @@ def my_form_open(dialog, layer, feature):
       <dataDefinedFieldProperties/>
       <widgets/>
       <previewExpression>"Coast"</previewExpression>
-      <mapTip enabled="1"/>
+      <mapTip enabled="1"></mapTip>
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
@@ -25451,46 +25451,46 @@ def my_form_open(dialog, layer, feature):
       <srs>
         <spatialrefsys nativeFormat="Wkt">
           <wkt>ENGCRS["Plane",EDATUM["Unknown engineering datum"],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["Meter",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["Meter",1]]]</wkt>
-          <proj4/>
+          <proj4></proj4>
           <srsid>100000</srsid>
           <srid>0</srid>
           <authid>USER:100000</authid>
           <description>Plane</description>
-          <projectionacronym/>
-          <ellipsoidacronym/>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier/>
-        <parentidentifier/>
-        <language/>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
         <type>dataset</type>
-        <title/>
-        <abstract/>
+        <title></title>
+        <abstract></abstract>
         <contact>
-          <name/>
-          <organization/>
-          <position/>
-          <voice/>
-          <fax/>
-          <email/>
-          <role/>
+          <name></name>
+          <organization></organization>
+          <position></position>
+          <voice></voice>
+          <fax></fax>
+          <email></email>
+          <role></role>
         </contact>
         <links/>
         <dates/>
-        <fees/>
-        <encoding/>
+        <fees></fees>
+        <encoding></encoding>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt/>
-            <proj4/>
+            <wkt></wkt>
+            <proj4></proj4>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid/>
-            <description/>
-            <projectionacronym/>
-            <ellipsoidacronym/>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -25498,8 +25498,8 @@ def my_form_open(dialog, layer, feature):
           <spatial crs="" dimensions="2" maxx="-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" maxy="-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" maxz="0" minx="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" miny="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" minz="0"/>
           <temporal>
             <period>
-              <start/>
-              <end/>
+              <start></start>
+              <end></end>
             </period>
           </temporal>
         </extent>
@@ -25521,8 +25521,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal accumulate="0" durationField="Coast" durationUnit="min" enabled="0" endExpression="" endField="" fixedDuration="0" limitMode="0" mode="0" startExpression="" startField="">
         <fixedRange>
-          <start/>
-          <end/>
+          <start></start>
+          <end></end>
         </fixedRange>
       </temporal>
       <elevation binding="Centroid" clamping="Terrain" customToleranceEnabled="1" extrusion="0" extrusionEnabled="0" respectLayerSymbol="1" showMarkerSymbolInSurfacePlots="0" symbology="Line" type="IndividualFeatures" zoffset="0" zscale="1">
@@ -25822,10 +25822,10 @@ def my_form_open(dialog, layer, feature):
         <fieldstyles/>
       </conditionalstyles>
       <storedexpressions/>
-      <editform tolerant="1"/>
+      <editform tolerant="1"></editform>
       <editforminit/>
       <editforminitcodesource>0</editforminitcodesource>
-      <editforminitfilepath/>
+      <editforminitfilepath></editforminitfilepath>
       <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
 """
 QGIS forms can have a Python function that is called when the form is
@@ -25857,7 +25857,7 @@ def my_form_open(dialog, layer, feature):
       <dataDefinedFieldProperties/>
       <widgets/>
       <previewExpression>"Coast"</previewExpression>
-      <mapTip enabled="1"/>
+      <mapTip enabled="1"></mapTip>
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
@@ -28345,13 +28345,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>137.38235294117640706</xmin>
+        <xmin>137.40826820238581263</xmin>
         <ymin>1.5</ymin>
         <xmax>151.22686137392017258</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>137.38235294117640706</xmin>
+        <xmin>137.40826820238581263</xmin>
         <ymin>1.5</ymin>
         <xmax>151.22686137392017258</xmax>
         <ymax>500.5</ymax>
@@ -28774,13 +28774,13 @@ def my_form_open(dialog, layer, feature):
       <extent>
         <xmin>144.40826820238581263</xmin>
         <ymin>1.5</ymin>
-        <xmax>158.63821472644997357</xmax>
+        <xmax>158.5929658576717145</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
         <xmin>144.40826820238581263</xmin>
         <ymin>1.5</ymin>
-        <xmax>158.63821472644997357</xmax>
+        <xmax>158.5929658576717145</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast_SWL_lowest_013_b935e155_3e40_4abb_a8dc_c4aefa2efc87</id>
@@ -28789,46 +28789,46 @@ def my_form_open(dialog, layer, feature):
       <srs>
         <spatialrefsys nativeFormat="Wkt">
           <wkt>ENGCRS["Plane",EDATUM["Unknown engineering datum"],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["Meter",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["Meter",1]]]</wkt>
-          <proj4/>
+          <proj4></proj4>
           <srsid>100000</srsid>
           <srid>0</srid>
           <authid>USER:100000</authid>
           <description>Plane</description>
-          <projectionacronym/>
-          <ellipsoidacronym/>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier/>
-        <parentidentifier/>
-        <language/>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
         <type>dataset</type>
-        <title/>
-        <abstract/>
+        <title></title>
+        <abstract></abstract>
         <contact>
-          <name/>
-          <organization/>
-          <position/>
-          <voice/>
-          <fax/>
-          <email/>
-          <role/>
+          <name></name>
+          <organization></organization>
+          <position></position>
+          <voice></voice>
+          <fax></fax>
+          <email></email>
+          <role></role>
         </contact>
         <links/>
         <dates/>
-        <fees/>
-        <encoding/>
+        <fees></fees>
+        <encoding></encoding>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt/>
-            <proj4/>
+            <wkt></wkt>
+            <proj4></proj4>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid/>
-            <description/>
-            <projectionacronym/>
-            <ellipsoidacronym/>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -28836,8 +28836,8 @@ def my_form_open(dialog, layer, feature):
           <spatial crs="" dimensions="2" maxx="-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" maxy="-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" maxz="0" minx="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" miny="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" minz="0"/>
           <temporal>
             <period>
-              <start/>
-              <end/>
+              <start></start>
+              <end></end>
             </period>
           </temporal>
         </extent>
@@ -28859,8 +28859,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal accumulate="0" durationField="Coast" durationUnit="min" enabled="0" endExpression="" endField="" fixedDuration="0" limitMode="0" mode="0" startExpression="" startField="">
         <fixedRange>
-          <start/>
-          <end/>
+          <start></start>
+          <end></end>
         </fixedRange>
       </temporal>
       <elevation binding="Centroid" clamping="Terrain" customToleranceEnabled="1" extrusion="0" extrusionEnabled="0" respectLayerSymbol="1" showMarkerSymbolInSurfacePlots="0" symbology="Line" type="IndividualFeatures" zoffset="0" zscale="1">
@@ -29160,10 +29160,10 @@ def my_form_open(dialog, layer, feature):
         <fieldstyles/>
       </conditionalstyles>
       <storedexpressions/>
-      <editform tolerant="1"/>
+      <editform tolerant="1"></editform>
       <editforminit/>
       <editforminitcodesource>0</editforminitcodesource>
-      <editforminitfilepath/>
+      <editforminitfilepath></editforminitfilepath>
       <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
 """
 QGIS forms can have a Python function that is called when the form is
@@ -29195,7 +29195,7 @@ def my_form_open(dialog, layer, feature):
       <dataDefinedFieldProperties/>
       <widgets/>
       <previewExpression>"Coast"</previewExpression>
-      <mapTip enabled="1"/>
+      <mapTip enabled="1"></mapTip>
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
@@ -39636,37 +39636,37 @@ def my_form_open(dialog, layer, feature):
       <srs>
         <spatialrefsys nativeFormat="Wkt">
           <wkt>ENGCRS["Plane",EDATUM["Unknown engineering datum"],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["Meter",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["Meter",1]]]</wkt>
-          <proj4/>
+          <proj4></proj4>
           <srsid>100000</srsid>
           <srid>0</srid>
           <authid>USER:100000</authid>
           <description>Plane</description>
-          <projectionacronym/>
-          <ellipsoidacronym/>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier/>
-        <parentidentifier/>
-        <language/>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
         <type>dataset</type>
-        <title/>
-        <abstract/>
+        <title></title>
+        <abstract></abstract>
         <links/>
         <dates/>
-        <fees/>
-        <encoding/>
+        <fees></fees>
+        <encoding></encoding>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt/>
-            <proj4/>
+            <wkt></wkt>
+            <proj4></proj4>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid/>
-            <description/>
-            <projectionacronym/>
-            <ellipsoidacronym/>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -39687,8 +39687,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal bandNumber="1" enabled="0" fetchMode="0" mode="0">
         <fixedRange>
-          <start/>
-          <end/>
+          <start></start>
+          <end></end>
         </fixedRange>
       </temporal>
       <elevation band="1" enabled="0" mode="RepresentsElevationSurface" symbology="Line" zoffset="0" zscale="1">
@@ -39788,7 +39788,7 @@ def my_form_open(dialog, layer, feature):
           <Option name="identify/format" type="QString" value="Value"/>
         </Option>
       </customproperties>
-      <mapTip enabled="1"/>
+      <mapTip enabled="1"></mapTip>
       <pipe-data-defined-properties>
         <Option type="Map">
           <Option name="name" type="QString" value=""/>
@@ -39866,37 +39866,37 @@ def my_form_open(dialog, layer, feature):
       <srs>
         <spatialrefsys nativeFormat="Wkt">
           <wkt>ENGCRS["Plane",EDATUM["Unknown engineering datum"],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["Meter",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["Meter",1]]]</wkt>
-          <proj4/>
+          <proj4></proj4>
           <srsid>100000</srsid>
           <srid>0</srid>
           <authid>USER:100000</authid>
           <description>Plane</description>
-          <projectionacronym/>
-          <ellipsoidacronym/>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier/>
-        <parentidentifier/>
-        <language/>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
         <type>dataset</type>
-        <title/>
-        <abstract/>
+        <title></title>
+        <abstract></abstract>
         <links/>
         <dates/>
-        <fees/>
-        <encoding/>
+        <fees></fees>
+        <encoding></encoding>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt/>
-            <proj4/>
+            <wkt></wkt>
+            <proj4></proj4>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid/>
-            <description/>
-            <projectionacronym/>
-            <ellipsoidacronym/>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -39917,8 +39917,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal bandNumber="1" enabled="0" fetchMode="0" mode="0">
         <fixedRange>
-          <start/>
-          <end/>
+          <start></start>
+          <end></end>
         </fixedRange>
       </temporal>
       <elevation band="1" enabled="0" mode="RepresentsElevationSurface" symbology="Line" zoffset="0" zscale="1">
@@ -40018,7 +40018,7 @@ def my_form_open(dialog, layer, feature):
           <Option name="identify/format" type="QString" value="Value"/>
         </Option>
       </customproperties>
-      <mapTip enabled="1"/>
+      <mapTip enabled="1"></mapTip>
       <pipe-data-defined-properties>
         <Option type="Map">
           <Option name="name" type="QString" value=""/>
@@ -91353,37 +91353,37 @@ def my_form_open(dialog, layer, feature):
       <srs>
         <spatialrefsys nativeFormat="Wkt">
           <wkt>ENGCRS["Plane",EDATUM["Unknown engineering datum"],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["Meter",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["Meter",1]]]</wkt>
-          <proj4/>
+          <proj4></proj4>
           <srsid>100000</srsid>
           <srid>0</srid>
           <authid>USER:100000</authid>
           <description>Plane</description>
-          <projectionacronym/>
-          <ellipsoidacronym/>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier/>
-        <parentidentifier/>
-        <language/>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
         <type>dataset</type>
-        <title/>
-        <abstract/>
+        <title></title>
+        <abstract></abstract>
         <links/>
         <dates/>
-        <fees/>
-        <encoding/>
+        <fees></fees>
+        <encoding></encoding>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt/>
-            <proj4/>
+            <wkt></wkt>
+            <proj4></proj4>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid/>
-            <description/>
-            <projectionacronym/>
-            <ellipsoidacronym/>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -91406,8 +91406,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal accumulate="0" durationField="" durationUnit="min" enabled="0" endExpression="" endField="" fixedDuration="0" limitMode="0" mode="0" startExpression="" startField="">
         <fixedRange>
-          <start/>
-          <end/>
+          <start></start>
+          <end></end>
         </fixedRange>
       </temporal>
       <elevation binding="Centroid" clamping="Terrain" customToleranceEnabled="0" extrusion="0" extrusionEnabled="0" respectLayerSymbol="1" showMarkerSymbolInSurfacePlots="0" symbology="Line" type="IndividualFeatures" zoffset="0" zscale="1">
@@ -93607,17 +93607,17 @@ def my_form_open(dialog, layer, feature):
       <dataDefinedFieldProperties/>
       <widgets/>
       <previewExpression>"Polygon"</previewExpression>
-      <mapTip enabled="1"/>
+      <mapTip enabled="1"></mapTip>
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>128.5</xmin>
+        <xmin>129.40826820238581263</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>128.5</xmin>
+        <xmin>129.40826820238581263</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -93628,37 +93628,37 @@ def my_form_open(dialog, layer, feature):
       <srs>
         <spatialrefsys nativeFormat="Wkt">
           <wkt>ENGCRS["Plane",EDATUM["Unknown engineering datum"],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["Meter",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["Meter",1]]]</wkt>
-          <proj4/>
+          <proj4></proj4>
           <srsid>100000</srsid>
           <srid>0</srid>
           <authid>USER:100000</authid>
           <description>Plane</description>
-          <projectionacronym/>
-          <ellipsoidacronym/>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier/>
-        <parentidentifier/>
-        <language/>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
         <type>dataset</type>
-        <title/>
-        <abstract/>
+        <title></title>
+        <abstract></abstract>
         <links/>
         <dates/>
-        <fees/>
-        <encoding/>
+        <fees></fees>
+        <encoding></encoding>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt/>
-            <proj4/>
+            <wkt></wkt>
+            <proj4></proj4>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid/>
-            <description/>
-            <projectionacronym/>
-            <ellipsoidacronym/>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -93681,8 +93681,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal accumulate="0" durationField="" durationUnit="min" enabled="0" endExpression="" endField="" fixedDuration="0" limitMode="0" mode="0" startExpression="" startField="">
         <fixedRange>
-          <start/>
-          <end/>
+          <start></start>
+          <end></end>
         </fixedRange>
       </temporal>
       <elevation binding="Centroid" clamping="Terrain" customToleranceEnabled="0" extrusion="0" extrusionEnabled="0" respectLayerSymbol="1" showMarkerSymbolInSurfacePlots="0" symbology="Line" type="IndividualFeatures" zoffset="0" zscale="1">
@@ -95882,7 +95882,7 @@ def my_form_open(dialog, layer, feature):
       <dataDefinedFieldProperties/>
       <widgets/>
       <previewExpression>"Polygon"</previewExpression>
-      <mapTip enabled="1"/>
+      <mapTip enabled="1"></mapTip>
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" hasScaleBasedVisibilityFlag="0" layerType="Raster" legendPlaceholderImage="" maxScale="0" minScale="1e+08" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" styleCategories="AllStyleCategories" type="raster">
       <extent>
@@ -103775,46 +103775,46 @@ def my_form_open(dialog, layer, feature):
       <srs>
         <spatialrefsys nativeFormat="Wkt">
           <wkt>ENGCRS["Plane",EDATUM["Unknown engineering datum"],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["Meter",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["Meter",1]]]</wkt>
-          <proj4/>
+          <proj4></proj4>
           <srsid>100000</srsid>
           <srid>0</srid>
           <authid>USER:100000</authid>
           <description>Plane</description>
-          <projectionacronym/>
-          <ellipsoidacronym/>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier/>
-        <parentidentifier/>
-        <language/>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
         <type>dataset</type>
-        <title/>
-        <abstract/>
+        <title></title>
+        <abstract></abstract>
         <contact>
-          <name/>
-          <organization/>
-          <position/>
-          <voice/>
-          <fax/>
-          <email/>
-          <role/>
+          <name></name>
+          <organization></organization>
+          <position></position>
+          <voice></voice>
+          <fax></fax>
+          <email></email>
+          <role></role>
         </contact>
         <links/>
         <dates/>
-        <fees/>
-        <encoding/>
+        <fees></fees>
+        <encoding></encoding>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt/>
-            <proj4/>
+            <wkt></wkt>
+            <proj4></proj4>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid/>
-            <description/>
-            <projectionacronym/>
-            <ellipsoidacronym/>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -103822,8 +103822,8 @@ def my_form_open(dialog, layer, feature):
           <spatial crs="" dimensions="2" maxx="-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" maxy="-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" maxz="0" minx="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" miny="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" minz="0"/>
           <temporal>
             <period>
-              <start/>
-              <end/>
+              <start></start>
+              <end></end>
             </period>
           </temporal>
         </extent>
@@ -103843,8 +103843,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal bandNumber="1" enabled="0" fetchMode="0" mode="0">
         <fixedRange>
-          <start/>
-          <end/>
+          <start></start>
+          <end></end>
         </fixedRange>
       </temporal>
       <elevation band="1" enabled="1" mode="RepresentsElevationSurface" symbology="Line" zoffset="0" zscale="1">
@@ -103946,7 +103946,7 @@ def my_form_open(dialog, layer, feature):
           <Option name="identify/format" type="QString" value="Value"/>
         </Option>
       </customproperties>
-      <mapTip enabled="1"/>
+      <mapTip enabled="1"></mapTip>
       <pipe-data-defined-properties>
         <Option type="Map">
           <Option name="name" type="QString" value=""/>
@@ -117664,46 +117664,46 @@ def my_form_open(dialog, layer, feature):
       <srs>
         <spatialrefsys nativeFormat="Wkt">
           <wkt>ENGCRS["Plane",EDATUM["Unknown engineering datum"],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["Meter",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["Meter",1]]]</wkt>
-          <proj4/>
+          <proj4></proj4>
           <srsid>100000</srsid>
           <srid>0</srid>
           <authid>USER:100000</authid>
           <description>Plane</description>
-          <projectionacronym/>
-          <ellipsoidacronym/>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier/>
-        <parentidentifier/>
-        <language/>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
         <type>dataset</type>
-        <title/>
-        <abstract/>
+        <title></title>
+        <abstract></abstract>
         <contact>
-          <name/>
-          <organization/>
-          <position/>
-          <voice/>
-          <fax/>
-          <email/>
-          <role/>
+          <name></name>
+          <organization></organization>
+          <position></position>
+          <voice></voice>
+          <fax></fax>
+          <email></email>
+          <role></role>
         </contact>
         <links/>
         <dates/>
-        <fees/>
-        <encoding/>
+        <fees></fees>
+        <encoding></encoding>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt/>
-            <proj4/>
+            <wkt></wkt>
+            <proj4></proj4>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid/>
-            <description/>
-            <projectionacronym/>
-            <ellipsoidacronym/>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -117711,8 +117711,8 @@ def my_form_open(dialog, layer, feature):
           <spatial crs="" dimensions="2" maxx="-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" maxy="-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" maxz="0" minx="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" miny="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368" minz="0"/>
           <temporal>
             <period>
-              <start/>
-              <end/>
+              <start></start>
+              <end></end>
             </period>
           </temporal>
         </extent>
@@ -117732,8 +117732,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal bandNumber="1" enabled="0" fetchMode="0" mode="0">
         <fixedRange>
-          <start/>
-          <end/>
+          <start></start>
+          <end></end>
         </fixedRange>
       </temporal>
       <elevation band="1" enabled="1" mode="RepresentsElevationSurface" symbology="Line" zoffset="0" zscale="1">
@@ -117835,7 +117835,7 @@ def my_form_open(dialog, layer, feature):
           <Option name="identify/format" type="QString" value="Value"/>
         </Option>
       </customproperties>
-      <mapTip enabled="1"/>
+      <mapTip enabled="1"></mapTip>
       <pipe-data-defined-properties>
         <Option type="Map">
           <Option name="name" type="QString" value=""/>
@@ -123566,13 +123566,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>109.5</xmin>
+        <xmin>108.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>109.5</xmin>
+        <xmin>108.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -124073,13 +124073,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>107.5</xmin>
+        <xmin>104.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>107.5</xmin>
+        <xmin>104.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>

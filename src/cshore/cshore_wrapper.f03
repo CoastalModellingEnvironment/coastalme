@@ -621,8 +621,8 @@ subroutine CShoreWrapper(In_ILINE, In_IPROFL, In_IPERM, In_IOVER, In_IWCINT, In_
    ! Get the results into the argument output variables
    Out_IError = IError
 
-   ! DFM safety check TEST
-   if (IError == -1) return
+   ! DFM safety check
+   if (IError < 0) return
 
    Out_nOutSize = nOutSize
    

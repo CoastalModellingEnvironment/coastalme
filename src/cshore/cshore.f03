@@ -266,19 +266,26 @@ subroutine CShore(NRET)
          SIGMA(1) = HRMS(1) / SQR8
          H(1) = WSETUP(1) + SWLDEP(1,L)
          
-! BDJ added on 2012-09-28
+         ! DFM TEST
          if (H(1) <= 0) then
-            write (*,*) "CShore ERROR: model ended with negative depth at the first node at time =", TIME
-            
-            NRET = -1
-            
-#if defined EXE
-            stop 1
-#else
-            return
-#endif
+            write (*,*) "CShore WARNING: negative depth at the first node, set to zero"
+            H(1) = 0
          endif
-! end BDJ added on 2012-09-28
+
+! ! BDJ added on 2012-09-28
+!          if (H(1) <= 0) then
+!
+!             write (*,*) "CShore ERROR: model ended with negative depth at the first node at time =", TIME
+!
+!             NRET = -1
+!
+! #if defined EXE
+!             stop 1
+! #else
+!             return
+! #endif
+!          endif
+! ! end BDJ added on 2012-09-28
 
          SIGSTA(1) = SIGMA(1)/H(1)
 
