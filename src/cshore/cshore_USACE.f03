@@ -368,19 +368,25 @@ end subroutine allocate_cross_shore_nodes_size_arrays
 subroutine allocate_cross_shore_lines_size_arrays(nSize)
    integer :: nSize
    
-   allocate(NBINP(nSize))
+  allocate(NBINP(nSize))
    NBINP = 0
 
    allocate(IVWALL(nSize))
    IVWALL = 0
    
-   allocate(XS(nSize), YLINE(nSize), DYLINE(nSize))
+   allocate(XS(nSize))
    XS = 0.0d0
+
+   allocate(YLINE(nSize))
    YLINE = 0.0d0
+
+   allocate(DYLINE(nSize))
    DYLINE = 0.0d0
    
-   allocate(JMAX(nSize), JSWL(nSize))
+   allocate(JMAX(nSize))
    JMAX = 0
+
+   allocate(JSWL(nSize))
    JSWL = 0
    
    allocate(NPINP(nSize))
@@ -389,13 +395,19 @@ subroutine allocate_cross_shore_lines_size_arrays(nSize)
    allocate(JCREST(nSize))
    JCREST = 0
    
-   allocate(RCREST(nSize), QO(nSize))
+   allocate(RCREST(nSize))
    RCREST = 0.0d0
+
+   allocate(QO(nSize))
    QO = 0.0d0
    
-   allocate(TSQO(nSize), TSQBX(nSize), TSQSX(nSize))
+   allocate(TSQO(nSize))
    TSQO = 0.0d0
+
+   allocate(TSQBX(nSize))
    TSQBX = 0.0d0
+
+   allocate(TSQSX(nSize))
    TSQSX = 0.0d0
    
    return

@@ -23,6 +23,12 @@ using std::endl;
 
 #include <cfloat>
 
+#include <vector>
+using std::vector;
+
+#include <cstddef>
+using std::size_t;
+
 #ifdef _OPENMP
 #include <omp.h>
 #endif
@@ -31,6 +37,16 @@ using std::endl;
 #include "simulation.h"
 #include "raster_grid.h"
 #include "coast.h"
+
+// #pragma omp declare reduction(matrix_add : vector<vector<double>> : \
+//    for (size_t i = 0; i < omp_out.size(); ++i) \
+//    { \
+//       for (size_t j = 0; j < omp_out[i].size(); ++j) \
+//       { \
+//          omp_out[i][j] += omp_in[i][j]; \
+//       } \
+//    }) \
+//    initializer(omp_priv = vector<vector<double>>(omp_orig.size(), vector<double>(omp_orig[0].size(), 0)))
 
 //===============================================================================================================================
 //! At the end of each timestep, updates all cells in the raster grid and does some per-timestep accounting
@@ -86,6 +102,8 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
 //     reduction(max : m_dThisIterTopElevMax)                           \
 //     reduction(min : m_dThisIterTopElevMin)
 // #endif
+
+   // #pragma omp parallel for reduction(matrix_add:m_VVdFineTalus)
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {
       for (int nY = 0; nY < m_nYGridSize; nY++)

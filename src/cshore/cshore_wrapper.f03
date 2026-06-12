@@ -107,6 +107,7 @@ subroutine CShoreWrapper(In_ILINE, In_IPROFL, In_IPERM, In_IOVER, In_IWCINT, In_
    ! We now need to copy these input arrays to arrays in the common module. But can't do a simple array assign, since XBINP, ZBINP and FBINP must be larger than In_XBINP in the first dimension, because element K+1 (where K is the size of the first dimension) gets accessed in various places e.g. BOTTOM(). This is a bodge
    ndim1size = size(In_XBINP, 1)
    ndim2size = size(In_XBINP, 2)
+
    allocate(XBINP(ndim1size+1, ndim2size), ZBINP(ndim1size+1, ndim2size), FBINP(ndim1size+1, ndim2size))
    do ndim2 = 1, ndim2size
       XBINP(1:ndim1size, ndim2) = In_XBINP(1:ndim1size, ndim2)
@@ -616,9 +617,13 @@ subroutine CShoreWrapper(In_ILINE, In_IPROFL, In_IPERM, In_IOVER, In_IWCINT, In_
 
    ! Run CShore
    call CShore(IError)
-   
+
    ! Get the results into the argument output variables
    Out_IError = IError
+
+   ! DFM safety check TEST
+   if (IError == -1) return
+
    Out_nOutSize = nOutSize
    
    do I = 1, nOutSize
