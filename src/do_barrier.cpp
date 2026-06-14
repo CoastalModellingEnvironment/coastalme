@@ -36,6 +36,31 @@ using std::array;
 //===============================================================================================================================
 int CSimulation::nDoBarrierFormation(void)
 {
+   for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
+   {
+      for (int nCoastPoint = 0; nCoastPoint < m_VCoast[nCoast].nGetCoastlineSize(); nCoastPoint++)
+      {
+         CACoastLandform* pCoastLandform = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
+         int nCoastLandform = pCoastLandform->nGetLandFormCategory();
+
+         // If this isn't a beach then move to the next coast point
+         if (nCoastLandform != LF_DRIFT_BEACH)
+            continue;
+
+         // OK it is a beach. Get the coords of the grid cell marked as coastline for the coastal landform object
+         int const nX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetX();
+         int const nY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
+
+         // And get the this-iteration runup for this coast point
+         double const dRunup = m_VCoast[nCoast].dGetRunUp(nCoastPoint);
+
+         // Calc total wave elevation
+         double const dWaveElev = m_dThisIterSWL + dRunup;
+
+         // TODO calculate inland movement of sand and gravel
+      }
+   }
+
    int nRet = nMoveUnconsLandward();
    if (nRet != RTN_OK)
       return nRet;

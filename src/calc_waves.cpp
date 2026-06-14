@@ -1540,7 +1540,7 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
    if ((nValidPointsWaveSetup >= 0) && (! bFPIsEqual(VdWaveSetupSurge[nValidPointsWaveSetup], DBL_NODATA, TOLERANCE)))
       dWaveSetupSurge = VdWaveSetupSurge[nValidPointsWaveSetup];
 
-   if ((tAbs(dWaveSetupSurge) < 1e-4) || (isnan(dWaveSetupSurge)))
+   if ((isnan(dWaveSetupSurge) || (tAbs(dWaveSetupSurge) < 1e-4)))
       dWaveSetupSurge = 0;
 
    // Update wave attributes along the coastline object. Wave height at the coast is always calculated (i.e. whether or not waves are breaking)

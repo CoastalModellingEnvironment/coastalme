@@ -266,12 +266,13 @@ subroutine CShore(NRET)
          SIGMA(1) = HRMS(1) / SQR8
          H(1) = WSETUP(1) + SWLDEP(1,L)
          
-         ! DFM TEST
+         ! DFM added Hun 2026
          if (H(1) <= 0) then
-            write (*,*) "CShore WARNING: negative depth at the first node, set to zero"
+!             write (*,*) "CShore WARNING: negative depth at the first node, set to zero"
             H(1) = 0
+            NRET = -1
          endif
-
+! Removed by DFM
 ! ! BDJ added on 2012-09-28
 !          if (H(1) <= 0) then
 !

@@ -93,7 +93,7 @@ Breaking wave height to water depth ratio (non dimensional)                     
 
 ; Sediment data --------------------------------------------------------------------------------------------------------
 Simulate coast platform erosion?                                                             : y
-Resistance to erosion of coast platform (m^(9/4)s^(3/2))                                     : 10e6          ; [2-6]e6 to produce 0.6 m/yr recession (Walkden & Hall, 2011)
+Resistance to erosion of coast platform (m^(9/4)s^(3/2))                                     : 2e7          ; [2-6]e6 to produce 0.6 m/yr recession (Walkden & Hall, 2011)
 
 Simulate beach sediment transport?                                                           : y
 Beach sediment transport at grid edges                [0 = closed, 1 = open, 2 = recirculate]: 1
@@ -119,7 +119,7 @@ Berm height i.e. height above SWL of start of depositional Dean profile (m)     
 
 ; Cliff collapse data --------------------------------------------------------------------------------------------------
 Simulate cliff collapse?                                                                     : y
-Resistance to erosion of cliff (m^(9/4)s^(3/2))                                              : 10e6
+Resistance to erosion of cliff (m^(9/4)s^(3/2))                                              : 2e7
 Notch overhang to initiate collapse (m)                                                      : 0.5
 Notch-apex elevation above mean high water level (m)                                         : 0.3
 Scale parameter A for cliff deposition (m^(1/3))                                   [0 = auto]: 0          ; For a 0.2 mm D50, will be 0.1
