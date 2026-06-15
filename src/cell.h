@@ -86,9 +86,6 @@ class CGeomCell
    //! Elevation of basement surface (m)
    double m_dBasementElevation;
 
-   //! Slope at this cell (degrees or unitless)
-   double m_dSlopeForCliffToe;
-
    //! Depth of still water (m), is zero if not inundated
    double m_dSeaDepth;
 

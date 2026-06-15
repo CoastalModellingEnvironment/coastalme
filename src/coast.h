@@ -241,9 +241,6 @@ class CRWCoast
    void SetWaveSetupSurge(int const, double const);
    double dGetWaveSetupSurge(int const) const;
 
-   // void SetStormSurge(int const, double const);
-   // double dGetStormSurge(int const) const;
-
    void SetRunUp(int const, double const);
    double dGetRunUp(int const) const;
 

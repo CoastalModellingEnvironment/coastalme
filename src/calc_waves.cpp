@@ -2082,7 +2082,6 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
    double const dThisBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nThisCoastPoint);
    double const dThisBreakingDepth = m_VCoast[nCoast].dGetDepthOfBreaking(nThisCoastPoint);
    double const dThisWaveSetupSurge = m_VCoast[nCoast].dGetWaveSetupSurge(nThisCoastPoint);
-   // double dThisStormSurge = m_VCoast[nCoast].dGetStormSurge(nThisCoastPoint);
    double const dThisRunUp = m_VCoast[nCoast].dGetRunUp(nThisCoastPoint);
 
    // Get the next profile along the coast, in the down-coast direction. If this next profile has a problem, go to the one after that, etc

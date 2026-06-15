@@ -347,32 +347,6 @@ double CGeomCell::dGetCoarseTalusDepth(void) const
    return dTotTalusDepth;
 }
 
-// void CGeomCell::SetWaveSetup(int const dWaveSetup)
-// {
-// m_dWaveSetup = dWaveSetup;
-// }
-
-// void CGeomCell::SetStormSurge(int const dStormSurge)
-// {
-// m_dStormSurge = dStormSurge;
-// }
-
-// void CGeomCell::SetRunUpOnCell(int const dRunUp)
-// {
-// m_dRunUp = dRunUp;
-// }
-
-// void CGeomCell::SetTotLevel(void) const
-// {
-// m_dTotLevel = m_dWaveSetup + m_dStormSurge + m_dRunUp +
-// m_pGrid->pGetSim()->CSimulation::dGetThisIterSWL();
-// }
-
-// int CGeomCell::nGetTotLevel(void) const
-// {
-// return m_dTotLevel;
-// }
-
 //! Returns true if the top elevation (sediment and talus, plus any intervention) of this cell is less than this iteration's SWL
 bool CGeomCell::bElevLessThanSWL(void) const
 {
@@ -424,18 +398,6 @@ double CGeomCell::dGetBasementElev(void) const
 {
    return (m_dBasementElevation);
 }
-
-// //! Sets this cell's slope for cliff toe locating
-// void CGeomCell::SetSlopeForCliffToe(double const dNewSlope)
-// {
-//    m_dSlopeForCliffToe = dNewSlope;
-// }
-//
-// //! Returns this cell's slope for cliff toe locationg
-// double CGeomCell::dGetSlopeForCliffToe(void) const
-// {
-//    return (m_dSlopeForCliffToe);
-// }
 
 //! Returns true if this cells's basement data is NODATA, is needed for irregularly-shaped DEMs
 bool CGeomCell::bBasementElevIsMissingValue(void) const

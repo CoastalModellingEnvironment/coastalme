@@ -1441,13 +1441,6 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
                   double const dWaveSetupSurge = m_VCoast[nCoast].dGetWaveSetupSurge(nCoastPoint);
                   pOGRFeature->SetField(strFieldValue1.c_str(), dWaveSetupSurge);
                }
-
-               // else if (nDataItem == VECTOR_PLOT_STORM_SURGE)
-               // {
-               //    // Set the feature's attribute
-               // double dStormSurge = m_VCoast[i].dGetStormSurge(j);
-               // pOGRFeature->SetField(strFieldValue1.c_str(), dStormSurge);
-               // }
                else if (nDataItem == VECTOR_PLOT_RUN_UP)
                {
                   // Set the feature's attribute
