@@ -78,6 +78,9 @@ class CRWCoast
    //! Unsmoothed integer x-y coordinates (grid CRS) of the cell marked as coastline for each point on the vector coastline. Note that where there is a coast-normal profile, this is the same as point zero in the profile coordinates
    CGeomILine m_ILCellsMarkedAsCoastline;
 
+   //! For each point on this coastline, are waves on-shore or off-shore?
+   vector<bool> mVbOnShoreWaves;
+
    //! Distance of breaking (in cells), at each point on m_LCoastlineExtCRS
    vector<int> m_VnBreakingDistance;
 
@@ -238,6 +241,9 @@ class CRWCoast
 
    void SetCoastDeepWaterWavePeriod(int const, double const);
    double dGetCoastDeepWaterWavePeriod(int const) const;
+
+   void SetWavesOnShore(int const, bool const);
+   bool bGetWavesOnShore(int const nCoastPoint);
 
    void SetBreakingWaveHeight(int const, double const);
    double dGetBreakingWaveHeight(int const) const;

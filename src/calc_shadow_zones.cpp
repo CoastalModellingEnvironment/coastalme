@@ -179,6 +179,7 @@ int CSimulation::nDoAllShadowZones(void)
                   // At this point on the coast, are waves on- or off-shore, and up- or down-coast?
                   bDownCoast = false;
                   bool const bOnShore = bOnOrOffShoreAndUpOrDownCoast(dFluxOrientation, dWaveAngle, nSeaHand, bDownCoast);
+                  m_VCoast[nCoast].SetWavesOnShore(nCoastPoint, bOnShore);
 
                   // if (m_nLogFileDetail >= LOG_FILE_ALL)
                   // {
@@ -247,6 +248,7 @@ int CSimulation::nDoAllShadowZones(void)
                   // At this point on the coast, are waves on- or off-shore, and up- or down-coast?
                   bDownCoast = false;
                   bool const bOnShore = bOnOrOffShoreAndUpOrDownCoast(dFluxOrientation, dWaveAngle, nSeaHand, bDownCoast);
+                  m_VCoast[nCoast].SetWavesOnShore(nCoastPoint, bOnShore);
 
                   // if (m_nLogFileDetail >= LOG_FILE_ALL)
                   // {

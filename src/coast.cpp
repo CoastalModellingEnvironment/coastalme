@@ -109,6 +109,8 @@ void CRWCoast::SetCoastlineExtCRS(CGeomLine const* pLCoast)
 
    int const nLen = m_LCoastlineExtCRS.nGetSize();
 
+   mVbOnShoreWaves = vector<bool>(nLen, false);
+
    m_VnPolygonNode = vector<int>(nLen, INT_NODATA);
    m_VnBreakingDistance = vector<int>(nLen, INT_NODATA);
 
@@ -569,6 +571,18 @@ void CRWCoast::SetCoastDeepWaterWavePeriod(int const nCoastPoint, double const d
 double CRWCoast::dGetCoastDeepWaterWavePeriod(int const nCoastPoint) const
 {
    return m_VdDeepWaterWavePeriod[nCoastPoint];
+}
+
+//! Set a switch: are waves on-shore or off-shore at this coast point?
+void CRWCoast::SetWavesOnShore(int const nCoastPoint, bool const bOnShore)
+{
+   mVbOnShoreWaves[nCoastPoint] = bOnShore;
+}
+
+//! Are waves on-shore or off-shore at this coast point?
+bool CRWCoast::bGetWavesOnShore(int const nCoastPoint)
+{
+   return mVbOnShoreWaves[nCoastPoint];
 }
 
 //! Sets the breaking wave height for this coast point

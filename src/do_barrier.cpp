@@ -40,10 +40,15 @@ int CSimulation::nDoBarrierFormation(void)
    {
       for (int nCoastPoint = 0; nCoastPoint < m_VCoast[nCoast].nGetCoastlineSize(); nCoastPoint++)
       {
+         // If waves are off-shore, then do nothing, move to the next coast point
+         if (! m_VCoast[nCoast].bGetWavesOnShore(nCoastPoint))
+            continue;
+
+         // OK, waves are on-shore
          CACoastLandform* pCoastLandform = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
          int nCoastLandform = pCoastLandform->nGetLandFormCategory();
 
-         // If this isn't a beach then move to the next coast point
+         // If this isn't a beach then do nothing, move to the next coast point
          if (nCoastLandform != LF_DRIFT_BEACH)
             continue;
 
