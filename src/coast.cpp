@@ -122,7 +122,7 @@ void CRWCoast::SetCoastlineExtCRS(CGeomLine const* pLCoast)
    m_VdBreakingWaveHeight = vector<double>(nLen, DBL_NODATA);
    m_VdWaveSetupSurge = vector<double>(nLen, 0);               // it is better to initiate with DBL_NODATA but some values are outside of range in the interpolation
    // m_VdStormSurge = vector<double>(nLen, DBL_NODATA);
-   m_VdRunUp = vector<double>(nLen, 0);
+   m_VdRunUpOnCoastPoint = vector<double>(nLen, 0);
    m_VdCoastWaveHeight = vector<double>(nLen, DBL_NODATA);
    m_VdBreakingWaveAngle = vector<double>(nLen, DBL_NODATA);
    m_VdDepthOfBreaking = vector<double>(nLen, DBL_NODATA);
@@ -132,23 +132,9 @@ void CRWCoast::SetCoastlineExtCRS(CGeomLine const* pLCoast)
 
 // void CRWCoast::SetFloodWaveSetupPointExtCRS(CGeomLine const* pLCoast)
 // {
-// m_LFloodWaveSetupExtCRS = *pLCoast;
+// m_VdRunUp = *pLCoast;
 
 //    // int nLen = m_LFloodWaveSetupLineExtCRS.nGetSize();
-// }
-
-// void CRWCoast::SetFloodWaveSetupSurgePointExtCRS(CGeomLine const* pLCoast)
-// {
-// m_LFloodWaveSetupSurgeExtCRS = *pLCoast;
-
-//    // int nLen = m_LFloodWaveSetupSurgeLineExtCRS.nGetSize();
-// }
-
-// void CRWCoast::SetFloodWaveSetupSurgeRunupPointExtCRS(CGeomLine const* pLCoast)
-// {
-// m_LFloodWaveSetupSurgeRunupExtCRS = *pLCoast;
-
-//    // int nLen = m_LFloodWaveSetupSurgeRunupLineExtCRS.nGetSize();
 // }
 
 //! Returns the coastline (external CRS)
@@ -163,29 +149,6 @@ CGeom2DPoint* CRWCoast::pPtGetCoastlinePointExtCRS(int const n)
    // Point is in external CRS TODO 055 No check to see that n is < m_LCoastlineExtCRS.Size()
    return &m_LCoastlineExtCRS[n];
 }
-
-// CGeomLine*CRWCoast::pLGetFloodWaveSetupExtCRS(void)
-// {
-// return &m_LFloodWaveSetupExtCRS;
-// }
-
-// CGeom2DPoint*CRWCoast::pPtGetFloodWaveSetupPointExtCRS(int const n)
-// {
-//    // Point is in external CRS TODO 055 No check to see that n is < m_LCoastlineExtCRS.Size()
-// return &m_LFloodWaveSetupExtCRS[n];
-// }
-
-// CGeom2DPoint*CRWCoast::pPtGetFloodWaveSetupSurgePointExtCRS(int const n)
-// {
-//    // Point is in external CRS TODO 055 No check to see that n is < m_LCoastlineExtCRS.Size()
-// return &m_LFloodWaveSetupSurgeExtCRS[n];
-// }
-
-// CGeom2DPoint*CRWCoast::pPtGetFloodWaveSetupSurgeRunupPointExtCRS(int const n)
-// {
-//    // Point is in external CRS TODO 055 No check to see that n is < m_LCoastlineExtCRS.Size()
-// return &m_LFloodWaveSetupSurgeRunupExtCRS[n];
-// }
 
 //! Gets the size of the coastline
 int CRWCoast::nGetCoastlineSize(void) const
@@ -611,26 +574,16 @@ double CRWCoast::dGetWaveSetupSurge(int const nCoastPoint) const
    return m_VdWaveSetupSurge[nCoastPoint];
 }
 
-// void CRWCoast::SetStormSurge(int const nCoastPoint, double const dStormSurge)
-// {
-// m_VdStormSurge[nCoastPoint] = dStormSurge;
-// }
-
-// double CRWCoast::dGetStormSurge(int const nCoastPoint) const
-// {
-// return m_VdStormSurge[nCoastPoint];
-// }
-
 //! Sets the wave runup for this coast point
 void CRWCoast::SetRunUp(int const nCoastPoint, double const dRunUp)
 {
-   m_VdRunUp[nCoastPoint] = dRunUp;
+   m_VdRunUpOnCoastPoint[nCoastPoint] = dRunUp;
 }
 
 //! Gets the wave runup for this coast point
 double CRWCoast::dGetRunUp(int const nCoastPoint) const
 {
-   return m_VdRunUp[nCoastPoint];
+   return m_VdRunUpOnCoastPoint[nCoastPoint];
 }
 
 //! Sets the wave level for this coast point
@@ -643,7 +596,7 @@ double CRWCoast::dGetLevel(int const nCoastPoint, int const level) const
          break;
 
       case 1:     // WAVESETUPSURGE + RUNUP:
-         return m_VdWaveSetupSurge[nCoastPoint] + m_VdRunUp[nCoastPoint];
+         return m_VdWaveSetupSurge[nCoastPoint] + m_VdRunUpOnCoastPoint[nCoastPoint];
          break;
 
       default:

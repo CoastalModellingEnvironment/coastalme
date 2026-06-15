@@ -1235,7 +1235,7 @@ bool CSimulation::bReadRunDataFile(void)
                   //
                   // if (strRH.find(RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_CODE) != string::npos)
                   // {
-                  //    m_bSetupSurgeRunupFloodMaskSave = true;
+                  //    m_bSetupSurgeRunUpFloodMaskSave = true;
                   //    strRH = strRemoveSubstr(&strRH, &RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_CODE);
                   // }
                   //
@@ -1547,7 +1547,7 @@ bool CSimulation::bReadRunDataFile(void)
                   m_bBeachSedimentChangeNetTSSave = true;
                   m_bSuspSedTSSave = true;
                   m_bFloodSetupSurgeTSSave = true;
-                  m_bFloodSetupSurgeRunupTSSave = true;
+                  m_bFloodSetupSurgeRunUpTSSave = true;
                   m_bCliffNotchElevTSSave = true;
                }
                else
@@ -1614,7 +1614,7 @@ bool CSimulation::bReadRunDataFile(void)
 
                   if (strRH.find(TIME_SERIES_FLOOD_SETUP_SURGE_RUNUP_CODE) != string::npos)
                   {
-                     m_bFloodSetupSurgeRunupTSSave = true;
+                     m_bFloodSetupSurgeRunUpTSSave = true;
                      strRH = strRemoveSubstr(&strRH, &TIME_SERIES_FLOOD_SETUP_SURGE_RUNUP_CODE);
                   }
 
@@ -2856,7 +2856,7 @@ bool CSimulation::bReadRunDataFile(void)
             {
                m_bRiverineFlooding = true;
                m_bSetupSurgeFloodMaskSave = true;
-               m_bSetupSurgeRunupFloodMaskSave = true;
+               m_bSetupSurgeRunUpFloodMaskSave = true;
                m_bRasterWaveFloodLineSave = true;
             }
 
@@ -2876,7 +2876,7 @@ bool CSimulation::bReadRunDataFile(void)
                   {
                      m_bFloodSWLSetupLineSave = true;
                      m_bFloodSWLSetupSurgeLine = true;
-                     m_bFloodSWLSetupSurgeRunupLineSave = true;
+                     m_bFloodSWLSetupSurgeRunUpLineSave = true;
                   }
 
                   else
@@ -2896,7 +2896,7 @@ bool CSimulation::bReadRunDataFile(void)
 
                      if (strRH.find(VECTOR_FLOOD_SWL_SETUP_SURGE_RUNUP_LINE_CODE) != string::npos)
                      {
-                        m_bFloodSWLSetupSurgeRunupLineSave = true;
+                        m_bFloodSWLSetupSurgeRunUpLineSave = true;
                         strRH = strRemoveSubstr(&strRH, &VECTOR_FLOOD_SWL_SETUP_SURGE_RUNUP_LINE_CODE);
                      }
 
@@ -4593,7 +4593,7 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
          if (flood.bHasChild("flood_coastline"))
             config.SetFloodCoastline(flood.GetChild("flood_coastline").pstrGetValue());
          if (flood.bHasChild("runup_equation"))
-            config.SetRunupEquation(flood.GetChild("runup_equation").pstrGetValue());
+            config.SetRunUpEquation(flood.GetChild("runup_equation").pstrGetValue());
          if (flood.bHasChild("characteristic_locations"))
             config.SetFloodLocations(flood.GetChild("characteristic_locations").pstrGetValue());
          if (flood.bHasChild("flood_input_location"))
@@ -5184,7 +5184,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
          if (code == "wave_setup")
             m_bFloodSetupSurgeTSSave = true;
          if (code == "wave_runup")
-            m_bFloodSetupSurgeRunupTSSave = true;
+            m_bFloodSetupSurgeRunUpTSSave = true;
          if (code == "cliff_notch")
             m_bCliffNotchElevTSSave = true;
       }
@@ -5461,7 +5461,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
       // Case 67: Simulate riverine flooding?
       m_bRiverineFlooding = true;
       m_bSetupSurgeFloodMaskSave = true;
-      m_bSetupSurgeRunupFloodMaskSave = true;
+      m_bSetupSurgeRunUpFloodMaskSave = true;
       m_bRasterWaveFloodLineSave = true;
 
       // Case 68: Output riverine flooding vector files
@@ -5481,7 +5481,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
 
       // Case 69: Flooding runup equation?
       // TODO: This is a guess, please check
-      m_nRunUpEquation = config.nGetRunupEquation();
+      m_nRunUpEquation = config.nGetRunUpEquation();
 
 
       // Case 70: Somthing unknown relating to riverine flooding

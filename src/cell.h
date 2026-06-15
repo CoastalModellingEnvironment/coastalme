@@ -41,17 +41,8 @@ class CGeomCell
    //! Switch to indicate if this is a sea cell, contiguous with other sea cells
    bool m_bInContiguousSea;
 
-   // //! Switch to indicate that this cell is in the contiguous runup flood area
-   // bool m_bInContiguousFlood;
-
    //! Switch to indicate that this cell is in the active zone
    bool m_bIsInActiveZone;
-
-   // //! Is this cell a cliff toe?
-   // bool m_bCliffToe;
-
-   // //! Switch to indicate that this cell is 'under' a runup flood line TODO 007 Finish surge and runup stuff
-   // bool m_bFloodLine;
 
    // //! Switch to indicate that this cell is 'under' a runup wave flood line TODO 007 Finish surge and runup stuff
    // bool m_bWaveFlood;
@@ -69,13 +60,13 @@ class CGeomCell
    bool m_bPossibleCoastStartCell;
 
    //! TODO 007 Finish surge and runup stuff
-   bool m_bPossibleFloodStartCell;
+   // bool m_bPossibleFloodStartCell;
 
    //! TODO 007 Finish surge and runup stuff
-   bool m_bFloodBySetupSurge;
+   // bool m_bFloodBySetupSurge;
 
    //! TODO 007 Finish surge and runup stuff
-   bool m_bFloodBySetupSurgeRunup;
+   // bool m_bFloodBySetupSurgeRunUp;
 
    //! Switch to show platform erosion on this cell during this timestep
    bool m_bPlatformErosionThisTimestep;
@@ -276,8 +267,8 @@ class CGeomCell
    // void UnSetInContiguousFlood(void);
    // void SetFloodBySetupSurge(void);
    // bool bIsFloodBySetupSurge(void) const;
-   // void SetFloodBySetupSurgeRunup(void);
-   // bool bIsFloodBySetupSurgeRunup(void) const;
+   // void SetFloodBySetupSurgeRunUp(void);
+   // bool bIsFloodBySetupSurgeRunUp(void) const;
    // bool bIsInContiguousSeaFlood(void) const;
 
    void SetInActiveZone(bool const);

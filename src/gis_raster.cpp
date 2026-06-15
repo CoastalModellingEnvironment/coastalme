@@ -1122,14 +1122,6 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
          strFilePathName.append(RASTER_SLOPE_OF_CONSOLIDATED_SEDIMENT_NAME);
          break;
 
-      case (RASTER_PLOT_SLOPE_FOR_CLIFF_TOE):
-         strFilePathName.append(RASTER_SLOPE_FOR_CLIFF_TOE_NAME);
-         break;
-
-      // case (RASTER_PLOT_CLIFF_TOE):
-      //    strFilePathName.append(RASTER_CLIFF_TOE_NAME);
-      //    break;
-
       case (RASTER_PLOT_SEA_DEPTH):
          strFilePathName.append(RASTER_SEA_DEPTH_NAME);
          break;
@@ -1867,7 +1859,7 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
             //    break;
             //
             // case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
-            //    dTmp = (m_pRasterGrid->m_Cell[nX][nY].bIsFloodBySetupSurgeRunup() ? 1 : 0);
+            //    dTmp = (m_pRasterGrid->m_Cell[nX][nY].bIsFloodBySetupSurgeRunUp() ? 1 : 0);
             //    break;
 
             // case (RASTER_PLOT_WAVE_FLOOD_LINE):

@@ -57,10 +57,10 @@ int CSimulation::nDoBarrierFormation(void)
          int const nY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
 
          // And get the this-iteration runup for this coast point
-         double const dRunup = m_VCoast[nCoast].dGetRunUp(nCoastPoint);
+         double const dRunUp = m_VCoast[nCoast].dGetRunUp(nCoastPoint);
 
          // Calc total wave elevation
-         double const dWaveElev = m_dThisIterSWL + dRunup;
+         double const dWaveElev = m_dThisIterSWL + dRunUp;
 
          // TODO calculate inland movement of sand and gravel
       }

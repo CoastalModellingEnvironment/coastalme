@@ -991,7 +991,7 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
             }
          }
 
-         if (m_bFloodSWLSetupSurgeRunupLineSave)
+         if (m_bFloodSWLSetupSurgeRunUpLineSave)
          {
             // Create a feature object, one per coast
             OGRFeature* pOGR4Feature = OGRFeature::CreateFeature(pOGRLayer->GetLayerDefn());
@@ -1020,20 +1020,20 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
             // OK, now do features
             OGRLineString OGR4ls;
 
-            for (int i = 0; i < static_cast<int>(m_VFloodWaveSetupSurgeRunup.size()); i++)
+            for (int i = 0; i < static_cast<int>(m_VFloodWaveSetupSurgeRunUp.size()); i++)
             {
                pOGR4Feature->SetField(strFieldValue1.c_str(), m_dThisIterSWL);
                pOGR4Feature->SetField(strFieldValue2.c_str(), static_cast<double>(m_bGISSaveDigitsSequential ? m_nGISSave : m_ulIter));
-               int const runup_level = int(m_dThisIterDiffWaveSetupSurgeRunupWaterLevel * 1000);
+               int const runup_level = int(m_dThisIterDiffWaveSetupSurgeRunUpWaterLevel * 1000);
                pOGR4Feature->SetField(strFieldValue4.c_str(), runup_level);
 
                // Set the feature's attribute (the coast number)
                // Now attach a geometry to the feature object
-               for (int j = 0; j < m_VFloodWaveSetupSurgeRunup[i].pLGetCoastlineExtCRS()->nGetSize(); j++)
+               for (int j = 0; j < m_VFloodWaveSetupSurgeRunUp[i].pLGetCoastlineExtCRS()->nGetSize(); j++)
                {
                   // In external CRS
                   // Add SWL + wave setup + surge + runup line
-                  OGR4ls.addPoint(m_VFloodWaveSetupSurgeRunup[i].pPtGetCoastlinePointExtCRS(j)->dGetX(), m_VFloodWaveSetupSurgeRunup[i].pPtGetCoastlinePointExtCRS(j)->dGetY());
+                  OGR4ls.addPoint(m_VFloodWaveSetupSurgeRunUp[i].pPtGetCoastlinePointExtCRS(j)->dGetX(), m_VFloodWaveSetupSurgeRunUp[i].pPtGetCoastlinePointExtCRS(j)->dGetY());
                }
 
                pOGR4Feature->SetGeometry(&OGR4ls);
@@ -1357,7 +1357,7 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
          else if (nDataItem == VECTOR_PLOT_STORM_SURGE)
             strFieldValue1 = "Stormsurge";
          else if (nDataItem == VECTOR_PLOT_RUN_UP)
-            strFieldValue1 = "Runup";
+            strFieldValue1 = "RunUp";
 
          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTReal);
 

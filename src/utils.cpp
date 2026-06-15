@@ -1180,7 +1180,7 @@ string CSimulation::strListTSFiles(void) const
       strTmp.append(", ");
    }
 
-   if (m_bFloodSetupSurgeRunupTSSave)
+   if (m_bFloodSetupSurgeRunUpTSSave)
    {
       strTmp.append(TIME_SERIES_FLOOD_SETUP_SURGE_RUNUP_CODE);
       strTmp.append(", ");
@@ -1376,7 +1376,7 @@ bool CSimulation::bSetUpTSFiles(void)
       }
    }
 
-   if (m_bFloodSetupSurgeRunupTSSave)
+   if (m_bFloodSetupSurgeRunUpTSSave)
    {
       // Sediment load
       strTSFile = m_strOutPath;
@@ -1384,8 +1384,8 @@ bool CSimulation::bSetUpTSFiles(void)
       strTSFile.append(CSVEXT);
 
       // Open sediment load time-series CSV file
-      FloodSetupSurgeRunupTSStream.open(strTSFile.c_str(), ios::out | ios::trunc);
-      if (! FloodSetupSurgeRunupTSStream)
+      FloodSetupSurgeRunUpTSStream.open(strTSFile.c_str(), ios::out | ios::trunc);
+      if (! FloodSetupSurgeRunUpTSStream)
       {
          // Error, cannot open sediment load time-series file
          cerr << ERR << "cannot open " << strTSFile << " for output" << endl;
@@ -3086,7 +3086,7 @@ void CSimulation::DoEndOfRunDeletes(void)
 
    // m_VFloodWaveSetup.clear();
    m_VFloodWaveSetupSurge.clear();
-   m_VFloodWaveSetupSurgeRunup.clear();
+   m_VFloodWaveSetupSurgeRunUp.clear();
 }
 
 //===============================================================================================================================

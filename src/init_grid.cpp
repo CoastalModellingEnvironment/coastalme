@@ -46,7 +46,7 @@ int CSimulation::nInitGridAndCalcStillWaterLevel(void)
 
    // m_VFloodWaveSetup.clear();
    m_VFloodWaveSetupSurge.clear();
-   m_VFloodWaveSetupSurgeRunup.clear();
+   m_VFloodWaveSetupSurgeRunUp.clear();
 
    // Do some every-timestep initialisation
    m_nXMinBoundingBox = INT_MAX;

@@ -583,7 +583,7 @@ void CSimulation::WriteStartRunDetails(void)
       // TODO 007 Need more info on this
       OutStream << " FloodSWLSetupLine                                         \t: " << (m_bFloodSWLSetupLineSave ? "Y" : "N") << endl;
       OutStream << " FloodSWLSetupSurgeLine                                    \t: " << (m_bFloodSWLSetupSurgeLine ? "Y" : "N") << endl;
-      OutStream << " m_bFloodSWLSetupSurgeRunupLineSave                            \t: " << (m_bFloodSWLSetupSurgeRunupLineSave ? "Y" : "N") << endl;
+      OutStream << " m_bFloodSWLSetupSurgeRunUpLineSave                            \t: " << (m_bFloodSWLSetupSurgeRunUpLineSave ? "Y" : "N") << endl;
    }
 
    OutStream << " Gravitational acceleration                                \t: " << resetiosflags(ios::floatfield) << fixed << m_dG << " m^2/s" << endl;
@@ -622,7 +622,7 @@ void CSimulation::WriteStartRunDetails(void)
    if (m_bOutputErosionPotentialData)
       OutStream << " (see " << m_strOutPath << EROSION_POTENTIAL_LOOKUP_FILE << ")";
 
-   OutStream << " Runup equation                                            \t: ";
+   OutStream << " RunUp equation                                            \t: ";
    if (m_nRunUpEquation == 0)
       OutStream << "none";
    else if (m_nRunUpEquation == RUNUP_EQUATION_NIELSEN_HANSLOW)
@@ -1245,13 +1245,13 @@ bool CSimulation::bWriteTSFiles(void)
    }
 
    // This-iteration setup surge runup
-   if (m_bFloodSetupSurgeRunupTSSave)
+   if (m_bFloodSetupSurgeRunUpTSSave)
    {
       // Output as is (m depth equivalent)
-      FloodSetupSurgeRunupTSStream << m_dSimElapsed << "\t,\t" << m_dThisIterDiffWaveSetupSurgeRunupWaterLevel << endl;
+      FloodSetupSurgeRunUpTSStream << m_dSimElapsed << "\t,\t" << m_dThisIterDiffWaveSetupSurgeRunUpWaterLevel << endl;
 
       // Did a time series file write error occur?
-      if (FloodSetupSurgeRunupTSStream.fail())
+      if (FloodSetupSurgeRunUpTSStream.fail())
          return false;
    }
 

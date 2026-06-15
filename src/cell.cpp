@@ -36,10 +36,7 @@ using std::vector;
 //! Constructor with initialisation list
 CGeomCell::CGeomCell()
    : m_bInContiguousSea(false),
-     // m_bInContiguousFlood(false),
      m_bIsInActiveZone(false),
-     // m_bCliffToe(false),
-     // m_bFloodLine(false),
      // m_bWaveFlood(false),
      // m_bCheckCell(false),
      // m_bCheckFloodCell(false),
@@ -139,18 +136,6 @@ bool CGeomCell::bIsInContiguousSea(void) const
    return m_bInContiguousSea;
 }
 
-// //! Set this cell as in the contiguous runup flood area
-// void CGeomCell::SetInContiguousFlood(void)
-// {
-//    m_bInContiguousFlood = true;
-// }
-
-// //! Set this cell as not in the contiguous runup flood area
-// void CGeomCell::UnSetInContiguousFlood(void)
-// {
-//    m_bInContiguousFlood = false;
-// }
-
 // //! Set this cell as flooded by setup surge
 // void CGeomCell::SetFloodBySetupSurge(void)
 // {
@@ -164,21 +149,15 @@ bool CGeomCell::bIsInContiguousSea(void) const
 // }
 
 // //! Set this cell as flooded by setup surge runup
-// void CGeomCell::SetFloodBySetupSurgeRunup(void)
+// void CGeomCell::SetFloodBySetupSurgeRunUp(void)
 // {
-//    m_bFloodBySetupSurgeRunup = true;
+//    m_bFloodBySetupSurgeRunUp = true;
 // }
 
 // //! Is this cell flooded by setup surge runup?
-// bool CGeomCell::bIsFloodBySetupSurgeRunup(void) const
+// bool CGeomCell::bIsFloodBySetupSurgeRunUp(void) const
 // {
-//    return m_bFloodBySetupSurgeRunup;
-// }
-
-// //! Is this cell in the contiguous sea flood area?
-// bool CGeomCell::bIsInContiguousSeaFlood(void) const
-// {
-//    return m_bInContiguousFlood;
+//    return m_bFloodBySetupSurgeRunUp;
 // }
 
 //! Sets a flag to show whether this cell is in the active zone
@@ -217,17 +196,17 @@ bool CGeomCell::bIsPossibleCoastStartCell(void) const
    return m_bPossibleCoastStartCell;
 }
 
-//! Sets a flag to show that this cell has been flagged as a possible start-point for runup flooding
-void CGeomCell::SetPossibleFloodStartCell(void)
-{
-   m_bPossibleFloodStartCell = true;
-}
+// //! Sets a flag to show that this cell has been flagged as a possible start-point for runup flooding
+// void CGeomCell::SetPossibleFloodStartCell(void)
+// {
+//    m_bPossibleFloodStartCell = true;
+// }
 
-//! Returns a flag which shows whether this cell has been flagged as a possible start point for runup flooding
-bool CGeomCell::bIsPossibleFloodStartCell(void) const
-{
-   return m_bPossibleFloodStartCell;
-}
+// //! Returns a flag which shows whether this cell has been flagged as a possible start point for runup flooding
+// bool CGeomCell::bIsPossibleFloodStartCell(void) const
+// {
+//    return m_bPossibleFloodStartCell;
+// }
 
 //! Returns true if this cell has had potential platform erosion on this cell this timestep
 bool CGeomCell::bPotentialPlatformErosion(void) const
@@ -261,30 +240,6 @@ int CGeomCell::nGetCoastline(void) const
 {
    return m_nCoastlineID;
 }
-
-// //! Marks this cell as a cliff toe cell
-// void CGeomCell::SetAsCliffToe(bool const bNewFlag)
-// {
-//    m_bCliffToe = bNewFlag;
-// }
-//
-// //! Returns true if this cell is marked as a cliff toe
-// bool CGeomCell::bIsCliffToe(void) const
-// {
-//    return m_bCliffToe;
-// }
-
-// //! Marks this cell as a flood line
-// void CGeomCell::SetAsFloodline(bool const bNewFlag)
-// {
-//    m_bFloodLine = bNewFlag;
-// }
-
-// //! Returns true if the cell is a flood line
-// bool CGeomCell::bIsFloodline(void) const
-// {
-//    return m_bFloodLine;
-// }
 
 //! Gets the ID number of the coast-normal profile which this cell is 'under', or returns INT_NODATA
 int CGeomCell::nGetProfileID(void) const
@@ -448,7 +403,7 @@ double CGeomCell::dGetCoarseTalusDepth(void) const
 // m_dStormSurge = dStormSurge;
 // }
 
-// void CGeomCell::SetRunUp(int const dRunUp)
+// void CGeomCell::SetRunUpOnCell(int const dRunUp)
 // {
 // m_dRunUp = dRunUp;
 // }
@@ -925,13 +880,11 @@ void CGeomCell::SetSeaDepth(void)
 void CGeomCell::InitCell(void)
 {
    m_bInContiguousSea = false;
-   // m_bInContiguousFlood = false;
-   // m_bFloodLine = false;
    m_bIsInActiveZone = false;
    // m_bEstimated = false;
    m_bShadowBoundary = false;
    m_bPossibleCoastStartCell = false;
-   m_bPossibleFloodStartCell = false;
+   // m_bPossibleFloodStartCell = false;
    // m_bWaveFlood = false;
    // m_bCheckCell = false;
    // m_bCheckFloodCell = false;

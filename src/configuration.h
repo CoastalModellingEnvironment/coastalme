@@ -139,7 +139,7 @@ private:
    // Flood parameters
    bool m_bFloodInput;
    string m_strFloodCoastline;
-   int m_nRunupEquation;
+   int m_nRunUpEquation;
    string m_strFloodLocations;
    string m_strFloodInputLocation;
    vector<string> m_VstrFloodFiles;
@@ -563,15 +563,15 @@ public:
       m_strFloodCoastline = *pStr;
    }
 
-   void SetRunupEquation(string const* pStr)
+   void SetRunUpEquation(string const* pStr)
    {
       if ((*pStr == "") or (*pStr == " "))
       {
-         m_nRunupEquation = 0;
+         m_nRunUpEquation = 0;
       }
       else
       {
-         m_nRunupEquation = stoi(*pStr);
+         m_nRunUpEquation = stoi(*pStr);
       }
    }
 
@@ -1080,9 +1080,9 @@ public:
       return &m_strFloodCoastline;
    }
 
-   int nGetRunupEquation(void) const
+   int nGetRunUpEquation(void) const
    {
-      return m_nRunupEquation;
+      return m_nRunUpEquation;
    }
 
    string const* pstrGetFloodLocations(void) const

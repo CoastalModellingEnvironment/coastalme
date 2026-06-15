@@ -1547,7 +1547,7 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
 //
 //    case 1: // WAVESETUP + SURGE + RUNUP:
 //    {
-//       if (m_VFloodWaveSetupSurgeRunup.empty())
+//       if (m_VFloodWaveSetupSurgeRunUp.empty())
 //       {
 //          cerr << m_ulIter << ": " << ERR << "no flood coastline located: this iteration SWL = " << m_dThisIterSWL << ", maximum DEM top surface elevation = " << m_dThisIterTopElevMax << ", minimum DEM top surface elevation = " << m_dThisIterTopElevMin << endl;
 //          return RTN_ERR_NO_COAST;

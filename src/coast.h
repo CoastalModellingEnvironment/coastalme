@@ -66,15 +66,6 @@ class CRWCoast
    //! Smoothed line of points (external CRS) giving the plan view of the vector coast
    CGeomLine m_LCoastlineExtCRS;
 
-   //! Line of points (external CRS) giving the plan view of the vector flood of wave setup
-   CGeomLine m_LFloodWaveSetupExtCRS;
-
-   //! Line of points (external CRS) giving the plan view of the vector flood of wave setup + surge
-   CGeomLine m_LFloodWaveSetupSurgeExtCRS;
-
-   //! Line of points (external CRS) giving the plan view of the vector flood of wave setup + surge + runup
-   CGeomLine m_LFloodWaveSetupSurgeRunupExtCRS;
-
    //! Unsmoothed integer x-y coordinates (grid CRS) of the cell marked as coastline for each point on the vector coastline. Note that where there is a coast-normal profile, this is the same as point zero in the profile coordinates
    CGeomILine m_ILCellsMarkedAsCoastline;
 
@@ -108,11 +99,11 @@ class CRWCoast
    //! The wave setup on a normal drawn from each point on m_LCoastlineExtCRS
    vector<double> m_VdWaveSetupSurge;
 
-   // The storm surge on a normal drawn from each point on m_LCoastlineExtCRS
-   // vector<double> m_VdStormSurge;
+   //! The runup value at each coast point
+   vector<double> m_VdRunUp;
 
    //! The run-up on a normal drawn from each point on m_LCoastlineExtCRS
-   vector<double> m_VdRunUp;
+   vector<double> m_VdRunUpOnCoastPoint;
 
    //! The wave height at coast point on a normal drawn from each point on m_LCoastlineExtCRS
    vector<double> m_VdCoastWaveHeight;
@@ -170,14 +161,13 @@ class CRWCoast
 
    void SetCoastlineExtCRS(CGeomLine const*);
    CGeomLine* pLGetCoastlineExtCRS(void);
-   // CGeomLine* pLGetFloodWaveSetupExtCRS(void);
+   // CGeomLine* pLGetRunUpLineExtCRS(void);
    // void SetFloodWaveSetupPointExtCRS(CGeomLine const*);
    // void SetFloodWaveSetupSurgePointExtCRS(CGeomLine const*);
-   // void SetFloodWaveSetupSurgeRunupPointExtCRS(CGeomLine const*);
+   // void SetFloodWaveSetupSurgeRunUpPointExtCRS(CGeomLine const*);
    CGeom2DPoint* pPtGetCoastlinePointExtCRS(int const);
-   // CGeom2DPoint* pPtGetFloodWaveSetupPointExtCRS(int const);
    // CGeom2DPoint* pPtGetFloodWaveSetupSurgePointExtCRS(int const);
-   // CGeom2DPoint* pPtGetFloodWaveSetupSurgeRunupPointExtCRS(int const);
+   // CGeom2DPoint* pPtGetFloodWaveSetupSurgeRunUpPointExtCRS(int const);
 
    int nGetCoastlineSize(void) const;
    // double dGetCoastlineSegmentLength(int const, int const);

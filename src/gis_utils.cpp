@@ -1332,7 +1332,7 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
    //       return false;
    // }
 
-   // if (m_bSetupSurgeRunupFloodMaskSave)
+   // if (m_bSetupSurgeRunUpFloodMaskSave)
    // {
    //    if (! bWriteRasterGISFile(RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK, &RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK_TITLE))
    //       return false;

@@ -412,8 +412,8 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
    int const nCoastPoint = pCliff->nGetPointOnCoast();
 
    // And get the wave runup at this point
-   double const dRunup = m_VCoast[nCoast].dGetRunUp(nCoastPoint);
-   double const dWaveElev = m_dThisIterSWL + dRunup;
+   double const dRunUp = m_VCoast[nCoast].dGetRunUp(nCoastPoint);
+   double const dWaveElev = m_dThisIterSWL + dRunUp;
 
    // Get the apex elevation of the cliff notch
    double const dNotchApexElev = pCliff->dGetNotchApexElev();
@@ -427,7 +427,7 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
       if (dWaveElev < dCutoffElev)
       {
          // SWL is below the cutoff elevation, so no incision of this existing notch
-         LogStream << m_ulIter << ":\t NO incision of existing notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << " dNotchApexElev = " << dNotchApexElev << " Sediment top without talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus() << " sediment top with talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << endl;
+         LogStream << m_ulIter << ":\t NO incision of existing notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunUp = " << dRunUp << " dNotchApexElev = " << dNotchApexElev << " Sediment top without talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus() << " sediment top with talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << endl;
 
          return false;
       }
@@ -449,7 +449,7 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
       // And add to the cell's accumulated wave energy
       m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->AddToAccumWaveEnergy(dWaveEnergy * dWeight);
 
-      LogStream << m_ulIter << ":\t coast " << nCoast << " [" << nX << "][" << nY << "] existing notch incised, acc wave energy = " << m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->dGetAccumWaveEnergy() << " dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " incision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+      LogStream << m_ulIter << ":\t coast " << nCoast << " [" << nX << "][" << nY << "] existing notch incised, acc wave energy = " << m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->dGetAccumWaveEnergy() << " dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunUp = " << dRunUp << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " incision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
 
       return true;
    }
@@ -470,7 +470,7 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
          if (dWaveElev < dCutoffElev)
          {
             // SWL is below the cutoff elevation, so no incision of this existing notch
-            LogStream << m_ulIter << ":\t NO incision of new notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << " dNotchApexElev = " << dNotchApexElev << " sediment top without talus = " << dSedTopElevNoTalus << " sediment top with talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << endl;
+            LogStream << m_ulIter << ":\t NO incision of new notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunUp = " << dRunUp << " dNotchApexElev = " << dNotchApexElev << " sediment top without talus = " << dSedTopElevNoTalus << " sediment top with talus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << endl;
 
             return false;
          }
@@ -493,7 +493,7 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
          // And add to the cell's accumulated wave energy
          m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->AddToAccumWaveEnergy(dWaveEnergy * dWeight);
 
-         LogStream << m_ulIter << ":\t incision of newly-created notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunup = " << dRunup << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dNotchIncision = " << dNotchIncision << endl;
+         LogStream << m_ulIter << ":\t incision of newly-created notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunUp = " << dRunUp << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dNotchIncision = " << dNotchIncision << endl;
 
          return true;
       }
@@ -697,10 +697,10 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                return RTN_ERR_CLIFF_TALUS_TO_UNCONS;
 
             // And get the wave runup at this point
-            double const dRunup = m_VCoast[nCoastClosest].dGetRunUp(nCoastPointClosest);
+            double const dRunUp = m_VCoast[nCoastClosest].dGetRunUp(nCoastPointClosest);
 
             // Now calc the elevation to which waves reach
-            double const dWaveElev = m_dThisIterSWL + dRunup;
+            double const dWaveElev = m_dThisIterSWL + dRunUp;
 
             // Only move talus if waves (inc runup) reach above the bottom of the talus
             if (dWaveElev < dThisTalusBottomElev)

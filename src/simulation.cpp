@@ -140,7 +140,7 @@ CSimulation::CSimulation(void)
    m_bActualPlatformErosionTSSave = false;
    m_bSuspSedTSSave = false;
    m_bFloodSetupSurgeTSSave = false;
-   m_bFloodSetupSurgeRunupTSSave = false;
+   m_bFloodSetupSurgeRunUpTSSave = false;
    m_bCliffCollapseTalusDepositionTSSave = false;
    m_bCliffCollapseErosionTSSave = false;
    m_bBeachErosionTSSave = false;
@@ -175,13 +175,13 @@ CSimulation::CSimulation(void)
    m_bRiverineFlooding = false;
    m_bRunUpSave = false;
    m_bSetupSurgeFloodMaskSave = false;
-   m_bSetupSurgeRunupFloodMaskSave = false;
+   m_bSetupSurgeRunUpFloodMaskSave = false;
    m_bRasterWaveFloodLineSave = false;
    m_bVectorWaveFloodLineSave = false;
    m_bFloodLocationSave = false;
    m_bFloodSWLSetupLineSave = false;
    m_bFloodSWLSetupSurgeLine = false;
-   m_bFloodSWLSetupSurgeRunupLineSave = false;
+   m_bFloodSWLSetupSurgeRunUpLineSave = false;
    m_bGISSaveDigitsSequential = false;
    m_bHaveConsolidatedSediment = false;
    m_bGDALOptimisations = false;
@@ -383,7 +383,7 @@ CSimulation::CSimulation(void)
    m_dThisIterDiffTotWaterLevel = 0;         // Used in surge stuff TODO 007 Finish surge and runup stuff
    m_dThisIterDiffWaveSetupWaterLevel = 0;
    m_dThisIterDiffWaveSetupSurgeWaterLevel = 0;
-   m_dThisIterDiffWaveSetupSurgeRunupWaterLevel = 0;
+   m_dThisIterDiffWaveSetupSurgeRunUpWaterLevel = 0;
    m_dTotalFineUnconsInPolygons = 0;
    m_dTotalSandUnconsInPolygons = 0;
    m_dTotalCoarseUnconsInPolygons = 0;
@@ -512,10 +512,10 @@ CSimulation::~CSimulation(void)
       FloodSetupSurgeTSStream.close();
    }
 
-   if (FloodSetupSurgeRunupTSStream && FloodSetupSurgeRunupTSStream.is_open())
+   if (FloodSetupSurgeRunUpTSStream && FloodSetupSurgeRunUpTSStream.is_open())
    {
-      FloodSetupSurgeRunupTSStream.flush();
-      FloodSetupSurgeRunupTSStream.close();
+      FloodSetupSurgeRunUpTSStream.flush();
+      FloodSetupSurgeRunUpTSStream.close();
    }
 
    if (CliffNotchElevTSStream && CliffNotchElevTSStream.is_open())
@@ -946,14 +946,6 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
 
       // Locate estuaries TODO someday...
 
-      // if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse && m_bCliffToeLocate)
-      // {
-      //    // Locate and trace cliff toe
-      //    nRet = nLocateCliffToe();
-      //    if (nRet != RTN_OK)
-      //       return nRet;
-      // }
-
       // For all cells, use classification rules to assign sea and hinterland landform categories
       nRet = nAssignLandformsForAllCells();
       if (nRet != RTN_OK)
@@ -1328,7 +1320,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       //       return nRet;
       // }
       //
-      // if (m_bFloodSWLSetupSurgeRunupLineSave || m_bSetupSurgeRunupFloodMaskSave)
+      // if (m_bFloodSWLSetupSurgeRunUpLineSave || m_bSetupSurgeRunUpFloodMaskSave)
       // {
       //    // TODO 007 Finish surge and runup stuff
       //    m_nLevel = 1;

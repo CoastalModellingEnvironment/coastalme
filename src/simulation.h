@@ -320,7 +320,7 @@ class CSimulation
    bool m_bFloodSetupSurgeTSSave;
 
    //! Save the flood setup surge runup time series file? TODO 007 Finish surge and runup stuff
-   bool m_bFloodSetupSurgeRunupTSSave;
+   bool m_bFloodSetupSurgeRunUpTSSave;
 
    //! Save the cliff notch elevation time series file?
    bool m_bCliffNotchElevTSSave;
@@ -419,7 +419,7 @@ class CSimulation
    bool m_bSetupSurgeFloodMaskSave;
 
    //! Are we saving the setup surge runup flood mask? TODO 007 Finish surge and runup stuff
-   bool m_bSetupSurgeRunupFloodMaskSave;
+   bool m_bSetupSurgeRunUpFloodMaskSave;
 
    //! Are we saving the raster wave flood line? TODO 007 Finish surge and runup stuff
    bool m_bRasterWaveFloodLineSave;
@@ -443,7 +443,7 @@ class CSimulation
    bool m_bCliffCollapseTimestepSave;
 
    //! Are we saving the flood still water level setup surge runup line? TODO 007 Finish surge and runup stuff
-   bool m_bFloodSWLSetupSurgeRunupLineSave;
+   bool m_bFloodSWLSetupSurgeRunUpLineSave;
 
    //! Are the GIS save digits (which are part of each GIS file name) sequential, or are they the iteration number?
    bool m_bGISSaveDigitsSequential;
@@ -755,7 +755,7 @@ class CSimulation
    double m_dThisIterDiffWaveSetupSurgeWaterLevel;
 
    //! TODO 007 Finish surge and runup stuff
-   double m_dThisIterDiffWaveSetupSurgeRunupWaterLevel;
+   double m_dThisIterDiffWaveSetupSurgeRunUpWaterLevel;
 
    //! The height of breaking waves (m)
    double m_dBreakingWaveHeight;
@@ -1395,7 +1395,7 @@ class CSimulation
    ofstream FloodSetupSurgeTSStream;
 
    //! Flood setup surge runup time series file output stream
-   ofstream FloodSetupSurgeRunupTSStream;
+   ofstream FloodSetupSurgeRunUpTSStream;
 
    //! Cliff notch elevation time series file output stream
    ofstream CliffNotchElevTSStream;
@@ -1593,7 +1593,7 @@ class CSimulation
    vector<CRWCoast> m_VFloodWaveSetupSurge;
 
    //! TODO 007 Finish surge and runup stuff
-   vector<CRWCoast> m_VFloodWaveSetupSurgeRunup;
+   vector<CRWCoast> m_VFloodWaveSetupSurgeRunUp;
 
    //! Corners of the bounding box
    vector<CGeom2DIPoint> m_VPtiBoundingBoxCorner;
