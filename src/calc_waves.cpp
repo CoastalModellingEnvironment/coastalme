@@ -2119,6 +2119,25 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
    // OK, fill coast point between profiles for setupsurge and runup
    for (int n = nThisCoastPoint; n <= nNextCoastPoint; n++)
    {
+      // TEST =====================================
+      // At this point on the coast, are waves on- or off-shore, and up- or down-coast? First get the flux orientation (a tangent to the coastline)
+      double const dFluxOrientation = m_VCoast[nCoast].dGetFluxOrientation(n);
+
+      // If this coast point is in the active zone, use the breaking wave orientation, otherwise use the deep water wave orientation
+      double dWaveAngle;
+      if (bFPIsEqual(m_VCoast[nCoast].dGetDepthOfBreaking(n), DBL_NODATA, TOLERANCE))
+         // Not in active zone
+         dWaveAngle = m_VCoast[nCoast].dGetCoastDeepWaterWaveAngle(n);
+      else
+         // In active zone
+         dWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(n);
+      bool bDownCoast = false;
+      int const nSeaHand = m_VCoast[nCoast].nGetSeaHandedness();
+      bool const bOnShore = bOnOrOffShoreAndUpOrDownCoast(dFluxOrientation, dWaveAngle, nSeaHand, bDownCoast);
+      m_VCoast[nCoast].SetWavesOnShore(n, bOnShore);
+      m_VCoast[nCoast].SetWavesDownCoast(n, bDownCoast);
+      // TEST =====================================
+
       // Fill first wave setup and surge
       int const nDist = n - nThisCoastPoint;
       double const dThisWeight = (nDistBetween - nDist) / static_cast<double>(nDistBetween);
