@@ -287,25 +287,13 @@ class CGeomCell
 
    CRWCellLandform* pGetCellLandform(void);
 
-   void SetWaveFlood(void);
    bool bElevLessThanSWL(void) const;
-
-   void SetCheckCell(void);
-   bool bIsCellCheck(void) const;
-
-   void SetCheckFloodCell(void);
-   void UnSetCheckFloodCell(void);
-   bool bIsCellFloodCheck(void) const;
 
    void SetLocalConsSedSlope(double const);
    double dGetLocalConsSedSlope(void) const;
 
-   // void SetSlopeForCliffToe(double const);
-   // double dGetSlopeForCliffToe(void) const;
-
    bool bIsInundated(void);
    double dGetThisIterSWL(void) const;
-   double dGetThisIterTotWaterLevel(void) const;      // Not used TODO 007 Finish surge and runup stuff
    void SetSeaDepth(void);
    double dGetSeaDepth(void) const;
    void InitCell(void);

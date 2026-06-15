@@ -5544,7 +5544,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
    m_dCoastNormalLength = config.dGetNormalLength();
 
    // Approximate minimum spacing (m) between wave transects for interpolation densification
-   m_dSyntheticTransectSpacing = config.dGetSyntheticTransectSpacing();
+   m_dTemporaryProfileSpacing = config.dGetSyntheticTransectSpacing();
 
    // Case 80: Start depth for wave calcs (ratio to deep water wave height) check that this is a valid double
    m_dWaveDepthRatioForWaveCalcs = config.dGetBreakingWaveRatio();

@@ -83,7 +83,7 @@ struct Point2D
 // Point cloud adaptor for nanoflann
 struct PointCloud
 {
-   std::vector<Point2D> pts;
+   vector<Point2D> pts;
 
    inline size_t kdtree_get_point_count() const
    {
@@ -109,7 +109,7 @@ using KDTree = nanoflann::KDTreeSingleIndexAdaptor<nanoflann::L2_Simple_Adaptor<
 class SpatialInterpolator
 {
    public:
-   SpatialInterpolator(std::vector<Point2D> const& points, std::vector<double> const& values, int k_neighbors = 12, double power = 2.0);
+   SpatialInterpolator(vector<Point2D> const& points, vector<double> const& values, int k_neighbors = 12, double power = 2.0);
 
    ~SpatialInterpolator();
 

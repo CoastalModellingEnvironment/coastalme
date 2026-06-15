@@ -63,6 +63,7 @@ int CSimulation::nDoBarrierFormation(void)
          double const dWaveElev = m_dThisIterSWL + dRunUp;
 
          // TODO calculate inland movement of sand and gravel
+         bool bWavesDownCoast = m_VCoast[nCoast].bGetWavesDownCoast(nCoastPoint);
       }
    }
 

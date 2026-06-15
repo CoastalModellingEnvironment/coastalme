@@ -43,7 +43,7 @@ using std::accumulate;
 #include "i_line.h"
 
 //===============================================================================================================================
-//! Determines whether the wave orientation at this point on a coast is onshore or offshore, and up-coast (i.e. along the coast in the direction of decreasing coastline point numbers) or down-coast (i.e. along the coast in the direction of increasing coastline point numbers)
+//! Determines whether the wave orientation at this point on a coast is on-shore or off-shore, and up-coast (i.e. along the coast in the direction of decreasing coastline point numbers) or down-coast (i.e. along the coast in the direction of increasing coastline point numbers)
 //===============================================================================================================================
 bool CSimulation::bOnOrOffShoreAndUpOrDownCoast(double const dCoastAngle, double const dWaveAngle, int const nSeaHand, bool& bDownCoast)
 {
@@ -180,6 +180,7 @@ int CSimulation::nDoAllShadowZones(void)
                   bDownCoast = false;
                   bool const bOnShore = bOnOrOffShoreAndUpOrDownCoast(dFluxOrientation, dWaveAngle, nSeaHand, bDownCoast);
                   m_VCoast[nCoast].SetWavesOnShore(nCoastPoint, bOnShore);
+                  m_VCoast[nCoast].SetWavesDownCoast(nCoastPoint, bDownCoast);
 
                   // if (m_nLogFileDetail >= LOG_FILE_ALL)
                   // {
@@ -249,6 +250,7 @@ int CSimulation::nDoAllShadowZones(void)
                   bDownCoast = false;
                   bool const bOnShore = bOnOrOffShoreAndUpOrDownCoast(dFluxOrientation, dWaveAngle, nSeaHand, bDownCoast);
                   m_VCoast[nCoast].SetWavesOnShore(nCoastPoint, bOnShore);
+                  m_VCoast[nCoast].SetWavesDownCoast(nCoastPoint, bDownCoast);
 
                   // if (m_nLogFileDetail >= LOG_FILE_ALL)
                   // {

@@ -103,14 +103,6 @@ double CSimulation::dGetThisIterSWL(void) const
    return m_dThisIterSWL;
 }
 
-//===============================================================================================================================
-//! Returns the this-iteration total water level TODO 007 Finish surge and runup stuff
-//===============================================================================================================================
-double CSimulation::dGetThisIterTotWaterLevel(void) const
-{
-   return m_dThisIterDiffTotWaterLevel;
-}
-
 // //===============================================================================================================================
 // //! Returns the max elevation of the beach above SWL
 // //===============================================================================================================================
@@ -3083,10 +3075,6 @@ void CSimulation::DoEndOfRunDeletes(void)
 {
    // Clear all vector coastlines, profiles, and polygons
    m_VCoast.clear();
-
-   // m_VFloodWaveSetup.clear();
-   m_VFloodWaveSetupSurge.clear();
-   m_VFloodWaveSetupSurgeRunUp.clear();
 }
 
 //===============================================================================================================================

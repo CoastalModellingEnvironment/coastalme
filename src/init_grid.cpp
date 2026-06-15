@@ -44,10 +44,6 @@ int CSimulation::nInitGridAndCalcStillWaterLevel(void)
    // Clear all vector coastlines, profiles, and polygons
    m_VCoast.clear();
 
-   // m_VFloodWaveSetup.clear();
-   m_VFloodWaveSetupSurge.clear();
-   m_VFloodWaveSetupSurgeRunUp.clear();
-
    // Do some every-timestep initialisation
    m_nXMinBoundingBox = INT_MAX;
    m_nXMaxBoundingBox = INT_MIN;

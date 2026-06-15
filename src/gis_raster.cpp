@@ -1554,14 +1554,6 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
                dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetLocalConsSedSlope();
                break;
 
-            // case (RASTER_PLOT_SLOPE_FOR_CLIFF_TOE):
-            //    dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetSlopeForCliffToe();
-            //    break;
-            //
-            // case (RASTER_PLOT_CLIFF_TOE):
-            //    dTmp = static_cast<double>(m_pRasterGrid->m_Cell[nX][nY].bIsCliffToe());
-            //    break;
-
             case (RASTER_PLOT_SEA_DEPTH):
                dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth();
                break;
@@ -2194,14 +2186,14 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
 //! - Each coast has breaking wave angle: m_VCoast[i].dGetBreakingWaveAngle(coastpoint)
 //! - These could be used to implement coast-aware interpolation algorithms
 //!
-//! @param pVTransects         Vector of TransectWaveData containing wave data per transect
+//! @param pVTransects         Vector of ProfileWaveData containing wave data per transect
 //! @param pVdDeepWaterX       X coordinates of deep water grid edge points
 //! @param pVdDeepWaterY       Y coordinates of deep water grid edge points
 //! @param pVdDeepWaterHeightX X component of wave height at deep water points
 //! @param pVdDeepWaterHeightY Y component of wave height at deep water points
 //! @return RTN_OK on success, error code otherwise
 //===============================================================================================================================
-int CSimulation::nInterpolateWavesToPolygonCells(vector<TransectWaveData> const *pVTransects, vector<double> const *pVdDeepWaterX, vector<double> const *pVdDeepWaterY, vector<double> const *pVdDeepWaterHeightX,  vector<double> const *pVdDeepWaterHeightY)
+int CSimulation::nInterpolateWavesToPolygonCells(vector<ProfileWaveData> const *pVTransects, vector<double> const *pVdDeepWaterX, vector<double> const *pVdDeepWaterY, vector<double> const *pVdDeepWaterHeightX,  vector<double> const *pVdDeepWaterHeightY)
 {
    // ============================================================================
    // STEP 1: Calculate grid dimensions and initialize variables
@@ -2236,9 +2228,9 @@ int CSimulation::nInterpolateWavesToPolygonCells(vector<TransectWaveData> const 
    // ============================================================================
 
    // Flatten transect data and deep water data into contiguous arrays for the interpolator
-   std::vector<Point2D> points;
-   std::vector<double> VdHeightX;
-   std::vector<double> VdHeightY;
+   vector<Point2D> points;
+   vector<double> VdHeightX;
+   vector<double> VdHeightY;
 
    points.reserve(nPoints);
    VdHeightX.reserve(nPoints);
@@ -2282,7 +2274,7 @@ int CSimulation::nInterpolateWavesToPolygonCells(vector<TransectWaveData> const 
    // STEP 4: Build query points (grid cells where we want interpolated values)
    // ============================================================================
 
-   std::vector<Point2D> query_points;
+   vector<Point2D> query_points;
    query_points.reserve(nGridSize);
    for (int nY = m_nYMinBoundingBox; nY <= m_nYMaxBoundingBox; nY++)
    {

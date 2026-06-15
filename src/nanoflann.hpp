@@ -389,11 +389,11 @@ class RadiusResultSet
    public:
     const DistanceType radius;
 
-    std::vector<ResultItem<IndexType, DistanceType>>& m_indices_dists;
+    vector<ResultItem<IndexType, DistanceType>>& m_indices_dists;
 
     explicit RadiusResultSet(
         DistanceType                                      radius_,
-        std::vector<ResultItem<IndexType, DistanceType>>& indices_dists)
+        vector<ResultItem<IndexType, DistanceType>>& indices_dists)
         : radius(radius_), m_indices_dists(indices_dists)
     {
         init();
@@ -453,7 +453,7 @@ void save_value(std::ostream& stream, const T& value)
 }
 
 template <typename T>
-void save_value(std::ostream& stream, const std::vector<T>& value)
+void save_value(std::ostream& stream, const vector<T>& value)
 {
     size_t size = value.size();
     stream.write(reinterpret_cast<const char*>(&size), sizeof(size_t));
@@ -467,7 +467,7 @@ void load_value(std::istream& stream, T& value)
 }
 
 template <typename T>
-void load_value(std::istream& stream, std::vector<T>& value)
+void load_value(std::istream& stream, vector<T>& value)
 {
     size_t size;
     stream.read(reinterpret_cast<char*>(&size), sizeof(size_t));
@@ -985,7 +985,7 @@ struct array_or_vector
 template <typename T>
 struct array_or_vector<-1, T>
 {
-    using type = std::vector<T>;
+    using type = vector<T>;
 };
 
 /** @} */
@@ -1026,7 +1026,7 @@ class KDTreeBaseClass
     /**
      *  Array of indices to vectors in the dataset_.
      */
-    std::vector<IndexType> vAcc_;
+    vector<IndexType> vAcc_;
 
     using Offset    = typename decltype(vAcc_)::size_type;
     using Size      = typename decltype(vAcc_)::size_type;
@@ -1776,7 +1776,7 @@ class KDTreeSingleIndexAdaptor
      */
     Size radiusSearch(
         const ElementType* query_point, const DistanceType& radius,
-        std::vector<ResultItem<IndexType, DistanceType>>& IndicesDists,
+        vector<ResultItem<IndexType, DistanceType>>& IndicesDists,
         const SearchParameters& searchParams = {}) const
     {
         RadiusResultSet<DistanceType, IndexType> resultSet(
@@ -2030,7 +2030,7 @@ class KDTreeSingleIndexDynamicAdaptor_
 
     KDTreeSingleIndexAdaptorParams index_params_;
 
-    std::vector<int>& treeIndex_;
+    vector<int>& treeIndex_;
 
     Distance distance_;
 
@@ -2075,7 +2075,7 @@ class KDTreeSingleIndexDynamicAdaptor_
      */
     KDTreeSingleIndexDynamicAdaptor_(
         const Dimension dimensionality, const DatasetAdaptor& inputData,
-        std::vector<int>&                     treeIndex,
+        vector<int>&                     treeIndex,
         const KDTreeSingleIndexAdaptorParams& params =
             KDTreeSingleIndexAdaptorParams())
         : dataset_(inputData),
@@ -2240,7 +2240,7 @@ class KDTreeSingleIndexDynamicAdaptor_
      */
     Size radiusSearch(
         const ElementType* query_point, const DistanceType& radius,
-        std::vector<ResultItem<IndexType, DistanceType>>& IndicesDists,
+        vector<ResultItem<IndexType, DistanceType>>& IndicesDists,
         const SearchParameters& searchParams = {}) const
     {
         RadiusResultSet<DistanceType, IndexType> resultSet(
@@ -2433,7 +2433,7 @@ class KDTreeSingleIndexDynamicAdaptor
 
     /** treeIndex[idx] is the index of tree in which point at idx is stored.
      * treeIndex[idx]=-1 means that point has been removed. */
-    std::vector<int>        treeIndex_;
+    vector<int>        treeIndex_;
     std::unordered_set<int> removedPoints_;
 
     KDTreeSingleIndexAdaptorParams index_params_;
@@ -2442,12 +2442,12 @@ class KDTreeSingleIndexDynamicAdaptor
 
     using index_container_t = KDTreeSingleIndexDynamicAdaptor_<
         Distance, DatasetAdaptor, DIM, IndexType>;
-    std::vector<index_container_t> index_;
+    vector<index_container_t> index_;
 
    public:
     /** Get a const ref to the internal list of indices; the number of indices
      * is adapted dynamically as the dataset grows in size. */
-    const std::vector<index_container_t>& getAllIndices() const
+    const vector<index_container_t>& getAllIndices() const
     {
         return index_;
     }
@@ -2470,7 +2470,7 @@ class KDTreeSingleIndexDynamicAdaptor
     {
         using my_kd_tree_t = KDTreeSingleIndexDynamicAdaptor_<
             Distance, DatasetAdaptor, DIM, IndexType>;
-        std::vector<my_kd_tree_t> index(
+        vector<my_kd_tree_t> index(
             treeCount_,
             my_kd_tree_t(dim_ /*dim*/, dataset_, treeIndex_, index_params_));
         index_ = index;

@@ -321,7 +321,7 @@ CSimulation::CSimulation(void)
    m_dCoastProfileSpacing = 0;
    m_dCoastProfileInterventionSpacing = 0;
    m_dCoastNormalLength = 0;
-   m_dSyntheticTransectSpacing = 0;
+   m_dTemporaryProfileSpacing = 0;
    m_dThisIterTotSeaDepth = 0;
    m_dThisIterPotentialSedLostBeachErosion = 0;
    m_dThisIterLeftGridUnconsFine = 0;        // TODO067
@@ -1309,26 +1309,6 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       // Output cliff collapse table to log file
       if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
          WritePolygonCliffCollapseErosion();
-
-      // // Make water level inundation on grid
-      // if (m_bFloodSWLSetupSurgeLine || m_bSetupSurgeFloodMaskSave)
-      // {
-      //    m_nLevel = 0;
-      //
-      //    nRet = nLocateFloodAndCoasts();
-      //    if (nRet != RTN_OK)
-      //       return nRet;
-      // }
-      //
-      // if (m_bFloodSWLSetupSurgeRunUpLineSave || m_bSetupSurgeRunUpFloodMaskSave)
-      // {
-      //    // TODO 007 Finish surge and runup stuff
-      //    m_nLevel = 1;
-      //
-      //    nRet = nLocateFloodAndCoasts();
-      //    if (nRet != RTN_OK)
-      //       return nRet;
-      // }
 
       // Now save results, first the raster and vector GIS files if required
       m_bSaveGISThisIter = false;

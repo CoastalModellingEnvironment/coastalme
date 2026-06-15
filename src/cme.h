@@ -222,6 +222,9 @@
 
 #include <climits>
 
+#include <vector>
+using std::vector;
+
 #include <string>
 using std::string;
 
@@ -1033,7 +1036,6 @@ string const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_FINE_TITLE = "Cliff collapse dep
 string const RASTER_PLOT_CLIFF_COLLAPSE_EROSION_SAND_TITLE = "Cliff collapse depth of erosion, sand sediment";
 string const RASTER_PLOT_CLIFF_COLLAPSE_TIMESTEP_TITLE = "Timestep at which cliff collapse occurred";
 string const RASTER_PLOT_CLIFF_NOTCH_ALL_TITLE = "All cliff notch incision";
-string const RASTER_PLOT_CLIFF_TOE_TITLE = "Cliff toe cells";
 string const RASTER_PLOT_COARSE_CONSOLIDATED_SEDIMENT_TITLE = "Consolidated coarse sediment depth";
 string const RASTER_PLOT_COARSE_UNCONSOLIDATED_SEDIMENT_TITLE = "Unconsolidated coarse sediment depth";
 string const RASTER_PLOT_COAST_TITLE = "Rasterized coastline";
@@ -1282,14 +1284,14 @@ struct FillToWidth
    int nWidth;
 };
 
-//! Struct to hold wave data for a single transect/profile
-struct TransectWaveData
+//! Struct to hold wave data for a single coast-normal profile
+struct ProfileWaveData
 {
-   std::vector<double> VdX;
-   std::vector<double> VdY;
-   std::vector<double> VdHeightX;
-   std::vector<double> VdHeightY;
-   std::vector<bool> VbBreaking;
+   vector<double> VdX;
+   vector<double> VdY;
+   vector<double> VdHeightX;
+   vector<double> VdHeightY;
+   vector<bool> VbBreaking;
    int nCoastID;
    int nProfileID;
    bool bIsStartOrEndOfCoast;

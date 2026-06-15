@@ -54,8 +54,8 @@
 //!
 //! USAGE EXAMPLE:
 //! --------------
-//! std::vector<Point2D> input_points = {{0,0}, {10,0}, {5,10}};
-//! std::vector<double> input_values = {1.0, 2.0, 1.5};
+//! vector<Point2D> input_points = {{0,0}, {10,0}, {5,10}};
+//! vector<double> input_values = {1.0, 2.0, 1.5};
 //! SpatialInterpolator interp(input_points, input_values, 12, 2.0);
 //! double result = interp.Interpolate(5.0, 5.0);  // Interpolate at (5,5)
 //!
@@ -188,7 +188,7 @@ double SpatialInterpolator::Interpolate(double x, double y) const
    return sum_weighted_values / sum_weights;
 }
 
-void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points, vector<double>& results) const
+void SpatialInterpolator::Interpolate(vector<Point2D> const& query_points, vector<double>& results) const
 {
    results.resize(query_points.size());
    size_t const k = min((size_t) m_k_neighbors, m_cloud.pts.size());
@@ -197,8 +197,8 @@ void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points, 
    #pragma omp parallel
    {
       // Thread-local storage to avoid allocation overhead
-      std::vector<unsigned int> indices(k);
-      std::vector<double> sq_dists(k);
+      vector<unsigned int> indices(k);
+      vector<double> sq_dists(k);
 
       #pragma omp for schedule(guided, 128) nowait
       for (size_t i = 0; i < query_points.size(); i++)
@@ -249,8 +249,8 @@ void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points, 
    }
 #else
    // Serial fallback - still optimized with reused buffers
-   std::vector<unsigned int> indices(k);
-   std::vector<double> sq_dists(k);
+   vector<unsigned int> indices(k);
+   vector<double> sq_dists(k);
 
    for (size_t i = 0; i < query_points.size(); i++)
    {
@@ -285,9 +285,9 @@ void SpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points, 
 //! @param k_neighbors Number of nearest neighbors to use (default: 12)
 //! @param power       IDW power parameter (default: 2.0)
 //===============================================================================================================================
-DualSpatialInterpolator::DualSpatialInterpolator(std::vector<Point2D> const& points,
-                                                 std::vector<double> const& values_x,
-                                                 std::vector<double> const& values_y,
+DualSpatialInterpolator::DualSpatialInterpolator(vector<Point2D> const& points,
+                                                 vector<double> const& values_x,
+                                                 vector<double> const& values_y,
                                                  int k_neighbors,
                                                  double power)
    : m_values_x(values_x), m_values_y(values_y), m_kdtree(nullptr), m_k_neighbors(k_neighbors), m_power(power)
@@ -363,9 +363,9 @@ void DualSpatialInterpolator::InterpolatePoint(double x, double y, double& resul
    result_y = sum_weighted_y / sum_weights;
 }
 
-void DualSpatialInterpolator::Interpolate(std::vector<Point2D> const& query_points,
-                                          std::vector<double>& results_x,
-                                          std::vector<double>& results_y) const
+void DualSpatialInterpolator::Interpolate(vector<Point2D> const& query_points,
+                                          vector<double>& results_x,
+                                          vector<double>& results_y) const
 {
    size_t const n = query_points.size();
    results_x.resize(n);
@@ -381,8 +381,8 @@ void DualSpatialInterpolator::Interpolate(std::vector<Point2D> const& query_poin
    #pragma omp parallel
    {
       // Thread-local storage
-      std::vector<unsigned int> indices(k);
-      std::vector<double> sq_dists(k);
+      vector<unsigned int> indices(k);
+      vector<double> sq_dists(k);
 
       #pragma omp for schedule(guided, 128) nowait
       for (size_t i = 0; i < query_points.size(); i++)
@@ -394,8 +394,8 @@ void DualSpatialInterpolator::Interpolate(std::vector<Point2D> const& query_poin
    }
 #else
    // Serial fallback
-   std::vector<unsigned int> indices(k);
-   std::vector<double> sq_dists(k);
+   vector<unsigned int> indices(k);
+   vector<double> sq_dists(k);
 
    for (size_t i = 0; i < query_points.size(); i++)
    {

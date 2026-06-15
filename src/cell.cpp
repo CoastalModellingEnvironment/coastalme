@@ -350,9 +350,6 @@ double CGeomCell::dGetCoarseTalusDepth(void) const
 //! Returns true if the top elevation (sediment and talus, plus any intervention) of this cell is less than this iteration's SWL
 bool CGeomCell::bElevLessThanSWL(void) const
 {
-   // // Note that m_pGrid->pGetSim()->dGetThisIterTotWaterLevel() is zero, since TODO 007 Finish surge and runup stuff
-   // return ((m_VdAllHorizonTopElev.back() + this->dGetAllTalusDepth() + m_dInterventionHeight) < (m_pGrid->pGetSim()->dGetThisIterTotWaterLevel() + m_pGrid->pGetSim()->dGetThisIterSWL()));
-
    // Will need to change this (see above) once surge and runup stuff is working
    return ((m_VdAllHorizonTopElev.back() + this->dGetAllTalusDepth() + m_dInterventionHeight) < m_pGrid->pGetSim()->dGetThisIterSWL());
 }
@@ -545,12 +542,6 @@ bool CGeomCell::bIsInundated(void)
 double CGeomCell::dGetThisIterSWL(void) const
 {
    return m_pGrid->pGetSim()->CSimulation::dGetThisIterSWL();
-}
-
-//! Returns the total water level for the current iteration  TODO 007 Finish surge and runup stuff
-double CGeomCell::dGetThisIterTotWaterLevel(void) const
-{
-   return m_pGrid->pGetSim()->CSimulation::dGetThisIterTotWaterLevel();
 }
 
 //! Returns the total (all layers) depth (in external CRS units) of fine consolidated sediment on this cell

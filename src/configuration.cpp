@@ -171,7 +171,7 @@ void CConfiguration::InitializeDefaults()
    m_dRandomFactor = 0.25;
    m_dNormalLength = 130.0;
    m_dStartDepthRatio = 30.0;
-   m_dSyntheticTransectSpacing = 5.0;
+   m_dTemporaryProfileSpacing = 5.0;
 
    // Profile and Output Options
    m_bSaveProfileData = false;

@@ -848,7 +848,7 @@ class CSimulation
    double m_dCoastNormalLength;
 
    //! Approximate minimum spacing (m) between wave transects (real and synthetic) for wave interpolation densification
-   double m_dSyntheticTransectSpacing;
+   double m_dTemporaryProfileSpacing;
 
    //! Total sea depth (m) for this iteration
    double m_dThisIterTotSeaDepth;
@@ -1470,7 +1470,7 @@ class CSimulation
    vector<double> m_VdTSDeepWaterWaveStationPeriod;
 
    //! Storage for wave transect points (real and synthetic) for debug output
-   vector<TransectWaveData> m_VAllTransectsWithSynthetic;
+   vector<ProfileWaveData> m_VAllProfilesIncTemporary;
 
    //! X coordinate (grid CRS) for sediment input event
    vector<double> m_VdSedimentInputLocationX;
@@ -1586,15 +1586,6 @@ class CSimulation
    //! Coastline (external CRS) at the lowest SWL so far during this simulation
    vector<CGeomLine> m_VLowestSWLCoastLine;
 
-   //! The traced cliff toe lines (in external CRS)
-   vector<CGeomLine> m_VCliffToe;
-
-   //! TODO 007 Finish surge and runup stuff
-   vector<CRWCoast> m_VFloodWaveSetupSurge;
-
-   //! TODO 007 Finish surge and runup stuff
-   vector<CRWCoast> m_VFloodWaveSetupSurgeRunUp;
-
    //! Corners of the bounding box
    vector<CGeom2DIPoint> m_VPtiBoundingBoxCorner;
 
@@ -1694,7 +1685,7 @@ private:
    bool bWriteVectorGISFile(int const, string const*, string = "");
    void GetRasterOutputMinMax(int const, double&, double&, int const, double const);
    void SetRasterFileCreationDefaults(void);
-   int nInterpolateWavesToPolygonCells(vector<TransectWaveData> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*);
+   int nInterpolateWavesToPolygonCells(vector<ProfileWaveData> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*);
 
    // Initialization
    bool bCreateErosionPotentialLookUp(vector<double>*, vector<double>*, vector<double>*);
@@ -1706,11 +1697,10 @@ private:
    int nCalcExternalForcing(void);
    int nInitGridAndCalcStillWaterLevel(void);
    int nLocateSeaAndCoasts(void);
-   // int nLocateFloodAndCoasts(void);
    int nAssignLandformsForAllCoasts(void);
    int nAssignLandformsForAllCells(void);
    int nDoAllPropagateWaves(void);
-   void GenerateSyntheticTransects(vector<TransectWaveData> const*, vector<TransectWaveData>*);
+   void CreateTemporaryProfiles(vector<ProfileWaveData> const*, vector<ProfileWaveData>*);
    int nDoAllShorePlatFormErosion(void);
    int nDoAllWaveEnergyToCoastLandforms(void);
    int nDoCliffCollapse(int const, int const, int const, double const);
@@ -1967,9 +1957,6 @@ private:
 
    //! Returns this timestep's SWL
    double dGetThisIterSWL(void) const;
-
-   //! Returns this timestep's total water level TODO 007 Finish surge and runup stuff
-   double dGetThisIterTotWaterLevel(void) const;
 
    // //! Returns the vertical tolerance for beach cells to be included in smoothing
    // double dGetMaxBeachElevAboveSWL(void) const;

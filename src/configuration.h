@@ -162,7 +162,7 @@ private:
    double m_dRandomFactor;
    double m_dNormalLength;
    double m_dStartDepthRatio;
-   double m_dSyntheticTransectSpacing;
+   double m_dTemporaryProfileSpacing;
 
    // Profile and Output Options
    bool m_bSaveProfileData;
@@ -642,7 +642,7 @@ public:
 
    void SetSyntheticTransectSpacing(double d)
    {
-      m_dSyntheticTransectSpacing = d;
+      m_dTemporaryProfileSpacing = d;
    }
 
    void SetSaveProfileData(bool b)
@@ -1156,7 +1156,7 @@ public:
 
    double dGetSyntheticTransectSpacing(void) const
    {
-      return m_dSyntheticTransectSpacing;
+      return m_dTemporaryProfileSpacing;
    }
 
    // Profile and Output Options

@@ -72,6 +72,9 @@ class CRWCoast
    //! For each point on this coastline, are waves on-shore or off-shore?
    vector<bool> mVbOnShoreWaves;
 
+   //! For each point on this coastline, are waves up-coast or d own-coast?
+   vector<bool> mVbDownCoastWaves;
+
    //! Distance of breaking (in cells), at each point on m_LCoastlineExtCRS
    vector<int> m_VnBreakingDistance;
 
@@ -228,6 +231,9 @@ class CRWCoast
 
    void SetWavesOnShore(int const, bool const);
    bool bGetWavesOnShore(int const nCoastPoint);
+
+   void SetWavesDownCoast(int const, bool const);
+   bool bGetWavesDownCoast(int const);
 
    void SetBreakingWaveHeight(int const, double const);
    double dGetBreakingWaveHeight(int const) const;
