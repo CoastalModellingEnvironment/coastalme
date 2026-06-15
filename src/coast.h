@@ -161,13 +161,7 @@ class CRWCoast
 
    void SetCoastlineExtCRS(CGeomLine const*);
    CGeomLine* pLGetCoastlineExtCRS(void);
-   // CGeomLine* pLGetRunUpLineExtCRS(void);
-   // void SetFloodWaveSetupPointExtCRS(CGeomLine const*);
-   // void SetFloodWaveSetupSurgePointExtCRS(CGeomLine const*);
-   // void SetFloodWaveSetupSurgeRunUpPointExtCRS(CGeomLine const*);
    CGeom2DPoint* pPtGetCoastlinePointExtCRS(int const);
-   // CGeom2DPoint* pPtGetFloodWaveSetupSurgePointExtCRS(int const);
-   // CGeom2DPoint* pPtGetFloodWaveSetupSurgeRunUpPointExtCRS(int const);
 
    int nGetCoastlineSize(void) const;
    // double dGetCoastlineSegmentLength(int const, int const);

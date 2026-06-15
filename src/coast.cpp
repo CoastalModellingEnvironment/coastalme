@@ -130,13 +130,6 @@ void CRWCoast::SetCoastlineExtCRS(CGeomLine const* pLCoast)
    m_VdWaveEnergyAtBreaking = vector<double>(nLen, 0);
 }
 
-// void CRWCoast::SetFloodWaveSetupPointExtCRS(CGeomLine const* pLCoast)
-// {
-// m_VdRunUp = *pLCoast;
-
-//    // int nLen = m_LFloodWaveSetupLineExtCRS.nGetSize();
-// }
-
 //! Returns the coastline (external CRS)
 CGeomLine* CRWCoast::pLGetCoastlineExtCRS(void)
 {

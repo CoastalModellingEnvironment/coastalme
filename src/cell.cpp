@@ -37,12 +37,8 @@ using std::vector;
 CGeomCell::CGeomCell()
    : m_bInContiguousSea(false),
      m_bIsInActiveZone(false),
-     // m_bWaveFlood(false),
-     // m_bCheckCell(false),
-     // m_bCheckFloodCell(false),
      m_bShadowBoundary(false),
      m_bPossibleCoastStartCell(false),
-     // m_bPossibleFloodStartCell(false),
      m_bPlatformErosionThisTimestep(false),
      m_nBoundingBoxEdge(NO_DIRECTION),
      m_nCoastlineID(INT_NODATA),
@@ -136,30 +132,6 @@ bool CGeomCell::bIsInContiguousSea(void) const
    return m_bInContiguousSea;
 }
 
-// //! Set this cell as flooded by setup surge
-// void CGeomCell::SetFloodBySetupSurge(void)
-// {
-//    m_bFloodBySetupSurge = true;
-// }
-
-// //! Is this cell flooded by setup surge?
-// bool CGeomCell::bIsFloodBySetupSurge(void) const
-// {
-//    return m_bFloodBySetupSurge;
-// }
-
-// //! Set this cell as flooded by setup surge runup
-// void CGeomCell::SetFloodBySetupSurgeRunUp(void)
-// {
-//    m_bFloodBySetupSurgeRunUp = true;
-// }
-
-// //! Is this cell flooded by setup surge runup?
-// bool CGeomCell::bIsFloodBySetupSurgeRunUp(void) const
-// {
-//    return m_bFloodBySetupSurgeRunUp;
-// }
-
 //! Sets a flag to show whether this cell is in the active zone
 void CGeomCell::SetInActiveZone(bool const bFlag)
 {
@@ -195,18 +167,6 @@ bool CGeomCell::bIsPossibleCoastStartCell(void) const
 {
    return m_bPossibleCoastStartCell;
 }
-
-// //! Sets a flag to show that this cell has been flagged as a possible start-point for runup flooding
-// void CGeomCell::SetPossibleFloodStartCell(void)
-// {
-//    m_bPossibleFloodStartCell = true;
-// }
-
-// //! Returns a flag which shows whether this cell has been flagged as a possible start point for runup flooding
-// bool CGeomCell::bIsPossibleFloodStartCell(void) const
-// {
-//    return m_bPossibleFloodStartCell;
-// }
 
 //! Returns true if this cell has had potential platform erosion on this cell this timestep
 bool CGeomCell::bPotentialPlatformErosion(void) const
@@ -387,12 +347,6 @@ double CGeomCell::dGetCoarseTalusDepth(void) const
    return dTotTalusDepth;
 }
 
-// //! Set this cell as flooded by swl + surge + setup + runup
-// void CGeomCell::SetWaveFlood(void)
-// {
-//    m_bWaveFlood = true;
-// }
-
 // void CGeomCell::SetWaveSetup(int const dWaveSetup)
 // {
 // m_dWaveSetup = dWaveSetup;
@@ -427,36 +381,6 @@ bool CGeomCell::bElevLessThanSWL(void) const
 
    // Will need to change this (see above) once surge and runup stuff is working
    return ((m_VdAllHorizonTopElev.back() + this->dGetAllTalusDepth() + m_dInterventionHeight) < m_pGrid->pGetSim()->dGetThisIterSWL());
-}
-
-// //! Set this cell as checked TODO 007 Finish surge and runup stuff
-// void CGeomCell::SetCheckCell(void)
-// {
-// m_bCheckCell = true;
-// }
-
-// //! Returns true if this cell is checked, false otherwise TODO 007 Finish surge and runup stuff
-// bool CGeomCell::bIsCellCheck(void) const
-// {
-// return m_bCheckCell;
-// }
-
-//! Set this cell as checked (flood switch)
-void CGeomCell::SetCheckFloodCell(void)
-{
-   m_bCheckFloodCell = true;
-}
-
-//! Set the cell as not checked (flood switch)
-void CGeomCell::UnSetCheckFloodCell(void)
-{
-   m_bCheckFloodCell = false;
-}
-
-//! Returns true if this cell is checked, false otherwise (flood switch)
-bool CGeomCell::bIsCellFloodCheck(void) const
-{
-   return m_bCheckFloodCell;
 }
 
 //! Sets the down drift zone number
@@ -881,13 +805,8 @@ void CGeomCell::InitCell(void)
 {
    m_bInContiguousSea = false;
    m_bIsInActiveZone = false;
-   // m_bEstimated = false;
    m_bShadowBoundary = false;
    m_bPossibleCoastStartCell = false;
-   // m_bPossibleFloodStartCell = false;
-   // m_bWaveFlood = false;
-   // m_bCheckCell = false;
-   // m_bCheckFloodCell = false;
 
    m_nCoastlineID = INT_NODATA;
    m_nPolygonID = INT_NODATA;

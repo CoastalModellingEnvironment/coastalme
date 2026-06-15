@@ -44,29 +44,11 @@ class CGeomCell
    //! Switch to indicate that this cell is in the active zone
    bool m_bIsInActiveZone;
 
-   // //! Switch to indicate that this cell is 'under' a runup wave flood line TODO 007 Finish surge and runup stuff
-   // bool m_bWaveFlood;
-
-   // //! TODO 007 Finish surge and runup stuff
-   // bool m_bCheckCell;
-
-   //! TODO 007 Finish surge and runup stuff
-   bool m_bCheckFloodCell;
-
    //! Switch to show this cell is 'under' a shadow boundary
    bool m_bShadowBoundary;
 
    //! Switch to show that this cell could be the start of a coastline
    bool m_bPossibleCoastStartCell;
-
-   //! TODO 007 Finish surge and runup stuff
-   // bool m_bPossibleFloodStartCell;
-
-   //! TODO 007 Finish surge and runup stuff
-   // bool m_bFloodBySetupSurge;
-
-   //! TODO 007 Finish surge and runup stuff
-   // bool m_bFloodBySetupSurgeRunUp;
 
    //! Switch to show platform erosion on this cell during this timestep
    bool m_bPlatformErosionThisTimestep;
