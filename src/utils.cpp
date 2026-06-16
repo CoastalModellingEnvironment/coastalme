@@ -2327,13 +2327,13 @@ string CSimulation::strGetErrorText(int const nErr)
       strErr = "down to basement during barrier creation";
       break;
 
-   case RTN_ERR_UNKNOWN:
-      strErr = "unknown error";
+   case RTN_ERR_BASEMENT_DURING_WAVE_CALC:
+      strErr = "down to basement during wave calculations";
       break;
 
    default:
       // should never get here
-      strErr = " error";
+      strErr = "unknown error";
    }
 
    return strErr;

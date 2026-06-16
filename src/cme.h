@@ -673,7 +673,7 @@ int const RTN_ERR_CLIFF_TALUS_TO_UNCONS = 87;
 int const RTN_ERR_COAST_TRACING_SAME_EDGE_START_FINISH = 88;
 int const RTN_ERR_POLYGON_FILL_START_POINT = 89;
 int const RTN_ERR_BASEMENT_DURING_BARRIER_CREATION = 90;
-int const RTN_ERR_UNKNOWN = 999;
+int const RTN_ERR_BASEMENT_DURING_WAVE_CALC = 91;
 
 // Coast-normal profile status codes
 int const PROFILE_STATUS_OK = 0;                         // No problem, profile is valid
