@@ -38,13 +38,20 @@ int CSimulation::nDoBarrierFormation(void)
 {
    for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
    {
+      int const nCoastLen = m_VCoast[nCoast].nGetCoastlineSize();
+
       for (int nCoastPoint = 0; nCoastPoint < m_VCoast[nCoast].nGetCoastlineSize(); nCoastPoint++)
       {
          // If waves are off-shore, then do nothing, move to the next coast point
          if (! m_VCoast[nCoast].bGetWavesOnShore(nCoastPoint))
             continue;
 
-         // OK, waves are on-shore
+         // If we are not in the active zone, then do nothing
+         double dDepthOfBreaking = m_VCoast[nCoast].dGetDepthOfBreaking(nCoastPoint);
+         if (bFPIsEqual(dDepthOfBreaking, DBL_NODATA, TOLERANCE))
+            continue;
+
+         // OK, waves are on-shore,and we are in the active zone
          CACoastLandform* pCoastLandform = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
          int nCoastLandform = pCoastLandform->nGetLandFormCategory();
 
@@ -52,44 +59,113 @@ int CSimulation::nDoBarrierFormation(void)
          if (nCoastLandform != LF_DRIFT_BEACH)
             continue;
 
-         // OK it is a beach. Get the coords of the grid cell marked as coastline for the coastal landform object
-         int const nX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetX();
-         int const nY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
+         // OK waves are on-shore,and we are in the active zone, so we wil try to move some uncons sand or uncons gravel inland. Get the coords of the grid cell marked as coastline for the coastal landform object
+         int const nCoastX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetX();
+         int const nCoastY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
 
-         // And get the this-iteration runup for this coast point
+         // Get the coastline points before and after this one
+         int nCoastXBefore = nCoastX;
+         int nCoastYBefore = nCoastY;
+         int nCoastXAfter = nCoastX;
+         int nCoastYAfter = nCoastY;
+
+         if (nCoastPoint > 0)
+         {
+            nCoastXBefore = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint - 1)->nGetX();
+            nCoastYBefore = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint - 1)->nGetY();
+         }
+
+         if (nCoastPoint < nCoastLen - 1)
+         {
+            nCoastXAfter = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint + 1)->nGetX();
+            nCoastYAfter = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint + 1)->nGetY();
+         }
+
+         // Get the this-iteration runup for this coast point
          double const dRunUp = m_VCoast[nCoast].dGetRunUp(nCoastPoint);
 
          // Calc total wave elevation
          double const dWaveElev = m_dThisIterSWL + dRunUp;
 
          // TODO calculate inland movement of sand and gravel
+         int nHanded = m_VCoast[nCoast].nGetSeaHandedness();      // RH = 0, LH = 1
+         int const nCoastHand = m_VCoast[nCoast].nGetSeaHandedness();
+
          bool bWavesDownCoast = m_VCoast[nCoast].bGetWavesDownCoast(nCoastPoint);
          double dTangentToCoast = m_VCoast[nCoast].dGetFluxOrientation(nCoastPoint);
          double dBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nCoastPoint);
 
-         // TEST
-         double dDiff = dTangentToCoast - dBreakingWaveAngle;
+         // // TEST
+         // double dDiff = dKeepWithin360(dBreakingWaveAngle - dTangentToCoast + 180);
+         //
+         // double dDummy = -1;
+         // if ((dDiff >= 315) || (dDiff < 45))
+         //    // Inland diagonal upcoast
+         //    dDummy = 1;
+         // else if ((dDiff >= 45) && (dDiff < 135))
+         //    // Inland 90 degrees
+         //    dDummy = 2;
+         // else if ((dDiff >= 135) && (dDiff < 225))
+         //    // Inland diagonal downcoast
+         //    dDummy = 3;
+         // else if ((dDiff >= 225) && (dDiff < 315))
+         //    // Inland 90 degrees
+         //    dDummy = 4;
+         //
+         // LogStream << "dDummy = " << dDummy << endl;
 
-      double dDummy = -1;
-      if ((dDiff < 45) && (dDiff > -45))
-         // Inland at 90 degrees
-         dDummy = 1;
-      else if (dDiff <= -45)
-         // Inland diagonal
-         dDummy = 2;
-      else if (dDiff >= 45)
-         // Inland diagonal
-         dDummy = 3;
-      else
-         // Should never get here
-         dDummy = -1;
+         bool bIsACellLessThanRunupElev = true;
+         int n = 0;
+         CGeom2DIPoint PtiLast(INT_NODATA, INT_NODATA);
+
+         do
+         {
+            n++;
+
+            CGeom2DIPoint const PtiTmp = PtiGetPerpendicular(nCoastXBefore, nCoastYBefore, nCoastXAfter, nCoastYAfter, n * m_dCellSide, nCoastHand);
+
+            // Safety check
+            if (! bIsWithinValidGrid(&PtiTmp))
+               break;
+
+            // Prevent duplication due to rounding
+            if (PtiTmp == PtiLast)
+            {
+               PtiLast = PtiTmp;
+               continue;
+            }
+
+            PtiLast = PtiTmp;
+
+            int nTmpX = PtiTmp.nGetX();
+            int nTmpY = PtiTmp.nGetY();
+            double dCellElev = m_pRasterGrid->m_Cell[nTmpX][nTmpY].dGetAllSedTopElevIncTalus();
+
+            if (dCellElev < dWaveElev)
+            {
+               bIsACellLessThanRunupElev = true;
+
+               int nRet = nMoveUnconsLandward();
+               if (nRet != RTN_OK)
+                  return nRet;
+            }
+            else
+               bIsACellLessThanRunupElev = false;
+
+            // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+               LogStream << m_ulIter << ":\t barrier deposition, coast point = " << nCoastPoint << " [" << nCoastX << "][" << nCoastY << "] = {" << dGridCentroidXToExtCRSX(nCoastX) << ", " << dGridCentroidYToExtCRSY(nCoastY) << "} this point [" << nTmpX << "][" << nTmpY << "] = {" << dGridCentroidXToExtCRSX(nTmpX) << ", " << dGridCentroidYToExtCRSY(nTmpY) << "} dRunUp = " << dRunUp << " dWaveElev = " << dWaveElev << " cell elev = " << dCellElev << endl;
+
+
+
+
+         } while (bIsACellLessThanRunupElev);
+
+
 
       }
    }
 
-   int nRet = nMoveUnconsLandward();
-   if (nRet != RTN_OK)
-      return nRet;
+
 
    return RTN_OK;
 }
@@ -100,85 +176,6 @@ int CSimulation::nDoBarrierFormation(void)
 //===============================================================================================================================
 int CSimulation::nMoveUnconsLandward(void)
 {
-   if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-      LogStream << m_ulIter << ": Calculating cliff collapse" << endl;
-
-   int nRet;
-
-   // First go along each coastline and at each point on the coastline, move sand and gravel unconsolidated sediment landward
-   for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
-   {
-      for (int nCoastPoint = 0; nCoastPoint < m_VCoast[nCoast].nGetCoastlineSize(); nCoastPoint++)
-      {/*
-         CACoastLandform* pCoastLandform = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
-
-         // Get the coords of the grid cell marked as coastline for the coastal landform object
-         int const nX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetX();
-         int const nY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
-
-         // Is there some talus protecting this cell?
-         double dTalusDepth = m_pRasterGrid->m_Cell[nX][nY].dGetAllTalusDepth();
-         double dInvTalusProtection = 1;
-         if (dTalusDepth > 0)
-         {
-            // TEST TODO Assume a linear relationship, with minimum value 0.5
-            double dCliffHeightAboveSWL = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() - m_dThisIterSWL;
-            dInvTalusProtection = tMin(tMax((dTalusDepth / dCliffHeightAboveSWL), 1.0), 0.5);
-
-            LogStream << m_ulIter << ":\t cell[" << nX << "][" << nY << "] talus depth = " << dTalusDepth << " cliff height (in talus) above SWL = " << dCliffHeightAboveSWL << " inverse talus protection factor = " << dInvTalusProtection << endl;
-         }
-
-         // First get wave energy for the coastal landform object
-         double const dWaveHeightAtCoast = m_VCoast[nCoast].dGetCoastWaveHeight(nCoastPoint);
-
-         // If the waves at this point are off-shore, then do nothing, just move to next coast point
-         if (bFPIsEqual(dWaveHeightAtCoast, DBL_NODATA, TOLERANCE))
-            continue;
-
-         // OK we have on-shore waves so get the previously-calculated wave energy
-         double const dWaveEnergy = m_VCoast[nCoast].dGetWaveEnergyAtBreaking(nCoastPoint) * dInvTalusProtection;
-
-         // And save the accumulated value
-         pCoastLandform->IncTotAccumWaveEnergy(dWaveEnergy);
-
-         int const nCat = pCoastLandform->nGetLandFormCategory();
-
-         // Is this a cliff?
-         if (nCat == LF_CLIFF)
-         {
-            // It is, so get the cliff object
-            CRWCliff* pCliff = reinterpret_cast<CRWCliff*>(pCoastLandform);
-
-            // And do the notch incision, if any. Note that we consider sediment eroded due to notch incision to be still in place until cliff collapse, i.e. the sediment which filled the notch, pre-incision, is assumed to remain there. If the notch is eventually incised sufficiently to cause cliff collapse, then the sediment from the notch volume is included with the above-notch talus
-            if (! bIncreaseCliffNotchIncision(nCoast, nX, nY, pCliff, dWaveEnergy))
-               // No incision of this cliff
-               continue;
-
-            // OK, we've had some incision of this coast cliff. So is the notch now incised enough to cause collapse?  (either because the overhang is greater than the threshold overhang, or because there is no sediment remaining)?
-            if (pCliff->bReadyToCollapse(m_dNotchIncisionAtCollapse))
-            {
-               // It is ready to collapse, so do the cliff collapse
-               nRet = nDoCliffCollapse(nCoast, nX, nY, pCliff->dGetNotchApexElev());
-               if (nRet != RTN_OK)
-               {
-                  if (m_nLogFileDetail >= LOG_FILE_MIDDLE_DETAIL)
-                  {
-                     LogStream << m_ulIter << ":\t" << WARN << "problem with coast cliff collapse, continuing however" << endl;
-
-                     if (nRet == RTN_ERR_CLIFF_NOT_IN_POLYGON)
-                        LogStream << m_ulIter << ":\t coast cliff-collapse cell not in a polygon" << endl;
-                     else if (nRet == RTN_ERR_CLIFF_NOTCH)
-                        LogStream << m_ulIter << ":\t coast cliff notch is incised into basement" << endl;
-                     else if (nRet == RTN_ERR_NO_TOP_LAYER_DURING_CLIFF_COLLAPSE_CALC)
-                        LogStream << m_ulIter << ":\t no top layer during coast cliff collapse" << endl;
-                  }
-               }
-
-               pCliff->SetCliffCollapsed();
-            }
-         }*/
-      }
-   }
 
    return RTN_OK;
 }

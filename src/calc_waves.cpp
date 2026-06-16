@@ -2119,7 +2119,6 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
    // OK, fill coast point between profiles for setupsurge and runup
    for (int n = nThisCoastPoint; n <= nNextCoastPoint; n++)
    {
-      // TEST =====================================
       // At this point on the coast, are waves on- or off-shore, and up- or down-coast? First get the flux orientation (a tangent to the coastline)
       double const dFluxOrientation = m_VCoast[nCoast].dGetFluxOrientation(n);
 
@@ -2136,7 +2135,6 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
       bool const bOnShore = bOnOrOffShoreAndUpOrDownCoast(dFluxOrientation, dWaveAngle, nSeaHand, bDownCoast);
       m_VCoast[nCoast].SetWavesOnShore(n, bOnShore);
       m_VCoast[nCoast].SetWavesDownCoast(n, bDownCoast);
-      // TEST =====================================
 
       // Fill first wave setup and surge
       int const nDist = n - nThisCoastPoint;

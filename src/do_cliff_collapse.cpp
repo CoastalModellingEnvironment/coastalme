@@ -449,7 +449,8 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
       // And add to the cell's accumulated wave energy
       m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->AddToAccumWaveEnergy(dWaveEnergy * dWeight);
 
-      LogStream << m_ulIter << ":\t coast " << nCoast << " [" << nX << "][" << nY << "] existing notch incised, acc wave energy = " << m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->dGetAccumWaveEnergy() << " dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunUp = " << dRunUp << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " incision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+      if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+         LogStream << m_ulIter << ":\t coast " << nCoast << " [" << nX << "][" << nY << "] existing notch incised, acc wave energy = " << m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->dGetAccumWaveEnergy() << " dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunUp = " << dRunUp << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " incision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
 
       return true;
    }
@@ -974,7 +975,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                      // Set the changed-this-timestep switch re. the adjacent cell
                      m_bUnconsChangedThisIter[nTopLayer] = true;
 
-                     LogStream << m_ulIter << ":\t [" << nX << "][" << "] sand talus moved to uncons sand on [" << nXAdj << "][" << nYAdj << "], sand talus moved = " << dActualDepthToMove << " sand talus remaining on [" << nX << "][" << nY << "] = " << dTalusSandToMove << endl;
+                     if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                        LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] sand talus moved to uncons sand on [" << nXAdj << "][" << nYAdj << "], sand talus moved = " << dActualDepthToMove << " sand talus remaining on [" << nX << "][" << nY << "] = " << dTalusSandToMove << endl;
 
                      // Update the adjacent cell's this-iteration sand talus deposition-to-uncons value, and total sand talus deposition-to-uncons value, for output TODO output
                      m_pRasterGrid->m_Cell[nXAdj][nYAdj].AddSandTalusToUncons(dActualDepthToMove);

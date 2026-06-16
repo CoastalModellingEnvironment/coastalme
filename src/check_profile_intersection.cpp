@@ -48,7 +48,7 @@ using std::normal_distribution;
 //===============================================================================================================================
 void CSimulation::CheckAllProfilesForIntersection(void)
 {
-   LogStream << endl << m_ulIter << ": Checking for profile intersection" << endl;
+   LogStream << endl << m_ulIter << ": Checking for profile intersections" << endl;
 
    int const nCoastLines = static_cast<int>(m_VCoast.size());
 
