@@ -67,6 +67,23 @@ int CSimulation::nDoBarrierFormation(void)
          double dTangentToCoast = m_VCoast[nCoast].dGetFluxOrientation(nCoastPoint);
          double dBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nCoastPoint);
 
+         // TEST
+         double dDiff = dTangentToCoast - dBreakingWaveAngle;
+
+      double dDummy = -1;
+      if ((dDiff < 45) && (dDiff > -45))
+         // Inland at 90 degrees
+         dDummy = 1;
+      else if (dDiff <= -45)
+         // Inland diagonal
+         dDummy = 2;
+      else if (dDiff >= 45)
+         // Inland diagonal
+         dDummy = 3;
+      else
+         // Should never get here
+         dDummy = -1;
+
       }
    }
 
