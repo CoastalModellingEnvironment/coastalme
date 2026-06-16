@@ -592,24 +592,6 @@ double CRWCoast::dGetRunUp(int const nCoastPoint) const
    return m_VdRunUpOnCoastPoint[nCoastPoint];
 }
 
-//! Sets the wave level for this coast point
-double CRWCoast::dGetLevel(int const nCoastPoint, int const level) const
-{
-   switch (level)
-   {
-      case 0:     // WAVESETUPSURGE:
-         return m_VdWaveSetupSurge[nCoastPoint];
-         break;
-
-      case 1:     // WAVESETUPSURGE + RUNUP:
-         return m_VdWaveSetupSurge[nCoastPoint] + m_VdRunUpOnCoastPoint[nCoastPoint];
-         break;
-
-      default:
-         return 0;
-   }
-}
-
 //! Sets the coast wave height for this coast point
 void CRWCoast::SetCoastWaveHeight(int const nCoastPoint, double const dHeight)
 {

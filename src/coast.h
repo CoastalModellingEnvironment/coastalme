@@ -250,8 +250,6 @@ class CRWCoast
    void SetRunUp(int const, double const);
    double dGetRunUp(int const) const;
 
-   double dGetLevel(int const, int const) const;
-
    void SetDepthOfBreaking(int const, double const);
    double dGetDepthOfBreaking(int const) const;
 

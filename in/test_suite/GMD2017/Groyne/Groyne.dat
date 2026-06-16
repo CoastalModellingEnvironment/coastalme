@@ -87,7 +87,7 @@ Breaking wave height to water depth ratio (non dimensional)                     
 
 ; Sediment data -----------------------------------------------------------------------------------------------------------------------------------------------
 Simulate coast platform erosion?                                                             : y
-Resistance of coast platform (units ???)                                                     : 4e6       ; [2-6]e6 to produce 0.6 m/yr recession (Walkden & Hall, 2011), is 1/erodibility
+Resistance of coast platform (units ???)                                                     : 1e6       ; [2-6]e6 to produce 0.6 m/yr recession (Walkden & Hall, 2011), is 1/erodibility
 
 Simulate beach sediment transport?                                                           : y
 Beach sediment transport at grid edges                     [0 = closed, 1 = open, 2 = Mobius]: 1

@@ -64,6 +64,9 @@ int CSimulation::nDoBarrierFormation(void)
 
          // TODO calculate inland movement of sand and gravel
          bool bWavesDownCoast = m_VCoast[nCoast].bGetWavesDownCoast(nCoastPoint);
+         double dTangentToCoast = m_VCoast[nCoast].dGetFluxOrientation(nCoastPoint);
+         double dBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nCoastPoint);
+
       }
    }
 
