@@ -46,7 +46,7 @@ int CSimulation::nDoBarrierFormation(void)
 
       for (int nCoastPoint = 0; nCoastPoint < m_VCoast[nCoast].nGetCoastlineSize(); nCoastPoint++)
       {
-         // If waves are off-shore, then do nothing, move to the next coast point
+         // If waves are off-shore, then do nothing
          if (! m_VCoast[nCoast].bGetWavesOnShore(nCoastPoint))
             continue;
 
@@ -59,14 +59,20 @@ int CSimulation::nDoBarrierFormation(void)
          CACoastLandform* pCoastLandform = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
          int nCoastLandform = pCoastLandform->nGetLandFormCategory();
 
-         // If this isn't a beach then do nothing, move to the next coast point
+         // If this isn't a beach then do nothing
          if (nCoastLandform != LF_DRIFT_BEACH)
             continue;
 
-         // OK waves are on-shore,and we are in the active zone, so we wil try to move some uncons sand or uncons gravel inland. Get the coords of the grid cell marked as coastline for the coastal landform object
+         // Get the coords of the grid cell marked as coastline for the coastal landform object
          int const nCoastX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetX();
          int const nCoastY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
 
+         // If there is talus on this cell then do nothing
+         int nTopLayer = m_pRasterGrid->m_Cell[nCoastX][nCoastY].nGetTopNonZeroLayerAboveBasement();
+         if (m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetLayerAboveBasement(nTopLayer)->bHasTalus())
+            continue;
+
+         // OK so far, so now try to move some uncons sand or uncons gravel inland
          double dCoastElev = m_pRasterGrid->m_Cell[nCoastX][nCoastY].dGetAllSedTopElevIncTalus();
 
          // Get the coastline points before and after this one
@@ -201,8 +207,8 @@ int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoin
    double dCoarseThis = m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetCoarseDepth();
 
    // TEST
-   double dFractSand = 0.1;
-   double dFractCoarse = 0.1;
+   double dFractSand = 0.02;
+   double dFractCoarse = 0.01;
 
    double dSandToMove = 0;
    double dCoarseToMove = 0;
