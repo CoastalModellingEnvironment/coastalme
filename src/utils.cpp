@@ -2323,6 +2323,10 @@ string CSimulation::strGetErrorText(int const nErr)
       strErr = "cannot find a start point for cell-by-cell polygon infilling";
       break;
 
+   case RTN_ERR_BASEMENT_DURING_BARRIER_CREATION:
+      strErr = "down to basement during barrier creation";
+      break;
+
    case RTN_ERR_UNKNOWN:
       strErr = "unknown error";
       break;

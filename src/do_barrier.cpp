@@ -145,7 +145,7 @@ int CSimulation::nDoBarrierFormation(void)
             {
                bIsACellLessThanRunupElev = true;
 
-               int nRet = nMoveUnconsLandward();
+               int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp);
                if (nRet != RTN_OK)
                   return nRet;
             }
@@ -156,26 +156,58 @@ int CSimulation::nDoBarrierFormation(void)
                LogStream << m_ulIter << ":\t barrier deposition, coast point = " << nCoastPoint << " [" << nCoastX << "][" << nCoastY << "] = {" << dGridCentroidXToExtCRSX(nCoastX) << ", " << dGridCentroidYToExtCRSY(nCoastY) << "} this point [" << nTmpX << "][" << nTmpY << "] = {" << dGridCentroidXToExtCRSX(nTmpX) << ", " << dGridCentroidYToExtCRSY(nTmpY) << "} dRunUp = " << dRunUp << " dWaveElev = " << dWaveElev << " cell elev = " << dCellElev << endl;
 
 
-
-
          } while (bIsACellLessThanRunupElev);
-
-
-
       }
    }
-
-
 
    return RTN_OK;
 }
 
 
 //===============================================================================================================================
-//! Uses runup to calculate landward movement of sand and gravel unconsolidarted sediment
+//! Uses runup to calculate landward movement of sand and gravel unconsolidated sediment
 //===============================================================================================================================
-int CSimulation::nMoveUnconsLandward(void)
+int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoint const* pPtiTo)
 {
+   int nXFrom = pPtiFrom->nGetX();
+   int nYFrom = pPtiFrom->nGetY();
+   int nXTo = pPtiTo->nGetX();
+   int nYTo = pPtiTo->nGetY();
+
+   int nTopLayer = m_pRasterGrid->m_Cell[nXFrom][nYFrom].nGetTopNonZeroLayerAboveBasement();
+
+   // Safety check
+   if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
+   {
+      LogStream << "Down to basement" << endl;
+      return RTN_ERR_BASEMENT_DURING_BARRIER_CREATION;
+   }
+
+   double dSandThis = m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetSandDepth();
+   double dCoarseThis = m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetCoarseDepth();
+
+   // TEST
+   double dFractSand = 0.1;
+   double dFractCoarse = 0.1;
+
+   double dSandToMove = 0;
+   double dCoarseToMove = 0;
+
+   if (dSandThis > 0)
+   {
+      dSandToMove = dSandThis * dFractSand;
+
+      m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dSandThis - dSandToMove);
+      m_pRasterGrid->m_Cell[nXTo][nYTo].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->AddSandDepth(dSandToMove);
+   }
+
+   if (dCoarseThis > 0)
+   {
+      dCoarseToMove = dCoarseThis * dFractCoarse;
+
+      m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetCoarseDepth(dCoarseThis - dCoarseToMove);
+      m_pRasterGrid->m_Cell[nXTo][nYTo].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->AddCoarseDepth(dCoarseToMove);
+   }
 
    return RTN_OK;
 }
