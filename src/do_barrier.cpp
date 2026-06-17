@@ -97,7 +97,8 @@ int CSimulation::nDoBarrierFormation(void)
          double const dRunUp = m_VCoast[nCoast].dGetRunUp(nCoastPoint);
 
          // Calc total elevation of runup
-         double const dRunUpTopElev = m_dThisIterSWL + dRunUp;
+         // double const dRunUpTopElev = m_dThisIterSWL + dRunUp;
+         double const dRunUpTopElev = m_dThisIterMeanSWL + dRunUp;
 
          // TODO calculate inland movement of sand and gravel
          int nHanded = m_VCoast[nCoast].nGetSeaHandedness();      // RH = 0, LH = 1
@@ -128,12 +129,13 @@ int CSimulation::nDoBarrierFormation(void)
 
          bool bIsACellLessThanRunupElev = true;
          int n = 0;
+         double dLastSandMoved = DBL_NODATA;
+         double dLastCoarseMoved = DBL_NODATA;
          CGeom2DIPoint PtiLast(INT_NODATA, INT_NODATA);
 
          do
          {
             n++;
-
             CGeom2DIPoint const PtiTmp = PtiGetPerpendicular(nCoastXBefore, nCoastYBefore, nCoastXAfter, nCoastYAfter, n * m_dCellSide, nCoastHand);
 
             // Safety check
@@ -167,9 +169,9 @@ int CSimulation::nDoBarrierFormation(void)
                // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
                   LogStream << m_ulIter << ":\t possible barrier uncons movement, coast point = " << nCoastPoint << " [" << nCoastX << "][" << nCoastY << "] = {" << dGridCentroidXToExtCRSX(nCoastX) << ", " << dGridCentroidYToExtCRSY(nCoastY) << "}, last point [" << PtiLast.nGetX() << "][" << PtiLast.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiLast.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiLast.nGetY()) << "}, this point [" << nTmpX << "][" << nTmpY << "] = {" << dGridCentroidXToExtCRSX(nTmpX) << ", " << dGridCentroidYToExtCRSY(nTmpY) << "} dRunUp = " << dRunUp << " dRunUpTopElev = " << dRunUpTopElev << " cell elev = " << dCellElev << " dWeight = " << dWeight << endl;
 
-               int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight);
-               if (nRet != RTN_OK)
-                  return nRet;
+               int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
+               // if (nRet != RTN_OK)
+                  // return nRet;
             }
             else
                bIsACellLessThanRunupElev = false;
@@ -187,7 +189,7 @@ int CSimulation::nDoBarrierFormation(void)
 //===============================================================================================================================
 //! Uses runup to calculate landward movement of sand and gravel unconsolidated sediment
 //===============================================================================================================================
-int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoint const* pPtiTo, double const dWeight)
+int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoint const* pPtiTo, double const dWeight, double& dLastSandMoved, double& dLastCoarseMoved)
 {
    int nXFrom = pPtiFrom->nGetX();
    int nYFrom = pPtiFrom->nGetY();
@@ -203,12 +205,22 @@ int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoin
       return RTN_ERR_BASEMENT_DURING_BARRIER_CREATION;
    }
 
-   double dSandThis = m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetSandDepth();
-   double dCoarseThis = m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetCoarseDepth();
+   double dSandThis;
+   double dCoarseThis;
+
+   if (bFPIsEqual(dLastSandMoved, DBL_NODATA, TOLERANCE))
+      dSandThis = m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetSandDepth();
+   else
+      dSandThis = dLastSandMoved;
+
+   if (bFPIsEqual(dLastCoarseMoved, DBL_NODATA, TOLERANCE))
+      dCoarseThis = m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetCoarseDepth();
+   else
+      dCoarseThis = dLastCoarseMoved;
 
    // TEST
-   double dFractSand = 0.02;
-   double dFractCoarse = 0.01;
+   double dFractSand = 0.2;
+   double dFractCoarse = 0.1;
 
    double dSandToMove = 0;
    double dCoarseToMove = 0;
@@ -234,6 +246,10 @@ int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoin
       // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
          LogStream << m_ulIter << ":\t  barrier coarse movement, from [" << nXFrom << "][" << nYFrom << "] = {" << dGridCentroidXToExtCRSX(nXFrom) << ", " << dGridCentroidYToExtCRSY(nYFrom) << "} to [" << nXTo << "][" << nYTo << "] = {" << dGridCentroidXToExtCRSX(nXTo) << ", " << dGridCentroidYToExtCRSY(nYTo) << "} coarse depth moved = " << scientific << dCoarseToMove << fixed << endl;
    }
+
+   // For next time
+   dLastSandMoved = dSandToMove;
+   dLastCoarseMoved = dCoarseToMove;
 
    return RTN_OK;
 }

@@ -1798,7 +1798,7 @@ private:
    void SlumpMarkCellDirty(int const, int const);
    int nDoSedimentSlumping(void);
    bool bIdentifyPossibleCoastStart(int const, int const, int const, int const, vector<CGeom2DIPoint>*);
-   int nMoveUnconsLandward(CGeom2DIPoint const*, CGeom2DIPoint const*, double const);
+   int nMoveUnconsLandward(CGeom2DIPoint const*, CGeom2DIPoint const*, double const, double&, double&);
 
    // GIS utility routines
    int nMarkBoundingBoxEdgeCells(void);
