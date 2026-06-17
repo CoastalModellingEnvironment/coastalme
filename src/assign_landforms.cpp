@@ -87,6 +87,7 @@ int CSimulation::nAssignLandformsForAllCells(void)
             {
                // Set to beach
                VCellToUpdate[nX][nY] = LF_DRIFT_BEACH;
+
                continue;
             }
 
@@ -96,6 +97,7 @@ int CSimulation::nAssignLandformsForAllCells(void)
                if (nCat != LF_ISLAND)
                   // Set to island
                   VCellToUpdate[nX][nY] = LF_ISLAND;
+
                continue;
             }
 
@@ -103,6 +105,7 @@ int CSimulation::nAssignLandformsForAllCells(void)
             if (nCat != LF_SEA)
                // Mark it as sea
                VCellToUpdate[nX][nY] = LF_SEA;
+
             continue;
          }
 
@@ -113,16 +116,23 @@ int CSimulation::nAssignLandformsForAllCells(void)
             if (nCat != LF_UNKNOWN)
                // Set to unknown landform
                VCellToUpdate[nX][nY] = LF_UNKNOWN;
+
             continue;
          }
 
          int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
+
+         // Safety check
+         if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
+            continue;
+
          CRWCellLayer* pTopLayer = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer);
 
          if (pTopLayer->bHasTalus())
          {
             // There is talus here
             VCellToUpdate[nX][nY] = LF_DRIFT_TALUS;
+
             continue;
          }
 
@@ -130,6 +140,7 @@ int CSimulation::nAssignLandformsForAllCells(void)
          {
             // This is unconsolidated sediment here, so set to beach
             VCellToUpdate[nX][nY] = LF_DRIFT_BEACH;
+
             continue;
          }
 
@@ -247,6 +258,11 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
 
          // OK the landform on this coast cell is something other than an intervention. First check for talus
          int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
+
+         // Safety check
+         if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
+            continue;
+
          CRWCellLayer* pTopLayer = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer);
 
          if (pTopLayer->bHasTalus())

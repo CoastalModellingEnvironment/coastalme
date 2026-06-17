@@ -67,8 +67,22 @@ int CSimulation::nDoBarrierFormation(void)
          int const nCoastX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetX();
          int const nCoastY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
 
-         // If there is talus on this cell then do nothing
+         // Get the top layer
          int nTopLayer = m_pRasterGrid->m_Cell[nCoastX][nCoastY].nGetTopNonZeroLayerAboveBasement();
+
+         // Safety check
+         if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
+            continue;
+
+         // Any uncons sand or uncons coarse here?
+         double dSand = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetSandDepth();
+         double dCoarse = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetCoarseDepth();
+
+         if ((bFPIsEqual(dSand, 0.0, TOLERANCE)) && (bFPIsEqual(dCoarse, 0.0, TOLERANCE)))
+            //  No uncons sand or gravel so do nothing
+            continue;
+
+         // If there is talus on this cell then do nothing
          if (m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetLayerAboveBasement(nTopLayer)->bHasTalus())
             continue;
 
@@ -206,7 +220,7 @@ int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoin
    int nTopLayer = m_pRasterGrid->m_Cell[nXFrom][nYFrom].nGetTopNonZeroLayerAboveBasement();
 
    // Safety check
-   if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
+   if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
    {
       LogStream << "Down to basement" << endl;
       return RTN_ERR_BASEMENT_DURING_BARRIER_CREATION;

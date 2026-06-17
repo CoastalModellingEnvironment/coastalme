@@ -810,7 +810,7 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
    int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
    // Safety check
-   if (nThisLayer == INT_NODATA)
+   if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) || (nThisLayer == INT_NODATA))
    {
       cerr << ERR << "no sediment layer while doing actual shore platform erosion" << endl;
       return;
@@ -1169,7 +1169,7 @@ double CSimulation::dCalcBeachProtectionFactor(int const nX, int const nY, doubl
    int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
    // Safety check
-   if (nThisLayer == INT_NODATA)
+   if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) || (nThisLayer == INT_NODATA))
    {
       cerr << ERR << "no sediment layer in dCalcBeachProtectionFactor()" << endl;
       return 0;
@@ -1215,6 +1215,11 @@ void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
 
                // Now determine the landform category
                int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
+
+               // Safety check
+               if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
+                  continue;
+
                CRWCellLayer* pTopLayer = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer);
 
                if (pTopLayer->bHasTalus())

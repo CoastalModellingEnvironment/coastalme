@@ -545,7 +545,7 @@ int CSimulation::nDoParallelProfileUnconsErosion(CGeomCoastPolygon* pPolygon, in
             int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
             // Safety check
-            if (nThisLayer == INT_NODATA)
+            if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) || (nThisLayer == INT_NODATA))
                return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
 
             if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
@@ -1230,7 +1230,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
                int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
                // Safety check
-               if (nThisLayer == INT_NODATA)
+               if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) || (nThisLayer == INT_NODATA))
                   return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
 
                if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
@@ -1717,7 +1717,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
                   int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
                   // Safety check
-                  if (nThisLayer == INT_NODATA)
+                  if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) || (nThisLayer == INT_NODATA))
                      return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
 
                   if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)

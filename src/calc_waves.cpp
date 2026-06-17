@@ -1688,7 +1688,8 @@ int CSimulation::nGetThisProfileElevationsForCShore(int const nCoast, CGeomProfi
          // No top layer
          LogStream << ERR << "no top layer during wave calcs at [" << nX << "][" << nY << "] for coast " << pProfile->nGetCoastID() << " profile " << pProfile->nGetProfileID() << endl;
 
-         return RTN_ERR_NO_TOP_LAYER_DURING_WAVE_CALC;
+         // return RTN_ERR_NO_TOP_LAYER_DURING_WAVE_CALC;
+         return RTN_OK;
       }
 
       if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)

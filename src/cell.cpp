@@ -794,8 +794,7 @@ void CGeomCell::InitCell(void)
    int const nThisLayer = this->nGetTopNonZeroLayerAboveBasement();
 
    // Safety check
-   if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) ||
-       (nThisLayer == INT_NODATA))
+   if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) || (nThisLayer == INT_NODATA))
    {
       // Uh-oh, problem. So just return TODO 021
       return;
