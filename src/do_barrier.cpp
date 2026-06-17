@@ -172,6 +172,13 @@ int CSimulation::nDoBarrierFormation(void)
                int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
                // if (nRet != RTN_OK)
                   // return nRet;
+
+               // Don't continue if last sediment moved was a tiny amount
+               if (dLastSandMoved < SED_ELEV_TOLERANCE)
+                  break;
+
+               if (dLastCoarseMoved < SED_ELEV_TOLERANCE)
+                  break;
             }
             else
                bIsACellLessThanRunupElev = false;
@@ -219,8 +226,8 @@ int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoin
       dCoarseThis = dLastCoarseMoved;
 
    // TEST
-   double dFractSand = 0.2;
-   double dFractCoarse = 0.1;
+   double dFractSand = 0.8;
+   double dFractCoarse = 0.4;
 
    double dSandToMove = 0;
    double dCoarseToMove = 0;
@@ -229,22 +236,29 @@ int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoin
    {
       dSandToMove = dSandThis * dFractSand * dWeight;
 
-      m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dSandThis - dSandToMove);
-      m_pRasterGrid->m_Cell[nXTo][nYTo].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->AddSandDepth(dSandToMove);
+      // Don't move tiny amounts
+      if (dSandToMove > SED_ELEV_TOLERANCE)
+      {
+         m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dSandThis - dSandToMove);
+         m_pRasterGrid->m_Cell[nXTo][nYTo].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->AddSandDepth(dSandToMove);
 
-      // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-         LogStream << m_ulIter << ":\t  barrier sand movement, from [" << nXFrom << "][" << nYFrom << "] = {" << dGridCentroidXToExtCRSX(nXFrom) << ", " << dGridCentroidYToExtCRSY(nYFrom) << "} to [" << nXTo << "][" << nYTo << "] = {" << dGridCentroidXToExtCRSX(nXTo) << ", " << dGridCentroidYToExtCRSY(nYTo) << "} sand depth moved = " << scientific << dSandToMove << fixed << endl;
+         // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+            LogStream << m_ulIter << ":\t  barrier sand movement, from [" << nXFrom << "][" << nYFrom << "] = {" << dGridCentroidXToExtCRSX(nXFrom) << ", " << dGridCentroidYToExtCRSY(nYFrom) << "} to [" << nXTo << "][" << nYTo << "] = {" << dGridCentroidXToExtCRSX(nXTo) << ", " << dGridCentroidYToExtCRSY(nYTo) << "} sand depth moved = " << scientific << dSandToMove << fixed << endl;
+      }
    }
 
    if (dCoarseThis > 0)
    {
       dCoarseToMove = dCoarseThis * dFractCoarse * dWeight;
 
-      m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetCoarseDepth(dCoarseThis - dCoarseToMove);
-      m_pRasterGrid->m_Cell[nXTo][nYTo].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->AddCoarseDepth(dCoarseToMove);
+      if (dCoarseToMove > SED_ELEV_TOLERANCE)
+      {
+         m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetCoarseDepth(dCoarseThis - dCoarseToMove);
+         m_pRasterGrid->m_Cell[nXTo][nYTo].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->AddCoarseDepth(dCoarseToMove);
 
-      // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-         LogStream << m_ulIter << ":\t  barrier coarse movement, from [" << nXFrom << "][" << nYFrom << "] = {" << dGridCentroidXToExtCRSX(nXFrom) << ", " << dGridCentroidYToExtCRSY(nYFrom) << "} to [" << nXTo << "][" << nYTo << "] = {" << dGridCentroidXToExtCRSX(nXTo) << ", " << dGridCentroidYToExtCRSY(nYTo) << "} coarse depth moved = " << scientific << dCoarseToMove << fixed << endl;
+         // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+            LogStream << m_ulIter << ":\t  barrier coarse movement, from [" << nXFrom << "][" << nYFrom << "] = {" << dGridCentroidXToExtCRSX(nXFrom) << ", " << dGridCentroidYToExtCRSY(nYFrom) << "} to [" << nXTo << "][" << nYTo << "] = {" << dGridCentroidXToExtCRSX(nXTo) << ", " << dGridCentroidYToExtCRSY(nYTo) << "} coarse depth moved = " << scientific << dCoarseToMove << fixed << endl;
+      }
    }
 
    // For next time
