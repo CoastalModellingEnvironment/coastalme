@@ -242,8 +242,8 @@ int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoin
       dCoarseThis = dLastCoarseMoved;
 
    // TEST
-   double dFractSand = 0.8;
-   double dFractCoarse = 0.4;
+   double dFractSand = 0.1;
+   double dFractCoarse = 0.2;
 
    double dSandToMove = 0;
    double dCoarseToMove = 0;
