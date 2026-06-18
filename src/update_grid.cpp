@@ -48,6 +48,23 @@ using std::size_t;
 //    }) \
 //    initializer(omp_priv = vector<vector<double>>(omp_orig.size(), vector<double>(omp_orig[0].size(), 0)))
 
+// #ifdef _OPENMP
+// // Declare the custom OpenMP reduction
+// // omp_out: Represents the global vector (the target of the reduction)
+// // omp_in:  Represents the thread-local private vector copy
+// // omp_priv: The uninitialized thread-local private vector variable
+// // omp_orig: The master copy of the vector used to guide size initialization
+//    #pragma omp declare reduction(matrix_add : vector<vector<double>> : \
+//       for (size_t i = 0; i < omp_out.size(); i++) \
+//       { \
+//          for (size_t j = 0; j < omp_out[i].size(); j++) \
+//          { \
+//             omp_out[i][j] += omp_in[i][j]; \
+//          } \
+//       }) \
+//       initializer(omp_priv = vector<vector<double>>(omp_orig.size(), vector<double>(omp_orig[0].size(), 0)))
+// #endif
+
 //===============================================================================================================================
 //! At the end of each timestep, updates all cells in the raster grid and does some per-timestep accounting
 //===============================================================================================================================
@@ -97,13 +114,13 @@ int CSimulation::nEndOfTimestepUpdateGrid(void)
    m_dThisIterTotSeaDepth = 0;
 
 // #ifdef _OPENMP
-// #pragma omp parallel for collapse(2)                                 \
-//     reduction(+ : m_ulThisIterNumCoastCells, m_dThisIterTotSeaDepth) \
-//     reduction(max : m_dThisIterTopElevMax)                           \
-//     reduction(min : m_dThisIterTopElevMin)
+//    #pragma omp parallel for collapse(2)                                 \
+//       reduction(+ : m_ulThisIterNumCoastCells, m_dThisIterTotSeaDepth)  \
+//       reduction(max : m_dThisIterTopElevMax)                            \
+//       reduction(min : m_dThisIterTopElevMin)                            \
+//       matrix_add:m_VVdFineTalus)
 // #endif
 
-   // #pragma omp parallel for reduction(matrix_add:m_VVdFineTalus)
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {
       for (int nY = 0; nY < m_nYGridSize; nY++)

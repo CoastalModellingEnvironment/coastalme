@@ -141,11 +141,8 @@ int CSimulation::nDoAllShorePlatFormErosion(void)
    // Swap direction for next timestep
    bDownCoast = ! bDownCoast;
 
-   // Fill in 'holes' in the potential platform erosion i.e. orphan cells which get omitted because of rounding problems
-   FillPotentialPlatformErosionHoles();
-
-   // Do the same for beach protection
-   FillInBeachProtectionHolesAndRemoveLegacyCliffs();
+   // Fill in 'holes' in the potential platform erosion i.e. orphan cells which get omitted because of rounding problems, also remove 'legacy' cliffs
+   FillIPlatformErosionHolesAndRemoveLegacyCliffs();
 
    // Finally calculate actual platform erosion on all sea cells (both on profiles, and between profiles)
    for (int nX = 0; nX < m_nXGridSize; nX++)
@@ -1179,15 +1176,81 @@ double CSimulation::dCalcBeachProtectionFactor(int const nX, int const nY, doubl
 }
 
 //===============================================================================================================================
-//! Fills in 'holes' in the beach protection i.e. orphan cells which get omitted because of rounding problems. Also removes 'legacy' cliff notches
+//! Fills in 'holes' in the potential platform erosion and beach protection (i.e. orphan cells which get omitted because of rounding problems), also removes 'legacy' cliff notches
 //===============================================================================================================================
-void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
+void CSimulation::FillIPlatformErosionHolesAndRemoveLegacyCliffs(void)
 {
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {
       for (int nY = 0; nY < m_nYGridSize; nY++)
       {
-         // Find any 'legacy' ciff cells: cells with an erosional notch apex elevation which is now - due to shore platform erosion - above the top of the consolidated sediment
+         if ((m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetPotentialPlatformErosion(), 0.0, TOLERANCE)))
+         {
+            // This is a sea cell, it has a zero potential platform erosion value. So look at its N-S and W-E neighbours
+            int nXTmp;
+            int nYTmp;
+            int nAdjacent = 0;
+            double dPotentialPlatformErosion = 0;
+
+            // North
+            nXTmp = nX;
+            nYTmp = nY - 1;
+
+            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion(), 0.0, TOLERANCE)))
+            {
+               nAdjacent++;
+               dPotentialPlatformErosion += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion();
+            }
+
+            // East
+            nXTmp = nX + 1;
+            nYTmp = nY;
+
+            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion(), 0.0, TOLERANCE)))
+            {
+               nAdjacent++;
+               dPotentialPlatformErosion += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion();
+            }
+
+            // South
+            nXTmp = nX;
+            nYTmp = nY + 1;
+
+            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion(), 0.0, TOLERANCE)))
+            {
+               nAdjacent++;
+               dPotentialPlatformErosion += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion();
+            }
+
+            // West
+            nXTmp = nX - 1;
+            nYTmp = nY;
+
+            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion(), 0.0, TOLERANCE)))
+            {
+               nAdjacent++;
+               dPotentialPlatformErosion += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion();
+            }
+
+            // If this sea cell has four neighbours with non-zero potential platform erosion values, then assume that it should not have a zero potential platform erosion value. Set it to the average of its neighbours
+            if (nAdjacent == 4)
+            {
+               double const dThisPotentialPlatformErosion = dPotentialPlatformErosion / 4;
+
+               m_pRasterGrid->m_Cell[nX][nY].SetPotentialPlatformErosion(dThisPotentialPlatformErosion);
+
+               // Update this-timestep totals
+               m_ulThisIterNumPotentialPlatformErosionCells++;
+               m_dThisIterPotentialPlatformErosion += dThisPotentialPlatformErosion;
+               // assert(isfinite(m_dThisIterPotentialPlatformErosion));
+
+               // Increment the check values
+               m_ulTotPotentialPlatformErosionBetweenProfiles++;
+               m_dTotPotentialPlatformErosionBetweenProfiles += dThisPotentialPlatformErosion;
+            }
+         }
+
+         // Find any 'legacy' ciff cells: cells with an erosional notch apex elevation which is now, due to shore platform erosion, above the top of the consolidated sediment
          double const dNotchApexElev = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->dGetCliffNotchApexElev();
          if (! bFPIsEqual(dNotchApexElev, DBL_NODATA, TOLERANCE))
          {
@@ -1319,84 +1382,6 @@ void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
             if (nAdjacent == 8)
             {
                m_pRasterGrid->m_Cell[nX][nY].SetBeachProtectionFactor(dBeachProtection / 8);
-            }
-         }
-      }
-   }
-}
-
-//===============================================================================================================================
-//! Fills in 'holes' in the potential platform erosion i.e. orphan cells which get omitted because of rounding problems
-//===============================================================================================================================
-void CSimulation::FillPotentialPlatformErosionHoles(void)
-{
-   for (int nX = 0; nX < m_nXGridSize; nX++)
-   {
-      for (int nY = 0; nY < m_nYGridSize; nY++)
-      {
-         if ((m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea()) && (bFPIsEqual(m_pRasterGrid->m_Cell[nX][nY].dGetPotentialPlatformErosion(), 0.0, TOLERANCE)))
-         {
-            // This is a sea cell, it has a zero potential platform erosion value. So look at its N-S and W-E neighbours
-            int nXTmp;
-            int nYTmp;
-            int nAdjacent = 0;
-            double dPotentialPlatformErosion = 0;
-
-            // North
-            nXTmp = nX;
-            nYTmp = nY - 1;
-
-            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion(), 0.0, TOLERANCE)))
-            {
-               nAdjacent++;
-               dPotentialPlatformErosion += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion();
-            }
-
-            // East
-            nXTmp = nX + 1;
-            nYTmp = nY;
-
-            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion(), 0.0, TOLERANCE)))
-            {
-               nAdjacent++;
-               dPotentialPlatformErosion += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion();
-            }
-
-            // South
-            nXTmp = nX;
-            nYTmp = nY + 1;
-
-            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion(), 0.0, TOLERANCE)))
-            {
-               nAdjacent++;
-               dPotentialPlatformErosion += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion();
-            }
-
-            // West
-            nXTmp = nX - 1;
-            nYTmp = nY;
-
-            if ((bIsWithinValidGrid(nXTmp, nYTmp)) && (! bFPIsEqual(m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion(), 0.0, TOLERANCE)))
-            {
-               nAdjacent++;
-               dPotentialPlatformErosion += m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetPotentialPlatformErosion();
-            }
-
-            // If this sea cell has four neighbours with non-zero potential platform erosion values, then assume that it should not have a zero potential platform erosion value. Set it to the average of its neighbours
-            if (nAdjacent == 4)
-            {
-               double const dThisPotentialPlatformErosion = dPotentialPlatformErosion / 4;
-
-               m_pRasterGrid->m_Cell[nX][nY].SetPotentialPlatformErosion(dThisPotentialPlatformErosion);
-
-               // Update this-timestep totals
-               m_ulThisIterNumPotentialPlatformErosionCells++;
-               m_dThisIterPotentialPlatformErosion += dThisPotentialPlatformErosion;
-               // assert(isfinite(m_dThisIterPotentialPlatformErosion));
-
-               // Increment the check values
-               m_ulTotPotentialPlatformErosionBetweenProfiles++;
-               m_dTotPotentialPlatformErosionBetweenProfiles += dThisPotentialPlatformErosion;
             }
          }
       }

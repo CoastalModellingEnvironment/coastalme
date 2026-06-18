@@ -1824,7 +1824,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
 //===============================================================================================================================
 bool CSimulation::bElevAboveDeanElev(int const nX, int const nY, double const dElevDiff, CRWCellLandform const* pLandform)
 {
-   // TODO 075 What if it is bedrock that sticks above Dean profile?
+   // TODO 075 What if it is bedrock that protrudes above the Dean profile?
    if (dElevDiff <= 0)
    {
       if (m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea())
@@ -1832,7 +1832,7 @@ bool CSimulation::bElevAboveDeanElev(int const nX, int const nY, double const dE
 
       int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_SEDIMENT_INPUT_UNCONSOLIDATED))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_DRIFT_BARRIER) || (nCat == LF_SEDIMENT_INPUT_UNCONSOLIDATED))
          return true;
    }
 

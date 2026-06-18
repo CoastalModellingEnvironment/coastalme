@@ -70,6 +70,12 @@ int CSimulation::nDoBarrierFormation(void)
          if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
             continue;
 
+         CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetCellLandform();
+         int const nCat = pLandform->nGetLandformCategory();
+         if (nCat == LF_CLIFF)
+            // This is a cliff, so do nothing
+            continue;
+
          // Any uncons sand or uncons coarse here?
          double dSand = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetSandDepth();
          double dCoarse = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetCoarseDepth();
