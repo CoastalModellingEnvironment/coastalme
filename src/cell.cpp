@@ -539,7 +539,7 @@ bool CGeomCell::bIsInundated(void)
 }
 
 //! Returns the sea surface elevation at the current iteration
-double CGeomCell::dGetThisIterSWL(void) const
+double CGeomCell::dGetThisIterSWL(void)
 {
    return m_pGrid->pGetSim()->CSimulation::dGetThisIterSWL();
 }

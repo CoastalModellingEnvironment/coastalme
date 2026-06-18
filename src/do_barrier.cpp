@@ -56,7 +56,7 @@ int CSimulation::nDoBarrierFormation(void)
             continue;
 
          // OK, waves are on-shore,and we are in the active zone
-         CACoastLandform* pCoastLandform = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
+         CACoastLandform const* pCoastLandform = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
          int nCoastLandform = pCoastLandform->nGetLandFormCategory();
 
          // Get the coords of the grid cell marked as coastline for the coastal landform object

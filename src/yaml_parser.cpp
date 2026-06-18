@@ -72,7 +72,7 @@ void CYamlNode::AddSequenceItem(CYamlNode const* pNode)
    m_bIsSequence = true;
 }
 
-string* CYamlNode::pstrGetValue() const
+string* CYamlNode::pStrGetValue() const
 {
    return const_cast<string*>(&m_strValue);
 }
@@ -90,17 +90,17 @@ CYamlNode CYamlNode::GetChild(string const& strKey) const
    return CYamlNode();      // Return empty node if not found
 }
 
-vector<CYamlNode> CYamlNode::GetSequence() const
+vector<CYamlNode> CYamlNode::VNodeGetSequence() const
 {
    return m_VYamlChildren;
 }
 
-bool CYamlNode::IsSequence() const
+bool CYamlNode::bIsSequence() const
 {
    return m_bIsSequence;
 }
 
-int CYamlNode::nGetSequenceSize() const
+int CYamlNode::nVNodeGetSequenceSize() const
 {
    return static_cast<int>(m_VYamlChildren.size());
 }
@@ -167,7 +167,7 @@ vector<string> const CYamlNode::VstrGetStringSequence() const
    vector<string> VstrResult;
    for (auto const& node : m_VYamlChildren)
    {
-      VstrResult.push_back(*node.pstrGetValue());
+      VstrResult.push_back(*node.pStrGetValue());
    }
    return VstrResult;
 }
@@ -225,7 +225,7 @@ bool CYamlParser::bHasError() const
    return ! m_strError.empty();
 }
 
-int CYamlParser::nGetIndentLevel(string const& strLine) const
+int CYamlParser::nGetIndentLevel(string const& strLine)
 {
    int nIndent = 0;
    for (char const c : strLine)
@@ -240,7 +240,7 @@ int CYamlParser::nGetIndentLevel(string const& strLine) const
    return nIndent;
 }
 
-string CYamlParser::strTrimLeft(string const& strLine) const
+string CYamlParser::strTrimLeft(string const& strLine)
 {
    auto it = strLine.begin();
    while (it != strLine.end() && isspace(*it))
@@ -248,7 +248,7 @@ string CYamlParser::strTrimLeft(string const& strLine) const
    return string(it, strLine.end());
 }
 
-string CYamlParser::strTrimRight(string const& strLine) const
+string CYamlParser::strTrimRight(string const& strLine)
 {
    auto it = strLine.rbegin();
    while (it != strLine.rend() && isspace(*it))
@@ -256,7 +256,7 @@ string CYamlParser::strTrimRight(string const& strLine) const
    return string(strLine.begin(), it.base());
 }
 
-string CYamlParser::strTrim(string const& strLine) const
+string CYamlParser::strTrim(string const& strLine)
 {
    return strTrimLeft(strTrimRight(strLine));
 }
@@ -272,15 +272,15 @@ bool CYamlParser::bIsEmpty(string const& strLine) const
    return strTrim(strLine).empty();
 }
 
-bool CYamlParser::bParseLine(string const& strLine, string& strKey, string& strValue, bool& bIsSequence) const
+bool CYamlParser::bParseLine(string const& strLine, string& strKey, string& strValue, bool& bbIsSequence) const
 {
    string strTrimmed = strTrimLeft(strLine);
-   bIsSequence = false;
+   bbIsSequence = false;
 
    // Check for sequence item
    if (strTrimmed.length() > 0 && strTrimmed[0] == '-')
    {
-      bIsSequence = true;
+      bbIsSequence = true;
       strKey.clear();
       strValue = strTrim(strTrimmed.substr(1));
       strValue = strRemoveQuotes(strValue);
@@ -304,7 +304,7 @@ bool CYamlParser::bParseLine(string const& strLine, string& strKey, string& strV
    return true;
 }
 
-string CYamlParser::strRemoveQuotes(string const& strValue) const
+string CYamlParser::strRemoveQuotes(string const& strValue)
 {
    string result = strValue;
 
@@ -348,11 +348,11 @@ CYamlNode CYamlParser::ParseSection(ifstream& fileStream, int nBaseIndent)
 
       string strKey;
       string strValue;
-      bool bIsSequence;
+      bool bbIsSequence;
 
-      if (bParseLine(strLine, strKey, strValue, bIsSequence))
+      if (bParseLine(strLine, strKey, strValue, bbIsSequence))
       {
-         if (bIsSequence)
+         if (bbIsSequence)
          {
             // Handle sequence item
             CYamlNode itemNode;

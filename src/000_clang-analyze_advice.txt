@@ -190,151 +190,122 @@
    60 |          int nCoastLandform = pCoastLandform->nGetLandFormCategory();
       |          ^
       |              const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:70:3: warning: variable 'nTopLayer' of type 'int' can be declared 'const' [misc-const-correctness]
-   70 |          if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
-      |   ^
-      |       const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:74:130: warning: variable 'dSand' of type 'double' can be declared 'const' [misc-const-correctness]
+/home/dave/coast/CoastalME/src/do_barrier.cpp:60:14: warning: Value stored to 'nCoastLandform' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+   60 |          int nCoastLandform = pCoastLandform->nGetLandFormCategory();
+      |              ^~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:60:14: note: Value stored to 'nCoastLandform' during its initialization is never read
+   60 |          int nCoastLandform = pCoastLandform->nGetLandFormCategory();
+      |              ^~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:67:10: warning: variable 'nTopLayer' of type 'int' can be declared 'const' [misc-const-correctness]
+   67 |          int nTopLayer = m_pRasterGrid->m_Cell[nCoastX][nCoastY].nGetTopNonZeroLayerAboveBasement();
+      |          ^
+      |              const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:74:10: warning: variable 'dSand' of type 'double' can be declared 'const' [misc-const-correctness]
    74 |          double dSand = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetSandDepth();
-      |                                                                                                                                  ^      
-      |                                                                                                                                         const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:75:130: warning: variable 'dCoarse' of type 'double' can be declared 'const' [misc-const-correctness]
+      |          ^
+      |                 const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:75:10: warning: variable 'dCoarse' of type 'double' can be declared 'const' [misc-const-correctness]
    75 |          double dCoarse = m_pRasterGrid->m_Cell[nCoastX][nCoastY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetCoarseDepth();
-      |                                                                                                                                  ^      
-      |                                                                                                                                         const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:88:31: warning: variable 'dCoastElev' of type 'double' can be declared 'const' [misc-const-correctness]
-   88 |          // Get the coastline points before and after this one
-      |                               ^
-      |                                      const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:115:46: warning: variable 'nHanded' of type 'int' can be declared 'const' [misc-const-correctness]
-  115 |          int const nCoastHand = m_VCoast[nCoast].nGetSeaHandedness();
-      |                                              ^   
-      |                                                  const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:115:50: warning: Value stored to 'nHanded' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
-  115 |          int const nCoastHand = m_VCoast[nCoast].nGetSeaHandedness();
-      |                                                  ^~~~~~~   ~~~~~~~~~~
-  116 | 
+      |          ^
+      |                 const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:86:10: warning: variable 'dCoastElev' of type 'double' can be declared 'const' [misc-const-correctness]
+   86 |          double dCoastElev = m_pRasterGrid->m_Cell[nCoastX][nCoastY].dGetAllSedTopElevIncTalus();
+      |          ^
+      |                 const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:114:10: warning: variable 'nHanded' of type 'int' can be declared 'const' [misc-const-correctness]
+  114 |          int nHanded = m_VCoast[nCoast].nGetSeaHandedness();      // RH = 0, LH = 1
+      |          ^
+      |              const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:114:14: warning: Value stored to 'nHanded' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+  114 |          int nHanded = m_VCoast[nCoast].nGetSeaHandedness();      // RH = 0, LH = 1
+      |              ^~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:114:14: note: Value stored to 'nHanded' during its initialization is never read
+  114 |          int nHanded = m_VCoast[nCoast].nGetSeaHandedness();      // RH = 0, LH = 1
+      |              ^~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:117:10: warning: variable 'bWavesDownCoast' of type 'bool' can be declared 'const' [misc-const-correctness]
   117 |          bool bWavesDownCoast = m_VCoast[nCoast].bGetWavesDownCoast(nCoastPoint);
-      |          ~~~~~~~~~~~~~~~
-/home/dave/coast/CoastalME/src/do_barrier.cpp:115:50: note: Value stored to 'nHanded' during its initialization is never read
-  115 |          int const nCoastHand = m_VCoast[nCoast].nGetSeaHandedness();
-      |                                                  ^~~~~~~   ~~~~~~~~~~
-  116 | 
+      |          ^
+      |               const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:117:15: warning: Value stored to 'bWavesDownCoast' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
   117 |          bool bWavesDownCoast = m_VCoast[nCoast].bGetWavesDownCoast(nCoastPoint);
-      |          ~~~~~~~~~~~~~~~
-/home/dave/coast/CoastalME/src/do_barrier.cpp:118:48: warning: variable 'bWavesDownCoast' of type 'bool' can be declared 'const' [misc-const-correctness]
+      |               ^~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:117:15: note: Value stored to 'bWavesDownCoast' during its initialization is never read
+  117 |          bool bWavesDownCoast = m_VCoast[nCoast].bGetWavesDownCoast(nCoastPoint);
+      |               ^~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:118:10: warning: variable 'dTangentToCoast' of type 'double' can be declared 'const' [misc-const-correctness]
   118 |          double dTangentToCoast = m_VCoast[nCoast].dGetFluxOrientation(nCoastPoint);
-      |                                                ^    
-      |                                                     const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:118:53: warning: Value stored to 'bWavesDownCoast' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+      |          ^
+      |                 const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:118:17: warning: Value stored to 'dTangentToCoast' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
   118 |          double dTangentToCoast = m_VCoast[nCoast].dGetFluxOrientation(nCoastPoint);
-      |                                                     ^~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~
-  119 |          double dBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nCoastPoint);
-      |          ~~~~~~~~~~~~~~~~~~~~~~~~
-/home/dave/coast/CoastalME/src/do_barrier.cpp:118:53: note: Value stored to 'bWavesDownCoast' during its initialization is never read
+      |                 ^~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:118:17: note: Value stored to 'dTangentToCoast' during its initialization is never read
   118 |          double dTangentToCoast = m_VCoast[nCoast].dGetFluxOrientation(nCoastPoint);
-      |                                                     ^~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~
+      |                 ^~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:119:10: warning: variable 'dBreakingWaveAngle' of type 'double' can be declared 'const' [misc-const-correctness]
   119 |          double dBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nCoastPoint);
-      |          ~~~~~~~~~~~~~~~~~~~~~~~~
-/home/dave/coast/CoastalME/src/do_barrier.cpp:119:45: warning: variable 'dTangentToCoast' of type 'double' can be declared 'const' [misc-const-correctness]
+      |          ^
+      |                 const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:119:17: warning: Value stored to 'dBreakingWaveAngle' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
   119 |          double dBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nCoastPoint);
-      |                                             ^      
-      |                                                    const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:119:52: warning: Value stored to 'dTangentToCoast' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+      |                 ^~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:119:17: note: Value stored to 'dBreakingWaveAngle' during its initialization is never read
   119 |          double dBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nCoastPoint);
-      |                                                    ^~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~
-  120 | 
-  121 |          // // TEST
-      |          ~~~~~~~~~~
-  122 |          // double dDiff = dKeepWithin360(dBreakingWaveAngle - dTangentToCoast + 180);
-/home/dave/coast/CoastalME/src/do_barrier.cpp:119:52: note: Value stored to 'dTangentToCoast' during its initialization is never read
-  119 |          double dBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nCoastPoint);
-      |                                                    ^~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~
-  120 | 
-  121 |          // // TEST
-      |          ~~~~~~~~~~
-  122 |          // double dDiff = dKeepWithin360(dBreakingWaveAngle - dTangentToCoast + 180);
-/home/dave/coast/CoastalME/src/do_barrier.cpp:122:19: warning: variable 'dBreakingWaveAngle' of type 'double' can be declared 'const' [misc-const-correctness]
-  122 |          // double dDiff = dKeepWithin360(dBreakingWaveAngle - dTangentToCoast + 180);
-      |                   ^
-      |                          const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:122:26: warning: Value stored to 'dBreakingWaveAngle' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
-  122 |          // double dDiff = dKeepWithin360(dBreakingWaveAngle - dTangentToCoast + 180);
-      |                          ^~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  123 |          //
-      |          ~
-/home/dave/coast/CoastalME/src/do_barrier.cpp:122:26: note: Value stored to 'dBreakingWaveAngle' during its initialization is never read
-  122 |          // double dDiff = dKeepWithin360(dBreakingWaveAngle - dTangentToCoast + 180);
-      |                          ^~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  123 |          //
-      |          ~
-/home/dave/coast/CoastalME/src/do_barrier.cpp:164:53: warning: variable 'nTmpX' of type 'int' can be declared 'const' [misc-const-correctness]
+      |                 ^~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:162:13: warning: variable 'nTmpX' of type 'int' can be declared 'const' [misc-const-correctness]
+  162 |             int nTmpX = PtiTmp.nGetX();
+      |             ^
+      |                 const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:163:13: warning: variable 'nTmpY' of type 'int' can be declared 'const' [misc-const-correctness]
+  163 |             int nTmpY = PtiTmp.nGetY();
+      |             ^
+      |                 const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:164:13: warning: variable 'dCellElev' of type 'double' can be declared 'const' [misc-const-correctness]
   164 |             double dCellElev = m_pRasterGrid->m_Cell[nTmpX][nTmpY].dGetAllSedTopElevIncTalus();
-      |                                                     ^   
-      |                                                         const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:164:93: warning: variable 'nTmpY' of type 'int' can be declared 'const' [misc-const-correctness]
-  164 |             double dCellElev = m_pRasterGrid->m_Cell[nTmpX][nTmpY].dGetAllSedTopElevIncTalus();
-      |                                                                                             ^
-  165 | 
-      | const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:166:36: warning: variable 'dCellElev' of type 'double' can be declared 'const' [misc-const-correctness]
-  166 |             if (dCellElev < dRunUpTopElev)
-      |                                    ^      
-      |                                           const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:179:43: warning: variable 'dWeight' of type 'double' can be declared 'const' [misc-const-correctness]
-  179 |                // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-      |                                           ^      
-      |                                                  const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:183:27: warning: variable 'nRet' of type 'int' can be declared 'const' [misc-const-correctness]
-  183 |                // if (nRet != RTN_OK)
-      |                           ^
-      |                               const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:183:31: warning: Value stored to 'nRet' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
-  183 |                // if (nRet != RTN_OK)
-      |                               ^~~~   
-  184 |                   // return nRet;
-      |                   ~~~~~~~~~~~~~~~
-  185 | 
-  186 |                // Don't continue if last sediment moved was a tiny amount
-      |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/home/dave/coast/CoastalME/src/do_barrier.cpp:183:31: note: Value stored to 'nRet' during its initialization is never read
-  183 |                // if (nRet != RTN_OK)
-      |                               ^~~~   
-  184 |                   // return nRet;
-      |                   ~~~~~~~~~~~~~~~
-  185 | 
-  186 |                // Don't continue if last sediment moved was a tiny amount
-      |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/home/dave/coast/CoastalME/src/do_barrier.cpp:214:23: warning: variable 'nXFrom' of type 'int' can be declared 'const' [misc-const-correctness]
+      |             ^
+      |                    const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:177:16: warning: variable 'dWeight' of type 'double' can be declared 'const' [misc-const-correctness]
+  177 |                double dWeight = (dRunUpTopElev - dCellElev) / (dRunUpTopElev - dCoastElev);
+      |                ^
+      |                       const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:182:16: warning: variable 'nRet' of type 'int' can be declared 'const' [misc-const-correctness]
+  182 |                int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
+      |                ^
+      |                    const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:182:20: warning: Value stored to 'nRet' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+  182 |                int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
+      |                    ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:182:20: note: Value stored to 'nRet' during its initialization is never read
+  182 |                int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
+      |                    ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_barrier.cpp:211:4: warning: variable 'nXFrom' of type 'int' can be declared 'const' [misc-const-correctness]
+  211 |    int nXFrom = pPtiFrom->nGetX();
+      |    ^
+      |        const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:212:4: warning: variable 'nYFrom' of type 'int' can be declared 'const' [misc-const-correctness]
+  212 |    int nYFrom = pPtiFrom->nGetY();
+      |    ^
+      |        const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:213:4: warning: variable 'nXTo' of type 'int' can be declared 'const' [misc-const-correctness]
+  213 |    int nXTo = pPtiTo->nGetX();
+      |    ^
+      |        const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:214:4: warning: variable 'nYTo' of type 'int' can be declared 'const' [misc-const-correctness]
   214 |    int nYTo = pPtiTo->nGetY();
-      |                       ^   
-      |                           const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:216:26: warning: variable 'nYFrom' of type 'int' can be declared 'const' [misc-const-correctness]
+      |    ^
+      |        const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:216:4: warning: variable 'nTopLayer' of type 'int' can be declared 'const' [misc-const-correctness]
   216 |    int nTopLayer = m_pRasterGrid->m_Cell[nXFrom][nYFrom].nGetTopNonZeroLayerAboveBasement();
-      |                          ^   
-      |                              const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:216:61: warning: variable 'nXTo' of type 'int' can be declared 'const' [misc-const-correctness]
-  216 |    int nTopLayer = m_pRasterGrid->m_Cell[nXFrom][nYFrom].nGetTopNonZeroLayerAboveBasement();
-      |                                                             ^   
-      |                                                                 const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:216:92: warning: variable 'nYTo' of type 'int' can be declared 'const' [misc-const-correctness]
-  216 |    int nTopLayer = m_pRasterGrid->m_Cell[nXFrom][nYFrom].nGetTopNonZeroLayerAboveBasement();
-      |                                                                                            ^
-  217 | 
-  218 |    // Safety check
-      |  const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:219:11: warning: variable 'nTopLayer' of type 'int' can be declared 'const' [misc-const-correctness]
-  219 |    if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
-      |           ^   
-      |               const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:245:8: warning: variable 'dFractSand' of type 'double' can be declared 'const' [misc-const-correctness]
-  245 |    if (dSandThis > 0)
-      |        ^      
-      |               const 
-/home/dave/coast/CoastalME/src/do_barrier.cpp:247:9: warning: variable 'dFractCoarse' of type 'double' can be declared 'const' [misc-const-correctness]
-  247 |       dSandToMove = dSandThis * dFractSand * dWeight;
-      |         ^      
-      |                const 
+      |    ^
+      |        const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:239:4: warning: variable 'dFractSand' of type 'double' can be declared 'const' [misc-const-correctness]
+  239 |    double dFractSand = 0.8;
+      |    ^
+      |           const 
+/home/dave/coast/CoastalME/src/do_barrier.cpp:240:4: warning: variable 'dFractCoarse' of type 'double' can be declared 'const' [misc-const-correctness]
+  240 |    double dFractCoarse = 0.4;
+      |    ^
+      |           const 
 /home/dave/coast/CoastalME/src/do_cliff_collapse.cpp:64:10: warning: variable 'dTalusDepth' of type 'double' can be declared 'const' [misc-const-correctness]
    64 |          double dTalusDepth = m_pRasterGrid->m_Cell[nX][nY].dGetAllTalusDepth();
       |          ^
@@ -387,17 +358,17 @@
   134 |             int nRet = nCalcPotentialPlatformErosionBetweenProfiles(nCoast, pProfile, DIRECTION_UPCOAST);
       |             ^
       |                 const 
-/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:450:10: warning: Value stored to 'nCoastProfileStart' is never read [clang-analyzer-deadcode.DeadStores]
-  450 |          nCoastProfileStart = pProfile->nGetCoastPoint();
+/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:447:10: warning: Value stored to 'nCoastProfileStart' is never read [clang-analyzer-deadcode.DeadStores]
+  447 |          nCoastProfileStart = pProfile->nGetCoastPoint();
       |          ^                    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:450:10: note: Value stored to 'nCoastProfileStart' is never read
-  450 |          nCoastProfileStart = pProfile->nGetCoastPoint();
+/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:447:10: note: Value stored to 'nCoastProfileStart' is never read
+  447 |          nCoastProfileStart = pProfile->nGetCoastPoint();
       |          ^                    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:475:10: warning: Value stored to 'nCoastProfileStart' is never read [clang-analyzer-deadcode.DeadStores]
-  475 |          nCoastProfileStart = pProfile->nGetCoastPoint();
+/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:472:10: warning: Value stored to 'nCoastProfileStart' is never read [clang-analyzer-deadcode.DeadStores]
+  472 |          nCoastProfileStart = pProfile->nGetCoastPoint();
       |          ^                    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:475:10: note: Value stored to 'nCoastProfileStart' is never read
-  475 |          nCoastProfileStart = pProfile->nGetCoastPoint();
+/home/dave/coast/CoastalME/src/do_shore_platform_erosion.cpp:472:10: note: Value stored to 'nCoastProfileStart' is never read
+  472 |          nCoastProfileStart = pProfile->nGetCoastPoint();
       |          ^                    ~~~~~~~~~~~~~~~~~~~~~~~~~~
 /home/dave/coast/CoastalME/src/do_uncons_sediment_slumping.cpp:53:8: warning: member variable 'nX' has public visibility [misc-non-private-member-variables-in-classes]
    53 |    int nX;                  //!< Cell X coordinate (grid column)

@@ -293,7 +293,7 @@ class CGeomCell
    double dGetLocalConsSedSlope(void) const;
 
    bool bIsInundated(void);
-   double dGetThisIterSWL(void) const;
+   static double dGetThisIterSWL(void);
    void SetSeaDepth(void);
    double dGetSeaDepth(void) const;
    void InitCell(void);

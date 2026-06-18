@@ -76,22 +76,25 @@ check_profile_intersection.cpp:1002:10: style: Consider using std::any_of algori
 do_barrier.cpp:59:27: style: Variable 'pCoastLandform' can be declared as pointer to const [constVariablePointer]
          CACoastLandform* pCoastLandform = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
                           ^
-do_barrier.cpp:186:25: style: Variable 'nRet' is assigned a value that is never used. [unreadVariable]
+do_barrier.cpp:182:25: style: Variable 'nRet' is assigned a value that is never used. [unreadVariable]
                int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
                         ^
-do_barrier.cpp:118:14: style: Variable 'nHanded' is assigned a value that is never used. [unreadVariable]
+do_barrier.cpp:60:14: style: Variable 'nCoastLandform' is assigned a value that is never used. [unreadVariable]
+         int nCoastLandform = pCoastLandform->nGetLandFormCategory();
+             ^
+do_barrier.cpp:114:14: style: Variable 'nHanded' is assigned a value that is never used. [unreadVariable]
          int nHanded = m_VCoast[nCoast].nGetSeaHandedness();      // RH = 0, LH = 1
              ^
-do_barrier.cpp:121:15: style: Variable 'bWavesDownCoast' is assigned a value that is never used. [unreadVariable]
+do_barrier.cpp:117:15: style: Variable 'bWavesDownCoast' is assigned a value that is never used. [unreadVariable]
          bool bWavesDownCoast = m_VCoast[nCoast].bGetWavesDownCoast(nCoastPoint);
               ^
-do_barrier.cpp:122:17: style: Variable 'dTangentToCoast' is assigned a value that is never used. [unreadVariable]
+do_barrier.cpp:118:17: style: Variable 'dTangentToCoast' is assigned a value that is never used. [unreadVariable]
          double dTangentToCoast = m_VCoast[nCoast].dGetFluxOrientation(nCoastPoint);
                 ^
-do_barrier.cpp:123:17: style: Variable 'dBreakingWaveAngle' is assigned a value that is never used. [unreadVariable]
+do_barrier.cpp:119:17: style: Variable 'dBreakingWaveAngle' is assigned a value that is never used. [unreadVariable]
          double dBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nCoastPoint);
                 ^
-do_barrier.cpp:186:20: style: Variable 'nRet' is assigned a value that is never used. [unreadVariable]
+do_barrier.cpp:182:20: style: Variable 'nRet' is assigned a value that is never used. [unreadVariable]
                int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
                    ^
 do_beach_sediment_movement.cpp:67:13: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
@@ -106,22 +109,7 @@ do_beach_sediment_movement.cpp:150:13: style: Consider using std::any_of algorit
 do_beach_sediment_movement.cpp:166:13: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
             {
             ^
-do_beach_within_polygon.cpp:551:28: style: Condition 'nThisLayer!=NO_NONZERO_THICKNESS_LAYERS' is always true [knownConditionTrueFalse]
-            if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
-                           ^
-do_beach_within_polygon.cpp:1236:31: style: Condition 'nThisLayer!=NO_NONZERO_THICKNESS_LAYERS' is always true [knownConditionTrueFalse]
-               if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
-                              ^
-do_beach_within_polygon.cpp:1723:34: style: Condition 'nThisLayer!=NO_NONZERO_THICKNESS_LAYERS' is always true [knownConditionTrueFalse]
-                  if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
-                                 ^
-do_shore_platform_erosion.cpp:819:19: style: Condition 'nThisLayer==NO_NONZERO_THICKNESS_LAYERS' is always false [knownConditionTrueFalse]
-   if (nThisLayer == NO_NONZERO_THICKNESS_LAYERS)
-                  ^
-do_shore_platform_erosion.cpp:1178:19: style: Condition 'nThisLayer==NO_NONZERO_THICKNESS_LAYERS' is always false [knownConditionTrueFalse]
-   if (nThisLayer == NO_NONZERO_THICKNESS_LAYERS)
-                  ^
-do_shore_platform_erosion.cpp:1122:7: style: Consider using std::find_if algorithm instead of a raw loop. [useStlAlgorithm]
+do_shore_platform_erosion.cpp:1115:7: style: Consider using std::find_if algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
 do_uncons_sediment_slumping.cpp:176:14: style: struct member 'Neighbour::slope' is never used. [unusedStructMember]

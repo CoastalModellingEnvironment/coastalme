@@ -1682,20 +1682,11 @@ int CSimulation::nGetThisProfileElevationsForCShore(int const nCoast, CGeomProfi
       // Get the number of the highest layer with non-zero thickness
       int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
-      // Safety checks
-      if (nTopLayer == INT_NODATA)
-      {
-         // No top layer
-         LogStream << ERR << "no top layer during wave calcs at [" << nX << "][" << nY << "] for coast " << pProfile->nGetCoastID() << " profile " << pProfile->nGetProfileID() << endl;
-
-         // return RTN_ERR_NO_TOP_LAYER_DURING_WAVE_CALC;
-         return RTN_OK;
-      }
-
+      // Safety check
       if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
       {
          // Down to basement
-         LogStream << ERR << "down to basement during wave calcs at [" << nX << "][" << nY << "] for coast " << pProfile->nGetCoastID() << " profile " << pProfile->nGetProfileID() << endl;
+         LogStream << WARN << "down to basement during wave calcs at [" << nX << "][" << nY << "] for coast " << pProfile->nGetCoastID() << " profile " << pProfile->nGetProfileID() << endl;
 
          // return RTN_ERR_BASEMENT_DURING_WAVE_CALC;
          return RTN_OK;

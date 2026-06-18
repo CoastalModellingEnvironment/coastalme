@@ -327,6 +327,9 @@ CSimulation::CSimulation(void)
    m_dThisIterLeftGridUnconsFine = 0;        // TODO067
    m_dThisIterLeftGridUnconsSand = 0;
    m_dThisIterLeftGridUnconsCoarse = 0;
+   m_dThisIterTotFineTalusDepth = 0;
+   m_dThisIterTotSandTalusDepth = 0;
+   m_dThisIterTotCoarseTalusDepth = 0;
    m_dThisIterPotentialPlatformErosion = 0;
    m_dThisIterActualPlatformErosionFineCons = 0;
    m_dThisIterActualPlatformErosionSandCons = 0;

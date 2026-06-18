@@ -20,6 +20,8 @@
 ===============================================================================================================================*/
 #include <assert.h>
 
+#include <cstddef>
+
 #include <iostream>
 using std::endl;
 
@@ -450,18 +452,6 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
          }
       }
    }
-
-   // DEBUG CODE =========================
-   for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
-   {
-      for (int nCoastPoint = 0; nCoastPoint < m_VCoast[nCoast].nGetCoastlineSize(); nCoastPoint++)
-      {
-         CACoastLandform* pLandForm = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
-         if (pLandForm == NULL)
-            LogStream << endl;
-      }
-   }
-
 
    // // DEBUG CODE ============================================================================================================================================
    // for (int i = 0; i < static_cast<int>(m_VCoast.size()); i++)

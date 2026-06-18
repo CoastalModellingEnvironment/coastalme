@@ -1657,7 +1657,7 @@ private:
    bool bConfigureFromDatFile(CConfiguration& config);
    bool bConfigureFromYamlFile(CConfiguration& config);
    void ApplyConfiguration(CConfiguration const& config);
-   string const* processFilePath(string*);
+   static string const* StrDoFilePath(string*);
    bool bOpenLogFile(void);
    bool bSetUpTSFiles(void);
    void WriteStartRunDetails(void);
@@ -1790,7 +1790,7 @@ private:
    int nDoMultipleCoastlines(void);
    int nTruncateProfilesDifferentCoasts(int const, int const, int const, int const, int const, int const);
    int nTruncateProfileHitDifferentCoast(int const, int const, int const, int const);
-   int nTruncateProfileMultiLineDifferentCoasts(CGeomProfile*, double const, double const);
+   static int nTruncateProfileMultiLineDifferentCoasts(CGeomProfile*, double const, double const);
    bool bIncreaseCliffNotchIncision(int const, int const, int const, CRWCliff*, double const);
    bool bCreateNotchInland(int const, int const, /*int const, int const,*/ double const, double const);
    double dCalculateSlumpInstability(int const, int const) const;
@@ -1845,13 +1845,13 @@ private:
    CGeom2DIPoint PtiFindClosestCoastPoint(int const, int const, int&);
    int nFindClosestCoastPoint(int const, int const, int&);
    int nConvertMetresToNumCells(double const) const;
-   bool bIsAdjacentEdgeCell(CGeom2DIPoint const*, CGeom2DIPoint const*);
-   void FindClosestPointOnStraightLine(double const, double const, double const, double const, double const, double const, double&, double&);
+   static bool bIsAdjacentEdgeCell(CGeom2DIPoint const*, CGeom2DIPoint const*);
+   static void FindClosestPointOnStraightLine(double const, double const, double const, double const, double const, double const, double&, double&);
 
    // Interpolation routines
-   double dGetInterpolatedValue(vector<double> const*, vector<double> const*, double, bool);
-   double dGetInterpolatedValue(vector<int> const*, vector<double> const*, int, bool);
-   int nFindIndex(vector<double> const*, double const);
+   static double dGetInterpolatedValue(vector<double> const*, vector<double> const*, double, bool);
+   static double dGetInterpolatedValue(vector<int> const*, vector<double> const*, int, bool);
+   static int nFindIndex(vector<double> const*, double const);
    vector<double> VdInterpolateCShoreProfileOutput(vector<double> const*, vector<double> const*, vector<double> const*);
 
    // Utility routines
@@ -1995,6 +1995,6 @@ private:
    void KeepWithinValidGrid(CGeom2DIPoint*) const;
 
    //! Determines whether a point (grid CRS) is within the polygon (but is not on a polygon edge)
-   bool bIsWithinPolygon(CGeom2DIPoint const*, vector<CGeom2DIPoint> const*);
+   static bool bIsWithinPolygon(CGeom2DIPoint const*, vector<CGeom2DIPoint> const*);
 };
 #endif // SIMULATION_H

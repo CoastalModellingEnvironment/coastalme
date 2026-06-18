@@ -52,12 +52,12 @@ class CYamlNode
    void AddChild(string const*, CYamlNode const*);
    void AddSequenceItem(CYamlNode const*);
 
-   string* pstrGetValue() const;
+   string* pStrGetValue(void) const;
    bool bHasChild(const char[]) const;
    CYamlNode GetChild(string const& strKey) const;
-   vector<CYamlNode> GetSequence() const;
-   bool IsSequence() const;
-   int nGetSequenceSize() const;
+   vector<CYamlNode> VNodeGetSequence(void) const;
+   bool bIsSequence(void) const;
+   int nVNodeGetSequenceSize(void) const;
 
    // Convenience methods for common types
    int nGetIntValue(int nDefault = 0) const;
@@ -77,14 +77,14 @@ class CYamlParser
    string m_strError;
 
    // Helper methods
-   int nGetIndentLevel(string const& strLine) const;
-   string strTrimLeft(string const& strLine) const;
-   string strTrimRight(string const& strLine) const;
-   string strTrim(string const& strLine) const;
+   static int nGetIndentLevel(string const& strLine);
+   static string strTrimLeft(string const& strLine);
+   static string strTrimRight(string const& strLine);
+   static string strTrim(string const& strLine);
    bool bIsComment(string const& strLine) const;
    bool bIsEmpty(string const& strLine) const;
-   bool bParseLine(string const& strLine, string& strKey, string& strValue, bool& bIsSequence) const;
-   string strRemoveQuotes(string const& strValue) const;
+   bool bParseLine(string const& strLine, string& strKey, string& strValue, bool& bbIsSequence) const;
+   static string strRemoveQuotes(string const& strValue);
    CYamlNode ParseSection(ifstream& fileStream, int nBaseIndent);
 
    public:

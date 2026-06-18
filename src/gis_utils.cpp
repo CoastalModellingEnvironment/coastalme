@@ -1983,7 +1983,7 @@ void CSimulation::FindClosestPointOnStraightLine(double const dAx, double const 
 }
 
 //===============================================================================================================================
-//! Given two different edge cells, returns true if they are adjacent
+//! Given two edge cells, returns true if they are adjacent
 //===============================================================================================================================
 bool CSimulation::bIsAdjacentEdgeCell(CGeom2DIPoint const* pPt1, CGeom2DIPoint const* pPt2)
 {
