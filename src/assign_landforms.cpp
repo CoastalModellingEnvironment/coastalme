@@ -123,7 +123,7 @@ int CSimulation::nAssignLandformsForAllCells(void)
          int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
          // Safety check
-         if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
+         if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
             continue;
 
          CRWCellLayer* pTopLayer = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer);
@@ -265,7 +265,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
          int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
          // Safety check: no top layer so we must be down to basement
-         if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
+         if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
          {
             CACoastLandform* pDrift = new CRWDrift(&m_VCoast[nCoast], nCoast, nCoastPoint, LF_BASEMENT);
             m_VCoast[nCoast].AppendCoastLandform(pDrift);

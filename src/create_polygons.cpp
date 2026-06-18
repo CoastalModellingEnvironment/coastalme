@@ -441,7 +441,7 @@ int CSimulation::nMarkPolygonCells(void)
                int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
                // Safety check
-               if ((nThisLayer != NO_NONZERO_THICKNESS_LAYERS) && (nThisLayer != INT_NODATA))
+               if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
                {
                   // Increment some more running totals for this polygon TODO 066 should this be for ALL layers above the basement?
                   dStoredUnconsFine += m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nThisLayer)->pGetUnconsolidatedSediment()->dGetFineDepth();

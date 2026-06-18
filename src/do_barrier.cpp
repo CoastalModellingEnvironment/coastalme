@@ -59,10 +59,6 @@ int CSimulation::nDoBarrierFormation(void)
          CACoastLandform* pCoastLandform = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
          int nCoastLandform = pCoastLandform->nGetLandFormCategory();
 
-         // If this isn't a beach then do nothing
-         if (nCoastLandform != LF_DRIFT_BEACH)
-            continue;
-
          // Get the coords of the grid cell marked as coastline for the coastal landform object
          int const nCoastX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetX();
          int const nCoastY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
@@ -71,7 +67,7 @@ int CSimulation::nDoBarrierFormation(void)
          int nTopLayer = m_pRasterGrid->m_Cell[nCoastX][nCoastY].nGetTopNonZeroLayerAboveBasement();
 
          // Safety check
-         if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
+         if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
             continue;
 
          // Any uncons sand or uncons coarse here?
@@ -220,7 +216,7 @@ int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoin
    int nTopLayer = m_pRasterGrid->m_Cell[nXFrom][nYFrom].nGetTopNonZeroLayerAboveBasement();
 
    // Safety check
-   if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
+   if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
    {
       LogStream << "Down to basement" << endl;
       return RTN_ERR_BASEMENT_DURING_BARRIER_CREATION;

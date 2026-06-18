@@ -241,9 +241,6 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
       int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
       // Safety check
-      if (nTopLayer == INT_NODATA)
-         return RTN_ERR_NO_TOP_LAYER_DURING_PLATFORM_CALC;
-
       if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
          // TODO 025 We are down to basement
          return RTN_OK;
@@ -810,15 +807,11 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
    int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
    // Safety check
-   if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) || (nThisLayer == INT_NODATA))
+   if (nThisLayer == NO_NONZERO_THICKNESS_LAYERS)
    {
       cerr << ERR << "no sediment layer while doing actual shore platform erosion" << endl;
       return;
    }
-
-   if (nThisLayer == NO_NONZERO_THICKNESS_LAYERS)
-      // No layer with non-zero thickness left, we are down to basement
-      return;
 
    // OK, we have a layer that can be eroded so find out how much consolidated sediment we have available on this cell
    double const dExistingAvailableFine = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nThisLayer)->pGetConsolidatedSediment()->dGetFineDepth();
@@ -1168,13 +1161,6 @@ double CSimulation::dCalcBeachProtectionFactor(int const nX, int const nY, doubl
    // We are considering the unconsolidated sediment (beach) of the topmost layer that has non-zero thickness
    int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
-   // Safety check
-   if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) || (nThisLayer == INT_NODATA))
-   {
-      cerr << ERR << "no sediment layer in dCalcBeachProtectionFactor()" << endl;
-      return 0;
-   }
-
    if (nThisLayer == NO_NONZERO_THICKNESS_LAYERS)
       // There are no layers with non-zero thickness left (i.e. we are down to basement) so no beach protection
       return 0;
@@ -1217,7 +1203,7 @@ void CSimulation::FillInBeachProtectionHolesAndRemoveLegacyCliffs(void)
                int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
                // Safety check
-               if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
+               if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
                   continue;
 
                CRWCellLayer* pTopLayer = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer);

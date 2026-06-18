@@ -245,7 +245,7 @@ set<pair<int, int>> CSimulation::prDoSlumpRedistributeSediment(int const nX, int
       int const nNeighborTopLayer = m_pRasterGrid->m_Cell[neighbour.x][neighbour.y].nGetTopNonZeroLayerAboveBasement();
 
       // Safety check
-      if ((nNeighborTopLayer != NO_NONZERO_THICKNESS_LAYERS) && (nNeighborTopLayer != INT_NODATA))
+      if (nNeighborTopLayer != NO_NONZERO_THICKNESS_LAYERS)
       {
          CRWCellSediment* pNeighborUnconsolidated = m_pRasterGrid->m_Cell[neighbour.x][neighbour.y].pGetLayerAboveBasement(nNeighborTopLayer)->pGetUnconsolidatedSediment();
 

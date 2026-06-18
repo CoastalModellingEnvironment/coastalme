@@ -1775,7 +1775,7 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
                dTmp = 0;
                nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
-               if ((nTopLayer == INT_NODATA) || (nTopLayer == NO_NONZERO_THICKNESS_LAYERS))
+               if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
                   break;
 
                if ((m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer)->dGetAllUnconsDepth() > 0) && (m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() > m_dThisIterSWL))

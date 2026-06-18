@@ -544,10 +544,6 @@ int CSimulation::nDoParallelProfileUnconsErosion(CGeomCoastPolygon* pPolygon, in
             // Now get the number of the highest layer with non-zero thickness
             int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
-            // Safety check
-            if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) || (nThisLayer == INT_NODATA))
-               return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
-
             if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
             {
                // We still have at least one layer left with non-zero thickness (i.e. we are not down to basement), and the cell's current elevation is higher than the Dean equilibrium profile elevation. So do some beach erosion
@@ -1229,10 +1225,6 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
                // Now get the number of the highest layer with non-zero thickness
                int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
-               // Safety check
-               if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) || (nThisLayer == INT_NODATA))
-                  return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
-
                if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
                {
                   // We still have at least one layer left with non-zero thickness (i.e. we are not down to basement), and the cell's current elevation is higher than the Dean equilibrium profile elevation. So do some beach erosion on this cell (Note: we are in nDoUnconsDepositionOnPolygon() still)
@@ -1715,10 +1707,6 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
 
                   // Now get the number of the highest layer with non-zero thickness
                   int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
-
-                  // Safety check
-                  if ((nThisLayer == NO_NONZERO_THICKNESS_LAYERS) || (nThisLayer == INT_NODATA))
-                     return RTN_ERR_NO_TOP_LAYER_DURING_BEACH_CALC;
 
                   if (nThisLayer != NO_NONZERO_THICKNESS_LAYERS)
                   {
