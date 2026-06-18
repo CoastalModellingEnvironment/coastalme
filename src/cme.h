@@ -440,7 +440,9 @@ int const IO_INTERVENTION_NON_STRUCT = 2;
 int const LF_UNKNOWN = 0;
 int const LF_HINTERLAND = 1;
 int const LF_SEA = 2;
+int const LF_BASEMENT = 3;
 int const LF_CLIFF = 6;
+int const LF_DRIFT_BARRIER = 8;
 int const LF_DRIFT_TALUS = 9;
 int const LF_DRIFT_BEACH = 10;
 int const LF_DRIFT_DUNES = 11;                        // TODO 059 Implement dune landform class
@@ -784,7 +786,7 @@ double const MIN_TALUS_DEPTH = 0.01;
 //! The vertical distance (m) between the bottom of a cliff notch, and its mid point (i.e. half the notch vertical depth). This is necessary because without it, notches are not inundated post-collapse. This is most noticeable when SWL does mot change during the simulation
 double const NOTCH_HALF_VERTICAL_DISTANCE = 0.05;
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.2 (17 Jun 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.3 (17 Jun 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

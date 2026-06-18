@@ -179,6 +179,11 @@ int CSimulation::nAssignLandformsForAllCells(void)
                pLandform->SetLandformCategory(LF_CLIFF);
                break;
 
+            case LF_DRIFT_BARRIER:
+               // Set to barrier
+               pLandform->SetLandformCategory(LF_DRIFT_BARRIER);
+               break;
+
             case LF_DRIFT_TALUS:
                // Set to talus
                pLandform->SetLandformCategory(LF_DRIFT_TALUS);
@@ -256,15 +261,21 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
             continue;
          }
 
-         // OK the landform on this coast cell is something other than an intervention. First check for talus
+         // OK the landform on this coast cell is something other than an intervention
          int const nTopLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
 
-         // Safety check
+         // Safety check: no top layer so we must be down to basement
          if ((nTopLayer == NO_NONZERO_THICKNESS_LAYERS) || (nTopLayer == INT_NODATA))
+         {
+            CACoastLandform* pDrift = new CRWDrift(&m_VCoast[nCoast], nCoast, nCoastPoint, LF_BASEMENT);
+            m_VCoast[nCoast].AppendCoastLandform(pDrift);
             continue;
+         }
 
+         // We have a top layer
          CRWCellLayer* pTopLayer = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer);
 
+         // Is there talus in the top layer?
          if (pTopLayer->bHasTalus())
          {
             // There is talus on this cell
@@ -276,7 +287,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
             continue;
          }
 
-         // Next, do some safety checks. Note that layer 0 is the first layer above basement
+         // Next, check out the layer at this-iteration SWL (note that layer 0 is the first layer above basement)
          int const nLayer = m_pRasterGrid->m_Cell[nX][nY].nGetLayerAtElev(m_dThisIterSWL);
          if (nLayer == ELEV_IN_BASEMENT)
          {
@@ -300,7 +311,7 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
             continue;
             // TODO DFM bodge ========================
 
-            // return RTN_ERR_CANNOT_ASSIGN_COASTAL_LANDFORM;
+            return RTN_ERR_CANNOT_ASSIGN_COASTAL_LANDFORM;
          }
 
          // OK, now check what we have at SWL on this cell: is it unconsolidated or consolidated sediment?
@@ -439,6 +450,18 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
          }
       }
    }
+
+   // DEBUG CODE =========================
+   for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
+   {
+      for (int nCoastPoint = 0; nCoastPoint < m_VCoast[nCoast].nGetCoastlineSize(); nCoastPoint++)
+      {
+         CACoastLandform* pLandForm = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
+         if (pLandForm == NULL)
+            LogStream << endl;
+      }
+   }
+
 
    // // DEBUG CODE ============================================================================================================================================
    // for (int i = 0; i < static_cast<int>(m_VCoast.size()); i++)
