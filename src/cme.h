@@ -441,16 +441,16 @@ int const LF_UNKNOWN = 0;
 int const LF_HINTERLAND = 1;
 int const LF_SEA = 2;
 int const LF_BASEMENT = 3;
-int const LF_CLIFF = 5;
-int const LF_DRIFT_BARRIER = 8;
-int const LF_DRIFT_TALUS = 9;
-int const LF_DRIFT_BEACH = 10;
-int const LF_DRIFT_DUNES = 11;                        // TODO 059 Implement dune landform class
-int const LF_INTERVENTION_STRUCT = 12;
-int const LF_INTERVENTION_NON_STRUCT = 13;
-int const LF_ISLAND = 14;                             // Not yet implemented
-int const LF_SEDIMENT_INPUT_UNCONSOLIDATED = 18;
-int const LF_SEDIMENT_INPUT_CONSOLIDATED = 19;
+int const LF_CLIFF = 4;
+int const LF_DRIFT_TALUS = 5;
+int const LF_DRIFT_BEACH = 6;
+int const LF_DRIFT_DUNES = 7;                        // TODO 059 Implement dune landform class
+int const LF_INTERVENTION_STRUCT = 8;
+int const LF_INTERVENTION_NON_STRUCT = 9;
+int const LF_ISLAND = 10;                             // Not yet implemented
+int const LF_INLAND_WATER = 11;                       // Not yet implemented
+int const LF_SEDIMENT_INPUT_UNCONSOLIDATED = 12;
+int const LF_SEDIMENT_INPUT_CONSOLIDATED = 13;
 
 // GIS raster input codes
 int const FINE_CONS_RASTER = 1;

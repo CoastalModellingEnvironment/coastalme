@@ -38,15 +38,63 @@ using std::size_t;
 #include "raster_grid.h"
 #include "coast.h"
 
-// #pragma omp declare reduction(matrix_add : vector<vector<double>> : \
-//    for (size_t i = 0; i < omp_out.size(); ++i) \
-//    { \
-//       for (size_t j = 0; j < omp_out[i].size(); ++j) \
-//       { \
-//          omp_out[i][j] += omp_in[i][j]; \
-//       } \
-//    }) \
-//    initializer(omp_priv = vector<vector<double>>(omp_orig.size(), vector<double>(omp_orig[0].size(), 0)))
+//===============================================================================================================================
+//! At the end of each timestep, updates all cells in the raster grid and does some per-timestep accounting
+//===============================================================================================================================
+int CSimulation::nEndOfTimestepUpdateGrid(void)
+{
+   // Go through all cells in the raster grid and calculate some this-timestep totals
+   m_dThisIterTopElevMax = -DBL_MAX;
+   m_dThisIterTopElevMin = DBL_MAX;
+
+   // Resize vectors to store per-polygon totals of fine, sand, and coarse talus
+   int nCoastSize = static_cast<int>(m_VCoast.size());
+
+   m_VVdFineTalus.clear();
+   m_VVdFineTalus.resize(nCoastSize);
+   m_VVdFineTalusAdded.clear();
+   m_VVdFineTalusAdded.resize(nCoastSize);
+   m_VVdFineTalusRemoved.clear();
+   m_VVdFineTalusRemoved.resize(nCoastSize);
+   for (int n = 0; n < (nCoastSize); n++)
+   {
+      int nPoly = m_VCoast[n].nGetNumPolygons();
+      m_VVdFineTalus[n].resize(nPoly);
+      m_VVdFineTalusAdded[n].resize(nPoly);
+      m_VVdFineTalusRemoved[n].resize(nPoly);
+   }
+
+   m_VVdSandTalus.clear();
+   m_VVdSandTalus.resize(nCoastSize);
+   m_VVdSandTalusAdded.clear();
+   m_VVdSandTalusAdded.resize(nCoastSize);
+   m_VVdSandTalusRemoved.clear();
+   m_VVdSandTalusRemoved.resize(nCoastSize);
+   for (int n = 0; n < (nCoastSize); n++)
+   {
+      int nPoly = m_VCoast[n].nGetNumPolygons();
+      m_VVdSandTalus[n].resize(nPoly);
+      m_VVdSandTalusAdded[n].resize(nPoly);
+      m_VVdSandTalusRemoved[n].resize(nPoly);
+   }
+
+   m_VVdCoarseTalus.clear();
+   m_VVdCoarseTalus.resize(nCoastSize);
+   m_VVdCoarseTalusAdded.clear();
+   m_VVdCoarseTalusAdded.resize(nCoastSize);
+   m_VVdCoarseTalusRemoved.clear();
+   m_VVdCoarseTalusRemoved.resize(nCoastSize);
+   for (int n = 0; n < (nCoastSize); n++)
+   {
+      int nPoly = m_VCoast[n].nGetNumPolygons();
+      m_VVdCoarseTalus[n].resize(nPoly);
+      m_VVdCoarseTalusAdded[n].resize(nPoly);
+      m_VVdCoarseTalusRemoved[n].resize(nPoly);
+   }
+
+   // Initialize reduction variables to zero
+   m_ulThisIterNumCoastCells = 0;
+   m_dThisIterTotSeaDepth = 0;
 
 // #ifdef _OPENMP
 // // Declare the custom OpenMP reduction
@@ -64,55 +112,7 @@ using std::size_t;
 //       }) \
 //       initializer(omp_priv = vector<vector<double>>(omp_orig.size(), vector<double>(omp_orig[0].size(), 0)))
 // #endif
-
-//===============================================================================================================================
-//! At the end of each timestep, updates all cells in the raster grid and does some per-timestep accounting
-//===============================================================================================================================
-int CSimulation::nEndOfTimestepUpdateGrid(void)
-{
-   // Go through all cells in the raster grid and calculate some this-timestep totals
-   m_dThisIterTopElevMax = -DBL_MAX;
-   m_dThisIterTopElevMin = DBL_MAX;
-
-   // Resize vectors to store per-polygon totals of fine, sand, and coarse talus
-   int nCoastSize = static_cast<int>(m_VCoast.size());
-   m_VVdFineTalus.resize(nCoastSize);
-   m_VVdFineTalusAdded.resize(nCoastSize);
-   m_VVdFineTalusRemoved.resize(nCoastSize);
-   for (int n = 0; n < (nCoastSize); n++)
-   {
-      int nPoly = m_VCoast[n].nGetNumPolygons();
-      m_VVdFineTalus[n].resize(nPoly);
-      m_VVdFineTalusAdded[n].resize(nPoly);
-      m_VVdFineTalusRemoved[n].resize(nPoly);
-   }
-
-   m_VVdSandTalus.resize(nCoastSize);
-   m_VVdSandTalusAdded.resize(nCoastSize);
-   m_VVdSandTalusRemoved.resize(nCoastSize);
-   for (int n = 0; n < (nCoastSize); n++)
-   {
-      int nPoly = m_VCoast[n].nGetNumPolygons();
-      m_VVdSandTalus[n].resize(nPoly);
-      m_VVdSandTalusAdded[n].resize(nPoly);
-      m_VVdSandTalusRemoved[n].resize(nPoly);
-   }
-
-   m_VVdCoarseTalus.resize(nCoastSize);
-   m_VVdCoarseTalusAdded.resize(nCoastSize);
-   m_VVdCoarseTalusRemoved.resize(nCoastSize);
-   for (int n = 0; n < (nCoastSize); n++)
-   {
-      int nPoly = m_VCoast[n].nGetNumPolygons();
-      m_VVdCoarseTalus[n].resize(nPoly);
-      m_VVdCoarseTalusAdded[n].resize(nPoly);
-      m_VVdCoarseTalusRemoved[n].resize(nPoly);
-   }
-
-   // Initialize reduction variables to zero
-   m_ulThisIterNumCoastCells = 0;
-   m_dThisIterTotSeaDepth = 0;
-
+//
 // #ifdef _OPENMP
 //    #pragma omp parallel for collapse(2)                                 \
 //       reduction(+ : m_ulThisIterNumCoastCells, m_dThisIterTotSeaDepth)  \
