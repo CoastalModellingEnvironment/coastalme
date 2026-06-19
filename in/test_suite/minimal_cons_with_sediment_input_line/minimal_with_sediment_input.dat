@@ -165,7 +165,7 @@ Cliff collapse fine talus removal rate                                          
 Cliff collapse sand talus removal rate                                               [0 to 1]: 0.9
 Cliff collapse coarse talus removal rate                                             [0 to 1]: 0.7
 
-Barrier formation?                                                                           : y
+Wave uprush?                                                                                 : y
 
 ; END OF FILE ----------------------------------------------------------------------------------------------------------
 
