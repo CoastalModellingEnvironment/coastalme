@@ -406,35 +406,28 @@ class CSimulation
    //! Are we doing riverine flooding?
    bool m_bRiverineFlooding;
 
-   //! Are we saving the wave setup? TODO 007 Finish surge and runup stuff
-   bool m_bWaveSetupSave;
+   //! Save riverine flood location?
+   bool m_bRiverineFloodLocationSave;
 
-   //! Are we saving the storm surge? TODO 007 Finish surge and runup stuff
-   bool m_bStormSurgeSave;
+   //! Save riverine surge flood mask?
+   bool m_bRiverineFloodingSetupSurgeFloodMaskSave;
 
-   //! Are we saving runup? TODO 007 Finish surge and runup stuff
-   bool m_bRunUpSave;
+   //! Save wave flood line?
+   bool m_bRiverineFloodingRasterWaveFloodLineSave;
 
-   //! Are we saving the setup surge flood mask? TODO 007 Finish surge and runup stuff
-   bool m_bSetupSurgeFloodMaskSave;
+   bool m_bFloodSWLSetupSurgeLine;
 
-   //! Are we saving the setup surge runup flood mask? TODO 007 Finish surge and runup stuff
-   bool m_bSetupSurgeRunUpFloodMaskSave;
-
-   //! Are we saving the raster wave flood line? TODO 007 Finish surge and runup stuff
-   bool m_bRasterWaveFloodLineSave;
-
-   //! Are we saving the vector wave flood line? TODO 007 Finish surge and runup stuff
-   bool m_bVectorWaveFloodLineSave;
-
-   //! Are we saving the flood location? TODO 007 Finish surge and runup stuff
-   bool m_bFloodLocationSave;
-
-   //! Are we saving the flood still water level setup line? TODO 007 Finish surge and runup stuff
    bool m_bFloodSWLSetupLineSave;
 
-   //! Are we saving the flood still water level setup surge line? TODO 007 Finish surge and runup stuff
-   bool m_bFloodSWLSetupSurgeLine;
+   bool m_bVectorWaveFloodLineSave;
+
+   bool m_bWaveSetupSave;
+
+   bool m_bStormSurgeSave;
+
+   bool m_bRunUpSave;
+
+   bool m_bRiverineFloodingSetupSurgeRunUpFloodMaskSave;
 
    //! Are we saving all cliff notches?
    bool m_bCliffNotchAllSave;
@@ -475,8 +468,14 @@ class CSimulation
    //! Are we simulating slumping?
    bool m_bSlumping = false;
 
-   //! Are we simulating barriers?
-   bool m_bBarrierFormation = false;
+   //! Are we simulating wave uprush?
+   bool m_bWaveUprush = false;
+
+   //! Are we saving wave uprush sand files?
+   bool m_bUpRushSandSave;
+
+   //! Are we saving wave uprush coarse files?
+   bool m_bUpRushCoarseSave;
 
    //! Options for GDAL when handling raster files
    char** m_papszGDALRasterOptions;
@@ -1708,7 +1707,7 @@ private:
    int nMoveCliffTalusToUnconsolidatedOrSuspension(void);
    double dCalcSlopeForUnconsSlumping(int const, int const, int const, int const) const;
    int nEndOfTimestepUpdateGrid(void);
-   int nDoBarrierFormation(void);
+   int nDoUpRushDownWash(void);
 
    // Lower-level simulation routines
    void FindAllSeaCells(void);
@@ -1797,7 +1796,7 @@ private:
    void SlumpMarkCellDirty(int const, int const);
    int nDoSedimentSlumping(void);
    bool bIdentifyPossibleCoastStart(int const, int const, int const, int const, vector<CGeom2DIPoint>*);
-   int nMoveUnconsLandward(CGeom2DIPoint const*, CGeom2DIPoint const*, double const, double&, double&);
+   int nUpRushMoveUnconsLandward(CGeom2DIPoint const*, CGeom2DIPoint const*, double const, double&, double&);
 
    // GIS utility routines
    int nMarkBoundingBoxEdgeCells(void);

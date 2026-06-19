@@ -1371,20 +1371,25 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
          strFilePathName.append(RASTER_POLYGON_UPDRIFT_OR_DOWNDRIFT_NAME);
          break;
 
-      // case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
-      //    bIsInteger = true;
-      //    strFilePathName.append(RASTER_SETUP_SURGE_FLOOD_MASK_NAME);
-      //    break;
-      //
-      // case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
-      //    bIsInteger = true;
-      //    strFilePathName.append(RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_NAME);
-      //    break;
-      //
-      // case (RASTER_PLOT_WAVE_FLOOD_LINE):
-      //    bIsInteger = true;
-      //    strFilePathName.append(RASTER_WAVE_FLOOD_LINE_NAME);
-      //    break;
+      case (RASTER_PLOT_UNCONS_UPRUSH_SAND):
+         bIsInteger = false;
+         strFilePathName.append(RASTER_UNCONS_UPRUSH_SAND_NAME);
+         break;
+
+      case (RASTER_PLOT_UNCONS_UPRUSH_COARSE):
+         bIsInteger = false;
+         strFilePathName.append(RASTER_UNCONS_UPRUSH_COARSE_NAME);
+         break;
+
+      case (RASTER_PLOT_UNCONS_TOT_UPRUSH_SAND):
+         bIsInteger = false;
+         strFilePathName.append(RASTER_UNCONS_TOT_UPRUSH_SAND_NAME);
+         break;
+
+      case (RASTER_PLOT_UNCONS_TOT_UPRUSH_COARSE):
+         bIsInteger = false;
+         strFilePathName.append(RASTER_UNCONS_TOT_UPRUSH_COARSE_NAME);
+         break;
    }
 
    // Append the 'save number' to the filename, and prepend zeros to the save
@@ -1846,18 +1851,23 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
                dTmp = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetTotAllSedimentInputDepth();
                break;
 
-            // case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
-            //    dTmp = (m_pRasterGrid->m_Cell[nX][nY].bIsFloodBySetupSurge() ? 1 : 0);
-            //    break;
-            //
-            // case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
-            //    dTmp = (m_pRasterGrid->m_Cell[nX][nY].bIsFloodBySetupSurgeRunUp() ? 1 : 0);
-            //    break;
+            case (RASTER_PLOT_UNCONS_UPRUSH_SAND):
+               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetSandUpRush();
+               break;
 
-            // case (RASTER_PLOT_WAVE_FLOOD_LINE):
-            //    dTmp = (m_pRasterGrid->m_Cell[nX][nY].bIsFloodline() ? 1 : 0);
-            //    break;
+            case (RASTER_PLOT_UNCONS_UPRUSH_COARSE):
+               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetCoarseUpRush();
+               break;
+
+            case (RASTER_PLOT_UNCONS_TOT_UPRUSH_SAND):
+               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetTotSandUpRush();
+               break;
+
+            case (RASTER_PLOT_UNCONS_TOT_UPRUSH_COARSE):
+               dTmp = m_pRasterGrid->m_Cell[nX][nY].dGetTotCoarseUpRush();
+               break;
          }
+
 
          // If necessary, scale this value
          if (bScaleOutput)
@@ -1928,6 +1938,10 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
       case (RASTER_PLOT_TOTAL_CLIFF_COLLAPSE_EROSION_SAND):
       case (RASTER_PLOT_TOTAL_POTENTIAL_BEACH_EROSION):
       case (RASTER_PLOT_TOTAL_POTENTIAL_PLATFORM_EROSION):
+      case (RASTER_PLOT_UNCONS_TOT_UPRUSH_COARSE):
+      case (RASTER_PLOT_UNCONS_TOT_UPRUSH_SAND):
+      case (RASTER_PLOT_UNCONS_UPRUSH_COARSE):
+      case (RASTER_PLOT_UNCONS_UPRUSH_SAND):
       case (RASTER_PLOT_WAVE_HEIGHT):
          strUnits = "m";
          break;
@@ -1961,12 +1975,9 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
       case (RASTER_PLOT_POLYGON):
       case (RASTER_PLOT_POLYGON_UPDRIFT_OR_DOWNDRIFT):
       case (RASTER_PLOT_POTENTIAL_PLATFORM_EROSION_MASK):
-      // case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
-      // case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
       case (RASTER_PLOT_SHADOW_DOWNDRIFT_ZONE):
       case (RASTER_PLOT_SHADOW_ZONE):
       case (RASTER_PLOT_SLICE):
-      case (RASTER_PLOT_WAVE_FLOOD_LINE):
          break;
    }
 
@@ -2078,21 +2089,6 @@ bool CSimulation::bWriteRasterGISFile(int const nDataItem, string const *strPlot
          papszCategoryNames = CSLAddString(papszCategoryNames, "Updrift movement of unconsolidated sediment ");
          papszCategoryNames = CSLAddString(papszCategoryNames, "Downdrift movement of unconsolidated sediment");
          break;
-
-      // case (RASTER_PLOT_SETUP_SURGE_FLOOD_MASK):
-      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Inundated by swl setup and surge ");
-      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Not inundated by swl setup and surge");
-      //    break;
-      //
-      // case (RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK):
-      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Inundated by swl setup, surge and runup ");
-      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Not inundated by swl setup, surge and runup");
-      //    break;
-      //
-      // case (RASTER_PLOT_WAVE_FLOOD_LINE):
-      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Intersection line of inundation ");
-      //    papszCategoryNames = CSLAddString(papszCategoryNames, "Not inundated by swl waves and runup");
-      //    break;
    }
 
    CPLPushErrorHandler(CPLQuietErrorHandler);        // Needed to get next line to fail silently, if it fails

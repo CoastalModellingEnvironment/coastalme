@@ -36,9 +36,9 @@ using std::array;
 #include "coast_landform.h"
 
 //===============================================================================================================================
-//! Simulates barrier formation
+//! Simulates movement of unconsolidated beach sediment due to uprush/downwash
 //===============================================================================================================================
-int CSimulation::nDoBarrierFormation(void)
+int CSimulation::nDoUpRushDownWash(void)
 {
    for (int nCoast = 0; nCoast < static_cast<int>(m_VCoast.size()); nCoast++)
    {
@@ -185,7 +185,7 @@ int CSimulation::nDoBarrierFormation(void)
                // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
                   LogStream << m_ulIter << ":\t possible barrier uncons movement, coast point = " << nCoastPoint << " [" << nCoastX << "][" << nCoastY << "] = {" << dGridCentroidXToExtCRSX(nCoastX) << ", " << dGridCentroidYToExtCRSY(nCoastY) << "}, last point [" << PtiLast.nGetX() << "][" << PtiLast.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiLast.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiLast.nGetY()) << "}, this point [" << nTmpX << "][" << nTmpY << "] = {" << dGridCentroidXToExtCRSX(nTmpX) << ", " << dGridCentroidYToExtCRSY(nTmpY) << "} dRunUp = " << dRunUp << " dRunUpTopElev = " << dRunUpTopElev << " cell elev = " << dCellElev << " dWeight = " << dWeight << endl;
 
-               int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
+               int nRet = nUpRushMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
                // if (nRet != RTN_OK)
                   // return nRet;
 
@@ -210,9 +210,9 @@ int CSimulation::nDoBarrierFormation(void)
 
 
 //===============================================================================================================================
-//! Uses runup to calculate landward movement of sand and gravel unconsolidated sediment
+//! Uses runup to calculate uprush-driven landward movement of sand-sized and gravel-sized unconsolidated sediment
 //===============================================================================================================================
-int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoint const* pPtiTo, double const dWeight, double& dLastSandMoved, double& dLastCoarseMoved)
+int CSimulation::nUpRushMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoint const* pPtiTo, double const dWeight, double& dLastSandMoved, double& dLastCoarseMoved)
 {
    int nXFrom = pPtiFrom->nGetX();
    int nYFrom = pPtiFrom->nGetY();
@@ -231,19 +231,21 @@ int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoin
    double dSandThis;
    double dCoarseThis;
 
+   // The first time around, dSandThis is the depth of uncons sand on the cell; at other times it is the depth of sand sediment that was moved from the saward cell
    if (bFPIsEqual(dLastSandMoved, DBL_NODATA, TOLERANCE))
       dSandThis = m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetSandDepth();
    else
       dSandThis = dLastSandMoved;
 
+   // The first time around, dSandThis is the depth of uncons coarse on the cell; at other times it is the depth of coarse sediment that was moved from the saward cell
    if (bFPIsEqual(dLastCoarseMoved, DBL_NODATA, TOLERANCE))
       dCoarseThis = m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetCoarseDepth();
    else
       dCoarseThis = dLastCoarseMoved;
 
-   // TEST
-   double dFractSand = 0.1;
-   double dFractCoarse = 0.2;
+   // TEST TODO should be a user input
+   double dFractSand = 0.2;
+   double dFractCoarse = 0.4;
 
    double dSandToMove = 0;
    double dCoarseToMove = 0;
@@ -258,8 +260,11 @@ int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoin
          m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dSandThis - dSandToMove);
          m_pRasterGrid->m_Cell[nXTo][nYTo].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->AddSandDepth(dSandToMove);
 
+         m_pRasterGrid->m_Cell[nXFrom][nYFrom].AddSandUpRush(-dSandToMove);
+         m_pRasterGrid->m_Cell[nXTo][nYTo].AddSandUpRush(dSandToMove);
+
          // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-            LogStream << m_ulIter << ":\t  barrier sand movement, from [" << nXFrom << "][" << nYFrom << "] = {" << dGridCentroidXToExtCRSX(nXFrom) << ", " << dGridCentroidYToExtCRSY(nYFrom) << "} to [" << nXTo << "][" << nYTo << "] = {" << dGridCentroidXToExtCRSX(nXTo) << ", " << dGridCentroidYToExtCRSY(nYTo) << "} sand depth moved = " << scientific << dSandToMove << fixed << endl;
+            LogStream << m_ulIter << ":\t    barrier sand movement, from [" << nXFrom << "][" << nYFrom << "] = {" << dGridCentroidXToExtCRSX(nXFrom) << ", " << dGridCentroidYToExtCRSY(nYFrom) << "} to [" << nXTo << "][" << nYTo << "] = {" << dGridCentroidXToExtCRSX(nXTo) << ", " << dGridCentroidYToExtCRSY(nYTo) << "} sand depth moved = " << scientific << dSandToMove << fixed << endl;
       }
    }
 
@@ -272,8 +277,11 @@ int CSimulation::nMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2DIPoin
          m_pRasterGrid->m_Cell[nXFrom][nYFrom].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetCoarseDepth(dCoarseThis - dCoarseToMove);
          m_pRasterGrid->m_Cell[nXTo][nYTo].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->AddCoarseDepth(dCoarseToMove);
 
+         m_pRasterGrid->m_Cell[nXFrom][nYFrom].AddCoarseUpRush(-dCoarseToMove);
+         m_pRasterGrid->m_Cell[nXTo][nYTo].AddCoarseUpRush(dCoarseToMove);
+
          // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-            LogStream << m_ulIter << ":\t  barrier coarse movement, from [" << nXFrom << "][" << nYFrom << "] = {" << dGridCentroidXToExtCRSX(nXFrom) << ", " << dGridCentroidYToExtCRSY(nYFrom) << "} to [" << nXTo << "][" << nYTo << "] = {" << dGridCentroidXToExtCRSX(nXTo) << ", " << dGridCentroidYToExtCRSY(nYTo) << "} coarse depth moved = " << scientific << dCoarseToMove << fixed << endl;
+            LogStream << m_ulIter << ":\t    barrier coarse movement, from [" << nXFrom << "][" << nYFrom << "] = {" << dGridCentroidXToExtCRSX(nXFrom) << ", " << dGridCentroidYToExtCRSY(nYFrom) << "} to [" << nXTo << "][" << nYTo << "] = {" << dGridCentroidXToExtCRSX(nXTo) << ", " << dGridCentroidYToExtCRSY(nYTo) << "} coarse depth moved = " << scientific << dCoarseToMove << fixed << endl;
       }
    }
 

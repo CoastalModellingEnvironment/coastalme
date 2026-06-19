@@ -154,7 +154,7 @@ private:
    bool m_bSlumping;
 
    // Barrier
-   bool m_bBarrierFormation;
+   bool m_bWaveUprush;
 
    // Physics and Geometry
    double m_dGravitationalAcceleration;
@@ -612,7 +612,7 @@ public:
 
    void SetBarrier(bool b)
    {
-      m_bBarrierFormation = b;
+      m_bWaveUprush = b;
    }
 
    void SetGravitationalAcceleration(double d)
@@ -1125,7 +1125,7 @@ public:
    // Barriers
    bool bGetBarrier(void) const
    {
-      return m_bBarrierFormation;
+      return m_bWaveUprush;
    }
 
    // Physics and geometry parameters

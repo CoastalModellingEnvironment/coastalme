@@ -92,7 +92,11 @@ CGeomCell::CGeomCell()
      m_dUnconsD50(0),
      m_dSlumpingDepositionThisIter(0),
      m_dTotSlumpingDeposition(0),
-     m_dInterventionHeight(0)
+     m_dInterventionHeight(0),
+     m_dSandUprush(0),
+     m_dCoarseUprush(0),
+     m_dTotSandUprush(0),
+     m_dTotCoarseUprush(0)
 {
    m_Landform.SetLandformCategory(LF_UNKNOWN);
 }
@@ -787,6 +791,9 @@ void CGeomCell::InitCell(void)
    m_dSeaDepth = 0;
    m_dWaveHeight = 0;
    m_dWaveAngle = 0;
+   m_dSandUprush = 0;
+   m_dCoarseUprush = 0;
+
 
    m_dBeachProtectionFactor = DBL_NODATA;
 
@@ -1201,4 +1208,42 @@ void CGeomCell::SetPlatformErosionThisIter(bool const bSwitch)
 bool CGeomCell::bGetPlatformErosionThisIter(void) const
 {
    return m_bPlatformErosionThisTimestep;
+}
+
+//! Adds to the depth equivalent (m) of uncons sand-sized sediment moved via wave uprush during this iteration
+void CGeomCell::AddSandUpRush(double const dSand)
+{
+   m_dSandUprush += dSand;
+   m_dTotSandUprush += dSand;
+}
+
+//! Adds to the depth equivalent (m) of uncons coarse-sized sediment moved via wave uprush during this iteration
+void CGeomCell::AddCoarseUpRush(double const dCoarse)
+{
+   m_dCoarseUprush += dCoarse;
+   m_dTotCoarseUprush += dCoarse;
+}
+
+//! Returns the depth equivalent (m) of uncons sand-sized sediment moved via wave uprush during this iteration
+double CGeomCell::dGetSandUpRush(void)
+{
+   return m_dSandUprush;
+}
+
+//! Returns the depth equivalent (m) of uncons coarse-sized sediment moved via wave uprush during this iteration
+double CGeomCell::dGetCoarseUpRush(void)
+{
+   return m_dCoarseUprush;
+}
+
+//! Returns the depth equivalent (m) of uncons sand-sized sediment moved via wave uprush since the start of the simulation
+double CGeomCell::dGetTotSandUpRush(void)
+{
+   return m_dTotSandUprush;
+}
+
+//! Returns the depth equivalent (m) of uncons coarse-sized sediment moved via wave uprush since the start of the simulation
+double CGeomCell::dGetTotCoarseUpRush(void)
+{
+   return m_dTotCoarseUprush;
 }

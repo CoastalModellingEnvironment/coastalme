@@ -1326,18 +1326,24 @@ bool CSimulation::bSaveAllRasterGISFiles(void)
          return false;
    }
 
-   // if (m_bSetupSurgeFloodMaskSave)
-   // {
-   //    if (! bWriteRasterGISFile(RASTER_PLOT_SETUP_SURGE_FLOOD_MASK, &RASTER_PLOT_SETUP_SURGE_FLOOD_MASK_TITLE))
-   //       return false;
-   // }
+   if (m_bUpRushSandSave)
+   {
+      if (! bWriteRasterGISFile(RASTER_PLOT_UNCONS_UPRUSH_SAND, &RASTER_PLOT_UNCONS_UPRUSH_SAND_TITLE))
+         return false;
 
-   // if (m_bSetupSurgeRunUpFloodMaskSave)
-   // {
-   //    if (! bWriteRasterGISFile(RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK, &RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK_TITLE))
-   //       return false;
-   // }
-   //
+      if (! bWriteRasterGISFile(RASTER_PLOT_UNCONS_TOT_UPRUSH_SAND, &RASTER_PLOT_UNCONS_TOT_UPRUSH_SAND_TITLE))
+         return false;
+   }
+
+   if (m_bUpRushCoarseSave)
+   {
+      if (! bWriteRasterGISFile(RASTER_PLOT_UNCONS_UPRUSH_COARSE, &RASTER_PLOT_UNCONS_UPRUSH_COARSE_TITLE))
+         return false;
+
+      if (! bWriteRasterGISFile(RASTER_PLOT_UNCONS_TOT_UPRUSH_COARSE, &RASTER_PLOT_UNCONS_TOT_UPRUSH_COARSE_TITLE))
+         return false;
+   }
+
    return true;
 }
 
@@ -1448,36 +1454,6 @@ bool CSimulation::bSaveAllVectorGISFiles(void)
          return false;
    }
 
-   // if (m_bWaveSetupSave)
-   // {
-   //    if (! bWriteVectorGISFile(VECTOR_PLOT_WAVE_SETUP, &VECTOR_PLOT_WAVE_SETUP_TITLE))
-   //       return false;
-   // }
-   //
-   // if (m_bStormSurgeSave)
-   // {
-   //    if (! bWriteVectorGISFile(VECTOR_PLOT_STORM_SURGE, &VECTOR_PLOT_STORM_SURGE_TITLE))
-   //       return false;
-   // }
-   //
-   // if (m_bRunUpSave)
-   // {
-   //    if (! bWriteVectorGISFile(VECTOR_PLOT_RUN_UP, &VECTOR_PLOT_RUN_UP_TITLE))
-   //       return false;
-   // }
-   //
-   // if (m_bRiverineFlooding && m_bVectorWaveFloodLineSave)
-   // {
-   //    if (! bWriteVectorGISFile(VECTOR_PLOT_FLOOD_LINE, &VECTOR_PLOT_FLOOD_SWL_SETUP_LINE_TITLE))
-   //       return false;
-   //
-   //    // if (! bWriteVectorGISFile(VECTOR_PLOT_FLOOD_SWL_SETUP_SURGE_LINE,
-   //    // &VECTOR_PLOT_FLOOD_SWL_SETUP_SURGE_LINE_TITLE)) return false;
-   //
-   //    // if (! bWriteVectorGISFile(VECTOR_PLOT_FLOOD_SWL_SETUP_SURGE_RUNUP_LINE,
-   //    // &VECTOR_PLOT_FLOOD_SWL_SETUP_SURGE_RUNUP_LINE_TITLE)) return false;
-   // }
-
    return true;
 }
 
@@ -1493,10 +1469,7 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
        (nDataItem == RASTER_PLOT_COAST) ||
        (nDataItem == RASTER_PLOT_NORMAL_PROFILE) ||
        (nDataItem == RASTER_PLOT_ACTIVE_ZONE) ||
-       (nDataItem == RASTER_PLOT_POLYGON_UPDRIFT_OR_DOWNDRIFT)) /*||
-       (nDataItem == RASTER_PLOT_SETUP_SURGE_FLOOD_MASK) ||
-       (nDataItem == RASTER_PLOT_SETUP_SURGE_RUNUP_FLOOD_MASK) ||
-       (nDataItem == RASTER_PLOT_WAVE_FLOOD_LINE))*/
+       (nDataItem == RASTER_PLOT_POLYGON_UPDRIFT_OR_DOWNDRIFT))
    {
       dMin = 0;
       dMax = 1;

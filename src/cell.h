@@ -221,6 +221,18 @@ class CGeomCell
    //! Height of intervention structure
    double m_dInterventionHeight;
 
+   //! Depth equivalent (m) of uncons sand sediment moved via wave uprush during this iteration
+   double m_dSandUprush;
+
+   //! Depth equivalent (m) of uncons coarse sediment moved via wave uprush during this iteration
+   double m_dCoarseUprush;
+
+   //! Depth equivalent (m) of uncons sand sediment moved via wave uprush, since start of simulation
+   double m_dTotSandUprush;
+
+   //! Depth equivalent (m) of uncons coarse sediment moved via wave uprush, since start of simulation
+   double m_dTotCoarseUprush;
+
    //! This cell's landform data
    CRWCellLandform m_Landform;
 
@@ -432,5 +444,12 @@ class CGeomCell
    bool bIsinAnyShadowZone(void) const;
    void SetDownDriftZoneNumber(int const);
    int nGetDownDriftZoneNumber(void) const;
+
+   void AddSandUpRush(double const);
+   void AddCoarseUpRush(double const);
+   double dGetSandUpRush(void);
+   double dGetCoarseUpRush(void);
+   double dGetTotSandUpRush(void);
+   double dGetTotCoarseUpRush(void);
 };
 #endif // CELL_H

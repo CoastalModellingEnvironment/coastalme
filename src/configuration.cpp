@@ -163,7 +163,7 @@ void CConfiguration::InitializeDefaults()
    m_bSlumping = false;
 
    // Barriers
-   m_bBarrierFormation = false;
+   m_bWaveUprush = false;
 
    // Physics and Geometry
    m_dGravitationalAcceleration = 9.81;

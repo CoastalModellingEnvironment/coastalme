@@ -181,11 +181,6 @@ int CSimulation::nAssignLandformsForAllCells(void)
                pLandform->SetLandformCategory(LF_CLIFF);
                break;
 
-            case LF_DRIFT_BARRIER:
-               // Set to barrier
-               pLandform->SetLandformCategory(LF_DRIFT_BARRIER);
-               break;
-
             case LF_DRIFT_TALUS:
                // Set to talus
                pLandform->SetLandformCategory(LF_DRIFT_TALUS);
@@ -197,7 +192,6 @@ int CSimulation::nAssignLandformsForAllCells(void)
                break;
 
             case LF_DRIFT_DUNES:
-               // TODO not yet implemented
                // Set to dunes
                pLandform->SetLandformCategory(LF_DRIFT_DUNES);
                break;
@@ -609,7 +603,7 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetCellLandform();
       int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_DRIFT_BARRIER) || (nCat == LF_CLIFF))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -622,7 +616,7 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetCellLandform();
       int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_DRIFT_BARRIER) || (nCat == LF_CLIFF))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -635,7 +629,7 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetCellLandform();
       int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_DRIFT_BARRIER) || (nCat == LF_CLIFF))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -648,7 +642,7 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetCellLandform();
       int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_DRIFT_BARRIER) || (nCat == LF_CLIFF))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -661,7 +655,7 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetCellLandform();
       int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_DRIFT_BARRIER) || (nCat == LF_CLIFF))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -674,7 +668,7 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetCellLandform();
       int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_DRIFT_BARRIER) || (nCat == LF_CLIFF))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -687,7 +681,7 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetCellLandform();
       int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_DRIFT_BARRIER) || (nCat == LF_CLIFF))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 
@@ -700,7 +694,7 @@ bool CSimulation::bSurroundedByDriftCells(int const nX, int const nY)
       CRWCellLandform const* pLandform = m_pRasterGrid->m_Cell[nXTmp][nYTmp].pGetCellLandform();
       int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_DRIFT_BARRIER) || (nCat == LF_CLIFF))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_TALUS) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_CLIFF))
          nAdjacent++;
    }
 

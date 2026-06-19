@@ -994,6 +994,18 @@ string CSimulation::strListRasterFiles(void) const
       strTmp.append(", ");
    }
 
+   if (m_bUpRushSandSave)
+   {
+      strTmp.append(RASTER_UNCONS_UPRUSH_SAND_CODE);
+      strTmp.append(", ");
+   }
+
+   if (m_bUpRushCoarseSave)
+   {
+      strTmp.append(RASTER_UNCONS_UPRUSH_COARSE_CODE);
+      strTmp.append(", ");
+   }
+
    // Remove the trailing comma and space
    if (strTmp.size() > 2)
       strTmp.resize(strTmp.size() - 2);

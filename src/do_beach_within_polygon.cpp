@@ -1832,7 +1832,7 @@ bool CSimulation::bElevAboveDeanElev(int const nX, int const nY, double const dE
 
       int const nCat = pLandform->nGetLandformCategory();
 
-      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_DRIFT_BARRIER) || (nCat == LF_SEDIMENT_INPUT_UNCONSOLIDATED))
+      if ((nCat == LF_DRIFT_BEACH) || (nCat == LF_DRIFT_DUNES) || (nCat == LF_SEDIMENT_INPUT_UNCONSOLIDATED))
          return true;
    }
 

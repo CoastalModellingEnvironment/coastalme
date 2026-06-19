@@ -117,6 +117,8 @@ CSimulation::CSimulation(void)
    m_bPotentialPlatformErosionMaskSave = false;
    m_bSeaMaskSave = false;
    m_bBeachMaskSave = false;
+   m_bUpRushSandSave = false;
+   m_bUpRushCoarseSave = false;
    m_bShadowZoneCodesSave = false;
    m_bSaveRegular = false;
    m_bCoastSave = false;
@@ -174,11 +176,11 @@ CSimulation::CSimulation(void)
    m_bStormSurgeSave = false;
    m_bRiverineFlooding = false;
    m_bRunUpSave = false;
-   m_bSetupSurgeFloodMaskSave = false;
-   m_bSetupSurgeRunUpFloodMaskSave = false;
-   m_bRasterWaveFloodLineSave = false;
+   m_bRiverineFloodingSetupSurgeFloodMaskSave = false;
+   m_bRiverineFloodingSetupSurgeRunUpFloodMaskSave = false;
+   m_bRiverineFloodingRasterWaveFloodLineSave = false;
    m_bVectorWaveFloodLineSave = false;
-   m_bFloodLocationSave = false;
+   m_bRiverineFloodLocationSave = false;
    m_bFloodSWLSetupLineSave = false;
    m_bFloodSWLSetupSurgeLine = false;
    m_bFloodSWLSetupSurgeRunUpLineSave = false;
@@ -847,7 +849,7 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
    }
 
    // Maybe read in flood input location
-   if (m_bFloodLocationSave)
+   if (m_bRiverineFloodLocationSave)
    {
       // We are reading sediment input event data
       AnnounceReadFloodLocationGIS();
@@ -1230,9 +1232,9 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
       }
 
       // If the user has chosen this, do barrier formation
-      if (m_bBarrierFormation)
+      if (m_bWaveUprush)
       {
-         nRet = nDoBarrierFormation();
+         nRet = nDoUpRushDownWash();
          if (nRet != RTN_OK)
             return nRet;
       }

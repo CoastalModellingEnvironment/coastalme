@@ -94,8 +94,8 @@ bool CSimulation::bReadIniFile(void)
    }
    else
       yamlTest.close();
-   // Reset paths for .ini file attempt
 
+   // Reset paths for .ini file attempt
    m_strCMEDir = strOrigCMEDir;
    m_strCMEIni = strOrigCMEIni;
 
@@ -392,7 +392,7 @@ bool CSimulation::bReadRunDataFile(void)
             break;
 
          case 2:
-            // Content of log file, 0 = no log file, 1 = least detail, 3 = most detail
+            // Content of log file, 0 = no log file, 1 = least detail, 4 = most detail
             if (! bIsStringValidInt(strRH))
             {
                strErr = "line " + to_string(nLine) + ": invalid integer for log file detail level '" + strRH + "' in " + m_strDataPathName;
@@ -834,6 +834,8 @@ bool CSimulation::bReadRunDataFile(void)
                   m_bPolygonUnconsSedGainOrLossSave = true;
                   m_bCliffNotchAllSave = true;
                   m_bCliffCollapseTimestepSave = true;
+                  m_bUpRushSandSave = true;
+                  m_bUpRushCoarseSave = true;
                }
                else if (strRH.find(RASTER_USUAL_OUTPUT_CODE) != string::npos)
                {
@@ -1227,24 +1229,6 @@ bool CSimulation::bReadRunDataFile(void)
                      strRH = strRemoveSubstr(&strRH, &RASTER_SEDIMENT_INPUT_EVENT_CODE);
                   }
 
-                  // if (strRH.find(RASTER_SETUP_SURGE_FLOOD_MASK_CODE) != string::npos)
-                  // {
-                  //    m_bSetupSurgeFloodMaskSave = true;
-                  //    strRH = strRemoveSubstr(&strRH, &RASTER_SETUP_SURGE_FLOOD_MASK_CODE);
-                  // }
-                  //
-                  // if (strRH.find(RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_CODE) != string::npos)
-                  // {
-                  //    m_bSetupSurgeRunUpFloodMaskSave = true;
-                  //    strRH = strRemoveSubstr(&strRH, &RASTER_SETUP_SURGE_RUNUP_FLOOD_MASK_CODE);
-                  // }
-                  //
-                  // if (strRH.find(RASTER_WAVE_FLOOD_LINE_CODE) != string::npos)
-                  // {
-                  //    m_bRasterWaveFloodLineSave = true;
-                  //    strRH = strRemoveSubstr(&strRH, &RASTER_WAVE_FLOOD_LINE_CODE);
-                  // }
-
                   if (strRH.find(RASTER_CLIFF_NOTCH_ALL_CODE) != string::npos)
                   {
                      m_bCliffNotchAllSave = true;
@@ -1255,6 +1239,18 @@ bool CSimulation::bReadRunDataFile(void)
                   {
                      m_bCliffCollapseTimestepSave = true;
                      strRH = strRemoveSubstr(&strRH, &RASTER_CLIFF_COLLAPSE_TIMESTEP_CODE);
+                  }
+
+                  if (strRH.find(RASTER_UNCONS_UPRUSH_SAND_CODE) != string::npos)
+                  {
+                     m_bUpRushSandSave = true;
+                     strRH = strRemoveSubstr(&strRH, &RASTER_UNCONS_UPRUSH_SAND_CODE);
+                  }
+
+                  if (strRH.find(RASTER_UNCONS_UPRUSH_COARSE_CODE) != string::npos)
+                  {
+                     m_bUpRushCoarseSave = true;
+                     strRH = strRemoveSubstr(&strRH, &RASTER_UNCONS_UPRUSH_COARSE_CODE);
                   }
 
                   // Check to see if all codes have been removed
@@ -1365,10 +1361,6 @@ bool CSimulation::bReadRunDataFile(void)
                   m_bShadowBoundarySave = true;
                   m_bShadowDowndriftBoundarySave = true;
                   m_bDeepWaterWaveAngleAndHeightSave = true;
-                  m_bWaveSetupSave = true;
-                  m_bStormSurgeSave = true;
-                  m_bRunUpSave = true;
-                  m_bVectorWaveFloodLineSave = true;
                }
                else if (strRH.find(VECTOR_USUAL_OUTPUT_CODE) != string::npos)
                {
@@ -1485,30 +1477,6 @@ bool CSimulation::bReadRunDataFile(void)
                   {
                      m_bDeepWaterWaveAngleAndHeightSave = true;
                      strRH = strRemoveSubstr(&strRH, &VECTOR_DEEP_WATER_WAVE_ANGLE_AND_HEIGHT_CODE);
-                  }
-
-                  if (strRH.find(VECTOR_WAVE_SETUP_CODE) != string::npos)
-                  {
-                     m_bWaveSetupSave = true;
-                     strRH = strRemoveSubstr(&strRH, &VECTOR_WAVE_SETUP_CODE);
-                  }
-
-                  if (strRH.find(VECTOR_STORM_SURGE_CODE) != string::npos)
-                  {
-                     m_bStormSurgeSave = true;
-                     strRH = strRemoveSubstr(&strRH, &VECTOR_STORM_SURGE_CODE);
-                  }
-
-                  if (strRH.find(VECTOR_RUN_UP_CODE) != string::npos)
-                  {
-                     m_bRunUpSave = true;
-                     strRH = strRemoveSubstr(&strRH, &VECTOR_RUN_UP_CODE);
-                  }
-
-                  if (strRH.find(VECTOR_FLOOD_LINE_CODE) != string::npos)
-                  {
-                     m_bVectorWaveFloodLineSave = true;
-                     strRH = strRemoveSubstr(&strRH, &VECTOR_FLOOD_LINE_CODE);
                   }
 
                   // Check to see if all codes have been removed
@@ -2855,9 +2823,9 @@ bool CSimulation::bReadRunDataFile(void)
             if (strRH.find('y') != string::npos)
             {
                m_bRiverineFlooding = true;
-               m_bSetupSurgeFloodMaskSave = true;
-               m_bSetupSurgeRunUpFloodMaskSave = true;
-               m_bRasterWaveFloodLineSave = true;
+               m_bRiverineFloodingSetupSurgeFloodMaskSave = true;
+               m_bRiverineFloodingSetupSurgeRunUpFloodMaskSave = true;
+               m_bRiverineFloodingRasterWaveFloodLineSave = true;
             }
 
             break;
@@ -2874,9 +2842,9 @@ bool CSimulation::bReadRunDataFile(void)
                   // First look for "all"
                   if (strRH.find(VECTOR_ALL_RIVER_FLOOD_OUTPUT_CODE) != string::npos)
                   {
-                     m_bFloodSWLSetupLineSave = true;
-                     m_bFloodSWLSetupSurgeLine = true;
-                     m_bFloodSWLSetupSurgeRunUpLineSave = true;
+                     // m_bFloodSWLSetupLineSave = true;
+                     // m_bFloodSWLSetupSurgeLine = true;
+                     // m_bFloodSWLSetupSurgeRunUpLineSave = true;
                   }
 
                   else
@@ -2917,10 +2885,10 @@ bool CSimulation::bReadRunDataFile(void)
                // Characteristic locations for flood?
                strRH = strToLower(&strRH);
 
-               m_bFloodLocationSave = false;
+               m_bRiverineFloodLocationSave = false;
 
                if (strRH.find('y') != string::npos)
-                  m_bFloodLocationSave = true;
+                  m_bRiverineFloodLocationSave = true;
             }
 
             break;
@@ -2949,7 +2917,7 @@ bool CSimulation::bReadRunDataFile(void)
                   }
 
                   // Set the switch
-                  m_bFloodLocationSave = true;
+                  m_bRiverineFloodLocationSave = true;
                }
 
                else
@@ -3323,10 +3291,10 @@ bool CSimulation::bReadRunDataFile(void)
             // Barrier formation?
             strRH = strToLower(&strRH);
 
-            m_bBarrierFormation = false;
+            m_bWaveUprush = false;
 
             if (strRH.find('y') != string::npos)
-               m_bBarrierFormation = true;
+               m_bWaveUprush = true;
 
             break;
 
@@ -4923,9 +4891,6 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
       m_bBeachDepositionSave = false;
       m_bTotalBeachDepositionSave = false;
       m_bLandformSave = false;
-      // m_bLocalSlopeSave = false;
-      // m_bSlopeSave = false;
-      // m_bCliffSave = false;
       m_bAvgSeaDepthSave = false;
       m_bAvgWaveHeightSave = false;
       m_bAvgWaveAngleSave = false;
@@ -4948,6 +4913,8 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
       m_bDeepWaterWavePeriodSave = false;
       m_bPolygonUnconsSedUpOrDownDriftSave = false;
       m_bPolygonUnconsSedGainOrLossSave = false;
+      m_bUpRushSandSave = false;
+      m_bUpRushCoarseSave = false;
 
       // Set flags based on raster file codes (Case 11 implementation)
       for (string const &rasterCode : rasterFiles)
@@ -5054,6 +5021,10 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
             m_bPolygonUnconsSedUpOrDownDriftSave = true;
          else if (code == "polygon_uncons_sediment_gain_or_loss")
             m_bPolygonUnconsSedGainOrLossSave = true;
+         else if (code == "uprush_sand")
+            m_bUpRushSandSave = true;
+         else if (code == "uprush_coarse")
+            m_bUpRushCoarseSave = true;
       }
    }
 
@@ -5460,9 +5431,9 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
    {
       // Case 67: Simulate riverine flooding?
       m_bRiverineFlooding = true;
-      m_bSetupSurgeFloodMaskSave = true;
-      m_bSetupSurgeRunUpFloodMaskSave = true;
-      m_bRasterWaveFloodLineSave = true;
+      m_bRiverineFloodingSetupSurgeFloodMaskSave = true;
+      m_bRiverineFloodingSetupSurgeRunUpFloodMaskSave = true;
+      m_bRiverineFloodingRasterWaveFloodLineSave = true;
 
       // Case 68: Output riverine flooding vector files
       // TODO: This is a guess, please check
@@ -5488,7 +5459,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
       if (m_bVectorWaveFloodLineSave)
       {
          // TODO: This is a guess, please check
-         // m_bFloodLocationSave =! *config.pstrGetFloodInputLocation()->empty();
+         // m_bRiverineFloodLocationSave =! *config.pstrGetFloodInputLocation()->empty();
       }
 
       // Case 71: Somthing unknown relating to riverine flooding
@@ -5595,6 +5566,6 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
    }
 
    // Case 91: simulate barrier formation?
-   m_bBarrierFormation = config.bGetBarrier();
+   m_bWaveUprush = config.bGetBarrier();
 
 }

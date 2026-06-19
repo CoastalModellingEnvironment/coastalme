@@ -453,7 +453,7 @@ void CSimulation::WriteStartRunDetails(void)
       if (m_bRiverineFlooding)
       {
          OutStream << " Riverine flooding shapefile                               \t: " << m_strFloodLocationShapefile << endl;
-         OutStream << " Riverine flood location?                                  \t: " << (m_bFloodLocationSave ? "Y" : "N") << endl;
+         OutStream << " Riverine flood location?                                  \t: " << (m_bRiverineFloodLocationSave ? "Y" : "N") << endl;
          OutStream << " Riverine flood save?                                      \t: " << (m_bVectorWaveFloodLineSave ? "Y" : "N") << endl;
          OutStream << " GDAL/OGR riverine flooding event shapefile driver code    \t: " << m_strOGRFloodDriverCode << endl;
          OutStream << " GDAL/OGR riverine flooding shapefile driver desc          \t: " << m_strOGRFloodDriverDesc << endl;
@@ -644,8 +644,8 @@ void CSimulation::WriteStartRunDetails(void)
       OutStream << " Relative removal rate of coarse talus, post cliff collapse\t: " << m_dCliffCollapseCoarseTalusRemovalRate << endl;
    }
 
-   if (m_bBarrierFormation)
-      OutStream << "Barrier formation?                                         \t: " << (m_bBarrierFormation ? "Y" : "N") << endl;
+   if (m_bWaveUprush)
+      OutStream << "Barrier formation?                                         \t: " << (m_bWaveUprush ? "Y" : "N") << endl;
 
    OutStream << endl;
 
