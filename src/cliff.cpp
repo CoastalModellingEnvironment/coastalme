@@ -93,7 +93,7 @@ void CRWCliff::IncreaseNotchIncision(double const dLenIn)
    // Constrain the notch incision, it cannot be greater than the max notch incision
    m_dNotchIncision = tMin(m_dNotchIncision, m_dMaxNotchIncision);
 
-   // assert((m_dMaxNotchIncision - m_dNotchIncision) >=0);
+   assert((m_dMaxNotchIncision - m_dNotchIncision) >=0);
 }
 
 //! Returns true if the horizontal incision of the erosional notch exceeds the critical notch incision

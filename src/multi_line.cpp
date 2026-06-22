@@ -94,7 +94,7 @@ void CGeomMultiLine::TruncateLineSegments(int const nSize)
 //! Inserts a line segment, inheriting coincident pairs from preceding line segments
 void CGeomMultiLine::InsertLineSegmentWithInheritance(int const nSegment)
 {
-   // assert(nSegment < m_prVVLineSegment.size());
+   assert(nSegment < static_cast<int>(m_prVVLineSegment.size()));
 
    // The new vector of pairs is identical to the existing vector of pairs i.e. we inherit profile/line seg details from the previous line seg
    vector<pair<int, int>> prVPrev = m_prVVLineSegment[nSegment];
@@ -151,7 +151,6 @@ void CGeomMultiLine::AppendPairToFinalLineSegment(pair<int, int> const prIn)
 //! Adds a coincident pair (profile and line segment) to a pre-existing line segment of the CGeomMultiLine object, if the profile isn't already present in the line segment
 void CGeomMultiLine::AddCoincidentPairToExistingLineSegmentIfNotAlready(int const nSegment, int const nProfile, int const nLineSeg)
 {
-   // assert(nSegment < m_prVVLineSegment.size());
    for (size_t n = 0; n < m_prVVLineSegment[nSegment].size(); n++)
    {
       if (m_prVVLineSegment[nSegment][n].first == nProfile)

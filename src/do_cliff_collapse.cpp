@@ -596,8 +596,8 @@ bool CSimulation::bCreateNotchInland(int const nCoast, int const nCoastPoint, /*
          // Get the new incision depth
          double const dIncisionDepth = pCellLandform->dGetCliffNotchIncisionDepth();
 
-         if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-            LogStream << m_ulIter << ":\t [" << nXTmp << "][" << nYTmp << "] inland cliff " << (bPreExistingNotch ? "rejuvenated" : "created") << ", dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetAllSedTopElevIncTalus() << " incision = " << dNotchIncision << " tot incision = " << dIncisionDepth << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+         // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+         //    LogStream << m_ulIter << ":\t [" << nXTmp << "][" << nYTmp << "] inland cliff " << (bPreExistingNotch ? "rejuvenated" : "created") << ", dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nXTmp][nYTmp].dGetAllSedTopElevIncTalus() << " incision = " << dNotchIncision << " tot incision = " << dIncisionDepth << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
 
          // OK, we've had some incision of this inland cliff. So is the notch now incised enough to cause collapse?
          if (dIncisionDepth >= m_dNotchIncisionAtCollapse)
@@ -970,7 +970,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                      dTalusSandToMove -= dActualDepthToMove;
                      dTalusSandMoved += dActualDepthToMove;
 
-                     // assert(dTalusSandToMove >= 0.0);
+                     assert(dTalusSandToMove >= 0.0);
 
                      // Set the changed-this-timestep switch re. the adjacent cell
                      m_bUnconsChangedThisIter[nTopLayer] = true;
@@ -1010,7 +1010,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                      dTalusCoarseToMove -= dActualDepthToMove;
                      dTalusCoarseMoved += dActualDepthToMove;
 
-                     // assert(dTalusCoarseToMove >= 0.0);
+                     assert(dTalusCoarseToMove >= 0.0);
 
                      LogStream << m_ulIter << ":\t [" << nX << "][" << "] coarse talus moved to uncons coarse on [" << nXAdj << "][" << nYAdj << "], coarse talus moved = " << dActualDepthToMove << " coarse talus remaining on [" << nX << "][" << nY << "] = " << dTalusCoarseToMove << endl;
 

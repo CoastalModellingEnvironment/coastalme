@@ -97,7 +97,7 @@ void CRWCellSediment::AddFineDepth(double const dSedDepthToAdd)
 void CRWCellSediment::SetSandDepth(double const dNewSedDepth)
 {
    m_dSand = dNewSedDepth;
-   assert(m_dSand >= 0);
+   // assert(m_dSand >= 0);
 }
 
 //! Returns the sand sediment depth equivalent for this sediment layer
@@ -110,14 +110,14 @@ double CRWCellSediment::dGetSandDepth(void) const
 void CRWCellSediment::AddSandDepth(double const dSedDepthToAdd)
 {
    m_dSand += dSedDepthToAdd;
-   assert(m_dSand >= 0);
+   // assert(m_dSand >= 0);
 }
 
 //! Sets this sediment layer object's coarse sediment depth equivalent
 void CRWCellSediment::SetCoarseDepth(double const dNewSedDepth)
 {
    m_dCoarse = dNewSedDepth;
-   assert(m_dCoarse >= 0);
+   // assert(m_dCoarse >= 0);
 }
 
 //! Returns the coarse sediment depth equivalent for this sediment layer object

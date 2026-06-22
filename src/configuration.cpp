@@ -188,12 +188,12 @@ void CConfiguration::InitializeDefaults()
 //===============================================================================================================================
 void CConfiguration::GetRasterFiles(vector<string>* pVStrIn) const
 {
-   // Case 11: Raster GIS files to output - expand "all" and "usual" keywords
+   // Case 11: Raster GIS files to output: expand "all" and "usual" keywords
    for (string const &fileSpec : m_VstrRasterFiles)
    {
       string const strFileSpecLower = CSimulation::strToLower(&fileSpec);
 
-      if (strFileSpecLower == "all")
+      if (strFileSpecLower == RASTER_ALL_OUTPUT_CODE)
       {
          // Add all possible raster outputs (Case 11 "all" mode)
          pVStrIn->insert(pVStrIn->end(),
@@ -248,7 +248,7 @@ void CConfiguration::GetRasterFiles(vector<string>* pVStrIn) const
                                "polygon_uncons_sediment_up_or_down_drift",
                                "polygon_uncons_sediment_gain_or_loss"});
       }
-      else if (strFileSpecLower == "usual")
+      else if (strFileSpecLower == RASTER_USUAL_OUTPUT_CODE)
       {
          // Add usual/standard raster outputs (Case 11 "usual" mode)
          pVStrIn->insert(pVStrIn->end(),
@@ -300,9 +300,9 @@ void CConfiguration::GetRasterFiles(vector<string>* pVStrIn) const
                                "coarse_uncons",
                                "coarse_cons"});
       }
-      else if (strFileSpecLower == "cmetools")
+      else if (strFileSpecLower == RASTER_CME_TOOLS_OUTPUT_CODE)
       {
-         // Add usual/standard raster outputs (Case 11 "usual" mode)
+         // Add usual/standard raster outputs (Case 11 "cmetools" mode)
          pVStrIn->insert(pVStrIn->end(),
                               {"fine_uncons",
                                "fine_cons",
@@ -344,17 +344,17 @@ void CConfiguration::GetRasterFiles(vector<string>* pVStrIn) const
 //===============================================================================================================================
 void CConfiguration::GetVectorFiles(vector<string>* pVStrIn) const
 {
-   // Case 16: Vector GIS files to output - expand "all" and "usual" keywords
+   // Case 16: Vector GIS files to output: expand "all" and "usual" keywords
    for (string const &fileSpec : m_VstrVectorFiles)
    {
       string const strFileSpecLower = CSimulation::strToLower(&fileSpec);
 
-      if (strFileSpecLower == "all")
+      if (strFileSpecLower == VECTOR_ALL_OUTPUT_CODE)
       {
          // Add all possible vector outputs (Case 16 "all" mode)
          pVStrIn->insert(pVStrIn->end(), {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals", "avg_wave_angle", "wave_energy", "mean_wave_energy", "breaking_wave_height", "coast_curvature", "polygon_node", "polygon", "cliff_notch", "wave_transect_points", "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle", "wave_setup", "storm_surge", "run_up", "flood_line"});
       }
-      else if (strFileSpecLower == "usual")
+      else if (strFileSpecLower == VECTOR_USUAL_OUTPUT_CODE)
       {
          // Add usual/standard vector outputs (Case 16 "usual" mode)
          pVStrIn->insert(pVStrIn->end(), {"coast", "cliff_edge", "wave_angle", "normals", "invalid_normals", "avg_wave_angle", "wave_energy", "mean_wave_energy", "breaking_wave_height", "polygon", "cliff_notch",            "shadow_boundary", "downdrift_boundary", "deep_water_wave_angle"});

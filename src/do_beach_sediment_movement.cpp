@@ -427,13 +427,13 @@ int CSimulation::nDoAllActualBeachErosionAndDeposition(void)
             {
                // We had some sand unconsolidated sediment which we were unable to deoosit on the last polygon (which could have been the last polygon of the previous iteration). So add it to the total to be deposited here
                if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-                  LogStream << m_ulIter << ":\t nPolygon = " << nPolygon << " dSandDepositionTarget was = " << dSandDepositionTarget * m_dCellArea << " adding m_dDepositionSandDiff = " << m_dDepositionSandDiff * m_dCellArea;
+                  LogStream << m_ulIter << ":\t nPolygon = " << nPolygon << " dSandDepositionTarget was = " << std::scientific << dSandDepositionTarget * m_dCellArea << " adding m_dDepositionSandDiff = " << m_dDepositionSandDiff * m_dCellArea;
 
                dSandDepositionTarget += m_dDepositionSandDiff;
                m_dDepositionSandDiff = 0;
 
                if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-                  LogStream << " dSandDepositionTarget now = " << dSandDepositionTarget << endl;
+                  LogStream << " dSandDepositionTarget now = " << dSandDepositionTarget << std::fixed << endl;
             }
 
             // Now do deposition of sand sediment: calculate a net increase in depth of sand-sized unconsolidated sediment on the cells within the polygon. Note that some cells may decrease in elevation (i.e. have some sand-sized sediment erosion) however

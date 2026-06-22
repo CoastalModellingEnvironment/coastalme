@@ -766,7 +766,7 @@ bool CSimulation::bWritePerTimestepResultsFixedWidth(void)
 
    // Output per-timestep potential beach erosion in m (average for all sea cells)
    OutStream << fixed << setprecision(0);
-   // assert(m_ulThisIterNumSeaCells > 0);
+   assert(m_ulThisIterNumSeaCells > 0);
    double dTmp = 1000 * m_dThisIterPotentialBeachErosion / static_cast<double>(m_ulThisIterNumSeaCells);
 
    if (dTmp > 99999)
@@ -2683,7 +2683,7 @@ void CSimulation::DoEndOfTimestepTotals(void)
 
    // Add to grand totals: first platform erosion
    m_ldGTotPotentialPlatformErosion += m_dThisIterPotentialPlatformErosion;
-   // assert(isfinite(m_dThisIterPotentialPlatformErosion));
+   assert(isfinite(m_dThisIterPotentialPlatformErosion));
 
    m_ldGTotFineActualPlatformErosion += m_dThisIterActualPlatformErosionFineCons;
    m_ldGTotSandActualPlatformErosion += m_dThisIterActualPlatformErosionSandCons;

@@ -211,8 +211,8 @@ void CSimulation::DoAllPotentialBeachErosion(void)
             double dSedimentDepth = dSedimentVol / m_dCellArea;
 
             // If this is just a tiny depth, do nothing
-            if (dSedimentDepth < SED_ELEV_TOLERANCE)
-               dSedimentDepth = 0;
+            // if (dSedimentDepth < SED_ELEV_TOLERANCE)
+            //    dSedimentDepth = 0;
 
             // LogStream << m_ulIter << ": polygon = " << nThisPoly << " nActiveZonePoints = " << nActiveZonePoints << " dAvgBreakingWaveHeight = " << dAvgBreakingWaveHeight << " dAvgFluxOrientation = " << dAvgFluxOrientation << " dNormalOrientation = " << dNormalOrientation << " dAvgBreakingWaveAngle = " << dAvgBreakingWaveAngle <<  " potential sediment transport this timestep = " << dSedimentDepth << " m " << (bDownCoast ? "DOWN" : "UP") << " coast" << endl;
 

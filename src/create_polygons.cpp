@@ -331,7 +331,7 @@ void CSimulation::RasterizePolygonJoiningLine(int nCoast, CGeom2DIPoint const* p
       if (! bIsWithinValidGrid(nX, nY))
          KeepWithinValidGrid(nXStart, nYStart, nX, nY);
 
-      // assert(nPoly < m_VCoast[0].nGetNumPolygons());
+      assert(nPoly < m_VCoast[0].nGetNumPolygons());
 
       // Mark this point on the raster grid
       m_pRasterGrid->m_Cell[nX][nY].SetCoastAndPolygonID(nCoast, nPoly);
@@ -430,7 +430,7 @@ int CSimulation::nMarkPolygonCells(void)
 
             while ((nX < m_nXGridSize) && (m_pRasterGrid->m_Cell[nX][nY].nGetPolygonID() == INT_NODATA))
             {
-               // assert(nPolyID < m_VCoast[nCoast].nGetNumPolygons());
+               assert(nPolyID < m_VCoast[nCoast].nGetNumPolygons());
 
                // Mark the cell as being in this polygon and this coast
                m_pRasterGrid->m_Cell[nX][nY].SetCoastAndPolygonID(nCoast, nPolyID);
@@ -830,8 +830,8 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
          pThisPolygon->SetLength(dPolygonSeawardLen);
 
          // // DEBUG CODE ======================================================================================================================
-         // assert(dVUpCoastBoundaryShare.size() == nVUpCoastAdjacentPolygon.size());
-         // assert(dVDownCoastBoundaryShare.size() == nVDownCoastAdjacentPolygon.size());
+         assert(dVUpCoastBoundaryShare.size() == nVUpCoastAdjacentPolygon.size());
+         assert(dVDownCoastBoundaryShare.size() == nVDownCoastAdjacentPolygon.size());
          //
          // LogStream << m_ulIter << ": polygon = " << nPoly << (pPolygon->bIsPointed() ? " IS TRIANGULAR" : "") << endl;
          // LogStream << m_ulIter << ": coast " << nCoast << " polygon " << nThisPolygon << endl;
@@ -927,7 +927,7 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
    //    LogStream << "################################################ m_ulIter = " << m_ulIter << " m_nExtra = " << m_nExtra << endl;
    //    LogStream << "coast = " << nCoast << " polygon = " << pPolygon->nGetPolygonCoastID() << endl;
    //
-   //    // assert(nPolygon < m_VCoast[nCoast].nGetNumPolygons());
+   //    assert(nPolygon < m_VCoast[nCoast].nGetNumPolygons());
    //    CGeom2DIPoint const* pNode = pPolygon->pPtiGetNode();
    //    CGeom2DIPoint const* pAntiNode = pPolygon->pPtiGetAntiNode();
    //

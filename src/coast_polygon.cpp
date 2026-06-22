@@ -427,7 +427,6 @@ void CGeomCoastPolygon::SetUpCoastAdjacentPolygons(vector<int> const* pnVPolygon
 //! Gets a single up-coast adjacent polygon
 int CGeomCoastPolygon::nGetUpCoastAdjacentPolygon(int const nIndex) const
 {
-   // assert(nIndex < m_VnUpCoastAdjacentPolygon.size());
    return m_VnUpCoastAdjacentPolygon[nIndex];
 }
 
@@ -446,7 +445,6 @@ void CGeomCoastPolygon::SetDownCoastAdjacentPolygons(vector<int> const* pnVPolyg
 //! Gets a single down-coast adjacent polygon
 int CGeomCoastPolygon::nGetDownCoastAdjacentPolygon(int const nIndex) const
 {
-   // assert(nIndex < m_VnDownCoastAdjacentPolygon.size());
    return m_VnDownCoastAdjacentPolygon[nIndex];
 }
 

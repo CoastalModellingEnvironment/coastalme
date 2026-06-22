@@ -666,7 +666,7 @@ double CRWCoast::dGetFluxOrientation(int const nCoastPoint) const
 void CRWCoast::SetWaveEnergyAtBreaking(int const nCoastPoint, double const dEnergy)
 {
    // TODO 055 No check to see if nCoastPoint < m_VdWaveEnergyAtBreaking.size()
-   // assert(isfinite(dEnergy));
+   assert(isfinite(dEnergy));
    m_VdWaveEnergyAtBreaking[nCoastPoint] = dEnergy;
 }
 
@@ -674,7 +674,7 @@ void CRWCoast::SetWaveEnergyAtBreaking(int const nCoastPoint, double const dEner
 double CRWCoast::dGetWaveEnergyAtBreaking(int const nCoastPoint) const
 {
    // TODO 055 No check to see if nCoastPoint < m_VdWaveEnergyAtBreaking.size()
-   // assert(isfinite(m_VdWaveEnergyAtBreaking[nCoastPoint]));
+   assert(isfinite(m_VdWaveEnergyAtBreaking[nCoastPoint]));
    return m_VdWaveEnergyAtBreaking[nCoastPoint];
 }
 

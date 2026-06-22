@@ -1061,7 +1061,7 @@ void CSimulation::MergeProfilesAtFinalLineSegments(int const nCoast, CGeomProfil
       for (int m = 0; m < nCombinedLastSeg; m++)
          pThisProfile->AppendPairToFinalLineSegment(prVCombinedProfilesCoincidentProfilesLastSeg[m]);
 
-      // assert(pThisProfile->nGetProfileSize() == (1 + pThisProfile->nGetNumLineSegments()));
+      assert(pThisProfile->nGetProfileSize() == (1 + pThisProfile->nGetNumLineSegments()));
    }
 
    // Append a new straight line segment to the existing line segment(s) of the second profile, and to all co-incident profiles
@@ -1250,7 +1250,7 @@ void CSimulation::TruncateProfileAndAppendNew(int const nCoast, CGeomProfile* pP
       CGeomProfile* pThisProfile = m_VCoast[nCoast].pGetProfile(nThisProfile);
 
       // if (nThisProfile == nMainProfile)
-      // assert(nThisProfileLineSeg == nMainProfileIntersectLineSeg);
+      assert(nThisProfileLineSeg == nMainProfileIntersectLineSeg);
 
       // Truncate the profile
       // LogStream << "\tTruncating " << (nThisProfile == nMainProfile ? "MAIN" : "COINCIDENT") << " to-truncate profile {" << nThisProfile << "} at line segment " << nThisProfileLineSeg+1 << endl;
@@ -1305,7 +1305,7 @@ void CSimulation::TruncateProfileAndAppendNew(int const nCoast, CGeomProfile* pP
             }
          }
       }
-      // assert(pThisProfile->nGetProfileSize() == (1 + pThisProfile->nGetNumLineSegments()));
+      assert(pThisProfile->nGetProfileSize() == (1 + pThisProfile->nGetNumLineSegments()));
    }
 }
 

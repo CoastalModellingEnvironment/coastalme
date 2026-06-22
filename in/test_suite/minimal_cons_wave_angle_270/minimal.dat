@@ -46,9 +46,9 @@ Time series files to output                                        ["all", or fr
 Coastline smoothing                          [0 = none, 1 = running mean, 2 = Savitzky-Golay]: 2
 Coastline smoothing window size                                                 [must be odd]: 13                       ; 7 is min?
 Polynomial order for Savitzky-Golay coastline smoothing                              [2 or 4]: 4
-Grid edge(s) to omit when searching for coastline                                      [NSWE]: W
+Grid edge(s) to omit when searching for coastline                                      [NSWE]:
 
-Profile slope running-mean smoothing window size                        [must be zero or odd]: 0
+Profile slope running-mean smoothing window size                        [must be zero or odd]: 13
 Max local slope (m/m)                                                                        : 1.18
 
 Maximum elevation of beach above SWL                                                      [m]: 10

@@ -18,11 +18,11 @@ base_path: "in/CSE/0_Typology/Cliff/in/"
 run_information:
   # String: Base name for output files (no extension, no path)
   # This name will be used for log files, output files, and GIS outputs
-  output_file_names: "jsme"
+  output_file_names: "cse_cliff"
 
   # Integer: Level of detail in log file (0-4)
   # 0 = no log file, 1 = minimal, 2 = moderate, 3 = detailed, 4 = everything
-  log_file_detail: 4
+  log_file_detail: 1
 
   # Boolean: Output per-timestep results in CSV format instead of fixed-width
   # true = CSV format (recommended), false = fixed-width format
@@ -39,7 +39,7 @@ simulation:
   # String: Total simulation duration with units
   # Units can be: hours, days, months, years
   # Examples: "365 days", "24 hours", "2 years", "6 months"
-  duration: "1 year"
+  duration: "10 years"
 
   # String: Simulation timestep with units
   # Smaller timesteps = more accuracy but longer computation time
@@ -75,7 +75,7 @@ gis_output:
   # List of strings: Which raster files to output
   # Options: ["usual"] = standard set, ["all"] = everything, or specific codes
   # Common codes: "sea_depth", "beach_mask", "cliff_collapse", "polygon_gain_or_loss"
-  raster_files: usual
+  raster_files: all
     # - total_cliff_collapse
     # - avalanche_deposition
     # - total_avalanche_deposition
@@ -398,10 +398,6 @@ flood_parameters:
   # Leave blank if not using flood modeling
   flood_coastline: ""
 
-  # String: Wave runup equation to use
-  # Leave blank if not modeling flooding
-  runup_equation: ""
-
   # String: Characteristic locations for flood analysis
   # Leave blank if not modeling flooding
   characteristic_locations: ""
@@ -470,7 +466,7 @@ physics_and_geometry:
 profile_and_output:
   # Boolean: Save detailed profile data for analysis
   # Creates files with cross-shore profile evolution
-  save_profile_data: true
+  save_profile_data: false
 
   # List of integers: Specific profile numbers to save
   # Leave empty to save none, or specify profile IDs
@@ -535,3 +531,8 @@ cliff_edge_processing:
 # Run with: ./cme --yaml --datafile=your_config.yaml
 # Or let CoastalME auto-detect: ./cme --datafile=your_config.yaml
 #
+
+  # String: Wave runup equation to use
+  # Leave blank if not modeling flooding
+  runup_equation: ""
+

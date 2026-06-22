@@ -973,9 +973,9 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
          return nRet;
       }
 
-      // assert(static_cast<int>(VdProfileDistXY.size()) == nProfileSize);
-      // assert(static_cast<int>(VdProfileZ.size()) == nProfileSize);
-      // assert(static_cast<int>(VdProfileFrictionFactor.size()) == nProfileSize);
+      assert(static_cast<int>(VdProfileDistXY.size()) == nProfileSize);
+      assert(static_cast<int>(VdProfileZ.size()) == nProfileSize);
+      assert(static_cast<int>(VdProfileFrictionFactor.size()) == nProfileSize);
 
       if (VdProfileDistXY.empty())
       {
@@ -1330,7 +1330,7 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
          if ((VdFractionBreakingWaves[nProfilePoint] >= 0.10) && (m_dDepthOfClosure >= m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth()) && (! bBreaking))
          {
             bBreaking = true;
-            // assert(VdWaveHeight[nProfilePoint] >= 0);
+            assert(VdWaveHeight[nProfilePoint] >= 0);
             dProfileBreakingWaveHeight = VdWaveHeight[nProfilePoint];
             dProfileBreakingWaveAngle = VdWaveDirection[nProfilePoint];
             dProfileBreakingDepth = m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(); // Water depth for the cell 'under' this point in the profile
@@ -2026,7 +2026,7 @@ void CSimulation::ModifyBreakingWavePropertiesWithinShadowZoneToCoastline(int co
          dThisBreakingWaveHeight = dThisBreakingDepth * 0.78; // Likely CShore output wave height is not adequately reproduced due to input profile and wave properties. TODO 007 Finish surge and runup stuff. Does something need to be changed then?
       }
 
-      // assert(dThisBreakingWaveHeight >= 0);
+      assert(dThisBreakingWaveHeight >= 0);
       m_VCoast[nCoast].SetBreakingWaveHeight(nThisCoastPoint, dThisBreakingWaveHeight);
       m_VCoast[nCoast].SetBreakingWaveAngle(nThisCoastPoint, dThisBreakingWaveAngle);
       m_VCoast[nCoast].SetDepthOfBreaking(nThisCoastPoint, dThisBreakingDepth);
@@ -2171,7 +2171,7 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
       for (int n = nThisCoastPoint; n < nNextCoastPoint; n++)
       {
          // Set the breaking wave height, breaking wave angle, and depth of breaking for this coast point TODO 056 This assert sometimes fails: why?
-         // assert(dNextBreakingWaveHeight >= 0);
+         assert(dNextBreakingWaveHeight >= 0);
          m_VCoast[nCoast].SetBreakingWaveHeight(n, dNextBreakingWaveHeight);
          m_VCoast[nCoast].SetBreakingWaveAngle(n, dNextBreakingWaveAngle);
          m_VCoast[nCoast].SetDepthOfBreaking(n, dNextBreakingDepth);
@@ -2187,7 +2187,7 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
       for (int n = nThisCoastPoint + 1; n <= nNextCoastPoint; n++)
       {
          // Set the breaking wave height, breaking wave angle, and depth of breaking for this coast point TODO 056 This assert sometimes fails: why?
-         // assert(dThisBreakingWaveHeight >= 0);
+         assert(dThisBreakingWaveHeight >= 0);
          m_VCoast[nCoast].SetBreakingWaveHeight(n, dThisBreakingWaveHeight);
          m_VCoast[nCoast].SetBreakingWaveAngle(n, dThisBreakingWaveAngle);
          m_VCoast[nCoast].SetDepthOfBreaking(n, dThisBreakingDepth);
@@ -2235,7 +2235,7 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
       }
 
       // Set the breaking wave height, breaking wave angle, and depth of breaking for this coast point TODO 056 This assert sometimes fails: why?
-      // assert(dBreakingWaveHeight >= 0);
+      assert(dBreakingWaveHeight >= 0);
       m_VCoast[nCoast].SetBreakingWaveHeight(n, dBreakingWaveHeight);
       m_VCoast[nCoast].SetBreakingWaveAngle(n, dBreakingWaveAngle);
       m_VCoast[nCoast].SetDepthOfBreaking(n, dBreakingDepth);

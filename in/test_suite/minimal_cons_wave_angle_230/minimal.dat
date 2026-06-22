@@ -22,13 +22,13 @@
 ;
 ; Run information -----------------------------------------------------------------------------------------------------
 Main output/log file names                                          [omit path and extension]: minimal
-Content of log file                       [0 = no log file, 1 = least detail, 4 = everything]: 1
+Content of log file                       [0 = no log file, 1 = least detail, 4 = everything]: 4
 Output per-timestep results in CSV format?                                              [y/n]: n
 
 Simulation start date and time                                          [hh-mm-ss dd/mm/yyyy]: 00-00-00 01/01/1999
 Duration of simulation                                           [hours, days, months, years]: 1 year
 Timestep (hours or days)                                                                     : 1 hour
-Save times                                                       [hours, days, months, years]: 12 24 48 100 200 300 400 500 1000 3000 5000 7000 hours
+Save times                                                       [hours, days, months, years]: 1 2 3 4 5 6 7 8 9 10 11 12 24 48 100 200 300 400 500 1000 3000 5000 7000 hours
 
 Random number seed(s)                            [if omitted, will use system time as a seed]: 280764
 
@@ -46,9 +46,9 @@ Time series files to output                                        ["all", or fr
 Coastline smoothing                          [0 = none, 1 = running mean, 2 = Savitzky-Golay]: 2
 Coastline smoothing window size                                                 [must be odd]: 13                       ; 7 is min?
 Polynomial order for Savitzky-Golay coastline smoothing                              [2 or 4]: 4
-Grid edge(s) to omit when searching for coastline                                      [NSWE]: W
+Grid edge(s) to omit when searching for coastline                                      [NSWE]:
 
-Profile slope running-mean smoothing window size                        [must be zero or odd]: 0
+Profile slope running-mean smoothing window size                        [must be zero or odd]: 13
 Max local slope (m/m)                                                                        : 1.18
 
 Maximum elevation of beach above SWL                                                      [m]: 10

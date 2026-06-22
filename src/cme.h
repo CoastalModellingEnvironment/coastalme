@@ -781,7 +781,7 @@ double const MIN_TALUS_DEPTH = 0.01;
 //! The vertical distance (m) between the bottom of a cliff notch, and its mid point (i.e. half the notch vertical depth). This is necessary because without it, notches are not inundated post-collapse. This is most noticeable when SWL does mot change during the simulation
 double const NOTCH_HALF_VERTICAL_DISTANCE = 0.05;
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.3 (20 Jun 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.3 (22 Jun 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";
@@ -919,6 +919,7 @@ string const RASTER_CLIFF_COLLAPSE_TIMESTEP_CODE = "cliff_collapse_timestep";
 string const RASTER_CLIFF_COLLAPSE_TIMESTEP_NAME = "cliff_collapse_timestep_all";
 string const RASTER_CLIFF_NOTCH_ALL_CODE = "cliff_notch_all";
 string const RASTER_CLIFF_NOTCH_ALL_NAME = "cliff_notch_all";
+string const RASTER_CME_TOOLS_OUTPUT_CODE = "cmetools";
 string const RASTER_COARSE_CONS_CODE = "cons_sed_coarse";
 string const RASTER_COARSE_CONS_NAME = "cons_sed_coarse";
 string const RASTER_COARSE_UNCONS_CODE = "uncons_sed_coarse";

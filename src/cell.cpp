@@ -813,8 +813,8 @@ void CGeomCell::InitCell(void)
 //! Sets the wave height on this cell
 void CGeomCell::SetWaveHeight(double const dWaveHeight)
 {
-   // assert(m_dWaveHeight != DBL_NODATA);
-   // assert(m_dWaveHeight >= 0);
+   assert(! bFPIsEqual(m_dWaveHeight, DBL_NODATA, TOLERANCE));
+   assert(m_dWaveHeight >= 0);
    m_dWaveHeight = dWaveHeight;
 }
 
@@ -907,6 +907,7 @@ void CGeomCell::SetWaveValuesToDeepWaterWaveValues(void)
 // Sets this cell's beach protection factor
 void CGeomCell::SetBeachProtectionFactor(double const dFactor)
 {
+   assert(dFactor >= 0);
    m_dBeachProtectionFactor = dFactor;
 }
 
