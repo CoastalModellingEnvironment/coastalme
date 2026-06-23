@@ -269,6 +269,8 @@ void CSimulation::WriteStartRunDetails(void)
    }
 
    OutStream << " Size of profile slope smoothing window                    \t: " << m_nProfileSmoothWindow << endl;
+   OutStream << " Method used to smooth profiles                            \t: " << (m_bSmoothUsingRunningMedian ? "running median" : "running mean") << endl;
+
    OutStream << resetiosflags(ios::floatfield);
    OutStream << fixed << setprecision(2);
    OutStream << " Max local slope on profile (m/m)                          \t: " << m_dProfileMaxSlope << endl;
