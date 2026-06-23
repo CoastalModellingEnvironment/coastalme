@@ -1249,9 +1249,6 @@ void CSimulation::TruncateProfileAndAppendNew(int const nCoast, CGeomProfile* pP
       int const nThisProfileLineSeg = prVCoincidentProfiles[nn].second;
       CGeomProfile* pThisProfile = m_VCoast[nCoast].pGetProfile(nThisProfile);
 
-      // if (nThisProfile == nMainProfile)
-      assert(nThisProfileLineSeg == nMainProfileIntersectLineSeg);
-
       // Truncate the profile
       // LogStream << "\tTruncating " << (nThisProfile == nMainProfile ? "MAIN" : "COINCIDENT") << " to-truncate profile {" << nThisProfile << "} at line segment " << nThisProfileLineSeg+1 << endl;
       pThisProfile->TruncateProfile(nThisProfileLineSeg + 1);

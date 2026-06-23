@@ -436,7 +436,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       }
    }
 
-   // bool bDirectionChanged = false;
+   bool bDirectionChanged = false;
    int nProfSize = pProfile->nGetNumCellsInProfile();
    int nCoastProfileStart = pProfile->nGetCoastPoint();
    int nProfileStartX = pProfile->pPtiVGetCellsInProfile()->at(0).nGetX();
@@ -466,12 +466,12 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       // Are we going up-coast, and the coast end of the parallel profile is at the beginning of the coast?
       if ((nDirection == DIRECTION_UPCOAST) && (nThisPointOnCoast < 0))
       {
-         // Make sure we have no more than one change of direction per timestep
-         // if (bDirectionChanged)
-         //    break;
+         // Make sure we have no more than one coast-end or coast-start change of direction
+         if (bDirectionChanged)
+            break;
 
          // Reverse direction and work from the end profile
-         // bDirectionChanged = true;
+         bDirectionChanged = true;
          pProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(0);
          nProfSize = pProfile->nGetNumCellsInProfile();
          nCoastProfileStart = pProfile->nGetCoastPoint();
@@ -491,12 +491,12 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       // Is the coast end of the parallel profile at the end of the coast?
       if ((nDirection == DIRECTION_DOWNCOAST) && (nThisPointOnCoast >= nCoastMax))
       {
-         // Make sure we have no more than one change of direction per timestep
-         // if (bDirectionChanged)
-         //    break;
+         // Make sure we have no more than one coast-end or coast-start change of direction
+         if (bDirectionChanged)
+            break;
 
          // Reverse direction and work from the end profile
-         // bDirectionChanged = true;
+         bDirectionChanged = true;
          pProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nCoastMax-1);
          nProfSize = pProfile->nGetNumCellsInProfile();
          nCoastProfileStart = pProfile->nGetCoastPoint();
@@ -831,11 +831,6 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
 void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
 {
    LogStream << m_ulIter << ": doing platform erosion on cell [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
-
-   // DEBUG CODE
-   if ((nX == 213) && (nY == 11))
-      LogStream << endl;
-   // DEBUG CODE
 
    // Get the beach protection factor, which quantifies the extent to which unconsolidated sediment on the shore platform (beach) protects the shore platform
    double const dBeachProtectionFactor = m_pRasterGrid->m_Cell[nX][nY].dGetBeachProtectionFactor();
