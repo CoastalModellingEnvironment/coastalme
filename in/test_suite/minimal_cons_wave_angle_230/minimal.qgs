@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-06-22T21:32:07" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.0.3-Norrköping">
+<qgis projectname="" saveDateTime="2026-06-23T10:34:04" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.0.3-Norrköping">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
@@ -54,7 +54,7 @@
       <customproperties>
         <Option/>
       </customproperties>
-      <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="01">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="01">
         <customproperties>
           <Option/>
         </customproperties>
@@ -63,7 +63,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Checked" expanded="1" id="coast0120160718183614891" legend_exp="" legend_split_behavior="0" name="coast01" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_wave_angle_230/coast_001.shp">
+        <layer-tree-layer checked="Qt::Unchecked" expanded="1" id="coast0120160718183614891" legend_exp="" legend_split_behavior="0" name="coast01" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_wave_angle_230/coast_001.shp">
           <customproperties>
             <Option/>
           </customproperties>
@@ -73,7 +73,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Checked" expanded="0" id="normals0120160727192458855" legend_exp="" legend_split_behavior="0" name="normals01" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_wave_angle_230/normals_001.shp">
+        <layer-tree-layer checked="Qt::Unchecked" expanded="0" id="normals0120160727192458855" legend_exp="" legend_split_behavior="0" name="normals01" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_wave_angle_230/normals_001.shp">
           <customproperties>
             <Option/>
           </customproperties>
@@ -83,7 +83,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Unchecked" expanded="0" id="polygon0120160727195316313" legend_exp="" legend_split_behavior="0" name="polygon01" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_wave_angle_230/polygon_001.shp">
+        <layer-tree-layer checked="Qt::Checked" expanded="0" id="polygon0120160727195316313" legend_exp="" legend_split_behavior="0" name="polygon01" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_wave_angle_230/polygon_001.shp">
           <customproperties>
             <Option/>
           </customproperties>
@@ -160,7 +160,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Checked" expanded="0" id="actual_platform_erosion0120160725155135348" legend_exp="" legend_split_behavior="0" name="actual_platform_erosion01" patch_size="0,0" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/actual_platform_erosion_001.tif">
+        <layer-tree-layer checked="Qt::Unchecked" expanded="0" id="actual_platform_erosion0120160725155135348" legend_exp="" legend_split_behavior="0" name="actual_platform_erosion01" patch_size="0,0" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/actual_platform_erosion_001.tif">
           <customproperties>
             <Option/>
           </customproperties>
@@ -190,13 +190,13 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Unchecked" expanded="0" id="landform_class_00120170603144857218" legend_exp="" legend_split_behavior="0" name="landform_class_001" patch_size="0,0" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/landform_class_001.tif">
+        <layer-tree-layer checked="Qt::Checked" expanded="0" id="landform_class_00120170603144857218" legend_exp="" legend_split_behavior="0" name="landform_class_001" patch_size="0,0" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/landform_class_001.tif">
           <customproperties>
             <Option/>
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="1" groupLayer="" name="02">
+      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="02">
         <customproperties>
           <Option/>
         </customproperties>
@@ -252,7 +252,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Checked" expanded="1" id="potential_platform_erosion_002_aaa49ab5_fac6_4a40_a66d_b38bf07cce49" legend_exp="" legend_split_behavior="0" name="potential_platform_erosion_002" patch_size="-1,-1" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/potential_platform_erosion_002.tif">
+        <layer-tree-layer checked="Qt::Unchecked" expanded="0" id="potential_platform_erosion_002_aaa49ab5_fac6_4a40_a66d_b38bf07cce49" legend_exp="" legend_split_behavior="0" name="potential_platform_erosion_002" patch_size="-1,-1" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/potential_platform_erosion_002.tif">
           <customproperties>
             <Option/>
           </customproperties>
@@ -262,7 +262,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Unchecked" expanded="0" id="landform_class_0220161102170408248" legend_exp="" legend_split_behavior="0" name="landform_class_02" patch_size="0,0" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/landform_class_002.tif">
+        <layer-tree-layer checked="Qt::Checked" expanded="0" id="landform_class_0220161102170408248" legend_exp="" legend_split_behavior="0" name="landform_class_02" patch_size="0,0" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/landform_class_002.tif">
           <customproperties>
             <Option/>
           </customproperties>
@@ -1673,15 +1673,15 @@
       </legendlayer>
     </legendgroup>
     <legendgroup checked="Qt::Checked" name="out" open="true">
-      <legendgroup checked="Qt::Checked" name="01" open="true">
+      <legendgroup checked="Qt::Unchecked" name="01" open="false">
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="deep_water_wave_angle_001" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="deep_water_wave_angle_00120171226160841623" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="coast01" open="true" showFeatureCount="0">
+        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="coast01" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="coast0120160718183614891" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="coast0120160718183614891" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="coast_curvature_001" open="false" showFeatureCount="0">
@@ -1689,9 +1689,9 @@
             <legendlayerfile isInOverview="0" layerid="coast_curvature_00120170306124022825" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="normals01" open="false" showFeatureCount="0">
+        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="normals01" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="normals0120160727192458855" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="normals0120160727192458855" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="invalid_normals01" open="true" showFeatureCount="0">
@@ -1699,7 +1699,7 @@
             <legendlayerfile isInOverview="0" layerid="invalid_normals0120160808153933051" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="polygon01" open="false" showFeatureCount="0">
+        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="polygon01" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
             <legendlayerfile isInOverview="0" layerid="polygon0120160727195316313" visible="0"/>
           </filegroup>
@@ -1774,9 +1774,9 @@
             <legendlayerfile isInOverview="0" layerid="potential_platform_erosion_001_d4138b74_bc17_43e7_84e1_6071bc32d6de" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="actual_platform_erosion01" open="false" showFeatureCount="0">
+        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="actual_platform_erosion01" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="actual_platform_erosion0120160725155135348" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="actual_platform_erosion0120160725155135348" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="beach_protection_001" open="true" showFeatureCount="0">
@@ -1804,13 +1804,13 @@
             <legendlayerfile isInOverview="0" layerid="basement_elevation_00120170603141548684" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="landform_class_001" open="false" showFeatureCount="0">
+        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_001" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
             <legendlayerfile isInOverview="0" layerid="landform_class_00120170603144857218" visible="0"/>
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Unchecked" name="02" open="true">
+      <legendgroup checked="Qt::Checked" name="02" open="false">
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="coast02" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="coast0220160808150543129" visible="0"/>
@@ -1823,7 +1823,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="polygon02" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="polygon0220160808152223265" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="polygon0220160808152223265" visible="1"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="polygon_raster_02" open="false" showFeatureCount="0">
@@ -1861,8 +1861,8 @@
             <legendlayerfile isInOverview="0" layerid="cliff_notch_active_002_c160d661_f5b1_4de0_9586_24fde5ee6e78" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="potential_platform_erosion_002" open="true" showFeatureCount="0">
-          <filegroup hidden="false" open="true">
+        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="potential_platform_erosion_002" open="false" showFeatureCount="0">
+          <filegroup hidden="false" open="false">
             <legendlayerfile isInOverview="0" layerid="potential_platform_erosion_002_aaa49ab5_fac6_4a40_a66d_b38bf07cce49" visible="0"/>
           </filegroup>
         </legendlayer>
@@ -1871,9 +1871,9 @@
             <legendlayerfile isInOverview="0" layerid="uncons_sed_sand_layer_1_00220160822111503018" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="landform_class_02" open="false" showFeatureCount="0">
+        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_02" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="landform_class_0220161102170408248" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="landform_class_0220161102170408248" visible="1"/>
           </filegroup>
         </legendlayer>
       </legendgroup>

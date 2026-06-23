@@ -748,7 +748,7 @@ double const CSHORE_FRICTION_FACTOR = 0.015;                // Friction factor f
 double const CSHORE_SURGE_LEVEL = 0.0;                      // TODO 007
 
 double const TOLERANCE = 1e-7;                              // For bFPIsEqual, if too small (e.g. 1e-10), get spurious "rounding" errors
-double const SED_ELEV_TOLERANCE = 1e-5;                     // Used to compare depth-equivalent sediment amounts in bFPIsEqual and elsewhere
+double const SED_ELEV_TOLERANCE = 1e-6;                     // Used to compare depth-equivalent sediment amounts in bFPIsEqual and elsewhere
 double const MASS_BALANCE_TOLERANCE = 1e-5;                 // For bFPIsEqual, used to compare for mass balance checks
 double const STRAIGHT_COAST_MAX_DETAILED_CURVATURE = -5;
 double const STRAIGHT_COAST_MAX_SMOOTH_CURVATURE = -1;
@@ -781,7 +781,7 @@ double const MIN_TALUS_DEPTH = 0.01;
 //! The vertical distance (m) between the bottom of a cliff notch, and its mid point (i.e. half the notch vertical depth). This is necessary because without it, notches are not inundated post-collapse. This is most noticeable when SWL does mot change during the simulation
 double const NOTCH_HALF_VERTICAL_DISTANCE = 0.05;
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.3 (22 Jun 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.3 (23 Jun 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";
