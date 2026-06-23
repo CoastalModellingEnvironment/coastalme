@@ -2842,11 +2842,10 @@ bool CSimulation::bReadRunDataFile(void)
                   // First look for "all"
                   if (strRH.find(VECTOR_ALL_RIVER_FLOOD_OUTPUT_CODE) != string::npos)
                   {
-                     // m_bFloodSWLSetupLineSave = true;
-                     // m_bFloodSWLSetupSurgeLine = true;
-                     // m_bFloodSWLSetupSurgeRunUpLineSave = true;
+                     m_bFloodSWLSetupLineSave = true;
+                     m_bFloodSWLSetupSurgeLine = true;
+                     m_bFloodSWLSetupSurgeRunUpLineSave = true;
                   }
-
                   else
                   {
                      // We are not outputting all vector flood GIS files, so set switches (and remove strings) for those optional files for which the user specified the code
@@ -3288,13 +3287,24 @@ bool CSimulation::bReadRunDataFile(void)
             break;
 
          case 91:
-            // Barrier formation?
+            // Simulate wave uprush of sand/coarae uncons sediment
             strRH = strToLower(&strRH);
 
             m_bWaveUprush = false;
 
             if (strRH.find('y') != string::npos)
                m_bWaveUprush = true;
+
+            break;
+
+         case 92:
+            // Smooth coastline-normal profiles using a running-median (true) or running-mean (false) approach?
+            strRH = strToLower(&strRH);
+
+            m_bSmoothUsingRunningMedian = true;
+
+            if (strRH.find('n') != string::npos)
+               m_bSmoothUsingRunningMedian = false;
 
             break;
 

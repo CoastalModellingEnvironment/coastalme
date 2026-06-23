@@ -37,7 +37,7 @@ using std::vector;
 class CConfiguration
 {
 private:
-   // Run Information
+   // Run information
    string m_strRunName;
    int m_nLogFileDetail;
    bool m_bCSVPerTimestepResults;
@@ -50,7 +50,7 @@ private:
    int m_nRandomSeed;
    bool m_bUseSystemTimeForSeed;
 
-   // GIS Output
+   // GIS output
    int m_nMaxSaveDigits;
    string m_strSaveDigitsMode;
    vector<string> m_VstrRasterFiles;
@@ -62,7 +62,7 @@ private:
    string m_strVectorFormat;
    vector<string> m_VstrTimeSeriesFiles;
 
-   // Grid and Coastline
+   // Grid and coastline
    int m_nCoastlineSmoothing;
    int m_nCoastlineSmoothingWindow;
    int m_nPolynomialOrder;
@@ -71,7 +71,7 @@ private:
    double m_dMaxLocalSlope;
    double m_dMaxBeachElevation;
 
-   // Layers and Files
+   // Layers and files
    int m_nNumLayers;
    string m_strBasementDEMFile;
    vector<string> m_VstrUnconsFineFiles;
@@ -104,7 +104,7 @@ private:
    string m_strTideDataFile;
    double m_dBreakingWaveRatio;
 
-   // Sediment and Erosion
+   // Sediment, erosion, and deposition
    bool m_bCoastPlatformErosion;
    double m_dPlatformErosionResistance;
    bool m_bBeachSedimentTransport;
@@ -122,7 +122,7 @@ private:
    double m_dKamphuis;
    double m_dBermHeight;
 
-   // Cliff parameters
+   // Cliff collapse
    bool m_bCliffCollapse;
    double m_dCliffErosionResistance;
    double m_dNotchOverhang;
@@ -136,7 +136,7 @@ private:
    double m_dCliffCollapseSandTalusRemovalRate;
    double m_dCliffCollapseCoarseTalusRemovalRate;
 
-   // Flood parameters
+   // Riverine flooding
    bool m_bFloodInput;
    string m_strFloodCoastline;
    int m_nRunUpEquation;
@@ -144,7 +144,7 @@ private:
    string m_strFloodInputLocation;
    vector<string> m_VstrFloodFiles;
 
-   // Sediment input parameters
+   // Sediment input
    bool m_bSedimentInput;
    string m_strSedimentInputLocation;
    string m_strSedimentInputType;
@@ -156,7 +156,7 @@ private:
    // Barrier
    bool m_bWaveUprush;
 
-   // Physics and Geometry
+   // Physics and geometry
    double m_dGravitationalAcceleration;
    double m_dNormalSpacing;
    double m_dRandomFactor;
@@ -164,13 +164,14 @@ private:
    double m_dStartDepthRatio;
    double m_dTemporaryProfileSpacing;
 
-   // Profile and Output Options
+   // Profile and output options
    bool m_bSaveProfileData;
    vector<int> m_VnProfileNumbers;
    vector<unsigned long> m_VulProfileTimesteps;
    bool m_bSaveParallelProfiles;
    bool m_bOutputErosionPotential;
    int m_nCurvatureWindow;
+   bool m_bSmoothUsingRunningMedian;
 
 public:
    CConfiguration(void);
@@ -673,6 +674,11 @@ public:
    void SetCurvatureWindow(int n)
    {
       m_nCurvatureWindow = n;
+   }
+
+   void SetProfileSmoothingMethod(bool b)
+   {
+      m_bSmoothUsingRunningMedian = b;
    }
 
    void SetCliffCollapseTalusErodibility(double d)
@@ -1188,6 +1194,11 @@ public:
    int nGetCurvatureWindow(void) const
    {
       return m_nCurvatureWindow;
+   }
+
+   bool bGetProfileSmoothingMethod(void) const
+   {
+      return m_bSmoothUsingRunningMedian;
    }
 
    double dGetCliffCollapseTalusErodibility(void) const

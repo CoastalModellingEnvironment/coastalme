@@ -1012,7 +1012,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
 
                      assert(dTalusCoarseToMove >= 0.0);
 
-                     LogStream << m_ulIter << ":\t [" << nX << "][" << "] coarse talus moved to uncons coarse on [" << nXAdj << "][" << nYAdj << "], coarse talus moved = " << dActualDepthToMove << " coarse talus remaining on [" << nX << "][" << nY << "] = " << dTalusCoarseToMove << endl;
+                     // LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] coarse talus moved to uncons coarse on [" << nXAdj << "][" << nYAdj << "], coarse talus moved = " << dActualDepthToMove << " coarse talus remaining on [" << nX << "][" << nY << "] = " << dTalusCoarseToMove << endl;
 
                      // Set the changed-this-timestep switch re. the adjacent cell
                      m_bUnconsChangedThisIter[nTopLayer] = true;

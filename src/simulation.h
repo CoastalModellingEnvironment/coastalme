@@ -477,6 +477,9 @@ class CSimulation
    //! Are we saving wave uprush coarse files?
    bool m_bUpRushCoarseSave;
 
+   //! Are we smoothing coastline-normal profiles using a running-median (true) or running-mean (false) approach?
+   bool m_bSmoothUsingRunningMedian;
+
    //! Options for GDAL when handling raster files
    char** m_papszGDALRasterOptions;
 
@@ -1902,7 +1905,16 @@ private:
    void CalcSavitzkyGolayCoeffs(void);
    CGeomLine LSmoothCoastSavitzkyGolay(CGeomLine *, int const, int const) const;
    CGeomLine LSmoothCoastRunningMean(CGeomLine *) const;
-   vector<double> dVSmoothProfileSlope(vector<double>*) const;
+   vector<double> dVSmoothProfileSlopeRunningMean(vector<double>*) const;
+   vector<double> dVSmoothProfileSlopeRunningMedian(vector<double>*);
+   typedef struct
+   {
+      double* pVdBuffer;
+      int nSize;
+      int nHead;
+      int nCount;
+   } RunningMedian;
+   double dRunningMedianInsertAndCalc(RunningMedian*, double const);
    // vector<double> dVCalCGeomProfileSlope(vector<CGeom2DPoint>*, vector<double>*);         // TODO 007 Why was this removed? vector<double>
    // dVSmoothProfileSavitzkyGolay(vector<double>*, vector<double>*);         //
    // TODO 007 was this removed? vector<double>

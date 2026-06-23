@@ -51,7 +51,7 @@ using std::normal_distribution;
 namespace
 {
 //===============================================================================================================================
-//! Function used to sort unsigned coastline curvature values when locating start points of normal profiles
+//! Helper function used when sorting unsigned coastline curvature values, to locate start points of normal profiles. If the first argument must be ordered before the second, return true
 //===============================================================================================================================
 bool bCurvaturePairCompareDescending(const pair<int, double>& prLeft, const pair<int, double>& prRight)
 {

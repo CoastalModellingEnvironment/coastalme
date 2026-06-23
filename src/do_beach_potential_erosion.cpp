@@ -36,7 +36,7 @@ using std::pair;
 namespace
 {
 //===============================================================================================================================
-//! Function used to sort polygon length values. If the first argument must be ordered before the second, return true
+//! Helper function used when sorting polygon length values. If the first argument must be ordered before the second, return true
 //===============================================================================================================================
 bool bPolygonLengthPairCompare(const pair<int, double>& prLeft, const pair<int, double>& prRight)
 {

@@ -345,7 +345,7 @@ CGeomLine CSimulation::LSmoothCoastRunningMean(CGeomLine* pLineIn) const
 //===============================================================================================================================
 //! Does running-mean smoothing of the slope of a coastline-normal profile
 //===============================================================================================================================
-vector<double> CSimulation::dVSmoothProfileSlope(vector<double>* pdVSlope) const
+vector<double> CSimulation::dVSmoothProfileSlopeRunningMean(vector<double>* pdVSlope) const
 {
    // Make a copy of the unsmoothed profile slope vector
    int const nSize = static_cast<int>(pdVSlope->size());
@@ -608,3 +608,74 @@ void LULinearSolve(Matrix const A, int const N, int const nIndexArray[], double 
    }
 }
 } // namespace
+
+//===============================================================================================================================
+//! Does running-median smoothing on a coast-normal profile
+//===============================================================================================================================
+vector<double> CSimulation::dVSmoothProfileSlopeRunningMedian(vector<double>* pdVSlope)
+{
+   // Make a copy of the unsmoothed profile slope vector
+   int const nSize = static_cast<int>(pdVSlope->size());
+   vector<double> dVSmoothed = *pdVSlope;
+
+   RunningMedian rm;
+
+   // Note that m_nProfileSmoothWindow must be odd (have already checked this)
+   rm.pVdBuffer = new double[m_nProfileSmoothWindow];
+   rm.nSize = m_nProfileSmoothWindow;
+   rm.nHead = 0;
+   rm.nCount = 0;
+
+   for (int i = 0; i < nSize; i++)
+   {
+      double dMedian = dRunningMedianInsertAndCalc(&rm, pdVSlope->at(i));
+      dVSmoothed[i] = dMedian;
+   }
+
+   delete[] rm.pVdBuffer;
+
+   // Return the smoothed vector
+   return dVSmoothed;
+}
+
+//===============================================================================================================================
+//! Helper function for sort in running median. If the first argument must be ordered before the second, return true
+//===============================================================================================================================
+bool bMedianSort(double const dn, double const dm)
+{
+   // Sort descending
+   return (dn < dm);
+}
+
+//===============================================================================================================================
+//! For running-median smnoothing: insert a value to a curculkar buffer and return the running median
+//===============================================================================================================================
+double CSimulation::dRunningMedianInsertAndCalc(RunningMedian* rm, double const dValue)
+{
+   // Insert into circular buffer
+   rm->pVdBuffer[rm->nHead] = dValue;
+   rm->nHead = (rm->nHead + 1) % rm->nSize;
+
+   if (rm->nCount < rm->nSize)
+      rm->nCount++;
+
+   // Create a temporary array to sort
+   vector<double> VdTmp(rm->nCount);
+   for (int i = 0; i < rm->nCount; i++)
+      VdTmp[i] = rm->pVdBuffer[i];
+
+   // Do the sorting
+   sort(VdTmp.begin(), VdTmp.end(), bMedianSort);
+
+   // Choose the median
+   double dMedian;
+   int nMid = rm->nCount / 2;
+   if (rm->nCount % 2 == 0)
+      dMedian = (VdTmp[nMid - 1] + VdTmp[nMid]) / 2.0;
+   else
+      dMedian = VdTmp[nMid];
+
+   return dMedian;
+}
+
+

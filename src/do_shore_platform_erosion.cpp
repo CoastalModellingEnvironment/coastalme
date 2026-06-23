@@ -198,7 +198,7 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
       return RTN_OK;
    }
 
-   LogStream << m_ulIter << ": calculating potential shore platform erosion on coast " << pProfile->nGetCoastID() << " profile " << pProfile->nGetProfileID() << " dDepthOfBreaking = " << dDepthOfBreaking << endl;
+   // LogStream << m_ulIter << ": calculating potential shore platform erosion on coast " << pProfile->nGetCoastID() << " profile " << pProfile->nGetProfileID() << " dDepthOfBreaking = " << dDepthOfBreaking << endl;
 
    // Get the height of the associated breaking wave from the coast point: this height is used in beach protection calcs
    double const dBreakingWaveHeight = m_VCoast[nCoast].dGetBreakingWaveHeight(nCoastPoint);
@@ -267,7 +267,8 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
    if (m_nProfileSmoothWindow > 0)
    {
       // Smooth the vector of slopes for the consolidated-only profile
-      dVConsSlope = dVSmoothProfileSlope(&dVConsSlope);
+      // dVConsSlope = dVSmoothProfileSlopeRunningMean(&dVConsSlope);
+      dVConsSlope = dVSmoothProfileSlopeRunningMedian(&dVConsSlope);
    }
 
    vector<double> dVProfileDepthOverDB(nProfSize, 0);          // Depth over wave breaking depth at the coastline-normal sample points
@@ -642,7 +643,8 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       if (m_nProfileSmoothWindow > 0)
       {
          // Smooth the vector of slopes for the consolidated-only profile
-         dVParConsSlope = dVSmoothProfileSlope(&dVParConsSlope);
+         // dVParConsSlope = dVSmoothProfileSlopeRunningMean(&dVParConsSlope);
+         dVParConsSlope = dVSmoothProfileSlopeRunningMedian(&dVParConsSlope);
       }
 
       // Initialize the parallel profile vector with depth / m_dWaveBreakingDepth
@@ -830,7 +832,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
 //===============================================================================================================================
 void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
 {
-   LogStream << m_ulIter << ": doing platform erosion on cell [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+   // LogStream << m_ulIter << ": doing platform erosion on cell [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
 
    // Get the beach protection factor, which quantifies the extent to which unconsolidated sediment on the shore platform (beach) protects the shore platform
    double const dBeachProtectionFactor = m_pRasterGrid->m_Cell[nX][nY].dGetBeachProtectionFactor();

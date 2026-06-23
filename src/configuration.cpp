@@ -46,7 +46,7 @@ CConfiguration::~CConfiguration()
 //===============================================================================================================================
 void CConfiguration::InitializeDefaults()
 {
-   // Run Information
+   // Run information
    m_strRunName = "cme";
    m_nLogFileDetail = 1;
    m_bCSVPerTimestepResults = true;
@@ -59,7 +59,7 @@ void CConfiguration::InitializeDefaults()
    m_nRandomSeed = 0;
    m_bUseSystemTimeForSeed = true;
 
-   // GIS Output
+   // GIS output
    m_nMaxSaveDigits = 3;
    m_strSaveDigitsMode = "sequential";
    m_VstrRasterFiles.clear();
@@ -74,7 +74,7 @@ void CConfiguration::InitializeDefaults()
    m_VstrTimeSeriesFiles.clear();
    m_VstrTimeSeriesFiles.push_back("");
 
-   // Grid and Coastline
+   // Grid and coastline
    m_nCoastlineSmoothing = 0;
    m_nCoastlineSmoothingWindow = 7;
    m_nPolynomialOrder = 4;
@@ -83,7 +83,7 @@ void CConfiguration::InitializeDefaults()
    m_dMaxLocalSlope = 1.0;
    m_dMaxBeachElevation = 10.0;
 
-   // Layers and Files
+   // Layers and files
    m_nNumLayers = 1;
    m_strBasementDEMFile = "";
    m_VstrUnconsFineFiles.clear();
@@ -114,7 +114,7 @@ void CConfiguration::InitializeDefaults()
    m_strTideDataFile = "";
    m_dBreakingWaveRatio = 0.8;
 
-   // Sediment and Erosion
+   // Sediment, erosion, and deposition
    m_bCoastPlatformErosion = true;
    m_dPlatformErosionResistance = 2e6;
    m_bBeachSedimentTransport = true;
@@ -132,7 +132,7 @@ void CConfiguration::InitializeDefaults()
    m_dKamphuis = 5.0;
    m_dBermHeight = 0.25;
 
-   // Cliff parameters
+   // Cliff collapse
    m_bCliffCollapse = true;
    m_dCliffErosionResistance = 2.5e8;
    m_dNotchOverhang = 0.5;
@@ -146,14 +146,14 @@ void CConfiguration::InitializeDefaults()
    m_dCliffCollapseSandTalusRemovalRate = 0.9;
    m_dCliffCollapseCoarseTalusRemovalRate = 0.7;
 
-   // Flood parameters
+   // Riverine flooding
    m_bFloodInput = false;
    m_strFloodCoastline = "";
    m_nRunUpEquation = 0;
    m_strFloodLocations = "";
    m_strFloodInputLocation = "";
 
-   // Sediment input parameters
+   // Sediment input
    m_bSedimentInput = false;
    m_strSedimentInputLocation = "";
    m_strSedimentInputType = "";
@@ -162,10 +162,10 @@ void CConfiguration::InitializeDefaults()
    // Slumping
    m_bSlumping = false;
 
-   // Barriers
+   // Wave uprush
    m_bWaveUprush = false;
 
-   // Physics and Geometry
+   // Physics and geometry
    m_dGravitationalAcceleration = 9.81;
    m_dNormalSpacing = 0.0;
    m_dRandomFactor = 0.25;
@@ -173,13 +173,14 @@ void CConfiguration::InitializeDefaults()
    m_dStartDepthRatio = 30.0;
    m_dTemporaryProfileSpacing = 5.0;
 
-   // Profile and Output Options
+   // Profile and output options
    m_bSaveProfileData = false;
    m_VnProfileNumbers.clear();
    m_VulProfileTimesteps.clear();
    m_bSaveParallelProfiles = false;
    m_bOutputErosionPotential = false;
    m_nCurvatureWindow = 11;
+   m_bSmoothUsingRunningMedian = true;
 
 }
 

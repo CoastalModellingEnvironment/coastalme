@@ -160,4 +160,6 @@ Cliff collapse coarse talus removal rate                                        
 
 Wave uprush?                                                                                 : n
 
+Profile slope smoothing using running median or running mean           [y = median, n = mean]: y
+
 ; END OF FILE -------------------------------------------------------------------------------------------------------------------------------------------------

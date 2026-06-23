@@ -176,7 +176,12 @@ echo ===========================================================================
 # rm -f out/test_suite/Wilf/Scen016/*
 # cp in/test_suite/Wilf/Scen016/cme.ini .
 # ./cme
-# echo ===============================================================================
+echo ===============================================================================
+
+rm -f out/CSE/Typology/Cliff/*
+cp in/CSE/0_Typology/Cliff/cme.ini .
+./cme
+echo ===============================================================================
 
 mv cme.ini.OLD cme.ini 2> /dev/null
 mv cme.yaml.OLD cme.yaml 2> /dev/null

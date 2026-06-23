@@ -190,6 +190,8 @@ CSimulation::CSimulation(void)
    m_bHighestSWLSoFar = false;
    m_bLowestSWLSoFar = false;
 
+   m_bSmoothUsingRunningMedian = true;
+
    m_bGDALCanCreate = true;
    m_bCSVPerTimestepResults = true; // Default to CSV output format
    m_bYamlInputFormat = false;      // Default to .dat format
