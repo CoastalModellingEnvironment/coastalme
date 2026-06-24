@@ -324,7 +324,6 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                {
                   double dNotchApexElev = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->dGetCliffNotchApexElev();
 
-                  // DFM TEST
                   if (bFPIsEqual(dNotchApexElev, DBL_NODATA, TOLERANCE))
                   {
                      // This was a no-notch cliff, so get the pre-existing data stored in the cell

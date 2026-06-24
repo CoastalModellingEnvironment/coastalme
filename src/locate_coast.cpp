@@ -1373,7 +1373,6 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
    // Get the grid edge at which the coastline finishes
    int const nEndEdge = m_pRasterGrid->m_Cell[nEndX][nEndY].nGetBoundingBoxEdge();
 
-   // TEST =======================================
    if (nStartEdge == nEndEdge)
    {
       // Coastline starts and ends at same edge of grid, so abandon it
@@ -1382,7 +1381,6 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
 
       return RTN_ERR_COAST_TRACING_SAME_EDGE_START_FINISH;
    }
-   // TEST =======================================
 
    // We have a valid coastline. Flag the coast start and end cells so that they are no longer possible coast start cells
    for (int nn = 0; nn < static_cast<int>(pV2DIPossibleStartCell->size()); nn++)

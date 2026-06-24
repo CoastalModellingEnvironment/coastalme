@@ -1333,23 +1333,7 @@ void CSimulation::FillIPlatformErosionHolesAndRemoveLegacyCliffs(void)
                if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
                   continue;
 
-               CRWCellLayer* pTopLayer = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer);
-
-               if (pTopLayer->bHasTalus())
-               {
-                  // There is talus here
-                  m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->SetLandformCategory(LF_DRIFT_TALUS);
-               }
-               else if (pTopLayer->bHasUncons())
-               {
-                  // There is some unconsolidated sediment here
-                  m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->SetLandformCategory(LF_DRIFT_BEACH);
-               }
-               else
-               {
-                  // Set as hinterland
-                  m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->SetLandformCategory(LF_HINTERLAND);
-               }
+               // CRWCellLayer* pTopLayer = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer);
             }
          }
 

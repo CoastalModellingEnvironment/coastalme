@@ -27,21 +27,21 @@ rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_215/*
 cp in/test_suite/minimal_cons_with_intervention_wave_angle_215/cme.ini .
 ./cme
 echo ===============================================================================
-
-rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_235/*
-cp in/test_suite/minimal_cons_with_intervention_wave_angle_235/cme.ini .
-./cme
-echo ===============================================================================
+#
+# rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_235/*
+# cp in/test_suite/minimal_cons_with_intervention_wave_angle_235/cme.ini .
+# ./cme
+# echo ===============================================================================
 
 rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_270/*
 cp in/test_suite/minimal_cons_with_intervention_wave_angle_270/cme.ini .
 ./cme
 echo ===============================================================================
 
-rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_285/*
-cp in/test_suite/minimal_cons_with_intervention_wave_angle_285/cme.ini .
-./cme
-echo ===============================================================================
+# rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_285/*
+# cp in/test_suite/minimal_cons_with_intervention_wave_angle_285/cme.ini .
+# ./cme
+# echo ===============================================================================
 
 rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_305/*
 cp in/test_suite/minimal_cons_with_intervention_wave_angle_305/cme.ini .

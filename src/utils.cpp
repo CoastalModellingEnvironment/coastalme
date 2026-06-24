@@ -2292,7 +2292,7 @@ string CSimulation::strGetErrorText(int const nErr)
       break;
 
    case RTN_ERR_COAST_TRACING_SAME_EDGE_START_FINISH:
-      strErr = "tracing coastline on grid, TEST cost starts and ends on same edge";
+      strErr = "tracing coastline on grid, coast starts and ends on same edge";
       break;
 
    case RTN_ERR_COAST_TRACING_ZERO_LENGTH:

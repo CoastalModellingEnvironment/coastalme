@@ -191,10 +191,10 @@ elseif(CMAKE_BUILD_TYPE_LC STREQUAL "relwithdebinfo")
          -fno-strict-overflow
          -fno-strict-aliasing
          -ftrivial-auto-var-init=zero
-         -flto=auto
+         # -flto=auto
    )
    add_link_options(
-         -flto=auto
+         # -flto=auto
          -rdynamic
    )
    if(CMAKE_CXX_COMPILER_ID MATCHES "^(GNU|LCC|QCC)$")
@@ -232,7 +232,7 @@ elseif(CMAKE_BUILD_TYPE_LC STREQUAL "prerelease")
             -fsanitize=object-size
             -fsanitize=vptr
             -fsanitize=address
-            -flto=auto
+            # -flto=auto
          )
          # Note  -fsanitize-ignorelist=sanitize_ignorelist.txt not yet working for gcc, need this to hide GDAL errors
          add_link_options(
@@ -250,7 +250,7 @@ elseif(CMAKE_BUILD_TYPE_LC STREQUAL "prerelease")
             -fsanitize=object-size
             -fsanitize=vptr
             -fsanitize=address
-            -flto=auto
+            # -flto=auto
             -rdynamic
          )
          if(CMAKE_CXX_COMPILER_ID MATCHES "^(GNU|LCC|QCC)$")
@@ -276,10 +276,10 @@ elseif(CMAKE_BUILD_TYPE_LC STREQUAL "release")
          -fno-strict-overflow
          -fno-strict-aliasing
          -ftrivial-auto-var-init=zero
-         -flto
+         # -flto
    )
    add_link_options(
-         -flto=auto
+         # -flto=auto
          -rdynamic
    )
    if(CMAKE_CXX_COMPILER_ID MATCHES "^(GNU|LCC|QCC)$")

@@ -400,7 +400,7 @@ double CGeomCell::dGetBasementElev(void) const
    return (m_dBasementElevation);
 }
 
-//! Returns true if this cells's basement data is NODATA, is needed for irregularly-shaped DEMs
+//! Returns true if this cells's basement data is NODATA. This is needed for irregularly-shaped DEMs
 bool CGeomCell::bBasementElevIsMissingValue(void) const
 {
    if (bFPIsEqual(m_dBasementElevation, m_pGrid->pGetSim()->CSimulation::dGetMissingValue(), TOLERANCE))
@@ -751,7 +751,7 @@ double CGeomCell::dGetTotActualPlatformErosion(void) const
    return m_dTotActualPlatformErosion;
 }
 
-//! Returns the depth of seawater on this cell if the sediment top (including talus and intervention) is < SWL, or zero
+//! Sets the depth of seawater on this cell
 void CGeomCell::SetSeaDepth(void)
 {
    m_dSeaDepth = tMax(m_pGrid->pGetSim()->CSimulation::dGetThisIterSWL() - (m_VdAllHorizonTopElev.back() + this->dGetAllTalusDepth() + m_dInterventionHeight), 0.0);

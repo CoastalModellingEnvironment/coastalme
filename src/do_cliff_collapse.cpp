@@ -65,7 +65,7 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
          double dInvTalusProtection = 1;
          if (dTalusDepth > 0)
          {
-            // TEST TODO Assume a linear relationship, with minimum value 0.5
+            // TODO Currently assuming a linear relationship, with minimum value 0.5
             double dCliffHeightAboveSWL = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() - m_dThisIterSWL;
             dInvTalusProtection = tMin(tMax((dTalusDepth / dCliffHeightAboveSWL), 1.0), 0.5);
 
