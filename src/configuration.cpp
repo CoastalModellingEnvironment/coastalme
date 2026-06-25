@@ -137,7 +137,6 @@ void CConfiguration::InitializeDefaults()
    m_dCliffErosionResistance = 2.5e8;
    m_dNotchOverhang = 0.5;
    m_dNotchBase = 0.3;
-   m_dCliffDepositionA = 0.0;
    m_dTalusWidth = 15.0;
    m_dMinTalusLength = 10.0;
    m_dMinTalusHeight = 0.5;

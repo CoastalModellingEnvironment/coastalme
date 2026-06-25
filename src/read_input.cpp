@@ -2716,84 +2716,8 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 62:
-            // Scale parameter A for cliff deposition (m^(1/3)) [0 = auto]
-            if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
-            {
-               // First check that this is a valid double
-               if (! bIsStringValidDouble(strRH))
-               {
-                  strErr = "line " + to_string(nLine) + ": invalid floating point number for scale parameter A for cliff deposition '" + strRH + "' in " + m_strDataPathName;
-                  break;
-               }
-
-               m_dCliffDepositionA = strtod(strRH.c_str(), NULL);
-
-               if (m_dCliffDepositionA < 0)
-                  strErr = "line " + to_string(nLine) + ": scale parameter A for cliff deposition must be 0 [= auto] or greater";
-            }
-
-            break;
-
-         case 63:
-            // Approximate planview width of cliff collapse talus (in m)
-            if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
-            {
-               // First check that this is a valid double
-               if (! bIsStringValidDouble(strRH))
-               {
-                  strErr = "line " + to_string(nLine) + ": invalid floating point number for width of cliff collapse talus '" + strRH + "' in " + m_strDataPathName;
-                  break;
-               }
-
-               m_dCliffDepositionPlanviewWidth = strtod(strRH.c_str(), NULL);
-
-               if (m_dCliffDepositionPlanviewWidth <= 0)
-                  strErr = "line " + to_string(nLine) + ": planview width of cliff deposition must be > 0";
-            }
-
-            break;
-
-         case 64:
-            // Planview length of cliff deposition talus (m)
-            if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
-            {
-               // First check that this is a valid double
-               if (! bIsStringValidDouble(strRH))
-               {
-                  strErr = "line " + to_string(nLine) + ": invalid floating point number for planview length of cliff deposition '" + strRH + "' in " + m_strDataPathName;
-                  break;
-               }
-
-               m_dCliffTalusMinDepositionLength = strtod(strRH.c_str(), NULL);
-
-               if (m_dCliffTalusMinDepositionLength <= 0)
-                  strErr = "line " + to_string(nLine) + ": planview length of cliff deposition must be > 0";
-            }
-
-            break;
-
-         case 65:
-            // Minimum height of landward end of talus, as a fraction of cliff elevation
-            if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
-            {
-               // First check that this is a valid double
-               if (! bIsStringValidDouble(strRH))
-               {
-                  strErr = "line " + to_string(nLine) + ": invalid floating point number for height of cliff collapse (as a fraction of cliff elevation) '" + strRH + "' in " + m_strDataPathName;
-                  break;
-               }
-
-               m_dMinCliffTalusHeightFrac = strtod(strRH.c_str(), NULL);
-
-               if (m_dMinCliffTalusHeightFrac <= 0)
-                  strErr = "line " + to_string(nLine) + ": minimum height of cliff collapse (as a fraction of cliff elevation) must be >= 0";
-            }
-
-            break;
-
          // -------------------------------------------------- Input events data -----------------------------------------------
-         case 66:
+         case 62:
             // Simulate riverine flooding?
             strRH = strToLower(&strRH);
 
@@ -2807,7 +2731,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 67:
+         case 63:
             // Output riverine flooding vector files
             if (m_bRiverineFlooding)
             {
@@ -2855,7 +2779,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 68:
+         case 64:
             if (m_bRiverineFlooding && m_bVectorWaveFloodLineSave)
             {
                // Characteristic locations for flood?
@@ -2869,7 +2793,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 69:
+         case 65:
             if (m_bRiverineFlooding)
             {
                // Path of location points file
@@ -2902,7 +2826,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 70:
+         case 66:
             // Simulate sediment input?
             strRH = strToLower(&strRH);
 
@@ -2914,7 +2838,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 71:
+         case 67:
             // Sediment input location (point or line shapefile)
             if (m_bSedimentInput)
             {
@@ -2941,7 +2865,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 72:
+         case 68:
             // Sediment input type: required if have shapefile [P = Point, C = coast block, L = line]
             if (m_bSedimentInput)
             {
@@ -2962,7 +2886,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 73:
+         case 69:
             // Sediment input details file (required if have shapefile)
             if (m_bSedimentInput)
             {
@@ -2995,7 +2919,7 @@ bool CSimulation::bReadRunDataFile(void)
             break;
 
          // ------------------------------------------------------ Other data --------------------------------------------------
-         case 74:
+         case 70:
             // Gravitational acceleration (m2/s). First check that this is a valid double
             if (! bIsStringValidDouble(strRH))
             {
@@ -3010,7 +2934,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 75:
+         case 71:
             // Spacing of coastline normals (m)
             m_dCoastProfileSpacing = strtod(strRH.c_str(), NULL);
 
@@ -3022,7 +2946,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 76:
+         case 72:
             // Random factor for spacing of normals  [0 to 1, 0 = deterministic]
             if (! bIsStringValidDouble(strRH))
             {
@@ -3039,7 +2963,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 77:
+         case 73:
             // Length of coastline normals (m)
             if (! bIsStringValidDouble(strRH))
             {
@@ -3054,7 +2978,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 78:
+         case 74:
             // Start depth for wave calcs (ratio to deep water wave height)
             if (! bIsStringValidDouble(strRH))
             {
@@ -3070,7 +2994,7 @@ bool CSimulation::bReadRunDataFile(void)
             break;
 
          // ----------------------------------------------------- Testing only -------------------------------------------------
-         case 79:
+         case 75:
             // Output profile data?
             strRH = strToLower(&strRH);
 
@@ -3091,7 +3015,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 80:
+         case 76:
             // Numbers of profiles to be saved
             if (m_bOutputConsolidatedProfileData)
             {
@@ -3121,7 +3045,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 81:
+         case 77:
             // Timesteps to save profiles
             if (m_bOutputConsolidatedProfileData)
             {
@@ -3144,7 +3068,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 82:
+         case 78:
             // Output parallel profile data?
             strRH = strToLower(&strRH);
 
@@ -3155,7 +3079,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 83:
+         case 79:
             // Output erosion potential look-up data?
             strRH = strToLower(&strRH);
 
@@ -3166,7 +3090,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 84:
+         case 80:
             // Run-up equation?
             if (bIsStringValidInt(strRH))
                m_nRunUpEquation = stoi(strRH);
@@ -3178,7 +3102,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 85:
+         case 81:
             // Slumping?
             strRH = strToLower(&strRH);
 
@@ -3189,7 +3113,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 86:
+         case 82:
             // Cliff collapse talus erodibility
             if (m_bDoCliffCollapse)
             {
@@ -3207,7 +3131,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 87:
+         case 83:
             // Cliff collapse fine talus removal rate [0 to 1]
             if (m_bDoCliffCollapse)
             {
@@ -3225,7 +3149,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 88:
+         case 84:
             // Cliff collapse sand talus removal rate [0 to 1]
             if (m_bDoCliffCollapse)
             {
@@ -3243,7 +3167,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 89:
+         case 85:
             // Cliff collapse coarse talus removal rate [0 to 1]
             if (m_bDoCliffCollapse)
             {
@@ -3261,7 +3185,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 90:
+         case 86:
             // Simulate wave uprush of sand/coarae uncons sediment
             strRH = strToLower(&strRH);
 
@@ -3272,7 +3196,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
-         case 91:
+         case 87:
             // Smooth coastline-normal profiles using a running-median (true) or running-mean (false) approach?
             strRH = strToLower(&strRH);
 
@@ -3282,7 +3206,6 @@ bool CSimulation::bReadRunDataFile(void)
                m_bSmoothUsingRunningMedian = false;
 
             break;
-
          }
 
          // Did an error occur?
@@ -4519,8 +4442,6 @@ bool CSimulation::bConfigureFromYamlFile(CConfiguration &config)
             config.SetNotchOverhang(cliff.GetChild("notch_overhang").dGetDoubleValue());
          if (cliff.bHasChild("notch_base"))
             config.SetNotchBase(cliff.GetChild("notch_base").dGetDoubleValue());
-         if (cliff.bHasChild("deposition_scale_parameter_a"))
-            config.SetCliffDepositionA(cliff.GetChild("deposition_scale_parameter_a").dGetDoubleValue());
          if (cliff.bHasChild("talus_width"))
             config.SetTalusWidth(cliff.GetChild("talus_width").dGetDoubleValue());
          if (cliff.bHasChild("min_talus_length"))
@@ -5381,30 +5302,6 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
       m_dNotchApexAboveMHW = config.dGetNotchBase();
    }
 
-   // Case 63: Scale parameter A for cliff deposition (m^(1/3)) [0 = auto]
-   if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
-   {
-      m_dCliffDepositionA = config.dGetParamAScaleValue();
-   }
-
-   // Case 64: Approximate planview width of cliff collapse talus (in m)
-   if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
-   {
-      m_dCliffDepositionPlanviewWidth = config.dGetTalusWidth();
-   }
-
-   // Case 65: Planview length of cliff deposition talus (m)
-   if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
-   {
-      m_dCliffTalusMinDepositionLength = config.dGetMinTalusLength();
-   }
-
-   // Case 66: Minimum height of landward end of talus, as a fraction of cliff  elevation
-   if (m_bHaveConsolidatedSediment && m_bDoCliffCollapse)
-   {
-      m_dMinCliffTalusHeightFrac = config.dGetMinTalusHeight();
-   }
-
    // Cases 67-71
    if (config.bGetFloodInput())
    {
@@ -5415,7 +5312,6 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
       m_bRiverineFloodingRasterWaveFloodLineSave = true;
 
       // Case 68: Output riverine flooding vector files
-      // TODO: This is a guess, please check
       vector<string> floodFiles;
       config.GetFloodFiles(&floodFiles);
       if (! floodFiles.empty())

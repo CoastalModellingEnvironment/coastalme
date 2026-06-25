@@ -355,10 +355,6 @@ CSimulation::CSimulation(void)
    m_dNotchIncisionAtCollapse = 0;
    m_dThisIterNewNotchApexElev = 0;
    m_dNotchApexAboveMHW = 0;
-   m_dCliffDepositionA = 0;
-   m_dCliffDepositionPlanviewWidth = 0;
-   m_dCliffTalusMinDepositionLength = 0;
-   m_dMinCliffTalusHeightFrac = 0;
    m_dThisIterCliffCollapseErosionFineUncons = 0;
    m_dThisIterCliffCollapseErosionSandUncons = 0;
    m_dThisIterCliffCollapseErosionCoarseUncons = 0;
@@ -634,21 +630,6 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
 
    if (nRet != RTN_OK)
       return nRet;
-
-   // Are we simulating cliff collapse?
-   if (m_bDoCliffCollapse)
-   {
-      // We are: now that we have a value for m_dCellSide, we can check some more input parameters. Talus must be more than one cell wide, and since the number of cells must be odd, three cells is the minimum width
-      int const nTmp = nConvertMetresToNumCells(m_dCliffDepositionPlanviewWidth);
-      if (nTmp < 3)
-      {
-         string const strErr = ERR + "cliff deposition must have a planview width of at least three cells. The current setting of " + to_string(m_dCliffDepositionPlanviewWidth) + " m gives a planview width of " + to_string(nTmp) + " cells. Please edit " + m_strDataPathName;
-         cerr << strErr << endl;
-         LogStream << strErr << endl;
-         OutStream << strErr << endl;
-         return RTN_ERR_RUNDATA;
-      }
-   }
 
    // Do some more initialisation
    // cppcheck-suppress truncLongCastAssignment

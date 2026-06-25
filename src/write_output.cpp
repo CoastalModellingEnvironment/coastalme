@@ -570,17 +570,6 @@ void CSimulation::WriteStartRunDetails(void)
       OutStream << fixed << setprecision(1);
       OutStream << " Notch overhang to initiate collapse                       \t: " << m_dNotchIncisionAtCollapse << " m" << endl;
       OutStream << " Notch base below SWL                                      \t: " << m_dNotchApexAboveMHW << " m" << endl;
-      OutStream << " Scale parameter A for cliff deposition                    \t: ";
-
-      if (bFPIsEqual(m_dCliffDepositionA, 0.0, TOLERANCE))
-         OutStream << "auto";
-      else
-         OutStream << m_dCliffDepositionA << "  m^(1/3)";
-
-      OutStream << endl;
-      OutStream << " Planview width of cliff deposition talus                  \t: " << resetiosflags(ios::floatfield) << fixed << m_dCliffDepositionPlanviewWidth << " m" << endl;
-      OutStream << " Planview length of cliff deposition talus                 \t: " << m_dCliffTalusMinDepositionLength << " m" << endl;
-      OutStream << " Min height of land-end talus (fraction of cliff elevation)\t: " << m_dMinCliffTalusHeightFrac << endl;
    }
 
    OutStream << " Do riverine flooding?                                     \t: " << (m_bRiverineFlooding ? "Y" : "N") << endl;

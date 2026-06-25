@@ -42,7 +42,7 @@ GIS vector files to output                                ["usual", "all", or fr
 GIS vector output format                                                                     : ESRI Shapefile           ; ogrinfo --formats for others
 Time series files to output                                                   [see codes.txt]: all
 
-Coastline smoothing      [0 = none, 1 = running mean, 2 = Savitzky-Golay, 3 = running median]: 3
+Coastline smoothing      [0 = none, 1 = running mean, 2 = Savitzky-Golay, 3 = running median]: 2
 Coastline smoothing window size                                                 [must be odd]: 21                       ; was 55 for S-G
 Polynomial order for Savitzky-Golay coastline smoothing                              [2 or 4]: 4
 Grid edge(s) to omit when searching for coastline                                      [NSWE]: S
@@ -115,10 +115,6 @@ Simulate cliff collapse?                                                        
 Resistance to erosion of cliff (m^(9/4)s^(3/2))                                              : 6e6
 Notch overhang to initiate collapse (m)                                                      : 0.10
 Notch-apex elevation above mean high water level (m)                                         : 0.3       ; Must be greater than zero
-Scale parameter A for cliff deposition (m^(1/3))                                   [0 = auto]: 0         ; For a 0.2 mm D50, will be 0.1
-Approximate planview width of cliff deposition talus (m)                                     : 15        ; was 5
-Planview length of cliff deposition talus (m)                                                : 50        ; was 30 15
-Minimum height of landward talus end, as fraction of cliff elevation                         : 0.5.5
 
 ; Input events ---------------------------------------------------------------------------------------------------------
 Flood input?                                                                                 : n

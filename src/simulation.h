@@ -939,18 +939,6 @@ class CSimulation
    //! Distance of notch base below SWL (m)
    double m_dNotchApexAboveMHW;
 
-   //! Scale parameter A for cliff deposition (m^(1/3)), may be zero for auto-calculation
-   double m_dCliffDepositionA;
-
-   //! Planview width of cliff collapse talus (m)
-   double m_dCliffDepositionPlanviewWidth;
-
-   //! Planview length of cliff deposition talus (m)
-   double m_dCliffTalusMinDepositionLength;
-
-   //! Minimum height of the landward end of cliff collapse talus, as a fraction of cliff elevation
-   double m_dMinCliffTalusHeightFrac;
-
    //! This-iteration total of fine unconsolidated sediment produced by cliff collapse (m^3)
    double m_dThisIterCliffCollapseErosionFineUncons;
 

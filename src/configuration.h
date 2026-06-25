@@ -127,7 +127,6 @@ private:
    double m_dCliffErosionResistance;
    double m_dNotchOverhang;
    double m_dNotchBase;
-   double m_dCliffDepositionA;
    double m_dTalusWidth;
    double m_dMinTalusLength;
    double m_dMinTalusHeight;
@@ -527,11 +526,6 @@ public:
    void SetNotchBase(double d)
    {
       m_dNotchBase = d;
-   }
-
-   void SetCliffDepositionA(double d)
-   {
-      m_dCliffDepositionA = d;
    }
 
    void SetTalusWidth(double d)
@@ -1043,19 +1037,9 @@ public:
       return m_dNotchOverhang;
    }
 
-   double dGetParamAScaleValue(void)const
-   {
-      return m_dCliffDepositionA;
-   }
-
    double dGetNotchBase(void) const
    {
       return m_dNotchBase;
-   }
-
-   double dGetCliffDepositionA(void) const
-   {
-      return m_dCliffDepositionA;
    }
 
    double dGetTalusWidth(void) const
