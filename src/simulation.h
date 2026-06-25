@@ -927,9 +927,6 @@ class CSimulation
    //! Maximum slope on coastline-normal profiles
    double m_dProfileMaxSlope;
 
-   //! Maximum elevation of beach above SWL (m)
-   double m_dMaxBeachElevAboveSWL;
-
    //! Resistance of cliff to notch erosion
    double m_dCliffErosionResistance;
 
@@ -1903,8 +1900,9 @@ private:
    string strListTSFiles(void) const;
    void CalcProcessStats(void);
    void CalcSavitzkyGolayCoeffs(void);
-   CGeomLine LSmoothCoastSavitzkyGolay(CGeomLine *, int const, int const) const;
-   CGeomLine LSmoothCoastRunningMean(CGeomLine *) const;
+   CGeomLine LSmoothCoastSavitzkyGolay(CGeomLine*, int const, int const) const;
+   CGeomLine LSmoothCoastRunningMean(CGeomLine*) const;
+   CGeomLine LSmoothCoastRunningMedian(CGeomLine*) const;
    vector<double> dVSmoothProfileSlopeRunningMean(vector<double>*) const;
    vector<double> dVSmoothProfileSlopeRunningMedian(vector<double>*);
    typedef struct
@@ -1914,7 +1912,7 @@ private:
       int nHead;
       int nCount;
    } RunningMedian;
-   double dRunningMedianInsertAndCalc(RunningMedian*, double const);
+   double dRunningMedianInsertAndCalc(RunningMedian*, double const) const;
    // vector<double> dVCalCGeomProfileSlope(vector<CGeom2DPoint>*, vector<double>*);         // TODO 007 Why was this removed? vector<double>
    // dVSmoothProfileSavitzkyGolay(vector<double>*, vector<double>*);         //
    // TODO 007 was this removed? vector<double>

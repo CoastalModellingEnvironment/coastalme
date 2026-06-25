@@ -233,27 +233,33 @@ void CSimulation::WriteStartRunDetails(void)
 
    OutStream << " Optional time series files saved                          \t: " << strListTSFiles() << endl;
 
-   OutStream << " Coastline vector smoothing algorithm                      \t: ";
+   OutStream << " Coastline smoothing method                                \t: ";
 
    switch (m_nCoastSmooth)
    {
-   case SMOOTH_NONE:
-   {
-      OutStream << "none";
-      break;
-   }
+      case SMOOTH_NONE:
+      {
+         OutStream << "none";
+         break;
+      }
 
-   case SMOOTH_RUNNING_MEAN:
-   {
-      OutStream << "running mean";
-      break;
-   }
+      case SMOOTH_RUNNING_MEAN:
+      {
+         OutStream << "running mean";
+         break;
+      }
 
-   case SMOOTH_SAVITZKY_GOLAY:
-   {
-      OutStream << "Savitzky-Golay";
-      break;
-   }
+      case SMOOTH_SAVITZKY_GOLAY:
+      {
+         OutStream << "Savitzky-Golay";
+         break;
+      }
+
+      case SMOOTH_RUNNING_MEDIAN:
+      {
+         OutStream << "running median";
+         break;
+      }
    }
 
    OutStream << endl;
@@ -274,7 +280,6 @@ void CSimulation::WriteStartRunDetails(void)
    OutStream << resetiosflags(ios::floatfield);
    OutStream << fixed << setprecision(2);
    OutStream << " Max local slope on profile (m/m)                          \t: " << m_dProfileMaxSlope << endl;
-   OutStream << " Vertical tolerance for beach to be included in smoothing  \t: " << m_dMaxBeachElevAboveSWL << " m" << endl;
    OutStream << endl;
 
    // --------------------------------------------------- Raster GIS stuff -------------------------------------------------------

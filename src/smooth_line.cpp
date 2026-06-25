@@ -77,7 +77,7 @@ void CSimulation::CalcSavitzkyGolayCoeffs(void)
 }
 
 //===============================================================================================================================
-//! Does smoothing of a CGeomLine coastline vector (is in external CRS coordinates) using a Savitzky-Golay filter. Derived from a C original by Jean-Pierre Moreau (jpmoreau@wanadoo.fr, http://jean-pierre.moreau.pagesperso-orange.fr/index.html), to whom we are much indebted
+//! Does smoothing of a CGeomLine coastline vector (is in external CRS coordinates) using a Savitzky-Golay filter. This is a digital smoothing method used to reduce noise in data while preserving the height, width, and shape of original signal peaks. It applies moving least-squares polynomial fits across a rolling window of data points. Derived from a C original by Jean-Pierre Moreau (jpmoreau@wanadoo.fr, http://jean-pierre.moreau.pagesperso-orange.fr/index.html), to whom we are much indebted
 //===============================================================================================================================
 CGeomLine CSimulation::LSmoothCoastSavitzkyGolay(CGeomLine* pLineIn, int const nStartEdge, int const nEndEdge) const
 {
@@ -97,9 +97,11 @@ CGeomLine CSimulation::LSmoothCoastSavitzkyGolay(CGeomLine* pLineIn, int const n
       int nXThis = PtiThis.nGetX();
       int nYThis = PtiThis.nGetY();
 
-      // Safety check
-      if (! bIsWithinValidGrid(nXThis, nYThis))
-         KeepWithinValidGrid(nXThis, nYThis);
+      // Safety checks
+      nXThis = tMax(nXThis, 0);
+      nYThis = tMax(nYThis, 0);
+      nXThis = tMin(nXThis, m_nXGridSize-1);
+      nYThis = tMin(nYThis, m_nYGridSize-1);
 
       // Don't smooth intervention cells
       if (bIsInterventionCell(nXThis, nYThis))
@@ -220,13 +222,12 @@ CGeomLine CSimulation::LSmoothCoastRunningMean(CGeomLine* pLineIn) const
 
    // Make a copy of the unsmoothed CGeomLine
    int const nSize = pLineIn->nGetSize();
-   CGeomLine LTemp;
-   LTemp = *pLineIn;
+   CGeomLine LSmoothed;
+   LSmoothed = *pLineIn;
 
    // Apply the running mean smoothing filter, with a variable window size at both ends of the line
    for (int i = 0; i < nSize; i++)
    {
-      // Don't smooth intervention cells
       CGeom2DPoint const PtThis(pLineIn->dGetXAt(i), pLineIn->dGetYAt(i));
       CGeom2DIPoint const PtiThis = PtiExtCRSToGridRound(&PtThis);
       int nXThis = tMin(PtiThis.nGetX(), m_nXGridSize - 1);
@@ -235,15 +236,16 @@ CGeomLine CSimulation::LSmoothCoastRunningMean(CGeomLine* pLineIn) const
       // Safety checks
       nXThis = tMax(nXThis, 0);
       nYThis = tMax(nYThis, 0);
+      nXThis = tMin(nXThis, m_nXGridSize-1);
+      nYThis = tMin(nYThis, m_nYGridSize-1);
 
+      // Don't smooth intervention cells
       if (bIsInterventionCell(nXThis, nYThis))
       {
-         LTemp[i] = pLineIn->pPtGetAt(i);
+         LSmoothed[i] = pLineIn->pPtGetAt(i);
          continue;
       }
 
-      // bool bNearStartEdge = false, bNearEndEdge = false;
-      // int consTant = 0;
       double nTmpWindow = 0;
       double dWindowTotX = 0, dWindowTotY = 0;
 
@@ -281,65 +283,11 @@ CGeomLine CSimulation::LSmoothCoastRunningMean(CGeomLine* pLineIn) const
          }
       }
 
-      // if (bNearStartEdge)
-      // {
-      //    // We are near the start edge
-      // switch (nStartEdge)
-      // {
-      // case NORTH:
-      //       // Don't apply the filter in the y direction
-      // LTemp.SetXAt(i, dWindowTotX / static_cast<double>(nTmpWindow));
-      // break;
-      // case SOUTH:
-      //       // Don't apply the filter in the y direction
-      // LTemp.SetXAt(i, dWindowTotX / static_cast<double>(nTmpWindow));
-      // break;
-
-      // case EAST:
-      //       // Don't apply the filter in the x direction
-      // LTemp.SetYAt(i, dWindowTotY / static_cast<double>(nTmpWindow));
-      // break;
-      // case WEST:
-      //       // Don't apply the filter in the x direction
-      // LTemp.SetYAt(i, dWindowTotY / static_cast<double>(nTmpWindow));
-      // break;
-      // }
-      // }
-      // else if (bNearEndEdge)
-      // {
-      //    // We are near the end edge
-      // switch (nEndEdge)
-      // {
-      // case NORTH:
-      //       // Don't apply the filter in the y direction
-      // LTemp.SetXAt(i, dWindowTotX / static_cast<double>(nTmpWindow));
-      // break;
-      // case SOUTH:
-      //       // Don't apply the filter in the y direction
-      // LTemp.SetXAt(i, dWindowTotX / static_cast<double>(nTmpWindow));
-      // break;
-
-      // case EAST:
-      //       // Don't apply the filter in the x direction
-      // LTemp.SetYAt(i, dWindowTotY / static_cast<double>(nTmpWindow));
-      // break;
-      // case WEST:
-      //       // Don't apply the filter in the x direction
-      // LTemp.SetYAt(i, dWindowTotY / static_cast<double>(nTmpWindow));
-      // break;
-      // }
-      // }
-      // else
-      // {
-      //    // Not near any edge, apply both x and y filters
-      LTemp[i] = CGeom2DPoint(dWindowTotX / nTmpWindow, dWindowTotY / nTmpWindow);
-      // LTemp.SetXAt(i, dWindowTotX / static_cast<double>(nTmpWindow));
-      // LTemp.SetYAt(i, dWindowTotY / static_cast<double>(nTmpWindow));
-      // }
+      LSmoothed[i] = CGeom2DPoint(dWindowTotX / nTmpWindow, dWindowTotY / nTmpWindow);
    }
 
    // Return the smoothed CGeomLine
-   return LTemp;
+   return LSmoothed;
 }
 
 //===============================================================================================================================
@@ -650,7 +598,7 @@ bool bMedianSort(double const dn, double const dm)
 //===============================================================================================================================
 //! For running-median smnoothing: insert a value to a curculkar buffer and return the running median
 //===============================================================================================================================
-double CSimulation::dRunningMedianInsertAndCalc(RunningMedian* rm, double const dValue)
+double CSimulation::dRunningMedianInsertAndCalc(RunningMedian* rm, double const dValue) const
 {
    // Insert into circular buffer
    rm->pVdBuffer[rm->nHead] = dValue;
@@ -678,4 +626,62 @@ double CSimulation::dRunningMedianInsertAndCalc(RunningMedian* rm, double const 
    return dMedian;
 }
 
+//===============================================================================================================================
+//! Does running-median smoothing of a CGeomLine coastline vector (is in external CRS coordinates)
+//===============================================================================================================================
+CGeomLine CSimulation::LSmoothCoastRunningMedian(CGeomLine* pLineIn) const
+{
+   // Make a copy of the unsmoothed CGeomLine
+   CGeomLine LSmoothed;
+   LSmoothed = *pLineIn;
 
+   int const nSize = pLineIn->nGetSize();
+
+   RunningMedian rmX;
+   RunningMedian rmY;
+
+   // Note that m_nProfileSmoothWindow must be odd (have already checked this)
+   rmX.pVdBuffer = new double[m_nProfileSmoothWindow];
+   rmX.nSize = m_nProfileSmoothWindow;
+   rmX.nHead = 0;
+   rmX.nCount = 0;
+   rmY.pVdBuffer = new double[m_nProfileSmoothWindow];
+   rmY.nSize = m_nProfileSmoothWindow;
+   rmY.nHead = 0;
+   rmY.nCount = 0;
+
+   for (int i = 0; i < nSize; i++)
+   {
+
+      CGeom2DPoint const PtThis(pLineIn->dGetXAt(i), pLineIn->dGetYAt(i));
+      CGeom2DIPoint const PtiThis = PtiExtCRSToGridRound(&PtThis);
+      int nXThis = tMin(PtiThis.nGetX(), m_nXGridSize - 1);
+      int nYThis = tMin(PtiThis.nGetY(), m_nYGridSize - 1);
+
+      // Safety checks
+      nXThis = tMax(nXThis, 0);
+      nYThis = tMax(nYThis, 0);
+      nXThis = tMin(nXThis, m_nXGridSize-1);
+      nYThis = tMin(nYThis, m_nYGridSize-1);
+
+      // Don't smooth intervention cells
+      if (bIsInterventionCell(nXThis, nYThis))
+      {
+         LSmoothed[i] = pLineIn->pPtGetAt(i);
+         continue;
+      }
+
+      double dMedianX = dRunningMedianInsertAndCalc(&rmX, pLineIn->dGetXAt(i));
+      LSmoothed[i].SetX(dMedianX);
+
+      double dMedianY = dRunningMedianInsertAndCalc(&rmY, pLineIn->dGetYAt(i));
+      LSmoothed[i].SetY(dMedianY);
+
+   }
+
+   delete[] rmX.pVdBuffer;
+   delete[] rmY.pVdBuffer;
+
+   // Return the smoothed vector
+   return LSmoothed;
+}

@@ -690,6 +690,7 @@ int const NO_NONZERO_THICKNESS_LAYERS = -3;
 int const SMOOTH_NONE = 0;
 int const SMOOTH_RUNNING_MEAN = 1;
 int const SMOOTH_SAVITZKY_GOLAY = 2;
+int const SMOOTH_RUNNING_MEDIAN = 3;
 
 // Grid-edge boundary treatment for unconsolidated sediment movement
 int const GRID_EDGE_CLOSED = 0;
@@ -781,7 +782,7 @@ double const MIN_TALUS_DEPTH = 0.01;
 //! The vertical distance (m) between the bottom of a cliff notch, and its mid point (i.e. half the notch vertical depth). This is necessary because without it, notches are not inundated post-collapse. This is most noticeable when SWL does mot change during the simulation
 double const NOTCH_HALF_VERTICAL_DISTANCE = 0.05;
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.3 (24 Jun 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.3 (25 Jun 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

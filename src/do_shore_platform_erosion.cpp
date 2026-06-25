@@ -1332,8 +1332,6 @@ void CSimulation::FillIPlatformErosionHolesAndRemoveLegacyCliffs(void)
                // Safety check
                if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
                   continue;
-
-               // CRWCellLayer* pTopLayer = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer);
             }
          }
 

@@ -351,7 +351,6 @@ CSimulation::CSimulation(void)
    m_dTotPotentialPlatformErosionOnProfiles = 0;
    m_dTotPotentialPlatformErosionBetweenProfiles = 0;
    m_dProfileMaxSlope = 0;
-   m_dMaxBeachElevAboveSWL = 0;
    m_dCliffErosionResistance = 0;
    m_dNotchIncisionAtCollapse = 0;
    m_dThisIterNewNotchApexElev = 0;

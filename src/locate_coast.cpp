@@ -1426,6 +1426,8 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
       LTempExtCRS = LSmoothCoastRunningMean(&LTempExtCRS);
    else if (m_nCoastSmooth == SMOOTH_SAVITZKY_GOLAY)
       LTempExtCRS = LSmoothCoastSavitzkyGolay(&LTempExtCRS, nStartEdge, nEndEdge);
+   else if (m_nCoastSmooth == SMOOTH_RUNNING_MEDIAN)
+      LTempExtCRS = LSmoothCoastRunningMedian(&LTempExtCRS);
 
    //    // DEBUG CODE ==================================================================================================
    // LogStream << "==================================" << endl;

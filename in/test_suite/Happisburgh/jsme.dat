@@ -42,14 +42,13 @@ GIS vector files to output                                ["usual", "all", or fr
 GIS vector output format                                                                     : ESRI Shapefile           ; ogrinfo --formats for others
 Time series files to output                                                   [see codes.txt]: all
 
-Coastline smoothing                                [0=none, 1=running mean, 2=Savitzky-Golay]: 1
-Coastline smoothing window size                                                 [must be odd]: 13                       ; was 55 for S-G
+Coastline smoothing      [0 = none, 1 = running mean, 2 = Savitzky-Golay, 3 = running median]: 3
+Coastline smoothing window size                                                 [must be odd]: 21                       ; was 55 for S-G
 Polynomial order for Savitzky-Golay coastline smoothing                              [2 or 4]: 4
 Grid edge(s) to omit when searching for coastline                                      [NSWE]: S
 
 Profile slope running-mean smoothing window size                  [0=none, or positive & odd]: 0                        ; was 11 33
 Max local slope (m/m)                                                                        : 1.18
-Maximum elevation of beach above SWL (m)	                                     [must be >= 0]: 0
 
 ; Initial raster GIS layers -----------------------------------------------------------------------------------------------------------------------------------
 Number of layers                                                                             : 1
