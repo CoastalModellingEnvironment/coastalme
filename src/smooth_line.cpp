@@ -330,6 +330,11 @@ vector<double> CSimulation::dVSmoothProfileSlopeRunningMean(vector<double>* pdVS
          dVSmoothed[i] = tMax(dVSmoothed[i], -m_dProfileMaxSlope);
    }
 
+   // TEST ==========================
+   dVSmoothed[0] = pdVSlope->at(0);
+   dVSmoothed[nSize-1] = pdVSlope->at(nSize-1);
+   // TEST ==========================
+
    // Return the smoothed vector
    return dVSmoothed;
 }
@@ -581,6 +586,11 @@ vector<double> CSimulation::dVSmoothProfileSlopeRunningMedian(vector<double>* pd
    }
 
    delete[] rm.pVdBuffer;
+
+   // TEST ==========================
+   dVSmoothed[0] = pdVSlope->at(0);
+   dVSmoothed[nSize-1] = pdVSlope->at(nSize-1);
+   // TEST ==========================
 
    // Return the smoothed vector
    return dVSmoothed;
