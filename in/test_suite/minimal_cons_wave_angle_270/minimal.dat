@@ -30,7 +30,7 @@ Duration of simulation                                           [hours, days, m
 Timestep (hours or days)                                                                     : 1 hour
 Save times                                                       [hours, days, months, years]: 1 6 12 22 23 120 250 500 1000 3000 5000 hours
 
-Random number seed(s)                            [if omitted, will use system time as a seed]: 280764
+Random number seed(s)                            [if omitted, will use system time as a seed]: 270853
 
 Max save digits for GIS output file names                                               [> 1]: 3
 Save digits for GIS output sequential or iteration number?    [s = sequential, i = iteration]: s
@@ -43,7 +43,7 @@ GIS vector files to output                                         ["all", or fr
 GIS vector output format                                                                     : ESRI Shapefile           ; ogrinfo --formats for others
 Time series files to output                                        ["all", or from codes.txt]: all          ; beach_change_net
 
-Coastline smoothing      [0 = none, 1 = running mean, 2 = Savitzky-Golay, 3 = running median]: 2
+Coastline smoothing      [0 = none, 1 = running mean, 2 = running median, 3 = Savitzky-Golay]: 3
 Coastline smoothing window size                                                 [must be odd]: 21                       ; 7 is min?
 Polynomial order for Savitzky-Golay coastline smoothing                              [2 or 4]: 4
 Grid edge(s) to omit when searching for coastline                                      [NSWE]:

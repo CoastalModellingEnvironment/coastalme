@@ -67,6 +67,7 @@ echo ===========================================================================
 # cp in/test_suite/minimal_cons_with_sediment_input_block/cme.ini .
 # ./cme
 # echo ===============================================================================
+
 rm -f out/test_suite/minimal_cons_sand_and_coarse_wave_angle_230/*
 cp in/test_suite/minimal_cons_sand_and_coarse_wave_angle_230/cme.ini .
 ./cme

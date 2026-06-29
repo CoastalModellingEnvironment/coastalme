@@ -302,8 +302,8 @@ vector<double> CSimulation::dVSmoothProfileSlopeRunningMean(vector<double>* pdVS
    // Note that m_nProfileSmoothWindow must be odd (have already checked this)
    int const nHalfWindow = m_nProfileSmoothWindow / 2;
 
-   // Apply the running mean smoothing filter, with a variable window size at both ends of the line
-   for (int i = 0; i < nSize; i++)
+   // Apply the running mean smoothing filter, with a variable window size at both ends of the line. Also leave the start and end points unchanged
+   for (int i = 1; i < (nSize-1); i++)
    {
       int nTmpWindow = 0;
       double dWindowTot = 0;
@@ -329,11 +329,6 @@ vector<double> CSimulation::dVSmoothProfileSlopeRunningMean(vector<double>* pdVS
       else
          dVSmoothed[i] = tMax(dVSmoothed[i], -m_dProfileMaxSlope);
    }
-
-   // TEST ==========================
-   dVSmoothed[0] = pdVSlope->at(0);
-   dVSmoothed[nSize-1] = pdVSlope->at(nSize-1);
-   // TEST ==========================
 
    // Return the smoothed vector
    return dVSmoothed;
@@ -579,18 +574,14 @@ vector<double> CSimulation::dVSmoothProfileSlopeRunningMedian(vector<double>* pd
    rm.nHead = 0;
    rm.nCount = 0;
 
-   for (int i = 0; i < nSize; i++)
+   // Leave start and finish points unchanged
+   for (int i = 1; i < (nSize-1); i++)
    {
       double dMedian = dRunningMedianInsertAndCalc(&rm, pdVSlope->at(i));
       dVSmoothed[i] = dMedian;
    }
 
    delete[] rm.pVdBuffer;
-
-   // TEST ==========================
-   dVSmoothed[0] = pdVSlope->at(0);
-   dVSmoothed[nSize-1] = pdVSlope->at(nSize-1);
-   // TEST ==========================
 
    // Return the smoothed vector
    return dVSmoothed;

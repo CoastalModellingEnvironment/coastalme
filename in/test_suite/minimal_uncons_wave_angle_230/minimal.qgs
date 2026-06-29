@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-06-23T20:59:50" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.0.3-Norrköping">
+<qgis projectname="" saveDateTime="2026-06-28T10:34:53" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.0.3-Norrköping">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
@@ -953,7 +953,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="11">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="11">
         <customproperties>
           <Option/>
         </customproperties>
@@ -1012,7 +1012,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Unchecked" expanded="1" id="waveangle1120160808172440346" legend_exp="" legend_split_behavior="0" name="waveangle11" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_uncons_wave_angle_230/wave_angle_011.shp">
+        <layer-tree-layer checked="Qt::Checked" expanded="1" id="waveangle1120160808172440346" legend_exp="" legend_split_behavior="0" name="waveangle11" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_uncons_wave_angle_230/wave_angle_011.shp">
           <customproperties>
             <Option/>
           </customproperties>
@@ -1090,6 +1090,21 @@
           </customproperties>
         </layer-tree-layer>
         <layer-tree-layer checked="Qt::Unchecked" expanded="1" id="wave_setup_011_ebdc5ccc_90c6_400f_a18a_2aa551fd5748" legend_exp="" legend_split_behavior="0" name="wave_setup_011" patch_size="-1,-1" providerKey="ogr" source="../../../out/test_suite/minimal_uncons_wave_angle_230/wave_setup_011.shp">
+          <customproperties>
+            <Option/>
+          </customproperties>
+        </layer-tree-layer>
+      </layer-tree-group>
+      <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="999">
+        <customproperties>
+          <Option/>
+        </customproperties>
+        <layer-tree-layer checked="Qt::Checked" expanded="1" id="landform_class_999_58b80f9b_ddd0_4d33_a76c_afaebb8aad2e" legend_exp="" legend_split_behavior="0" name="landform_class_999" patch_size="-1,-1" providerKey="gdal" source="../../../out/test_suite/minimal_uncons_wave_angle_230/landform_class_999.tif">
+          <customproperties>
+            <Option/>
+          </customproperties>
+        </layer-tree-layer>
+        <layer-tree-layer checked="Qt::Checked" expanded="1" id="polygon_999_972ac62e_3ab2_4800_8d78_b36f8535fb7c" legend_exp="" legend_split_behavior="0" name="polygon_999" patch_size="-1,-1" providerKey="ogr" source="../../../out/test_suite/minimal_uncons_wave_angle_230/polygon_999.shp">
           <customproperties>
             <Option/>
           </customproperties>
@@ -1295,83 +1310,86 @@
       <item>rcoast_005_fe39fa36_10c1_4345_993d_056d4501f15f</item>
       <item>rcoast_004_b1271196_7829_4081_8e0d_3e7c9057b097</item>
       <item>rcoast_011_2be1efed_2ef4_454d_9b2c_0764f4d0eac5</item>
+      <item>polygon_999_972ac62e_3ab2_4800_8d78_b36f8535fb7c</item>
+      <item>landform_class_999_58b80f9b_ddd0_4d33_a76c_afaebb8aad2e</item>
     </custom-order>
   </layer-tree-group>
   <snapping-settings enabled="0" intersection-snapping="0" maxScale="0" minScale="0" mode="1" scaleDependencyMode="0" self-snapping="0" tolerance="0" type="1" unit="2">
     <individual-layer-settings>
-      <layer-setting enabled="0" id="normals0420160808150941116" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals_00220170602205851572" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="shadow_zone_00920170305142754773" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="shadow_zone_00620170305142705249" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="invalid_normals_00520161103162008375" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_angle_007_38743709_3748_492e_ba0c_bd3e586f0e0d" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="coast0120160718183614891" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00520170305142645205" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="waveangle1120160808172440346" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0920160725142106066" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast1020160725142003825" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon0220160808152223265" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0820160725142214342" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon_01020161108120238829" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00220170304161920699" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="wave_angle_00920170424154622391" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="coast0220160808150543129" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="waveangle0120160808171249476" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon0820160808152539674" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon_00620161102174606593" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon0120160727195316313" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast_curvature_00120170306124022825" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_004_bc6699b5_d257_4cd2_a237_db292c3c9e9a" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="downdrift_boundary_01120171226151418392" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_angle_01020170424154515999" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="coast0720160725142150046" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon_00320161110204759456" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="waveangle0320160808175731280" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_angle_008_189c03a9_7ff2_4840_9177_b57f57210725" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="wave_energy_00120171229162032331" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="waveangle0220160808175657167" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="waveangle0420160808223119610" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="invalid_normals0120160808153933051" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals_00520161103161924681" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_boundary_00820170330163647432" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_00120171226160841623" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon0520160808152401684" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0620160725142132091" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals0120160727192458855" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="invalid_normals_00720161103211341838" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="invalid_normals1120160808155744184" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon_00920161108120332216" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="invalid_normals_00620161102174235893" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="downdrift_boundary_00120171206221411076" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast1120160718183635159" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_angle_00620170329173818248" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="normals_00320170602205757227" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="normals_00620161102174319956" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_setup_011_ebdc5ccc_90c6_400f_a18a_2aa551fd5748" maxScale="0" minScale="0" tolerance="12" type="0" units="1"/>
-      <layer-setting enabled="0" id="cliff_notch1120160724201629192" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00420170305142619209" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="shadow_zone_01020170305142816780" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
       <layer-setting enabled="0" id="breaking_wave_height1120160718211819232" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_01120171226155834658" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_003_d19c418a_785b_4482_b7cc_3e425883f376" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="shadow_zone_01120170304192719125" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="normals1120160727190712575" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon1120160727195452840" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0520160718183654169" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="1" id="normals_008_92335af6_a231_4703_a300_f23d6751e373" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="coast0320160808150626424" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00120170304145408070" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="shadow_zone_00320170305142544344" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="cliff_notch0120160725154913092" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_angle_00520170330160453713" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="1" id="normals_009_4cd82a29_3516_4a31_8fa3_95dec42be1dc" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="coast0420160808150700998" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00720170305142726047" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="polygon0420160808150743710" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals_00720161103211305147" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="invalid_normals0120160808153933051" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="0" id="polygon_00720161027183621292" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon_00620161102174606593" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_zone_00620170305142705249" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_003_d19c418a_785b_4482_b7cc_3e425883f376" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="cliff_notch0120160725154913092" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="wave_angle_008_189c03a9_7ff2_4840_9177_b57f57210725" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="coast0720160725142150046" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals1120160727190712575" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals0120160727192458855" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon_00320161110204759456" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_zone_01020170305142816780" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="1" id="polygon_999_972ac62e_3ab2_4800_8d78_b36f8535fb7c" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
       <layer-setting enabled="1" id="invalid_normals_009_8d2e964e_328f_4c20_9aaf_fc4cd8df0a01" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="downdrift_boundary_01120171226151418392" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="waveangle0420160808223119610" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon0220160808152223265" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="waveangle0120160808171249476" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_zone_01120170304192719125" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_00620170329173818248" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="polygon_01020161108120238829" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast1120160718183635159" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="wave_setup_011_ebdc5ccc_90c6_400f_a18a_2aa551fd5748" maxScale="0" minScale="0" tolerance="12" type="0" units="1"/>
+      <layer-setting enabled="0" id="waveangle0320160808175731280" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0820160725142214342" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_00120171226160841623" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals0420160808150941116" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="waveangle1120160808172440346" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0620160725142132091" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals_00220170602205851572" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="coast_curvature_00120170306124022825" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="polygon0820160808152539674" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="cliff_notch1120160724201629192" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon0120160727195316313" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_zone_00320170305142544344" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_01120171226155834658" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0520160718183654169" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="invalid_normals1120160808155744184" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_boundary_00820170330163647432" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="polygon0420160808150743710" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="wave_angle_01020170424154515999" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="downdrift_boundary_00120171206221411076" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="wave_angle_00920170424154622391" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_004_bc6699b5_d257_4cd2_a237_db292c3c9e9a" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00120170304145408070" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="normals_00520161103161924681" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="invalid_normals_00520161103162008375" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0920160725142106066" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals_00720161103211305147" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="invalid_normals_00720161103211341838" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="0" id="breaking_wave_height_00520161027175004281" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast1020160725142003825" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_zone_00720170305142726047" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="1" id="normals_008_92335af6_a231_4703_a300_f23d6751e373" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="normals_00320170602205757227" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00920170305142754773" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_007_38743709_3748_492e_ba0c_bd3e586f0e0d" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="invalid_normals_00620161102174235893" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_zone_00220170304161920699" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="coast0320160808150626424" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="1" id="normals_009_4cd82a29_3516_4a31_8fa3_95dec42be1dc" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00420170305142619209" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="polygon0520160808152401684" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals_00620161102174319956" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0220160808150543129" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="waveangle0220160808175657167" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0120160718183614891" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="wave_energy_00120171229162032331" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0420160808150700998" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="shadow_zone_00520170305142645205" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_00520170330160453713" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="polygon1120160727195452840" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon_00920161108120332216" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
     </individual-layer-settings>
   </snapping-settings>
   <relations/>
@@ -1379,10 +1397,10 @@
   <mapcanvas annotationsVisible="1" name="theMapCanvas">
     <units>meters</units>
     <extent>
-      <xmin>-5.25</xmin>
-      <ymin>-11.5</ymin>
-      <xmax>257.25</xmax>
-      <ymax>513.5</ymax>
+      <xmin>108.02499999999997726</xmin>
+      <ymin>-10.97500000000002274</ymin>
+      <xmax>253.97500000000002274</xmax>
+      <ymax>512.97500000000002274</ymax>
     </extent>
     <rotation>0</rotation>
     <destinationsrs>
@@ -2281,7 +2299,7 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Checked" name="11" open="false">
+      <legendgroup checked="Qt::Unchecked" name="11" open="false">
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="deep_water_wave_angle_011" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="deep_water_wave_angle_01120171226155834658" visible="0"/>
@@ -2304,7 +2322,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="polygon11" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="polygon1120160727195452840" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="polygon1120160727195452840" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="rcoast_011" open="false" showFeatureCount="0">
@@ -2337,7 +2355,7 @@
             <legendlayerfile isInOverview="0" layerid="active_zone1120160811220005056" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="waveangle11" open="true" showFeatureCount="0">
+        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="waveangle11" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="waveangle1120160808172440346" visible="0"/>
           </filegroup>
@@ -2409,7 +2427,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_11" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="1" layerid="landform_class_1120161102170754993" visible="1"/>
+            <legendlayerfile isInOverview="1" layerid="landform_class_1120161102170754993" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="wave_setup_011" open="true" showFeatureCount="0">
@@ -2418,9 +2436,46 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
+      <legendgroup checked="Qt::Checked" name="999" open="true">
+        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_999" open="true" showFeatureCount="0">
+          <filegroup hidden="false" open="true">
+            <legendlayerfile isInOverview="0" layerid="landform_class_999_58b80f9b_ddd0_4d33_a76c_afaebb8aad2e" visible="1"/>
+          </filegroup>
+        </legendlayer>
+        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="polygon_999" open="true" showFeatureCount="0">
+          <filegroup hidden="false" open="true">
+            <legendlayerfile isInOverview="0" layerid="polygon_999_972ac62e_3ab2_4800_8d78_b36f8535fb7c" visible="1"/>
+          </filegroup>
+        </legendlayer>
+      </legendgroup>
     </legendgroup>
   </legend>
   <mapViewDocks/>
+  <mapcanvas annotationsVisible="1" name="mAreaCanvas">
+    <units>degrees</units>
+    <extent>
+      <xmin>179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368</xmin>
+      <ymin>179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368</ymin>
+      <xmax>-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368</xmax>
+      <ymax>-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368</ymax>
+    </extent>
+    <rotation>0</rotation>
+    <destinationsrs>
+      <spatialrefsys nativeFormat="Wkt">
+        <wkt>GEOGCRS["WGS 84",ENSEMBLE["World Geodetic System 1984 ensemble",MEMBER["World Geodetic System 1984 (Transit)"],MEMBER["World Geodetic System 1984 (G730)"],MEMBER["World Geodetic System 1984 (G873)"],MEMBER["World Geodetic System 1984 (G1150)"],MEMBER["World Geodetic System 1984 (G1674)"],MEMBER["World Geodetic System 1984 (G1762)"],MEMBER["World Geodetic System 1984 (G2139)"],MEMBER["World Geodetic System 1984 (G2296)"],ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[2.0]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["Horizontal component of 3D system."],AREA["World."],BBOX[-90,-180,90,180]],ID["EPSG",4326]]</wkt>
+        <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+        <srsid>3452</srsid>
+        <srid>4326</srid>
+        <authid>EPSG:4326</authid>
+        <description>WGS 84</description>
+        <projectionacronym>longlat</projectionacronym>
+        <ellipsoidacronym>EPSG:7030</ellipsoidacronym>
+        <geographicflag>true</geographicflag>
+      </spatialrefsys>
+    </destinationsrs>
+    <rendermaptile>0</rendermaptile>
+    <expressionContextScope/>
+  </mapcanvas>
   <main-annotation-layer autoRefreshMode="Disabled" autoRefreshTime="0" hasScaleBasedVisibilityFlag="0" layerType="Annotation" legendPlaceholderImage="" maxScale="0" minScale="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" styleCategories="AllStyleCategories" type="annotation">
     <id>Annotations_6e0d07e2_4d8e_4356_b5d8_aeae8a4c979b</id>
     <datasource></datasource>
@@ -8727,15 +8782,15 @@
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>109.33587001234056402</xmin>
+        <xmin>110.53917466300021033</xmin>
         <ymin>1.5</ymin>
-        <xmax>164.80892636774984794</xmax>
+        <xmax>159.35678903140205875</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>109.33587001234056402</xmin>
+        <xmin>110.53917466300021033</xmin>
         <ymin>1.5</ymin>
-        <xmax>164.80892636774984794</xmax>
+        <xmax>159.35678903140205875</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>breaking_wave_height1120160718211819232</id>
@@ -9385,15 +9440,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>72.40826820238582684</xmin>
+        <xmin>72.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>79.59173179761413053</xmax>
+        <xmax>79.60343249427918977</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>72.40826820238582684</xmin>
+        <xmin>72.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>79.59173179761413053</xmax>
+        <xmax>79.60343249427918977</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>breaking_wave_height_00520161027175004281</id>
@@ -11113,15 +11168,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>126.40826820238578421</xmin>
+        <xmin>126.4115551025902846</xmin>
         <ymin>1.5</ymin>
-        <xmax>139.43253805018505886</xmax>
+        <xmax>139.2376382131800483</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>126.40826820238578421</xmin>
+        <xmin>126.4115551025902846</xmin>
         <ymin>1.5</ymin>
-        <xmax>139.43253805018505886</xmax>
+        <xmax>139.2376382131800483</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast0120160718183614891</id>
@@ -11538,15 +11593,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>122.40826820238579842</xmin>
+        <xmin>122.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>134.43253805018508729</xmax>
+        <xmax>134.23763821318001987</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>122.40826820238579842</xmin>
+        <xmin>122.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>134.43253805018508729</xmax>
+        <xmax>134.23763821318001987</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast0220160808150543129</id>
@@ -11961,15 +12016,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>108.40826820238578421</xmin>
+        <xmin>108.41155510259021355</xmin>
         <ymin>1.5</ymin>
-        <xmax>119.43253805018507308</xmax>
+        <xmax>119.1444705113166691</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>108.40826820238578421</xmin>
+        <xmin>108.41155510259021355</xmin>
         <ymin>1.5</ymin>
-        <xmax>119.43253805018507308</xmax>
+        <xmax>119.1444705113166691</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast0320160808150626424</id>
@@ -12386,15 +12441,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>88.40826820238582684</xmin>
+        <xmin>88.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>97.02529823118055674</xmax>
+        <xmax>96.84148799107745731</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>88.40826820238582684</xmin>
+        <xmin>88.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>97.02529823118055674</xmax>
+        <xmax>96.84148799107745731</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast0420160808150700998</id>
@@ -12811,15 +12866,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>72.40826820238582684</xmin>
+        <xmin>72.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>79.59173179761413053</xmax>
+        <xmax>79.60343249427918977</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>72.40826820238582684</xmin>
+        <xmin>72.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>79.59173179761413053</xmax>
+        <xmax>79.60343249427918977</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast0520160718183654169</id>
@@ -13236,15 +13291,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>65.40826820238584105</xmin>
+        <xmin>65.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>72.27211024269846007</xmax>
+        <xmax>71.95233928811798307</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>65.40826820238584105</xmin>
+        <xmin>65.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>72.27211024269846007</xmax>
+        <xmax>71.95233928811798307</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast0620160725142132091</id>
@@ -13659,15 +13714,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>65.32682023858494347</xmin>
+        <xmin>65.98306443859009107</xmin>
         <ymin>1.5</ymin>
-        <xmax>73.27211024269844586</xmax>
+        <xmax>73.08053573832278005</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>65.32682023858494347</xmin>
+        <xmin>65.98306443859009107</xmin>
         <ymin>1.5</ymin>
-        <xmax>73.27211024269844586</xmax>
+        <xmax>73.08053573832278005</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast0720160725142150046</id>
@@ -14084,15 +14139,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>65.54319210201562385</xmin>
+        <xmin>65.72797146318481509</xmin>
         <ymin>1.5</ymin>
-        <xmax>78.63821472645000199</xmax>
+        <xmax>79.04574543776320183</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>65.54319210201562385</xmin>
+        <xmin>65.72797146318481509</xmin>
         <ymin>1.5</ymin>
-        <xmax>78.63821472645000199</xmax>
+        <xmax>79.04574543776320183</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast0820160725142214342</id>
@@ -14507,15 +14562,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>70.46955985191277705</xmin>
+        <xmin>67.29196584812413562</xmin>
         <ymin>1.5</ymin>
-        <xmax>88.7857142857142918</xmax>
+        <xmax>87.77272727272726627</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>70.46955985191277705</xmin>
+        <xmin>67.29196584812413562</xmin>
         <ymin>1.5</ymin>
-        <xmax>88.7857142857142918</xmax>
+        <xmax>87.77272727272726627</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast0920160725142106066</id>
@@ -14930,15 +14985,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>98.23385438091317212</xmin>
+        <xmin>102.93894390708230446</xmin>
         <ymin>1.5</ymin>
-        <xmax>141.52920608802958213</xmax>
+        <xmax>138.38452973866898787</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>98.23385438091317212</xmin>
+        <xmin>102.93894390708230446</xmin>
         <ymin>1.5</ymin>
-        <xmax>141.52920608802958213</xmax>
+        <xmax>138.38452973866898787</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast1020160725142003825</id>
@@ -15353,15 +15408,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>109.33587001234056402</xmin>
+        <xmin>110.53917466300021033</xmin>
         <ymin>1.5</ymin>
-        <xmax>164.80892636774984794</xmax>
+        <xmax>159.35678903140205875</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>109.33587001234056402</xmin>
+        <xmin>110.53917466300021033</xmin>
         <ymin>1.5</ymin>
-        <xmax>164.80892636774984794</xmax>
+        <xmax>159.35678903140205875</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast1120160718183635159</id>
@@ -15776,15 +15831,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>126.40826820238578421</xmin>
+        <xmin>126.4115551025902846</xmin>
         <ymin>1.5</ymin>
-        <xmax>139.43253805018505886</xmax>
+        <xmax>139.2376382131800483</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>126.40826820238578421</xmin>
+        <xmin>126.4115551025902846</xmin>
         <ymin>1.5</ymin>
-        <xmax>139.43253805018505886</xmax>
+        <xmax>139.2376382131800483</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast_curvature_00120170306124022825</id>
@@ -20558,13 +20613,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>110.5</xmin>
+        <xmin>111.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>110.5</xmin>
+        <xmin>111.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -22625,16 +22680,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>110.5</xmin>
-        <ymin>11.5</ymin>
-        <xmax>250.5</xmax>
-        <ymax>495</ymax>
+        <xmin>111.5</xmin>
+        <ymin>1.5</ymin>
+        <xmax>249.5</xmax>
+        <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>110.5</xmin>
-        <ymin>11.5</ymin>
-        <xmax>250.5</xmax>
-        <ymax>495</ymax>
+        <xmin>111.5</xmin>
+        <ymin>1.5</ymin>
+        <xmax>249.5</xmax>
+        <ymax>500.5</ymax>
       </wgs84extent>
       <id>invalid_normals1120160808155744184</id>
       <datasource>../../../out/test_suite/minimal_uncons_wave_angle_230/invalid_normals_011.shp</datasource>
@@ -25299,15 +25354,15 @@ def my_form_open(dialog, layer, feature):
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
         <xmin>72.5</xmin>
-        <ymin>89.77119716616303435</ymin>
-        <xmax>218.89619612836611395</xmax>
-        <ymax>167.34789500040034227</ymax>
+        <ymin>364.13395210676674196</ymin>
+        <xmax>220.5</xmax>
+        <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
         <xmin>72.5</xmin>
-        <ymin>89.77119716616303435</ymin>
-        <xmax>218.89619612836611395</xmax>
-        <ymax>167.34789500040034227</ymax>
+        <ymin>364.13395210676674196</ymin>
+        <xmax>220.5</xmax>
+        <ymax>500.5</ymax>
       </wgs84extent>
       <id>invalid_normals_009_8d2e964e_328f_4c20_9aaf_fc4cd8df0a01</id>
       <datasource>../../../out/test_suite/minimal_uncons_wave_angle_230/invalid_normals_009.shp</datasource>
@@ -28669,15 +28724,267 @@ def my_form_open(dialog, layer, feature):
       <blendMode>0</blendMode>
       <legend/>
     </maplayer>
+    <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" hasScaleBasedVisibilityFlag="0" layerType="Raster" legendPlaceholderImage="" maxScale="0" minScale="1e+08" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" styleCategories="AllStyleCategories" type="raster">
+      <extent>
+        <xmin>1</xmin>
+        <ymin>1</ymin>
+        <xmax>251</xmax>
+        <ymax>501</ymax>
+      </extent>
+      <wgs84extent>
+        <xmin>1</xmin>
+        <ymin>1</ymin>
+        <xmax>251</xmax>
+        <ymax>501</ymax>
+      </wgs84extent>
+      <id>landform_class_999_58b80f9b_ddd0_4d33_a76c_afaebb8aad2e</id>
+      <datasource>../../../out/test_suite/minimal_uncons_wave_angle_230/landform_class_999.tif</datasource>
+      <layername>landform_class_999</layername>
+      <srs>
+        <spatialrefsys nativeFormat="Wkt">
+          <wkt></wkt>
+          <proj4></proj4>
+          <srsid>0</srsid>
+          <srid>0</srid>
+          <authid></authid>
+          <description></description>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
+          <geographicflag>false</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <resourceMetadata>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
+        <type>dataset</type>
+        <title></title>
+        <abstract></abstract>
+        <links/>
+        <dates/>
+        <fees></fees>
+        <encoding></encoding>
+        <crs>
+          <spatialrefsys nativeFormat="Wkt">
+            <wkt></wkt>
+            <proj4></proj4>
+            <srsid>0</srsid>
+            <srid>0</srid>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
+            <geographicflag>false</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <extent/>
+      </resourceMetadata>
+      <provider>gdal</provider>
+      <noData>
+        <noDataList bandNo="1" useSrcNoData="1"/>
+      </noData>
+      <map-layer-style-manager current="default">
+        <map-layer-style name="default"/>
+      </map-layer-style-manager>
+      <flags>
+        <Identifiable>1</Identifiable>
+        <Removable>1</Removable>
+        <Searchable>0</Searchable>
+        <Private>0</Private>
+      </flags>
+      <temporal bandNumber="1" enabled="0" fetchMode="0" mode="0">
+        <fixedRange>
+          <start></start>
+          <end></end>
+        </fixedRange>
+      </temporal>
+      <elevation band="1" enabled="0" mode="RepresentsElevationSurface" symbology="Line" zoffset="0" zscale="1">
+        <data-defined-properties>
+          <Option type="Map">
+            <Option name="name" type="QString" value=""/>
+            <Option name="properties"/>
+            <Option name="type" type="QString" value="collection"/>
+          </Option>
+        </data-defined-properties>
+        <profileLineSymbol>
+          <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="line">
+            <data_defined_properties>
+              <Option type="Map">
+                <Option name="name" type="QString" value=""/>
+                <Option name="properties"/>
+                <Option name="type" type="QString" value="collection"/>
+              </Option>
+            </data_defined_properties>
+            <layer class="SimpleLine" enabled="1" id="{f26f903f-1296-4d1b-a63f-e869a928dfd3}" locked="0" pass="0">
+              <Option type="Map">
+                <Option name="align_dash_pattern" type="QString" value="0"/>
+                <Option name="capstyle" type="QString" value="square"/>
+                <Option name="customdash" type="QString" value="5;2"/>
+                <Option name="customdash_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="customdash_unit" type="QString" value="MM"/>
+                <Option name="dash_pattern_offset" type="QString" value="0"/>
+                <Option name="dash_pattern_offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="dash_pattern_offset_unit" type="QString" value="MM"/>
+                <Option name="draw_inside_polygon" type="QString" value="0"/>
+                <Option name="joinstyle" type="QString" value="bevel"/>
+                <Option name="line_color" type="QString" value="164,113,88,255,rgb:0.6431373,0.4431373,0.345098,1"/>
+                <Option name="line_style" type="QString" value="solid"/>
+                <Option name="line_width" type="QString" value="0.6"/>
+                <Option name="line_width_unit" type="QString" value="MM"/>
+                <Option name="offset" type="QString" value="0"/>
+                <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="offset_unit" type="QString" value="MM"/>
+                <Option name="ring_filter" type="QString" value="0"/>
+                <Option name="trim_distance_end" type="QString" value="0"/>
+                <Option name="trim_distance_end_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="trim_distance_end_unit" type="QString" value="MM"/>
+                <Option name="trim_distance_start" type="QString" value="0"/>
+                <Option name="trim_distance_start_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="trim_distance_start_unit" type="QString" value="MM"/>
+                <Option name="tweak_dash_pattern_on_corners" type="QString" value="0"/>
+                <Option name="use_custom_dash" type="QString" value="0"/>
+                <Option name="width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+              </Option>
+              <data_defined_properties>
+                <Option type="Map">
+                  <Option name="name" type="QString" value=""/>
+                  <Option name="properties"/>
+                  <Option name="type" type="QString" value="collection"/>
+                </Option>
+              </data_defined_properties>
+            </layer>
+          </symbol>
+        </profileLineSymbol>
+        <profileFillSymbol>
+          <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="fill">
+            <data_defined_properties>
+              <Option type="Map">
+                <Option name="name" type="QString" value=""/>
+                <Option name="properties"/>
+                <Option name="type" type="QString" value="collection"/>
+              </Option>
+            </data_defined_properties>
+            <layer class="SimpleFill" enabled="1" id="{b5ba9854-e043-4f8d-bf3d-3cd9f328605d}" locked="0" pass="0">
+              <Option type="Map">
+                <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="color" type="QString" value="164,113,88,255,rgb:0.6431373,0.4431373,0.345098,1"/>
+                <Option name="joinstyle" type="QString" value="bevel"/>
+                <Option name="offset" type="QString" value="0,0"/>
+                <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="offset_unit" type="QString" value="MM"/>
+                <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"/>
+                <Option name="outline_style" type="QString" value="no"/>
+                <Option name="outline_width" type="QString" value="0.26"/>
+                <Option name="outline_width_unit" type="QString" value="MM"/>
+                <Option name="style" type="QString" value="solid"/>
+              </Option>
+              <data_defined_properties>
+                <Option type="Map">
+                  <Option name="name" type="QString" value=""/>
+                  <Option name="properties"/>
+                  <Option name="type" type="QString" value="collection"/>
+                </Option>
+              </data_defined_properties>
+            </layer>
+          </symbol>
+        </profileFillSymbol>
+      </elevation>
+      <customproperties>
+        <Option type="Map">
+          <Option name="WMSBackgroundLayer" type="bool" value="false"/>
+          <Option name="WMSPublishDataSourceUrl" type="bool" value="false"/>
+          <Option name="embeddedWidgets/count" type="QString" value="0"/>
+          <Option name="identify/format" type="QString" value="Value"/>
+        </Option>
+      </customproperties>
+      <mapTip enabled="1"></mapTip>
+      <pipe-data-defined-properties>
+        <Option type="Map">
+          <Option name="name" type="QString" value=""/>
+          <Option name="properties"/>
+          <Option name="type" type="QString" value="collection"/>
+        </Option>
+      </pipe-data-defined-properties>
+      <pipe>
+        <provider>
+          <resampling enabled="false" maxOversampling="2" zoomedInResamplingMethod="nearestNeighbour" zoomedOutResamplingMethod="nearestNeighbour"/>
+        </provider>
+        <rasterrenderer alphaBand="-1" band="1" classificationMax="19" classificationMin="0" nodataColor="" opacity="1" type="singlebandpseudocolor">
+          <rasterTransparency/>
+          <minMaxOrigin>
+            <limits>None</limits>
+            <extent>WholeRaster</extent>
+            <statAccuracy>Exact</statAccuracy>
+            <cumulativeCutLower>0.02</cumulativeCutLower>
+            <cumulativeCutUpper>0.98</cumulativeCutUpper>
+            <stdDevFactor>2</stdDevFactor>
+          </minMaxOrigin>
+          <rastershader>
+            <colorrampshader classificationMode="2" clip="0" colorRampType="INTERPOLATED" labelPrecision="0" maximumValue="19" minimumValue="0">
+              <colorramp name="[source]" type="gradient">
+                <Option type="Map">
+                  <Option name="color1" type="QString" value="255,255,255,255,rgb:1,1,1,1"/>
+                  <Option name="color2" type="QString" value="255,255,255,255,rgb:1,1,1,1"/>
+                  <Option name="direction" type="QString" value="ccw"/>
+                  <Option name="discrete" type="QString" value="0"/>
+                  <Option name="rampType" type="QString" value="gradient"/>
+                  <Option name="spec" type="QString" value="rgb"/>
+                  <Option name="stops" type="QString" value="0.0775623;121,236,121,255,rgb:0.4736858,0.9236286,0.4736858,1;rgb;ccw:0.102493;17,206,227,255,rgb:0.0684215,0.8078431,0.8901961,1;rgb;ccw:0.152355;111,55,0,255,hsv:0.08299999684095383,1,0.43683528900146484,1;rgb;ccw:0.202216;251,84,82,255,hsv:0.00169444445054978,0.67368578910827637,0.9843137264251709,1;rgb;ccw:0.252078;255,178,146,255,hsv:0.04825000092387199,0.42632180452346802,1,1;rgb;ccw:0.315789;252,236,0,255,rgb:0.9883574,0.9273213,0,1;rgb;ccw:0.351801;188,223,156,255,hsv:0.25488889217376709,0.30000764131546021,0.87450981140136719,1;rgb;ccw:0.421053;106,106,106,255,hsv:0.13638888299465179,0,0.41579309105873108,1;rgb;ccw:0.451524;189,189,189,255,hsv:0.16108334064483643,0,0.74210727214813232,1;rgb;ccw:0.501385;51,160,133,255,rgb:0.2,0.627451,0.5210498,1;rgb;ccw:0.578947;142,255,255,255,rgb:0.5579004,1,1,1;rgb;ccw:0.631579;227,162,163,255,hsv:0.99833333492279053,0.2842145562171936,0.89019608497619629,1;rgb;ccw:0.684211;255,199,0,255,rgb:1,0.7789425,0,1;rgb;ccw:0.736842;255,255,255,255,rgb:1,1,1,1;rgb;ccw:0.789474;255,255,255,255,rgb:1,1,1,1;rgb;ccw:0.842105;255,255,255,255,rgb:1,1,1,1;rgb;ccw:0.894737;255,255,255,255,rgb:1,1,1,1;rgb;ccw:0.947368;255,255,255,255,rgb:1,1,1,1;rgb;ccw"/>
+                </Option>
+              </colorramp>
+              <item alpha="255" color="#ffffff" label="Unknown" value="0"/>
+              <item alpha="255" color="#79ec79" label="Hinterland" value="1.473684210526316"/>
+              <item alpha="255" color="#11cee3" label="Sea" value="1.94736842105263"/>
+              <item alpha="255" color="#6f3700" label="Basement" value="2.894736842105263"/>
+              <item alpha="255" color="#fb5452" label="Cliff" value="3.842105263157895"/>
+              <item alpha="255" color="#ffb292" label="Talus" value="4.789473684210526"/>
+              <item alpha="255" color="#fcec00" label="Beach" value="6"/>
+              <item alpha="255" color="#bcdf9c" label="Dunes" value="6.68421052631579"/>
+              <item alpha="255" color="#6a6a6a" label="Structural Intervention" value="8"/>
+              <item alpha="255" color="#bdbdbd" label="Non-structural Intervention" value="8.578947368421051"/>
+              <item alpha="255" color="#33a085" label="Island" value="9.526315789473683"/>
+              <item alpha="255" color="#8effff" label="Inland water" value="11"/>
+              <item alpha="255" color="#e3a2a3" label="Input Unconsolidated" value="12"/>
+              <item alpha="255" color="#ffc700" label="Input Consolidated" value="13"/>
+              <item alpha="255" color="#ffffff" label="14" value="14"/>
+              <item alpha="255" color="#ffffff" label="15" value="15"/>
+              <item alpha="255" color="#ffffff" label="16" value="16"/>
+              <item alpha="255" color="#ffffff" label="17" value="17"/>
+              <item alpha="255" color="#ffffff" label="18" value="18"/>
+              <item alpha="255" color="#ffffff" label="19" value="19"/>
+              <rampLegendSettings direction="0" maximumLabel="" minimumLabel="" orientation="2" prefix="" suffix="" useContinuousLegend="1">
+                <numericFormat id="basic">
+                  <Option type="Map">
+                    <Option name="decimal_separator" type="invalid"/>
+                    <Option name="decimals" type="int" value="6"/>
+                    <Option name="rounding_type" type="int" value="0"/>
+                    <Option name="show_plus" type="bool" value="false"/>
+                    <Option name="show_thousand_separator" type="bool" value="true"/>
+                    <Option name="show_trailing_zeros" type="bool" value="false"/>
+                    <Option name="thousand_separator" type="invalid"/>
+                  </Option>
+                </numericFormat>
+              </rampLegendSettings>
+            </colorrampshader>
+          </rastershader>
+        </rasterrenderer>
+        <brightnesscontrast brightness="0" contrast="0" gamma="1"/>
+        <huesaturation colorizeBlue="128" colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeStrength="100" grayscaleMode="0" invertColors="0" saturation="0"/>
+        <rasterresampler maxOversampling="2"/>
+        <resamplingStage>resamplingFilter</resamplingStage>
+      </pipe>
+      <blendMode>0</blendMode>
+      <legend/>
+    </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>126.5</xmin>
+        <xmin>127.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>126.5</xmin>
+        <xmin>127.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -33561,16 +33868,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>118.5</xmin>
+        <xmin>141.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
-        <ymax>500.5</ymax>
+        <xmax>249.5</xmax>
+        <ymax>471.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>118.5</xmin>
+        <xmin>141.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
-        <ymax>500.5</ymax>
+        <xmax>249.5</xmax>
+        <ymax>471.5</ymax>
       </wgs84extent>
       <id>normals1120160727190712575</id>
       <datasource>../../../out/test_suite/minimal_uncons_wave_angle_230/normals_011.shp</datasource>
@@ -34357,15 +34664,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>130.5</xmin>
+        <xmin>133.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
+        <xmax>249.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>130.5</xmin>
+        <xmin>133.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
+        <xmax>249.5</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>normals_00220170602205851572</id>
@@ -36581,15 +36888,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>115.5</xmin>
+        <xmin>119.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
+        <xmax>249.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>115.5</xmin>
+        <xmin>119.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
+        <xmax>249.5</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>normals_00320170602205757227</id>
@@ -43693,13 +44000,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>65.5</xmin>
+        <xmin>66.5</xmin>
         <ymin>1.5</ymin>
         <xmax>212.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>65.5</xmin>
+        <xmin>66.5</xmin>
         <ymin>1.5</ymin>
         <xmax>212.5</xmax>
         <ymax>500.5</ymax>
@@ -46354,15 +46661,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>67.5</xmin>
+        <xmin>66.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>217.5</xmax>
+        <xmax>218.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>67.5</xmin>
+        <xmin>66.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>217.5</xmax>
+        <xmax>218.5</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>normals_008_92335af6_a231_4703_a300_f23d6751e373</id>
@@ -48584,15 +48891,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>71.5</xmin>
+        <xmin>72.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>230.5</xmax>
+        <xmax>229.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>71.5</xmin>
+        <xmin>72.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>230.5</xmax>
+        <xmax>229.5</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>normals_009_4cd82a29_3516_4a31_8fa3_95dec42be1dc</id>
@@ -50814,13 +51121,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>126.40826820238578421</xmin>
+        <xmin>126.4115551025902846</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>126.40826820238578421</xmin>
+        <xmin>126.4115551025902846</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -53089,15 +53396,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>122.40826820238579842</xmin>
+        <xmin>122.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
+        <xmax>249.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>122.40826820238579842</xmin>
+        <xmin>122.41155510259024197</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
+        <xmax>249.5</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>polygon0220160808152223265</id>
@@ -55364,13 +55671,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>88.40826820238582684</xmin>
+        <xmin>88.41155510259024197</xmin>
         <ymin>1.5</ymin>
         <xmax>237.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>88.40826820238582684</xmin>
+        <xmin>88.41155510259024197</xmin>
         <ymin>1.5</ymin>
         <xmax>237.5</xmax>
         <ymax>500.5</ymax>
@@ -57639,13 +57946,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>72.40826820238582684</xmin>
+        <xmin>72.41155510259024197</xmin>
         <ymin>1.5</ymin>
         <xmax>220.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>72.40826820238582684</xmin>
+        <xmin>72.41155510259024197</xmin>
         <ymin>1.5</ymin>
         <xmax>220.5</xmax>
         <ymax>500.5</ymax>
@@ -59914,15 +60221,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>65.54319210201562385</xmin>
+        <xmin>65.72797146318481509</xmin>
         <ymin>1.5</ymin>
-        <xmax>217.5</xmax>
+        <xmax>218.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>65.54319210201562385</xmin>
+        <xmin>65.72797146318481509</xmin>
         <ymin>1.5</ymin>
-        <xmax>217.5</xmax>
+        <xmax>218.5</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>polygon0820160808152539674</id>
@@ -62189,16 +62496,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>109.33587001234056402</xmin>
+        <xmin>110.53917466300021033</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
-        <ymax>500.5</ymax>
+        <xmax>249.5</xmax>
+        <ymax>474.80073649597153462</ymax>
       </extent>
       <wgs84extent>
-        <xmin>109.33587001234056402</xmin>
+        <xmin>110.53917466300021033</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
-        <ymax>500.5</ymax>
+        <xmax>249.5</xmax>
+        <ymax>474.80073649597153462</ymax>
       </wgs84extent>
       <id>polygon1120160727195452840</id>
       <datasource>../../../out/test_suite/minimal_uncons_wave_angle_230/polygon_011.shp</datasource>
@@ -64464,15 +64771,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>108.40826820238578421</xmin>
+        <xmin>108.41155510259021355</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
+        <xmax>249.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>108.40826820238578421</xmin>
+        <xmin>108.41155510259021355</xmin>
         <ymin>1.5</ymin>
-        <xmax>250.5</xmax>
+        <xmax>249.5</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>polygon_00320161110204759456</id>
@@ -66739,13 +67046,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>65.40826820238584105</xmin>
+        <xmin>65.41155510259024197</xmin>
         <ymin>1.5</ymin>
         <xmax>212.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>65.40826820238584105</xmin>
+        <xmin>65.41155510259024197</xmin>
         <ymin>1.5</ymin>
         <xmax>212.5</xmax>
         <ymax>500.5</ymax>
@@ -69014,13 +69321,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>65.32682023858494347</xmin>
+        <xmin>65.98306443859009107</xmin>
         <ymin>1.5</ymin>
         <xmax>212.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>65.32682023858494347</xmin>
+        <xmin>65.98306443859009107</xmin>
         <ymin>1.5</ymin>
         <xmax>212.5</xmax>
         <ymax>500.5</ymax>
@@ -71289,15 +71596,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>70.46955985191277705</xmin>
+        <xmin>67.29196584812413562</xmin>
         <ymin>1.5</ymin>
-        <xmax>230.5</xmax>
+        <xmax>229.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>70.46955985191277705</xmin>
+        <xmin>67.29196584812413562</xmin>
         <ymin>1.5</ymin>
-        <xmax>230.5</xmax>
+        <xmax>229.5</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>polygon_00920161108120332216</id>
@@ -73581,16 +73888,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>101.40826820238582684</xmin>
+        <xmin>112.99828279137742015</xmin>
         <ymin>1.5</ymin>
-        <xmax>249.5</xmax>
-        <ymax>400.89046151291131537</ymax>
+        <xmax>178.5</xmax>
+        <ymax>16.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>101.40826820238582684</xmin>
+        <xmin>112.99828279137742015</xmin>
         <ymin>1.5</ymin>
-        <xmax>249.5</xmax>
-        <ymax>400.89046151291131537</ymax>
+        <xmax>178.5</xmax>
+        <ymax>16.5</ymax>
       </wgs84extent>
       <id>polygon_01020161108120238829</id>
       <datasource>../../../out/test_suite/minimal_uncons_wave_angle_230/polygon_010.shp</datasource>
@@ -75852,6 +76159,406 @@ def my_form_open(dialog, layer, feature):
       <dataDefinedFieldProperties/>
       <widgets/>
       <previewExpression>"Polygon"</previewExpression>
+      <mapTip enabled="1"></mapTip>
+    </maplayer>
+    <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
+      <extent>
+        <xmin>0</xmin>
+        <ymin>0</ymin>
+        <xmax>0</xmax>
+        <ymax>0</ymax>
+      </extent>
+      <wgs84extent>
+        <xmin>0</xmin>
+        <ymin>0</ymin>
+        <xmax>0</xmax>
+        <ymax>0</ymax>
+      </wgs84extent>
+      <id>polygon_999_972ac62e_3ab2_4800_8d78_b36f8535fb7c</id>
+      <datasource>../../../out/test_suite/minimal_uncons_wave_angle_230/polygon_999.shp</datasource>
+      <layername>polygon_999</layername>
+      <srs>
+        <spatialrefsys nativeFormat="Wkt">
+          <wkt></wkt>
+          <proj4></proj4>
+          <srsid>0</srsid>
+          <srid>0</srid>
+          <authid></authid>
+          <description></description>
+          <projectionacronym></projectionacronym>
+          <ellipsoidacronym></ellipsoidacronym>
+          <geographicflag>false</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <resourceMetadata>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
+        <type>dataset</type>
+        <title></title>
+        <abstract></abstract>
+        <links/>
+        <dates/>
+        <fees></fees>
+        <encoding></encoding>
+        <crs>
+          <spatialrefsys nativeFormat="Wkt">
+            <wkt></wkt>
+            <proj4></proj4>
+            <srsid>0</srsid>
+            <srid>0</srid>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
+            <geographicflag>false</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <extent/>
+      </resourceMetadata>
+      <provider encoding="ISO-8859-1">ogr</provider>
+      <vectorjoins/>
+      <layerDependencies/>
+      <dataDependencies/>
+      <expressionfields/>
+      <map-layer-style-manager current="default">
+        <map-layer-style name="default"/>
+      </map-layer-style-manager>
+      <auxiliaryLayer/>
+      <flags>
+        <Identifiable>1</Identifiable>
+        <Removable>1</Removable>
+        <Searchable>1</Searchable>
+        <Private>0</Private>
+      </flags>
+      <temporal accumulate="0" durationField="" durationUnit="min" enabled="0" endExpression="" endField="" fixedDuration="0" limitMode="0" mode="0" startExpression="" startField="">
+        <fixedRange>
+          <start></start>
+          <end></end>
+        </fixedRange>
+      </temporal>
+      <elevation binding="Centroid" clamping="Terrain" customToleranceEnabled="1" extrusion="0" extrusionEnabled="0" respectLayerSymbol="1" showMarkerSymbolInSurfacePlots="0" symbology="Line" type="IndividualFeatures" zoffset="0" zscale="1">
+        <data-defined-properties>
+          <Option type="Map">
+            <Option name="name" type="QString" value=""/>
+            <Option name="properties"/>
+            <Option name="type" type="QString" value="collection"/>
+          </Option>
+        </data-defined-properties>
+        <profileLineSymbol>
+          <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="line">
+            <data_defined_properties>
+              <Option type="Map">
+                <Option name="name" type="QString" value=""/>
+                <Option name="properties"/>
+                <Option name="type" type="QString" value="collection"/>
+              </Option>
+            </data_defined_properties>
+            <layer class="SimpleLine" enabled="1" id="{78153bb4-8643-4980-8397-9a37137d2355}" locked="0" pass="0">
+              <Option type="Map">
+                <Option name="align_dash_pattern" type="QString" value="0"/>
+                <Option name="capstyle" type="QString" value="square"/>
+                <Option name="customdash" type="QString" value="5;2"/>
+                <Option name="customdash_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="customdash_unit" type="QString" value="MM"/>
+                <Option name="dash_pattern_offset" type="QString" value="0"/>
+                <Option name="dash_pattern_offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="dash_pattern_offset_unit" type="QString" value="MM"/>
+                <Option name="draw_inside_polygon" type="QString" value="0"/>
+                <Option name="joinstyle" type="QString" value="bevel"/>
+                <Option name="line_color" type="QString" value="225,89,137,255,rgb:0.8823529,0.3490196,0.5372549,1"/>
+                <Option name="line_style" type="QString" value="solid"/>
+                <Option name="line_width" type="QString" value="0.6"/>
+                <Option name="line_width_unit" type="QString" value="MM"/>
+                <Option name="offset" type="QString" value="0"/>
+                <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="offset_unit" type="QString" value="MM"/>
+                <Option name="ring_filter" type="QString" value="0"/>
+                <Option name="trim_distance_end" type="QString" value="0"/>
+                <Option name="trim_distance_end_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="trim_distance_end_unit" type="QString" value="MM"/>
+                <Option name="trim_distance_start" type="QString" value="0"/>
+                <Option name="trim_distance_start_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="trim_distance_start_unit" type="QString" value="MM"/>
+                <Option name="tweak_dash_pattern_on_corners" type="QString" value="0"/>
+                <Option name="use_custom_dash" type="QString" value="0"/>
+                <Option name="width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+              </Option>
+              <data_defined_properties>
+                <Option type="Map">
+                  <Option name="name" type="QString" value=""/>
+                  <Option name="properties"/>
+                  <Option name="type" type="QString" value="collection"/>
+                </Option>
+              </data_defined_properties>
+            </layer>
+          </symbol>
+        </profileLineSymbol>
+        <profileFillSymbol>
+          <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="fill">
+            <data_defined_properties>
+              <Option type="Map">
+                <Option name="name" type="QString" value=""/>
+                <Option name="properties"/>
+                <Option name="type" type="QString" value="collection"/>
+              </Option>
+            </data_defined_properties>
+            <layer class="SimpleFill" enabled="1" id="{42d04999-15de-43c9-84db-9475ff1605c1}" locked="0" pass="0">
+              <Option type="Map">
+                <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="color" type="QString" value="225,89,137,255,rgb:0.8823529,0.3490196,0.5372549,1"/>
+                <Option name="joinstyle" type="QString" value="bevel"/>
+                <Option name="offset" type="QString" value="0,0"/>
+                <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="offset_unit" type="QString" value="MM"/>
+                <Option name="outline_color" type="QString" value="161,64,98,255,rgb:0.6302434,0.2493019,0.3837796,1"/>
+                <Option name="outline_style" type="QString" value="solid"/>
+                <Option name="outline_width" type="QString" value="0.2"/>
+                <Option name="outline_width_unit" type="QString" value="MM"/>
+                <Option name="style" type="QString" value="solid"/>
+              </Option>
+              <data_defined_properties>
+                <Option type="Map">
+                  <Option name="name" type="QString" value=""/>
+                  <Option name="properties"/>
+                  <Option name="type" type="QString" value="collection"/>
+                </Option>
+              </data_defined_properties>
+            </layer>
+          </symbol>
+        </profileFillSymbol>
+        <profileMarkerSymbol>
+          <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="marker">
+            <data_defined_properties>
+              <Option type="Map">
+                <Option name="name" type="QString" value=""/>
+                <Option name="properties"/>
+                <Option name="type" type="QString" value="collection"/>
+              </Option>
+            </data_defined_properties>
+            <layer class="SimpleMarker" enabled="1" id="{0468b71c-d852-4cd7-8423-a88cdad05562}" locked="0" pass="0">
+              <Option type="Map">
+                <Option name="angle" type="QString" value="0"/>
+                <Option name="cap_style" type="QString" value="square"/>
+                <Option name="color" type="QString" value="225,89,137,255,rgb:0.8823529,0.3490196,0.5372549,1"/>
+                <Option name="horizontal_anchor_point" type="QString" value="1"/>
+                <Option name="joinstyle" type="QString" value="bevel"/>
+                <Option name="name" type="QString" value="diamond"/>
+                <Option name="offset" type="QString" value="0,0"/>
+                <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="offset_unit" type="QString" value="MM"/>
+                <Option name="outline_color" type="QString" value="161,64,98,255,rgb:0.6302434,0.2493019,0.3837796,1"/>
+                <Option name="outline_style" type="QString" value="solid"/>
+                <Option name="outline_width" type="QString" value="0.2"/>
+                <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="outline_width_unit" type="QString" value="MM"/>
+                <Option name="scale_method" type="QString" value="diameter"/>
+                <Option name="size" type="QString" value="3"/>
+                <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="size_unit" type="QString" value="MM"/>
+                <Option name="vertical_anchor_point" type="QString" value="1"/>
+              </Option>
+              <data_defined_properties>
+                <Option type="Map">
+                  <Option name="name" type="QString" value=""/>
+                  <Option name="properties"/>
+                  <Option name="type" type="QString" value="collection"/>
+                </Option>
+              </data_defined_properties>
+            </layer>
+          </symbol>
+        </profileMarkerSymbol>
+      </elevation>
+      <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="singleSymbol">
+        <symbols>
+          <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="line">
+            <data_defined_properties>
+              <Option type="Map">
+                <Option name="name" type="QString" value=""/>
+                <Option name="properties"/>
+                <Option name="type" type="QString" value="collection"/>
+              </Option>
+            </data_defined_properties>
+            <layer class="SimpleLine" enabled="1" id="{51156606-ca73-48b7-b44b-40ad30050a13}" locked="0" pass="0">
+              <Option type="Map">
+                <Option name="align_dash_pattern" type="QString" value="0"/>
+                <Option name="capstyle" type="QString" value="square"/>
+                <Option name="customdash" type="QString" value="5;2"/>
+                <Option name="customdash_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="customdash_unit" type="QString" value="MM"/>
+                <Option name="dash_pattern_offset" type="QString" value="0"/>
+                <Option name="dash_pattern_offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="dash_pattern_offset_unit" type="QString" value="MM"/>
+                <Option name="draw_inside_polygon" type="QString" value="0"/>
+                <Option name="joinstyle" type="QString" value="bevel"/>
+                <Option name="line_color" type="QString" value="190,207,80,255,rgb:0.7450981,0.8117647,0.3137255,1"/>
+                <Option name="line_style" type="QString" value="solid"/>
+                <Option name="line_width" type="QString" value="0.26"/>
+                <Option name="line_width_unit" type="QString" value="MM"/>
+                <Option name="offset" type="QString" value="0"/>
+                <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="offset_unit" type="QString" value="MM"/>
+                <Option name="ring_filter" type="QString" value="0"/>
+                <Option name="trim_distance_end" type="QString" value="0"/>
+                <Option name="trim_distance_end_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="trim_distance_end_unit" type="QString" value="MM"/>
+                <Option name="trim_distance_start" type="QString" value="0"/>
+                <Option name="trim_distance_start_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+                <Option name="trim_distance_start_unit" type="QString" value="MM"/>
+                <Option name="tweak_dash_pattern_on_corners" type="QString" value="0"/>
+                <Option name="use_custom_dash" type="QString" value="0"/>
+                <Option name="width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
+              </Option>
+              <data_defined_properties>
+                <Option type="Map">
+                  <Option name="name" type="QString" value=""/>
+                  <Option name="properties"/>
+                  <Option name="type" type="QString" value="collection"/>
+                </Option>
+              </data_defined_properties>
+            </layer>
+          </symbol>
+        </symbols>
+        <rotation/>
+        <sizescale/>
+        <data-defined-properties>
+          <Option type="Map">
+            <Option name="name" type="QString" value=""/>
+            <Option name="properties"/>
+            <Option name="type" type="QString" value="collection"/>
+          </Option>
+        </data-defined-properties>
+      </renderer-v2>
+      <selection mode="Default">
+        <selectionColor invalid="1"/>
+      </selection>
+      <customproperties>
+        <Option/>
+      </customproperties>
+      <blendMode>0</blendMode>
+      <featureBlendMode>0</featureBlendMode>
+      <layerOpacity>1</layerOpacity>
+      <geometryOptions geometryPrecision="0" removeDuplicateNodes="0">
+        <activeChecks type="StringList">
+          <Option type="QString" value=""/>
+        </activeChecks>
+        <checkConfiguration/>
+      </geometryOptions>
+      <legend showLabelLegend="0" type="default-vector"/>
+      <referencedLayers/>
+      <referencingLayers/>
+      <fieldConfiguration>
+        <field configurationFlags="NoFlag" name="Coast">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field configurationFlags="NoFlag" name="Polygon">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field configurationFlags="NoFlag" name="CoastNode">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field configurationFlags="NoFlag" name="TotSedChng">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field configurationFlags="NoFlag" name="FinSedChng">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field configurationFlags="NoFlag" name="SndSedChng">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field configurationFlags="NoFlag" name="CrsSedChng">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+      </fieldConfiguration>
+      <aliases>
+        <alias field="Coast" index="0" name=""/>
+        <alias field="Polygon" index="1" name=""/>
+        <alias field="CoastNode" index="2" name=""/>
+        <alias field="TotSedChng" index="3" name=""/>
+        <alias field="FinSedChng" index="4" name=""/>
+        <alias field="SndSedChng" index="5" name=""/>
+        <alias field="CrsSedChng" index="6" name=""/>
+      </aliases>
+      <defaults>
+        <default applyOnUpdate="0" expression="" field="Coast"/>
+        <default applyOnUpdate="0" expression="" field="Polygon"/>
+        <default applyOnUpdate="0" expression="" field="CoastNode"/>
+        <default applyOnUpdate="0" expression="" field="TotSedChng"/>
+        <default applyOnUpdate="0" expression="" field="FinSedChng"/>
+        <default applyOnUpdate="0" expression="" field="SndSedChng"/>
+        <default applyOnUpdate="0" expression="" field="CrsSedChng"/>
+      </defaults>
+      <constraints>
+        <constraint constraints="0" exp_strength="0" field="Coast" notnull_strength="0" unique_strength="0"/>
+        <constraint constraints="0" exp_strength="0" field="Polygon" notnull_strength="0" unique_strength="0"/>
+        <constraint constraints="0" exp_strength="0" field="CoastNode" notnull_strength="0" unique_strength="0"/>
+        <constraint constraints="0" exp_strength="0" field="TotSedChng" notnull_strength="0" unique_strength="0"/>
+        <constraint constraints="0" exp_strength="0" field="FinSedChng" notnull_strength="0" unique_strength="0"/>
+        <constraint constraints="0" exp_strength="0" field="SndSedChng" notnull_strength="0" unique_strength="0"/>
+        <constraint constraints="0" exp_strength="0" field="CrsSedChng" notnull_strength="0" unique_strength="0"/>
+      </constraints>
+      <constraintExpressions>
+        <constraint desc="" exp="" field="Coast"/>
+        <constraint desc="" exp="" field="Polygon"/>
+        <constraint desc="" exp="" field="CoastNode"/>
+        <constraint desc="" exp="" field="TotSedChng"/>
+        <constraint desc="" exp="" field="FinSedChng"/>
+        <constraint desc="" exp="" field="SndSedChng"/>
+        <constraint desc="" exp="" field="CrsSedChng"/>
+      </constraintExpressions>
+      <expressionfields/>
+      <attributeactions>
+        <defaultAction key="Canvas" value="{00000000-0000-0000-0000-000000000000}"/>
+      </attributeactions>
+      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="0">
+        <columns/>
+      </attributetableconfig>
+      <conditionalstyles>
+        <rowstyles/>
+        <fieldstyles/>
+      </conditionalstyles>
+      <storedexpressions/>
+      <editform tolerant="1"></editform>
+      <editforminit/>
+      <editforminitcodesource>0</editforminitcodesource>
+      <editforminitfilepath></editforminitfilepath>
+      <editforminitcode><![CDATA[]]></editforminitcode>
+      <featformsuppress>0</featformsuppress>
+      <editorlayout>generatedlayout</editorlayout>
+      <editable/>
+      <labelOnTop/>
+      <reuseLastValuePolicy/>
+      <dataDefinedFieldProperties/>
+      <widgets/>
+      <previewExpression></previewExpression>
       <mapTip enabled="1"></mapTip>
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" hasScaleBasedVisibilityFlag="0" layerType="Raster" legendPlaceholderImage="" maxScale="0" minScale="1e+08" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" styleCategories="AllStyleCategories" type="raster">
@@ -90420,16 +91127,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>0</xmin>
-        <ymin>0</ymin>
-        <xmax>0</xmax>
-        <ymax>0</ymax>
+        <xmin>84.5</xmin>
+        <ymin>2.5</ymin>
+        <xmax>92.5</xmax>
+        <ymax>14.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>0</xmin>
-        <ymin>0</ymin>
-        <xmax>0</xmax>
-        <ymax>0</ymax>
+        <xmin>84.5</xmin>
+        <ymin>2.5</ymin>
+        <xmax>92.5</xmax>
+        <ymax>14.5</ymax>
       </wgs84extent>
       <id>shadow_zone_00920170305142754773</id>
       <datasource>../../../out/test_suite/minimal_uncons_wave_angle_230/shadow_boundary_009.shp</datasource>
@@ -91532,16 +92239,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>120.5</xmin>
-        <ymin>472.5</ymin>
-        <xmax>125.5</xmax>
-        <ymax>481.5</ymax>
+        <xmin>0</xmin>
+        <ymin>0</ymin>
+        <xmax>0</xmax>
+        <ymax>0</ymax>
       </extent>
       <wgs84extent>
-        <xmin>120.5</xmin>
-        <ymin>472.5</ymin>
-        <xmax>125.5</xmax>
-        <ymax>481.5</ymax>
+        <xmin>0</xmin>
+        <ymin>0</ymin>
+        <xmax>0</xmax>
+        <ymax>0</ymax>
       </wgs84extent>
       <id>shadow_zone_01120170304192719125</id>
       <datasource>../../../out/test_suite/minimal_uncons_wave_angle_230/shadow_boundary_011.shp</datasource>
@@ -98796,13 +99503,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>92.5</xmin>
+        <xmin>96.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>92.5</xmin>
+        <xmin>96.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -99303,13 +100010,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>85.5</xmin>
+        <xmin>82.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>85.5</xmin>
+        <xmin>82.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -99810,13 +100517,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>77.5</xmin>
+        <xmin>74.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>77.5</xmin>
+        <xmin>74.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -100317,13 +101024,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>67.5</xmin>
+        <xmin>66.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>67.5</xmin>
+        <xmin>66.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -100824,13 +101531,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>72.5</xmin>
+        <xmin>68.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>72.5</xmin>
+        <xmin>68.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -101331,13 +102038,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>99.5</xmin>
+        <xmin>103.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>99.5</xmin>
+        <xmin>103.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -101838,15 +102545,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>126.40826820238578421</xmin>
+        <xmin>126.4115551025902846</xmin>
         <ymin>1.5</ymin>
-        <xmax>139.43253805018505886</xmax>
+        <xmax>139.2376382131800483</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>126.40826820238578421</xmin>
+        <xmin>126.4115551025902846</xmin>
         <ymin>1.5</ymin>
-        <xmax>139.43253805018505886</xmax>
+        <xmax>139.2376382131800483</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>wave_energy_00120171229162032331</id>
@@ -105426,13 +106133,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>152.5</xmin>
+        <xmin>150.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>152.5</xmin>
+        <xmin>150.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -105933,13 +106640,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>132.5</xmin>
+        <xmin>123.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>132.5</xmin>
+        <xmin>123.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -106440,13 +107147,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>124.5</xmin>
+        <xmin>109.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>124.5</xmin>
+        <xmin>109.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -106947,13 +107654,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>110.5</xmin>
+        <xmin>109.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>110.5</xmin>
+        <xmin>109.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -107454,13 +108161,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>110.5</xmin>
+        <xmin>130.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>110.5</xmin>
+        <xmin>130.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -108176,6 +108883,8 @@ def my_form_open(dialog, layer, feature):
     <layer id="rcoast_005_fe39fa36_10c1_4345_993d_056d4501f15f"/>
     <layer id="rcoast_004_b1271196_7829_4081_8e0d_3e7c9057b097"/>
     <layer id="rcoast_011_2be1efed_2ef4_454d_9b2c_0764f4d0eac5"/>
+    <layer id="polygon_999_972ac62e_3ab2_4800_8d78_b36f8535fb7c"/>
+    <layer id="landform_class_999_58b80f9b_ddd0_4d33_a76c_afaebb8aad2e"/>
   </layerorder>
   <labelEngineSettings/>
   <properties name="properties">
@@ -108744,7 +109453,7 @@ def my_form_open(dialog, layer, feature):
   <Sensors/>
   <ProjectViewSettings UseProjectScales="0" rotation="0">
     <Scales/>
-    <DefaultViewExtent xmax="582.56335460346394939" xmin="-330.56335460346400623" ymax="513.5" ymin="-11.5">
+    <DefaultViewExtent xmax="636.6502278942571138" xmin="-274.6502278942571138" ymax="512.97500000000002274" ymin="-10.97500000000002274">
       <spatialrefsys nativeFormat="Wkt">
         <wkt>ENGCRS["Plane",EDATUM["Unknown engineering datum"],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["Meter",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["Meter",1]]]</wkt>
         <proj4></proj4>

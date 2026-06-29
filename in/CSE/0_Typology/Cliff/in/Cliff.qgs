@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-06-25T16:55:06" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.0.3-Norrköping">
+<qgis projectname="" saveDateTime="2026-06-28T18:51:09" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.0.3-Norrköping">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
@@ -109,7 +109,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="017">
+      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="017">
         <customproperties>
           <Option/>
         </customproperties>
@@ -174,7 +174,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="121">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="121">
         <customproperties>
           <Option/>
         </customproperties>
@@ -213,16 +213,16 @@
   </layer-tree-group>
   <snapping-settings enabled="1" intersection-snapping="0" maxScale="0" minScale="0" mode="2" scaleDependencyMode="0" self-snapping="0" tolerance="12" type="1" unit="1">
     <individual-layer-settings>
-      <layer-setting enabled="1" id="normals_002_38b1c5e4_010d_4374_a0d4_fd90c6f6f1bc" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
       <layer-setting enabled="1" id="coast_002_c531e3c4_9dce_4dd5_826f_a9c370361dc2" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="coast_017_b25a7d57_91c0_4ee6_8b84_b6d99a7e8be2" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="coast_001_4f7564f3_882e_4a4b_ac6c_a02fa497aa42" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="normals_001_c8a59287_45f9_4611_87fa_e41a467735d9" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="polygon_002_e648227b_ca9a_4691_91d7_b4fddc9874d4" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="polygon_061_c60d3f03_0cc1_4786_9849_34569a6ead88" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="1" id="polygon_017_1511c8a1_1e61_4e64_8f67_8938c9fce7b5" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
       <layer-setting enabled="1" id="polygon_001_8a1fea6e_c4b8_49ec_b427_ff63763e558d" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
       <layer-setting enabled="1" id="polygon_100_92f4aec7_c541_489d_9954_9c959f2cd8da" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="normals_002_38b1c5e4_010d_4374_a0d4_fd90c6f6f1bc" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="polygon_002_e648227b_ca9a_4691_91d7_b4fddc9874d4" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="normals_001_c8a59287_45f9_4611_87fa_e41a467735d9" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="coast_001_4f7564f3_882e_4a4b_ac6c_a02fa497aa42" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="polygon_061_c60d3f03_0cc1_4786_9849_34569a6ead88" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="coast_017_b25a7d57_91c0_4ee6_8b84_b6d99a7e8be2" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="1" id="polygon_017_1511c8a1_1e61_4e64_8f67_8938c9fce7b5" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
     </individual-layer-settings>
   </snapping-settings>
   <relations/>
@@ -319,20 +319,20 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Unchecked" name="017" open="false">
+      <legendgroup checked="Qt::Checked" name="017" open="false">
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="coast_017" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="coast_017_b25a7d57_91c0_4ee6_8b84_b6d99a7e8be2" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="coast_017_b25a7d57_91c0_4ee6_8b84_b6d99a7e8be2" visible="1"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="polygon_017" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="polygon_017_1511c8a1_1e61_4e64_8f67_8938c9fce7b5" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="polygon_017_1511c8a1_1e61_4e64_8f67_8938c9fce7b5" visible="1"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_017" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="landform_class_017_f7751925_f1ac_4333_b864_01cb6789539f" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="landform_class_017_f7751925_f1ac_4333_b864_01cb6789539f" visible="1"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="sediment_top_elevation_017" open="false" showFeatureCount="0">
@@ -375,10 +375,10 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Checked" name="121" open="false">
+      <legendgroup checked="Qt::Unchecked" name="121" open="false">
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_121" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="landform_class_121_5fb51fb8_035f_42a8_857f_4b488743825f" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="landform_class_121_5fb51fb8_035f_42a8_857f_4b488743825f" visible="0"/>
           </filegroup>
         </legendlayer>
       </legendgroup>
@@ -1168,16 +1168,16 @@
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647499</xmin>
+        <xmin>647500.45454545458778739</xmin>
         <ymin>259951</ymin>
-        <xmax>647677</xmax>
+        <xmax>647675.80000000004656613</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61902232989989758</xmin>
-        <ymin>52.1821751398035687</ymin>
-        <xmax>1.62209333944384171</xmax>
-        <ymax>52.18806932912524132</ymax>
+        <xmin>1.6190435611987164</xmin>
+        <ymin>52.18217567808882507</ymin>
+        <xmax>1.62207582142231543</xmax>
+        <ymax>52.18806867699218088</ymax>
       </wgs84extent>
       <id>coast_001_4f7564f3_882e_4a4b_ac6c_a02fa497aa42</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/coast_001.shp</datasource>
@@ -1595,16 +1595,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647499</xmin>
+        <xmin>647501</xmin>
         <ymin>259951</ymin>
-        <xmax>647679</xmax>
+        <xmax>647677.80000000004656613</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61902232989989758</xmin>
-        <ymin>52.18217424265573356</ymin>
-        <xmax>1.62212253614515967</xmax>
-        <ymax>52.18806932912524132</ymax>
+        <xmin>1.61905152293556442</xmin>
+        <ymin>52.18217478094530293</ymin>
+        <xmax>1.62210501812455421</xmax>
+        <ymax>52.18806843244130533</ymax>
       </wgs84extent>
       <id>coast_002_c531e3c4_9dce_4dd5_826f_a9c370361dc2</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/coast_002.shp</datasource>
@@ -2005,15 +2005,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647527</xmin>
+        <xmin>647528.27272727270610631</xmin>
         <ymin>259951</ymin>
-        <xmax>647703</xmax>
+        <xmax>647694.3940426514018327</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>647527</xmin>
+        <xmin>647528.27272727270610631</xmin>
         <ymin>259951</ymin>
-        <xmax>647703</xmax>
+        <xmax>647694.3940426514018327</xmax>
         <ymax>260599</ymax>
       </wgs84extent>
       <id>coast_017_b25a7d57_91c0_4ee6_8b84_b6d99a7e8be2</id>
@@ -3204,38 +3204,38 @@ def my_form_open(dialog, layer, feature):
       <layername>landform_class_061</layername>
       <srs>
         <spatialrefsys nativeFormat="Wkt">
-          <wkt></wkt>
-          <proj4></proj4>
+          <wkt/>
+          <proj4/>
           <srsid>0</srsid>
           <srid>0</srid>
-          <authid></authid>
-          <description></description>
-          <projectionacronym></projectionacronym>
-          <ellipsoidacronym></ellipsoidacronym>
+          <authid/>
+          <description/>
+          <projectionacronym/>
+          <ellipsoidacronym/>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier></identifier>
-        <parentidentifier></parentidentifier>
-        <language></language>
+        <identifier/>
+        <parentidentifier/>
+        <language/>
         <type>dataset</type>
-        <title></title>
-        <abstract></abstract>
+        <title/>
+        <abstract/>
         <links/>
         <dates/>
-        <fees></fees>
-        <encoding></encoding>
+        <fees/>
+        <encoding/>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt></wkt>
-            <proj4></proj4>
+            <wkt/>
+            <proj4/>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid></authid>
-            <description></description>
-            <projectionacronym></projectionacronym>
-            <ellipsoidacronym></ellipsoidacronym>
+            <authid/>
+            <description/>
+            <projectionacronym/>
+            <ellipsoidacronym/>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -3256,8 +3256,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal bandNumber="1" enabled="0" fetchMode="0" mode="0">
         <fixedRange>
-          <start></start>
-          <end></end>
+          <start/>
+          <end/>
         </fixedRange>
       </temporal>
       <elevation band="1" enabled="0" mode="RepresentsElevationSurface" symbology="Line" zoffset="0" zscale="1">
@@ -3359,7 +3359,7 @@ def my_form_open(dialog, layer, feature):
           <Option name="identify/format" type="QString" value="Value"/>
         </Option>
       </customproperties>
-      <mapTip enabled="1"></mapTip>
+      <mapTip enabled="1"/>
       <pipe-data-defined-properties>
         <Option type="Map">
           <Option name="name" type="QString" value=""/>
@@ -3456,38 +3456,38 @@ def my_form_open(dialog, layer, feature):
       <layername>landform_class_100</layername>
       <srs>
         <spatialrefsys nativeFormat="Wkt">
-          <wkt></wkt>
-          <proj4></proj4>
+          <wkt/>
+          <proj4/>
           <srsid>0</srsid>
           <srid>0</srid>
-          <authid></authid>
-          <description></description>
-          <projectionacronym></projectionacronym>
-          <ellipsoidacronym></ellipsoidacronym>
+          <authid/>
+          <description/>
+          <projectionacronym/>
+          <ellipsoidacronym/>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier></identifier>
-        <parentidentifier></parentidentifier>
-        <language></language>
+        <identifier/>
+        <parentidentifier/>
+        <language/>
         <type>dataset</type>
-        <title></title>
-        <abstract></abstract>
+        <title/>
+        <abstract/>
         <links/>
         <dates/>
-        <fees></fees>
-        <encoding></encoding>
+        <fees/>
+        <encoding/>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt></wkt>
-            <proj4></proj4>
+            <wkt/>
+            <proj4/>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid></authid>
-            <description></description>
-            <projectionacronym></projectionacronym>
-            <ellipsoidacronym></ellipsoidacronym>
+            <authid/>
+            <description/>
+            <projectionacronym/>
+            <ellipsoidacronym/>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -3508,8 +3508,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal bandNumber="1" enabled="0" fetchMode="0" mode="0">
         <fixedRange>
-          <start></start>
-          <end></end>
+          <start/>
+          <end/>
         </fixedRange>
       </temporal>
       <elevation band="1" enabled="0" mode="RepresentsElevationSurface" symbology="Line" zoffset="0" zscale="1">
@@ -3611,7 +3611,7 @@ def my_form_open(dialog, layer, feature):
           <Option name="identify/format" type="QString" value="Value"/>
         </Option>
       </customproperties>
-      <mapTip enabled="1"></mapTip>
+      <mapTip enabled="1"/>
       <pipe-data-defined-properties>
         <Option type="Map">
           <Option name="name" type="QString" value=""/>
@@ -3708,38 +3708,38 @@ def my_form_open(dialog, layer, feature):
       <layername>landform_class_121</layername>
       <srs>
         <spatialrefsys nativeFormat="Wkt">
-          <wkt></wkt>
-          <proj4></proj4>
+          <wkt/>
+          <proj4/>
           <srsid>0</srsid>
           <srid>0</srid>
-          <authid></authid>
-          <description></description>
-          <projectionacronym></projectionacronym>
-          <ellipsoidacronym></ellipsoidacronym>
+          <authid/>
+          <description/>
+          <projectionacronym/>
+          <ellipsoidacronym/>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier></identifier>
-        <parentidentifier></parentidentifier>
-        <language></language>
+        <identifier/>
+        <parentidentifier/>
+        <language/>
         <type>dataset</type>
-        <title></title>
-        <abstract></abstract>
+        <title/>
+        <abstract/>
         <links/>
         <dates/>
-        <fees></fees>
-        <encoding></encoding>
+        <fees/>
+        <encoding/>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt></wkt>
-            <proj4></proj4>
+            <wkt/>
+            <proj4/>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid></authid>
-            <description></description>
-            <projectionacronym></projectionacronym>
-            <ellipsoidacronym></ellipsoidacronym>
+            <authid/>
+            <description/>
+            <projectionacronym/>
+            <ellipsoidacronym/>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -3760,8 +3760,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal bandNumber="1" enabled="0" fetchMode="0" mode="0">
         <fixedRange>
-          <start></start>
-          <end></end>
+          <start/>
+          <end/>
         </fixedRange>
       </temporal>
       <elevation band="1" enabled="0" mode="RepresentsElevationSurface" symbology="Line" zoffset="0" zscale="1">
@@ -3863,7 +3863,7 @@ def my_form_open(dialog, layer, feature):
           <Option name="identify/format" type="QString" value="Value"/>
         </Option>
       </customproperties>
-      <mapTip enabled="1"></mapTip>
+      <mapTip enabled="1"/>
       <pipe-data-defined-properties>
         <Option type="Map">
           <Option name="name" type="QString" value=""/>
@@ -3944,16 +3944,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647499</xmin>
+        <xmin>647497</xmin>
         <ymin>259951</ymin>
         <xmax>648377</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61902232989989758</xmin>
+        <xmin>1.61899313686269974</xmin>
         <ymin>52.18186069777102887</ymin>
         <xmax>1.6323120912833613</xmax>
-        <ymax>52.18806932912524132</ymax>
+        <ymax>52.18807022580196531</ymax>
       </wgs84extent>
       <id>normals_001_c8a59287_45f9_4611_87fa_e41a467735d9</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/normals_001.shp</datasource>
@@ -6855,16 +6855,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647499</xmin>
+        <xmin>647497</xmin>
         <ymin>259951</ymin>
         <xmax>648377</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61902232989989758</xmin>
+        <xmin>1.61899313686269974</xmin>
         <ymin>52.18186069777102887</ymin>
         <xmax>1.6323120912833613</xmax>
-        <ymax>52.18806932912524132</ymax>
+        <ymax>52.18807022580196531</ymax>
       </wgs84extent>
       <id>polygon_001_8a1fea6e_c4b8_49ec_b427_ff63763e558d</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/polygon_001.shp</datasource>
@@ -9664,16 +9664,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647527</xmin>
-        <ymin>259951</ymin>
-        <xmax>648403</xmax>
-        <ymax>260599</ymax>
+        <xmin>0</xmin>
+        <ymin>0</ymin>
+        <xmax>0</xmax>
+        <ymax>0</ymax>
       </extent>
       <wgs84extent>
-        <xmin>647527</xmin>
-        <ymin>259951</ymin>
-        <xmax>648403</xmax>
-        <ymax>260599</ymax>
+        <xmin>0</xmin>
+        <ymin>0</ymin>
+        <xmax>0</xmax>
+        <ymax>0</ymax>
       </wgs84extent>
       <id>polygon_017_1511c8a1_1e61_4e64_8f67_8938c9fce7b5</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/polygon_017.shp</datasource>
@@ -11093,38 +11093,38 @@ def my_form_open(dialog, layer, feature):
       <layername>polygon_061</layername>
       <srs>
         <spatialrefsys nativeFormat="Wkt">
-          <wkt></wkt>
-          <proj4></proj4>
+          <wkt/>
+          <proj4/>
           <srsid>0</srsid>
           <srid>0</srid>
-          <authid></authid>
-          <description></description>
-          <projectionacronym></projectionacronym>
-          <ellipsoidacronym></ellipsoidacronym>
+          <authid/>
+          <description/>
+          <projectionacronym/>
+          <ellipsoidacronym/>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier></identifier>
-        <parentidentifier></parentidentifier>
-        <language></language>
+        <identifier/>
+        <parentidentifier/>
+        <language/>
         <type>dataset</type>
-        <title></title>
-        <abstract></abstract>
+        <title/>
+        <abstract/>
         <links/>
         <dates/>
-        <fees></fees>
-        <encoding></encoding>
+        <fees/>
+        <encoding/>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt></wkt>
-            <proj4></proj4>
+            <wkt/>
+            <proj4/>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid></authid>
-            <description></description>
-            <projectionacronym></projectionacronym>
-            <ellipsoidacronym></ellipsoidacronym>
+            <authid/>
+            <description/>
+            <projectionacronym/>
+            <ellipsoidacronym/>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -11147,8 +11147,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal accumulate="0" durationField="Coast" durationUnit="min" enabled="0" endExpression="" endField="" fixedDuration="0" limitMode="0" mode="0" startExpression="" startField="">
         <fixedRange>
-          <start></start>
-          <end></end>
+          <start/>
+          <end/>
         </fixedRange>
       </temporal>
       <elevation binding="Centroid" clamping="Terrain" customToleranceEnabled="1" extrusion="0" extrusionEnabled="0" respectLayerSymbol="1" showMarkerSymbolInSurfacePlots="0" symbology="Line" type="IndividualFeatures" zoffset="0" zscale="1">
@@ -12416,10 +12416,10 @@ def my_form_open(dialog, layer, feature):
         <fieldstyles/>
       </conditionalstyles>
       <storedexpressions/>
-      <editform tolerant="1"></editform>
+      <editform tolerant="1"/>
       <editforminit/>
       <editforminitcodesource>0</editforminitcodesource>
-      <editforminitfilepath></editforminitfilepath>
+      <editforminitfilepath/>
       <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
 """
 QGIS forms can have a Python function that is called when the form is
@@ -12469,7 +12469,7 @@ def my_form_open(dialog, layer, feature):
       <dataDefinedFieldProperties/>
       <widgets/>
       <previewExpression>"Coast"</previewExpression>
-      <mapTip enabled="1"></mapTip>
+      <mapTip enabled="1"/>
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
@@ -12489,38 +12489,38 @@ def my_form_open(dialog, layer, feature):
       <layername>polygon_100</layername>
       <srs>
         <spatialrefsys nativeFormat="Wkt">
-          <wkt></wkt>
-          <proj4></proj4>
+          <wkt/>
+          <proj4/>
           <srsid>0</srsid>
           <srid>0</srid>
-          <authid></authid>
-          <description></description>
-          <projectionacronym></projectionacronym>
-          <ellipsoidacronym></ellipsoidacronym>
+          <authid/>
+          <description/>
+          <projectionacronym/>
+          <ellipsoidacronym/>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier></identifier>
-        <parentidentifier></parentidentifier>
-        <language></language>
+        <identifier/>
+        <parentidentifier/>
+        <language/>
         <type>dataset</type>
-        <title></title>
-        <abstract></abstract>
+        <title/>
+        <abstract/>
         <links/>
         <dates/>
-        <fees></fees>
-        <encoding></encoding>
+        <fees/>
+        <encoding/>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt></wkt>
-            <proj4></proj4>
+            <wkt/>
+            <proj4/>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid></authid>
-            <description></description>
-            <projectionacronym></projectionacronym>
-            <ellipsoidacronym></ellipsoidacronym>
+            <authid/>
+            <description/>
+            <projectionacronym/>
+            <ellipsoidacronym/>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -12543,8 +12543,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal accumulate="0" durationField="Coast" durationUnit="min" enabled="0" endExpression="" endField="" fixedDuration="0" limitMode="0" mode="0" startExpression="" startField="">
         <fixedRange>
-          <start></start>
-          <end></end>
+          <start/>
+          <end/>
         </fixedRange>
       </temporal>
       <elevation binding="Centroid" clamping="Terrain" customToleranceEnabled="1" extrusion="0" extrusionEnabled="0" respectLayerSymbol="1" showMarkerSymbolInSurfacePlots="0" symbology="Line" type="IndividualFeatures" zoffset="0" zscale="1">
@@ -13812,10 +13812,10 @@ def my_form_open(dialog, layer, feature):
         <fieldstyles/>
       </conditionalstyles>
       <storedexpressions/>
-      <editform tolerant="1"></editform>
+      <editform tolerant="1"/>
       <editforminit/>
       <editforminitcodesource>0</editforminitcodesource>
-      <editforminitfilepath></editforminitfilepath>
+      <editforminitfilepath/>
       <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
 """
 QGIS forms can have a Python function that is called when the form is
@@ -13865,7 +13865,7 @@ def my_form_open(dialog, layer, feature):
       <dataDefinedFieldProperties/>
       <widgets/>
       <previewExpression>"Coast"</previewExpression>
-      <mapTip enabled="1"></mapTip>
+      <mapTip enabled="1"/>
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" hasScaleBasedVisibilityFlag="0" layerType="Raster" legendPlaceholderImage="" maxScale="0" minScale="1e+08" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" styleCategories="AllStyleCategories" type="raster">
       <extent>
@@ -15346,38 +15346,38 @@ def my_form_open(dialog, layer, feature):
       <layername>sediment_top_elevation_061</layername>
       <srs>
         <spatialrefsys nativeFormat="Wkt">
-          <wkt></wkt>
-          <proj4></proj4>
+          <wkt/>
+          <proj4/>
           <srsid>0</srsid>
           <srid>0</srid>
-          <authid></authid>
-          <description></description>
-          <projectionacronym></projectionacronym>
-          <ellipsoidacronym></ellipsoidacronym>
+          <authid/>
+          <description/>
+          <projectionacronym/>
+          <ellipsoidacronym/>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier></identifier>
-        <parentidentifier></parentidentifier>
-        <language></language>
+        <identifier/>
+        <parentidentifier/>
+        <language/>
         <type>dataset</type>
-        <title></title>
-        <abstract></abstract>
+        <title/>
+        <abstract/>
         <links/>
         <dates/>
-        <fees></fees>
-        <encoding></encoding>
+        <fees/>
+        <encoding/>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt></wkt>
-            <proj4></proj4>
+            <wkt/>
+            <proj4/>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid></authid>
-            <description></description>
-            <projectionacronym></projectionacronym>
-            <ellipsoidacronym></ellipsoidacronym>
+            <authid/>
+            <description/>
+            <projectionacronym/>
+            <ellipsoidacronym/>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -15398,8 +15398,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal bandNumber="1" enabled="0" fetchMode="0" mode="0">
         <fixedRange>
-          <start></start>
-          <end></end>
+          <start/>
+          <end/>
         </fixedRange>
       </temporal>
       <elevation band="1" enabled="0" mode="RepresentsElevationSurface" symbology="Line" zoffset="0" zscale="1">
@@ -15501,7 +15501,7 @@ def my_form_open(dialog, layer, feature):
           <Option name="identify/format" type="QString" value="Value"/>
         </Option>
       </customproperties>
-      <mapTip enabled="1"></mapTip>
+      <mapTip enabled="1"/>
       <pipe-data-defined-properties>
         <Option type="Map">
           <Option name="name" type="QString" value=""/>
@@ -15833,38 +15833,38 @@ def my_form_open(dialog, layer, feature):
       <layername>sediment_top_elevation_100</layername>
       <srs>
         <spatialrefsys nativeFormat="Wkt">
-          <wkt></wkt>
-          <proj4></proj4>
+          <wkt/>
+          <proj4/>
           <srsid>0</srsid>
           <srid>0</srid>
-          <authid></authid>
-          <description></description>
-          <projectionacronym></projectionacronym>
-          <ellipsoidacronym></ellipsoidacronym>
+          <authid/>
+          <description/>
+          <projectionacronym/>
+          <ellipsoidacronym/>
           <geographicflag>false</geographicflag>
         </spatialrefsys>
       </srs>
       <resourceMetadata>
-        <identifier></identifier>
-        <parentidentifier></parentidentifier>
-        <language></language>
+        <identifier/>
+        <parentidentifier/>
+        <language/>
         <type>dataset</type>
-        <title></title>
-        <abstract></abstract>
+        <title/>
+        <abstract/>
         <links/>
         <dates/>
-        <fees></fees>
-        <encoding></encoding>
+        <fees/>
+        <encoding/>
         <crs>
           <spatialrefsys nativeFormat="Wkt">
-            <wkt></wkt>
-            <proj4></proj4>
+            <wkt/>
+            <proj4/>
             <srsid>0</srsid>
             <srid>0</srid>
-            <authid></authid>
-            <description></description>
-            <projectionacronym></projectionacronym>
-            <ellipsoidacronym></ellipsoidacronym>
+            <authid/>
+            <description/>
+            <projectionacronym/>
+            <ellipsoidacronym/>
             <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
@@ -15885,8 +15885,8 @@ def my_form_open(dialog, layer, feature):
       </flags>
       <temporal bandNumber="1" enabled="0" fetchMode="0" mode="0">
         <fixedRange>
-          <start></start>
-          <end></end>
+          <start/>
+          <end/>
         </fixedRange>
       </temporal>
       <elevation band="1" enabled="0" mode="RepresentsElevationSurface" symbology="Line" zoffset="0" zscale="1">
@@ -15988,7 +15988,7 @@ def my_form_open(dialog, layer, feature):
           <Option name="identify/format" type="QString" value="Value"/>
         </Option>
       </customproperties>
-      <mapTip enabled="1"></mapTip>
+      <mapTip enabled="1"/>
       <pipe-data-defined-properties>
         <Option type="Map">
           <Option name="name" type="QString" value=""/>
