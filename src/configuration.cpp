@@ -179,7 +179,7 @@ void CConfiguration::InitializeDefaults()
    m_bSaveParallelProfiles = false;
    m_bOutputErosionPotential = false;
    m_nCurvatureWindow = 11;
-   m_bSmoothUsingRunningMedian = true;
+   m_nSmoothProfileMethod = 3;
 
 }
 

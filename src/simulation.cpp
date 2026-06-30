@@ -190,8 +190,6 @@ CSimulation::CSimulation(void)
    m_bHighestSWLSoFar = false;
    m_bLowestSWLSoFar = false;
 
-   m_bSmoothUsingRunningMedian = true;
-
    m_bGDALCanCreate = true;
    m_bCSVPerTimestepResults = true; // Default to CSV output format
    m_bYamlInputFormat = false;      // Default to .dat format
@@ -203,8 +201,9 @@ CSimulation::CSimulation(void)
    m_nCoastSmooth = 0;
    m_nCoastSmoothingWindowSize = 0;
    m_nSavGolCoastPoly = 0;
-   m_nSavGolCliffEdgePoly = 0;
-   m_nProfileSmoothWindow = 0;
+   m_nSavGolProfilePoly = 0;
+   m_nProfileSmooth = 0;
+   m_nProfileSmoothingWindowSize = 0;
    m_nCoastProfileSpacing = 0;
    m_nCoastProfileInterventionSpacing = 0;
    m_nCoastCurvatureInterval = 0;
@@ -619,7 +618,11 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
 
    // If we are doing Savitzky-Golay smoothing of the vector coastline(s), calculate the filter coefficients
    if (m_nCoastSmooth == SMOOTH_SAVITZKY_GOLAY)
-      CalcSavitzkyGolayCoeffs();
+      CalcSavitzkyGolayCoeffsCoast();
+
+   // If we are doing Savitzky-Golay smoothing of the vector coast-normal profiles, calculate the filter coefficients
+   if (m_nCoastSmooth == SMOOTH_SAVITZKY_GOLAY)
+      CalcSavitzkyGolayCoeffsProfile();
 
    // Create the raster grid object
    m_pRasterGrid = new CGeomRasterGrid(this);

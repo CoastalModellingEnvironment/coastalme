@@ -733,19 +733,21 @@ int CSimulation::nDoAllPropagateWaves(void)
       // And do the same for the coastline cells
       InterpolateWaveHeightToCoastPoints(nCoast);
 
-      // Calculate wave energy at breaking for every point on the coastline
+      // Calculate wave energy at breaking for every point on the coastline using equation 4 from Walkden & Hall, 2005
       for (int nCoastPoint = 0; nCoastPoint < nCoastSize; nCoastPoint++)
       {
-         // Equation 4 from Walkden & Hall, 2005
          double const dBreakingWaveHeight = m_VCoast[nCoast].dGetBreakingWaveHeight(nCoastPoint);
          double const dCoastPointWavePeriod = m_VCoast[nCoast].dGetCoastDeepWaterWavePeriod(nCoastPoint);
 
-         // TODO 080 Why do we get -ve dBreakingWaveHeight here?
          if (bFPIsEqual(dBreakingWaveHeight, DBL_NODATA, TOLERANCE))
          {
             m_VCoast[nCoast].SetBreakingWaveHeight(nCoastPoint, 0);
          }
-
+         else if (dBreakingWaveHeight <= 0)
+         {
+            // Safety check
+            m_VCoast[nCoast].SetBreakingWaveHeight(nCoastPoint, 0);
+         }
          else
          {
             double const dErosiveWaveForce = pow(dBreakingWaveHeight, WALKDEN_HALL_PARAM_1) * pow(dCoastPointWavePeriod, WALKDEN_HALL_PARAM_2);
@@ -1984,10 +1986,10 @@ void CSimulation::ModifyBreakingWavePropertiesWithinShadowZoneToCoastline(int co
    bool bProfileIsinShadowZone = false;
    int const nThisCoastPoint = pProfile->nGetCoastPoint();
    int const nProfileSize = pProfile->nGetNumCellsInProfile();
-   int nThisBreakingDist = m_VCoast[nCoast].nGetBreakingDistance(nThisCoastPoint);
+   int nThisBreakingDist = m_VCoast[nCoast].nGetBreakingDistance(nThisCoastPoint);                 // This could be DBL_NODATA
    double dThisBreakingWaveHeight = m_VCoast[nCoast].dGetBreakingWaveHeight(nThisCoastPoint);      // This could be DBL_NODATA
-   double dThisBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nThisCoastPoint);
-   double dThisBreakingDepth = m_VCoast[nCoast].dGetDepthOfBreaking(nThisCoastPoint);
+   double dThisBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nThisCoastPoint);        // This could be DBL_NODATA
+   double dThisBreakingDepth = m_VCoast[nCoast].dGetDepthOfBreaking(nThisCoastPoint);              // This could be DBL_NODATA
 
    // Traverse the profile landwards, checking if any profile cell is within the shadow zone
    for (int nProfilePoint = (nProfileSize - 1); nProfilePoint >= 0; nProfilePoint--)
@@ -2065,9 +2067,9 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
    // For the breaking wave stuff, to go into the in-between coastline points
    int const nThisBreakingDist = m_VCoast[nCoast].nGetBreakingDistance(nThisCoastPoint);
    double const dThisBreakingWaveHeight = m_VCoast[nCoast].dGetBreakingWaveHeight(nThisCoastPoint);      // This could be DBL_NODATA
-   double const dThisBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nThisCoastPoint);
-   double const dThisBreakingDepth = m_VCoast[nCoast].dGetDepthOfBreaking(nThisCoastPoint);
-   double const dThisWaveSetupSurge = m_VCoast[nCoast].dGetWaveSetupSurge(nThisCoastPoint);
+   double const dThisBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nThisCoastPoint);        // This could be DBL_NODATA
+   double const dThisBreakingDepth = m_VCoast[nCoast].dGetDepthOfBreaking(nThisCoastPoint);              // This could be DBL_NODATA
+   double const dThisWaveSetupSurge = m_VCoast[nCoast].dGetWaveSetupSurge(nThisCoastPoint);              // This could be DBL_NODATA
    double const dThisRunUp = m_VCoast[nCoast].dGetRunUp(nThisCoastPoint);
 
    // Get the next profile along the coast, in the down-coast direction. If this next profile has a problem, go to the one after that, etc
@@ -2103,10 +2105,10 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
       // Nothing to do
       return;
 
-   int const nNextBreakingDist = m_VCoast[nCoast].nGetBreakingDistance(nNextCoastPoint);
+   int const nNextBreakingDist = m_VCoast[nCoast].nGetBreakingDistance(nNextCoastPoint);                 // This could be DBL_NODATA
    double const dNextBreakingWaveHeight = m_VCoast[nCoast].dGetBreakingWaveHeight(nNextCoastPoint);      // This could be DBL_NODATA
-   double const dNextBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nNextCoastPoint);
-   double const dNextBreakingDepth = m_VCoast[nCoast].dGetDepthOfBreaking(nNextCoastPoint);
+   double const dNextBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nNextCoastPoint);        // This could be DBL_NODATA
+   double const dNextBreakingDepth = m_VCoast[nCoast].dGetDepthOfBreaking(nNextCoastPoint);              // This could be DBL_NODATA
    double const dNextWaveSetupSurge = m_VCoast[nCoast].dGetWaveSetupSurge(nNextCoastPoint);
    double const dNextRunUp = m_VCoast[nCoast].dGetRunUp(nNextCoastPoint);
 
@@ -2165,7 +2167,8 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
    }
 
    // OK, at least one of the two profiles is in the active zone
-   if (bFPIsEqual(dThisBreakingWaveHeight, DBL_NODATA, TOLERANCE))
+   // if (bFPIsEqual(dThisBreakingWaveHeight, DBL_NODATA, TOLERANCE))
+   if (! bFPIsEqual(dNextBreakingWaveHeight, DBL_NODATA, TOLERANCE))
    {
       // The next profile must be in the active zone, so use values from the next profile
       for (int n = nThisCoastPoint; n < nNextCoastPoint; n++)
@@ -2181,7 +2184,8 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
       return;
    }
 
-   if (bFPIsEqual(dNextBreakingWaveHeight, DBL_NODATA, TOLERANCE))
+   // if (bFPIsEqual(dNextBreakingWaveHeight, DBL_NODATA, TOLERANCE))
+   if (! bFPIsEqual(dThisBreakingWaveHeight, DBL_NODATA, TOLERANCE))
    {
       // This profile must be in the active zone, so use values from this profile
       for (int n = nThisCoastPoint + 1; n <= nNextCoastPoint; n++)
@@ -2217,7 +2221,6 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
          dBreakingDepth = (dThisWeight * dThisBreakingDepth) + (dNextWeight * dNextBreakingDepth),
          dBreakingDist = (dThisWeight * nThisBreakingDist) + (dNextWeight * nNextBreakingDist);
       }
-
       else if (dNextBreakingDepth > 0)
       {
          dBreakingWaveHeight = dNextBreakingWaveHeight,
@@ -2225,7 +2228,6 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
          dBreakingDepth = dNextBreakingDepth,
          dBreakingDist = nNextBreakingDist;
       }
-
       else if (dThisBreakingDepth > 0)
       {
          dBreakingWaveHeight = dThisBreakingWaveHeight,
@@ -2234,8 +2236,7 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
          dBreakingDist = nThisBreakingDist;
       }
 
-      // Set the breaking wave height, breaking wave angle, and depth of breaking for this coast point TODO 056 This assert sometimes fails: why?
-      assert(dBreakingWaveHeight >= 0);
+      // Set the breaking wave height, breaking wave angle, and depth of breaking for this coast point. Note that these could be DBL_NODATA
       m_VCoast[nCoast].SetBreakingWaveHeight(n, dBreakingWaveHeight);
       m_VCoast[nCoast].SetBreakingWaveAngle(n, dBreakingWaveAngle);
       m_VCoast[nCoast].SetDepthOfBreaking(n, dBreakingDepth);

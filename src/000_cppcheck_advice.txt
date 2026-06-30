@@ -1,19 +1,16 @@
 2d_shape.cpp:109:0: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       if (bFPIsEqual(dPtX, m_VPtPoints[n].dGetX(), TOLERANCE) && bFPIsEqual(dPtY, m_VPtPoints[n].dGetY(), TOLERANCE))
 ^
-assign_landforms.cpp:459:27: style: Variable 'pLandForm' can be declared as pointer to const [constVariablePointer]
-         CACoastLandform* pLandForm = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
-                          ^
-calc_waves.cpp:968:16: style: Condition 'nRet!=RTN_OK' is always false [knownConditionTrueFalse]
+calc_waves.cpp:970:16: style: Condition 'nRet!=RTN_OK' is always false [knownConditionTrueFalse]
       if (nRet != RTN_OK)
                ^
-calc_waves.cpp:967:52: note: Calling function 'nGetThisProfileElevationsForCShore' returns 0
+calc_waves.cpp:969:52: note: Calling function 'nGetThisProfileElevationsForCShore' returns 0
       int nRet = nGetThisProfileElevationsForCShore(nCoast, pProfile, nProfileSize, &VdProfileDistXY, &VdProfileZ, &VdProfileFrictionFactor);
                                                    ^
-calc_waves.cpp:967:52: note: Assignment 'nRet=nGetThisProfileElevationsForCShore(nCoast,pProfile,nProfileSize,&VdProfileDistXY,&VdProfileZ,&VdProfileFrictionFactor)', assigned value is 0
+calc_waves.cpp:969:52: note: Assignment 'nRet=nGetThisProfileElevationsForCShore(nCoast,pProfile,nProfileSize,&VdProfileDistXY,&VdProfileZ,&VdProfileFrictionFactor)', assigned value is 0
       int nRet = nGetThisProfileElevationsForCShore(nCoast, pProfile, nProfileSize, &VdProfileDistXY, &VdProfileZ, &VdProfileFrictionFactor);
                                                    ^
-calc_waves.cpp:968:16: note: Condition 'nRet!=RTN_OK' is always false
+calc_waves.cpp:970:16: note: Condition 'nRet!=RTN_OK' is always false
       if (nRet != RTN_OK)
                ^
 calc_waves.cpp:243:26: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
@@ -22,43 +19,34 @@ calc_waves.cpp:243:26: style: Consider using std::accumulate algorithm instead o
 calc_waves.cpp:489:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-calc_waves.cpp:2390:28: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+calc_waves.cpp:2382:28: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       nTotPolygonAllCoasts +=  m_VCoast[nCoast].nGetNumPolygons();
                            ^
-cell.cpp:542:19: style: The member function 'CGeomCell::dGetThisIterSWL' can be static. [functionStatic]
-double CGeomCell::dGetThisIterSWL(void) const
-                  ^
-cell.h:296:11: note: The member function 'CGeomCell::dGetThisIterSWL' can be static.
-   double dGetThisIterSWL(void) const;
-          ^
-cell.cpp:542:19: note: The member function 'CGeomCell::dGetThisIterSWL' can be static.
-double CGeomCell::dGetThisIterSWL(void) const
-                  ^
-cell.cpp:553:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:557:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetConsFineDepth();
                 ^
-cell.cpp:564:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:568:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetUnconsFineDepth();
                 ^
-cell.cpp:575:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:579:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetConsSandDepth();
                 ^
-cell.cpp:586:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:590:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetUnconsSandDepth();
                 ^
-cell.cpp:597:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:601:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetConsCoarseDepth();
                 ^
-cell.cpp:608:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:612:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetUnconsCoarseDepth();
                 ^
-cell.cpp:619:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:623:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetAllConsDepth();
                 ^
-cell.cpp:630:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:634:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetAllUnconsDepth();
                 ^
-cell.cpp:707:16: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:711:16: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTopElev += m_VLayerAboveBasement[n].dGetTotalThickness();
                ^
 cell_layer.cpp:38:14: warning: Class 'CRWCellLayer' does not have a copy constructor which is recommended since it has dynamic memory/resource management. [noCopyConstructor]
@@ -73,29 +61,26 @@ check_profile_intersection.cpp:978:10: style: Consider using std::any_of algorit
 check_profile_intersection.cpp:1002:10: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
          {
          ^
-do_barrier.cpp:59:27: style: Variable 'pCoastLandform' can be declared as pointer to const [constVariablePointer]
-         CACoastLandform* pCoastLandform = m_VCoast[nCoast].pGetCoastLandform(nCoastPoint);
-                          ^
-do_barrier.cpp:182:25: style: Variable 'nRet' is assigned a value that is never used. [unreadVariable]
-               int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
+do_barrier.cpp:188:25: style: Variable 'nRet' is assigned a value that is never used. [unreadVariable]
+               int nRet = nUpRushMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
                         ^
 do_barrier.cpp:60:14: style: Variable 'nCoastLandform' is assigned a value that is never used. [unreadVariable]
          int nCoastLandform = pCoastLandform->nGetLandFormCategory();
              ^
-do_barrier.cpp:114:14: style: Variable 'nHanded' is assigned a value that is never used. [unreadVariable]
+do_barrier.cpp:120:14: style: Variable 'nHanded' is assigned a value that is never used. [unreadVariable]
          int nHanded = m_VCoast[nCoast].nGetSeaHandedness();      // RH = 0, LH = 1
              ^
-do_barrier.cpp:117:15: style: Variable 'bWavesDownCoast' is assigned a value that is never used. [unreadVariable]
+do_barrier.cpp:123:15: style: Variable 'bWavesDownCoast' is assigned a value that is never used. [unreadVariable]
          bool bWavesDownCoast = m_VCoast[nCoast].bGetWavesDownCoast(nCoastPoint);
               ^
-do_barrier.cpp:118:17: style: Variable 'dTangentToCoast' is assigned a value that is never used. [unreadVariable]
+do_barrier.cpp:124:17: style: Variable 'dTangentToCoast' is assigned a value that is never used. [unreadVariable]
          double dTangentToCoast = m_VCoast[nCoast].dGetFluxOrientation(nCoastPoint);
                 ^
-do_barrier.cpp:119:17: style: Variable 'dBreakingWaveAngle' is assigned a value that is never used. [unreadVariable]
+do_barrier.cpp:125:17: style: Variable 'dBreakingWaveAngle' is assigned a value that is never used. [unreadVariable]
          double dBreakingWaveAngle = m_VCoast[nCoast].dGetBreakingWaveAngle(nCoastPoint);
                 ^
-do_barrier.cpp:182:20: style: Variable 'nRet' is assigned a value that is never used. [unreadVariable]
-               int nRet = nMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
+do_barrier.cpp:188:20: style: Variable 'nRet' is assigned a value that is never used. [unreadVariable]
+               int nRet = nUpRushMoveUnconsLandward(&PtiLast, &PtiTmp, dWeight, dLastSandMoved, dLastCoarseMoved);
                    ^
 do_beach_sediment_movement.cpp:67:13: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
             {
@@ -109,9 +94,18 @@ do_beach_sediment_movement.cpp:150:13: style: Consider using std::any_of algorit
 do_beach_sediment_movement.cpp:166:13: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
             {
             ^
-do_shore_platform_erosion.cpp:1115:7: style: Consider using std::find_if algorithm instead of a raw loop. [useStlAlgorithm]
+do_beach_within_polygon.cpp:1096:30: style: Variable 'pLandform' can be declared as pointer to const [constVariablePointer]
+            CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform();
+                             ^
+do_beach_within_polygon.cpp:1578:33: style: Variable 'pLandform' can be declared as pointer to const [constVariablePointer]
+               CRWCellLandform* pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform();
+                                ^
+do_shore_platform_erosion.cpp:1178:7: style: Consider using std::find_if algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
+do_shore_platform_erosion.cpp:433:22: style: Variable 'pAdjProfile' is assigned a value that is never used. [unreadVariable]
+         pAdjProfile = pTmpProfile;
+                     ^
 do_uncons_sediment_slumping.cpp:176:14: style: struct member 'Neighbour::slope' is never used. [unusedStructMember]
       double slope;
              ^
@@ -208,7 +202,7 @@ nanoflann.hpp:694:29: note: result is overwritten
 nanoflann.hpp:693:22: style: Local variable 'PI' shadows outer variable [shadowVariable]
         DistanceType PI     = pi_const<DistanceType>();
                      ^
-cme.h:735:14: note: Shadowed declaration
+cme.h:731:14: note: Shadowed declaration
 double const PI = 3.141592653589793238462643;
              ^
 nanoflann.hpp:693:22: note: Shadow variable
@@ -220,72 +214,27 @@ nanoflann.hpp:1749:52: performance: Function parameter 'num_closest' should be p
 nanoflann.hpp:2088:44: style: Consider using std::fill or std::generate algorithm instead of a raw loop. [useStlAlgorithm]
         for (auto& v : Base::root_bbox_) v = {};
                                            ^
-gis_raster.cpp:2218:15: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+gis_raster.cpp:2214:15: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       nPoints += static_cast<unsigned int>(transect.VdX.size());
               ^
 nanoflann.hpp:2551:13: performance: Prefer prefix ++/-- operators for non-primitive types. [postfixOperator]
             pointCount_++;
             ^
-gis_utils.cpp:1988:19: style: The member function 'CSimulation::bIsAdjacentEdgeCell' can be static. [functionStatic]
-bool CSimulation::bIsAdjacentEdgeCell(CGeom2DIPoint const* pPt1, CGeom2DIPoint const* pPt2)
-                  ^
-simulation.h:1848:9: note: The member function 'CSimulation::bIsAdjacentEdgeCell' can be static.
-   bool bIsAdjacentEdgeCell(CGeom2DIPoint const*, CGeom2DIPoint const*);
-        ^
-gis_utils.cpp:1988:19: note: The member function 'CSimulation::bIsAdjacentEdgeCell' can be static.
-bool CSimulation::bIsAdjacentEdgeCell(CGeom2DIPoint const* pPt1, CGeom2DIPoint const* pPt2)
-                  ^
-gis_utils.cpp:1958:19: style: The member function 'CSimulation::FindClosestPointOnStraightLine' can be static. [functionStatic]
-void CSimulation::FindClosestPointOnStraightLine(double const dAx, double const dAy, double const dBx, double const dBy, double const dPx, double const dPy, double& dXRet, double& dYRet)
-                  ^
-simulation.h:1849:9: note: The member function 'CSimulation::FindClosestPointOnStraightLine' can be static.
-   void FindClosestPointOnStraightLine(double const, double const, double const, double const, double const, double const, double&, double&);
-        ^
-gis_utils.cpp:1958:19: note: The member function 'CSimulation::FindClosestPointOnStraightLine' can be static.
-void CSimulation::FindClosestPointOnStraightLine(double const dAx, double const dAy, double const dBx, double const dBy, double const dPx, double const dPy, double& dXRet, double& dYRet)
-                  ^
-gis_utils.cpp:2014:19: style: The member function 'CSimulation::bIsWithinPolygon' can be static. [functionStatic]
-bool CSimulation::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart, vector<CGeom2DIPoint> const* pVPtiPoints)
-                  ^
-simulation.h:1998:9: note: The member function 'CSimulation::bIsWithinPolygon' can be static.
-   bool bIsWithinPolygon(CGeom2DIPoint const*, vector<CGeom2DIPoint> const*);
-        ^
-gis_utils.cpp:2014:19: note: The member function 'CSimulation::bIsWithinPolygon' can be static.
-bool CSimulation::bIsWithinPolygon(CGeom2DIPoint const* pPtiStart, vector<CGeom2DIPoint> const* pVPtiPoints)
-                  ^
 gis_utils.cpp:1149:0: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
          if (! bWriteRasterGISFile(RASTER_PLOT_SLICE, &RASTER_PLOT_SLICE_TITLE, 0, m_VdSliceElev[i]))
 ^
 i_line.cpp:74:0: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       if ((nX == m_VPtiPoints[n].nGetX()) && (nY == m_VPtiPoints[n].nGetY()))
 ^
-interpolate.cpp:33:21: style: The member function 'CSimulation::dGetInterpolatedValue' can be static. [functionStatic]
-double CSimulation::dGetInterpolatedValue(vector<double> const* pVdXdata, vector<double> const* pVdYdata, double dX, bool bExtrapolate)
-                    ^
-simulation.h:1852:11: note: The member function 'CSimulation::dGetInterpolatedValue' can be static.
-   double dGetInterpolatedValue(vector<double> const*, vector<double> const*, double, bool);
-          ^
-interpolate.cpp:33:21: note: The member function 'CSimulation::dGetInterpolatedValue' can be static.
-double CSimulation::dGetInterpolatedValue(vector<double> const* pVdXdata, vector<double> const* pVdYdata, double dX, bool bExtrapolate)
-                    ^
-interpolate.cpp:73:21: style: The member function 'CSimulation::dGetInterpolatedValue' can be static. [functionStatic]
-double CSimulation::dGetInterpolatedValue(vector<int> const* pVnXdata, vector<double> const* pVdYdata, int nX, bool bExtrapolate)
-                    ^
-simulation.h:1853:11: note: The member function 'CSimulation::dGetInterpolatedValue' can be static.
-   double dGetInterpolatedValue(vector<int> const*, vector<double> const*, int, bool);
-          ^
-interpolate.cpp:73:21: note: The member function 'CSimulation::dGetInterpolatedValue' can be static.
-double CSimulation::dGetInterpolatedValue(vector<int> const* pVnXdata, vector<double> const* pVdYdata, int nX, bool bExtrapolate)
-                    ^
-interpolate.cpp:113:18: style: The member function 'CSimulation::nFindIndex' can be static. [functionStatic]
-int CSimulation::nFindIndex(vector<double> const* pVdX, double const dValueIn)
-                 ^
-simulation.h:1854:8: note: The member function 'CSimulation::nFindIndex' can be static.
-   int nFindIndex(vector<double> const*, double const);
-       ^
-interpolate.cpp:113:18: note: The member function 'CSimulation::nFindIndex' can be static.
-int CSimulation::nFindIndex(vector<double> const* pVdX, double const dValueIn)
-                 ^
+interpolate.cpp:135:29: style: The member function 'CSimulation::VdInterpolateCShoreProfileOutput' can be static. [functionStatic]
+vector<double> CSimulation::VdInterpolateCShoreProfileOutput(vector<double> const* pVdX, vector<double> const* pVdY, vector<double> const* pVdXNew)
+                            ^
+simulation.h:1864:19: note: The member function 'CSimulation::VdInterpolateCShoreProfileOutput' can be static.
+   vector<double> VdInterpolateCShoreProfileOutput(vector<double> const*, vector<double> const*, vector<double> const*);
+                  ^
+interpolate.cpp:135:29: note: The member function 'CSimulation::VdInterpolateCShoreProfileOutput' can be static.
+vector<double> CSimulation::VdInterpolateCShoreProfileOutput(vector<double> const* pVdX, vector<double> const* pVdY, vector<double> const* pVdXNew)
+                            ^
 multi_line.cpp:38:39: style: The member function 'CGeomMultiLine::pGetPoints' can be static. [functionStatic]
 vector<CGeom2DPoint>& CGeomMultiLine::pGetPoints(void)
                                       ^
@@ -295,18 +244,6 @@ multi_line.h:48:26: note: The member function 'CGeomMultiLine::pGetPoints' can b
 multi_line.cpp:38:39: note: The member function 'CGeomMultiLine::pGetPoints' can be static.
 vector<CGeom2DPoint>& CGeomMultiLine::pGetPoints(void)
                                       ^
-multiple_coastlines.cpp:395:18: style: The member function 'CSimulation::nTruncateProfileMultiLineDifferentCoasts' can be static. [functionStatic]
-int CSimulation::nTruncateProfileMultiLineDifferentCoasts(CGeomProfile* pProfile, double const dX, double const dY)
-                 ^
-simulation.h:1793:8: note: The member function 'CSimulation::nTruncateProfileMultiLineDifferentCoasts' can be static.
-   int nTruncateProfileMultiLineDifferentCoasts(CGeomProfile*, double const, double const);
-       ^
-multiple_coastlines.cpp:395:18: note: The member function 'CSimulation::nTruncateProfileMultiLineDifferentCoasts' can be static.
-int CSimulation::nTruncateProfileMultiLineDifferentCoasts(CGeomProfile* pProfile, double const dX, double const dY)
-                 ^
-multiple_coastlines.cpp:408:32: style: Variable 'pVPt' can be declared as reference to const [constVariableReference]
-         vector<CGeom2DPoint>& pVPt = pProfile->CGeomMultiLine::pGetPoints();
-                               ^
 profile.cpp:159:20: style: The member function 'CGeomProfile::SetPointsInProfile' can be static. [functionStatic]
 void CGeomProfile::SetPointsInProfile(vector<CGeom2DPoint> const* VNewPoints)
                    ^
@@ -388,72 +325,63 @@ profile.h:116:9: note: The member function 'CGeomProfile::bIsPointInProfile' can
 profile.cpp:260:20: note: The member function 'CGeomProfile::bIsPointInProfile' can be static.
 bool CGeomProfile::bIsPointInProfile(double const dX, double const dY, int& nPoint)
                    ^
-read_input.cpp:4246:28: style: The member function 'CSimulation::processFilePath' can be static. [functionStatic]
-string const* CSimulation::processFilePath(string* filePath)
-                           ^
-simulation.h:1660:18: note: The member function 'CSimulation::processFilePath' can be static.
-   string const* processFilePath(string*);
-                 ^
-read_input.cpp:4246:28: note: The member function 'CSimulation::processFilePath' can be static.
-string const* CSimulation::processFilePath(string* filePath)
-                           ^
-read_input.cpp:4748:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4636:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
                          ^
-read_input.cpp:4750:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4638:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
                          ^
-read_input.cpp:4752:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4640:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("week"));
                          ^
-read_input.cpp:4754:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4642:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("month"));
                          ^
-read_input.cpp:4756:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4644:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("year"));
                          ^
-read_input.cpp:4777:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4665:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
                          ^
-read_input.cpp:4779:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4667:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
                          ^
-read_input.cpp:4781:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4669:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("week"));
                          ^
-read_input.cpp:4783:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4671:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("month"));
                          ^
-read_input.cpp:4785:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4673:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("year"));
                          ^
-read_input.cpp:3517:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:3407:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-read_input.cpp:4657:27: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:4545:27: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
                   vecNums.push_back(node.nGetIntValue());
                           ^
-read_input.cpp:4669:28: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:4557:28: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
                   vecTimes.push_back(node.GetULongValue());
                            ^
-read_input.cpp:4883:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
+read_input.cpp:4771:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
       strErr = "max save digits for GIS output file names must be > 1";
              ^
-simulation.cpp:61:14: warning: Member variable 'CSimulation::m_dThisIterTotFineTalusDepth' is not initialized in the constructor. [uninitMemberVar]
-CSimulation::CSimulation(void)
-             ^
-simulation.cpp:61:14: warning: Member variable 'CSimulation::m_dThisIterTotSandTalusDepth' is not initialized in the constructor. [uninitMemberVar]
-CSimulation::CSimulation(void)
-             ^
-simulation.cpp:61:14: warning: Member variable 'CSimulation::m_dThisIterTotCoarseTalusDepth' is not initialized in the constructor. [uninitMemberVar]
-CSimulation::CSimulation(void)
-             ^
-simulation.cpp:528:14: warning: Class 'CSimulation' does not have a copy constructor which is recommended since it has dynamic memory/resource management. [noCopyConstructor]
+simulation.cpp:529:14: warning: Class 'CSimulation' does not have a copy constructor which is recommended since it has dynamic memory/resource management. [noCopyConstructor]
       delete m_pRasterGrid;
              ^
-simulation.cpp:528:14: warning: Class 'CSimulation' does not have a operator= which is recommended since it has dynamic memory/resource management. [noOperatorEq]
+simulation.cpp:529:14: warning: Class 'CSimulation' does not have a operator= which is recommended since it has dynamic memory/resource management. [noOperatorEq]
       delete m_pRasterGrid;
              ^
+smooth_line.cpp:636:21: style: The member function 'CSimulation::dRunningMedianInsertAndCalc' can be static. [functionStatic]
+double CSimulation::dRunningMedianInsertAndCalc(RunningMedian* rm, double const dValue) const
+                    ^
+simulation.h:1933:11: note: The member function 'CSimulation::dRunningMedianInsertAndCalc' can be static.
+   double dRunningMedianInsertAndCalc(RunningMedian*, double const) const;
+          ^
+smooth_line.cpp:636:21: note: The member function 'CSimulation::dRunningMedianInsertAndCalc' can be static.
+double CSimulation::dRunningMedianInsertAndCalc(RunningMedian* rm, double const dValue) const
+                    ^
 spatial_interpolation.cpp:108:4: warning: Class 'SpatialInterpolator' does not have a copy constructor which is recommended since it has dynamic memory/resource management. [noCopyConstructor]
    m_kdtree = new KDTree(2, m_cloud, {10 /* max leaf size */});
    ^
@@ -472,121 +400,121 @@ spatial_interpolation.cpp:252:32: style: Variable 'indices' is assigned a value 
 spatial_interpolation.cpp:253:27: style: Variable 'sq_dists' is assigned a value that is never used. [unreadVariable]
    vector<double> sq_dists(k);
                           ^
-write_output.cpp:637:90: style: Condition 'm_bSlumping' is always true [knownConditionTrueFalse]
+write_output.cpp:667:90: style: Condition 'm_bSlumping' is always true [knownConditionTrueFalse]
       OutStream << "Slumping?                                                  \t: " << (m_bSlumping ? "Y" : "N") << endl;
                                                                                          ^
-write_output.cpp:636:8: note: Assuming that condition 'm_bSlumping' is not redundant
+write_output.cpp:666:8: note: Assuming that condition 'm_bSlumping' is not redundant
    if (m_bSlumping)
        ^
-write_output.cpp:637:90: note: Condition 'm_bSlumping' is always true
+write_output.cpp:667:90: note: Condition 'm_bSlumping' is always true
       OutStream << "Slumping?                                                  \t: " << (m_bSlumping ? "Y" : "N") << endl;
                                                                                          ^
-yaml_parser.cpp:228:18: style: The member function 'CYamlParser::nGetIndentLevel' can be static. [functionStatic]
-int CYamlParser::nGetIndentLevel(string const& strLine) const
-                 ^
-yaml_parser.h:80:8: note: The member function 'CYamlParser::nGetIndentLevel' can be static.
-   int nGetIndentLevel(string const& strLine) const;
+write_output.cpp:678:90: style: Condition 'm_bWaveUprush' is always true [knownConditionTrueFalse]
+      OutStream << "Barrier formation?                                         \t: " << (m_bWaveUprush ? "Y" : "N") << endl;
+                                                                                         ^
+write_output.cpp:677:8: note: Assuming that condition 'm_bWaveUprush' is not redundant
+   if (m_bWaveUprush)
        ^
-yaml_parser.cpp:228:18: note: The member function 'CYamlParser::nGetIndentLevel' can be static.
-int CYamlParser::nGetIndentLevel(string const& strLine) const
-                 ^
-yaml_parser.cpp:243:21: style: The member function 'CYamlParser::strTrimLeft' can be static. [functionStatic]
-string CYamlParser::strTrimLeft(string const& strLine) const
-                    ^
-yaml_parser.h:81:11: note: The member function 'CYamlParser::strTrimLeft' can be static.
-   string strTrimLeft(string const& strLine) const;
-          ^
-yaml_parser.cpp:243:21: note: The member function 'CYamlParser::strTrimLeft' can be static.
-string CYamlParser::strTrimLeft(string const& strLine) const
-                    ^
-yaml_parser.cpp:251:21: style: The member function 'CYamlParser::strTrimRight' can be static. [functionStatic]
-string CYamlParser::strTrimRight(string const& strLine) const
-                    ^
-yaml_parser.h:82:11: note: The member function 'CYamlParser::strTrimRight' can be static.
-   string strTrimRight(string const& strLine) const;
-          ^
-yaml_parser.cpp:251:21: note: The member function 'CYamlParser::strTrimRight' can be static.
-string CYamlParser::strTrimRight(string const& strLine) const
-                    ^
-yaml_parser.cpp:307:21: style: The member function 'CYamlParser::strRemoveQuotes' can be static. [functionStatic]
-string CYamlParser::strRemoveQuotes(string const& strValue) const
-                    ^
-yaml_parser.h:87:11: note: The member function 'CYamlParser::strRemoveQuotes' can be static.
-   string strRemoveQuotes(string const& strValue) const;
-          ^
-yaml_parser.cpp:307:21: note: The member function 'CYamlParser::strRemoveQuotes' can be static.
-string CYamlParser::strRemoveQuotes(string const& strValue) const
-                    ^
-yaml_parser.h:58:22: performance: Function 'GetSequence()' should return member 'm_VYamlChildren' by const reference. [returnByReference]
-   vector<CYamlNode> GetSequence() const;
+write_output.cpp:678:90: note: Condition 'm_bWaveUprush' is always true
+      OutStream << "Barrier formation?                                         \t: " << (m_bWaveUprush ? "Y" : "N") << endl;
+                                                                                         ^
+yaml_parser.cpp:264:19: style: The member function 'CYamlParser::bIsComment' can be static. [functionStatic]
+bool CYamlParser::bIsComment(string const& strLine) const
+                  ^
+yaml_parser.h:84:9: note: The member function 'CYamlParser::bIsComment' can be static.
+   bool bIsComment(string const& strLine) const;
+        ^
+yaml_parser.cpp:264:19: note: The member function 'CYamlParser::bIsComment' can be static.
+bool CYamlParser::bIsComment(string const& strLine) const
+                  ^
+yaml_parser.cpp:270:19: style: The member function 'CYamlParser::bIsEmpty' can be static. [functionStatic]
+bool CYamlParser::bIsEmpty(string const& strLine) const
+                  ^
+yaml_parser.h:85:9: note: The member function 'CYamlParser::bIsEmpty' can be static.
+   bool bIsEmpty(string const& strLine) const;
+        ^
+yaml_parser.cpp:270:19: note: The member function 'CYamlParser::bIsEmpty' can be static.
+bool CYamlParser::bIsEmpty(string const& strLine) const
+                  ^
+yaml_parser.cpp:275:19: style: The member function 'CYamlParser::bParseLine' can be static. [functionStatic]
+bool CYamlParser::bParseLine(string const& strLine, string& strKey, string& strValue, bool& bbIsSequence) const
+                  ^
+yaml_parser.h:86:9: note: The member function 'CYamlParser::bParseLine' can be static.
+   bool bParseLine(string const& strLine, string& strKey, string& strValue, bool& bbIsSequence) const;
+        ^
+yaml_parser.cpp:275:19: note: The member function 'CYamlParser::bParseLine' can be static.
+bool CYamlParser::bParseLine(string const& strLine, string& strKey, string& strValue, bool& bbIsSequence) const
+                  ^
+yaml_parser.h:58:22: performance: Function 'VNodeGetSequence()' should return member 'm_VYamlChildren' by const reference. [returnByReference]
+   vector<CYamlNode> VNodeGetSequence(void) const;
                      ^
 yaml_parser.h:95:14: performance: Function 'GetRoot()' should return member 'm_RootNode' by const reference. [returnByReference]
    CYamlNode GetRoot() const;
              ^
 yaml_parser.cpp:170:18: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
-      VstrResult.push_back(*node.pstrGetValue());
+      VstrResult.push_back(*node.pStrGetValue());
                  ^
 2di_shape.cpp:54:18: style: The function 'Clear' is never used. [unusedFunction]
 void CA2DIShape::Clear(void)
                  ^
-cell.cpp:166:17: style: The function 'bIsPossibleCoastStartCell' is never used. [unusedFunction]
+cell.cpp:170:17: style: The function 'bIsPossibleCoastStartCell' is never used. [unusedFunction]
 bool CGeomCell::bIsPossibleCoastStartCell(void) const
                 ^
-cell.cpp:178:17: style: The function 'bActualPlatformErosion' is never used. [unusedFunction]
+cell.cpp:182:17: style: The function 'bActualPlatformErosion' is never used. [unusedFunction]
 bool CGeomCell::bActualPlatformErosion(void) const
                 ^
-cell.cpp:351:17: style: The function 'bElevLessThanSWL' is never used. [unusedFunction]
+cell.cpp:355:17: style: The function 'bElevLessThanSWL' is never used. [unusedFunction]
 bool CGeomCell::bElevLessThanSWL(void) const
                 ^
-cell.cpp:1020:19: style: The function 'dGetTotFineTalusToSuspension' is never used. [unusedFunction]
+cell.cpp:1028:19: style: The function 'dGetTotFineTalusToSuspension' is never used. [unusedFunction]
 double CGeomCell::dGetTotFineTalusToSuspension(void)
                   ^
-cell.cpp:1039:19: style: The function 'dGetTotSandTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1047:19: style: The function 'dGetTotSandTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetTotSandTalusToUncons(void)
                   ^
-cell.cpp:1058:19: style: The function 'dGetTotCoarseTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1066:19: style: The function 'dGetTotCoarseTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetTotCoarseTalusToUncons(void)
                   ^
-cell.cpp:1161:19: style: The function 'dGetTotAvalancheDeposition' is never used. [unusedFunction]
+cell.cpp:1169:19: style: The function 'dGetTotAvalancheDeposition' is never used. [unusedFunction]
 double CGeomCell::dGetTotAvalancheDeposition(void) const
                   ^
 cell_landform.cpp:54:23: style: The function 'SetCoast' is never used. [unusedFunction]
 void CRWCellLandform::SetCoast(int const nCoastIn)
                       ^
-cell_talus.cpp:140:22: style: The function 'dGetFineAddedThisIter' is never used. [unusedFunction]
+cell_talus.cpp:150:22: style: The function 'dGetFineAddedThisIter' is never used. [unusedFunction]
 double CRWCellTalus::dGetFineAddedThisIter(void) const
                      ^
-cell_talus.cpp:146:22: style: The function 'dGetFineLostThisIter' is never used. [unusedFunction]
+cell_talus.cpp:156:22: style: The function 'dGetFineLostThisIter' is never used. [unusedFunction]
 double CRWCellTalus::dGetFineLostThisIter(void) const
                      ^
-cell_talus.cpp:152:22: style: The function 'dGetTotFineAdded' is never used. [unusedFunction]
+cell_talus.cpp:162:22: style: The function 'dGetTotFineAdded' is never used. [unusedFunction]
 double CRWCellTalus::dGetTotFineAdded(void) const
                      ^
-cell_talus.cpp:158:22: style: The function 'dGetTotFineLost' is never used. [unusedFunction]
+cell_talus.cpp:168:22: style: The function 'dGetTotFineLost' is never used. [unusedFunction]
 double CRWCellTalus::dGetTotFineLost(void) const
                      ^
-cell_talus.cpp:164:22: style: The function 'dGetSandAddedThisIter' is never used. [unusedFunction]
+cell_talus.cpp:174:22: style: The function 'dGetSandAddedThisIter' is never used. [unusedFunction]
 double CRWCellTalus::dGetSandAddedThisIter(void) const
                      ^
-cell_talus.cpp:170:22: style: The function 'dGetSandLostThisIter' is never used. [unusedFunction]
+cell_talus.cpp:180:22: style: The function 'dGetSandLostThisIter' is never used. [unusedFunction]
 double CRWCellTalus::dGetSandLostThisIter(void) const
                      ^
-cell_talus.cpp:176:22: style: The function 'dGetTotSandAdded' is never used. [unusedFunction]
+cell_talus.cpp:186:22: style: The function 'dGetTotSandAdded' is never used. [unusedFunction]
 double CRWCellTalus::dGetTotSandAdded(void) const
                      ^
-cell_talus.cpp:182:22: style: The function 'dGetTotSandLost' is never used. [unusedFunction]
+cell_talus.cpp:192:22: style: The function 'dGetTotSandLost' is never used. [unusedFunction]
 double CRWCellTalus::dGetTotSandLost(void) const
                      ^
-cell_talus.cpp:188:22: style: The function 'dGetCoarseAddedThisIter' is never used. [unusedFunction]
+cell_talus.cpp:198:22: style: The function 'dGetCoarseAddedThisIter' is never used. [unusedFunction]
 double CRWCellTalus::dGetCoarseAddedThisIter(void) const
                      ^
-cell_talus.cpp:194:22: style: The function 'dGetCoarseLostThisIter' is never used. [unusedFunction]
+cell_talus.cpp:204:22: style: The function 'dGetCoarseLostThisIter' is never used. [unusedFunction]
 double CRWCellTalus::dGetCoarseLostThisIter(void) const
                      ^
-cell_talus.cpp:200:22: style: The function 'dGetTotCoarseAdded' is never used. [unusedFunction]
+cell_talus.cpp:210:22: style: The function 'dGetTotCoarseAdded' is never used. [unusedFunction]
 double CRWCellTalus::dGetTotCoarseAdded(void) const
                      ^
-cell_talus.cpp:206:22: style: The function 'dGetTotCoarseLost' is never used. [unusedFunction]
+cell_talus.cpp:216:22: style: The function 'dGetTotCoarseLost' is never used. [unusedFunction]
 double CRWCellTalus::dGetTotCoarseLost(void) const
                      ^
 coast.cpp:165:23: style: The function 'pILGetCoastlineGridCRS' is never used. [unusedFunction]
@@ -595,16 +523,16 @@ CGeomILine* CRWCoast::pILGetCoastlineGridCRS(void)
 coast_landform.cpp:66:33: style: The function 'pPtiGetCellMarkedAsCliff' is never used. [unusedFunction]
 CGeom2DIPoint* CACoastLandform::pPtiGetCellMarkedAsCliff(void) const
                                 ^
-coast_polygon.cpp:543:25: style: The function 'AddCliffCollapseSandTalusDeposition' is never used. [unusedFunction]
+coast_polygon.cpp:541:25: style: The function 'AddCliffCollapseSandTalusDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseSandTalusDeposition(double const dDepth)
                         ^
-coast_polygon.cpp:555:25: style: The function 'AddCliffCollapseCoarseTalusDeposition' is never used. [unusedFunction]
+coast_polygon.cpp:553:25: style: The function 'AddCliffCollapseCoarseTalusDeposition' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddCliffCollapseCoarseTalusDeposition(double const dDepth)
                         ^
-coast_polygon.cpp:567:25: style: The function 'AddPlatformErosionUnconsFineToSuspension' is never used. [unusedFunction]
+coast_polygon.cpp:565:25: style: The function 'AddPlatformErosionUnconsFineToSuspension' is never used. [unusedFunction]
 void CGeomCoastPolygon::AddPlatformErosionUnconsFineToSuspension(double const dDepth)
                         ^
-coast_polygon.cpp:573:27: style: The function 'dGetPlatformErosionUnconsFineToSuspension' is never used. [unusedFunction]
+coast_polygon.cpp:571:27: style: The function 'dGetPlatformErosionUnconsFineToSuspension' is never used. [unusedFunction]
 double CGeomCoastPolygon::dGetPlatformErosionUnconsFineToSuspension(void) const
                           ^
 configuration.h:220:9: style: The function 'UseSystemTimeForSeed' is never used. [unusedFunction]
@@ -619,35 +547,50 @@ configuration.h:265:9: style: The function 'SetVectorFormat' is never used. [unu
 configuration.h:270:9: style: The function 'SetTimeSeriesFiles' is never used. [unusedFunction]
    void SetTimeSeriesFiles(vector<string> const &vec)
         ^
-configuration.h:556:9: style: The function 'SetFloodFiles' is never used. [unusedFunction]
+configuration.h:551:9: style: The function 'SetFloodFiles' is never used. [unusedFunction]
    void SetFloodFiles(vector<string> const*v)
         ^
-configuration.h:608:9: style: The function 'SetSlumping' is never used. [unusedFunction]
+configuration.h:603:9: style: The function 'SetSlumping' is never used. [unusedFunction]
    void SetSlumping(bool b)
         ^
-configuration.h:613:9: style: The function 'SetBarrier' is never used. [unusedFunction]
+configuration.h:608:9: style: The function 'SetBarrier' is never used. [unusedFunction]
    void SetBarrier(bool b)
         ^
+configuration.h:673:9: style: The function 'SetProfileSmoothingMethod' is never used. [unusedFunction]
+   void SetProfileSmoothingMethod(int i)
+        ^
+configuration.h:812:11: style: The function 'dGetMaxBeachElevation' is never used. [unusedFunction]
+   double dGetMaxBeachElevation(void) const
+          ^
 configuration.h:902:18: style: The function 'pstrGetWaveInputMode' is never used. [unusedFunction]
    string const* pstrGetWaveInputMode(void) const
                  ^
-configuration.h:1050:11: style: The function 'dGetCliffDepositionA' is never used. [unusedFunction]
-   double dGetCliffDepositionA(void) const
+configuration.h:1045:11: style: The function 'dGetTalusWidth' is never used. [unusedFunction]
+   double dGetTalusWidth(void) const
           ^
-configuration.h:1078:18: style: The function 'pstrGetFloodCoastline' is never used. [unusedFunction]
+configuration.h:1050:11: style: The function 'dGetMinTalusLength' is never used. [unusedFunction]
+   double dGetMinTalusLength(void) const
+          ^
+configuration.h:1055:11: style: The function 'dGetMinTalusHeight' is never used. [unusedFunction]
+   double dGetMinTalusHeight(void) const
+          ^
+configuration.h:1068:18: style: The function 'pstrGetFloodCoastline' is never used. [unusedFunction]
    string const* pstrGetFloodCoastline(void) const
                  ^
-configuration.h:1093:18: style: The function 'pstrGetFloodInputLocation' is never used. [unusedFunction]
+configuration.h:1083:18: style: The function 'pstrGetFloodInputLocation' is never used. [unusedFunction]
    string const* pstrGetFloodInputLocation(void) const
                  ^
-configuration.h:1114:18: style: The function 'pstrGetSedimentInputDetails' is never used. [unusedFunction]
+configuration.h:1104:18: style: The function 'pstrGetSedimentInputDetails' is never used. [unusedFunction]
    string const* pstrGetSedimentInputDetails(void) const
                  ^
-configuration.h:1152:11: style: The function 'dGetStartDepthRatio' is never used. [unusedFunction]
+configuration.h:1142:11: style: The function 'dGetStartDepthRatio' is never used. [unusedFunction]
    double dGetStartDepthRatio(void) const
           ^
-configuration.h:1188:8: style: The function 'nGetCurvatureWindow' is never used. [unusedFunction]
+configuration.h:1178:8: style: The function 'nGetCurvatureWindow' is never used. [unusedFunction]
    int nGetCurvatureWindow(void) const
+       ^
+configuration.h:1183:8: style: The function 'nGetProfileSmoothingMethod' is never used. [unusedFunction]
+   int nGetProfileSmoothingMethod(void) const
        ^
 gis_utils.cpp:177:21: style: The function 'dTriangleAreax2' is never used. [unusedFunction]
 double CSimulation::dTriangleAreax2(CGeom2DPoint const* pPtA, CGeom2DPoint const* pPtB, CGeom2DPoint const* pPtC)
@@ -655,10 +598,10 @@ double CSimulation::dTriangleAreax2(CGeom2DPoint const* pPtA, CGeom2DPoint const
 gis_utils.cpp:454:28: style: The function 'PtiAverage' is never used. [unusedFunction]
 CGeom2DIPoint CSimulation::PtiAverage(CGeom2DIPoint const* pPti1, CGeom2DIPoint const* pPti2)
                            ^
-gis_utils.cpp:1821:18: style: The function 'nGetOppositeDirection' is never used. [unusedFunction]
+gis_utils.cpp:1794:18: style: The function 'nGetOppositeDirection' is never used. [unusedFunction]
 int CSimulation::nGetOppositeDirection(int const nDirection)
                  ^
-gis_utils.cpp:1988:19: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]
+gis_utils.cpp:1961:19: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]
 bool CSimulation::bIsAdjacentEdgeCell(CGeom2DIPoint const* pPt1, CGeom2DIPoint const* pPt2)
                   ^
 nanoflann.hpp:427:41: style: The function 'worst_item' is never used. [unusedFunction]
@@ -688,9 +631,6 @@ nanoflann.hpp:2687:10: style: The function 'query' is never used. [unusedFunctio
 nanoflann.hpp:2699:19: style: The function 'derived' is never used. [unusedFunction]
     const self_t& derived() const { return *this; }
                   ^
-profile.cpp:341:29: style: The function 'pGetUpCoastAdjacentProfile' is never used. [unusedFunction]
-CGeomProfile* CGeomProfile::pGetUpCoastAdjacentProfile(void) const
-                            ^
 raster_grid.cpp:62:29: style: The function 'pGetCell' is never used. [unusedFunction]
 CGeomCell* CGeomRasterGrid::pGetCell(int const nX, int const nY)
                             ^
@@ -700,14 +640,14 @@ spatial_interpolation.h:123:18: style: The function 'GetKDTree' is never used. [
 spatial_interpolation.h:126:22: style: The function 'GetPointCloud' is never used. [unusedFunction]
    PointCloud const& GetPointCloud() const { return m_cloud; }
                      ^
-utils.cpp:2460:21: style: The function 'pstrChangeToBackslash' is never used. [unusedFunction]
+utils.cpp:2456:21: style: The function 'pstrChangeToBackslash' is never used. [unusedFunction]
 string CSimulation::pstrChangeToBackslash(string const* strIn)
                     ^
-utils.cpp:2470:21: style: The function 'pstrChangeToForwardSlash' is never used. [unusedFunction]
+utils.cpp:2466:21: style: The function 'pstrChangeToForwardSlash' is never used. [unusedFunction]
 string CSimulation::pstrChangeToForwardSlash(string const* strIn)
                     ^
-yaml_parser.cpp:103:16: style: The function 'nGetSequenceSize' is never used. [unusedFunction]
-int CYamlNode::nGetSequenceSize() const
+yaml_parser.cpp:103:16: style: The function 'nVNodeGetSequenceSize' is never used. [unusedFunction]
+int CYamlNode::nVNodeGetSequenceSize() const
                ^
 yaml_parser.cpp:223:19: style: The function 'bHasError' is never used. [unusedFunction]
 bool CYamlParser::bHasError() const

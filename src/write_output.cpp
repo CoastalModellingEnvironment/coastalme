@@ -249,9 +249,43 @@ void CSimulation::WriteStartRunDetails(void)
          break;
       }
 
+      case SMOOTH_RUNNING_MEDIAN:
+      {
+         OutStream << "running median";
+         break;
+      }
+
       case SMOOTH_SAVITZKY_GOLAY:
       {
          OutStream << "Savitzky-Golay";
+         break;
+      }
+   }
+   OutStream << endl;
+
+   if (m_nCoastSmooth != SMOOTH_NONE)
+   {
+      OutStream << " Size of coastline smoothing window                        \t: " << m_nCoastSmoothingWindowSize << endl;
+
+      if (m_nCoastSmooth == SMOOTH_SAVITZKY_GOLAY)
+         OutStream << " Savitzky-Golay coastline smoothing polynomial order       \t: " << m_nSavGolCoastPoly << endl;
+   }
+
+   OutStream << " Grid edge(s) to omit when searching for coastline         \t: " << (m_bOmitSearchNorthEdge ? "N" : "") << (m_bOmitSearchSouthEdge ? "S" : "") << (m_bOmitSearchWestEdge ? "W" : "") << (m_bOmitSearchEastEdge ? "E" : "") << endl;
+
+   OutStream << " Coast-normal profile smoothing method                     \t: ";
+
+   switch (m_nProfileSmooth)
+   {
+      case SMOOTH_NONE:
+      {
+         OutStream << "none";
+         break;
+      }
+
+      case SMOOTH_RUNNING_MEAN:
+      {
+         OutStream << "running mean";
          break;
       }
 
@@ -260,26 +294,26 @@ void CSimulation::WriteStartRunDetails(void)
          OutStream << "running median";
          break;
       }
+
+      case SMOOTH_SAVITZKY_GOLAY:
+      {
+         OutStream << "Savitzky-Golay";
+         break;
+      }
    }
-
    OutStream << endl;
-
-   OutStream << " Grid edge(s) to omit when searching for coastline         \t: " << (m_bOmitSearchNorthEdge ? "N" : "") << (m_bOmitSearchSouthEdge ? "S" : "") << (m_bOmitSearchWestEdge ? "W" : "") << (m_bOmitSearchEastEdge ? "E" : "") << endl;
 
    if (m_nCoastSmooth != SMOOTH_NONE)
    {
-      OutStream << " Size of coastline vector smoothing window                 \t: " << m_nCoastSmoothingWindowSize << endl;
+      OutStream << " Size of coast-normal profile smoothing window             \t: " << m_nProfileSmoothingWindowSize << endl;
 
-      if (m_nCoastSmooth == SMOOTH_SAVITZKY_GOLAY)
-         OutStream << " Savitzky-Golay coastline smoothing polynomial order       \t: " << m_nSavGolCoastPoly << endl;
+      if (m_nProfileSmooth == SMOOTH_SAVITZKY_GOLAY)
+         OutStream << " Savitzky-Golay coastline smoothing polynomial order       \t: " << m_nSavGolProfilePoly << endl;
    }
-
-   OutStream << " Size of profile slope smoothing window                    \t: " << m_nProfileSmoothWindow << endl;
-   OutStream << " Method used to smooth profiles                            \t: " << (m_bSmoothUsingRunningMedian ? "running median" : "running mean") << endl;
 
    OutStream << resetiosflags(ios::floatfield);
    OutStream << fixed << setprecision(2);
-   OutStream << " Max local slope on profile (m/m)                          \t: " << m_dProfileMaxSlope << endl;
+   OutStream << " Coast-normal profile max local slope (m/m)                \t: " << m_dProfileMaxSlope << endl;
    OutStream << endl;
 
    // --------------------------------------------------- Raster GIS stuff -------------------------------------------------------

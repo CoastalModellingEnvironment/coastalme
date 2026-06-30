@@ -90,7 +90,7 @@ CYamlNode CYamlNode::GetChild(string const& strKey) const
    return CYamlNode();      // Return empty node if not found
 }
 
-vector<CYamlNode> CYamlNode::VNodeGetSequence() const
+vector<CYamlNode> const CYamlNode::VNodeGetSequence() const
 {
    return m_VYamlChildren;
 }
@@ -210,7 +210,7 @@ bool CYamlParser::bParseFile(string const& strFileName)
    return true;
 }
 
-CYamlNode CYamlParser::GetRoot() const
+CYamlNode const CYamlParser::GetRoot() const
 {
    return m_RootNode;
 }

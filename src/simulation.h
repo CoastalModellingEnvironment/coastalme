@@ -477,9 +477,6 @@ class CSimulation
    //! Are we saving wave uprush coarse files?
    bool m_bUpRushCoarseSave;
 
-   //! Are we smoothing coastline-normal profiles using a running-median (true) or running-mean (false) approach?
-   bool m_bSmoothUsingRunningMedian;
-
    //! Options for GDAL when handling raster files
    char** m_papszGDALRasterOptions;
 
@@ -501,14 +498,17 @@ class CSimulation
    //! The size of the window used for coast smoothing. Must be an odd number
    int m_nCoastSmoothingWindowSize;
 
-   //! The order of the coastline profile smoothing polynomial if Savitzky-Golay smoothing is used (usually 2 or 4, max is 6)
+   //! The order of the coastline smoothing polynomial if Savitzky-Golay smoothing is used (usually 2 or 4, max is 6)
    int m_nSavGolCoastPoly;
 
-   //! The order of the cliff edge smoothing polynomial if Savitzky-Golay smoothing is used (usually 2 or 4, max is 6)
-   int m_nSavGolCliffEdgePoly;
+   //! Which method to use for coast-normal profile smoothing
+   int m_nProfileSmooth;
 
-   //! The size of the window used for running-mean coast-normal profile smoothing (must be odd)
-   int m_nProfileSmoothWindow;
+   //! The size of the window used for coast-normal profile smoothing (must be odd)
+   int m_nProfileSmoothingWindowSize;
+
+   //! The order of the coast-normal profile smoothing polynomial if Savitzky-Golay smoothing is used (usually 2 or 4, max is 6)
+   int m_nSavGolProfilePoly;
 
    //! Average spacing between coastline normals, measured in cells
    int m_nCoastProfileSpacing;
@@ -1408,6 +1408,9 @@ class CSimulation
    //! Savitzky-Golay shift index for the coastline vector(s)
    vector<int> m_VnSavGolIndexCoast;
 
+   //! Savitzky-Golay shift index for the coast-normal profile vectors
+   vector<int> m_VnSavGolIndexProfile;
+
    //! Timesteps at which to save profiles
    vector<unsigned long> m_VulProfileTimestep;
 
@@ -1424,10 +1427,10 @@ class CSimulation
    vector<double> m_VdDepthOverDB;
 
    //! Savitzky-Golay filter coefficients for the coastline vector(s)
-   vector<double> m_VdSavGolFCRWCoast;
+   vector<double> m_VdSavGolFCCoast;
 
-   //! Savitzky-Golay filter coefficients for the profile vectors
-   vector<double> m_VdSavGolFCGeomProfile;
+   //! Savitzky-Golay filter coefficients for the coast-normal profile vectors
+   vector<double> m_VdSavGolFCProfile;
 
    //! Tide data: one record per timestep, is the change (m) from still water level for that timestep
    vector<double> m_VdTideData;
@@ -1662,6 +1665,21 @@ private:
    int nSaveParProfile(int const, CGeomProfile const*, int const, int const, int const, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<CGeom2DIPoint>* const, vector<double> const*) const;
    bool bWriteParProfileData(int const, int const, int const, int const, int const, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<double> const*, vector<CGeom2DIPoint>* const, vector<double> const*) const;
    void WriteLookUpData(void);
+   void WritePolygonInfoTable(void);
+   void WritePolygonPreExistingSedimentTable(void);
+   void WritePolygonSedimentInputEventTable(void);
+   void WritePolygonShorePlatformErosion(void);
+   void WritePolygonCliffCollapseErosion(void);
+   void WritePolygonSedimentBeforeMovement(void);
+   void WritePolygonPotentialErosion(void);
+   // void WritePolygonUnconsErosion(int const);
+   void WritePolygonUnsortedSequence(vector<vector<vector<int>>> const&);
+   void WritePolygonSortedSequence(vector<vector<vector<int>>> const&);
+   void WritePolygonActualMovement(vector<vector<vector<int>>> const&);
+// #ifdef _DEBUG
+//    void DEBUG_PrintProfileDetails(CGeomProfile*, CGeomProfile*);
+//    void DEBUG_PrintPolygonDetails(int const, CGeomCoastPolygon*);
+// #endif
 
    // GIS input and output stuff
    void InitializeGDALPerformance(void);
@@ -1833,12 +1851,17 @@ private:
    int nConvertMetresToNumCells(double const) const;
    static bool bIsAdjacentEdgeCell(CGeom2DIPoint const*, CGeom2DIPoint const*);
    static void FindClosestPointOnStraightLine(double const, double const, double const, double const, double const, double const, double&, double&);
+   // static double dCrossProduct(double const, double const, double const,
+   // double const, double const, double const); static double
+   // dGetMean(vector<double> const*); static double dGetStdDev(vector<double>
+   // const*);
+   // static bool bIsNumeric(string const*);
 
    // Interpolation routines
    static double dGetInterpolatedValue(vector<double> const*, vector<double> const*, double, bool);
    static double dGetInterpolatedValue(vector<int> const*, vector<double> const*, int, bool);
    static int nFindIndex(vector<double> const*, double const);
-   vector<double> VdInterpolateCShoreProfileOutput(vector<double> const*, vector<double> const*, vector<double> const*);
+   static vector<double> VdInterpolateCShoreProfileOutput(vector<double> const*, vector<double> const*, vector<double> const*);
 
    // Utility routines
    static void AnnounceStart(void);
@@ -1881,18 +1904,25 @@ private:
    // void CalcTime(double const);
    static string strDispTime(double const, bool const, bool const);
    static string strDispSimTime(double const);
+   unsigned long ulConvertToTimestep(string const*) const;
    void AnnounceProgress(void);
    static string strGetErrorText(int const);
    string strListRasterFiles(void) const;
    string strListVectorFiles(void) const;
    string strListTSFiles(void) const;
    void CalcProcessStats(void);
-   void CalcSavitzkyGolayCoeffs(void);
+   void DoEndOfRunDeletes(void);
+
+   // Smoothing utility routines
+   void CalcSavitzkyGolayCoeffsCoast(void);
+   void CalcSavitzkyGolayCoeffsProfile(void);
+   static void CalcSavitzkyGolay(double[], int const, int const, int const, int const, int const);
    CGeomLine LSmoothCoastSavitzkyGolay(CGeomLine*, int const, int const) const;
    CGeomLine LSmoothCoastRunningMean(CGeomLine*) const;
    CGeomLine LSmoothCoastRunningMedian(CGeomLine*) const;
    vector<double> dVSmoothProfileSlopeRunningMean(vector<double>*) const;
    vector<double> dVSmoothProfileSlopeRunningMedian(vector<double>*);
+   vector<double> dVSmoothProfileSlopeSavitskyGolay(vector<double>*);
    typedef struct
    {
       double* pVdBuffer;
@@ -1901,12 +1931,8 @@ private:
       int nCount;
    } RunningMedian;
    double dRunningMedianInsertAndCalc(RunningMedian*, double const) const;
-   // vector<double> dVCalCGeomProfileSlope(vector<CGeom2DPoint>*, vector<double>*);         // TODO 007 Why was this removed? vector<double>
-   // dVSmoothProfileSavitzkyGolay(vector<double>*, vector<double>*);         //
-   // TODO 007 was this removed? vector<double>
-   // dVSmoothProfileRunningMean(vector<double>*);                            //
-   // TODO 007 was this removed?
-   static void CalcSavitzkyGolay(double[], int const, int const, int const, int const, int const);
+
+   // Text utility routines
    static string pstrChangeToBackslash(string const*);
    static string pstrChangeToForwardSlash(string const*);
    static string strTrim(string const*);
@@ -1916,30 +1942,7 @@ private:
    static string strRemoveSubstr(string*, string const*);
    static vector<string>* VstrSplit(string const*, char const, vector<string>*);
    static vector<string> VstrSplit(string const*, char const);
-   // static double dCrossProduct(double const, double const, double const,
-   // double const, double const, double const); static double
-   // dGetMean(vector<double> const*); static double dGetStdDev(vector<double>
-   // const*);
    static void AppendEnsureNoGap(vector<CGeom2DIPoint>*, CGeom2DIPoint const*);
-   // static bool bIsNumeric(string const*);
-   unsigned long ulConvertToTimestep(string const*) const;
-   void WritePolygonInfoTable(void);
-   void WritePolygonPreExistingSedimentTable(void);
-   void WritePolygonSedimentInputEventTable(void);
-   void WritePolygonShorePlatformErosion(void);
-   void WritePolygonCliffCollapseErosion(void);
-   void WritePolygonSedimentBeforeMovement(void);
-   void WritePolygonPotentialErosion(void);
-   // void WritePolygonUnconsErosion(int const);
-   void WritePolygonUnsortedSequence(vector<vector<vector<int>>> const&);
-   void WritePolygonSortedSequence(vector<vector<vector<int>>> const&);
-   void WritePolygonActualMovement(vector<vector<vector<int>>> const&);
-   void DoEndOfRunDeletes(void);
-
-// #ifdef _DEBUG
-//    void DEBUG_PrintProfileDetails(CGeomProfile*, CGeomProfile*);
-//    void DEBUG_PrintPolygonDetails(int const, CGeomCoastPolygon*);
-// #endif
 
  protected:
  public:

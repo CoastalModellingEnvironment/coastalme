@@ -1377,7 +1377,7 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
    {
       // Coastline starts and ends at same edge of grid, so abandon it
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ": TEST abandoning possible coastline since it both starts and finishes at [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "}" << endl;
+         LogStream << m_ulIter << ": abandoning possible coastline since it both starts and finishes at [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "}" << endl;
 
       return RTN_ERR_COAST_TRACING_SAME_EDGE_START_FINISH;
    }

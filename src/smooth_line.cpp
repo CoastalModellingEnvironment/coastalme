@@ -44,13 +44,13 @@ void LULinearSolve(Matrix const, int const, int const[], double[]);
 } // namespace
 
 //===============================================================================================================================
-//! Calculates the Savitzky-Golay smoothing coefficients for a given size of smoothing window. Derived from a C original by Jean-Pierre Moreau (jpmoreau@wanadoo.fr, http://jean-pierre.moreau.pagesperso-orange.fr/index.html), to whom we are much indebted
+//! Calculates the Savitzky-Golay smoothing coefficients for a given size of coastline smoothing window. Derived from a C original by Jean-Pierre Moreau (jpmoreau@wanadoo.fr, http://jean-pierre.moreau.pagesperso-orange.fr/index.html), to whom we are much indebted
 //===============================================================================================================================
-void CSimulation::CalcSavitzkyGolayCoeffs(void)
+void CSimulation::CalcSavitzkyGolayCoeffsCoast(void)
 {
    m_VnSavGolIndexCoast.resize(m_nCoastSmoothingWindowSize + 1, 0);
 
-   // Note that m_nCoastSmoothingWindowSize must be odd (have already checked this)
+   // Note that the smoothing window size must be odd (have already checked this)
    int const nHalfWindow = m_nCoastSmoothingWindowSize / 2;
 
    // Calculate the shift index for this value of nHalfWindow
@@ -71,9 +71,42 @@ void CSimulation::CalcSavitzkyGolayCoeffs(void)
    }
 
    // Now calculate the Savitzky-Golay filter coefficients
-   m_VdSavGolFCRWCoast.resize(m_nCoastSmoothingWindowSize + 1, 0);
+   m_VdSavGolFCCoast.resize(m_nCoastSmoothingWindowSize + 1, 0);
 
-   CalcSavitzkyGolay(&(m_VdSavGolFCRWCoast.at(0)), m_nCoastSmoothingWindowSize, nHalfWindow, nHalfWindow, 0, m_nSavGolCoastPoly);
+   CalcSavitzkyGolay(&(m_VdSavGolFCCoast.at(0)), m_nCoastSmoothingWindowSize, nHalfWindow, nHalfWindow, 0, m_nSavGolCoastPoly);
+}
+
+//===============================================================================================================================
+//! Calculates the Savitzky-Golay smoothing coefficients for a given size of coast-normal profile smoothing window. Derived from a C original by Jean-Pierre Moreau (jpmoreau@wanadoo.fr, http://jean-pierre.moreau.pagesperso-orange.fr/index.html), to whom we are much indebted
+//===============================================================================================================================
+void CSimulation::CalcSavitzkyGolayCoeffsProfile(void)
+{
+   m_VnSavGolIndexProfile.resize(m_nProfileSmoothingWindowSize + 1, 0);
+
+   // Note that the smoothing window size must be odd (have already checked this)
+   int const nHalfWindow = m_nProfileSmoothingWindowSize / 2;
+
+   // Calculate the shift index for this value of nHalfWindow
+   int j = 3;
+
+   for (int i = 2; i <= nHalfWindow + 1; i++)
+   {
+      m_VnSavGolIndexProfile[i] = i - j;
+      j += 2;
+   }
+
+   j = 2;
+
+   for (int i = nHalfWindow + 2; i <= m_nProfileSmoothingWindowSize; i++)
+   {
+      m_VnSavGolIndexProfile[i] = i - j;
+      j += 2;
+   }
+
+   // Now calculate the Savitzky-Golay filter coefficients
+   m_VdSavGolFCProfile.resize(m_nProfileSmoothingWindowSize + 1, 0);
+
+   CalcSavitzkyGolay(&(m_VdSavGolFCProfile.at(0)), m_nProfileSmoothingWindowSize, nHalfWindow, nHalfWindow, 0, m_nSavGolProfilePoly);
 }
 
 //===============================================================================================================================
@@ -114,7 +147,8 @@ CGeomLine CSimulation::LSmoothCoastSavitzkyGolay(CGeomLine* pLineIn, int const n
       {
          // For the first few values of LTemp, just apply a running mean with a variable-sized window
          int nTmpWindow = 0;
-         double dWindowTotX = 0, dWindowTotY = 0;
+         double dWindowTotX = 0;
+         double dWindowTotY = 0;
 
          for (int j = -nHalfWindow; j < m_nCoastSmoothingWindowSize - nHalfWindow; j++)
          {
@@ -194,11 +228,11 @@ CGeomLine CSimulation::LSmoothCoastSavitzkyGolay(CGeomLine* pLineIn, int const n
             if ((k >= 0) && (k < nSize)) // Skip points that do not exist, note starts from 1
             {
                double dX = LTemp.dGetXAt(i);
-               dX += m_VdSavGolFCRWCoast[j + 1] * pLineIn->dGetXAt(k);
+               dX += m_VdSavGolFCCoast[j + 1] * pLineIn->dGetXAt(k);
                // LTemp.SetXAt(i, dX);
 
                double dY = LTemp.dGetYAt(i);
-               dY += m_VdSavGolFCRWCoast[j + 1] * pLineIn->dGetYAt(k);
+               dY += m_VdSavGolFCCoast[j + 1] * pLineIn->dGetYAt(k);
 
                LTemp[i] = CGeom2DPoint(dX, dY);
                // LTemp.SetYAt(i, dY);
@@ -299,8 +333,8 @@ vector<double> CSimulation::dVSmoothProfileSlopeRunningMean(vector<double>* pdVS
    int const nSize = static_cast<int>(pdVSlope->size());
    vector<double> dVSmoothed = *pdVSlope;
 
-   // Note that m_nProfileSmoothWindow must be odd (have already checked this)
-   int const nHalfWindow = m_nProfileSmoothWindow / 2;
+   // Note that m_nProfileSmoothingWindowSize must be odd (have already checked this)
+   int const nHalfWindow = m_nProfileSmoothingWindowSize / 2;
 
    // Apply the running mean smoothing filter, with a variable window size at both ends of the line. Also leave the start and end points unchanged
    for (int i = 1; i < (nSize-1); i++)
@@ -308,7 +342,7 @@ vector<double> CSimulation::dVSmoothProfileSlopeRunningMean(vector<double>* pdVS
       int nTmpWindow = 0;
       double dWindowTot = 0;
 
-      for (int j = -nHalfWindow; j < m_nProfileSmoothWindow - nHalfWindow; j++)
+      for (int j = -nHalfWindow; j < m_nProfileSmoothingWindowSize - nHalfWindow; j++)
       {
          // For points at both ends of the profile, use a smaller window
          int const k = i + j;
@@ -568,9 +602,9 @@ vector<double> CSimulation::dVSmoothProfileSlopeRunningMedian(vector<double>* pd
 
    RunningMedian rm;
 
-   // Note that m_nProfileSmoothWindow must be odd (have already checked this)
-   rm.pVdBuffer = new double[m_nProfileSmoothWindow];
-   rm.nSize = m_nProfileSmoothWindow;
+   // Note that m_nProfileSmoothingWindowSize must be odd (have already checked this)
+   rm.pVdBuffer = new double[m_nProfileSmoothingWindowSize];
+   rm.nSize = m_nProfileSmoothingWindowSize;
    rm.nHead = 0;
    rm.nCount = 0;
 
@@ -641,13 +675,13 @@ CGeomLine CSimulation::LSmoothCoastRunningMedian(CGeomLine* pLineIn) const
    RunningMedian rmX;
    RunningMedian rmY;
 
-   // Note that m_nProfileSmoothWindow must be odd (have already checked this)
-   rmX.pVdBuffer = new double[m_nProfileSmoothWindow];
-   rmX.nSize = m_nProfileSmoothWindow;
+   // Note that m_nProfileSmoothingWindowSize must be odd (have already checked this)
+   rmX.pVdBuffer = new double[m_nProfileSmoothingWindowSize];
+   rmX.nSize = m_nProfileSmoothingWindowSize;
    rmX.nHead = 0;
    rmX.nCount = 0;
-   rmY.pVdBuffer = new double[m_nProfileSmoothWindow];
-   rmY.nSize = m_nProfileSmoothWindow;
+   rmY.pVdBuffer = new double[m_nProfileSmoothingWindowSize];
+   rmY.nSize = m_nProfileSmoothingWindowSize;
    rmY.nHead = 0;
    rmY.nCount = 0;
 
@@ -686,3 +720,79 @@ CGeomLine CSimulation::LSmoothCoastRunningMedian(CGeomLine* pLineIn) const
    // Return the smoothed vector
    return LSmoothed;
 }
+
+//===============================================================================================================================
+//! Does Savitsky-Golay smoothing of the slope of a coastline-normal profile
+//===============================================================================================================================
+vector<double> CSimulation::dVSmoothProfileSlopeSavitskyGolay(vector<double>* pdVSlope)
+{
+   // Make a copy of the unsmoothed profile slope vector
+   int const nSize = static_cast<int>(pdVSlope->size());
+   vector<double> dVSmoothed = *pdVSlope;
+
+   // Note that m_nProfileSmoothingWindowSize must be odd (have already checked this)
+   int const nHalfWindow = m_nProfileSmoothingWindowSize / 2;
+
+   // Apply the Savitsky-Golay smoothing filter, with a variable window size at both ends of the line. Also leave the start and end points unchanged
+   for (int i = 1; i < (nSize-1); i++)
+   {
+      if (i < nHalfWindow)
+      {
+         // For the first few values of pdVSlope, just apply a running mean with a variable-sized window
+         int nTmpWindow = 0;
+         double dWindowTot = 0;
+
+         for (int j = -nHalfWindow; j < m_nProfileSmoothingWindowSize - nHalfWindow; j++)
+         {
+            int const k = i + j;
+
+            if ((k > 0) && (k < nSize))
+            {
+               dWindowTot += pdVSlope->at(k);
+               nTmpWindow++;
+            }
+         }
+
+         dVSmoothed[i] = dWindowTot / nTmpWindow;
+      }
+      else if (i >= (nSize - nHalfWindow))
+      {
+         // For the last few values of pdVSlope, just apply a running mean with a variable-sized window
+         int nTmpWindow = 0;
+         double dWindowTot = 0;
+
+         for (int j = -nHalfWindow; j < m_nProfileSmoothingWindowSize - nHalfWindow; j++)
+         {
+            int const k = i + j;
+
+            if ((k > 0) && (k < nSize))
+            {
+               dWindowTot += pdVSlope->at(k);
+               nTmpWindow++;
+            }
+         }
+
+         dVSmoothed[i] = dWindowTot / nTmpWindow;
+      }
+      else
+      {
+         // For all other pdVSlope values, calc a Savitzky-Golay weighted value
+         for (int j = 0; j < m_nProfileSmoothingWindowSize; j++)
+         {
+            int const k = i + m_VnSavGolIndexCoast[j + 1];
+
+            if ((k >= 0) && (k < nSize)) // Skip points that do not exist, note starts from 1
+            {
+               double dThis = dVSmoothed.at(i);
+               dThis += m_VdSavGolFCCoast[j + 1] * pdVSlope->at(k);
+
+               dVSmoothed[i] = dThis;
+            }
+         }
+      }
+   }
+
+   // Return the smoothed vector
+   return dVSmoothed;
+}
+

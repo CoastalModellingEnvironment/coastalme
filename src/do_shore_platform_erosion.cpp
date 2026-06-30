@@ -203,6 +203,8 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
    // Get the height of the associated breaking wave from the coast point: this height is used in beach protection calcs
    double const dBreakingWaveHeight = m_VCoast[nCoast].dGetBreakingWaveHeight(nCoastPoint);
 
+   assert(dBreakingWaveHeight >= 0);
+
    // Calculate the length of the profile in external CRS units
    int const nSegments = pProfile->nGetProfileSize() - 1;
    double dProfileLenXY = 0;
@@ -264,14 +266,13 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
    // Sort out the final value
    dVConsSlope[nProfSize - 1] = dVConsSlope[nProfSize - 2];
 
-   if (m_nProfileSmoothWindow > 0)
-   {
-      // Smooth the vector of slopes for the consolidated-only profile using either a ruuning-mean or running-median approach
-      if (m_bSmoothUsingRunningMedian)
-         dVConsSlope = dVSmoothProfileSlopeRunningMedian(&dVConsSlope);
-      else
-         dVConsSlope = dVSmoothProfileSlopeRunningMean(&dVConsSlope);
-   }
+   // Smooth the profile slopes
+   if (m_nProfileSmooth == SMOOTH_RUNNING_MEAN)
+      dVConsSlope = dVSmoothProfileSlopeRunningMean(&dVConsSlope);
+   else if (m_nProfileSmooth == SMOOTH_RUNNING_MEDIAN)
+      dVConsSlope = dVSmoothProfileSlopeRunningMedian(&dVConsSlope);
+   else if (m_nProfileSmooth == SMOOTH_SAVITZKY_GOLAY)
+      dVConsSlope = dVSmoothProfileSlopeSavitskyGolay(&dVConsSlope);
 
    vector<double> dVProfileDepthOverDB(nProfSize, 0);          // Depth over wave breaking depth at the coastline-normal sample points
    vector<double> dVProfileErosionPotential(nProfSize, 0);     // Erosion potential at the coastline-normal sample points
@@ -557,6 +558,8 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       // Get the height of the associated breaking wave from the coast point: this height is used in beach protection calcs. Note that it will be DBL_NODATA if not in active zone
       double const dBreakingWaveHeight = m_VCoast[nCoast].dGetBreakingWaveHeight(nThisPointOnCoast);
 
+      assert(dBreakingWaveHeight >= 0);
+
       // OK, now construct a parallel profile
       vector<CGeom2DIPoint> PtiVGridParProfile;       // Integer coords (grid CRS) of cells under the parallel profile
       vector<CGeom2DPoint> PtVExtCRSParProfile;       // coordinates (external CRS) of cells under the parallel profile
@@ -642,14 +645,13 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       // Sort out the final slope value
       dVParConsSlope[nParProfSize - 1] = dVParConsSlope[nParProfSize - 2];
 
-      if (m_nProfileSmoothWindow > 0)
-      {
-         // Smooth the vector of slopes for the profile using a running-mean or a running-median approach
-         if (m_bSmoothUsingRunningMedian)
-            dVParConsSlope = dVSmoothProfileSlopeRunningMedian(&dVParConsSlope);
-         else
-            dVParConsSlope = dVSmoothProfileSlopeRunningMean(&dVParConsSlope);
-      }
+      // Smooth the parallel profile slopes
+      if (m_nProfileSmooth == SMOOTH_RUNNING_MEAN)
+         dVParConsSlope = dVSmoothProfileSlopeRunningMean(&dVParConsSlope);
+      else if (m_nProfileSmooth == SMOOTH_RUNNING_MEDIAN)
+         dVParConsSlope = dVSmoothProfileSlopeRunningMedian(&dVParConsSlope);
+      else if (m_nProfileSmooth == SMOOTH_SAVITZKY_GOLAY)
+         dVParConsSlope = dVSmoothProfileSlopeSavitskyGolay(&dVParConsSlope);
 
       // Initialize the parallel profile vector with depth / m_dWaveBreakingDepth
       vector<double> dVParProfileDepthOverDB(nParProfSize, 0);      // Depth / wave breaking depth at the parallel profile sample points

@@ -170,7 +170,7 @@ private:
    bool m_bSaveParallelProfiles;
    bool m_bOutputErosionPotential;
    int m_nCurvatureWindow;
-   bool m_bSmoothUsingRunningMedian;
+   int m_nSmoothProfileMethod;
 
 public:
    CConfiguration(void);
@@ -670,9 +670,9 @@ public:
       m_nCurvatureWindow = n;
    }
 
-   void SetProfileSmoothingMethod(bool b)
+   void SetProfileSmoothingMethod(int i)
    {
-      m_bSmoothUsingRunningMedian = b;
+      m_nSmoothProfileMethod = i;
    }
 
    void SetCliffCollapseTalusErodibility(double d)
@@ -1180,9 +1180,9 @@ public:
       return m_nCurvatureWindow;
    }
 
-   bool bGetProfileSmoothingMethod(void) const
+   int nGetProfileSmoothingMethod(void) const
    {
-      return m_bSmoothUsingRunningMedian;
+      return m_nSmoothProfileMethod;
    }
 
    double dGetCliffCollapseTalusErodibility(void) const

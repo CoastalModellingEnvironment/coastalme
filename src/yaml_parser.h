@@ -55,7 +55,7 @@ class CYamlNode
    string* pStrGetValue(void) const;
    bool bHasChild(const char[]) const;
    CYamlNode GetChild(string const& strKey) const;
-   vector<CYamlNode> VNodeGetSequence(void) const;
+   vector<CYamlNode> const VNodeGetSequence(void) const;
    bool bIsSequence(void) const;
    int nVNodeGetSequenceSize(void) const;
 
@@ -92,7 +92,7 @@ class CYamlParser
    ~CYamlParser();
 
    bool bParseFile(string const& strFileName);
-   CYamlNode GetRoot() const;
+   CYamlNode const GetRoot() const;
    string const* pstrGetError() const;
    bool bHasError() const;
 };

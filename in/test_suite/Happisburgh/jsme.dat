@@ -42,13 +42,15 @@ GIS vector files to output                                ["usual", "all", or fr
 GIS vector output format                                                                     : ESRI Shapefile           ; ogrinfo --formats for others
 Time series files to output                                                   [see codes.txt]: all
 
-Coastline smoothing      [0 = none, 1 = running mean, 2 = running median, 3 = Savitzky-Golay]: 3
-Coastline smoothing window size                                                 [must be odd]: 21                       ; was 55 for S-G
-Polynomial order for Savitzky-Golay coastline smoothing                              [2 or 4]: 4
-Grid edge(s) to omit when searching for coastline                                      [NSWE]: S
+Coastline smoothing                 [0 = none, 1 = running mean, 2 = running median, 3 = Savitzky-Golay]: 3
+Coastline smoothing window size                                                            [must be odd]: 21                       ; 7 is min?
+Polynomial order for Savitzky-Golay coastline smoothing                                         [2 or 4]: 4
+Grid edge(s) to omit when searching for coastline                                                 [NSWE]:
 
-Profile slope running-mean smoothing window size                  [0=none, or positive & odd]: 0                        ; was 11 33
-Max local slope (m/m)                                                                        : 1.18
+Coast-normal profile smoothing      [0 = none, 1 = running mean, 2 = running median, 3 = Savitzky-Golay]: 3
+Coast-normal profile smoothing window size                                         [must be zero or odd]: 13
+Polynomial order for Savitzky-Golay coast-normal profile smoothing                              [2 or 4]: 4
+Coast-normal profile max local slope (m/m)                                                              : 1.18
 
 ; Initial raster GIS layers -----------------------------------------------------------------------------------------------------------------------------------
 Number of layers                                                                             : 1
@@ -155,6 +157,6 @@ Cliff collapse coarse talus removal rate                                        
 
 Wave uprush?                                                                                 : n
 
-Profile slope smoothing using running median or running mean           [y = median, n = mean]: y
+
 
 ; END OF FILE -------------------------------------------------------------------------------------------------------------------------------------------------
