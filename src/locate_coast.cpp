@@ -1285,19 +1285,8 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
 
    // OK, we have a possible coastline
    int nCoastSize = ILTempGridCRS.nGetSize();
-   int nEndX = ILTempGridCRS[nCoastSize - 1].nGetX();
-   int nEndY = ILTempGridCRS[nCoastSize - 1].nGetY();
 
-   // Now check it
-   if ((nStartX == nEndX) && (nStartY == nEndY))
-   {
-      // Coastline starts and ends at same cell, so abandon it
-      if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ": abandoning possible coastline since it both starts and finishes at [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "}" << endl;
-
-      return RTN_ERR_COAST_TRACING_SAME_START_FINISH;
-   }
-
+   // Safety check
    if (nCoastSize == 0)
    {
       // Zero length vector coastline, so abandon it
@@ -1307,6 +1296,21 @@ int CSimulation::nTraceCoastLine(int const nTraceFromStartCellIndex, vector<CGeo
       return RTN_ERR_COAST_TRACING_ZERO_LENGTH;
    }
 
+   // OK so far
+   int nEndX = ILTempGridCRS[nCoastSize - 1].nGetX();
+   int nEndY = ILTempGridCRS[nCoastSize - 1].nGetY();
+
+   // Do the first check
+   if ((nStartX == nEndX) && (nStartY == nEndY))
+   {
+      // Coastline starts and ends at same cell, so abandon it
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": abandoning possible coastline since it both starts and finishes at [" << nStartX << "][" << nStartY << "] = {" << dGridCentroidXToExtCRSX(nStartX) << ", " << dGridCentroidYToExtCRSY(nStartY) << "}" << endl;
+
+      return RTN_ERR_COAST_TRACING_SAME_START_FINISH;
+   }
+
+   // Do other checks
    if (bDeadEnd)
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
