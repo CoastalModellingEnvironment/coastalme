@@ -1856,7 +1856,7 @@ int CSimulation::nReadCShoreOutput(int const nProfile, string const *strCShoreFi
    // Using a simple linear interpolation approach
    vector<double> VdDistXYCopy(pVdProfileDistXYCME->begin(), pVdProfileDistXYCME->end());
 
-   // assertVdXYDistCShoreTmp.size() == VdValuesCShore.size());
+   assertVdXYDistCShoreTmp.size() == VdValuesCShore.size());
    *pVdInterpolatedValues = VdInterpolateCShoreProfileOutput(&VdXYDistCShoreTmp, &VdValuesCShore, &VdDistXYCopy);
 
    return RTN_OK;

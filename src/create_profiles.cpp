@@ -572,6 +572,11 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
    int const nProfileLen = nRound(m_dCoastNormalLength / m_dCellSide);                 // Profile length in grid CRS
    // int nProfileStartEdge;
 
+   // DEBUG CODE ================================
+   if ((m_ulIter == 3) && (nProfile == 35))
+      LogStream << endl;
+   // DEBUG CODE ================================
+
    CGeom2DIPoint PtiProfileStart;                                                      // In grid CRS
    vector<CGeom2DIPoint> VPtiNormalPoints;                                             // In grid CRS
 
@@ -617,7 +622,9 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
             if (nPos >= static_cast<int>(m_VPtiAllEdgeCell.size()))
             {
                // We've reached the end of the list of edge cells before the profile is long enough. OK, we can live with this
-               break;
+               // TEST
+               nPos = 0;
+               // break;
             }
          }
          else
@@ -628,7 +635,9 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
             if (nPos < 0)
             {
                // We've reached the beginning of the list of edge cells before the profile is long enough. OK, we can live with this
-               break;
+               // TEST
+               nPos = m_VPtiAllEdgeCell.size()-1;
+               // break;
             }
          }
       }
@@ -642,7 +651,9 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
             if (nPos < 0)
             {
                // We've reached the beginning of the list of edge cells before the profile is long enough. OK, we can live with this
-               break;
+               // TEST
+               nPos = m_VPtiAllEdgeCell.size()-1;
+               // break;
             }
          }
          else
@@ -653,20 +664,14 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
             if (nPos >= static_cast<int>(m_VPtiAllEdgeCell.size()))
             {
                // We've reached the end of the list of edge cells before the profile is long enough. OK, we can live with this
-               break;
+               // TEST
+               nPos = 0;
+               // break;
             }
          }
       }
 
       CGeom2DIPoint const Pti = m_VPtiAllEdgeCell[nPos];
-
-      // Have we hit a corner point?
-      it = find(m_VPtiBoundingBoxCorner.begin(), m_VPtiBoundingBoxCorner.end(), Pti);
-      if (it != m_VPtiBoundingBoxCorner.end())
-      {
-         // We've reached the end of a grid side before the profile is long enough. OK, we can live with this
-         break;
-      }
 
       int const nX = Pti.nGetX();
       int const nY = Pti.nGetY();
@@ -687,6 +692,14 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
 
       // All OK, so append this grid-edge cell, making sure that there is no gap between this and the previously-appended cell (if there is, will get problems with cell-by-cell fill)
       AppendEnsureNoGap(&VPtiNormalPoints, &m_VPtiAllEdgeCell[nPos]);
+
+      // Have we hit a corner point?
+      it = find(m_VPtiBoundingBoxCorner.begin(), m_VPtiBoundingBoxCorner.end(), Pti);
+      if (it != m_VPtiBoundingBoxCorner.end())
+      {
+         // We've reached the end of a grid side before the profile is long enough. OK, we can live with this
+         break;
+      }
    }
 
    int nProfileStartPoint;
