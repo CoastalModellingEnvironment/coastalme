@@ -115,9 +115,9 @@ gis_output:
 # =============================================================================
 grid_and_coastline:
   # String/Integer: Coastline smoothing algorithm
-  # Options: "none"(0), "running_mean"(1), "savitzky_golay"(2)
+  # Options: 0 = none, 1 = running mean, 2 = running median, 3 = Savitzky-Golay
   # Savitzky-Golay recommended for most applications
-  coastline_smoothing: "running_mean"
+  coastline_smoothing: "Savitzky-Golay"
 
   # Integer: Window size for coastline smoothing (must be odd)
   # Larger values = more smoothing but may lose detail

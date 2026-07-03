@@ -48,6 +48,10 @@ Coastline smoothing window size                                                 
 Polynomial order for Savitzky-Golay coastline smoothing                                         [2 or 4]: 4
 Grid edge(s) to omit when searching for coastline                                                 [NSWE]:
 
+Typical spacing of coastline normals (m)                                        [0 = default]: 0
+Random factor for spacing of normals                              [0 to 1, 0 = deterministic]: 0.25
+Length of coastline normals (m)                                                              : 700       ; was 600
+
 Coast-normal profile smoothing      [0 = none, 1 = running mean, 2 = running median, 3 = Savitzky-Golay]: 3
 Coast-normal profile smoothing window size                                         [must be zero or odd]: 13
 Polynomial order for Savitzky-Golay coast-normal profile smoothing                              [2 or 4]: 4
@@ -86,6 +90,7 @@ Deep water wave orientation (degrees)                      [empty if time wave h
 Wave period (sec)                                          [empty if time wave height series]:           ; 5
 Tide data is the change (m) from still water level for each timestep                         : in/test_suite/Manuel_C003_0001/C003_0001-sim_0001-sea_level.dat   ; Either empty or a file
 Breaking wave height to water depth ratio (non dimensional)                                  : 0.8
+Start depth for wave calcs (ratio to deep water wave height)                                 : 10        ; was 10 30 15
 
 ; Sediment data -----------------------------------------------------------------------------------------------------------------------------------------------
 Simulate coast platform erosion?                                                             : y
@@ -112,12 +117,19 @@ Transport parameter KLS                                                   [only 
 Transport parameter                                                   [only for Kamphuis eqn]: 0.01
 
 Berm height i.e. height above SWL of start of depositional Dean profile (m)                  : 0.5
+Runup equation                      [0 = none, 1 = Nielsen & Hanslow, 2 = Mase, 3 = Stockdon): 3
+Net wave uprush?                                                                             : n
 
 ; Cliff collapse data -----------------------------------------------------------------------------------------------------------------------------------------
 Simulate cliff collapse?                                                                     : y
 Resistance to erosion of cliff (m^(9/4)s^(3/2))                                              : 6e6
 Notch overhang to initiate collapse (m)                                                      : 0.50
 Notch-apex elevation above mean high water level (m)                                         : 0.3       ; Must be greater than zero
+
+Cliff collapse talus erodibility (units?)                                                    : 0.3
+Cliff collapse fine talus removal rate                                               [0 to 1]: 1
+Cliff collapse sand talus removal rate                                               [0 to 1]: 0.9
+Cliff collapse coarse talus removal rate                                             [0 to 1]: 0.7
 
 ; Input events ---------------------------------------------------------------------------------------------------------
 Flood input?                                                                                 : n
@@ -133,12 +145,6 @@ Sediment input details file                                      [required if ha
 ; Other data --------------------------------------------------------------------------------------------------------------------------------------------------
 Gravitational acceleration (m2/s)                                                            : 9.81
 
-; MOVE THESE?
-Typical spacing of coastline normals (m)                                        [0 = default]: 0
-Random factor for spacing of normals                              [0 to 1, 0 = deterministic]: 0.25
-Length of coastline normals (m)                                                              : 700       ; was 600
-Start depth for wave calcs (ratio to deep water wave height)                                 : 10        ; was 10 30 15
-
 ; For testing only --------------------------------------------------------------------------------------------------------------------------------------------
 Save profile data?                                                                           : y
 Profile number(s) to save                                                                    : 1 3 5 7 9
@@ -146,18 +152,6 @@ Timesteps to save profile(s)                                                    
 Save parallel profiles?                                                                      : n
 Output erosion potential look-up values                                                      : n
 
-; TO MOVE
-Runup equation                      [0 = none, 1 = Nielsen & Hanslow, 2 = Mase, 3 = Stockdon): 3
-
 Slumping?                                                                                    : n
-
-Cliff collapse talus erodibility (units?)                                                    : 0.3
-Cliff collapse fine talus removal rate                                               [0 to 1]: 1
-Cliff collapse sand talus removal rate                                               [0 to 1]: 0.9
-Cliff collapse coarse talus removal rate                                             [0 to 1]: 0.7
-
-Wave uprush?                                                                                 : n
-
-
 
 ; END OF FILE -------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 #!/bin/sh
 
-cp cme.ini cme.ini.OLD 2> /dev/null
-cp cme.yaml cme.yaml.OLD 2> /dev/null
+mv cme.ini cme.ini.OLD 2> /dev/null
+mv cme.yaml cme.yaml.OLD 2> /dev/null
 
 rm -f out/test_suite/minimal_cons_wave_angle_230/*
 cp in/test_suite/minimal_cons_wave_angle_230/cme.ini .
@@ -27,21 +27,11 @@ rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_215/*
 cp in/test_suite/minimal_cons_with_intervention_wave_angle_215/cme.ini .
 ./cme
 echo ===============================================================================
-#
-# rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_235/*
-# cp in/test_suite/minimal_cons_with_intervention_wave_angle_235/cme.ini .
-# ./cme
-# echo ===============================================================================
 
 rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_270/*
 cp in/test_suite/minimal_cons_with_intervention_wave_angle_270/cme.ini .
 ./cme
 echo ===============================================================================
-
-# rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_285/*
-# cp in/test_suite/minimal_cons_with_intervention_wave_angle_285/cme.ini .
-# ./cme
-# echo ===============================================================================
 
 rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_305/*
 cp in/test_suite/minimal_cons_with_intervention_wave_angle_305/cme.ini .
@@ -102,6 +92,25 @@ cp in/test_suite/GMD2017/UndefendedCoastline/cme.ini .
 ./cme
 echo ===============================================================================
 
+rm -f out/CSE/Typology/Cliff/*
+cp in/CSE/0_Typology/Cliff/cme.ini .
+./cme
+echo ===============================================================================
+
+rm -f out/CSE/Typology/Dune/*
+cp in/CSE/0_Typology/Dune/cme.ini .
+./cme
+echo ===============================================================================
+
+rm -f out/two_coasts/*
+cp in/two_coasts/cme.ini .
+./cme
+echo ===============================================================================
+
+mv cme.ini.OLD cme.ini 2> /dev/null
+mv cme.yaml.OLD cme.yaml 2> /dev/null
+
+# OLD ===============================================================================
 # rm -f out/test_suite/Wilf/Scen001/*
 # cp in/test_suite/Wilf/Scen001/cme.ini .
 # ./cme
@@ -180,12 +189,6 @@ echo ===========================================================================
 # rm -f out/test_suite/Wilf/Scen016/*
 # cp in/test_suite/Wilf/Scen016/cme.ini .
 # ./cme
-echo ===============================================================================
+# echo ===============================================================================
 
-rm -f out/CSE/Typology/Cliff/*
-cp in/CSE/0_Typology/Cliff/cme.ini .
-./cme
-echo ===============================================================================
 
-mv cme.ini.OLD cme.ini 2> /dev/null
-mv cme.yaml.OLD cme.yaml 2> /dev/null

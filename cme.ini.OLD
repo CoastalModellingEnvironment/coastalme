@@ -17,11 +17,10 @@
 ; Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ;
 ;======================================================================================================================
-Input data file (path and name)                      : in/two_coasts/minimal_two_coasts.dat
+Input data file (path and name)                      : in/test_suite/GMD2017/CliffFineBays/CliffFineBays.dat
 
 ;======================================================================================================================
-
-Path for output                                      : out/two_coasts/
+Path for output                                      : out/test_suite/GMD2017/CliffFineBays/
 
 ;======================================================================================================================
 

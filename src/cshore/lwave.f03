@@ -89,10 +89,11 @@ subroutine LWAVE(J, L, WD, QDISP)
    else
       STHETA(J) = WKPSIN/WKP
       
-      ! DFM safety checks ===================
+      ! DFM safety check bodge ==============================
       STHETA(J) = MIN(1.D0, STHETA(J))
       STHETA(J) = MAX(-1.D0, STHETA(J))
-      
+      ! DFM safety check bodge ==============================
+
       THETA = DASIN(STHETA(J))
       CTHETA(J) = DCOS(THETA)
    endif

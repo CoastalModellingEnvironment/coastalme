@@ -266,12 +266,13 @@ subroutine CShore(NRET)
          SIGMA(1) = HRMS(1) / SQR8
          H(1) = WSETUP(1) + SWLDEP(1,L)
          
-         ! DFM added Hun 2026
+         ! DFM safety check bodge ==============================
          if (H(1) <= 0) then
 !             write (*,*) "CShore WARNING: negative depth at the first node, set to zero"
             H(1) = 0
             NRET = -1
          endif
+         ! DFM safety check bodge ==============================
 ! Removed by DFM
 ! ! BDJ added on 2012-09-28
 !          if (H(1) <= 0) then
@@ -356,11 +357,13 @@ subroutine CShore(NRET)
          JP1 = J + 1
          ITE = 0
 
-         ! DFM bodge =====================
+         ! DFM safety check bodge ==============================
          if (J > 1000) J = 1000
+         ! DFM safety check bodge ==============================
 
-         ! DFM bodge =====================
+         ! DFM safety check bodge ==============================
          if (JP1 > 1000) JP1 = 1000
+         ! DFM safety check bodge ==============================
 
          DUM = DFSTA(J) + DBSTA(J)
          
@@ -414,8 +417,17 @@ subroutine CShore(NRET)
          if (IWCINT == 1) SXXSTA(JP1) = SXXSTA(JP1) + QWX * QWX / GRAV / H(J)
          
          WSETUP(JP1) = WSETUP(J) - (SXXSTA(JP1) - SXXSTA(J) + (TBXSTA(J) - TWXSTA(ITIME)) * DX) / H(J)
-            
-         HITE = WSETUP(JP1) + SWLDEP(JP1, L)
+
+         ! DFM safety check bodge ==============================
+         nsize = size(SWLDEP, 2)
+         if (L > nsize) THEN
+            HITE = WSETUP(JP1) + SWLDEP(JP1, nsize)
+         else
+            HITE = WSETUP(JP1) + SWLDEP(JP1, L)
+         endif
+         ! DFM safety check bodge ==============================
+
+!          HITE = WSETUP(JP1) + SWLDEP(JP1, L)
 
          if (HITE < EPS1) then
             ! Water depth HITE is less than EPS1
@@ -860,8 +872,9 @@ subroutine CShore(NRET)
             do 410 I =ISTART,IFIN
                SIGT = CP(I)*SIGSTA(I)
 
-               ! DFM safety check
+               ! DFM safety check bodge ==============================
                if (SIGT == 0.D0) SIGT = 1.0D-6
+               ! DFM safety check bodge ==============================
 
                USTD(I) = SIGT*CTHETA(I)
                UMEAN(I)= -USTD(I)*SIGSTA(I)*GRAV*H(I)/CP(I)/CP(I)

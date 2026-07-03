@@ -301,10 +301,6 @@ public:
    {
       m_dMaxLocalSlope = d;
    }
-   void SetMaxBeachElevation(double d)
-   {
-      m_dMaxBeachElevation = d;
-   }
 
    void SetNumLayers(int n)
    {

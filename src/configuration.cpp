@@ -180,7 +180,6 @@ void CConfiguration::InitializeDefaults()
    m_bOutputErosionPotential = false;
    m_nCurvatureWindow = 11;
    m_nSmoothProfileMethod = 3;
-
 }
 
 //===============================================================================================================================
