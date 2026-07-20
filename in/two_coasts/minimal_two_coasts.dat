@@ -83,7 +83,7 @@ Wave propagation model                                                 [0 = COVE
 
 Density of sea water (kg/m3)                                                                 : 1029
 
-Initial mean still water level (m), or per-timestep SWL file                                 : 85
+Initial mean still water level (m), or per-timestep SWL file                                 : 90        ; 90 - 85 gives just one coast
 Final mean still water level (m)                               [blank = same as initial MSWL]:
 
 Deep water wave height (m)                                         [value or point shapefile]: 3

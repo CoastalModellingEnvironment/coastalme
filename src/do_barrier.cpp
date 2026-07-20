@@ -243,9 +243,9 @@ int CSimulation::nUpRushMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2
    else
       dCoarseThis = dLastCoarseMoved;
 
-   // TEST TODO should be a user input
-   double dFractSand = 0.2;
-   double dFractCoarse = 0.4;
+   // TEST TODO should be a user input. Sand value must be > coarse value, since sand is easier to move than coarse
+   double dFractSand = 0.002;
+   double dFractCoarse = 0.001;
 
    double dSandToMove = 0;
    double dCoarseToMove = 0;

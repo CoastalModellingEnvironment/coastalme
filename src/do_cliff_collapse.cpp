@@ -69,7 +69,13 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
             double dCliffHeightAboveSWL = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() - m_dThisIterSWL;
             dInvTalusProtection = tMin(tMax((dTalusDepth / dCliffHeightAboveSWL), 1.0), 0.5);
 
-            LogStream << m_ulIter << ":\t cell[" << nX << "][" << nY << "] talus depth = " << dTalusDepth << " cliff height (in talus) above SWL = " << dCliffHeightAboveSWL << " inverse talus protection factor = " << dInvTalusProtection << endl;
+            // // DEBUG CODE ===============================
+            // if (m_ulIter >= 36)
+            // {
+            //    if (m_nLogFileDetail >= LOG_FILE_ALL)
+            //       LogStream << m_ulIter << ":\t cell[" << nX << "][" << nY << "] talus depth = " << dTalusDepth << " cliff height (in talus) above SWL = " << dCliffHeightAboveSWL << " inverse talus protection factor = " << dInvTalusProtection << endl;
+            // }
+            // // DEBUG CODE ===============================
          }
 
          // First get wave energy for the coastal landform object
@@ -82,12 +88,92 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
          // OK we have on-shore waves so get the previously-calculated wave energy
          double const dWaveEnergy = m_VCoast[nCoast].dGetWaveEnergyAtBreaking(nCoastPoint) * dInvTalusProtection;
          if (bFPIsEqual(dWaveEnergy, 0.0, TOLERANCE))
+         {
+            if (m_nLogFileDetail >= LOG_FILE_ALL)
+               LogStream << m_ulIter << ":\t cell[" << nX << "][" << nY << "] on-shore waves, but energy at breaking is zero" << endl;
+
             continue;
+         }
 
          // And save the accumulated value
          pCoastLandform->IncTotAccumWaveEnergy(dWaveEnergy);
 
          int const nCat = pCoastLandform->nGetLandFormCategory();
+
+         // // DEBUG CODE ===============================
+         // if (m_ulIter >= 36)
+         // {
+         //    if (m_nLogFileDetail >= LOG_FILE_ALL)
+         //    {
+         //       LogStream << m_ulIter << ":\t cell[" << nX << "][" << nY << "] landform category = ";
+         //
+         //       switch (nCat)
+         //       {
+         //          case LF_HINTERLAND:
+         //             LogStream << "hinterland";
+         //             break;
+         //
+         //          case LF_SEA:
+         //             LogStream << "sea";
+         //             break;
+         //
+         //          case LF_BASEMENT:
+         //             LogStream << "basement";
+         //             break;
+         //
+         //          case LF_CLIFF:
+         //             LogStream << "cliff";
+         //             break;
+         //
+         //          case LF_DRIFT_TALUS:
+         //             LogStream << "drift talus";
+         //             break;
+         //
+         //          case LF_DRIFT_BEACH:
+         //             LogStream << "drift beach";
+         //             break;
+         //
+         //          case LF_DRIFT_DUNES:
+         //             LogStream << "drift dunes";
+         //             break;
+         //
+         //          case LF_INTERVENTION_STRUCT:
+         //             LogStream << "structural intervention";
+         //             break;
+         //
+         //          case LF_INTERVENTION_NON_STRUCT:
+         //             LogStream << "non-structural intervention";
+         //             break;
+         //
+         //          case LF_ISLAND:
+         //             LogStream << "island";
+         //             break;
+         //
+         //          case LF_INLAND_WATER:
+         //             LogStream << "inland water";
+         //             break;
+         //
+         //          case LF_SEDIMENT_INPUT_UNCONSOLIDATED:
+         //             LogStream << "unconsolidated sediment input";
+         //             break;
+         //
+         //          case LF_SEDIMENT_INPUT_CONSOLIDATED:
+         //             LogStream << "consolidated sediment input";
+         //             break;
+         //
+         //          case LF_UNKNOWN:
+         //             LogStream << "UNKNOWN";
+         //             break;
+         //
+         //          default:
+         //             LogStream << "NONE";
+         //             break;
+         //       }
+         //
+         //       LogStream << endl;
+         //    }
+         // }
+         // // DEBUG CODE ===============================
 
          // Is this a cliff?
          if (nCat == LF_CLIFF)
@@ -441,7 +527,7 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
          dWeight = 1 - ((dNotchApexElev - dWaveElev) / CLIFF_NOTCH_CUTOFF_DISTANCE);
 
       // Calculate this-timestep cliff notch erosion (is a length in external CRS units). Note that only consolidated sediment can have a cliff notch
-      double const dNotchIncision = dWeight * dWaveEnergy / m_dCliffErosionResistance;
+      double const dNotchIncision = tMin(dWeight * dWaveEnergy / m_dCliffErosionResistance, m_dCellSide);
 
       // Deepen the cliff object's erosional notch as a result of wave energy during this timestep. Note that notch deepening may be constrained, since this-timestep notch extension cannot exceed the length (i.e. cellside minus notch depth) of sediment remaining on the cell
       pCliff->IncreaseNotchIncision(dNotchIncision);
@@ -494,7 +580,7 @@ bool CSimulation::bIncreaseCliffNotchIncision(int const nCoast, int const nX, in
          // And add to the cell's accumulated wave energy
          m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->AddToAccumWaveEnergy(dWaveEnergy * dWeight);
 
-         LogStream << m_ulIter << ":\t incision of newly-created notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunUp = " << dRunUp << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dNotchIncision = " << dNotchIncision << endl;
+         // LogStream << m_ulIter << ":\t incision of newly-created notch at [" << nX << "][" << nY << "] dWaveElev = " << dWaveElev << " dCutoffElev = " << dCutoffElev << " dRunUp = " << dRunUp << "  dWeight = " << dWeight << " dNotchApexElev = " << dNotchApexElev << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dNotchIncision = " << dNotchIncision << endl;
 
          return true;
       }
@@ -765,7 +851,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                m_pRasterGrid->m_Cell[nX][nY].AddFineTalusToSuspension(dActualDepthToMove);
                m_dThisIterFineSedimentToSuspension += dActualDepthToMove;
 
-               LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] fine talus to suspension, depth moved = " << dActualDepthToMove << " original depth = " << dTalusFineOrig << " fine talus depth now = " << pTalus->dGetFineDepth() << endl;
+               if (m_nLogFileDetail >= LOG_FILE_ALL)
+                  LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] fine talus to suspension, depth moved = " << dActualDepthToMove << " original depth = " << dTalusFineOrig << " fine talus depth now = " << pTalus->dGetFineDepth() << endl;
             }
 
             if (dTalusSandToMove + dTalusCoarseToMove > 0)
@@ -1043,7 +1130,9 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
             double dTotTalusDepth = pTalus->dGetFineDepth() + pTalus->dGetSandDepth() + pTalus->dGetCoarseDepth();
             if (bFPIsEqual(dTotTalusDepth, 0.0, TOLERANCE))
             {
-               LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] total talus (all size classes) = " << dTotTalusDepth << " so deleting talus object" << endl;
+               if (m_nLogFileDetail >= LOG_FILE_ALL)
+                  LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] total talus (all size classes) = " << dTotTalusDepth << " so deleting talus object" << endl;
+
                m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nLayer)->DeleteTalus();
             }
 

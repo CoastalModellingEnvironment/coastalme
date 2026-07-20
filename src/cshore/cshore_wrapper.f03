@@ -621,6 +621,12 @@ subroutine CShoreWrapper(In_ILINE, In_IPROFL, In_IPERM, In_IOVER, In_IWCINT, In_
    ! Get the results into the argument output variables
    Out_IError = IError
 
+   ! TEST =================
+   if (IError == 2) then
+      write (*, *) "ERROR"
+   endif
+   ! TEST =================
+
    ! DFM safety check bodge ==============================
    if (IError < 0) return
    ! DFM safety check bodge ==============================

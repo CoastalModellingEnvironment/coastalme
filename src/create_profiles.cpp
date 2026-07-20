@@ -354,11 +354,11 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
 
          // Mark this coast point as searched
          pbVCoastPointDone->at(nNormalPoint) = true;
-
          if (nRet != RTN_OK)
          {
             // This potential profile is no good (has hit coast, or hit dry land, etc.) so forget about it
-            // LogStream << m_ulIter << ":\t profile at coastpoint " << nNormalPoint << " is no good" << endl;
+            if (m_nLogFileDetail >= LOG_FILE_ALL)
+               LogStream << m_ulIter << ":\t profile at coastpoint " << nNormalPoint << " is no good" << endl;
 
             continue;
          }
@@ -411,9 +411,10 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
 //          LogStream << "++++++++++++++++++++++" << endl;
 //          // DEBUG CODE ===================================================================================================
 
-         // CGeom2DPoint PtThis = *m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nNormalPoint);
-         // if (m_nLogFileDetail >= LOG_FILE_ALL)
-         //    LogStream << m_ulIter << ":\t  coast " << nCoast << " profile " << nProfile << " created at coast point " << nNormalPoint << " [" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] = {" << PtThis.dGetX() << ", " << PtThis.dGetY() << "} (smoothed curvature = " << m_VCoast[nCoast].dGetSmoothCurvature(nNormalPoint) << ", detailed curvature = " << m_VCoast[nCoast].dGetDetailedCurvature(nNormalPoint) << ")" << endl;
+         CGeom2DPoint PtThis = *m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nNormalPoint);
+
+         if (m_nLogFileDetail >= LOG_FILE_ALL)
+            LogStream << m_ulIter << ":\t  coast " << nCoast << " profile " << nProfile << " created at coast point " << nNormalPoint << " [" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] = {" << PtThis.dGetX() << ", " << PtThis.dGetY() << "} (smoothed curvature = " << m_VCoast[nCoast].dGetSmoothCurvature(nNormalPoint) << ", detailed curvature = " << m_VCoast[nCoast].dGetDetailedCurvature(nNormalPoint) << ")" << endl;
 
          // // DEBUG CODE =================================================================================
          // if (m_pRasterGrid->m_Cell[PtiThis.nGetX()][PtiThis.nGetY()].bIsCoastline())
@@ -557,7 +558,8 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
 
    assert(pProfile->nGetProfileSize() > 0);
 
-   // LogStream << m_ulIter << ":\t  coast " << nCoast << " profile " << nProfile << " created at coast point " << nProfileStartPoint << " from [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << PtStart.dGetX() << ", " << PtStart.dGetY() << "} to [" << PtiEnd.nGetX() << "][" << PtiEnd.nGetY() << "] = {" << PtEnd.dGetX() << ", " << PtEnd.dGetY() << "}" << (pProfile->bIsIntervention() ? ", from intervention" : "") << endl;
+   // if (m_nLogFileDetail >= LOG_FILE_ALL)
+   //    LogStream << m_ulIter << ":\t  coast " << nCoast << " profile " << nProfile << " created at coast point " << nProfileStartPoint << " from [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << PtStart.dGetX() << ", " << PtStart.dGetY() << "} to [" << PtiEnd.nGetX() << "][" << PtiEnd.nGetY() << "] = {" << PtEnd.dGetX() << ", " << PtEnd.dGetY() << "}" << (pProfile->bIsIntervention() ? ", from intervention" : "") << endl;
 
    return RTN_OK;
 }

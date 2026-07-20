@@ -611,7 +611,7 @@ int CSimulation::nDoParallelProfileUnconsErosion(CGeomCoastPolygon* pPolygon, in
                         double const dSandNow = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->dGetSandDepth();
                         m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dSandNow + dTotToDeposit);
 
-                        LogStream << m_ulIter << "\t UNCONS SAND deposited, below Dean elevation 1, at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " <<  dGridCentroidYToExtCRSY(nY) << "} dTotToDeposit = " << std::scientific << dTotToDeposit << std::fixed << endl;
+                        // LogStream << m_ulIter << "\t UNCONS SAND deposited, below Dean elevation 1, at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " <<  dGridCentroidYToExtCRSY(nY) << "} dTotToDeposit = " << std::scientific << dTotToDeposit << std::fixed << endl;
 
                         // Set the changed-this-timestep switch
                         m_bUnconsChangedThisIter[nTopLayer] = true;
@@ -1123,7 +1123,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
 
                         m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dSandNow + dToDepositHere);
 
-                        LogStream << m_ulIter << "\t UNCONS SAND deposited, below Dean elevation 3, at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " <<  dGridCentroidYToExtCRSY(nY) << "} dToDepositHere = " << std::scientific << dToDepositHere << std::fixed << endl;
+                        // LogStream << m_ulIter << "\t UNCONS SAND deposited, below Dean elevation 3, at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " <<  dGridCentroidYToExtCRSY(nY) << "} dToDepositHere = " << std::scientific << dToDepositHere << std::fixed << endl;
 
                         // Set the changed-this-timestep switch
                         m_bUnconsChangedThisIter[nTopLayer] = true;
@@ -1605,7 +1605,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
 
                            m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nTopLayer)->pGetUnconsolidatedSediment()->SetSandDepth(dSandNow + dToDepositHere);
 
-                           LogStream << m_ulIter << "\t UNCONS SAND deposited, below Dean elevation 4, at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " <<  dGridCentroidYToExtCRSY(nY) << "} dToDepositHere = " << std::scientific << dToDepositHere << std::fixed << endl;
+                           // LogStream << m_ulIter << "\t UNCONS SAND deposited, below Dean elevation 4, at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " <<  dGridCentroidYToExtCRSY(nY) << "} dToDepositHere = " << std::scientific << dToDepositHere << std::fixed << endl;
 
                            // Set the changed-this-timestep switch
                            m_bUnconsChangedThisIter[nTopLayer] = true;

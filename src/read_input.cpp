@@ -1741,7 +1741,7 @@ bool CSimulation::bReadRunDataFile(void)
 
             m_nProfileSmoothingWindowSize = stoi(strRH);
 
-            if ((m_nProfileSmoothingWindowSize < 0) || (m_nProfileSmoothingWindowSize > 0 && !(m_nProfileSmoothingWindowSize % 2)))
+            if ((m_nProfileSmoothingWindowSize <= 0) || (m_nProfileSmoothingWindowSize > 0 && !(m_nProfileSmoothingWindowSize % 2)))
                strErr = "line " + to_string(nLine) + ": size of coast-normal profile smoothing window (must be >= 0, if > 0 must be odd)";
 
             break;

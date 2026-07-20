@@ -96,7 +96,7 @@ subroutine CShore(NRET)
          integer, intent (in) :: L
       end subroutine PONDED
 
-! DFM In original code, paramter USIGT is passed but not used       
+! DFM In original code, parameter USIGT is passed but not used
 !      subroutine VSTGBY(CTHETA_IN, USIGT, STHETA_IN, VSIGT, GBY_IN)
 !         double precision, intent(in) :: CTHETA_IN, USIGT, STHETA_IN, GBY_IN
 !         double precision, intent(out) :: VSIGT
@@ -273,21 +273,20 @@ subroutine CShore(NRET)
             NRET = -1
          endif
          ! DFM safety check bodge ==============================
-! Removed by DFM
-! ! BDJ added on 2012-09-28
-!          if (H(1) <= 0) then
-!
-!             write (*,*) "CShore ERROR: model ended with negative depth at the first node at time =", TIME
-!
-!             NRET = -1
-!
-! #if defined EXE
-!             stop 1
-! #else
-!             return
-! #endif
-!          endif
-! ! end BDJ added on 2012-09-28
+
+         ! BDJ added on 2012-09-28
+         if (H(1) <= 0) then
+            write (*,*) "CShore ERROR: model ended with negative depth at the first node at time =", TIME
+
+            NRET = -1
+
+#if defined EXE
+            stop 1
+#else
+            return
+#endif
+         endif
+         ! end BDJ added on 2012-09-28
 
          SIGSTA(1) = SIGMA(1)/H(1)
 
@@ -372,42 +371,51 @@ subroutine CShore(NRET)
          DUM = DUM * WT(J)
          DUM = (EFSTA(J) - DX * DUM) / FE
          
+         ! DFM TEST ================================================
          if (DUM <= 0.D0) then
             ! DUM (which is the square of sigma SIGTIE) is zero or negative
-#if defined EXE
-            write (*, 2902) JP1, L, TIME, DUM, ITEQO, ITE, QO(L)
-2902        format('CShore WARNING 01: at end of landward marching computation, DUM (which is the square of sigma SIGTIE) <= 0 at node', I4, ' line', I3, ' time', F13.3, ', DUM =', F13.3, ' ITEQO =', I2, ' ITE =', I2, ' QO(L) =', F13.9)
-#endif
-            ! Set a warning flag 
-            NRET = 2
-
-            ! Accept the computed results up to node JP1 - 1 and end landward marching computation
-            JP1 = JP1 - 1
-                        
-            ! BDJ added on 2012-09-28            
-            if (JP1 == 1 .and. EFSTA(1) > 1D-5) then
-#if defined EXE
-               write (*,*) 'CShore WARNING 02: large energy gradients at the first node at time =', TIME, ' (small waves with short period at sea boundary)'
-#endif               
-               ! Set a warning flag 
-               NRET = 3
-
-               ! STOP  %BDJ 2015-05-06
-            endif
-            
-            if (JP1 == 1 .and. EFSTA(1) < 1D-5) then
-#if defined EXE            
-               write (*,*) 'CShore WARNING 03: zero energy at the first node at time =', TIME
-#endif
-
-               ! Set a warning flag 
-               NRET = 4
-            endif            
-            ! end BDJ added on 2012-09-28
-
-            goto 400
+            DUM = 0.0001
          endif
-         
+         ! DFM TEST ================================================
+
+         ! DFM TEST ================================================
+!          if (DUM <= 0.D0) then
+!             ! DUM (which is the square of sigma SIGTIE) is zero or negative
+! #if defined EXE
+!             write (*, 2902) JP1, L, TIME, DUM, ITEQO, ITE, QO(L)
+! 2902        format('CShore WARNING 01: at end of landward marching computation, DUM (which is the square of sigma SIGTIE) <= 0 at node', I4, ' line', I3, ' time', F13.3, ', DUM =', F13.3, ' ITEQO =', I2, ' ITE =', I2, ' QO(L) =', F13.9)
+! #endif
+!             ! Set a warning flag TODO HANDLE THIS GRACEFULLY
+!             NRET = 2
+!
+!             ! Accept the computed results up to node JP1 - 1 and end landward marching computation
+!             JP1 = JP1 - 1
+!
+!             ! BDJ added on 2012-09-28
+!             if (JP1 == 1 .and. EFSTA(1) > 1D-5) then
+! #if defined EXE
+!                write (*,*) 'CShore WARNING 02: large energy gradients at the first node at time =', TIME, ' (small waves with short period at sea boundary)'
+! #endif
+!                ! Set a warning flag
+!                NRET = 3
+!
+!                ! STOP  %BDJ 2015-05-06
+!             endif
+!
+!             if (JP1 == 1 .and. EFSTA(1) < 1D-5) then
+! #if defined EXE
+!                write (*,*) 'CShore WARNING 03: zero energy at the first node at time =', TIME
+! #endif
+!
+!                ! Set a warning flag
+!                NRET = 4
+!             endif
+!             ! end BDJ added on 2012-09-28
+!
+!             goto 400
+!          endif
+         ! DFM TEST ================================================
+
          SIGITE = DSQRT(DUM)
 
          SXXSTA(JP1) = FSX * SIGITE ** 2.D0
@@ -569,22 +577,31 @@ subroutine CShore(NRET)
             DUMD = DUMD * (WT(J) + WT(JP1)) / 2.D0
             DUM = (EFSTA(J) - DXD2 * DUMD) / FE
             
+            ! DFM TEST ================================================
             if (DUM <= 0.D0) then
                ! DUM (which is the square of sigma SIGTIE) is zero or negative
-#if defined EXE
-               write (*, 2903) JP1, L, TIME, DUM, ITEQO, ITE, QO(L)    
-2903           format(/'CShore WARNING 05: at end of landward marching computation, DUM (which is the square of sigma SIGTIE) <= 0 at node', I4, ' line', I3, ' time', F13.3, ' DUM =', F13.3, ' ITEQO =', I2, ' ITE =', I2, ' QO(L) =', F13.9)
-#endif
-
-               ! Set a warning flag
-               NRET = 2
-
-               ! Accept the computed results up to node JP1-1 and end landward marching computation
-               JP1 = JP1 - 1
-
-               goto 400               
+               DUM = 0.0001
             endif
-            
+            ! DFM TEST ================================================
+
+            ! DFM TEST ================================================
+!             if (DUM <= 0.D0) then
+!                ! DUM (which is the square of sigma SIGTIE) is zero or negative
+! #if defined EXE
+!                write (*, 2903) JP1, L, TIME, DUM, ITEQO, ITE, QO(L)
+! 2903           format(/'CShore WARNING 05: at end of landward marching computation, DUM (which is the square of sigma SIGTIE) <= 0 at node', I4, ' line', I3, ' time', F13.3, ' DUM =', F13.3, ' ITEQO =', I2, ' ITE =', I2, ' QO(L) =', F13.9)
+! #endif
+!
+!                ! Set a warning flag
+!                NRET = 2
+!
+!                ! Accept the computed results up to node JP1-1 and end landward marching computation
+!                JP1 = JP1 - 1
+!
+!                goto 400
+!             endif
+            ! DFM TEST ================================================
+
             SIGMA(JP1) = DSQRT(DUM)            
             SXXSTA(JP1) = FSX*SIGMA(JP1)**2.D0
             

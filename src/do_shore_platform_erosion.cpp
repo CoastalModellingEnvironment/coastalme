@@ -172,28 +172,40 @@ int CSimulation::nDoAllShorePlatFormErosion(void)
 //===============================================================================================================================
 //! Calculates potential (i.e. unconstrained by available sediment) erosional lowering of the shore platform for a single coastline-normal profile, due to wave action. This routine uses a behavioural rule to modify the original surface elevation profile geometry, in which erosion rate/slope = f(d/Db) based on Walkden & Hall (2005). Originally coded in Matlab by Andres Payo
 //===============================================================================================================================
-int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomProfile *pProfile)
+int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomProfile* pProfile)
 {
-   // Only work on this profile if it is problem-free TODO 024 Or if it has just hit dry land?
-   if (! pProfile->bProfileOK())
-      return RTN_OK;
-
-   // Get the length of the profile (in cells) and the index of the coast point at which this profile starts
-   int const nProfSize = pProfile->nGetNumCellsInProfile();
+   // Get the index of the coast point at which this profile starts
    int const nCoastPoint = pProfile->nGetCoastPoint();
+
+   // Only work on this profile if it is problem-free TODO 024 What if all that is wrong is that it has just hit dry land?
+   if (! pProfile->bProfileOK())
+   {
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " at coast point " << nCoastPoint << " has a problem, so no platform erosion here" << endl;
+
+      return RTN_OK;
+   }
+
+   // Get the length of the profile (in cells)
+   int const nProfSize = pProfile->nGetNumCellsInProfile();
 
    // Get the breaking depth for this profile from the coastline point
    double const dDepthOfBreaking = m_VCoast[nCoast].dGetDepthOfBreaking(nCoastPoint);
 
    if (bFPIsEqual(dDepthOfBreaking, DBL_NODATA, TOLERANCE))
+   {
       // This profile is not in the active zone, so no platform erosion here
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " at coast point " << nCoastPoint << " is not in the active zone, so no platform erosion here" << endl;
+
       return RTN_OK;
+   }
 
    if (bFPIsEqual(dDepthOfBreaking, 0.0, TOLERANCE))
    {
       // Safety check, altho' this shouldn't happen
       if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-         LogStream << m_ulIter << ": depth of breaking is zero for profile " << pProfile->nGetProfileID() << " of coast " << nCoast << endl;
+         LogStream << m_ulIter << ": depth of breaking is zero for coast " << nCoast << " profile " << pProfile->nGetProfileID() << endl;
 
       return RTN_OK;
    }
@@ -241,8 +253,13 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
 
       // Safety check
       if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
+      {
          // TODO 025 We are down to basement
+         if (m_nLogFileDetail >= LOG_FILE_ALL)
+            LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " coast point " << nCoastPoint << " is down to basement, so no platform erosion here" << endl;
+
          return RTN_OK;
+      }
 
       // Get the elevation for consolidated sediment only on this cell
       dVConsProfileZ[i] = m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevForLayerAboveBasement(nTopLayer);
@@ -373,6 +390,9 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
          // Set the potential (unconstrained) erosion for this cell, is a +ve value
          m_pRasterGrid->m_Cell[nX][nY].SetPotentialPlatformErosion(-dDeltaZ);
 
+         // if (m_nLogFileDetail >= LOG_FILE_ALL)
+         //    LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " potential platform erosion at [" << nX << "][" << nY << "] is " << -dDeltaZ << " m" << endl;
+
          // Update this-timestep totals
          m_ulThisIterNumPotentialPlatformErosionCells++;
          m_dThisIterPotentialPlatformErosion -= dDeltaZ;       // Since dDeltaZ is a -ve value
@@ -405,7 +425,12 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
 {
    // Only work on this profile if it is problem-free
    if (! pProfile->bProfileOK())
+   {
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " has a problem, so no parallel profile platform erosion here" << endl;
+
       return RTN_OK;
+   }
 
    // Go parallel to the longer of the two profiles, however we can't do this for the start-of-coast or end-of-coast profile
    if ((! pProfile->bIsStartOfCoast()) && (! pProfile->bIsEndOfCoast()))
@@ -420,7 +445,8 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       // Safety check
       if (pAdjProfile == NULL)
       {
-         LogStream << m_ulIter << WARN << " null profile while calculating between-profile potential platform erosion from profile " << pProfile->nGetProfileID() << " from coast " << pProfile->nGetCoastID() << endl;
+         LogStream << m_ulIter << WARN << " coast " << nCoast << " profile " << pProfile->nGetProfileID() << " found null profile while calculating between-profile potential platform erosion" << endl;
+
          return RTN_OK;
       }
 
@@ -489,7 +515,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
          nParCoastYLast = INT_NODATA;
          nCellOK = 0;
 
-         LogStream << m_ulIter << ": CHANGED DIRECTION since temporary profile hit nThisPointOnCoast = " << nThisPointOnCoast << " while doing potential platform erosion down-coast from profile = " << pProfile->nGetProfileID() << ", dist from profile = " <<  nDistFromProfile << endl;
+         // LogStream << m_ulIter << ": CHANGED DIRECTION since temporary profile hit nThisPointOnCoast = " << nThisPointOnCoast << " while doing potential platform erosion down-coast from profile = " << pProfile->nGetProfileID() << ", dist from profile = " <<  nDistFromProfile << endl;
       }
 
       // Is the coast end of the parallel profile at the end of the coast?
@@ -514,7 +540,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
          nParCoastYLast = INT_NODATA;
          nCellOK = 0;
 
-         LogStream << m_ulIter << ": CHANGED DIRECTION since temporary profile hit nThisPointOnCoast = " << nThisPointOnCoast << " while doing potential platform erosion up-coast from profile = " << pProfile->nGetProfileID() << ", dist from profile = " <<  nDistFromProfile << endl;
+         // LogStream << m_ulIter << ": CHANGED DIRECTION since temporary profile hit nThisPointOnCoast = " << nThisPointOnCoast << " while doing potential platform erosion up-coast from profile = " << pProfile->nGetProfileID() << ", dist from profile = " <<  nDistFromProfile << endl;
       }
 
       // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
@@ -525,7 +551,8 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       if (bFPIsEqual(dDepthOfBreaking, DBL_NODATA, TOLERANCE))
       {
          // This parallel profile is not in the active zone, so no platform erosion here
-         // LogStream << m_ulIter << ": temporary profile not in active zone at coastline " << nCoast << " coast point " << nThisPointOnCoast << " when constructing parallel profile for potential platform erosion. Working from profile " << pProfile->nGetProfileID() << ", " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast, dist from profile = " << nDistFromProfile << endl;
+         if (m_nLogFileDetail >= LOG_FILE_ALL)
+            LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " temporary profile not in active zone when constructing parallel profile for potential platform erosion. Working from profile " << pProfile->nGetProfileID() << ", " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast, dist from profile = " << nDistFromProfile << endl;
 
          // Move on to the next point along the coastline in this direction
          continue;
@@ -782,7 +809,9 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
 
             // Set the potential (unconstrained) erosion for this cell, it is a +ve value
             m_pRasterGrid->m_Cell[nXPar][nYPar].SetPotentialPlatformErosion(-dDeltaZ);
-            // LogStream << "[" << nXPar << "][" << nYPar << "] = {" << dGridCentroidXToExtCRSX(nXPar) << ", " <<  dGridCentroidYToExtCRSY(nYPar) << "} has potential platform erosion = " << -dDeltaZ << endl;
+
+            // if (m_nLogFileDetail >= LOG_FILE_ALL)
+            //    LogStream << m_ulIter << ": coast " << nCoast << " parallel to profile " << pProfile->nGetProfileID() << " potential platform erosion at [" << nXPar << "][" << nYPar << "] is " << -dDeltaZ << " m" << endl;
 
             // Update this-timestep totals
             m_ulThisIterNumPotentialPlatformErosionCells++;
@@ -813,7 +842,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       if (bHitCoastEnd && bHitSeawardEnd)
       {
          // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-         //    LogStream << m_ulIter << ": coast " << nCoast << " temporary parallel profiles from start profile " << pProfile->nGetProfileID() << " hit another profile at both coast and seaward end while doing potential platform erosion " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from profile = " << pProfile->nGetProfileID() << ", dist from start profile = " <<  nDistFromProfile << endl << endl;
+         //    LogStream << m_ulIter << ": coast " << nCoast << " temporary parallel profiles from start profile " << pProfile->nGetProfileID() << " hit another profile at both coast and seaward end while doing potential platform erosion " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast from profile = " << pProfile->nGetProfileID() << ", dist from start profile = " <<  nDistFromProfile << endl;
 
          break;
       }
@@ -845,11 +874,21 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
 
    // Safety check
    if (bFPIsEqual(dBeachProtectionFactor, DBL_NODATA, TOLERANCE))
+   {
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": doing actual platform erosion at [" << nX << "][" << nY << "] beach protection factor = " << dBeachProtectionFactor << endl;
+
       return;
+   }
 
    if (bFPIsEqual(dBeachProtectionFactor, 0.0, TOLERANCE))
+   {
       // The beach is sufficiently thick to prevent any platform erosion (or we are down to basement)
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": doing actual platform erosion at [" << nX << "][" << nY << "] beach protection factor = " << dBeachProtectionFactor << endl;
+
       return;
+   }
 
    // Get the potential depth of potential erosion, considering beach protection
    double const dThisPotentialErosion = m_pRasterGrid->m_Cell[nX][nY].dGetPotentialPlatformErosion() * dBeachProtectionFactor;
@@ -861,7 +900,9 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
    // Safety check
    if (nThisLayer == NO_NONZERO_THICKNESS_LAYERS)
    {
-      cerr << ERR << "no sediment layer while doing actual shore platform erosion" << endl;
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ": doing actual platform erosion at [" << nX << "][" << nY << "], no layers with non-zero thickness" << endl;
+
       return;
    }
 
@@ -966,6 +1007,9 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
    {
       // We did, so set the actual erosion value for this cell
       m_pRasterGrid->m_Cell[nX][nY].SetActualPlatformErosion(dTotActualErosion);
+
+      // if (m_nLogFileDetail >= LOG_FILE_ALL)
+      //    LogStream << m_ulIter << ": actual platform erosion at [" << nX << "][" << nY << "] is " << dTotActualErosion << " m" << endl;
 
       // Recalculate the elevation of every layer
       m_pRasterGrid->m_Cell[nX][nY].CalcAllLayerElevsAndD50();

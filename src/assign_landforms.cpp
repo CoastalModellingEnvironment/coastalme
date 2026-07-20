@@ -409,13 +409,13 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                   CRWCliff* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
                   m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
-                  // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-                  // {
-                  //    if (bFPIsEqual(dNotchIncision, 0.0, TOLERANCE))
-                  //       LogStream << m_ulIter << ":\t coastline notched cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
-                  //    else
-                  //       LogStream << m_ulIter << ":\t coastline no-notch cliff created at [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " m_dThisIterNewNotchApexElev = " << m_dThisIterNewNotchApexElev << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
-                  // }
+                  if (m_nLogFileDetail >= LOG_FILE_ALL)
+                  {
+                     if (bFPIsEqual(dNotchIncision, 0.0, TOLERANCE))
+                        LogStream << m_ulIter << ":\t coastline notched cliff created at coast point " << nCoastPoint << " [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+                     else
+                        LogStream << m_ulIter << ":\t coastline no-notch cliff created at coast point " << nCoastPoint << " [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " m_dThisIterNewNotchApexElev = " << m_dThisIterNewNotchApexElev << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+                  }
                }
             }
             else
@@ -439,94 +439,108 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
 
             m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->SetLandformCategory(LF_DRIFT_BEACH);
 
-// #ifdef _DEBUG
-//             LogStream << m_ulIter << ":\t drift created at [" << nX << "][" << nY << "]" << endl;
-// #endif
+            if (m_nLogFileDetail >= LOG_FILE_ALL)
+               LogStream << m_ulIter << ":\t drift created at [" << nX << "][" << nY << "]" << endl;
          }
       }
    }
 
    // // DEBUG CODE ============================================================================================================================================
-   // for (int i = 0; i < static_cast<int>(m_VCoast.size()); i++)
+   // if (m_ulIter >= 36)
    // {
-   //    for (int j = 0; j < m_VCoast[i].nGetCoastlineSize(); j++)
+   //    for (int i = 0; i < static_cast<int>(m_VCoast.size()); i++)
    //    {
-   //       int nX = m_VCoast[i].pPtiGetCellMarkedAsCoastline(j)->nGetX();
-   //       int nY = m_VCoast[i].pPtiGetCellMarkedAsCoastline(j)->nGetY();
-   //
-   //       LogStream << m_ulIter << ": coast cell " << j << " at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} has landform category = ";
-   //
-   //       int nCat = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->nGetLandformCategory();
-   //       int nSubCat = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->nGetLFSubCategory();
-   //
-   //       switch (nCat)
+   //       for (int j = 0; j < m_VCoast[i].nGetCoastlineSize(); j++)
    //       {
-   //          case LF_HINTERLAND:
-   //             LogStream << "hinterland";
-   //             break;
+   //          int nX = m_VCoast[i].pPtiGetCellMarkedAsCoastline(j)->nGetX();
+   //          int nY = m_VCoast[i].pPtiGetCellMarkedAsCoastline(j)->nGetY();
    //
-   //          case LF_SEA:
-   //             LogStream << "sea";
-   //             break;
+   //          LogStream << m_ulIter << ": coast cell " << j << " at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} has landform category = ";
    //
-   //          case LF_CLIFF:
-   //             LogStream << "cliff";
-   //             break;
+   //          int nCat = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->nGetLandformCategory();
    //
-   //          case LF_DRIFT:
-   //             LogStream << "drift";
-   //             break;
+   //          bool bHasCollapsed;
+   //          double dApexElev;
+   //          double dIncision;
+   //          bool bReady;
+   //          CRWCellLandform* pLandform;
+   //          CRWCliff const* pCliff;
    //
-   //          case LF_INTERVENTION:
-   //             LogStream << "intervention";
-   //             break;
+   //          switch (nCat)
+   //          {
+   //             case LF_HINTERLAND:
+   //                LogStream << "hinterland";
+   //                break;
    //
-   //          case LF_UNKNOWN:
-   //             LogStream << "none";
-   //             break;
+   //             case LF_SEA:
+   //                LogStream << "sea";
+   //                break;
    //
-   //          default:
-   //             LogStream << "NONE";
-   //             break;
+   //             case LF_BASEMENT:
+   //                LogStream << "basement";
+   //                break;
+   //
+   //             case LF_CLIFF:
+   //                LogStream << "cliff";
+   //
+   //                pLandform = m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform();
+   //                pCliff = reinterpret_cast<CRWCliff*>(pLandform);
+   //
+   //                bHasCollapsed = pCliff->bHasCollapsed();
+   //                dApexElev = pCliff->dGetNotchApexElev();
+   //                dIncision = pCliff->dGetNotchIncision();
+   //                bReady = pCliff->bReadyToCollapse(m_dNotchIncisionAtCollapse);
+   //
+   //                LogStream << " bHasCollapsed = " << bHasCollapsed << " dApexElev = " << dApexElev << " dIncision = " << dIncision << " bReady = " << bReady << endl;
+   //
+   //                break;
+   //
+   //             case LF_DRIFT_TALUS:
+   //                LogStream << "drift talus";
+   //                break;
+   //
+   //             case LF_DRIFT_BEACH:
+   //                LogStream << "drift beach";
+   //                break;
+   //
+   //             case LF_DRIFT_DUNES:
+   //                LogStream << "drift dunes";
+   //                break;
+   //
+   //             case LF_INTERVENTION_STRUCT:
+   //                LogStream << "structural intervention";
+   //                break;
+   //
+   //             case LF_INTERVENTION_NON_STRUCT:
+   //                LogStream << "non-structural intervention";
+   //                break;
+   //
+   //             case LF_ISLAND:
+   //                LogStream << "island";
+   //                break;
+   //
+   //             case LF_INLAND_WATER:
+   //                LogStream << "inland water";
+   //                break;
+   //
+   //             case LF_SEDIMENT_INPUT_UNCONSOLIDATED:
+   //                LogStream << "unconsolidated sediment input";
+   //                break;
+   //
+   //             case LF_SEDIMENT_INPUT_CONSOLIDATED:
+   //                LogStream << "consolidated sediment input";
+   //                break;
+   //
+   //             case LF_UNKNOWN:
+   //                LogStream << "UNKNOWN";
+   //                break;
+   //
+   //             default:
+   //                LogStream << "NONE";
+   //                break;
+   //          }
+   //          LogStream << endl;
    //       }
-   //
-   //       LogStream << " and landform subcategory = ";
-   //
-   //       switch (nSubCat)
-   //       {
-   //          case LF_CLIFF:
-   //             LogStream << "cliff";
-   //             break;
-   //
-   //          case LF_DRIFT_TALUS:
-   //             LogStream << "talus";
-   //             break;
-   //
-   //          case LF_DRIFT_BEACH:
-   //             LogStream << "beach";
-   //             break;
-   //
-   //          case LF_DRIFT_DUNES:
-   //             LogStream << "dunes";
-   //             break;
-   //
-   //          case LF_INTERVENTION_STRUCT:
-   //             LogStream << "structural intervention";
-   //             break;
-   //
-   //          case LF_INTERVENTION_NON_STRUCT:
-   //             LogStream << "non-structural intervention";
-   //             break;
-   //
-   //          case LF_UNKNOWN:
-   //             LogStream << "none";
-   //             break;
-   //
-   //          default:
-   //             LogStream << "NONE";
-   //             break;
-   //       }
-   //       LogStream << endl;
    //    }
    // }
    // // DEBUG CODE ============================================================================================================================================

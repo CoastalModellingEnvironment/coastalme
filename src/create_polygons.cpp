@@ -288,6 +288,14 @@ int CSimulation::nCreateAllPolygons(void)
                break;
          }
       }
+
+      // Safety check: each coast must have at least one polygon
+      if (nPolygon < 0)
+      {
+         LogStream << m_ulIter << ": coast " << nCoast << " has no polygons" << endl;
+
+         return RTN_ERR_NO_POLYGONS;
+      }
    }
 
    return RTN_OK;

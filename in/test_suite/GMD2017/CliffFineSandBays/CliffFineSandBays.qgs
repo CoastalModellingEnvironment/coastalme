@@ -1,9 +1,9 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-07-01T08:39:10" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.0.3-Norrköping">
+<qgis projectname="" saveDateTime="2026-07-18T14:37:39" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.0-Belém do Pará">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
-  <projectFlags set=""/>
+  <projectFlags set="0"/>
   <projectCrs>
     <spatialrefsys nativeFormat="Wkt">
       <wkt></wkt>
@@ -35,11 +35,11 @@
     <customproperties>
       <Option/>
     </customproperties>
-    <layer-tree-group checked="Qt::Unchecked" expanded="1" groupLayer="" name="in">
+    <layer-tree-group checked="Qt::Unchecked" expanded="1" groupLayer="" name="in" wms-group-request-mode="Normal">
       <customproperties>
         <Option/>
       </customproperties>
-      <layer-tree-layer checked="Qt::Checked" expanded="0" id="consolidated_sand_01_9f7e4b26_8079_4acf_85bb_6789f9baef95" legend_exp="" legend_split_behavior="0" name="consolidated_sand_01" patch_size="-1,-1" providerKey="gdal" source="./consolidated_sand_01.asc">
+      <layer-tree-layer checked="Qt::Unchecked" expanded="0" id="consolidated_sand_01_9f7e4b26_8079_4acf_85bb_6789f9baef95" legend_exp="" legend_split_behavior="0" name="consolidated_sand_01" patch_size="-1,-1" providerKey="gdal" source="./consolidated_sand_01.asc">
         <customproperties>
           <Option/>
         </customproperties>
@@ -55,11 +55,11 @@
         </customproperties>
       </layer-tree-layer>
     </layer-tree-group>
-    <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="out">
+    <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="out" wms-group-request-mode="Normal">
       <customproperties>
         <Option/>
       </customproperties>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="01">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="01" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -181,7 +181,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="02">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="02" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -243,7 +243,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="03">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="03" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -338,7 +338,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="04">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="04" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -418,7 +418,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="05">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="05" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -523,7 +523,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="06">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="06" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -603,7 +603,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="07">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="07" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -698,7 +698,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="08">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="08" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -778,7 +778,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="09">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="09" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -843,7 +843,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="10">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="10" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -903,7 +903,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="11">
+      <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="11" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -1209,72 +1209,72 @@
   </layer-tree-group>
   <snapping-settings enabled="0" intersection-snapping="0" maxScale="0" minScale="0" mode="1" scaleDependencyMode="0" self-snapping="0" tolerance="0" type="1" unit="2">
     <individual-layer-settings>
-      <layer-setting enabled="0" id="coast0120160718183614891" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals_00320170602205757227" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="polygon_00620161102174606593" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_angle_00920170424154622391" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="breaking_wave_height_00520161027175004281" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="0" id="breaking_wave_height1120160718211819232" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="downdrift_boundary_007_833c0ead_2cfb_412a_9df6_95d120dcf220" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="downdrift_boundary_006_12a5fe71_9c7b_4252_a337_40e1a5a89bdb" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="wave_angle_00520170330160453713" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_004_bc6699b5_d257_4cd2_a237_db292c3c9e9a" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="polygon0420160808150743710" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals1120160727190712575" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0520160718183654169" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon0820160808152539674" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_angle_01020170424154515999" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="waveangle1120160808172440346" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals_00720161103211305147" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast1020160725142003825" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00920170305142754773" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="normals_00620161102174319956" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="breaking_wave_height_00520161027175004281" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0120160718183614891" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0220160808150543129" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0320160808150626424" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="0" id="coast0420160808150700998" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00320170305142544344" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="waveangle0320160808175731280" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0520160718183654169" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0620160725142132091" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0720160725142150046" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0820160725142214342" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast0920160725142106066" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast1020160725142003825" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="coast1120160718183635159" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_00120171226160841623" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_003_d19c418a_785b_4482_b7cc_3e425883f376" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_004_bc6699b5_d257_4cd2_a237_db292c3c9e9a" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="deep_water_wave_angle_01120171226155834658" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="downdrift_boundary_00120171206221411076" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="downdrift_boundary_004_792508ad_f44b_49a3_9fa1_1eb9f16ef60b" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="downdrift_boundary_005_8d6a9b43_9505_4bed_94ca_99c984925d31" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="downdrift_boundary_006_12a5fe71_9c7b_4252_a337_40e1a5a89bdb" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="downdrift_boundary_007_833c0ead_2cfb_412a_9df6_95d120dcf220" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="downdrift_boundary_008_9a276723_32c7_40f8_8f9c_1e8d0bbe85c9" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="downdrift_boundary_01120171226151418392" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals0120160727192458855" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals0420160808150941116" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals1120160727190712575" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals_00220170602205851572" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="normals_00320170602205757227" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="normals_00520161103161924681" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals_00620161102174319956" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="normals_00720161103211305147" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon0120160727195316313" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon0220160808152223265" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon0420160808150743710" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon0520160808152401684" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon0820160808152539674" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon1120160727195452840" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon_00320161110204759456" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon_00620161102174606593" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="polygon_00720161027183621292" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="0" id="polygon_00920161108120332216" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="0" id="polygon_01020161108120238829" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon0120160727195316313" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0920160725142106066" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_angle_00620170329173818248" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="normals0120160727192458855" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="downdrift_boundary_008_9a276723_32c7_40f8_8f9c_1e8d0bbe85c9" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="normals_00220170602205851572" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="downdrift_boundary_005_8d6a9b43_9505_4bed_94ca_99c984925d31" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="coast0720160725142150046" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="downdrift_boundary_00120171206221411076" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00220170304161920699" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="shadow_zone_00720170305142726047" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="wave_energy_00120171229162032331" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon_00720161027183621292" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="normals_00520161103161924681" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_01120170304192719125" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
       <layer-setting enabled="0" id="shadow_boundary_00820170330163647432" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="normals0420160808150941116" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0620160725142132091" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_angle_007_38743709_3748_492e_ba0c_bd3e586f0e0d" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="downdrift_boundary_01120171226151418392" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0220160808150543129" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="waveangle0120160808171249476" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_00120171226160841623" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="wave_angle_008_189c03a9_7ff2_4840_9177_b57f57210725" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="waveangle0220160808175657167" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00520170305142645205" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="polygon_00320161110204759456" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_003_d19c418a_785b_4482_b7cc_3e425883f376" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
-      <layer-setting enabled="0" id="coast0320160808150626424" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="polygon0220160808152223265" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_00620170305142705249" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="polygon0520160808152401684" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast0820160725142214342" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="coast1120160718183635159" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="waveangle0420160808223119610" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="deep_water_wave_angle_01120171226155834658" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
       <layer-setting enabled="0" id="shadow_zone_00120170304145408070" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="polygon1120160727195452840" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
-      <layer-setting enabled="0" id="shadow_zone_01020170305142816780" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00220170304161920699" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00320170305142544344" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
       <layer-setting enabled="0" id="shadow_zone_00420170305142619209" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
-      <layer-setting enabled="0" id="downdrift_boundary_004_792508ad_f44b_49a3_9fa1_1eb9f16ef60b" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00520170305142645205" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00620170305142705249" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00720170305142726047" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_00920170305142754773" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_01020170305142816780" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="shadow_zone_01120170304192719125" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_00520170330160453713" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_00620170329173818248" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_007_38743709_3748_492e_ba0c_bd3e586f0e0d" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_008_189c03a9_7ff2_4840_9177_b57f57210725" maxScale="0" minScale="0" tolerance="12" type="1" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_00920170424154622391" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="wave_angle_01020170424154515999" maxScale="0" minScale="0" tolerance="10" type="2" units="1"/>
+      <layer-setting enabled="0" id="wave_energy_00120171229162032331" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="waveangle0120160808171249476" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="waveangle0220160808175657167" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="waveangle0320160808175731280" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="waveangle0420160808223119610" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
+      <layer-setting enabled="0" id="waveangle1120160808172440346" maxScale="0" minScale="0" tolerance="0" type="2" units="2"/>
     </individual-layer-settings>
   </snapping-settings>
   <relations/>
@@ -1294,7 +1294,7 @@
   <projectModels/>
   <legend updateDrawingOrder="true">
     <legendgroup checked="Qt::Unchecked" name="in" open="true">
-      <legendlayer checked="Qt::Checked" drawingOrder="-1" name="consolidated_sand_01" open="false" showFeatureCount="0">
+      <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="consolidated_sand_01" open="false" showFeatureCount="0">
         <filegroup hidden="false" open="false">
           <legendlayerfile isInOverview="0" layerid="consolidated_sand_01_9f7e4b26_8079_4acf_85bb_6789f9baef95" visible="0"/>
         </filegroup>
@@ -2236,18 +2236,6 @@
     </legendgroup>
   </legend>
   <mapViewDocks/>
-  <mapcanvas annotationsVisible="1" name="mAreaCanvas">
-    <units>unknown</units>
-    <extent>
-      <xmin>280.42297174111200775</xmin>
-      <ymin>383.71011850501338358</ymin>
-      <xmax>490.42297174111200775</xmax>
-      <ymax>803.71011850501315621</ymax>
-    </extent>
-    <rotation>0</rotation>
-    <rendermaptile>0</rendermaptile>
-    <expressionContextScope/>
-  </mapcanvas>
   <main-annotation-layer autoRefreshMode="Disabled" autoRefreshTime="0" hasScaleBasedVisibilityFlag="0" layerType="Annotation" legendPlaceholderImage="" maxScale="0" minScale="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" styleCategories="AllStyleCategories" type="annotation">
     <id>Annotations_6e0d07e2_4d8e_4356_b5d8_aeae8a4c979b</id>
     <datasource></datasource>
@@ -8568,15 +8556,15 @@
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.35813895352188752</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.88801992192759371</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.35813895352188752</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.88801992192759371</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>breaking_wave_height1120160718211819232</id>
@@ -9151,7 +9139,7 @@
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -9226,15 +9214,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>218.9809837893967881</xmin>
+        <xmin>216.46435590254409931</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.13636363636362603</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.9809837893967881</xmin>
+        <xmin>216.46435590254409931</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.13636363636362603</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>breaking_wave_height_00520161027175004281</id>
@@ -9792,7 +9780,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -9869,13 +9857,13 @@ def my_form_open(dialog, layer, feature):
       <extent>
         <xmin>225.41155510259025618</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.83122319866166094</xmax>
+        <xmax>237.06671730477091842</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
         <xmin>225.41155510259025618</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.83122319866166094</xmax>
+        <xmax>237.06671730477091842</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast0120160718183614891</id>
@@ -10224,7 +10212,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -10292,15 +10280,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>225.41155510259025618</xmin>
+        <xmin>225.24420706497707556</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.49203122896759055</xmax>
+        <xmax>237.06375978308943786</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>225.41155510259025618</xmin>
+        <xmin>225.24420706497707556</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.49203122896759055</xmax>
+        <xmax>237.06375978308943786</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast0220160808150543129</id>
@@ -10649,7 +10637,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -10717,15 +10705,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>223.37512258908137142</xmin>
+        <xmin>223.47452454666080257</xmin>
         <ymin>1.5</ymin>
-        <xmax>235.03768051843167086</xmax>
+        <xmax>237.63302309482151031</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>223.37512258908137142</xmin>
+        <xmin>223.47452454666080257</xmin>
         <ymin>1.5</ymin>
-        <xmax>235.03768051843167086</xmax>
+        <xmax>237.63302309482151031</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast0320160808150626424</id>
@@ -11074,7 +11062,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -11142,15 +11130,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>220.34821260311909441</xmin>
+        <xmin>218.68858911985847726</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.50450358633162296</xmax>
+        <xmax>239.76994596465587506</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>220.34821260311909441</xmin>
+        <xmin>218.68858911985847726</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.50450358633162296</xmax>
+        <xmax>239.76994596465587506</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast0420160808150700998</id>
@@ -11499,7 +11487,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -11565,15 +11553,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.9809837893967881</xmin>
+        <xmin>216.46435590254409931</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.13636363636362603</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.9809837893967881</xmin>
+        <xmin>216.46435590254409931</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.13636363636362603</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast0520160718183654169</id>
@@ -11922,7 +11910,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -11990,15 +11978,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>235.81061284925874588</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>235.81061284925874588</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast0620160725142132091</id>
@@ -12347,7 +12335,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -12415,15 +12403,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.08203565178934014</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.08203565178934014</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast0720160725142150046</id>
@@ -12772,7 +12760,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -12840,15 +12828,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.88801992192759371</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.88801992192759371</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast0820160725142214342</id>
@@ -13197,7 +13185,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -13265,15 +13253,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.88801992192759371</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.88801992192759371</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast0920160725142106066</id>
@@ -13622,7 +13610,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -13688,15 +13676,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.88801992192759371</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.88801992192759371</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast1020160725142003825</id>
@@ -14045,7 +14033,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -14113,15 +14101,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.35813895352188752</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.88801992192759371</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.35813895352188752</xmin>
         <ymin>1.5</ymin>
-        <xmax>233.88801992192759371</xmax>
+        <xmax>242.82372747726097373</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast1120160718183635159</id>
@@ -14470,7 +14458,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -16114,7 +16102,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -16124,7 +16112,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -16621,7 +16609,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -16631,7 +16619,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -16713,13 +16701,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>221.5</xmin>
+        <xmin>219.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>221.5</xmin>
+        <xmin>219.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -17128,7 +17116,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -17138,7 +17126,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -17220,13 +17208,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>219.5</xmin>
+        <xmin>217.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>219.5</xmin>
+        <xmin>217.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -17568,7 +17556,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -17578,7 +17566,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -18143,7 +18131,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="DdriftLine">
+        <field configurationFlags="0" name="DdriftLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -18579,7 +18567,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="DdriftLine">
+        <field configurationFlags="0" name="DdriftLine">
           <editWidget type="Range">
             <config>
               <Option/>
@@ -19021,7 +19009,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="DdriftLine">
+        <field configurationFlags="0" name="DdriftLine">
           <editWidget type="Range">
             <config>
               <Option/>
@@ -19095,16 +19083,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>0</xmin>
-        <ymin>0</ymin>
-        <xmax>0</xmax>
-        <ymax>0</ymax>
+        <xmin>218.5</xmin>
+        <ymin>693.5</ymin>
+        <xmax>222.5</xmax>
+        <ymax>823.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>-7.48874388438703775</xmin>
-        <ymin>0</ymin>
-        <xmax>-7.48874388438703775</xmax>
-        <ymax>0</ymax>
+        <xmin>-7.48678637849578354</xmin>
+        <ymin>0.00625495401036695</ymin>
+        <xmax>-7.4867505314984637</xmax>
+        <ymax>0.0074274763979046</ymax>
       </wgs84extent>
       <id>downdrift_boundary_006_12a5fe71_9c7b_4252_a337_40e1a5a89bdb</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineSandBays/downdrift_boundary_006.shp</datasource>
@@ -19463,7 +19451,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="DdriftLine">
+        <field configurationFlags="0" name="DdriftLine">
           <editWidget type="Range">
             <config>
               <Option/>
@@ -19537,16 +19525,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>0</xmin>
-        <ymin>0</ymin>
-        <xmax>0</xmax>
-        <ymax>0</ymax>
+        <xmin>218.5</xmin>
+        <ymin>693.5</ymin>
+        <xmax>222.5</xmax>
+        <ymax>823.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>-7.48874388438703775</xmin>
-        <ymin>0</ymin>
-        <xmax>-7.48874388438703775</xmax>
-        <ymax>0</ymax>
+        <xmin>-7.48678637849578354</xmin>
+        <ymin>0.00625495401036695</ymin>
+        <xmax>-7.4867505314984637</xmax>
+        <ymax>0.0074274763979046</ymax>
       </wgs84extent>
       <id>downdrift_boundary_007_833c0ead_2cfb_412a_9df6_95d120dcf220</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineSandBays/downdrift_boundary_007.shp</datasource>
@@ -19905,7 +19893,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="DdriftLine">
+        <field configurationFlags="0" name="DdriftLine">
           <editWidget type="Range">
             <config>
               <Option/>
@@ -19979,16 +19967,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>228.5</xmin>
-        <ymin>45.5</ymin>
-        <xmax>228.5</xmax>
-        <ymax>98.5</ymax>
+        <xmin>218.5</xmin>
+        <ymin>693.5</ymin>
+        <xmax>222.5</xmax>
+        <ymax>823.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>-7.48669675087009967</xmin>
-        <ymin>0.00041038275795668</ymin>
-        <xmax>-7.48669675087009967</xmax>
-        <ymax>0.00041038275795668</ymax>
+        <xmin>-7.48678637849578354</xmin>
+        <ymin>0.00625495401036695</ymin>
+        <xmax>-7.4867505314984637</xmax>
+        <ymax>0.0074274763979046</ymax>
       </wgs84extent>
       <id>downdrift_boundary_008_9a276723_32c7_40f8_8f9c_1e8d0bbe85c9</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineSandBays/downdrift_boundary_008.shx|layername=downdrift_boundary_008</datasource>
@@ -20347,7 +20335,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="DdriftLine">
+        <field configurationFlags="0" name="DdriftLine">
           <editWidget type="Range">
             <config>
               <Option/>
@@ -20421,16 +20409,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>228.5</xmin>
-        <ymin>45.5</ymin>
-        <xmax>228.5</xmax>
-        <ymax>98.5</ymax>
+        <xmin>220.5</xmin>
+        <ymin>686.5</ymin>
+        <xmax>224.5</xmax>
+        <ymax>711.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>228.5</xmin>
-        <ymin>45.5</ymin>
-        <xmax>228.5</xmax>
-        <ymax>98.5</ymax>
+        <xmin>220.5</xmin>
+        <ymin>686.5</ymin>
+        <xmax>224.5</xmax>
+        <ymax>711.5</ymax>
       </wgs84extent>
       <id>downdrift_boundary_01120171226151418392</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineSandBays/downdrift_boundary_011.shp</datasource>
@@ -20789,7 +20777,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="DdriftLine">
+        <field configurationFlags="0" name="DdriftLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -20955,7 +20943,7 @@ def my_form_open(dialog, layer, feature):
                 <Option name="type" type="QString" value="collection"/>
               </Option>
             </data_defined_properties>
-            <layer class="SimpleLine" enabled="1" id="{f0f6bb03-8809-4c88-9928-49ab6cf764f8}" locked="0" pass="0">
+            <layer class="SimpleLine" enabled="1" id="{f26f903f-1296-4d1b-a63f-e869a928dfd3}" locked="0" pass="0">
               <Option type="Map">
                 <Option name="align_dash_pattern" type="QString" value="0"/>
                 <Option name="capstyle" type="QString" value="square"/>
@@ -20967,7 +20955,7 @@ def my_form_open(dialog, layer, feature):
                 <Option name="dash_pattern_offset_unit" type="QString" value="MM"/>
                 <Option name="draw_inside_polygon" type="QString" value="0"/>
                 <Option name="joinstyle" type="QString" value="bevel"/>
-                <Option name="line_color" type="QString" value="196,60,57,255,rgb:0.7686275,0.2352941,0.2235294,1"/>
+                <Option name="line_color" type="QString" value="164,113,88,255,rgb:0.6431373,0.4431373,0.345098,1"/>
                 <Option name="line_style" type="QString" value="solid"/>
                 <Option name="line_width" type="QString" value="0.6"/>
                 <Option name="line_width_unit" type="QString" value="MM"/>
@@ -21004,10 +20992,10 @@ def my_form_open(dialog, layer, feature):
                 <Option name="type" type="QString" value="collection"/>
               </Option>
             </data_defined_properties>
-            <layer class="SimpleFill" enabled="1" id="{039e139c-4d35-471b-a099-52207d57ceb3}" locked="0" pass="0">
+            <layer class="SimpleFill" enabled="1" id="{b5ba9854-e043-4f8d-bf3d-3cd9f328605d}" locked="0" pass="0">
               <Option type="Map">
                 <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
-                <Option name="color" type="QString" value="196,60,57,255,rgb:0.7686275,0.2352941,0.2235294,1"/>
+                <Option name="color" type="QString" value="164,113,88,255,rgb:0.6431373,0.4431373,0.345098,1"/>
                 <Option name="joinstyle" type="QString" value="bevel"/>
                 <Option name="offset" type="QString" value="0,0"/>
                 <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
@@ -21031,6 +21019,9 @@ def my_form_open(dialog, layer, feature):
       </elevation>
       <customproperties>
         <Option type="Map">
+          <Option name="WMSBackgroundLayer" type="bool" value="false"/>
+          <Option name="WMSPublishDataSourceUrl" type="bool" value="false"/>
+          <Option name="embeddedWidgets/count" type="QString" value="0"/>
           <Option name="identify/format" type="QString" value="Value"/>
         </Option>
       </customproperties>
@@ -21046,10 +21037,10 @@ def my_form_open(dialog, layer, feature):
         <provider>
           <resampling enabled="false" maxOversampling="2" zoomedInResamplingMethod="nearestNeighbour" zoomedOutResamplingMethod="nearestNeighbour"/>
         </provider>
-        <rasterrenderer alphaBand="-1" band="1" classificationMax="10" classificationMin="0" nodataColor="" opacity="1" type="singlebandpseudocolor">
+        <rasterrenderer alphaBand="-1" band="1" classificationMax="19" classificationMin="0" nodataColor="" opacity="1" type="singlebandpseudocolor">
           <rasterTransparency/>
           <minMaxOrigin>
-            <limits>MinMax</limits>
+            <limits>None</limits>
             <extent>WholeRaster</extent>
             <statAccuracy>Exact</statAccuracy>
             <cumulativeCutLower>0.02</cumulativeCutLower>
@@ -21057,18 +21048,38 @@ def my_form_open(dialog, layer, feature):
             <stdDevFactor>2</stdDevFactor>
           </minMaxOrigin>
           <rastershader>
-            <colorrampshader classificationMode="1" clip="0" colorRampType="INTERPOLATED" labelPrecision="6" maximumValue="10" minimumValue="0">
-              <item alpha="255" color="#ffffff" label="None" value="0"/>
-              <item alpha="255" color="#00da00" label="Hinterland" value="1"/>
-              <item alpha="255" color="#00ffff" label="Sea" value="2"/>
-              <item alpha="255" color="#d7b7ff" label="Cliff (generic)" value="3"/>
-              <item alpha="255" color="#fdffbc" label="Drift (generic)" value="4"/>
-              <item alpha="255" color="#000000" label="Intervention" value="5"/>
-              <item alpha="255" color="#ff0000" label="Cliff on coast" value="6"/>
-              <item alpha="255" color="#bd875e" label="Cliff inland" value="7"/>
-              <item alpha="255" color="#ffda73" label="Mixed drift" value="8"/>
-              <item alpha="255" color="#dbd40a" label="Talus" value="9"/>
-              <item alpha="255" color="#ffff00" label="Beach" value="10"/>
+            <colorrampshader classificationMode="2" clip="0" colorRampType="INTERPOLATED" labelPrecision="0" maximumValue="19" minimumValue="0">
+              <colorramp name="[source]" type="gradient">
+                <Option type="Map">
+                  <Option name="color1" type="QString" value="255,255,255,255,rgb:1,1,1,1"/>
+                  <Option name="color2" type="QString" value="255,255,255,255,rgb:1,1,1,1"/>
+                  <Option name="direction" type="QString" value="ccw"/>
+                  <Option name="discrete" type="QString" value="0"/>
+                  <Option name="rampType" type="QString" value="gradient"/>
+                  <Option name="spec" type="QString" value="rgb"/>
+                  <Option name="stops" type="QString" value="0.0775623;121,236,121,255,rgb:0.4736858,0.9236286,0.4736858,1;rgb;ccw:0.102493;17,206,227,255,rgb:0.0684215,0.8078431,0.8901961,1;rgb;ccw:0.152355;111,55,0,255,hsv:0.08299999684095383,1,0.43683528900146484,1;rgb;ccw:0.202216;251,84,82,255,hsv:0.00169444445054978,0.67368578910827637,0.9843137264251709,1;rgb;ccw:0.252078;255,178,146,255,hsv:0.04825000092387199,0.42632180452346802,1,1;rgb;ccw:0.315789;252,236,0,255,rgb:0.9883574,0.9273213,0,1;rgb;ccw:0.351801;188,223,156,255,hsv:0.25488889217376709,0.30000764131546021,0.87450981140136719,1;rgb;ccw:0.421053;106,106,106,255,hsv:0.13638888299465179,0,0.41579309105873108,1;rgb;ccw:0.451524;189,189,189,255,hsv:0.16108334064483643,0,0.74210727214813232,1;rgb;ccw:0.501385;51,160,133,255,rgb:0.2,0.627451,0.5210498,1;rgb;ccw:0.578947;142,255,255,255,rgb:0.5579004,1,1,1;rgb;ccw:0.631579;227,162,163,255,hsv:0.99833333492279053,0.2842145562171936,0.89019608497619629,1;rgb;ccw:0.684211;255,199,0,255,rgb:1,0.7789425,0,1;rgb;ccw:0.736842;255,255,255,255,rgb:1,1,1,1;rgb;ccw:0.789474;255,255,255,255,rgb:1,1,1,1;rgb;ccw:0.842105;255,255,255,255,rgb:1,1,1,1;rgb;ccw:0.894737;255,255,255,255,rgb:1,1,1,1;rgb;ccw:0.947368;255,255,255,255,rgb:1,1,1,1;rgb;ccw"/>
+                </Option>
+              </colorramp>
+              <item alpha="255" color="#ffffff" label="Unknown" value="0"/>
+              <item alpha="255" color="#79ec79" label="Hinterland" value="1.473684210526316"/>
+              <item alpha="255" color="#11cee3" label="Sea" value="1.94736842105263"/>
+              <item alpha="255" color="#6f3700" label="Basement" value="2.894736842105263"/>
+              <item alpha="255" color="#fb5452" label="Cliff" value="3.842105263157895"/>
+              <item alpha="255" color="#ffb292" label="Talus" value="4.789473684210526"/>
+              <item alpha="255" color="#fcec00" label="Beach" value="6"/>
+              <item alpha="255" color="#bcdf9c" label="Dunes" value="6.68421052631579"/>
+              <item alpha="255" color="#6a6a6a" label="Structural Intervention" value="8"/>
+              <item alpha="255" color="#bdbdbd" label="Non-structural Intervention" value="8.578947368421051"/>
+              <item alpha="255" color="#33a085" label="Island" value="9.526315789473683"/>
+              <item alpha="255" color="#8effff" label="Inland water" value="11"/>
+              <item alpha="255" color="#e3a2a3" label="Input Unconsolidated" value="12"/>
+              <item alpha="255" color="#ffc700" label="Input Consolidated" value="13"/>
+              <item alpha="255" color="#ffffff" label="14" value="14"/>
+              <item alpha="255" color="#ffffff" label="15" value="15"/>
+              <item alpha="255" color="#ffffff" label="16" value="16"/>
+              <item alpha="255" color="#ffffff" label="17" value="17"/>
+              <item alpha="255" color="#ffffff" label="18" value="18"/>
+              <item alpha="255" color="#ffffff" label="19" value="19"/>
               <rampLegendSettings direction="0" maximumLabel="" minimumLabel="" orientation="2" prefix="" suffix="" useContinuousLegend="1">
                 <numericFormat id="basic">
                   <Option type="Map">
@@ -23410,13 +23421,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>226.5</xmin>
+        <xmin>232.5</xmin>
         <ymin>1.5</ymin>
         <xmax>377.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>226.5</xmin>
+        <xmin>232.5</xmin>
         <ymin>1.5</ymin>
         <xmax>377.5</xmax>
         <ymax>1000.5</ymax>
@@ -25641,21 +25652,21 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="NormalID">
+        <field configurationFlags="0" name="NormalID">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="StartCoast">
+        <field configurationFlags="0" name="StartCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -25665,7 +25676,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="EndCoast">
+        <field configurationFlags="0" name="EndCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -25778,15 +25789,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>221.5</xmin>
+        <xmin>222.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>373.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>221.5</xmin>
+        <xmin>222.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>373.5</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>normals0420160808150941116</id>
@@ -28336,21 +28347,21 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="NormalID">
+        <field configurationFlags="0" name="NormalID">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="StartCoast">
+        <field configurationFlags="0" name="StartCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -28360,7 +28371,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="EndCoast">
+        <field configurationFlags="0" name="EndCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -28440,13 +28451,13 @@ def my_form_open(dialog, layer, feature):
       <extent>
         <xmin>219.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42846482558485377</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
         <xmin>219.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42846482558485377</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>normals1120160727190712575</id>
@@ -29132,21 +29143,21 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="NormalID">
+        <field configurationFlags="0" name="NormalID">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="StartCoast">
+        <field configurationFlags="0" name="StartCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -29156,7 +29167,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="EndCoast">
+        <field configurationFlags="0" name="EndCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -29234,13 +29245,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>225.5</xmin>
+        <xmin>229.5</xmin>
         <ymin>1.5</ymin>
         <xmax>376.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>225.5</xmin>
+        <xmin>229.5</xmin>
         <ymin>1.5</ymin>
         <xmax>376.5</xmax>
         <ymax>1000.5</ymax>
@@ -31356,21 +31367,21 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="NormalID">
+        <field configurationFlags="0" name="NormalID">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="StartCoast">
+        <field configurationFlags="0" name="StartCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -31380,7 +31391,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="EndCoast">
+        <field configurationFlags="0" name="EndCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -31460,15 +31471,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>223.5</xmin>
+        <xmin>227.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>374.5</xmax>
+        <xmax>375.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>223.5</xmin>
+        <xmin>227.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>374.5</xmax>
+        <xmax>375.5</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>normals_00320170602205757227</id>
@@ -33582,21 +33593,21 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="NormalID">
+        <field configurationFlags="0" name="NormalID">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="StartCoast">
+        <field configurationFlags="0" name="StartCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -33606,7 +33617,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="EndCoast">
+        <field configurationFlags="0" name="EndCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -33684,15 +33695,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>219.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>377.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>219.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>377.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>normals_00520161103161924681</id>
@@ -36241,21 +36252,21 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="NormalID">
+        <field configurationFlags="0" name="NormalID">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="StartCoast">
+        <field configurationFlags="0" name="StartCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -36265,7 +36276,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="EndCoast">
+        <field configurationFlags="0" name="EndCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -36343,15 +36354,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>219.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>219.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>normals_00620161102174319956</id>
@@ -38468,21 +38479,21 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="NormalID">
+        <field configurationFlags="0" name="NormalID">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="StartCoast">
+        <field configurationFlags="0" name="StartCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -38492,7 +38503,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="EndCoast">
+        <field configurationFlags="0" name="EndCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -38570,15 +38581,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>219.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>219.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>normals_00720161103211305147</id>
@@ -41127,21 +41138,21 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="NormalID">
+        <field configurationFlags="0" name="NormalID">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="StartCoast">
+        <field configurationFlags="0" name="StartCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -41151,7 +41162,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="EndCoast">
+        <field configurationFlags="0" name="EndCoast">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -43355,14 +43366,14 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Polygon">
+        <field configurationFlags="0" name="Polygon">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -43372,7 +43383,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CoastNode">
+        <field configurationFlags="0" name="CoastNode">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -43382,7 +43393,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="TotSedChng">
+        <field configurationFlags="0" name="TotSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -43392,7 +43403,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="FinSedChng">
+        <field configurationFlags="0" name="FinSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -43402,7 +43413,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="SndSedChng">
+        <field configurationFlags="0" name="SndSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -43412,7 +43423,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CrsSedChng">
+        <field configurationFlags="0" name="CrsSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -43504,13 +43515,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>225.41155510259025618</xmin>
+        <xmin>225.24420706497707556</xmin>
         <ymin>1.5</ymin>
         <xmax>376.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>225.41155510259025618</xmin>
+        <xmin>225.24420706497707556</xmin>
         <ymin>1.5</ymin>
         <xmax>376.5</xmax>
         <ymax>1000.5</ymax>
@@ -45630,14 +45641,14 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Polygon">
+        <field configurationFlags="0" name="Polygon">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -45647,7 +45658,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CoastNode">
+        <field configurationFlags="0" name="CoastNode">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -45657,7 +45668,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="TotSedChng">
+        <field configurationFlags="0" name="TotSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -45667,7 +45678,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="FinSedChng">
+        <field configurationFlags="0" name="FinSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -45677,7 +45688,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="SndSedChng">
+        <field configurationFlags="0" name="SndSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -45687,7 +45698,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CrsSedChng">
+        <field configurationFlags="0" name="CrsSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -45779,15 +45790,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>220.34821260311909441</xmin>
+        <xmin>218.68858911985847726</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>373.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>220.34821260311909441</xmin>
+        <xmin>218.68858911985847726</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>373.5</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>polygon0420160808150743710</id>
@@ -47905,14 +47916,14 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Polygon">
+        <field configurationFlags="0" name="Polygon">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -47922,7 +47933,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CoastNode">
+        <field configurationFlags="0" name="CoastNode">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -47932,7 +47943,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="TotSedChng">
+        <field configurationFlags="0" name="TotSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -47942,7 +47953,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="FinSedChng">
+        <field configurationFlags="0" name="FinSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -47952,7 +47963,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="SndSedChng">
+        <field configurationFlags="0" name="SndSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -47962,7 +47973,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CrsSedChng">
+        <field configurationFlags="0" name="CrsSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -48054,15 +48065,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.9809837893967881</xmin>
+        <xmin>216.46435590254409931</xmin>
         <ymin>1.5</ymin>
-        <xmax>377.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.9809837893967881</xmin>
+        <xmin>216.46435590254409931</xmin>
         <ymin>1.5</ymin>
-        <xmax>377.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>polygon0520160808152401684</id>
@@ -50180,14 +50191,14 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Polygon">
+        <field configurationFlags="0" name="Polygon">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -50197,7 +50208,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CoastNode">
+        <field configurationFlags="0" name="CoastNode">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -50207,7 +50218,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="TotSedChng">
+        <field configurationFlags="0" name="TotSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -50217,7 +50228,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="FinSedChng">
+        <field configurationFlags="0" name="FinSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -50227,7 +50238,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="SndSedChng">
+        <field configurationFlags="0" name="SndSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -50237,7 +50248,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CrsSedChng">
+        <field configurationFlags="0" name="CrsSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -50329,15 +50340,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>polygon0820160808152539674</id>
@@ -52455,14 +52466,14 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Polygon">
+        <field configurationFlags="0" name="Polygon">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -52472,7 +52483,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CoastNode">
+        <field configurationFlags="0" name="CoastNode">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -52482,7 +52493,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="TotSedChng">
+        <field configurationFlags="0" name="TotSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -52492,7 +52503,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="FinSedChng">
+        <field configurationFlags="0" name="FinSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -52502,7 +52513,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="SndSedChng">
+        <field configurationFlags="0" name="SndSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -52512,7 +52523,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CrsSedChng">
+        <field configurationFlags="0" name="CrsSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -52604,15 +52615,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.35813895352188752</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42846482558485377</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.35813895352188752</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42846482558485377</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>polygon1120160727195452840</id>
@@ -54730,14 +54741,14 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Polygon">
+        <field configurationFlags="0" name="Polygon">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -54747,7 +54758,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CoastNode">
+        <field configurationFlags="0" name="CoastNode">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -54757,7 +54768,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="TotSedChng">
+        <field configurationFlags="0" name="TotSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -54767,7 +54778,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="FinSedChng">
+        <field configurationFlags="0" name="FinSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -54777,7 +54788,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="SndSedChng">
+        <field configurationFlags="0" name="SndSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -54787,7 +54798,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CrsSedChng">
+        <field configurationFlags="0" name="CrsSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -54879,15 +54890,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>223.37512258908137142</xmin>
+        <xmin>223.47452454666080257</xmin>
         <ymin>1.5</ymin>
-        <xmax>374.5</xmax>
+        <xmax>375.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>223.37512258908137142</xmin>
+        <xmin>223.47452454666080257</xmin>
         <ymin>1.5</ymin>
-        <xmax>374.5</xmax>
+        <xmax>375.5</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>polygon_00320161110204759456</id>
@@ -57005,14 +57016,14 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Polygon">
+        <field configurationFlags="0" name="Polygon">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -57022,7 +57033,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CoastNode">
+        <field configurationFlags="0" name="CoastNode">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -57032,7 +57043,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="TotSedChng">
+        <field configurationFlags="0" name="TotSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -57042,7 +57053,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="FinSedChng">
+        <field configurationFlags="0" name="FinSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -57052,7 +57063,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="SndSedChng">
+        <field configurationFlags="0" name="SndSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -57062,7 +57073,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CrsSedChng">
+        <field configurationFlags="0" name="CrsSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -57154,15 +57165,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>polygon_00620161102174606593</id>
@@ -59280,14 +59291,14 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Polygon">
+        <field configurationFlags="0" name="Polygon">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -59297,7 +59308,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CoastNode">
+        <field configurationFlags="0" name="CoastNode">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -59307,7 +59318,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="TotSedChng">
+        <field configurationFlags="0" name="TotSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -59317,7 +59328,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="FinSedChng">
+        <field configurationFlags="0" name="FinSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -59327,7 +59338,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="SndSedChng">
+        <field configurationFlags="0" name="SndSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -59337,7 +59348,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CrsSedChng">
+        <field configurationFlags="0" name="CrsSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -59429,15 +59440,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>polygon_00720161027183621292</id>
@@ -61555,14 +61566,14 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Polygon">
+        <field configurationFlags="0" name="Polygon">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -61572,7 +61583,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CoastNode">
+        <field configurationFlags="0" name="CoastNode">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -61582,7 +61593,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="TotSedChng">
+        <field configurationFlags="0" name="TotSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -61592,7 +61603,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="FinSedChng">
+        <field configurationFlags="0" name="FinSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -61602,7 +61613,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="SndSedChng">
+        <field configurationFlags="0" name="SndSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -61612,7 +61623,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CrsSedChng">
+        <field configurationFlags="0" name="CrsSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -61704,15 +61715,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>polygon_00920161108120332216</id>
@@ -63847,14 +63858,14 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Polygon">
+        <field configurationFlags="0" name="Polygon">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -63864,7 +63875,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CoastNode">
+        <field configurationFlags="0" name="CoastNode">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -63874,7 +63885,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="TotSedChng">
+        <field configurationFlags="0" name="TotSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -63884,7 +63895,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="FinSedChng">
+        <field configurationFlags="0" name="FinSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -63894,7 +63905,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="SndSedChng">
+        <field configurationFlags="0" name="SndSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -63904,7 +63915,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CrsSedChng">
+        <field configurationFlags="0" name="CrsSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -63996,15 +64007,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>218.51923350575930272</xmin>
+        <xmin>216.40280176143684798</xmin>
         <ymin>1.5</ymin>
-        <xmax>372.5</xmax>
+        <xmax>382.42240240604616019</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>polygon_01020161108120238829</id>
@@ -66122,14 +66133,14 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Coast">
+        <field configurationFlags="0" name="Coast">
           <editWidget type="">
             <config>
               <Option/>
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Polygon">
+        <field configurationFlags="0" name="Polygon">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -66139,7 +66150,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CoastNode">
+        <field configurationFlags="0" name="CoastNode">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -66149,7 +66160,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="TotSedChng">
+        <field configurationFlags="0" name="TotSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -66159,7 +66170,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="FinSedChng">
+        <field configurationFlags="0" name="FinSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -66169,7 +66180,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="SndSedChng">
+        <field configurationFlags="0" name="SndSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -66179,7 +66190,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="CrsSedChng">
+        <field configurationFlags="0" name="CrsSedChng">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -73049,16 +73060,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>226.5</xmin>
-        <ymin>76.5</ymin>
-        <xmax>228.5</xmax>
-        <ymax>98.5</ymax>
+        <xmin>221.5</xmin>
+        <ymin>822.5</ymin>
+        <xmax>227.5</xmax>
+        <ymax>896.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>226.5</xmin>
-        <ymin>76.5</ymin>
-        <xmax>228.5</xmax>
-        <ymax>98.5</ymax>
+        <xmin>221.5</xmin>
+        <ymin>822.5</ymin>
+        <xmax>227.5</xmax>
+        <ymax>896.5</ymax>
       </wgs84extent>
       <id>shadow_boundary_00820170330163647432</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineSandBays/shadow_boundary_008.shp</datasource>
@@ -73539,7 +73550,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="ShadowLine">
+        <field configurationFlags="0" name="ShadowLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -76716,7 +76727,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="ShadowLine">
+        <field configurationFlags="0" name="ShadowLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -77274,7 +77285,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="ShadowLine">
+        <field configurationFlags="0" name="ShadowLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -77830,7 +77841,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="ShadowLine">
+        <field configurationFlags="0" name="ShadowLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -78386,7 +78397,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="ShadowLine">
+        <field configurationFlags="0" name="ShadowLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -78942,7 +78953,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="ShadowLine">
+        <field configurationFlags="0" name="ShadowLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -79008,16 +79019,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>0</xmin>
-        <ymin>0</ymin>
-        <xmax>0</xmax>
-        <ymax>0</ymax>
+        <xmin>221.5</xmin>
+        <ymin>822.5</ymin>
+        <xmax>227.5</xmax>
+        <ymax>896.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>0</xmin>
-        <ymin>0</ymin>
-        <xmax>0</xmax>
-        <ymax>0</ymax>
+        <xmin>221.5</xmin>
+        <ymin>822.5</ymin>
+        <xmax>227.5</xmax>
+        <ymax>896.5</ymax>
       </wgs84extent>
       <id>shadow_zone_00620170305142705249</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineSandBays/shadow_boundary_006.shp</datasource>
@@ -79498,7 +79509,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="ShadowLine">
+        <field configurationFlags="0" name="ShadowLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -79564,16 +79575,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>0</xmin>
-        <ymin>0</ymin>
-        <xmax>0</xmax>
-        <ymax>0</ymax>
+        <xmin>221.5</xmin>
+        <ymin>822.5</ymin>
+        <xmax>227.5</xmax>
+        <ymax>896.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>0</xmin>
-        <ymin>0</ymin>
-        <xmax>0</xmax>
-        <ymax>0</ymax>
+        <xmin>221.5</xmin>
+        <ymin>822.5</ymin>
+        <xmax>227.5</xmax>
+        <ymax>896.5</ymax>
       </wgs84extent>
       <id>shadow_zone_00720170305142726047</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineSandBays/shadow_boundary_007.shp</datasource>
@@ -80054,7 +80065,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="ShadowLine">
+        <field configurationFlags="0" name="ShadowLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -80120,16 +80131,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>226.5</xmin>
-        <ymin>76.5</ymin>
-        <xmax>228.5</xmax>
-        <ymax>98.5</ymax>
+        <xmin>221.5</xmin>
+        <ymin>822.5</ymin>
+        <xmax>227.5</xmax>
+        <ymax>896.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>226.5</xmin>
-        <ymin>76.5</ymin>
-        <xmax>228.5</xmax>
-        <ymax>98.5</ymax>
+        <xmin>221.5</xmin>
+        <ymin>822.5</ymin>
+        <xmax>227.5</xmax>
+        <ymax>896.5</ymax>
       </wgs84extent>
       <id>shadow_zone_00920170305142754773</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineSandBays/shadow_boundary_009.shp</datasource>
@@ -80610,7 +80621,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="ShadowLine">
+        <field configurationFlags="0" name="ShadowLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -80676,16 +80687,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>226.5</xmin>
-        <ymin>76.5</ymin>
-        <xmax>228.5</xmax>
-        <ymax>98.5</ymax>
+        <xmin>221.5</xmin>
+        <ymin>822.5</ymin>
+        <xmax>227.5</xmax>
+        <ymax>896.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>226.5</xmin>
-        <ymin>76.5</ymin>
-        <xmax>228.5</xmax>
-        <ymax>98.5</ymax>
+        <xmin>221.5</xmin>
+        <ymin>822.5</ymin>
+        <xmax>227.5</xmax>
+        <ymax>896.5</ymax>
       </wgs84extent>
       <id>shadow_zone_01020170305142816780</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineSandBays/shadow_boundary_010.shp</datasource>
@@ -81166,7 +81177,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="ShadowLine">
+        <field configurationFlags="0" name="ShadowLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -81232,16 +81243,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>226.5</xmin>
-        <ymin>76.5</ymin>
-        <xmax>228.5</xmax>
-        <ymax>98.5</ymax>
+        <xmin>224.5</xmin>
+        <ymin>697.5</ymin>
+        <xmax>225.5</xmax>
+        <ymax>711.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>226.5</xmin>
-        <ymin>76.5</ymin>
-        <xmax>228.5</xmax>
-        <ymax>98.5</ymax>
+        <xmin>224.5</xmin>
+        <ymin>697.5</ymin>
+        <xmax>225.5</xmax>
+        <ymax>711.5</ymax>
       </wgs84extent>
       <id>shadow_zone_01120170304192719125</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineSandBays/shadow_boundary_011.shp</datasource>
@@ -81722,7 +81733,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="ShadowLine">
+        <field configurationFlags="0" name="ShadowLine">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -87820,13 +87831,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>221.5</xmin>
+        <xmin>229.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>221.5</xmin>
+        <xmin>229.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -88235,7 +88246,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -88245,7 +88256,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -88327,13 +88338,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>221.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>221.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -88742,7 +88753,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -88752,7 +88763,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -88834,13 +88845,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>221.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>221.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -89249,7 +89260,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -89259,7 +89270,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -89341,13 +89352,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>221.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>221.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -89756,7 +89767,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -89766,7 +89777,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -89848,13 +89859,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>221.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>221.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -90263,7 +90274,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -90273,7 +90284,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -90355,13 +90366,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>221.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>221.5</xmin>
+        <xmin>220.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -90770,7 +90781,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -90780,7 +90791,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -90864,13 +90875,13 @@ def my_form_open(dialog, layer, feature):
       <extent>
         <xmin>225.41155510259025618</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.83122319866166094</xmax>
+        <xmax>237.06671730477091842</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
         <xmin>225.41155510259025618</xmin>
         <ymin>1.5</ymin>
-        <xmax>236.83122319866166094</xmax>
+        <xmax>237.06671730477091842</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>wave_energy_00120171229162032331</id>
@@ -91433,7 +91444,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="SC_Energy">
+        <field configurationFlags="0" name="SC_Energy">
           <editWidget type="">
             <config>
               <Option/>
@@ -93154,13 +93165,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>245.5</xmin>
+        <xmin>238.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>245.5</xmin>
+        <xmin>238.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -93569,7 +93580,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -93579,7 +93590,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -93661,13 +93672,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>244.5</xmin>
+        <xmin>236.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>244.5</xmin>
+        <xmin>236.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -94076,7 +94087,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -94086,7 +94097,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -94168,13 +94179,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>244.5</xmin>
+        <xmin>232.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>244.5</xmin>
+        <xmin>232.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -94583,7 +94594,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -94593,7 +94604,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -94675,13 +94686,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>238.5</xmin>
+        <xmin>223.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>238.5</xmin>
+        <xmin>223.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -95090,7 +95101,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -95100,7 +95111,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -95182,13 +95193,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566128730773926e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>221.5</xmin>
+        <xmin>227.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>221.5</xmin>
+        <xmin>227.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -95655,7 +95666,7 @@ def my_form_open(dialog, layer, feature):
       <referencedLayers/>
       <referencingLayers/>
       <fieldConfiguration>
-        <field configurationFlags="NoFlag" name="Angle">
+        <field configurationFlags="0" name="Angle">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -95665,7 +95676,7 @@ def my_form_open(dialog, layer, feature):
             </config>
           </editWidget>
         </field>
-        <field configurationFlags="NoFlag" name="Height">
+        <field configurationFlags="0" name="Height">
           <editWidget type="TextEdit">
             <config>
               <Option type="Map">
@@ -96500,7 +96511,7 @@ def my_form_open(dialog, layer, feature):
   <Sensors/>
   <ProjectViewSettings UseProjectScales="0" rotation="0">
     <Scales/>
-    <DefaultViewExtent xmax="1164.12670920692789878" xmin="-662.12670920692801246" ymax="1026" ymin="-24">
+    <DefaultViewExtent xmax="1137.32634457611675316" xmin="-635.32634457611663947" ymax="1026" ymin="-24">
       <spatialrefsys nativeFormat="Wkt">
         <wkt></wkt>
         <proj4></proj4>

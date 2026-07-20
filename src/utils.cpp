@@ -2327,6 +2327,10 @@ string CSimulation::strGetErrorText(int const nErr)
       strErr = "down to basement during wave calculations";
       break;
 
+   case RTN_ERR_NO_POLYGON:
+      strErr = "no polygons created for coast";
+      break;
+
    default:
       // should never get here
       strErr = "unknown error";
