@@ -99,8 +99,8 @@ void CSimulation::CheckAllProfilesForIntersection(void)
                   continue;
                }
 
-               // Don't check this first profile if it is has a problem
-               if (! pFirstProfile->bProfileOK())
+               // Don't check this first profile if it has a problem and is not a start-of-coast or an end-of-coast profile
+               if (! pFirstProfile->bProfileOKOrStartEndProfile())
                {
                   // LogStream << m_ulIter << ":\t coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, nFirstCoastPoint = " << nFirstCoastPoint << " first profile " << pFirstProfile->nGetProfileID() << " is not OK, do not check" << endl;
 
@@ -141,8 +141,8 @@ void CSimulation::CheckAllProfilesForIntersection(void)
 
                      // LogStream << m_ulIter << ":\t  coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << pFirstProfile->nGetProfileID() << " (coast point " << nFirstCoastPoint << ") second profile = " << pSecondProfile->nGetProfileID() << " (coast point " << nSecondCoastPoint << ")" << endl;
 
-                     // Don't check this second profile if it is has a problem
-                     if (! pSecondProfile->bProfileOK())
+                     // Don't check this second profile if it has a problem and is not a start-of-coast or an end-of-coast profile
+                     if (! pSecondProfile->bProfileOKOrStartEndProfile())
                      {
                         // LogStream << m_ulIter << ":\t   coast = " << nCoast << " nPass = " << nPass << " " << ((nFirstSearchDirection == DIRECTION_DOWNCOAST) ? "down-" : "up-") << "coast first profile search, " << (nSecondSearchDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast second profile search, first profile = " << pFirstProfile->nGetProfileID() << " second profile " << pSecondProfile->nGetProfileID() << " is not OK, do not check" << endl;
 
@@ -471,7 +471,7 @@ int CSimulation::nFurtherCheckAndMarkAllProfiles(void)
          CGeomProfile* pProfile = m_VCoast[nCoast].pGetProfileWithDownCoastSeq(n);
          int const nProfile = pProfile->nGetProfileID();
 
-         if (pProfile->bProfileOK())
+         if (pProfile->bProfileOKOrStartEndProfile())
          {
             int const nSize = pProfile->nGetProfileSize();
 
@@ -613,8 +613,8 @@ int CSimulation::nMarkProfilesOnGrid(void)
 
          int const nProfile = pProfile->nGetProfileID();
 
-         // If this profile has a problem, then forget about it
-         if (! pProfile->bProfileOK())
+         // If this profile has a problem, and is not a start-of-coast or an end-of-coast progile, then forget about it
+         if (! pProfile->bProfileOKOrStartEndProfile())
          {
             // LogStream << m_ulIter << ": in nMarkProfilesOnGrid(), coast " << nCoast << " profile " << nProfile << " is not OK, not marked on grid" << endl;
             continue;

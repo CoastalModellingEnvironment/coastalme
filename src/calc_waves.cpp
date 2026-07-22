@@ -804,8 +804,8 @@ double CSimulation::dCalcWaveAngleToCoastNormal(double const dCoastAngle, double
 //===============================================================================================================================
 int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoastSize, CGeomProfile* pProfile, vector<double>* pVdX, vector<double>* pVdY, vector<double>* pVdHeightX, vector<double>* pVdHeightY, vector<bool>* pVbBreaking)
 {
-   // Only do this for profiles (inc. start- and end-of-coast profiles) without problems
-   if (! pProfile->bProfileOK())
+   // Only work on this profile if it is either a start-of-coast or an end-of-coast profile, or it is problem-free
+   if (! pProfile->bProfileOKOrStartEndProfile())
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
          LogStream << m_ulIter << ":\t coast " << nCoast << ", profile " << pProfile->nGetProfileID() << " is not OK, will not calc wave properties on this profile" << endl;
@@ -1986,9 +1986,14 @@ void CSimulation::ModifyBreakingWavePropertiesWithinShadowZoneToCoastline(int co
 {
    CGeomProfile *pProfile = m_VCoast[nCoast].pGetProfile(nProfile);
 
-   // Only do this for profiles (including the start and end-of-coast profiles) without problems
-   if (! pProfile->bProfileOK())
+   // Only work on this profile if it is either a start-of-coast or an end-of-coast profile, or it is problem-free
+   if (! pProfile->bProfileOKOrStartEndProfile())
+   {
+      if (m_nLogFileDetail >= LOG_FILE_ALL)
+         LogStream << m_ulIter << ":\t coast " << nCoast << ", profile " << pProfile->nGetProfileID() << " is not OK, will not modify shadow zone breaking wave properties on this profile" << endl;
+
       return;
+   }
 
    bool bModfiedWaveHeightisBreaking = false;
    bool bProfileIsinShadowZone = false;
@@ -2088,9 +2093,9 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
    {
       pNextProfile = pTmpProfile->pGetDownCoastAdjacentProfile();
 
-      if (pNextProfile->bProfileOK())
+      if (pNextProfile->bProfileOKOrStartEndProfile())
       {
-         // The next profile is OK
+         // The next profile is either OK, or is a start-of-coast or an end-of-coast profile
          break;
       }
 

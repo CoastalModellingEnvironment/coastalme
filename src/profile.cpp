@@ -155,6 +155,15 @@ bool CGeomProfile::bProfileOK(void) const
    return false;
 }
 
+//! Returns true if this is a problem-free profile, or is a start-of-coast or end-of-coast profile
+bool CGeomProfile::bProfileOKOrStartEndProfile(void) const
+{
+   if (m_bIsStartOfCoast || m_bIsEndOfCoast || m_nProfileStatus == PROFILE_STATUS_OK)
+      return true;
+
+   return false;
+}
+
 //! Sets points (external CRS) in the profile. Note that only two points, the start and end point, are initially stored each profile
 void CGeomProfile::SetPointsInProfile(vector<CGeom2DPoint> const* VNewPoints)
 {

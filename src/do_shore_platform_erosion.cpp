@@ -177,8 +177,8 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
    // Get the index of the coast point at which this profile starts
    int const nCoastPoint = pProfile->nGetCoastPoint();
 
-   // Only work on this profile if it is problem-free TODO 024 What if all that is wrong is that it has just hit dry land?
-   if (! pProfile->bProfileOK())
+   // Only work on this profile if it is either a start-of-coast or an end-of-coast profile, or it is problem-free TODO 024 What if all that is wrong is that it has just hit dry land?
+   if (! pProfile->bProfileOKOrStartEndProfile())
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
          LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " at coast point " << nCoastPoint << " has a problem, so no platform erosion here" << endl;
@@ -424,7 +424,7 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
 int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, CGeomProfile* pProfile, int nDirection)
 {
    // Only work on this profile if it is problem-free
-   if (! pProfile->bProfileOK())
+   if (! pProfile->bProfileOKOrStartEndProfile())
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
          LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " has a problem, so no parallel profile platform erosion here" << endl;

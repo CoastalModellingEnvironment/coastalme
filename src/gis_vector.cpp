@@ -870,8 +870,8 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
             {
                CGeomProfile* pProfile = m_VCoast[i].pGetProfile(j);
 
-               if (! pProfile->bProfileOK())
-                  // Don't plot invalid normals
+               if ((! pProfile->bProfileOK()) && (! pProfile->bIsStartOrEndOfCoast()))
+                  // Don't plot invalid normals, but always plot start-of-coast or end-of-coast profiles
                   continue;
 
                // Create a feature object, one per profile
@@ -1002,8 +1002,8 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
             {
                CGeomProfile* pProfile = m_VCoast[i].pGetProfile(j);
 
-               if (pProfile->bProfileOK())
-                  // Don't plot valid profiles
+               if (pProfile->bProfileOK() || pProfile->bIsStartOrEndOfCoast())
+                  // Don't plot valid profiles, and don't plot start-of-coast or end-of coast profiles
                   continue;
 
                // Create a feature object, one per profile

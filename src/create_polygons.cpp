@@ -60,9 +60,10 @@ int CSimulation::nCreateAllPolygons(void)
          // OK, this coast point is the start of a coastline-normal profile
          CGeomProfile* pThisProfile = m_VCoast[nCoast].pGetProfileAtCoastPoint(nCoastPoint);
 
-         if (pThisProfile->bProfileOK())
+         // Is this profile either a start-of-coast profile, or a profile without problems?
+         if (pThisProfile->bProfileOKOrStartEndProfile())
          {
-            // This profile is OK, so we will start a polygon here and extend it down-coast (i.e. along the coast in the direction of increasing coastline point numbers)
+            // This profile is a start-of-coast profile, or a problem-free profile, so we will start a polygon here and extend it down-coast (i.e. along the coast in the direction of increasing coastline point numbers)
             int const nThisProfile = pThisProfile->nGetProfileID();
 
             // This will be the coast ID number of the polygon, and also the polygon's along-coast sequence
@@ -94,6 +95,11 @@ int CSimulation::nCreateAllPolygons(void)
                // Is the next (down-coast) profile OK?
                bNextProfileIsOK = pNextProfile->bProfileOK();
 
+               // Is the next (down-coast) profile a start-of-coast or an end-of-coast profile?
+               if (pNextProfile->bIsStartOrEndOfCoast())
+                  // If so, then it must be treated as if it were OK, even if it isn't (since we must have both start-of-coast and end-of-coast profiles)
+                  bNextProfileIsOK = true;
+
                if (! bNextProfileIsOK)
                {
                   // Nope, the next profile is not OK
@@ -112,7 +118,7 @@ int CSimulation::nCreateAllPolygons(void)
                   if (pNextProfile->bIsStartOfCoast())
                      LogStream << "(start of coast profile)";
                   if (pNextProfile->bIsEndOfCoast())
-                     LogStream << "end of coast profile)";
+                     LogStream << "(end of coast profile)";
 
                   LogStream << endl;
 
@@ -685,7 +691,7 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
 
                   CGeomProfile const* pProf = m_VCoast[nCoast].pGetProfile(nProf);
 
-                  if (pProf->bProfileOK())
+                  if (pProf->bProfileOKOrStartEndProfile())
                      nNumValidCoinc++;
                }
 
@@ -790,7 +796,7 @@ int CSimulation::nDoPolygonSharedBoundaries(void)
 
                   CGeomProfile const* pProf = m_VCoast[nCoast].pGetProfile(nProf);
 
-                  if (pProf->bProfileOK())
+                  if (pProf->bProfileOKOrStartEndProfile())
                      nNumValidCoinc++;
                }
 

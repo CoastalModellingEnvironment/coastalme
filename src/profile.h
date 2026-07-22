@@ -99,6 +99,7 @@ class CGeomProfile : public CGeomMultiLine
    void SetProfileStatus(int const);
    int nGetProfileStatus(void) const;
    bool bProfileOK(void) const;
+   bool bProfileOKOrStartEndProfile(void) const;
 
    void SetPointsInProfile(vector<CGeom2DPoint> const*);
    bool bSetPointInProfile(int const, double const, double const);
