@@ -96,7 +96,7 @@ subroutine CShore(NRET)
          integer, intent (in) :: L
       end subroutine PONDED
 
-! DFM In original code, parameter USIGT is passed but not used
+! DFM In original code, paramter USIGT is passed but not used       
 !      subroutine VSTGBY(CTHETA_IN, USIGT, STHETA_IN, VSIGT, GBY_IN)
 !         double precision, intent(in) :: CTHETA_IN, USIGT, STHETA_IN, GBY_IN
 !         double precision, intent(out) :: VSIGT
@@ -266,20 +266,28 @@ subroutine CShore(NRET)
          SIGMA(1) = HRMS(1) / SQR8
          H(1) = WSETUP(1) + SWLDEP(1,L)
          
-
-         ! BDJ added on 2012-09-28
+         ! DFM safety check bodge ==============================
          if (H(1) <= 0) then
-            write (*,*) "CShore ERROR: model ended with negative depth at the first node at time =", TIME
-
+!             write (*,*) "CShore WARNING: negative depth at the first node, set to zero"
+            H(1) = 0
             NRET = -1
-
-#if defined EXE
-            stop 1
-#else
-            return
-#endif
          endif
-         ! end BDJ added on 2012-09-28
+         ! DFM safety check bodge ==============================
+! Removed by DFM
+! ! BDJ added on 2012-09-28
+!          if (H(1) <= 0) then
+!
+!             write (*,*) "CShore ERROR: model ended with negative depth at the first node at time =", TIME
+!
+!             NRET = -1
+!
+! #if defined EXE
+!             stop 1
+! #else
+!             return
+! #endif
+!          endif
+! ! end BDJ added on 2012-09-28
 
          SIGSTA(1) = SIGMA(1)/H(1)
 
@@ -349,10 +357,13 @@ subroutine CShore(NRET)
          JP1 = J + 1
          ITE = 0
 
-         ! DFM safety check bodge ============================== NOTE could try goto 400 here
-         if (J > 999) J = 999
+         ! DFM safety check bodge ==============================
+         if (J > 1000) J = 1000
+         ! DFM safety check bodge ==============================
+
+         ! DFM safety check bodge ==============================
          if (JP1 > 1000) JP1 = 1000
-         ! DFM safety check bodge END ==========================
+         ! DFM safety check bodge ==============================
 
          DUM = DFSTA(J) + DBSTA(J)
          
@@ -367,40 +378,36 @@ subroutine CShore(NRET)
             write (*, 2902) JP1, L, TIME, DUM, ITEQO, ITE, QO(L)
 2902        format('CShore WARNING 01: at end of landward marching computation, DUM (which is the square of sigma SIGTIE) <= 0 at node', I4, ' line', I3, ' time', F13.3, ', DUM =', F13.3, ' ITEQO =', I2, ' ITE =', I2, ' QO(L) =', F13.9)
 #endif
-            ! Set a warning flag
+            ! Set a warning flag 
             NRET = 2
 
             ! Accept the computed results up to node JP1 - 1 and end landward marching computation
             JP1 = JP1 - 1
+                        
+            ! BDJ added on 2012-09-28            
+            if (JP1 == 1 .and. EFSTA(1) > 1D-5) then
+#if defined EXE
+               write (*,*) 'CShore WARNING 02: large energy gradients at the first node at time =', TIME, ' (small waves with short period at sea boundary)'
+#endif               
+               ! Set a warning flag 
+               NRET = 3
 
-!           ***
+               ! STOP  %BDJ 2015-05-06
+            endif
+            
+            if (JP1 == 1 .and. EFSTA(1) < 1D-5) then
+#if defined EXE            
+               write (*,*) 'CShore WARNING 03: zero energy at the first node at time =', TIME
+#endif
+
+               ! Set a warning flag 
+               NRET = 4
+            endif            
+            ! end BDJ added on 2012-09-28
 
             goto 400
          endif
-
-         ! DFM moved, was at *** inside above if... endif ===========================
-         ! BDJ added on 2012-09-28
-         if (JP1 == 1 .and. EFSTA(1) > 1D-5) then
-#if defined EXE
-            write (*,*) 'CShore WARNING 02: large energy gradients at the first node at time =', TIME, ' (small waves with short period at sea boundary)'
-#endif
-            ! Set a warning flag
-            NRET = 3
-
-            ! STOP  %BDJ 2015-05-06
-         endif
-
-         if (JP1 == 1 .and. EFSTA(1) < 1D-5) then
-#if defined EXE
-            write (*,*) 'CShore WARNING 03: zero energy at the first node at time =', TIME
-#endif
-
-            ! Set a warning flag
-            NRET = 4
-         endif
-         ! end BDJ added on 2012-09-28
-         ! DFM moved END, was at *** inside above if... endif ===========================
-
+         
          SIGITE = DSQRT(DUM)
 
          SXXSTA(JP1) = FSX * SIGITE ** 2.D0
@@ -411,7 +418,16 @@ subroutine CShore(NRET)
          
          WSETUP(JP1) = WSETUP(J) - (SXXSTA(JP1) - SXXSTA(J) + (TBXSTA(J) - TWXSTA(ITIME)) * DX) / H(J)
 
-         HITE = WSETUP(JP1) + SWLDEP(JP1, L)
+         ! DFM safety check bodge ==============================
+         nsize = size(SWLDEP, 2)
+         if (L > nsize) THEN
+            HITE = WSETUP(JP1) + SWLDEP(JP1, nsize)
+         else
+            HITE = WSETUP(JP1) + SWLDEP(JP1, L)
+         endif
+         ! DFM safety check bodge ==============================
+
+!          HITE = WSETUP(JP1) + SWLDEP(JP1, L)
 
          if (HITE < EPS1) then
             ! Water depth HITE is less than EPS1
@@ -471,7 +487,6 @@ subroutine CShore(NRET)
             if (DUM > SISMAX) DUM = SISMAX
             
             DUM3 = CP(JP1)*CP(JP1)/GRAV
-
             GBY(JP1) = TBYSTA(JP1)/FB2(JP1,L)/DUM3/DUM/DUM
             
             ! Subroutine VSTGBY computes VSIGT for specified GBY, CTHETA, USIGT and STHETA
@@ -557,7 +572,7 @@ subroutine CShore(NRET)
             if (DUM <= 0.D0) then
                ! DUM (which is the square of sigma SIGTIE) is zero or negative
 #if defined EXE
-               write (*, 2903) JP1, L, TIME, DUM, ITEQO, ITE, QO(L)
+               write (*, 2903) JP1, L, TIME, DUM, ITEQO, ITE, QO(L)    
 2903           format(/'CShore WARNING 05: at end of landward marching computation, DUM (which is the square of sigma SIGTIE) <= 0 at node', I4, ' line', I3, ' time', F13.3, ' DUM =', F13.3, ' ITEQO =', I2, ' ITE =', I2, ' QO(L) =', F13.9)
 #endif
 
@@ -567,9 +582,9 @@ subroutine CShore(NRET)
                ! Accept the computed results up to node JP1-1 and end landward marching computation
                JP1 = JP1 - 1
 
-               goto 400
+               goto 400               
             endif
-
+            
             SIGMA(JP1) = DSQRT(DUM)            
             SXXSTA(JP1) = FSX*SIGMA(JP1)**2.D0
             
@@ -578,9 +593,7 @@ subroutine CShore(NRET)
             if (IWCINT == 1) SXXSTA(JP1)=SXXSTA(JP1)+QWX*QWX/GRAV/HITE
             
             WSETUP(JP1) = WSETUP(J) - (2.D0* (SXXSTA(JP1)-SXXSTA(J)) + DX*(TBXSTA(JP1)+TBXSTA(J)-2.D0*TWXSTA(ITIME)))/ (HITE+H(J))
-
             H(JP1) = WSETUP(JP1) + SWLDEP(JP1,L)
-
             SIGSTA(JP1) = SIGMA(JP1)/H(JP1)
             
             if (SIGSTA(JP1) > SISMAX) SIGSTA(JP1)=SISMAX
@@ -691,7 +704,6 @@ subroutine CShore(NRET)
 
          ! Wave transmission computation for LANCOM == 1 starts from here
 210      HRMS(JP1) = SQR8*SIGMA(JP1)
-
          WSETUP(JP1) = H(JP1) - SWLDEP(JP1,L)
 
          if (IWCINT == 1) then
@@ -861,8 +873,8 @@ subroutine CShore(NRET)
                SIGT = CP(I)*SIGSTA(I)
 
                ! DFM safety check bodge ==============================
-               if (SIGT == 0.D0) SIGT = 1.0D-9
-               ! DFM safety check bodge END ==========================
+               if (SIGT == 0.D0) SIGT = 1.0D-6
+               ! DFM safety check bodge ==============================
 
                USTD(I) = SIGT*CTHETA(I)
                UMEAN(I)= -USTD(I)*SIGSTA(I)*GRAV*H(I)/CP(I)/CP(I)

@@ -623,7 +623,7 @@ subroutine CShoreWrapper(In_ILINE, In_IPROFL, In_IPERM, In_IOVER, In_IWCINT, In_
 
    ! DFM safety check bodge ==============================
    if (IError < 0) return
-   ! DFM safety check bodge ==============================
+   ! DFM safety check bodge END ==========================
 
    Out_nOutSize = nOutSize
    

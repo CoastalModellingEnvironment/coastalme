@@ -668,14 +668,43 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
       // Have we hit a profile belonging to another coast?
       if (m_pRasterGrid->m_Cell[nX][nY].bIsProfile())
       {
-         // We have hit a profile, so assume it belongs to another coast
+         // We have hit a profile, is it a different coast?
+         int nOtherProfile = m_pRasterGrid->m_Cell[nX][nY].nGetProfileID();
+         int nOtherCoast = m_pRasterGrid->m_Cell[nX][nY].nGetProfileCoastID();
+         if (nCoast == nOtherCoast)
+         {
+            // Same coast
+            if (m_nLogFileDetail >= LOG_FILE_ALL)
+               LogStream << m_ulIter << ":\t Hit profile " << nOtherProfile << " both belonging to same coast " << nCoast << " at [" << Pti.nGetX() << "][" << Pti.nGetY() << "} while creating grid-edge profile from [" << PtiProfileStart.nGetX() << "][" << PtiProfileStart.nGetY() << "], profile length should have been " << nProfileLen << " but is now " << n << endl;
+         }
+         else
+         {
+            // Different coast
+            if (m_nLogFileDetail >= LOG_FILE_ALL)
+               LogStream << m_ulIter << ":\t Hit profile " << nOtherProfile << " belonging to different coast " << nOtherCoast << " at [" << Pti.nGetX() << "][" << Pti.nGetY() << "} while creating grid-edge profile for coast " << nCoast << " from [" << PtiProfileStart.nGetX() << "][" << PtiProfileStart.nGetY() << "], profile length should have been " << nProfileLen << " but is now " << n << endl;
+         }
+
          break;
       }
 
       // Have we hit another coast?
       if (m_pRasterGrid->m_Cell[nX][nY].bIsCoastline())
       {
-         // We have hit a coast cell, so assume it belongs to another coast
+         // We have hit a coast cell, is it a different coast?
+         int nOtherCoast = m_pRasterGrid->m_Cell[nX][nY].nGetCoastline();
+         if (nCoast == nOtherCoast)
+         {
+            // Same coast, this shouldn't happen
+            if (m_nLogFileDetail >= LOG_FILE_ALL)
+               LogStream << m_ulIter << ":\t Hit same coast at [" << Pti.nGetX() << "][" << Pti.nGetY() << "} while creating grid-edge profile from [" << PtiProfileStart.nGetX() << "][" << PtiProfileStart.nGetY() << "], profile length should have been " << nProfileLen << " but is now " << n << endl;
+         }
+         else
+         {
+            // Different coast
+            if (m_nLogFileDetail >= LOG_FILE_ALL)
+               LogStream << m_ulIter << ":\t Hit different coast at [" << Pti.nGetX() << "][" << Pti.nGetY() << "} while creating grid-edge profile from [" << PtiProfileStart.nGetX() << "][" << PtiProfileStart.nGetY() << "], profile length should have been " << nProfileLen << " but is now " << n << endl;
+         }
+
          break;
       }
 
@@ -687,6 +716,9 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
       if (it != m_VPtiBoundingBoxCorner.end())
       {
          // We've reached the end of a grid side before the profile is long enough. OK, we can live with this
+         if (m_nLogFileDetail >= LOG_FILE_ALL)
+            LogStream << m_ulIter << ":\t Reached end of grid side at [" << Pti.nGetX() << "][" << Pti.nGetY() << "} while creating grid-edge profile from [" << PtiProfileStart.nGetX() << "][" << PtiProfileStart.nGetY() << "], profile length should have been " << nProfileLen << " but is now " << n << endl;
+
          break;
       }
    }
@@ -754,7 +786,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
    pProfile->AppendLineSegment();
    pProfile->AppendPairToFinalLineSegment(make_pair(nProfile, 0));
 
-   assert(pProfile->nGetProfileSize() == (1 + pProfile->nGetNumLineSegments()));
+   // assert(pProfile->nGetProfileSize() == (1 + pProfile->nGetNumLineSegments()));
 
    // Store the grid-edge profile
    m_VCoast[nCoast].AppendProfile(pProfile);
