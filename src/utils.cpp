@@ -2331,6 +2331,10 @@ string CSimulation::strGetErrorText(int const nErr)
       strErr = "no polygons created for coast";
       break;
 
+   case RTN_ERR_GRID_EDGE_PROFILE_TOO_SHORT:
+      strErr = "grid-edge profile is too short";
+      break;
+
    default:
       // should never get here
       strErr = "unknown error";

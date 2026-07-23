@@ -672,6 +672,7 @@ int const RTN_ERR_POLYGON_FILL_START_POINT = 89;
 int const RTN_ERR_BASEMENT_DURING_BARRIER_CREATION = 90;
 int const RTN_ERR_BASEMENT_DURING_WAVE_CALC = 91;
 int const RTN_ERR_NO_POLYGONS = 92;
+int const RTN_ERR_GRID_EDGE_PROFILE_TOO_SHORT = 93;
 
 // Coast-normal profile status codes
 int const PROFILE_STATUS_OK = 0;                         // No problem, profile is valid

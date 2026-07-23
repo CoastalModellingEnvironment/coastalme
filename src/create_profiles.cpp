@@ -723,6 +723,19 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
       }
    }
 
+   // Get the actual size of the profile (which may be shorter than nProfileLen)
+   int const nPointsSize = static_cast<int>(VPtiNormalPoints.size());
+
+   // Safety check: how long is the profile?
+   if (nPointsSize <= 1)
+   {
+      // Uh-oh, too short, we can't continue
+      LogStream << m_ulIter << ":\t " << (bCoastStart ? "start" : "end") << "-of-coast profile from [" << PtiProfileStart.nGetX() << "][" << PtiProfileStart.nGetY() << "] is too short, length is " << nPointsSize << ", cannot continue" << endl;
+
+      return RTN_ERR_GRID_EDGE_PROFILE_TOO_SHORT;
+
+   }
+
    int nProfileStartPoint;
    CGeomProfile* pProfile;
    CGeom2DIPoint const PtiDummy(INT_NODATA, INT_NODATA);
@@ -749,7 +762,6 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
    }
 
    // Create the list of cells 'under' this grid-edge profile. Note that more than two cells are stored
-   int const nPointsSize = static_cast<int>(VPtiNormalPoints.size());
    for (int n = 0; n < nPointsSize; n++)
    {
       int const nX = VPtiNormalPoints[n].nGetX();
@@ -786,7 +798,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
    pProfile->AppendLineSegment();
    pProfile->AppendPairToFinalLineSegment(make_pair(nProfile, 0));
 
-   // assert(pProfile->nGetProfileSize() == (1 + pProfile->nGetNumLineSegments()));
+   assert(pProfile->nGetProfileSize() == (1 + pProfile->nGetNumLineSegments()));
 
    // Store the grid-edge profile
    m_VCoast[nCoast].AppendProfile(pProfile);
