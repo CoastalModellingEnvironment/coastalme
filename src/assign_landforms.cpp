@@ -298,14 +298,12 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
             // Again, should never happen
             LogStream << m_ulIter << ":\t SWL (" << m_dThisIterSWL << ") is above sediment-top elevation inc. any talus (" << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << ") on cell [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}, cannot assign coastal landform for coastline " << nCoast << endl;
 
-            // TODO DFM bodge ========================
-            // We have unconsolidated sediment at SWL, so this is a drift cell: create a drift object on the vector coastline with these attributes
+            // We have unconsolidated sediment at SWL, so this is a drift cell: create a beach drift object on the vector coastline with these attributes
             CACoastLandform* pDrift = new CRWDrift(&m_VCoast[nCoast], nCoast, nCoastPoint, LF_DRIFT_BEACH);
             m_VCoast[nCoast].AppendCoastLandform(pDrift);
 
             m_pRasterGrid->m_Cell[nX][nY].pGetCellLandform()->SetLandformCategory(LF_DRIFT_BEACH);
             continue;
-            // TODO DFM bodge ========================
 
             return RTN_ERR_CANNOT_ASSIGN_COASTAL_LANDFORM;
          }

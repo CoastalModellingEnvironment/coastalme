@@ -282,16 +282,19 @@ int CSimulation::nDoUnconsErosionOnPolygon(int const nCoast, CGeomCoastPolygon* 
          double dParProfileLen = dGetDistanceBetween(&PtStart, &PtEnd);
 
          // Calculate the elevation difference between the start and end of the parallel profile
-         double const dElevDiff = dParProfCoastElev - dParProfEndElev;
+         double dElevDiff = dParProfCoastElev - dParProfEndElev;
 
          if (bFPIsEqual(dElevDiff, 0.0, TOLERANCE))
          {
             // Can't have a meaningful Dean profile with a near-zero elevation difference
-            // TODO 019 Need to improve this: at present we just abandon erosion on this coast point and move to another coast point
-            LogStream << m_ulIter << ":\t zero gradient on parallel profile, abandoning" << endl;
+            // TEST DFM ====================
+            dElevDiff = 1e-6;
 
-            bZeroGradient = true;
-            break;
+            // // TODO 019 Need to improve this: at present we just abandon erosion on this coast point and move to another coast point
+            // LogStream << m_ulIter << ":\t zero gradient on parallel profile, abandoning" << endl;
+            //
+            // bZeroGradient = true;
+            // break;
          }
 
          // Safety check

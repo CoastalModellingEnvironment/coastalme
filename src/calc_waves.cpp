@@ -1048,11 +1048,11 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
          switch (nRet)
          {
             case -1:
-               strErr = "CShore WARNING 1 negative depth at the first node";
+               strErr = "CShore WARNING 1 negative depth at the first node, set to zero";
                break;
 
             case 2:
-               strErr = "CShore WARNING 2 negative value at end of landward marching computation";
+               strErr = "CShore WARNING 2 negative value at end of landward marching computation, set to 1.0D-9";
                break;
 
             case 3:
@@ -1226,11 +1226,11 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
          switch (nRet)
          {
             case -1:
-               strErr += "CShore WARNING 1 negative depth at the first node";
+               strErr += "CShore WARNING 1 negative depth at the first node, set to zero";
                break;
 
             case 2:
-               strErr += "CShore WARNING 2 negative value at end of landward marching computation";
+               strErr += "CShore WARNING 2 negative value at end of landward marching computation, set to 1.0D-9";
                break;
 
             case 3:
