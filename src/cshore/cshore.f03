@@ -505,7 +505,7 @@ subroutine CShore(NRET)
             nsize1 = min(JP1, size(FB2, 1))
             nsize2 = min(L, size(FB2, 2))
 
-            GBY(JP1) = TBYSTA(JP1) / FB2(nsize, nsize2) / DUM3 / DUM / DUM
+            GBY(JP1) = TBYSTA(JP1) / FB2(nsize1, nsize2) / DUM3 / DUM / DUM
             ! DFM safety check bodge ==============================
 
             ! DFM commented out original
