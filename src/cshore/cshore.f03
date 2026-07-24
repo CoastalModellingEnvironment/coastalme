@@ -269,7 +269,7 @@ subroutine CShore(NRET)
 
          ! BDJ added on 2012-09-28
          if (H(1) <= 0) then
-            write (*,*) "CShore ERROR: model ended with negative depth at the first node at time =", TIME
+!             write (*,*) "CShore ERROR: ended with negative depth at the first node at time =", TIME
 
             NRET = -1
 
@@ -1116,9 +1116,6 @@ subroutine CShore(NRET)
    end do
 #endif
 
-   ! Get rid of all dynamically allocated memory
-   call deallocate_all_arrays
-   
 #if defined EXE
    stop 0
 #else

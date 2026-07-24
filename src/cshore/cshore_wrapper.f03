@@ -622,7 +622,11 @@ subroutine CShoreWrapper(In_ILINE, In_IPROFL, In_IPERM, In_IOVER, In_IWCINT, In_
    Out_IError = IError
 
    ! DFM safety check bodge ==============================
-   if (IError < 0) return
+   if (IError < 0) then
+      ! Get rid of all dynamically allocated memory
+      call deallocate_all_arrays
+      return
+   endif
    ! DFM safety check bodge END ==========================
 
    Out_nOutSize = nOutSize
@@ -638,6 +642,9 @@ subroutine CShoreWrapper(In_ILINE, In_IPROFL, In_IPERM, In_IOVER, In_IWCINT, In_
       end do
    end do
    
+   ! Get rid of all dynamically allocated memory
+   call deallocate_all_arrays
+
    return   
 end subroutine CShoreWrapper
 #endif   
