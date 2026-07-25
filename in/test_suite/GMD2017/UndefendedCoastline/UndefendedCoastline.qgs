@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-07-18T12:14:23" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.0-Belém do Pará">
+<qgis projectname="" saveDateTime="2026-07-25T09:15:15" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.0-Belém do Pará">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
@@ -233,7 +233,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="03" wms-group-request-mode="Normal">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="03" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -563,7 +563,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="07" wms-group-request-mode="Normal">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="07" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -1423,7 +1423,7 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Checked" name="03" open="false">
+      <legendgroup checked="Qt::Unchecked" name="03" open="false">
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="deep_water_wave_angle_003" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="deep_water_wave_angle_003_d19c418a_785b_4482_b7cc_3e425883f376" visible="0"/>
@@ -1441,7 +1441,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="polygon_003" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="polygon_00320161110204759456" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="polygon_00320161110204759456" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="polygon_raster_03" open="false" showFeatureCount="0">
@@ -1461,7 +1461,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="waveangle03" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="waveangle0320160808175731280" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="waveangle0320160808175731280" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="shadow_boundary_003" open="true" showFeatureCount="0">
@@ -1506,7 +1506,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_03" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="landform_class_0320161102175326795" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="landform_class_0320161102175326795" visible="0"/>
           </filegroup>
         </legendlayer>
       </legendgroup>
@@ -1741,7 +1741,7 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Checked" name="07" open="false">
+      <legendgroup checked="Qt::Unchecked" name="07" open="false">
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="coast07" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="coast0720160725142150046" visible="0"/>
@@ -1754,7 +1754,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="polygon_007" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="polygon_00720161027183621292" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="polygon_00720161027183621292" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="polygon_raster_007" open="false" showFeatureCount="0">
@@ -1764,7 +1764,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="wave_angle_007" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="wave_angle_007_38743709_3748_492e_ba0c_bd3e586f0e0d" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="wave_angle_007_38743709_3748_492e_ba0c_bd3e586f0e0d" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="wave_height_007" open="false" showFeatureCount="0">
@@ -1824,7 +1824,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_07" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="landform_class_0720161102192333127" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="landform_class_0720161102192333127" visible="0"/>
           </filegroup>
         </legendlayer>
       </legendgroup>
@@ -96190,7 +96190,7 @@ def my_form_open(dialog, layer, feature):
       </spatialrefsys>
     </CoordinateCustomCrs>
   </ProjectDisplaySettings>
-  <ProjectGpsSettings autoAddTrackVertices="0" autoCommitFeatures="0" destinationFollowsActiveLayer="1" destinationLayer="waveangle1120160808172440346" destinationLayerName="waveangle11" destinationLayerProvider="ogr" destinationLayerSource="/home/dave/coast/CoastalME/out/test_suite/GMD2017/UndefendedCoastline/wave_angle_011.shp">
+  <ProjectGpsSettings autoAddTrackVertices="0" autoCommitFeatures="0" destinationFollowsActiveLayer="1" destinationLayer="">
     <timeStampFields/>
   </ProjectGpsSettings>
 </qgis>

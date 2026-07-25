@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-07-22T15:46:05" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.0-Belém do Pará">
+<qgis projectname="" saveDateTime="2026-07-25T09:16:25" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.0-Belém do Pará">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
@@ -199,7 +199,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="106" wms-group-request-mode="Normal">
+      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="106" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -508,7 +508,7 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Checked" name="106" open="true">
+      <legendgroup checked="Qt::Checked" name="106" open="false">
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="invalid_normals_106" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
             <legendlayerfile isInOverview="0" layerid="invalid_normals_106_1eb7ed3f_b136_412e_9d5f_830dba4b4f77" visible="1"/>
@@ -571,31 +571,6 @@
     </legendgroup>
   </legend>
   <mapViewDocks/>
-  <mapcanvas annotationsVisible="1" name="mAreaCanvas">
-    <units>degrees</units>
-    <extent>
-      <xmin>179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368</xmin>
-      <ymin>179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368</ymin>
-      <xmax>-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368</xmax>
-      <ymax>-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368</ymax>
-    </extent>
-    <rotation>0</rotation>
-    <destinationsrs>
-      <spatialrefsys nativeFormat="Wkt">
-        <wkt>GEOGCRS["WGS 84",ENSEMBLE["World Geodetic System 1984 ensemble",MEMBER["World Geodetic System 1984 (Transit)"],MEMBER["World Geodetic System 1984 (G730)"],MEMBER["World Geodetic System 1984 (G873)"],MEMBER["World Geodetic System 1984 (G1150)"],MEMBER["World Geodetic System 1984 (G1674)"],MEMBER["World Geodetic System 1984 (G1762)"],MEMBER["World Geodetic System 1984 (G2139)"],MEMBER["World Geodetic System 1984 (G2296)"],ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[2.0]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["Horizontal component of 3D system."],AREA["World."],BBOX[-90,-180,90,180]],ID["EPSG",4326]]</wkt>
-        <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-        <srsid>3452</srsid>
-        <srid>4326</srid>
-        <authid>EPSG:4326</authid>
-        <description>WGS 84</description>
-        <projectionacronym>longlat</projectionacronym>
-        <ellipsoidacronym>EPSG:7030</ellipsoidacronym>
-        <geographicflag>true</geographicflag>
-      </spatialrefsys>
-    </destinationsrs>
-    <rendermaptile>0</rendermaptile>
-    <expressionContextScope/>
-  </mapcanvas>
   <main-annotation-layer autoRefreshMode="Disabled" autoRefreshTime="0" hasScaleBasedVisibilityFlag="0" layerType="Annotation" legendPlaceholderImage="" maxScale="0" minScale="1e+08" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" styleCategories="AllStyleCategories" type="annotation">
     <id>Annotations_3c2e7b40_2385_4636_aaa5_088a1fac3b43</id>
     <datasource></datasource>
@@ -1379,16 +1354,16 @@
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647519</xmin>
+        <xmin>647501.18181818176526576</xmin>
         <ymin>259951</ymin>
-        <xmax>647706</xmax>
+        <xmax>647676.40000000002328306</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61931426018763513</xmin>
-        <ymin>52.18216213045403862</ymin>
-        <xmax>1.62251669146280753</xmax>
-        <ymax>52.18806036196096443</ymax>
+        <xmin>1.61905417684782149</xmin>
+        <ymin>52.18217540894652018</ymin>
+        <xmax>1.62208458043314829</xmax>
+        <ymax>52.18806835092421892</ymax>
       </wgs84extent>
       <id>coast_001_4f7564f3_882e_4a4b_ac6c_a02fa497aa42</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/coast_001.shp</datasource>
@@ -1806,16 +1781,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647500.63636363635305315</xmin>
+        <xmin>647505.72727272729389369</xmin>
         <ymin>259951</ymin>
-        <xmax>647675.80000000004656613</xmax>
+        <xmax>647677.22008730284869671</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61904621511101077</xmin>
-        <ymin>52.18217567808882507</ymin>
-        <xmax>1.62207582142231543</xmax>
-        <ymax>52.18806859547527921</ymax>
+        <xmin>1.61912052465014145</xmin>
+        <ymin>52.18217504107849436</ymin>
+        <xmax>1.62209655235553996</xmax>
+        <ymax>52.18806631297781706</ymax>
       </wgs84extent>
       <id>coast_002_c531e3c4_9dce_4dd5_826f_a9c370361dc2</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/coast_002.shp</datasource>
@@ -2969,8 +2944,8 @@ def my_form_open(dialog, layer, feature):
       <customproperties>
         <Option type="Map">
           <Option name="embeddedWidgets/count" type="int" value="0"/>
-          <Option name="variableNames"/>
-          <Option name="variableValues"/>
+          <Option name="variableNames" type="invalid"/>
+          <Option name="variableValues" type="invalid"/>
         </Option>
       </customproperties>
       <blendMode>0</blendMode>
@@ -3058,16 +3033,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>0</xmin>
-        <ymin>0</ymin>
-        <xmax>0</xmax>
-        <ymax>0</ymax>
+        <xmin>647527</xmin>
+        <ymin>259951</ymin>
+        <xmax>648328.4676274845842272</xmax>
+        <ymax>260469</ymax>
       </extent>
       <wgs84extent>
-        <xmin>-7.55720727715356944</xmin>
-        <ymin>49.7668068131751582</ymin>
-        <xmax>-7.55720727715356944</xmax>
-        <ymax>49.7668068131751582</ymax>
+        <xmin>1.61943103225984042</xmin>
+        <ymin>52.1818825270716431</ymin>
+        <xmax>1.6315084905792312</xmax>
+        <ymax>52.1868903129708599</ymax>
       </wgs84extent>
       <id>invalid_normals_002_ec1238dd_9051_49d9_879f_0c37bcad802b</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/invalid_normals_002.shp</datasource>
@@ -7631,16 +7606,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647517</xmin>
+        <xmin>647499</xmin>
         <ymin>259951</ymin>
-        <xmax>648409</xmax>
+        <xmax>648379</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61928506716575438</xmin>
-        <ymin>52.18184630228911658</ymin>
-        <xmax>1.63277922981235668</xmax>
-        <ymax>52.18806125870987955</ymax>
+        <xmin>1.61902232989989758</xmin>
+        <ymin>52.18185979810748876</ymin>
+        <xmax>1.63234128745295659</xmax>
+        <ymax>52.18806932912524132</ymax>
       </wgs84extent>
       <id>normals_001_c8a59287_45f9_4611_87fa_e41a467735d9</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/normals_001.shp</datasource>
@@ -9095,16 +9070,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647499</xmin>
+        <xmin>647505</xmin>
         <ymin>259951</ymin>
-        <xmax>648377</xmax>
+        <xmax>648379</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61902232989989758</xmin>
-        <ymin>52.18186069777102887</ymin>
-        <xmax>1.6323120912833613</xmax>
-        <ymax>52.18806932912524132</ymax>
+        <xmin>1.619109909002304</xmin>
+        <ymin>52.18185979810748876</ymin>
+        <xmax>1.63234128745295659</xmax>
+        <ymax>52.18806663905174759</ymax>
       </wgs84extent>
       <id>normals_002_38b1c5e4_010d_4374_a0d4_fd90c6f6f1bc</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/normals_002.shp</datasource>
@@ -22070,16 +22045,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647517</xmin>
+        <xmin>647499</xmin>
         <ymin>259951</ymin>
-        <xmax>648409</xmax>
+        <xmax>648379</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61928506716575438</xmin>
-        <ymin>52.18184630228911658</ymin>
-        <xmax>1.63277922981235668</xmax>
-        <ymax>52.18806125870987955</ymax>
+        <xmin>1.61902232989989758</xmin>
+        <ymin>52.18185979810748876</ymin>
+        <xmax>1.63234128745295659</xmax>
+        <ymax>52.18806932912524132</ymax>
       </wgs84extent>
       <id>polygon_001_8a1fea6e_c4b8_49ec_b427_ff63763e558d</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/polygon_001.shp</datasource>
@@ -23483,16 +23458,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647499</xmin>
+        <xmin>647505</xmin>
         <ymin>259951</ymin>
-        <xmax>648377</xmax>
+        <xmax>648379</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61902232989989758</xmin>
-        <ymin>52.18186069777102887</ymin>
-        <xmax>1.6323120912833613</xmax>
-        <ymax>52.18806932912524132</ymax>
+        <xmin>1.619109909002304</xmin>
+        <ymin>52.18185979810748876</ymin>
+        <xmax>1.63234128745295659</xmax>
+        <ymax>52.18806663905174759</ymax>
       </wgs84extent>
       <id>polygon_002_e648227b_ca9a_4691_91d7_b4fddc9874d4</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/polygon_002.shp</datasource>
@@ -24879,16 +24854,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647523</xmin>
+        <xmin>647499</xmin>
         <ymin>259951</ymin>
-        <xmax>648413</xmax>
+        <xmax>648379</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61937264622680233</xmin>
-        <ymin>52.1818445027240827</ymin>
-        <xmax>1.63283762210079986</xmax>
-        <ymax>52.18805856844146973</ymax>
+        <xmin>1.61902232989989758</xmin>
+        <ymin>52.18185979810748876</ymin>
+        <xmax>1.63234128745295659</xmax>
+        <ymax>52.18806932912524132</ymax>
       </wgs84extent>
       <id>polygon_003_2fca8faf_050f_4b8b_9d3e_b311960482a2</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/polygon_003.shp</datasource>
@@ -33137,7 +33112,7 @@ def my_form_open(dialog, layer, feature):
       </spatialrefsys>
     </CoordinateCustomCrs>
   </ProjectDisplaySettings>
-  <ProjectGpsSettings autoAddTrackVertices="0" autoCommitFeatures="0" destinationFollowsActiveLayer="1" destinationLayer="invalid_normals_106_1eb7ed3f_b136_412e_9d5f_830dba4b4f77" destinationLayerName="invalid_normals_106" destinationLayerProvider="ogr" destinationLayerSource="/home/dave/coast/CoastalME/out/CSE/Typology/Cliff/invalid_normals_106.shp">
+  <ProjectGpsSettings autoAddTrackVertices="0" autoCommitFeatures="0" destinationFollowsActiveLayer="1" destinationLayer="">
     <timeStampFields/>
   </ProjectGpsSettings>
 </qgis>

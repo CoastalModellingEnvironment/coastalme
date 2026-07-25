@@ -349,10 +349,10 @@ subroutine CShore(NRET)
          JP1 = J + 1
          ITE = 0
 
-         ! DFM safety check bodge ============================== NOTE could try goto 400 here
+         ! DFM safety check ============================== NOTE could try goto 400 here
          if (J > 999) J = 999
          if (JP1 > 1000) JP1 = 1000
-         ! DFM safety check bodge END ==========================
+         ! DFM safety check END ==========================
 
          DUM = DFSTA(J) + DBSTA(J)
          
@@ -860,9 +860,9 @@ subroutine CShore(NRET)
             do 410 I =ISTART,IFIN
                SIGT = CP(I)*SIGSTA(I)
 
-               ! DFM safety check bodge ==============================
+               ! DFM safety check ==============================
                if (SIGT == 0.D0) SIGT = 1.0D-9
-               ! DFM safety check bodge END ==========================
+               ! DFM safety check END ==========================
 
                USTD(I) = SIGT*CTHETA(I)
                UMEAN(I)= -USTD(I)*SIGSTA(I)*GRAV*H(I)/CP(I)/CP(I)

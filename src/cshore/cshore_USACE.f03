@@ -278,7 +278,7 @@ subroutine allocate_cross_shore_nodes_size_arrays(nSize)
    WSETUP = 0.0d0
    SIGSTA = 0.0d0
    
-   ! DFM Note that XB must be larger than nSize, because SRSFP() accesses element JR+1 (where JR is the size of the array). This is a bodge
+   ! DFM Note that XB must be larger than nSize, because SRSFP() accesses element JR+1 (where JR is the size of the array). TODO fix this properly
    allocate(XB(nSize+1))
    XB = 0.0d0
    
@@ -424,7 +424,7 @@ subroutine allocate_bottom_geometry_size_arrays(nSize1, nSize2)
    
 #if defined FILEINOUT
    ! If input and output is via arguments, these have already been allocated in CShore_wrapper()
-   ! DFM Note that XBINP, ZBINP and FBINP must be larger than nSize1 in the first dimension, because element K+1 (where K is the size of the first dimension) gets accessed in various places e.g. BOTTOM(). Is done for ARGINOUT in CShore_wrapper.f03. This is a bodge
+   ! DFM Note that XBINP, ZBINP and FBINP must be larger than nSize1 in the first dimension, because element K+1 (where K is the size of the first dimension) gets accessed in various places e.g. BOTTOM(). Is done for ARGINOUT in CShore_wrapper.f03. This is a
    allocate(XBINP(nSize1+1, nSize2), ZBINP(nSize1+1, nSize2), FBINP(nSize1+1, nSize2))
    XBINP = 0.0d0
    ZBINP = 0.0d0
@@ -460,7 +460,7 @@ end subroutine allocate_bottom_geometry_size_arrays
 subroutine allocate_bottom_geometry_output_size_arrays(nSize1, nSize2)
    integer :: nSize1, nSize2
    
-   ! DFM Note that ZB must be larger than nSize1 in the first dimension, because SRSFP() accesses element JR+1 (where JR is the size of the first dimension). This is a bodge
+   ! DFM Note that ZB must be larger than nSize1 in the first dimension, because SRSFP() accesses element JR+1 (where JR is the size of the first dimension). TODO Fix this properly
    allocate(ZB(nSize1+1, nSize2), FB2(nSize1, nSize2), SWLDEP(nSize1, nSize2), BSLOPE(nSize1, nSize2))
    ZB = 0.0d0
    FB2 = 0.0d0

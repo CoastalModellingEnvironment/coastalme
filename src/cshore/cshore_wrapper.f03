@@ -104,7 +104,7 @@ subroutine CShoreWrapper(In_ILINE, In_IPROFL, In_IPERM, In_IOVER, In_IWCINT, In_
    
    NBINP(1) = In_NBINP     ! NOTE Will need to change this with multiple profiles
    
-   ! We now need to copy these input arrays to arrays in the common module. But can't do a simple array assign, since XBINP, ZBINP and FBINP must be larger than In_XBINP in the first dimension, because element K+1 (where K is the size of the first dimension) gets accessed in various places e.g. BOTTOM(). This is a bodge
+   ! We now need to copy these input arrays to arrays in the common module. But can't do a simple array assign, since XBINP, ZBINP and FBINP must be larger than In_XBINP in the first dimension, because element K+1 (where K is the size of the first dimension) gets accessed in various places e.g. BOTTOM(). This is a
    ndim1size = size(In_XBINP, 1)
    ndim2size = size(In_XBINP, 2)
 
@@ -621,13 +621,13 @@ subroutine CShoreWrapper(In_ILINE, In_IPROFL, In_IPERM, In_IOVER, In_IWCINT, In_
    ! Get the results into the argument output variables
    Out_IError = IError
 
-   ! DFM safety check bodge ==============================
+   ! DFM safety check ==============================
    if (IError < 0) then
       ! Get rid of all dynamically allocated memory
       call deallocate_all_arrays
       return
    endif
-   ! DFM safety check bodge END ==========================
+   ! DFM safety check END ==========================
 
    Out_nOutSize = nOutSize
    

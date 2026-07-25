@@ -5406,7 +5406,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
    m_dWaveDepthRatioForWaveCalcs = config.dGetBreakingWaveRatio();
 
    // Case 81: Output profile data?
-   // ISSUE: Why are we now only outputing consolidated, this feels like a bodge
+   // TODO Why are we now only outputing consolidated? This seems strange
    m_bOutputConsolidatedProfileData = config.bGetSaveProfileData();
 
    // Case 82: Numbers of profiles to be saved

@@ -93,7 +93,7 @@ Start depth for wave calcs (ratio to deep water wave height)                    
 
 ; Sediment data -----------------------------------------------------------------------------------------------------------------------------------------------
 Simulate coast platform erosion?                                                             : y
-Resistance of coast platform (units ???)                                                     : 1e4       ; [2-6]e6 to produce 0.6 m/yr recession (Walkden & Hall, 2011), is 1/erodibility
+Resistance of coast platform (units ???)                                                     : 1e2       ; [2-6]e6 to produce 0.6 m/yr recession (Walkden & Hall, 2011), is 1/erodibility
 
 Simulate beach sediment transport?                                                           : y
 Beach sediment transport at grid edges                     [0 = closed, 1 = open, 2 = Mobius]: 1
@@ -121,9 +121,9 @@ Net wave uprush?                                                                
 
 ; Cliff collapse data -----------------------------------------------------------------------------------------------------------------------------------------
 Simulate cliff collapse?                                                                     : y
-Resistance to erosion of cliff (m^(9/4)s^(3/2))                                              : 1e4
+Resistance to erosion of cliff (m^(9/4)s^(3/2))                                              : 1e2
 Notch overhang to initiate collapse (m)                                                      : 0.5
-Notch-apex elevation above mean high water level (m)                                         : 1.2       ; was 0.3
+Notch-apex elevation above mean high water level (m)                                         : 0.3
 
 Cliff collapse talus erodibility (units?)                                                    : 0.3
 Cliff collapse fine talus removal rate                                               [0 to 1]: 1

@@ -83,9 +83,9 @@ subroutine BOTTOM
       
       IF (CROSS > 0.D0) goto 900
 
-      ! DFM safety check bodge ==============================
+      ! DFM safety check ==============================
       if (SLOPE(K) == 0.D0) SLOPE(K) = 1.0D-9
-      ! DFM safety check bodge ==============================
+      ! DFM safety check ==============================
 
       XS(L) = XBINP(K+1,L) - ZBINP(K+1,L) / SLOPE(K)      
       
@@ -124,9 +124,9 @@ subroutine BOTTOM
       if (JMAX(L) < JDUM) goto 130
       JDUM = JMAX(L)
       
-      ! DFM safety check bodge ==============================
+      ! DFM safety check ==============================
       if (JDUM > 1000) JDUM = 1000
-      ! DFM safety check bodge ==============================
+      ! DFM safety check ==============================
 
       do 141 J = 1, JDUM
 !      do 141 J = 1, JMAX(L)     ! DFM replaced with line above
@@ -138,9 +138,9 @@ subroutine BOTTOM
       FB2(1,L) = 0.5D0 * FBINP(1,L)
       RCREST(L) = ZBRAW(1)
       
-      ! DFM safety check bodge ==============================
+      ! DFM safety check ==============================
       JDUM = JMAX(L)
-      ! DFM safety check bodge ==============================
+      ! DFM safety check ==============================
 
       if (JDUM > 1000) JDUM = 1000
 

@@ -630,7 +630,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
             if (nPos < 0)
             {
                // We've reached the beginning of the list of edge cells, so carry on from the end of the list
-               nPos = m_VPtiAllEdgeCell.size()-1;
+               nPos = static_cast<int>(m_VPtiAllEdgeCell.size()-1);
             }
          }
       }
@@ -644,7 +644,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
             if (nPos < 0)
             {
                // We've reached the beginning of the list of edge cells, so carry on from the end of the list
-               nPos = m_VPtiAllEdgeCell.size()-1;
+               nPos = static_cast<int>(m_VPtiAllEdgeCell.size()-1);
             }
          }
          else
