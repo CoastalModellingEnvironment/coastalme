@@ -444,15 +444,6 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
 
       break;
 
-   // case (VECTOR_PLOT_CLIFF_EDGE):
-   //    strFilePathName.append(VECTOR_CLIFF_EDGE_NAME);
-   //    strstrFileName << VECTOR_CLIFF_EDGE_NAME;
-   //
-   //    eGType = wkbLineString;
-   //    strType = "line";
-   //
-   //    break;
-
    case (VECTOR_PLOT_NORMALS):
       strFilePathName.append(VECTOR_NORMALS_NAME);
       strstrFileName << VECTOR_NORMALS_NAME;
@@ -676,8 +667,7 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
    OGRLayer* pOGRLayer = pGDALDataSet->CreateLayer(strstrFileName.str().c_str(), &OGRSpatialRef, eGType, m_papszGDALVectorOptions);
    if (pOGRLayer == NULL)
    {
-      cerr << ERR << "cannot create '" << strType << "' layer in " << strFilePathName << endl
-           << CPLGetLastErrorMsg() << endl;
+      cerr << ERR << "cannot create '" << strType << "' layer in " << strFilePathName << endl << CPLGetLastErrorMsg() << endl;
       return false;
    }
 

@@ -2483,7 +2483,6 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                      nDownDriftNum = nTmp;
                   }
                }
-
                else
                   nCoast++;
             }
@@ -2519,7 +2518,6 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                      nDownDriftNum = nTmp;
                   }
                }
-
                else
                   nCoast++;
             }
@@ -2555,7 +2553,6 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                      nDownDriftNum = nTmp;
                   }
                }
-
                else
                   nCoast++;
             }
@@ -2591,7 +2588,6 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                      nDownDriftNum = nTmp;
                   }
                }
-
                else
                   nCoast++;
             }

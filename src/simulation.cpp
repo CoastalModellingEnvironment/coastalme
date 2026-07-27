@@ -122,7 +122,6 @@ CSimulation::CSimulation(void)
    m_bShadowZoneCodesSave = false;
    m_bSaveRegular = false;
    m_bCoastSave = false;
-   m_bCliffEdgeSave = false;
    m_bNormalsSave = false;
    m_bInvalidNormalsSave = false;
    m_bCoastCurvatureSave = false;

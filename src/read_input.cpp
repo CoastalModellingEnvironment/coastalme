@@ -1346,7 +1346,6 @@ bool CSimulation::bReadRunDataFile(void)
                {
                   // Output all vector files
                   m_bCoastSave = true;
-                  m_bCliffEdgeSave = true;
                   m_bWaveAngleAndHeightSave = true;
                   m_bNormalsSave = true;
                   m_bInvalidNormalsSave = true;
@@ -1366,7 +1365,6 @@ bool CSimulation::bReadRunDataFile(void)
                {
                   // Output the "usual" collection of vector output files
                   m_bCoastSave = true;
-                  m_bCliffEdgeSave = true;
                   m_bWaveAngleAndHeightSave = true;
                   m_bNormalsSave = true;
                   m_bInvalidNormalsSave = true;
@@ -1388,12 +1386,6 @@ bool CSimulation::bReadRunDataFile(void)
                      m_bCoastSave = true;
                      strRH = strRemoveSubstr(&strRH, &VECTOR_COAST_CODE);
                   }
-
-                  // if (strRH.find(VECTOR_CLIFF_EDGE_CODE) != string::npos)
-                  // {
-                  //    m_bCliffEdgeSave = true;
-                  //    strRH = strRemoveSubstr(&strRH, &VECTOR_CLIFF_EDGE_CODE);
-                  // }
 
                   if (strRH.find(VECTOR_AVG_WAVE_ANGLE_AND_HEIGHT_CODE) != string::npos)
                   {
@@ -4967,7 +4959,6 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
    {
       // Reset all vector output flags
       m_bCoastSave = false;
-      m_bCliffEdgeSave = false;
       m_bWaveAngleAndHeightSave = false;
       m_bNormalsSave = false;
       m_bInvalidNormalsSave = false;
@@ -4994,8 +4985,6 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
 
          if (code == "coast")
             m_bCoastSave = true;
-         else if (code == "cliff_edge")
-            m_bCliffEdgeSave = true;
          else if (code == "wave_angle")
             m_bWaveAngleAndHeightSave = true;
          else if (code == "normals")

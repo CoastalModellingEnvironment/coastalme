@@ -259,9 +259,6 @@ class CSimulation
    //! Save coastline as vector GIS file?
    bool m_bCoastSave;
 
-   //! Save cliff edge vector GIS files?
-   bool m_bCliffEdgeSave;
-
    //! Save coastline-normal vector GIS files?
    bool m_bNormalsSave;
 
@@ -1769,7 +1766,7 @@ private:
    static CGeom2DIPoint PtiFollowWaveAngle(CGeom2DIPoint const*, double const, double&);
    // int nFindAllShadowZones(void);
    int nCellByCellFillShadowZone(int const, int const, CGeom2DIPoint const*, CGeom2DIPoint const*, CGeom2DIPoint const*);
-   void DoShadowZoneAndDownDriftZone(int const, int const, int const, int const);
+   void ShadowZoneAndDownDriftZoneChangeWaves(int const, int const, int const, int const);
    void ProcessDownDriftCell(int const, int const, int const, double const, int const);
    void ProcessShadowZoneCell(int const, int const, int const, CGeom2DIPoint const*, int const, int const, int const);
    int nCreateAllPolygons(void);
