@@ -631,7 +631,6 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
 
    // Set up the vector driver
    GDALDriver* pGDALDriver = GetGDALDriverManager()->GetDriverByName(m_strVectorGISOutFormat.c_str());
-
    if (pGDALDriver == NULL)
    {
       cerr << ERR << "vector GIS output driver " << m_strVectorGISOutFormat << CPLGetLastErrorMsg() << endl;
@@ -640,7 +639,6 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
 
    // Now create the dataset
    GDALDataset* pGDALDataSet = pGDALDriver->Create(strFilePathName.c_str(), 0, 0, 0, GDT_Unknown, m_papszGDALVectorOptions);
-
    if (pGDALDataSet == NULL)
    {
       cerr << ERR << "cannot create " << m_strVectorGISOutFormat << " named " << strFilePathName << endl << CPLGetLastErrorMsg() << endl;

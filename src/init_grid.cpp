@@ -111,8 +111,7 @@ int CSimulation::nInitGridAndCalcStillWaterLevel(void)
    m_dStartIterConsSandAllCells = 0;
    m_dStartIterConsCoarseAllCells = 0;
 
-   // And go through all cells in the RasterGrid array
-   // Use OpenMP parallel loop with reduction clauses for thread-safe accumulation
+   // And go through all cells in the RasterGrid array. Use OpenMP parallel loop with reduction clauses for thread-safe accumulation
 #ifdef _OPENMP
 #pragma omp parallel for collapse(2) reduction(+ : nZeroThickness)                                            \
     reduction(+ : m_dStartIterConsFineAllCells, m_dStartIterConsSandAllCells, m_dStartIterConsCoarseAllCells) \

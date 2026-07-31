@@ -411,10 +411,12 @@ void CSimulation::LocateAndCreateProfiles(int const nCoast, int& nProfile, vecto
 //          LogStream << "++++++++++++++++++++++" << endl;
 //          // DEBUG CODE ===================================================================================================
 
-         CGeom2DPoint PtThis = *m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nNormalPoint);
-
-         if (m_nLogFileDetail >= LOG_FILE_ALL)
-            LogStream << m_ulIter << ":\t  coast " << nCoast << " profile " << nProfile << " created at coast point " << nNormalPoint << " [" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] = {" << PtThis.dGetX() << ", " << PtThis.dGetY() << "} (smoothed curvature = " << m_VCoast[nCoast].dGetSmoothCurvature(nNormalPoint) << ", detailed curvature = " << m_VCoast[nCoast].dGetDetailedCurvature(nNormalPoint) << ")" << endl;
+//          if (m_nLogFileDetail >= LOG_FILE_ALL)
+//          {
+//             CGeom2DPoint PtThis = *m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nNormalPoint);
+//
+//             LogStream << m_ulIter << ":\t  coast " << nCoast << " profile " << nProfile << " created at coast point " << nNormalPoint << " [" << PtiThis.nGetX() << "][" << PtiThis.nGetY() << "] = {" << PtThis.dGetX() << ", " << PtThis.dGetY() << "} (smoothed curvature = " << m_VCoast[nCoast].dGetSmoothCurvature(nNormalPoint) << ", detailed curvature = " << m_VCoast[nCoast].dGetDetailedCurvature(nNormalPoint) << ")" << endl;
+//          }
 
          // // DEBUG CODE =================================================================================
          // if (m_pRasterGrid->m_Cell[PtiThis.nGetX()][PtiThis.nGetY()].bIsCoastline())

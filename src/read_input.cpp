@@ -136,7 +136,7 @@ bool CSimulation::bReadIniFile(void)
       strRec = strTrim(&strRec);
 
       // If it is a blank line or a comment then ignore it
-      if ((! strRec.empty()) && (strRec[0] != QUOTE1) && (strRec[0] != QUOTE2))
+      if ((! strRec.empty()) && (strRec[0] != COMMENT_1) && (strRec[0] != COMMENT_2))
       {
          // It isn't so increment counter
          i++;
@@ -167,12 +167,12 @@ bool CSimulation::bReadIniFile(void)
          strRH = strTrimLeft(&strRH);
 
          // Look for a trailing comment, if found then terminate string at that point and trim off any trailing whitespace
-         nPos = strRH.rfind(QUOTE1);
+         nPos = strRH.rfind(COMMENT_1);
 
          if (nPos != string::npos)
             strRH.resize(nPos);
 
-         nPos = strRH.rfind(QUOTE2);
+         nPos = strRH.rfind(COMMENT_2);
 
          if (nPos != string::npos)
             strRH.resize(nPos);
@@ -303,7 +303,7 @@ bool CSimulation::bReadRunDataFile(void)
       strRec = strTrim(&strRec);
 
       // If it is a blank line or a comment then ignore it
-      if ((!strRec.empty()) && (strRec[0] != QUOTE1) && (strRec[0] != QUOTE2))
+      if ((!strRec.empty()) && (strRec[0] != COMMENT_1) && (strRec[0] != COMMENT_2))
       {
          // It isn't so increment counter
          i++;
@@ -332,7 +332,7 @@ bool CSimulation::bReadRunDataFile(void)
          {
             bFound = false;
 
-            nPos = strRH.rfind(QUOTE1);
+            nPos = strRH.rfind(COMMENT_1);
 
             if (nPos != string::npos)
             {
@@ -340,7 +340,7 @@ bool CSimulation::bReadRunDataFile(void)
                bFound = true;
             }
 
-            nPos = strRH.rfind(QUOTE2);
+            nPos = strRH.rfind(COMMENT_2);
 
             if (nPos != string::npos)
             {
@@ -629,7 +629,6 @@ bool CSimulation::bReadRunDataFile(void)
 
                if (m_dRegularSaveInterval < m_dTimeStep)
                   strErr = "line " + to_string(nLine) + ": save interval cannot be less than timestep";
-
                else
                   m_dRegularSaveTime = m_dRegularSaveInterval;
             }
@@ -1868,7 +1867,7 @@ bool CSimulation::bReadRunDataFile(void)
                      }
 
                      // If it is a blank line or a comment then ignore it
-                     while (strRec.empty() || (strRec[0] == QUOTE1) || (strRec[0] == QUOTE2));
+                     while (strRec.empty() || (strRec[0] == COMMENT_1) || (strRec[0] == COMMENT_2));
 
                      // Not blank or a comment, so find the colon: lines MUST have a colon separating data from leading description portion
                      nPos = strRec.find(COLON);
@@ -1889,12 +1888,12 @@ bool CSimulation::bReadRunDataFile(void)
                      strRH = strTrimLeft(&strRH);
 
                      // Look for a trailing comment, if found then terminate string at that point and trim off any trailing whitespace
-                     nPos = strRH.rfind(QUOTE1);
+                     nPos = strRH.rfind(COMMENT_1);
 
                      if (nPos != string::npos)
                         strRH.resize(nPos);
 
-                     nPos = strRH.rfind(QUOTE2);
+                     nPos = strRH.rfind(COMMENT_2);
 
                      if (nPos != string::npos)
                         strRH.resize(nPos);
@@ -3281,7 +3280,7 @@ int CSimulation::nReadTideDataFile()
       strRec = strTrim(&strRec);
 
       // If it is a blank line or a comment then ignore it
-      if ((strRec.empty()) || (strRec[0] == QUOTE1) || (strRec[0] == QUOTE2))
+      if ((strRec.empty()) || (strRec[0] == COMMENT_1) || (strRec[0] == COMMENT_2))
          continue;
 
       // Check that this is a valid double
@@ -3347,7 +3346,7 @@ int CSimulation::nReadShapeFunctionFile()
       strRec = strTrim(&strRec);
 
       // If it is a blank line or a comment then ignore it
-      if ((strRec.empty()) || (strRec[0] == QUOTE1) || (strRec[0] == QUOTE2))
+      if ((strRec.empty()) || (strRec[0] == COMMENT_1) || (strRec[0] == COMMENT_2))
          continue;
 
       // It isn't so increment counter
@@ -3445,7 +3444,7 @@ int CSimulation::nReadWaveStationInputFile(int const nWaveStations)
       strRec = strTrim(&strRec);
 
       // If it is a blank line or a comment then ignore it
-      if ((!strRec.empty()) && (strRec[0] != QUOTE1) && (strRec[0] != QUOTE2))
+      if ((!strRec.empty()) && (strRec[0] != COMMENT_1) && (strRec[0] != COMMENT_2))
       {
          // It isn't so increment counter
          nRead++;
@@ -3479,12 +3478,12 @@ int CSimulation::nReadWaveStationInputFile(int const nWaveStations)
             strRH = strTrimLeft(&strRH);
 
             // Look for a trailing comment, if found then terminate string at that point and trim off any trailing whitespace
-            nPos = strRH.rfind(QUOTE1);
+            nPos = strRH.rfind(COMMENT_1);
 
             if (nPos != string::npos)
                strRH.resize(nPos);
 
-            nPos = strRH.rfind(QUOTE2);
+            nPos = strRH.rfind(COMMENT_2);
 
             if (nPos != string::npos)
                strRH.resize(nPos);
@@ -3776,7 +3775,7 @@ int CSimulation::nReadSedimentInputEventFile(void)
       strRec = strTrim(&strRec);
 
       // If it is a blank line or a comment then ignore it
-      if ((! strRec.empty()) && (strRec[0] != QUOTE1) && (strRec[0] != QUOTE2))
+      if ((! strRec.empty()) && (strRec[0] != COMMENT_1) && (strRec[0] != COMMENT_2))
       {
          // It isn't so increment counter
          nRead++;

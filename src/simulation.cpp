@@ -674,6 +674,9 @@ int CSimulation::nDoSimulation(int nArg, char const* pcArgv[])
    // We have at least one filename for the first layer, so add the correct number of layers. Note the the number of layers does not change during the simulation: however layers can decrease in thickness until they have zero thickness
    AnnounceAddLayers();
 
+#ifdef _OPENMP
+   #pragma omp parallel for collapse(2) schedule(auto)
+#endif
    for (int nX = 0; nX < m_nXGridSize; nX++)
       for (int nY = 0; nY < m_nYGridSize; nY++)
          m_pRasterGrid->m_Cell[nX][nY].AppendLayers(m_nLayers);

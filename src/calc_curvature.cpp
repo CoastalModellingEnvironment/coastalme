@@ -138,10 +138,10 @@ void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
       m_VCoast[nCoast].SetSmoothCurvature(nMaxConvexCoastPoint, STRAIGHT_COAST_MAX_SMOOTH_CURVATURE);
    }
 
-   LogStream << "-----------------" << endl;
-   for (int kk = 0; kk < m_VCoast.back().nGetCoastlineSize(); kk++)
-      LogStream << kk << " [" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX() << "][" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY()) << "} detailed curvature = " << m_VCoast[nCoast].dGetDetailedCurvature(kk) << " smooth curvature = " << m_VCoast[nCoast].dGetSmoothCurvature(kk) << endl;
-   LogStream << "-----------------" << endl;
+   // LogStream << "-----------------" << endl;
+   // for (int kk = 0; kk < m_VCoast.back().nGetCoastlineSize(); kk++)
+   //    LogStream << kk << " [" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX() << "][" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY()) << "} detailed curvature = " << m_VCoast[nCoast].dGetDetailedCurvature(kk) << " smooth curvature = " << m_VCoast[nCoast].dGetSmoothCurvature(kk) << endl;
+   // LogStream << "-----------------" << endl;
 
    CGeom2DIPoint PtiMax = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nMaxConvexDetailedCoastPoint);
 

@@ -1766,7 +1766,7 @@ private:
    static CGeom2DIPoint PtiFollowWaveAngle(CGeom2DIPoint const*, double const, double&);
    // int nFindAllShadowZones(void);
    int nCellByCellFillShadowZone(int const, int const, CGeom2DIPoint const*, CGeom2DIPoint const*, CGeom2DIPoint const*);
-   void ShadowZoneAndDownDriftZoneChangeWaves(int const, int const, int const, int const);
+   void ModifyWavesInShadowZoneAndDownDriftZone(int const, int const, int const, int const);
    void ProcessDownDriftCell(int const, int const, int const, double const, int const);
    void ProcessShadowZoneCell(int const, int const, int const, CGeom2DIPoint const*, int const, int const, int const);
    int nCreateAllPolygons(void);

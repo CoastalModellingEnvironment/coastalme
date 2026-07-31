@@ -145,8 +145,7 @@ int CSimulation::nSetAllCoastpointDeepWaterWaveValues(void)
 }
 
 //===============================================================================================================================
-//! Creates temporary profiles between existing coast-normal profiles, to increase the density densify of data points for wave interpolation. The number of synthetic profiles created between each pair depends on both the distance between the, and the desired spacing
-// Uses OpenMP parallelization to concurrently process multiple temporary profiles. OPTIMIZED: Pre-computes external CRS positions to avoid redundant coordinate conversions
+//! Creates temporary profiles between existing coast-normal profiles, to increase the density densify of data points for wave interpolation. The number of synthetic profiles created between each pair depends on both the distance between the, and the desired spacing. Uses OpenMP parallelization to concurrently process multiple temporary profiles. OPTIMIZED: Pre-computes external CRS positions to avoid redundant coordinate conversions
 //===============================================================================================================================
 void CSimulation::CreateTemporaryProfiles(vector<ProfileWaveData> const* pVRealProfiles, vector<ProfileWaveData>* pVAllProfiles)
 {
@@ -230,7 +229,7 @@ void CSimulation::CreateTemporaryProfiles(vector<ProfileWaveData> const* pVRealP
    // Pre-allocate space for temporary profiles
    vector<ProfileWaveData> VTemporaryProfilesWaveData(nTotalTempProfiles);
 
-   // Second pass: generate the temporary profiles. Use OpenMP to parallelize - each thread handles one pair
+   // Second pass: generate the temporary profiles. Use OpenMP to parallelize, each thread handles one pair
    // int nCurrentIndex = 0;
 
    #pragma omp parallel for schedule(dynamic)

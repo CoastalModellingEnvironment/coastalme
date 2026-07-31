@@ -934,19 +934,20 @@ bool CSimulation::bCheckVectorGISOutputFormat(void)
    {
       // Set this, so that just a single dataset-with-one-layer shapefile is created, rather than a directory (see http://www.gdal.org/ogr/drv_shapefile.html)
       m_strOGRVectorOutputExtension = ".shp";
+      // m_papszGDALVectorOptions = { , NULL};
    }
-
    else if (m_strVectorGISOutFormat == "geojson")
    {
       m_strOGRVectorOutputExtension = ".geojson";
+      // m_papszGDALVectorOptions = { , NULL};
    }
-
    else if (m_strVectorGISOutFormat == "gpkg")
    {
       m_strOGRVectorOutputExtension = ".gpkg";
+      // m_papszGDALVectorOptions = { , NULL};
    }
 
-   // TODO 033 Others
+   // TODO 033 Set up for other vector drivers too
 
    return true;
 }
