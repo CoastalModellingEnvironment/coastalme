@@ -181,7 +181,7 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
    if (! pProfile->bProfileOKOrStartEndProfile())
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " at coast point " << nCoastPoint << " has a problem, so no platform erosion here" << endl;
+         LogStream << m_ulIter << ":\t coast " << nCoast << " profile " << pProfile->nGetProfileID() << " at coast point " << nCoastPoint << " has a problem, so no platform erosion here" << endl;
 
       return RTN_OK;
    }
@@ -196,7 +196,7 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
    {
       // This profile is not in the active zone, so no platform erosion here
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " at coast point " << nCoastPoint << " is not in the active zone, so no platform erosion here" << endl;
+         LogStream << m_ulIter << ":\t coast " << nCoast << " profile " << pProfile->nGetProfileID() << " at coast point " << nCoastPoint << " is not in the active zone, so no platform erosion here" << endl;
 
       return RTN_OK;
    }
@@ -256,7 +256,7 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
       {
          // TODO 025 We are down to basement
          if (m_nLogFileDetail >= LOG_FILE_ALL)
-            LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " coast point " << nCoastPoint << " is down to basement, so no platform erosion here" << endl;
+            LogStream << m_ulIter << ":\t coast " << nCoast << " profile " << pProfile->nGetProfileID() << " coast point " << nCoastPoint << " is down to basement, so no platform erosion here" << endl;
 
          return RTN_OK;
       }
@@ -552,7 +552,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       {
          // This parallel profile is not in the active zone, so no platform erosion here
          if (m_nLogFileDetail >= LOG_FILE_ALL)
-            LogStream << m_ulIter << ": coast " << nCoast << " profile " << pProfile->nGetProfileID() << " temporary profile not in active zone when constructing parallel profile for potential platform erosion. Working from profile " << pProfile->nGetProfileID() << ", " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast, dist from profile = " << nDistFromProfile << endl;
+            LogStream << m_ulIter << ":\t coast " << nCoast << " profile " << pProfile->nGetProfileID() << " temporary profile not in active zone when constructing parallel profile for potential platform erosion. Working from profile " << pProfile->nGetProfileID() << ", " << (nDirection == DIRECTION_DOWNCOAST ? "down" : "up") << "-coast, dist from profile = " << nDistFromProfile << endl;
 
          // Move on to the next point along the coastline in this direction
          continue;

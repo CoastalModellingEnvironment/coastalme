@@ -1478,6 +1478,7 @@ void CSimulation::GetRasterOutputMinMax(int const nDataItem, double& dMin, doubl
 
    double dTmp = 0;
 
+   #pragma omp parallel for collapse(2) schedule(dynamic)
    for (int nY = 0; nY < m_nYGridSize; nY++)
    {
       for (int nX = 0; nX < m_nXGridSize; nX++)

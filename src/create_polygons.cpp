@@ -107,7 +107,7 @@ int CSimulation::nCreateAllPolygons(void)
                   if (pNextProfile->nGetProfileStatus() == PROFILE_STATUS_HIT_LAND)
                      LogStream << " hit land ";
                   if (pNextProfile->nGetProfileStatus() == PROFILE_STATUS_HIT_INTERVENTION)
-                     LogStream << "hit intervetion ";
+                     LogStream << "hit intervention ";
                   if (pNextProfile->nGetProfileStatus() == PROFILE_STATUS_HIT_COAST)
                      LogStream << "hit coast ";
                   if (pNextProfile->nGetProfileStatus() == PROFILE_STATUS_HIT_PROFILE)

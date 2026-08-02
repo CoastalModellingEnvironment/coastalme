@@ -48,10 +48,7 @@ int CSimulation::nAssignLandformsForAllCells(void)
    vector<vector<int>> VCellToUpdate(m_nXGridSize, vector<int>(m_nYGridSize, NO_ACTION));
 
    // Read-only phase: determine what changes need to be made
-#ifdef _OPENMP
-#pragma omp parallel for collapse(2)
-#endif
-
+   #pragma omp parallel for collapse(2) schedule(guided)
    for (int nX = 0; nX < m_nXGridSize; nX++)
    {
       for (int nY = 0; nY < m_nYGridSize; nY++)
@@ -407,13 +404,13 @@ int CSimulation::nAssignLandformsForAllCoasts(void)
                   CRWCliff* pCliff = new CRWCliff(&m_VCoast[nCoast], nCoast, nCoastPoint, m_dCellSide, dNotchIncision, dNotchApexElev, dAccumWaveEnergy);
                   m_VCoast[nCoast].AppendCoastLandform(pCliff);
 
-                  if (m_nLogFileDetail >= LOG_FILE_ALL)
-                  {
-                     if (bFPIsEqual(dNotchIncision, 0.0, TOLERANCE))
-                        LogStream << m_ulIter << ":\t coastline notched cliff created at coast point " << nCoastPoint << " [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
-                     else
-                        LogStream << m_ulIter << ":\t coastline no-notch cliff created at coast point " << nCoastPoint << " [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " m_dThisIterNewNotchApexElev = " << m_dThisIterNewNotchApexElev << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
-                  }
+                  // if (m_nLogFileDetail >= LOG_FILE_ALL)
+                  // {
+                  //    if (bFPIsEqual(dNotchIncision, 0.0, TOLERANCE))
+                  //       LogStream << m_ulIter << ":\t coastline notched cliff created at coast point " << nCoastPoint << " [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+                  //    else
+                  //       LogStream << m_ulIter << ":\t coastline no-notch cliff created at coast point " << nCoastPoint << " [" << nX << "][" << nY << "] dAccumWaveEnergy = " << dAccumWaveEnergy << " dSedTopElevNoTalus = " << dSedTopElevNoTalus << " dSedTopElevIncTalus = " << m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() << " m_dThisIterNewNotchApexElev = " << m_dThisIterNewNotchApexElev << " dNotchApexElev = " << dNotchApexElev << " dNotchIncision = " << dNotchIncision << " tot incision = " << pCliff->dGetNotchIncision() << " threshold incision = " << m_dNotchIncisionAtCollapse << endl;
+                  // }
                }
             }
             else

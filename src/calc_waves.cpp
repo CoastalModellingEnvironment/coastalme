@@ -764,13 +764,13 @@ int CSimulation::nDoAllPropagateWaves(void)
             m_VCoast[nCoast].SetWaveEnergyAtBreaking(nCoastPoint, dWaveEnergy);
          }
 
-         if (m_nLogFileDetail >= LOG_FILE_ALL)
-         {
-            int const nX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetX();
-            int const nY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
-
-            LogStream << m_ulIter << ": calc wave energy at breaking, nCoastPoint = " << nCoastPoint << " [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} breaking wave height = " << m_VCoast[nCoast].dGetBreakingWaveHeight(nCoastPoint) << " dCoastPointWavePeriod = " << dCoastPointWavePeriod << " wave energy = " << m_VCoast[nCoast].dGetWaveEnergyAtBreaking(nCoastPoint) << endl;
-         }
+         // if (m_nLogFileDetail >= LOG_FILE_ALL)
+         // {
+         //    int const nX = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetX();
+         //    int const nY = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nCoastPoint)->nGetY();
+         //
+         //    LogStream << m_ulIter << ": calc wave energy at breaking, nCoastPoint = " << nCoastPoint << " [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} breaking wave height = " << m_VCoast[nCoast].dGetBreakingWaveHeight(nCoastPoint) << " dCoastPointWavePeriod = " << dCoastPointWavePeriod << " wave energy = " << m_VCoast[nCoast].dGetWaveEnergyAtBreaking(nCoastPoint) << endl;
+         // }
       }
    }
 
@@ -1989,7 +1989,7 @@ void CSimulation::ModifyBreakingWavePropertiesWithinShadowZoneToCoastline(int co
    if (! pProfile->bProfileOKOrStartEndProfile())
    {
       if (m_nLogFileDetail >= LOG_FILE_ALL)
-         LogStream << m_ulIter << ":\t coast " << nCoast << ", profile " << pProfile->nGetProfileID() << " is not OK, will not modify shadow zone breaking wave properties on this profile" << endl;
+         LogStream << m_ulIter << ":\t coast " << nCoast << " profile " << pProfile->nGetProfileID() << " is not OK, will not modify shadow zone breaking wave properties on this profile" << endl;
 
       return;
    }
