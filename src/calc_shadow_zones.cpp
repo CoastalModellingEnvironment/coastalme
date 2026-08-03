@@ -657,7 +657,7 @@ int CSimulation::nDoAllShadowZones(void)
             }
          }
 
-         //          // DEBUG CODE =======================================================================================================================
+         // // DEBUG CODE =======================================================================================================================
          // LogStream << "FIRST" << endl;
          // for (int k = 0; k < LIBoundary.nGetSize(); k++)
          // {
@@ -665,7 +665,7 @@ int CSimulation::nDoAllShadowZones(void)
          // LogStream << k << " [" << PtiTmp.nGetX() << "][" << PtiTmp.nGetY() << "]" << endl;
          // }
          // LogStream << endl;
-         //          // DEBUG CODE =======================================================================================================================
+         // // DEBUG CODE =======================================================================================================================
 
          // Calculate the centroid
          CGeom2DIPoint const PtiCentroid = PtiPolygonCentroid(LIBoundary.pPtiVGetPoints());
@@ -829,10 +829,6 @@ int CSimulation::nCellByCellFillShadowZone(int const nCoast, int const nZone, CG
 //===============================================================================================================================
 void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int const nZone, int const nShadowBoundaryStartPoint, int const nShadowBoundaryEndPoint)
 {
-   // DEBUG CODE =========================
-   LogStream << "In ModifyWavesInShadowZoneAndDownDriftZone()" << endl;
-   // DEBUG CODE =========================
-
    int const nCoastSeaHand = m_VCoast[nCoast].nGetSeaHandedness();
    int nShadowZoneCoastToCapeSeaHand;
 
@@ -850,11 +846,11 @@ void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int 
    // Get the distance (in cells) from the shadow boundary start point to the shadow boundary end point, going along the coast
    int const nAlongCoastDistanceToShadowEndpoint = tAbs(nShadowBoundaryEndPoint - nShadowBoundaryStartPoint - 1);
 
-   // DEBUG CODE =========================
-   CGeom2DIPoint PtiDownDriftStarttointTmp = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nShadowBoundaryStartPoint);
-   LogStream << "nShadowBoundaryStartPoint = " << nShadowBoundaryStartPoint << " [" << PtiDownDriftStarttointTmp.nGetX() << "][" << PtiDownDriftStarttointTmp.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiDownDriftStarttointTmp.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiDownDriftStarttointTmp.nGetY()) << "}" << endl;
-   LogStream << "nAlongCoastDistanceToShadowEndpoint = " << nAlongCoastDistanceToShadowEndpoint << endl;
-   // DEBUG CODE =========================
+   // // DEBUG CODE =========================
+   // CGeom2DIPoint PtiDownDriftStarttointTmp = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nShadowBoundaryStartPoint);
+   // LogStream << "nShadowBoundaryStartPoint = " << nShadowBoundaryStartPoint << " [" << PtiDownDriftStarttointTmp.nGetX() << "][" << PtiDownDriftStarttointTmp.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiDownDriftStarttointTmp.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiDownDriftStarttointTmp.nGetY()) << "}" << endl;
+   // LogStream << "nAlongCoastDistanceToShadowEndpoint = " << nAlongCoastDistanceToShadowEndpoint << endl;
+   // // DEBUG CODE =========================
 
    // Calculate the point on the coastline which is 2 * nAlongCoastDistanceToShadowEndpoint from the shadow boundary start point, this will be the end point of the downdrift zone. This point may be beyond the end of the coastline in either direction
    int nDownDriftEndPoint;
@@ -865,10 +861,10 @@ void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int 
    else
       nDownDriftEndPoint = nShadowBoundaryStartPoint - nTotAlongCoastDistanceToDownDriftEndpoint;
 
-   // DEBUG CODE =========================
-   CGeom2DIPoint PtiDownDriftEndPointTmp = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nDownDriftEndPoint);
-   LogStream << "nShadowBoundaryEndPoint = " << nShadowBoundaryStartPoint << " [" << PtiDownDriftEndPointTmp.nGetX() << "][" << PtiDownDriftEndPointTmp.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiDownDriftEndPointTmp.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiDownDriftEndPointTmp.nGetY()) << "}" << endl;
-   // DEBUG CODE =========================
+   // // DEBUG CODE =========================
+   // CGeom2DIPoint PtiDownDriftEndPointTmp = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nDownDriftEndPoint);
+   // LogStream << "nShadowBoundaryEndPoint = " << nShadowBoundaryStartPoint << " [" << PtiDownDriftEndPointTmp.nGetX() << "][" << PtiDownDriftEndPointTmp.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiDownDriftEndPointTmp.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiDownDriftEndPointTmp.nGetY()) << "}" << endl;
+   // // DEBUG CODE =========================
 
    // Next find the actual (i.e. within-grid) end of the downdrift line
    CGeom2DIPoint PtiDownDriftEndPoint;
@@ -933,9 +929,9 @@ void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int 
       PtiDownDriftEndPoint = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nDownDriftEndPoint);
    }
 
-   // DEBUG CODE ========================= OK TO HERE
-   LogStream << "After within-grid check, PtiDownDriftEndPoint = [" << PtiDownDriftEndPoint.nGetX() << "][" << PtiDownDriftEndPoint.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiDownDriftEndPoint.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiDownDriftEndPoint.nGetY()) << "}" << endl;
-   // DEBUG CODE =========================
+   // // DEBUG CODE =========================
+   // LogStream << "After within-grid check, PtiDownDriftEndPoint = [" << PtiDownDriftEndPoint.nGetX() << "][" << PtiDownDriftEndPoint.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiDownDriftEndPoint.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiDownDriftEndPoint.nGetY()) << "}" << endl;
+   // // DEBUG CODE =========================
 
    // Get the location (grid CRS) of the shadow boundary start point: this is also the start point of the downdrift boundary
    CGeom2DIPoint const* pPtiDownDriftBoundaryStartPoint = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nShadowBoundaryStartPoint);
@@ -1045,9 +1041,9 @@ void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int 
       dCoastDistSoFar += dAlongCoastIncrement;
       dDownDriftBoundaryDistSoFar += dDownDriftBoundaryIncrement;
 
-      // DEBUG CODE =========================
+      // // DEBUG CODE =========================
       // LogStream << "dDownDriftBoundaryDistSoFar = " << dDownDriftBoundaryDistSoFar << " nTotDownDriftBoundaryDistance = " << nTotDownDriftBoundaryDistance << endl;
-      // DEBUG CODE =========================
+      // // DEBUG CODE =========================
 
       if ((dCoastDistSoFar >= nTotAlongCoastDistanceToDownDriftEndpoint) || (dDownDriftBoundaryDistSoFar >= nTotDownDriftBoundaryDistance))
          break;
@@ -1078,9 +1074,9 @@ void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int 
 
       int const nAlongDownDriftBoundary = nRound(dDownDriftBoundaryDistSoFar);
 
-      // DEBUG CODE =========================
+      // // DEBUG CODE =========================
       // LogStream << m_ulIter << ":\t dCoastDistSoFar = " << dCoastDistSoFar << " (nTotAlongCoastDistanceToDownDriftEndpoint = " << nTotAlongCoastDistanceToDownDriftEndpoint << ") dDownDriftBoundaryDistSoFar = " << dDownDriftBoundaryDistSoFar << " (nTotDownDriftBoundaryDistance = " << nTotDownDriftBoundaryDistance << ") nAlongCoast = " << nAlongCoast << ", nShadowBoundaryEndPoint = " << nShadowBoundaryEndPoint << ",  nAlongDownDriftBoundary = " << nAlongDownDriftBoundary << endl;
-      // DEBUG CODE =========================
+      // // DEBUG CODE =========================
 
       // Get the two endpoints of the linking line
       CGeom2DIPoint const* pPtiCoast = m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nAlongCoast);
@@ -1133,9 +1129,9 @@ void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int 
          // Check to see if we just processed this point, can happen due to rounding
          if ((nX == nXLast) && (nY == nYLast))
          {
-            // DEBUG CODE =========================
+            // // DEBUG CODE =========================
             // LogStream << m_ulIter << ":\t n = " << n << ", m = " << m << ", dLinkingLineLength = " << dLinkingLineLength << ", dCoastDistSoFar = " << dCoastDistSoFar << " (nTotAlongCoastDistanceToDownDriftEndpoint = " << nTotAlongCoastDistanceToDownDriftEndpoint << "), dDownDriftBoundaryDistSoFar = " << dDownDriftBoundaryDistSoFar << " (nTotDownDriftBoundaryDistance = " << nTotDownDriftBoundaryDistance << ") same as last point at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
-            // DEBUG CODE =========================
+            // // DEBUG CODE =========================
 
             // Set for next time
             nXLast = nX;
@@ -1149,9 +1145,9 @@ void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int 
          // Outside valid grid?
          if (! bIsWithinValidGrid(nX, nY))
          {
-            // DEBUG CODE =========================
+            // // DEBUG CODE =========================
             // LogStream << m_ulIter << ":\t n = " << n << ", m = " << m << ", dLinkingLineLength = " << dLinkingLineLength << ", dCoastDistSoFar = " << dCoastDistSoFar << " (nTotAlongCoastDistanceToDownDriftEndpoint = " << nTotAlongCoastDistanceToDownDriftEndpoint << "), dDownDriftBoundaryDistSoFar = " << dDownDriftBoundaryDistSoFar << " (nTotDownDriftBoundaryDistance = " << nTotDownDriftBoundaryDistance << ") outside valid grid at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
-            // DEBUG CODE =========================
+            // // DEBUG CODE =========================
 
             // Set for next time
             nXLast = nX;
@@ -1166,9 +1162,9 @@ void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int 
          if (! m_pRasterGrid->m_Cell[nX][nY].bIsInContiguousSea())
          {
             // Not a sea cell
-            // DEBUG CODE =========================
+            // // DEBUG CODE =========================
             // LogStream << m_ulIter << ":\t n = " << n << ", m = " << m << ", dLinkingLineLength = " << dLinkingLineLength << ", dCoastDistSoFar = " << dCoastDistSoFar << " (nTotAlongCoastDistanceToDownDriftEndpoint = " << nTotAlongCoastDistanceToDownDriftEndpoint << "), dDownDriftBoundaryDistSoFar = " << dDownDriftBoundaryDistSoFar << " (nTotDownDriftBoundaryDistance = " << nTotDownDriftBoundaryDistance << ") not a sea cell at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
-            // DEBUG CODE =========================
+            // // DEBUG CODE =========================
 
             // Set for next time
             nXLast = nX;
@@ -1188,9 +1184,9 @@ void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int 
             if (! m_pRasterGrid->m_Cell[nX][nY].bIsinAnyShadowZone())
             {
                // We have left the shadow zone
-               // DEBUG CODE =========================
-               LogStream << "[" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} LEFT SHADOW ZONE" << endl;
-               // DEBUG CODE =========================
+               // // DEBUG CODE =========================
+               // LogStream << "[" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} LEFT SHADOW ZONE" << endl;
+               // // DEBUG CODE =========================
 
                bInShadowZone = false;
 
@@ -1226,9 +1222,9 @@ void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int 
             else
             {
                // In downdrift zone
-               // DEBUG CODE =========================
-               LogStream << m_ulIter << ":\t n = " << n << ", m = " << m << ", dLinkingLineLength = " << dLinkingLineLength << ", dCoastDistSoFar = " << dCoastDistSoFar << " (nTotAlongCoastDistanceToDownDriftEndpoint = " << nTotAlongCoastDistanceToDownDriftEndpoint << "), dDownDriftBoundaryDistSoFar = " << dDownDriftBoundaryDistSoFar << " (nTotDownDriftBoundaryDistance = " << nTotDownDriftBoundaryDistance << ") has [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} in downdrift zone" << endl;
-            // DEBUG CODE =========================
+            //    // DEBUG CODE =========================
+            //    LogStream << m_ulIter << ":\t n = " << n << ", m = " << m << ", dLinkingLineLength = " << dLinkingLineLength << ", dCoastDistSoFar = " << dCoastDistSoFar << " (nTotAlongCoastDistanceToDownDriftEndpoint = " << nTotAlongCoastDistanceToDownDriftEndpoint << "), dDownDriftBoundaryDistSoFar = " << dDownDriftBoundaryDistSoFar << " (nTotDownDriftBoundaryDistance = " << nTotDownDriftBoundaryDistance << ") has [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} in downdrift zone" << endl;
+            // // DEBUG CODE =========================
 
                // Process this downdrift cell
                ProcessDownDriftCell(nX, nY, (m - nShadowZoneLength), (dLinkingLineLength - nShadowZoneLength), nZone);
@@ -1247,9 +1243,9 @@ void CSimulation::ModifyWavesInShadowZoneAndDownDriftZone(int const nCoast, int 
          else
          {
             // We have, so the linking line has only one part: between the coast and the downdrift boundary
-            // DEBUG CODE =========================
-            LogStream << m_ulIter << ":\t n = " << n << ", m = " << m << ", dLinkingLineLength = " << dLinkingLineLength << ", dCoastDistSoFar = " << dCoastDistSoFar << " (nTotAlongCoastDistanceToDownDriftEndpoint = " << nTotAlongCoastDistanceToDownDriftEndpoint << "), dDownDriftBoundaryDistSoFar = " << dDownDriftBoundaryDistSoFar << " (nTotDownDriftBoundaryDistance = " << nTotDownDriftBoundaryDistance << ") has [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} in downdrift zone" << endl;
-            // DEBUG CODE =========================
+            // // DEBUG CODE =========================
+            // LogStream << m_ulIter << ":\t n = " << n << ", m = " << m << ", dLinkingLineLength = " << dLinkingLineLength << ", dCoastDistSoFar = " << dCoastDistSoFar << " (nTotAlongCoastDistanceToDownDriftEndpoint = " << nTotAlongCoastDistanceToDownDriftEndpoint << "), dDownDriftBoundaryDistSoFar = " << dDownDriftBoundaryDistSoFar << " (nTotDownDriftBoundaryDistance = " << nTotDownDriftBoundaryDistance << ") has [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "} in downdrift zone" << endl;
+            // // DEBUG CODE =========================
 
             // Process this downdrift cell
             ProcessDownDriftCell(nX, nY, m, dLinkingLineLength, nZone);
