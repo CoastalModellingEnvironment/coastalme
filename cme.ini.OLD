@@ -17,12 +17,13 @@
 ; Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ;
 ;======================================================================================================================
-Input data file (path and name)                      : in/CSE/0_Typology/Cliff/in/typology_cliff.dat
+Input data file (path and name)                      : in/test_suite/minimal_cons_with_intervention_wave_angle_305/minimal_with_intervention.dat
 
 ;======================================================================================================================
-Path for output                                      : out/CSE/Typology/Cliff/
+Path for output                                      : out/test_suite/minimal_cons_with_intervention_wave_angle_305/
 
 ;======================================================================================================================
 
 ; Uncomment if email notification required. This only works on Linux, and if configured for mail sending
-#Email address for messages (Linux only)                :
+#Email address for messages (Linux only)                : 
+

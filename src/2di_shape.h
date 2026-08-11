@@ -43,6 +43,7 @@ class CA2DIShape
 
  public:
    CGeom2DIPoint& operator[](int const);
+   CGeom2DIPoint& at(int const);
 
    CGeom2DIPoint& Back(void);
    vector<CGeom2DIPoint>* pPtiVGetPoints(void);

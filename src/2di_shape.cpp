@@ -38,6 +38,14 @@ CGeom2DIPoint& CA2DIShape::operator[](int const n)
    return m_VPtiPoints[n];
 }
 
+//! Returns one integer point from the vector which represents this 2D shape
+CGeom2DIPoint& CA2DIShape::at(int const n)
+{
+   // TODO 055 Maybe add a safety check?
+   return m_VPtiPoints[n];
+
+}
+
 //! Returns the last integer point from the vector which represents this 2D shape
 CGeom2DIPoint& CA2DIShape::Back(void)
 {

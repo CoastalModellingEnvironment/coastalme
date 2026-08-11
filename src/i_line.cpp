@@ -78,6 +78,12 @@ bool CGeomILine::bIsPresent(int const nX, int const nY)
    return false;
 }
 
+//! Remove all elements
+void CGeomILine::Clear(void)
+{
+   m_VPtiPoints.clear();
+}
+
 //! Instantiates the pure virtual function in the abstract parent class, so that CGeomILine is not an abstract class
 void CGeomILine::Display(void)
 {

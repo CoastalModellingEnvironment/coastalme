@@ -59,6 +59,7 @@ using ::GDALDataType;
 #include "line.h"
 #include "cme.h"
 #include "line.h"
+#include "i_line.h"
 #include "configuration.h"
 
 class CGeomRasterGrid; // Forward declarations
@@ -1759,6 +1760,8 @@ private:
    void InterpolateWaveHeightToCoastPoints(int const);
    // void InterpolateWavePropertiesToCells(int const, int const, int const);
    void ModifyBreakingWavePropertiesWithinShadowZoneToCoastline(int const, int const);
+   int nFindShadowZoneBoundaryUpWave(int const, int const, int&, bool&, bool&, bool&, bool&, bool&, CGeom2DIPoint const*, double, CGeomILine*);
+   int nFindShadowZoneBoundaryLine(int const, int const, int&, bool&, bool&, bool&, bool&, bool&, CGeom2DIPoint const*, double, CGeomILine*);
    static double dCalcCurvature(int const, CGeom2DPoint const*, CGeom2DPoint const*, CGeom2DPoint const*);
    void CalcD50AndFillWaveCalcHoles(void);
    int nDoAllShadowZones(void);

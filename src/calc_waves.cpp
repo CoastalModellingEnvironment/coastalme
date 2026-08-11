@@ -1361,7 +1361,7 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
       // We are using COVE's linear wave theory to propagate the waves
       double const dDepthLookupMax = m_dWaveDepthRatioForWaveCalcs * dProfileDeepWaterWaveHeight;
 
-      // Go landwards along the profile, calculating wave height and wave angle for every inundated point on the profile (don't do point zero, this is on the coastline) until the waves start to break  after breaking wave height is assumed to decrease linearly to zero at the shoreline and wave angle is equalt to wave angle at breaking
+      // Go landwards along the profile, calculating wave height and wave angle for every inundated point on the profile (don't do point zero, this is on the coastline) until the waves start to break  after breaking wave height is assumed to decrease linearly to zero at the shoreline and wave angle is equal to wave angle at breaking
       for (int nProfilePoint = (nProfileSize - 1); nProfilePoint >= 0; nProfilePoint--)
       {
          int const nX = pProfile->pPtiGetCellInProfile(nProfilePoint)->nGetX();
