@@ -95,7 +95,8 @@ int CSimulation::nCreateAllProfiles(void)
             dCurvature = m_VCoast[nCoast].dGetSmoothCurvature(nCoastPoint);
          }
 
-         prVCurvature.push_back(make_pair(nCoastPoint, dCurvature));
+         // Store the absolute value of curvature, since we want both concave and convexx points together
+         prVCurvature.push_back(make_pair(nCoastPoint, tAbs(dCurvature)));
       }
 
       // Sort this pair vector in descending order, so that the most concave and convex curvature points are first

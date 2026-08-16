@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-08-01T10:36:45" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.0-Belém do Pará">
+<qgis projectname="" saveDateTime="2026-08-15T20:12:52" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.1-Belém do Pará">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
@@ -199,7 +199,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="106" wms-group-request-mode="Normal">
+      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="106" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -508,7 +508,7 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Checked" name="106" open="true">
+      <legendgroup checked="Qt::Checked" name="106" open="false">
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="invalid_normals_106" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
             <legendlayerfile isInOverview="0" layerid="invalid_normals_106_1eb7ed3f_b136_412e_9d5f_830dba4b4f77" visible="1"/>
@@ -1354,16 +1354,16 @@
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647501.90909090905915946</xmin>
+        <xmin>647501.72727272729389369</xmin>
         <ymin>259951</ymin>
-        <xmax>647676.40000000002328306</xmax>
+        <xmax>647678.40000000002328306</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61906479249672408</xmin>
-        <ymin>52.18217540894652018</ymin>
-        <xmax>1.62208458043314829</xmax>
-        <ymax>52.18806802485529772</ymax>
+        <xmin>1.61906213858451808</xmin>
+        <ymin>52.18217451180083089</ymin>
+        <xmax>1.62211377713492655</xmax>
+        <ymax>52.18806810637262572</ymax>
       </wgs84extent>
       <id>coast_001_4f7564f3_882e_4a4b_ac6c_a02fa497aa42</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/coast_001.shp</datasource>
@@ -1781,16 +1781,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647504.81818181823473424</xmin>
+        <xmin>647505</xmin>
         <ymin>259951</ymin>
-        <xmax>647678.80000000004656613</xmax>
+        <xmax>647678.40000000002328306</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61910725509031206</xmin>
-        <ymin>52.18217433237083469</ymin>
-        <xmax>1.62211961647509861</xmax>
-        <ymax>52.18806672057008456</ymax>
+        <xmin>1.619109909002304</xmin>
+        <ymin>52.18217451180083089</ymin>
+        <xmax>1.62211377713492655</xmax>
+        <ymax>52.18806663905174759</ymax>
       </wgs84extent>
       <id>coast_002_c531e3c4_9dce_4dd5_826f_a9c370361dc2</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/coast_002.shp</datasource>
@@ -2191,9 +2191,9 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647520.81818181823473424</xmin>
+        <xmin>648247.56100609607528895</xmin>
         <ymin>259951</ymin>
-        <xmax>647706</xmax>
+        <xmax>648417.40000000002328306</xmax>
         <ymax>260599</ymax>
       </extent>
       <id>coast_017_b25a7d57_91c0_4ee6_8b84_b6d99a7e8be2</id>
@@ -3033,16 +3033,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647567</xmin>
-        <ymin>259951</ymin>
-        <xmax>648342.63913554756436497</xmax>
-        <ymax>260503</ymax>
+        <xmin>647591</xmin>
+        <ymin>260219.825119768967852</ymin>
+        <xmax>648308.15354702761396766</xmax>
+        <ymax>260401</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.62001489225320894</xmin>
-        <ymin>52.18187615330542428</ymin>
-        <xmax>1.63174024074654467</xmax>
-        <ymax>52.18717745110147632</ymax>
+        <xmin>1.62056127769222647</xmin>
+        <ymin>52.18430374671832084</ymin>
+        <xmax>1.6311622025437793</xmax>
+        <ymax>52.18625146451736185</ymax>
       </wgs84extent>
       <id>invalid_normals_002_ec1238dd_9051_49d9_879f_0c37bcad802b</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/invalid_normals_002.shp</datasource>
@@ -7606,16 +7606,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647501</xmin>
+        <xmin>647499</xmin>
         <ymin>259951</ymin>
-        <xmax>648379</xmax>
+        <xmax>648385</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61905152293556442</xmin>
-        <ymin>52.18185979810748876</ymin>
-        <xmax>1.63234128745295659</xmax>
-        <ymax>52.18806843244130533</ymax>
+        <xmin>1.61902232989989758</xmin>
+        <ymin>52.18185709907361058</ymin>
+        <xmax>1.63242887595251851</xmax>
+        <ymax>52.18806932912524132</ymax>
       </wgs84extent>
       <id>normals_001_c8a59287_45f9_4611_87fa_e41a467735d9</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/normals_001.shp</datasource>
@@ -9072,13 +9072,13 @@ def my_form_open(dialog, layer, feature):
       <extent>
         <xmin>647501</xmin>
         <ymin>259951</ymin>
-        <xmax>648383</xmax>
+        <xmax>648381</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
         <xmin>1.61905152293556442</xmin>
-        <ymin>52.18185799875877962</ymin>
-        <xmax>1.63239967978753597</xmax>
+        <ymin>52.18185889843674374</ymin>
+        <xmax>1.63237048362101533</xmax>
         <ymax>52.18806843244130533</ymax>
       </wgs84extent>
       <id>normals_002_38b1c5e4_010d_4374_a0d4_fd90c6f6f1bc</id>
@@ -22045,16 +22045,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647501</xmin>
+        <xmin>647499</xmin>
         <ymin>259951</ymin>
-        <xmax>648379</xmax>
+        <xmax>648385</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61905152293556442</xmin>
-        <ymin>52.18185979810748876</ymin>
-        <xmax>1.63234128745295659</xmax>
-        <ymax>52.18806843244130533</ymax>
+        <xmin>1.61902232989989758</xmin>
+        <ymin>52.18185709907361058</ymin>
+        <xmax>1.63242887595251851</xmax>
+        <ymax>52.18806932912524132</ymax>
       </wgs84extent>
       <id>polygon_001_8a1fea6e_c4b8_49ec_b427_ff63763e558d</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/polygon_001.shp</datasource>
@@ -23460,13 +23460,13 @@ def my_form_open(dialog, layer, feature):
       <extent>
         <xmin>647501</xmin>
         <ymin>259951</ymin>
-        <xmax>648383</xmax>
+        <xmax>648381</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
         <xmin>1.61905152293556442</xmin>
-        <ymin>52.18185799875877962</ymin>
-        <xmax>1.63239967978753597</xmax>
+        <ymin>52.18185889843674374</ymin>
+        <xmax>1.63237048362101533</xmax>
         <ymax>52.18806843244130533</ymax>
       </wgs84extent>
       <id>polygon_002_e648227b_ca9a_4691_91d7_b4fddc9874d4</id>
@@ -24854,16 +24854,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647499</xmin>
+        <xmin>647497</xmin>
         <ymin>259951</ymin>
         <xmax>648379</xmax>
         <ymax>260599</ymax>
       </extent>
       <wgs84extent>
-        <xmin>1.61902232989989758</xmin>
+        <xmin>1.61899313686269974</xmin>
         <ymin>52.18185979810748876</ymin>
         <xmax>1.63234128745295659</xmax>
-        <ymax>52.18806932912524132</ymax>
+        <ymax>52.18807022580196531</ymax>
       </wgs84extent>
       <id>polygon_003_2fca8faf_050f_4b8b_9d3e_b311960482a2</id>
       <datasource>../../../../../out/CSE/Typology/Cliff/polygon_003.shp</datasource>
@@ -26250,9 +26250,9 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>647519</xmin>
+        <xmin>648247.56100609607528895</xmin>
         <ymin>259951</ymin>
-        <xmax>648409</xmax>
+        <xmax>648741</xmax>
         <ymax>260599</ymax>
       </extent>
       <id>polygon_017_1511c8a1_1e61_4e64_8f67_8938c9fce7b5</id>
@@ -33112,7 +33112,7 @@ def my_form_open(dialog, layer, feature):
       </spatialrefsys>
     </CoordinateCustomCrs>
   </ProjectDisplaySettings>
-  <ProjectGpsSettings autoAddTrackVertices="0" autoCommitFeatures="0" destinationFollowsActiveLayer="1" destinationLayer="coast_106_a7f4fea0_0a96_40ff_b141_ff991faa0333" destinationLayerName="coast_106" destinationLayerProvider="ogr" destinationLayerSource="/home/dave/coast/CoastalME/out/CSE/Typology/Cliff/coast_106.shp">
+  <ProjectGpsSettings autoAddTrackVertices="0" autoCommitFeatures="0" destinationFollowsActiveLayer="1" destinationLayer="">
     <timeStampFields/>
   </ProjectGpsSettings>
 </qgis>

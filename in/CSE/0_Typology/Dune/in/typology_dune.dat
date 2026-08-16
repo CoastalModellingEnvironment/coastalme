@@ -26,7 +26,7 @@ Content of log file                       [0 = no log file, 1 = least detail, 4 
 Output per-timestep results in CSV format?                                              [y/n]: n
 
 Simulation start date and time                                          [hh-mm-ss dd/mm/yyyy]: 00-00-00 01/01/2000
-Duration of simulation                                           [hours, days, months, years]: 30 years
+Duration of simulation                                           [hours, days, months, years]: 10 years
 Timestep (hours or days)                                                                     : 6 hours
 Save times (after simulation start)                             [hours, days, months, years ]: 6 months
 

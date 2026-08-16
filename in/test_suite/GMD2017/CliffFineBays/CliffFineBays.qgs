@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-07-25T09:14:07" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.0-Belém do Pará">
+<qgis projectname="" saveDateTime="2026-08-12T10:50:24" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.1-Belém do Pará">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
@@ -8421,15 +8421,15 @@
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>36.41155510259024908</xmin>
+        <xmin>38.41155510259024908</xmin>
         <ymin>1.5</ymin>
-        <xmax>66.40000000000000568</xmax>
+        <xmax>68.29999999999999716</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>36.41155510259024908</xmin>
+        <xmin>38.41155510259024908</xmin>
         <ymin>1.5</ymin>
-        <xmax>66.40000000000000568</xmax>
+        <xmax>68.29999999999999716</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>breaking_wave_height1120160718211819232</id>
@@ -12695,13 +12695,13 @@ def my_form_open(dialog, layer, feature):
       <extent>
         <xmin>108.41155510259021355</xmin>
         <ymin>1.5</ymin>
-        <xmax>133.30000000000001137</xmax>
+        <xmax>134.30000000000001137</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
         <xmin>108.41155510259021355</xmin>
         <ymin>1.5</ymin>
-        <xmax>133.30000000000001137</xmax>
+        <xmax>134.30000000000001137</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast0820160725142214342</id>
@@ -13118,15 +13118,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>76.41155510259025618</xmin>
+        <xmin>77.41155510259025618</xmin>
         <ymin>1.5</ymin>
-        <xmax>102.70000000000000284</xmax>
+        <xmax>103.59999999999999432</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>76.41155510259025618</xmin>
+        <xmin>77.41155510259025618</xmin>
         <ymin>1.5</ymin>
-        <xmax>102.70000000000000284</xmax>
+        <xmax>103.59999999999999432</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast0920160725142106066</id>
@@ -13541,15 +13541,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>53.41155510259024197</xmin>
+        <xmin>54.41155510259023487</xmin>
         <ymin>1.5</ymin>
-        <xmax>81.40000000000000568</xmax>
+        <xmax>84.20000000000000284</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>53.41155510259024197</xmin>
+        <xmin>54.41155510259023487</xmin>
         <ymin>1.5</ymin>
-        <xmax>81.40000000000000568</xmax>
+        <xmax>84.20000000000000284</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast1020160725142003825</id>
@@ -13966,15 +13966,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>36.41155510259024908</xmin>
+        <xmin>38.41155510259024908</xmin>
         <ymin>1.5</ymin>
-        <xmax>66.40000000000000568</xmax>
+        <xmax>68.29999999999999716</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>36.41155510259024908</xmin>
+        <xmin>38.41155510259024908</xmin>
         <ymin>1.5</ymin>
-        <xmax>66.40000000000000568</xmax>
+        <xmax>68.29999999999999716</xmax>
         <ymax>1000.5</ymax>
       </wgs84extent>
       <id>coast1120160718183635159</id>
@@ -16164,13 +16164,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>37.5</xmin>
+        <xmin>39.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>37.5</xmin>
+        <xmin>39.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -27405,13 +27405,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>37.5</xmin>
+        <xmin>38.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>37.5</xmin>
+        <xmin>38.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -51571,13 +51571,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>36.41155510259024908</xmin>
+        <xmin>38.41155510259024908</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>36.41155510259024908</xmin>
+        <xmin>38.41155510259024908</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -60671,13 +60671,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>76.41155510259025618</xmin>
+        <xmin>77.41155510259025618</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>76.41155510259025618</xmin>
+        <xmin>77.41155510259025618</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -62963,13 +62963,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>53.41155510259024197</xmin>
+        <xmin>54.41155510259023487</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>53.41155510259024197</xmin>
+        <xmin>54.41155510259023487</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -72016,16 +72016,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>121.5</xmin>
-        <ymin>994.5</ymin>
-        <xmax>130.5</xmax>
-        <ymax>999.5</ymax>
+        <xmin>0</xmin>
+        <ymin>0</ymin>
+        <xmax>0</xmax>
+        <ymax>0</ymax>
       </extent>
       <wgs84extent>
-        <xmin>121.5</xmin>
-        <ymin>994.5</ymin>
-        <xmax>130.5</xmax>
-        <ymax>999.5</ymax>
+        <xmin>0</xmin>
+        <ymin>0</ymin>
+        <xmax>0</xmax>
+        <ymax>0</ymax>
       </wgs84extent>
       <id>shadow_boundary_00820170330163647432</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineBays/shadow_boundary_008.shp</datasource>
@@ -79087,16 +79087,16 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>90.5</xmin>
-        <ymin>992.5</ymin>
-        <xmax>99.5</xmax>
-        <ymax>998.5</ymax>
+        <xmin>100.5</xmin>
+        <ymin>998.5</ymin>
+        <xmax>102.5</xmax>
+        <ymax>999.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>90.5</xmin>
-        <ymin>992.5</ymin>
-        <xmax>99.5</xmax>
-        <ymax>998.5</ymax>
+        <xmin>100.5</xmin>
+        <ymin>998.5</ymin>
+        <xmax>102.5</xmax>
+        <ymax>999.5</ymax>
       </wgs84extent>
       <id>shadow_zone_00920170305142754773</id>
       <datasource>../../../../out/test_suite/GMD2017/CliffFineBays/shadow_boundary_009.shp</datasource>
@@ -86032,13 +86032,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>244.5</xmin>
+        <xmin>112.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>244.5</xmin>
+        <xmin>112.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -86539,13 +86539,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>242.5</xmin>
+        <xmin>243.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>242.5</xmin>
+        <xmin>243.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
@@ -91873,13 +91873,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566128730773926e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>44.5</xmin>
+        <xmin>239.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>44.5</xmin>
+        <xmin>239.5</xmin>
         <ymin>1.5</ymin>
         <xmax>500.5</xmax>
         <ymax>1000.5</ymax>
