@@ -72,7 +72,7 @@ class CRWCoast
    //! For each point on this coastline, are waves on-shore or off-shore?
    vector<bool> mVbOnShoreWaves;
 
-   //! For each point on this coastline, are waves up-coast or d own-coast?
+   //! For each point on this coastline, are waves up-coast or down-coast?
    vector<bool> mVbDownCoastWaves;
 
    //! Distance of breaking (in cells), at each point on m_LCoastlineExtCRS
@@ -90,7 +90,7 @@ class CRWCoast
    //! The deep water wave height at the end of a normal drawn from each point on m_LCoastlineExtCRS
    vector<double> m_VdDeepWaterWaveHeight;
 
-   //! The deep water wave orientation at the end of a normal drawn from each point on m_LCoastlineExtCRS
+   //! The deep water wave orientation at the end of a normal drawn from each point on m_LCoastlineExtCRS. Note that wave orientation is the oceanographic convention i.e. direction TOWARDS which the waves move (in degrees clockwise from north)
    vector<double> m_VdDeepWaterWaveAngle;
 
    //! The deep water wave period at the end of a normal drawn from each point on m_LCoastlineExtCRS
@@ -111,13 +111,13 @@ class CRWCoast
    //! The wave height at coast point on a normal drawn from each point on m_LCoastlineExtCRS
    vector<double> m_VdCoastWaveHeight;
 
-   //! The breaking wave orientation on a normal drawn from each point on m_LCoastlineExtCRS
+   //! The breaking wave orientation on a normal drawn from each point on m_LCoastlineExtCRS. Note that wave orientation is the oceanographic convention i.e. direction TOWARDS which the waves move (in degrees clockwise from north)
    vector<double> m_VdBreakingWaveAngle;
 
    //! The depth of breaking on a normal drawn from each point on m_LCoastlineExtCRS
    vector<double> m_VdDepthOfBreaking;
 
-   //! As in the COVE model, this is the orientation alongshore energy/sediment movement; a +ve flux is in direction of increasing indices along coast. At each point on m_LCoastlineExtCRS
+   //! As in the COVE model, this is the orientation alongshore energy/sediment movement; a +ve flux is in direction of increasing indices along coast, at each point on m_LCoastlineExtCRS. Note that wave orientation is the oceanographic convention i.e. direction TOWARDS which the waves move (in degrees clockwise from north)
    vector<double> m_VdFluxOrientation;
 
    //! Wave energy at each point on m_LCoastlineExtCRS

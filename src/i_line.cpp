@@ -33,11 +33,11 @@ CGeomILine::~CGeomILine(void)
 {
 }
 
-// //! Returns the point at a given place in the line
-// CGeom2DIPoint* CGeomILine::pPtiGetAt(int const n)
-// {
-// return &m_VPtiPoints[n];
-// }
+//! Returns the point at a given place in the line
+CGeom2DIPoint* CGeomILine::pPtiGetAt(int const n)
+{
+   return &m_VPtiPoints[n];
+}
 
 // int CGeomILine::nGetXAt(int const n)
 // {

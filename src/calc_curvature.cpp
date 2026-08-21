@@ -37,7 +37,7 @@ using std::inner_product;
 #include "coast.h"
 
 //===============================================================================================================================
-//! Calculates both detailed and smoothed curvature for every point on a coastline
+//! Calculates both detailed and smoothed curvature (+ve for convex, -ve for concave, zero if the points are co-linear) for every point on a coastline
 //===============================================================================================================================
 void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
 {
@@ -45,6 +45,10 @@ void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
       LogStream << m_ulIter << ":\t calculating curvatures for coast " << nCoast << endl;
 
    int const nCoastSize = m_VCoast[nCoast].nGetCoastlineSize();
+
+   // Set an arbitrary curvature (zero) for the first and last coastline points
+   m_VCoast[nCoast].SetDetailedCurvature(0, 0);
+   m_VCoast[nCoast].SetDetailedCurvature(nCoastSize - 1, 0);
 
    // Start with detailed curvature, do every point on the coastline, apart from the first and last points
    for (int nThisCoastPoint = 1; nThisCoastPoint < (nCoastSize - 1); nThisCoastPoint++)
@@ -55,13 +59,6 @@ void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
       // Set the detailed curvature
       m_VCoast[nCoast].SetDetailedCurvature(nThisCoastPoint, dCurvature);
    }
-
-   // Set the curvature for the first and last coastline points
-   double dTemp = m_VCoast[nCoast].dGetDetailedCurvature(1);
-   m_VCoast[nCoast].SetDetailedCurvature(0, dTemp);
-
-   dTemp = m_VCoast[nCoast].dGetDetailedCurvature(nCoastSize - 2);
-   m_VCoast[nCoast].SetDetailedCurvature(nCoastSize - 1, dTemp);
 
    // Now create the smoothed curvature
    int const nHalfWindow = m_nCoastSmoothingWindowSize / 2;
@@ -109,50 +106,104 @@ void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
    dSquareSum = inner_product(pVSmooth->begin(), pVSmooth->end(), pVSmooth->begin(), 0.0), dSTD = sqrt(dSquareSum / static_cast<double>(pVSmooth->size()) - dMean * dMean);
    m_VCoast[nCoast].SetSmoothCurvatureSTD(dSTD);
 
-   double dMaxConvexDetailed = DBL_MAX;
-   double dMaxConvexSmoothed = DBL_MAX;
+   double dMaxConvexDetailed = DBL_MIN;
+   double dMaxConvexSmoothed = DBL_MIN;
+   double dMaxConcaveDetailed = DBL_MAX;
+   double dMaxConcaveSmoothed = DBL_MAX;
+   vector<int> VnMaxConvexDetailedCoastPoint;
+   vector<int> VnMaxConvexSmoothedCoastPoint;
+   vector<int> VnMaxConcaveDetailedCoastPoint;
+   vector<int> VnMaxConcaveSmoothedCoastPoint;
 
-   int nMaxConvexDetailedCoastPoint = -1;
-   int nMaxConvexSmoothedCoastPoint = -1;
+   // Find maxima of convexity and concavity for detailed and smoothed curvature
    for (int mm = 0; mm < nCoastSize; mm++)
    {
-      if (m_VCoast[nCoast].dGetDetailedCurvature(mm) < dMaxConvexDetailed)
+      // Detailed curvature, maximum convexity
+      if (m_VCoast[nCoast].dGetDetailedCurvature(mm) > dMaxConvexDetailed)
       {
          dMaxConvexDetailed = m_VCoast[nCoast].dGetDetailedCurvature(mm);
-         nMaxConvexDetailedCoastPoint = mm;
-      }
 
-      if (m_VCoast[nCoast].dGetSmoothCurvature(mm) < dMaxConvexSmoothed)
+         VnMaxConvexDetailedCoastPoint.clear();
+         VnMaxConvexDetailedCoastPoint.push_back(mm);
+      }
+      else if (m_VCoast[nCoast].dGetDetailedCurvature(mm) == dMaxConvexDetailed)
+         VnMaxConvexDetailedCoastPoint.push_back(mm);
+
+      // Smoothed curvature, maximum convexity
+      if (m_VCoast[nCoast].dGetSmoothCurvature(mm) > dMaxConvexSmoothed)
       {
          dMaxConvexSmoothed = m_VCoast[nCoast].dGetSmoothCurvature(mm);
-         nMaxConvexSmoothedCoastPoint = mm;
+
+         VnMaxConvexSmoothedCoastPoint.clear();
+         VnMaxConvexSmoothedCoastPoint.push_back(mm);
       }
+      else if (m_VCoast[nCoast].dGetSmoothCurvature(mm) == dMaxConvexSmoothed)
+         VnMaxConvexSmoothedCoastPoint.push_back(mm);
+
+      // Detailed curvature, maximum concavity
+      if (m_VCoast[nCoast].dGetDetailedCurvature(mm) < dMaxConcaveDetailed)
+      {
+         dMaxConcaveDetailed = m_VCoast[nCoast].dGetDetailedCurvature(mm);
+
+         VnMaxConcaveDetailedCoastPoint.clear();
+         VnMaxConcaveDetailedCoastPoint.push_back(mm);
+      }
+      else if (m_VCoast[nCoast].dGetDetailedCurvature(mm) == dMaxConcaveDetailed)
+         VnMaxConcaveDetailedCoastPoint.push_back(mm);
+
+      // Smoothed curvature, maximum concavity
+      if (m_VCoast[nCoast].dGetSmoothCurvature(mm) < dMaxConcaveSmoothed)
+      {
+         dMaxConcaveSmoothed = m_VCoast[nCoast].dGetSmoothCurvature(mm);
+
+         VnMaxConcaveSmoothedCoastPoint.clear();
+         VnMaxConcaveSmoothedCoastPoint.push_back(mm);
+      }
+      else if (m_VCoast[nCoast].dGetSmoothCurvature(mm) == dMaxConcaveSmoothed)
+         VnMaxConcaveSmoothedCoastPoint.push_back(mm);
    }
 
+   // Is it a straight coastline?
    if (bFPIsEqual(dMaxConvexDetailed, 0.0, TOLERANCE))
    {
-      // We have a straight-line coast, so set the point of maximum convexity at the coast mid-point
-      int const nMaxConvexCoastPoint = nCoastSize / 2;
+      // We have a straight-line coast, so set the point of maximum convexity and maximum concavity at the coast mid-point
+      int const nMidCoastPoint = nCoastSize / 2;
 
-      m_VCoast[nCoast].SetDetailedCurvature(nMaxConvexCoastPoint, STRAIGHT_COAST_MAX_DETAILED_CURVATURE);
-      m_VCoast[nCoast].SetSmoothCurvature(nMaxConvexCoastPoint, STRAIGHT_COAST_MAX_SMOOTH_CURVATURE);
+      m_VCoast[nCoast].SetDetailedCurvature(nMidCoastPoint, DUMMY_MAX_CONVEX_DETAILED_CURVE);
+      m_VCoast[nCoast].SetSmoothCurvature(nMidCoastPoint, DUMMY_MAX_CONVEX_SMOOTH_CURVE);
+      dMaxConvexDetailed = DUMMY_MAX_CONVEX_DETAILED_CURVE;
+      dMaxConvexSmoothed = DUMMY_MAX_CONVEX_SMOOTH_CURVE;
+      VnMaxConvexDetailedCoastPoint.push_back(nMidCoastPoint);
+      VnMaxConvexSmoothedCoastPoint.push_back(nMidCoastPoint);
+      VnMaxConcaveDetailedCoastPoint.push_back(nMidCoastPoint);
+      VnMaxConcaveSmoothedCoastPoint.push_back(nMidCoastPoint);
    }
 
+   // // DEBUG CODE ============================================
    // LogStream << "-----------------" << endl;
    // for (int kk = 0; kk < m_VCoast.back().nGetCoastlineSize(); kk++)
-   //    LogStream << kk << " [" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX() << "][" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY()) << "} detailed curvature = " << m_VCoast[nCoast].dGetDetailedCurvature(kk) << " smooth curvature = " << m_VCoast[nCoast].dGetSmoothCurvature(kk) << endl;
+   //    LogStream << kk << " [" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX() << "][" << m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VCoast.back().pPtiGetCellMarkedAsCoastline(kk)->nGetY()) << "}\t detailed curvature = " << m_VCoast[nCoast].dGetDetailedCurvature(kk) << "\t\t smooth curvature = " << m_VCoast[nCoast].dGetSmoothCurvature(kk) << endl;
    // LogStream << "-----------------" << endl;
-
-   CGeom2DIPoint PtiMax = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nMaxConvexDetailedCoastPoint);
-
-   if (m_nLogFileDetail >= LOG_FILE_ALL)
-   LogStream << m_ulIter << ":\t max detailed convexity (" << m_VCoast[nCoast].dGetDetailedCurvature(nMaxConvexDetailedCoastPoint) << ") at raster coastline point " << nMaxConvexDetailedCoastPoint << " [" << PtiMax.nGetX() << "][" << PtiMax.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiMax.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiMax.nGetY()) << "}"  << endl;
-
-   CGeom2DIPoint PtiMaxSmooth = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nMaxConvexSmoothedCoastPoint);
-   CGeom2DPoint PtMaxSmooth = *m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nMaxConvexSmoothedCoastPoint);
+   // // DEBUG CODE ============================================
 
    if (m_nLogFileDetail >= LOG_FILE_ALL)
-   LogStream << m_ulIter << ":\t max smoothed convexity (" << m_VCoast[nCoast].dGetSmoothCurvature(nMaxConvexSmoothedCoastPoint) << ") near vector coastline point " << nMaxConvexSmoothedCoastPoint << ", at [" << PtiMaxSmooth.nGetX() << "][" << PtiMaxSmooth.nGetY() << "] = {" << PtMaxSmooth.dGetX() << ", " << PtMaxSmooth.dGetY() << "}" << endl;
+   {
+      // Write out max detailed convexity
+      for (int n = 0; n < static_cast<int>(VnMaxConvexDetailedCoastPoint.size()); n++)
+         LogStream << m_ulIter << ":\t  max detailed convexity (" << dMaxConvexDetailed << ") at coast point " << VnMaxConvexDetailedCoastPoint[n] << " [" << m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConvexDetailedCoastPoint[n])->nGetX() << "][" << m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConvexDetailedCoastPoint[n])->nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConvexDetailedCoastPoint[n])->nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConvexDetailedCoastPoint[n])->nGetY()) << "}"  << endl;
+
+      // Write out max smoothed convexity
+      for (int n = 0; n < static_cast<int>(VnMaxConvexSmoothedCoastPoint.size()); n++)
+         LogStream << m_ulIter << ":\t  max smoothed convexity (" << dMaxConvexSmoothed << ") at coast point " << VnMaxConvexSmoothedCoastPoint[n] << " [" << m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConvexSmoothedCoastPoint[n])->nGetX() << "][" << m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConvexSmoothedCoastPoint[n])->nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConvexSmoothedCoastPoint[n])->nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConvexSmoothedCoastPoint[n])->nGetY()) << "}"  << endl;
+
+      // Write out max detailed concavity
+      for (int n = 0; n < static_cast<int>(VnMaxConcaveDetailedCoastPoint.size()); n++)
+         LogStream << m_ulIter << ":\t  max detailed concavity (" << dMaxConcaveDetailed << ") at coast point " << VnMaxConcaveDetailedCoastPoint[n] << " [" << m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConcaveDetailedCoastPoint[n])->nGetX() << "][" << m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConcaveDetailedCoastPoint[n])->nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConcaveDetailedCoastPoint[n])->nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConcaveDetailedCoastPoint[n])->nGetY()) << "}"  << endl;
+
+      // Write out max smoothed concavity
+      for (int n = 0; n < static_cast<int>(VnMaxConcaveSmoothedCoastPoint.size()); n++)
+         LogStream << m_ulIter << ":\t  max smoothed concavity (" << dMaxConcaveSmoothed << ") at coast point " << VnMaxConcaveSmoothedCoastPoint[n] << " [" << m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConcaveSmoothedCoastPoint[n])->nGetX() << "][" << m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConcaveSmoothedCoastPoint[n])->nGetY() << "] = {" << dGridCentroidXToExtCRSX(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConcaveSmoothedCoastPoint[n])->nGetX()) << ", " << dGridCentroidYToExtCRSY(m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(VnMaxConcaveSmoothedCoastPoint[n])->nGetY()) << "}"  << endl;
+   }
 }
 
 //===============================================================================================================================
@@ -166,5 +217,6 @@ double CSimulation::dCalcCurvature(int const nHandedness, CGeom2DPoint const* pP
    // Reverse if left-handed
    int const nSide = (nHandedness == RIGHT_HANDED ? 1 : -1);
 
+   // Make it easier to read
    return 1000 * nSide * dCrosProd;
 }

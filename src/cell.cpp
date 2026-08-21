@@ -836,25 +836,25 @@ void CGeomCell::IncrTotWaveHeight(const double dWaveHeight)
    m_dTotWaveHeight += dWaveHeight;
 }
 
-//! Sets the wave orientation on this cell
+//! Sets the wave orientation on this cell. Note that wave orientation is the oceanographic convention i.e. direction TOWARDS which the waves move (in degrees clockwise from north)
 void CGeomCell::SetWaveAngle(double const dWaveAngle)
 {
    m_dWaveAngle = dWaveAngle;
 }
 
-//! Returns the wave orientation on this cell
+//! Returns the wave orientation on this cell. Note that wave orientation is the oceanographic convention i.e. direction TOWARDS which the waves move (in degrees clockwise from north)
 double CGeomCell::dGetWaveAngle(void) const
 {
    return m_dWaveAngle;
 }
 
-//! Increments to total wave orientation on this cell
+//! Increments to total wave orientation on this cell. Note that wave orientation is the oceanographic convention i.e. direction TOWARDS which the waves move (in degrees clockwise from north)
 void CGeomCell::IncrTotWaveAngle(double const dWaveAngle)
 {
    m_dTotWaveAngle += dWaveAngle;
 }
 
-//! Returns the total wave orientation on this cell
+//! Returns the total wave orientation on this cell. Note that wave orientation is the oceanographic convention i.e. direction TOWARDS which the waves move (in degrees clockwise from north)
 double CGeomCell::dGetTotWaveAngle(void) const
 {
    return m_dTotWaveAngle;

@@ -18,7 +18,7 @@
 ;
 ;======================================================================================================================
 ;
-; MINIMAL TEST DATA: CONSOLIDATED SEDIMENT  WITH BASEMENT, TWO BAYS AND AN INTERVENTION, DEEP WATER WAVE ORIENTATION 305 degrees
+; MINIMAL TEST DATA: CONSOLIDATED SEDIMENT  WITH BASEMENT, TWO BAYS AND AN INTERVENTION, DEEP WATER WAVE ORIENTATION 320 degrees
 ;
 ; Run information -----------------------------------------------------------------------------------------------------
 Main output/log file names                                          [omit path and extension]: minimal_cons_with_intervention
@@ -89,7 +89,7 @@ Final mean still water level (m)                               [blank = same as 
 
 Deep water wave height (m)                                         [value or point shapefile]: 3
 Deep water wave height time series         [omit if deep water wave height is a single value]:
-Deep water wave orientation (degrees)         [omit if deep water wave height from shapefile]: 305   ; 349 193 225 270 355 200 265 310 190 340
+Deep water wave orientation (degrees)         [omit if deep water wave height from shapefile]: 320
 Wave period (sec)                             [omit if deep water wave height from shapefile]: 10
 
 Tide data file                                                                 [may be blank]: in/test_suite/minimal_cons_with_intervention_wave_angle_305/cme_1_hours_01_01_1999_00_00_00_CromerTide_15min_1999_2017.csv

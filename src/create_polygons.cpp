@@ -530,16 +530,6 @@ int CSimulation::nMarkPolygonCells(void)
          double const dSeaVolume = dTotDepth * m_dCellSide;
          pPolygon->SetSeawaterVolume(dSeaVolume);
       }
-
-#ifdef _DEBUG
-      // if (m_ulIter == 453)
-      // {
-      //    m_nExtra++;
-      //    string const strExtra = "_" + to_string(m_nExtra);
-      //    bWriteRasterGISFile(RASTER_PLOT_POLYGON, &RASTER_PLOT_POLYGON_TITLE, 0, 0, strExtra);
-      // }
-#endif
-
    }
 
    // // DEBUG CODE ===========================================================================================================

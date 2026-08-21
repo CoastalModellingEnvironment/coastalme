@@ -670,7 +670,7 @@ int CSimulation::nMarkProfilesOnGrid(void)
             m_VCoast[nCoast].pGetProfile(nProfile)->AppendCellInProfile(nXTmp, nYTmp);
          }
 
-         // Get the deep water wave height and orientation values at the end of the profile
+         // Get the deep water wave height and orientation values at the end of the profile. Note that wave orientation is the oceanographic convention i.e. direction TOWARDS which the waves move (in degrees clockwise from north)
          double const dDeepWaterWaveHeight = m_pRasterGrid->m_Cell[VCellsToMark.back().nGetX()][VCellsToMark.back().nGetY()].dGetCellDeepWaterWaveHeight();
          double const dDeepWaterWaveAngle = m_pRasterGrid->m_Cell[VCellsToMark.back().nGetX()][VCellsToMark.back().nGetY()].dGetCellDeepWaterWaveAngle();
          double const dDeepWaterWavePeriod = m_pRasterGrid->m_Cell[VCellsToMark.back().nGetX()][VCellsToMark.back().nGetY()].dGetCellDeepWaterWavePeriod();

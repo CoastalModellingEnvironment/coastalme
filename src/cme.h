@@ -364,7 +364,7 @@ char const TILDE = '~';
 
 // TESTING options
 bool const ACCEPT_TRUNCATED_PROFILES = true;
-bool const CREATE_SHADOW_ZONE_IF_HITS_GRID_EDGE = true;  // If shadow line tracing hits grid edge, create shadow zone?
+bool const CREATE_SHADOW_ZONE_IF_HITS_GRID_EDGE = true;  // If shadow line tracing hits grid edge, create shadow zone anyway?
 bool const SAVE_CSHORE_OUTPUT = true;                    // If CSHORE_FILE_INOUT or CSHORE_BOTH, append all CShore output files to a whole-run master
 bool const USE_DEEP_WATER_FOR_SHADOW_LINE = true;        // Use deep water wave orientation in determining shadow line orientation?
 
@@ -754,8 +754,8 @@ double const CSHORE_SURGE_LEVEL = 0.0;                      // TODO 007
 double const TOLERANCE = 1e-7;                              // For bFPIsEqual, if too small (e.g. 1e-10), get spurious "rounding" errors
 double const SED_ELEV_TOLERANCE = 1e-6;                     // Used to compare depth-equivalent sediment amounts in bFPIsEqual and elsewhere
 double const MASS_BALANCE_TOLERANCE = 1e-5;                 // For bFPIsEqual, used to compare for mass balance checks
-double const STRAIGHT_COAST_MAX_DETAILED_CURVATURE = -5;
-double const STRAIGHT_COAST_MAX_SMOOTH_CURVATURE = -1;
+double const DUMMY_MAX_CONVEX_DETAILED_CURVE = 5;           // Arbitrary value of max detailed convexity for straight line coasts
+double const DUMMY_MAX_CONVEX_SMOOTH_CURVE = 1;             // Arbitrary value of max smoothed convexity for straight line coasts
 double const MIN_LENGTH_OF_SHADOW_ZONE_LINE = 10;           // Used in shadow line tracing
 double const MAX_LAND_LENGTH_OF_SHADOW_ZONE_LINE = 5;       // Used in shadow line tracing
 double const CLIFF_COLLAPSE_HEIGHT_INCREMENT = 0.1;         // Increment the fractional height of the cliff talus Dean profile, if we have not been able to deposit enough
@@ -785,7 +785,7 @@ double const MIN_TALUS_DEPTH = 0.01;
 //! The vertical distance (m) between the bottom of a cliff notch, and its mid point (i.e. half the notch vertical depth). This is necessary because without it, notches are not inundated post-collapse. This is most noticeable when SWL does mot change during the simulation
 double const NOTCH_HALF_VERTICAL_DISTANCE = 0.05;
 
-string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.3 (16 Aug 2026)";
+string const PROGRAM_NAME = "Coastal Modelling Environment (CoastalME) version 1.4.3 (21 Aug 2026)";
 string const PROGRAM_NAME_SHORT = "CME";
 string const CME_INI = "cme.ini";
 string const CME_YAML = "cme.yaml";

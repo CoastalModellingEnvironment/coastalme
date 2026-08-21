@@ -56,7 +56,7 @@ namespace
 bool bCurvaturePairCompareDescending(const pair<int, double>& prLeft, const pair<int, double>& prRight)
 {
    // Sort curvature (low values are straight, high values are curved)
-   return prLeft.second < prRight.second;
+   return prLeft.second > prRight.second;
 }
 } // namespace
 
@@ -720,7 +720,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
       {
          // We've reached the end of a grid side before the profile is long enough. OK, we can live with this
          if (m_nLogFileDetail >= LOG_FILE_ALL)
-            LogStream << m_ulIter << ":\t Reached end of grid side at [" << Pti.nGetX() << "][" << Pti.nGetY() << "} while creating grid-edge profile from [" << PtiProfileStart.nGetX() << "][" << PtiProfileStart.nGetY() << "], profile length should have been " << nProfileLen << " but is now " << n << endl;
+            LogStream << m_ulIter << ":\t Coast " << nCoast << ", reached end of grid side at [" << Pti.nGetX() << "][" << Pti.nGetY() << "} while creating grid-edge profile from [" << PtiProfileStart.nGetX() << "][" << PtiProfileStart.nGetY() << "], profile length should have been " << nProfileLen << " but is now " << n << endl;
 
          break;
       }
@@ -808,7 +808,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
    m_VCoast[nCoast].SetProfileAtCoastPoint(nProfileStartPoint, pProfile);
 
    if (m_nLogFileDetail >= LOG_FILE_ALL)
-      LogStream << m_ulIter << ":\t  coast " << nCoast << " grid-edge profile " << nProfile << " created at coast " << (bCoastStart ? "start" : "end") << " point " << (bCoastStart ? 0 : nCoastSize - 1) << ", from [" << PtiProfileStart.nGetX() << "][" << PtiProfileStart.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiProfileStart.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiProfileStart.nGetY()) << "} to [" << VPtiNormalPoints.back().nGetX() << "][" << VPtiNormalPoints.back().nGetY() << "] = {" << dGridCentroidXToExtCRSX(VPtiNormalPoints.back().nGetX()) << ", " << dGridCentroidYToExtCRSY(VPtiNormalPoints.back().nGetY()) << "}" << endl;
+      LogStream << m_ulIter << ":\t Coast " << nCoast << " grid-edge profile " << nProfile << " created at coast " << (bCoastStart ? "start" : "end") << " point " << (bCoastStart ? 0 : nCoastSize - 1) << ", from [" << PtiProfileStart.nGetX() << "][" << PtiProfileStart.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiProfileStart.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiProfileStart.nGetY()) << "} to [" << VPtiNormalPoints.back().nGetX() << "][" << VPtiNormalPoints.back().nGetY() << "] = {" << dGridCentroidXToExtCRSX(VPtiNormalPoints.back().nGetX()) << ", " << dGridCentroidYToExtCRSY(VPtiNormalPoints.back().nGetY()) << "}" << endl;
 
    assert(pProfile->nGetProfileSize() > 0);
 

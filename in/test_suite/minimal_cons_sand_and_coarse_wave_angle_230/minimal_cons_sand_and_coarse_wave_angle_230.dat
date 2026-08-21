@@ -122,7 +122,7 @@ Transport parameter                                                   [only for 
 
 Berm height i.e. height above SWL of start of depositional Dean profile (m)                  : 0.25
 Runup equation                      [0 = none, 1 = Nielsen & Hanslow, 2 = Mase, 3 = Stockdon): 3
-Net wave uprush?                                                                             : n
+Net wave uprush?                                                                             : y
 
 ; Cliff collapse data --------------------------------------------------------------------------------------------------
 Simulate cliff collapse?                                                                     : y

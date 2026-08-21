@@ -34,7 +34,7 @@ class CGeomILine : public CA2DIShape
    CGeomILine(void);
    ~CGeomILine(void) override;
 
-   // CGeom2DIPoint* pPtiGetAt(int const);
+   CGeom2DIPoint* pPtiGetAt(int const);
    // int nGetXAt(int const);
    // int nGetYAt(int const);
    // void SetXAt(int const, int const);

@@ -33,8 +33,8 @@ cp in/test_suite/minimal_cons_with_intervention_wave_angle_270/cme.ini .
 ./cme
 echo ===============================================================================
 
-rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_305/*
-cp in/test_suite/minimal_cons_with_intervention_wave_angle_305/cme.ini .
+rm -f out/test_suite/minimal_cons_with_intervention_wave_angle_320/*
+cp in/test_suite/minimal_cons_with_intervention_wave_angle_320/cme.ini .
 ./cme
 echo ===============================================================================
 
