@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-08-15T20:12:52" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.1-Belém do Pará">
+<qgis projectname="" saveDateTime="2026-08-22T14:19:27" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.1-Belém do Pará">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
@@ -199,7 +199,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="106" wms-group-request-mode="Normal">
+      <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="106" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -219,7 +219,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="107" wms-group-request-mode="Normal">
+      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="107" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -508,7 +508,7 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Checked" name="106" open="false">
+      <legendgroup checked="Qt::Checked" name="106" open="true">
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="invalid_normals_106" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
             <legendlayerfile isInOverview="0" layerid="invalid_normals_106_1eb7ed3f_b136_412e_9d5f_830dba4b4f77" visible="1"/>
@@ -525,10 +525,10 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Unchecked" name="107" open="false">
+      <legendgroup checked="Qt::Checked" name="107" open="false">
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="normals_107" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="normals_107_732b2bcf_533b_4340_8ccc_4dfcb50147d7" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="normals_107_732b2bcf_533b_4340_8ccc_4dfcb50147d7" visible="1"/>
           </filegroup>
         </legendlayer>
       </legendgroup>

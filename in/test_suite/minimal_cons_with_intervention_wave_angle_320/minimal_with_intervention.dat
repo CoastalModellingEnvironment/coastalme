@@ -61,14 +61,14 @@ Coast-normal profile max local slope (m/m)                                      
 ; Initial raster GIS layers --------------------------------------------------------------------------------------------
 Number of layers                                                                             : 1
 ; BASEMENT DEM MUST BE PRESENT
-Basement DEM file                                                             [path and name]: in/test_suite/minimal_cons_with_intervention_wave_angle_305/basement.asc
+Basement DEM file                                                             [path and name]: in/test_suite/minimal_cons_with_intervention_wave_angle_320/basement.asc
 ; LAYER 0 THICKNESS FILES, LAYER 0 IS LOWEST
    ; *** MUST HAVE AT LEAST ONE THICKNESS FILE FOR THE FIRST LAYER
    Initial unconsolidated fine sediment file                                  [path and name]:
    Initial unconsolidated sand sediment file                                  [path and name]:
    Initial unconsolidated coarse sediment file                                [path and name]:
    Initial consolidated fine sediment file                                    [path and name]:
-   Initial consolidated sand sediment file                                    [path and name]: in/test_suite/minimal_cons_with_intervention_wave_angle_305/two_bays.tif
+   Initial consolidated sand sediment file                                    [path and name]: in/test_suite/minimal_cons_with_intervention_wave_angle_320/two_bays.tif
    Initial consolidated coarse sediment file                                  [path and name]:
 
 ; OPTIONAL THICKNESS FILE
@@ -76,8 +76,8 @@ Initial suspended sediment file                                               [p
 
 ; OTHER OPTIONAL RASTER FILES
 Initial landform file                                                         [path and name]:
-Intervention class file                                                       [path and name]: in/test_suite/minimal_cons_with_intervention_wave_angle_305/intervention_class.tif
-Intervention height file                                                      [path and name]: in/test_suite/minimal_cons_with_intervention_wave_angle_305/intervention_height.tif
+Intervention class file                                                       [path and name]: in/test_suite/minimal_cons_with_intervention_wave_angle_320/intervention_class.tif
+Intervention height file                                                      [path and name]: in/test_suite/minimal_cons_with_intervention_wave_angle_320/intervention_height.tif
 
 ; Hydrology data -------------------------------------------------------------------------------------------------------
 Wave propagation model                                                 [0 = COVE, 1 = CShore]: 1
@@ -92,7 +92,7 @@ Deep water wave height time series         [omit if deep water wave height is a 
 Deep water wave orientation (degrees)         [omit if deep water wave height from shapefile]: 320
 Wave period (sec)                             [omit if deep water wave height from shapefile]: 10
 
-Tide data file                                                                 [may be blank]: in/test_suite/minimal_cons_with_intervention_wave_angle_305/cme_1_hours_01_01_1999_00_00_00_CromerTide_15min_1999_2017.csv
+Tide data file                                                                 [may be blank]: in/test_suite/minimal_cons_with_intervention_wave_angle_320/cme_1_hours_01_01_1999_00_00_00_CromerTide_15min_1999_2017.csv
 
 Breaking wave height to water depth ratio (non-dimensional)                                  : 0.8
 Start depth for wave calcs (ratio to deep water wave height)                                 : 30
