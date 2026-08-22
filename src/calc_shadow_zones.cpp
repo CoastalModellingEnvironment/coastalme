@@ -402,8 +402,8 @@ int CSimulation::nDoAllShadowZones(void)
             }
 
             // OK, this is a valid shadow zone
-            if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-               LogStream << m_ulIter << ": coast " << nCoast << " valid shadow boundary from coast point " << nCoastPoint << " at [" << ILShadowBoundary[0].nGetX() << "][" << ILShadowBoundary[0].nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILShadowBoundary[0].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILShadowBoundary[0].nGetY()) << "}" << endl;
+            // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+            //    LogStream << m_ulIter << ": coast " << nCoast << " valid shadow boundary from coast point " << nCoastPoint << " at [" << ILShadowBoundary[0].nGetX() << "][" << ILShadowBoundary[0].nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILShadowBoundary[0].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILShadowBoundary[0].nGetY()) << "}" << endl;
 
             nZone++;
             int nShadowLineLen = ILShadowBoundary.nGetSize();
@@ -429,7 +429,7 @@ int CSimulation::nDoAllShadowZones(void)
                ILShadowBoundary.AppendIfNotPrevious(nTmpX, nTmpY);
 
                if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-                  LogStream << m_ulIter << ":\t coast " << nCoast << " shadow zone " << nZone << ", which starts at [" << ILShadowBoundary[0].nGetX() << "][" << ILShadowBoundary[0].nGetY() << "] = {" << dGridCentroidXToExtCRSX(ILShadowBoundary[0].nGetX()) << ", " << dGridCentroidYToExtCRSY(ILShadowBoundary[0].nGetY()) << "} has cell [" << nTmpX << "][" << nTmpY << "] = {" << dGridCentroidXToExtCRSX(nTmpX) << ", " << dGridCentroidYToExtCRSY(nTmpY) << "}marked as shadow zone boundary" << endl;
+                  LogStream << m_ulIter << ":\t coast " << nCoast << " shadow zone " << nZone << " has cell [" << nTmpX << "][" << nTmpY << "] = {" << dGridCentroidXToExtCRSX(nTmpX) << ", " << dGridCentroidYToExtCRSY(nTmpY) << "} marked as shadow zone boundary" << endl;
             }
 
             // Put the ext CRS vector shadow boundary into reverse sequence (i.e. start point is last)
