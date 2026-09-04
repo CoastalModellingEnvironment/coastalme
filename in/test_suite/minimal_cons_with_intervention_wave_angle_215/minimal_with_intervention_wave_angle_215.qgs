@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-09-04T09:50:53" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.2-Belém do Pará">
+<qgis projectname="" saveDateTime="2026-09-04T21:09:32" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.2-Belém do Pará">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
@@ -68,7 +68,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Unchecked" expanded="1" id="coast0120160718183614891" legend_exp="" legend_split_behavior="0" name="coast01" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_with_intervention_wave_angle_215/coast_001.shp">
+        <layer-tree-layer checked="Qt::Checked" expanded="1" id="coast0120160718183614891" legend_exp="" legend_split_behavior="0" name="coast01" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_with_intervention_wave_angle_215/coast_001.shp">
           <customproperties>
             <Option/>
           </customproperties>
@@ -118,7 +118,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Unchecked" expanded="1" id="waveangle0120160808171249476" legend_exp="" legend_split_behavior="0" name="waveangle01" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_with_intervention_wave_angle_215/wave_angle_001.shp">
+        <layer-tree-layer checked="Qt::Checked" expanded="1" id="waveangle0120160808171249476" legend_exp="" legend_split_behavior="0" name="waveangle01" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_with_intervention_wave_angle_215/wave_angle_001.shp">
           <customproperties>
             <Option/>
           </customproperties>
@@ -582,7 +582,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Unchecked" expanded="1" id="wave_angle_00620170329173818248" legend_exp="" legend_split_behavior="0" name="wave_angle_006" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_with_intervention_wave_angle_215/wave_angle_006.shp">
+        <layer-tree-layer checked="Qt::Checked" expanded="1" id="wave_angle_00620170329173818248" legend_exp="" legend_split_behavior="0" name="wave_angle_006" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_with_intervention_wave_angle_215/wave_angle_006.shp">
           <customproperties>
             <Option/>
           </customproperties>
@@ -662,7 +662,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Unchecked" expanded="1" id="wave_angle_007_38743709_3748_492e_ba0c_bd3e586f0e0d" legend_exp="" legend_split_behavior="0" name="wave_angle_007" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_with_intervention_wave_angle_215/wave_angle_007.shp">
+        <layer-tree-layer checked="Qt::Checked" expanded="1" id="wave_angle_007_38743709_3748_492e_ba0c_bd3e586f0e0d" legend_exp="" legend_split_behavior="0" name="wave_angle_007" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_with_intervention_wave_angle_215/wave_angle_007.shp">
           <customproperties>
             <Option/>
           </customproperties>
@@ -938,7 +938,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="11" wms-group-request-mode="Normal">
+      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="11" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -1343,10 +1343,10 @@
   <mapcanvas annotationsVisible="1" name="theMapCanvas">
     <units>unknown</units>
     <extent>
-      <xmin>157.17605476303228329</xmin>
-      <ymin>365.00808113035560609</ymin>
-      <xmax>166.32810317870061567</xmax>
-      <ymax>398.54088113035555807</ymax>
+      <xmin>158.85736668185978715</xmin>
+      <ymin>354.34292388331817847</ymin>
+      <xmax>191.66986668185978715</xmax>
+      <ymax>419.96792388331817847</ymax>
     </extent>
     <rotation>0</rotation>
     <rendermaptile>0</rendermaptile>
@@ -1378,7 +1378,7 @@
             <legendlayerfile isInOverview="0" layerid="coast_curvature_001_7d8efde7_b139_4e73_b158_6f847b6474e9" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="coast01" open="true" showFeatureCount="0">
+        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="coast01" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="coast0120160718183614891" visible="0"/>
           </filegroup>
@@ -1428,7 +1428,7 @@
             <legendlayerfile isInOverview="0" layerid="wave_height_00120161118175921754" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="waveangle01" open="true" showFeatureCount="0">
+        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="waveangle01" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="waveangle0120160808171249476" visible="0"/>
           </filegroup>
@@ -1873,7 +1873,7 @@
             <legendlayerfile isInOverview="0" layerid="polygon_raster_0620161102174645104" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="wave_angle_006" open="true" showFeatureCount="0">
+        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="wave_angle_006" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="wave_angle_00620170329173818248" visible="0"/>
           </filegroup>
@@ -1950,7 +1950,7 @@
             <legendlayerfile isInOverview="0" layerid="polygon_raster_007_e2794574_7df9_4238_b292_b441502f90ef" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="wave_angle_007" open="true" showFeatureCount="0">
+        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="wave_angle_007" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="wave_angle_007_38743709_3748_492e_ba0c_bd3e586f0e0d" visible="0"/>
           </filegroup>
@@ -2217,7 +2217,7 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Checked" name="11" open="true">
+      <legendgroup checked="Qt::Checked" name="11" open="false">
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="deep_water_wave_angle_011" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="deep_water_wave_angle_01120171226155834658" visible="0"/>
@@ -106414,7 +106414,7 @@ def my_form_open(dialog, layer, feature):
   <Sensors/>
   <ProjectViewSettings UseProjectScales="0" rotation="0">
     <Scales/>
-    <DefaultViewExtent xmax="190.05779711124927189" xmin="133.44636083048362707" ymax="398.54088113035555807" ymin="365.00808113035560609">
+    <DefaultViewExtent xmax="230.65901321786708422" xmin="119.86822014585249008" ymax="419.96792388331817847" ymin="354.34292388331817847">
       <spatialrefsys nativeFormat="Wkt">
         <wkt></wkt>
         <proj4></proj4>

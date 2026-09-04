@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" saveDateTime="2026-08-21T11:52:34" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.1-Belém do Pará">
+<qgis projectname="" saveDateTime="2026-09-04T18:06:22" saveUser="dave" saveUserFull="Dave Favis-Mortlock" version="4.2.2-Belém do Pará">
   <homePath path=""/>
   <title></title>
   <transaction mode="Disabled"/>
@@ -54,7 +54,7 @@
       <customproperties>
         <Option/>
       </customproperties>
-      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="01" wms-group-request-mode="Normal">
+      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="01" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -1017,7 +1017,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Unchecked" expanded="1" id="wave_angle_01020170424154515999" legend_exp="" legend_split_behavior="0" name="wave_angle_010" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_wave_angle_230/wave_angle_010.shp">
+        <layer-tree-layer checked="Qt::Checked" expanded="1" id="wave_angle_01020170424154515999" legend_exp="" legend_split_behavior="0" name="wave_angle_010" patch_size="0,0" providerKey="ogr" source="../../../out/test_suite/minimal_cons_wave_angle_230/wave_angle_010.shp">
           <customproperties>
             <Option/>
           </customproperties>
@@ -1057,7 +1057,7 @@
             <Option/>
           </customproperties>
         </layer-tree-layer>
-        <layer-tree-layer checked="Qt::Checked" expanded="0" id="landform_class_1020161122145751617" legend_exp="" legend_split_behavior="0" name="landform_class_10" patch_size="0,0" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/landform_class_010.tif">
+        <layer-tree-layer checked="Qt::Unchecked" expanded="0" id="landform_class_1020161122145751617" legend_exp="" legend_split_behavior="0" name="landform_class_10" patch_size="0,0" providerKey="gdal" source="../../../out/test_suite/minimal_cons_wave_angle_230/landform_class_010.tif">
           <customproperties>
             <Option/>
           </customproperties>
@@ -1215,7 +1215,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Unchecked" expanded="0" groupLayer="" name="12" wms-group-request-mode="Normal">
+      <layer-tree-group checked="Qt::Checked" expanded="0" groupLayer="" name="12" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -1235,7 +1235,7 @@
           </customproperties>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group checked="Qt::Checked" expanded="1" groupLayer="" name="13" wms-group-request-mode="Normal">
+      <layer-tree-group checked="Qt::Unchecked" expanded="1" groupLayer="" name="13" wms-group-request-mode="Normal">
         <customproperties>
           <Option/>
         </customproperties>
@@ -1685,7 +1685,7 @@
       </legendlayer>
     </legendgroup>
     <legendgroup checked="Qt::Checked" name="out" open="true">
-      <legendgroup checked="Qt::Checked" name="01" open="false">
+      <legendgroup checked="Qt::Unchecked" name="01" open="false">
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="deep_water_wave_angle_001" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="deep_water_wave_angle_00120171226160841623" visible="0"/>
@@ -1713,7 +1713,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="polygon01" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="polygon0120160727195316313" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="polygon0120160727195316313" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="polygon_raster_001" open="false" showFeatureCount="0">
@@ -1748,7 +1748,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="waveangle01" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="waveangle0120160808171249476" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="waveangle0120160808171249476" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="wave_energy_001" open="false" showFeatureCount="0">
@@ -1818,7 +1818,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_001" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="landform_class_00120170603144857218" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="landform_class_00120170603144857218" visible="0"/>
           </filegroup>
         </legendlayer>
       </legendgroup>
@@ -2614,7 +2614,7 @@
             <legendlayerfile isInOverview="0" layerid="active_zone_1020170226163656448" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="wave_angle_010" open="true" showFeatureCount="0">
+        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="wave_angle_010" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
             <legendlayerfile isInOverview="0" layerid="wave_angle_01020170424154515999" visible="0"/>
           </filegroup>
@@ -2654,7 +2654,7 @@
             <legendlayerfile isInOverview="0" layerid="talus_010_37f19e5b_fe27_40f5_aaa7_a75189d81425" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_10" open="false" showFeatureCount="0">
+        <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="landform_class_10" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
             <legendlayerfile isInOverview="0" layerid="landform_class_1020161122145751617" visible="0"/>
           </filegroup>
@@ -2807,37 +2807,37 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Unchecked" name="12" open="false">
+      <legendgroup checked="Qt::Checked" name="12" open="false">
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="coast_012" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="coast_012_43175e78_891e_4366_8902_2adb720ed8ee" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="coast_012_43175e78_891e_4366_8902_2adb720ed8ee" visible="1"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="polygon_012" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="polygon_012_de8c93f1_c2d4_4bdf_b36f_7c136e905253" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="polygon_012_de8c93f1_c2d4_4bdf_b36f_7c136e905253" visible="1"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_012" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="landform_class_012_82730eff_7d1d_4060_8380_728cc08d15d0" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="landform_class_012_82730eff_7d1d_4060_8380_728cc08d15d0" visible="1"/>
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup checked="Qt::Checked" name="13" open="true">
+      <legendgroup checked="Qt::Unchecked" name="13" open="true">
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="coast_SWL_lowest_013" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="coast_SWL_lowest_013_b935e155_3e40_4abb_a8dc_c4aefa2efc87" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="coast_SWL_lowest_013_b935e155_3e40_4abb_a8dc_c4aefa2efc87" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="coast_SWL_highest_013" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="coast_SWL_highest_013_b55faaa3_e753_484e_b5e8_00c52fd6f60c" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="coast_SWL_highest_013_b55faaa3_e753_484e_b5e8_00c52fd6f60c" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="wave_angle_013" open="true" showFeatureCount="0">
           <filegroup hidden="false" open="true">
-            <legendlayerfile isInOverview="0" layerid="wave_angle_013_b13776c3_b1e2_4a15_a681_49a2abf3b9c9" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="wave_angle_013_b13776c3_b1e2_4a15_a681_49a2abf3b9c9" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="coast_013" open="true" showFeatureCount="0">
@@ -2847,7 +2847,7 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="polygon_013" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="polygon_013_c92b4d97_6fb4_483d_a91c_5d270bd4729b" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="polygon_013_c92b4d97_6fb4_483d_a91c_5d270bd4729b" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Unchecked" drawingOrder="-1" name="actual_platform_erosion_013" open="false" showFeatureCount="0">
@@ -2887,12 +2887,12 @@
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="uncons_sed_sand_layer_1_013" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="uncons_sed_sand_layer_1_013_23d83777_45e7_478b_9e15_db1c4e68a773" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="uncons_sed_sand_layer_1_013_23d83777_45e7_478b_9e15_db1c4e68a773" visible="0"/>
           </filegroup>
         </legendlayer>
         <legendlayer checked="Qt::Checked" drawingOrder="-1" name="landform_class_013" open="false" showFeatureCount="0">
           <filegroup hidden="false" open="false">
-            <legendlayerfile isInOverview="0" layerid="landform_class_013_d2da27e6_2d1c_4d1b_9226_58e120f33fae" visible="1"/>
+            <legendlayerfile isInOverview="0" layerid="landform_class_013_d2da27e6_2d1c_4d1b_9226_58e120f33fae" visible="0"/>
           </filegroup>
         </legendlayer>
       </legendgroup>
@@ -23368,15 +23368,15 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>129.00678614695308966</xmin>
+        <xmin>128.72480241524530697</xmin>
         <ymin>1.5</ymin>
-        <xmax>141.50618425860048433</xmax>
+        <xmax>141.54933561525299979</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>129.00678614695308966</xmin>
+        <xmin>128.72480241524530697</xmin>
         <ymin>1.5</ymin>
-        <xmax>141.50618425860048433</xmax>
+        <xmax>141.54933561525299979</xmax>
         <ymax>500.5</ymax>
       </wgs84extent>
       <id>coast_013_266153e4_7544_4be6_94dc_dcc6777cb023</id>
@@ -29661,13 +29661,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="0" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>137.41155510259025618</xmin>
+        <xmin>137.36153875737937824</xmin>
         <ymin>1.5</ymin>
         <xmax>150.99296002153724316</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>137.41155510259025618</xmin>
+        <xmin>137.36153875737937824</xmin>
         <ymin>1.5</ymin>
         <xmax>150.99296002153724316</xmax>
         <ymax>500.5</ymax>
@@ -95242,13 +95242,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Line" hasScaleBasedVisibilityFlag="0" labelsEnabled="1" layerType="Vector" legendPlaceholderImage="" maxScale="100000" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="1" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="MultiLineString">
       <extent>
-        <xmin>129.00678614695308966</xmin>
+        <xmin>128.72480241524530697</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>129.00678614695308966</xmin>
+        <xmin>128.72480241524530697</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
@@ -127452,13 +127452,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer autoRefreshMode="Disabled" autoRefreshTime="0" geometry="Point" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" legendPlaceholderImage="" maxScale="-4.6566099999999998e-10" minScale="100000000" readOnly="0" refreshOnNotifyEnabled="0" refreshOnNotifyMessage="" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="AllStyleCategories" symbologyReferenceScale="-1" type="vector" wkbType="Point">
       <extent>
-        <xmin>153.5</xmin>
+        <xmin>151.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
       </extent>
       <wgs84extent>
-        <xmin>153.5</xmin>
+        <xmin>151.5</xmin>
         <ymin>1.5</ymin>
         <xmax>250.5</xmax>
         <ymax>500.5</ymax>
