@@ -157,5 +157,6 @@ Save parallel profiles?                                                         
 Output erosion potential look-up values                                                      : n
 
 Slumping?                                                                                    : n
+For shadow zones, follow wave direction or use straight line?         [f = follow, l = line] : l
 
 ; END OF FILE ----------------------------------------------------------------------------------------------------------

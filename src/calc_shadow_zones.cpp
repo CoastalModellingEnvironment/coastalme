@@ -344,6 +344,14 @@ int CSimulation::nDoAllShadowZones(void)
                if (CREATE_SHADOW_ZONE_IF_HITS_GRID_EDGE)
                {
                   // User choice is to create shadow zones if we hit the grid edge. OK, but is the shadow zone line trivially short?
+                  if (ILShadowBoundary.pPtiVGetPoints()->empty())
+                  {
+                     if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                        LogStream << m_ulIter << ":\t coast " << nCoast << " Possible shadow boundary start point " << nStartCoastPoint << " has zero points" << endl;
+
+                     continue;
+                  }
+
                   double const dShadowLen = dGetDistanceBetween(&ILShadowBoundary[0], &ILShadowBoundary.Back()) * m_dCellSide;
 
                   if (dShadowLen < MIN_LENGTH_OF_SHADOW_ZONE_LINE)
@@ -631,7 +639,7 @@ int CSimulation::nDoAllShadowZones(void)
                   nSweepStart++;
 
                   // Is the coast-point end of this sweep outside the grid?
-                  if (n > nCoastSize)
+                  if (n >= nCoastSize)
                   {
                      // TODO
                      LogStream << m_ulIter << ":  n = " << n << " coast size = " << nCoastSize << endl;
@@ -712,7 +720,7 @@ int CSimulation::nDoAllShadowZones(void)
                   nSweepStart++;
 
                   // Is the coast-point end of this sweep outside the grid?
-                  if (n > nCoastSize)
+                  if (n >= nCoastSize)
                   {
                      // TODO
                      LogStream << m_ulIter << ":  n = " << n << " coast size = " << nCoastSize << endl;
