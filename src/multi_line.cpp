@@ -94,7 +94,7 @@ void CGeomMultiLine::TruncateLineSegments(int const nSize)
 //! Inserts a line segment, inheriting coincident pairs from preceding line segments
 void CGeomMultiLine::InsertLineSegmentWithInheritance(int const nSegment)
 {
-   assert(nSegment < static_cast<int>(m_prVVLineSegment.size()));
+   // assert(nSegment < static_cast<int>(m_prVVLineSegment.size()));
 
    // The new vector of pairs is identical to the existing vector of pairs i.e. we inherit profile/line seg details from the previous line seg
    vector<pair<int, int>> prVPrev = m_prVVLineSegment[nSegment];

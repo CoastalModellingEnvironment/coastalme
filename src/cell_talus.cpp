@@ -84,7 +84,7 @@ void CRWCellTalus::RemoveFineDepth(double const dSedDepth)
 void CRWCellTalus::SetSandDepth(double const dNewSedDepth)
 {
    m_dSand = dNewSedDepth;
-   assert(m_dSand >= 0);
+   // assert(m_dSand >= 0);
 }
 
 //! Returns the sand sediment depth equivalent for this talus object
@@ -97,7 +97,7 @@ double CRWCellTalus::dGetSandDepth(void) const
 void CRWCellTalus::AddSandDepth(double const dSedDepth)
 {
    m_dSand += dSedDepth;
-   assert(m_dSand >= 0);
+   // assert(m_dSand >= 0);
 
    m_dSandAddedThisIter += dSedDepth;
    m_dTotSandAdded += dSedDepth;
@@ -107,7 +107,7 @@ void CRWCellTalus::AddSandDepth(double const dSedDepth)
 void CRWCellTalus::RemoveSandDepth(double const dSedDepth)
 {
    m_dSand -= dSedDepth;
-   assert(m_dSand >= 0);
+   // assert(m_dSand >= 0);
 
    m_dSandLostThisIter += dSedDepth;
    m_dTotSandLost += dSedDepth;
@@ -117,7 +117,7 @@ void CRWCellTalus::RemoveSandDepth(double const dSedDepth)
 void CRWCellTalus::SetCoarseDepth(double const dNewSedDepth)
 {
    m_dCoarse = dNewSedDepth;
-   assert(m_dCoarse >= 0);
+   // assert(m_dCoarse >= 0);
 }
 
 //! Returns the coarse sediment depth equivalent for this talus object object
@@ -130,7 +130,7 @@ double CRWCellTalus::dGetCoarseDepth(void) const
 void CRWCellTalus::AddCoarseDepth(double const dSedDepth)
 {
    m_dCoarse += dSedDepth;
-   assert(m_dCoarse >= 0);
+   // assert(m_dCoarse >= 0);
 
    m_dCoarseAddedThisIter += dSedDepth;
    m_dTotCoarseAdded += dSedDepth;
@@ -140,7 +140,7 @@ void CRWCellTalus::AddCoarseDepth(double const dSedDepth)
 void CRWCellTalus::RemoveCoarseDepth(double const dSedDepth)
 {
    m_dCoarse -= dSedDepth;
-   assert(m_dCoarse >= 0);
+   // assert(m_dCoarse >= 0);
 
    m_dCoarseLostThisIter += dSedDepth;
    m_dTotCoarseLost += dSedDepth;

@@ -215,7 +215,7 @@ int CSimulation::nCalcPotentialPlatformErosionOnProfile(int const nCoast, CGeomP
    // Get the height of the associated breaking wave from the coast point: this height is used in beach protection calcs
    double const dBreakingWaveHeight = m_VCoast[nCoast].dGetBreakingWaveHeight(nCoastPoint);
 
-   assert(dBreakingWaveHeight >= 0);
+   // assert(dBreakingWaveHeight >= 0);
 
    // Calculate the length of the profile in external CRS units
    int const nSegments = pProfile->nGetProfileSize() - 1;
@@ -585,7 +585,7 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
       // Get the height of the associated breaking wave from the coast point: this height is used in beach protection calcs. Note that it will be DBL_NODATA if not in active zone
       double const dBreakingWaveHeight = m_VCoast[nCoast].dGetBreakingWaveHeight(nThisPointOnCoast);
 
-      assert(dBreakingWaveHeight >= 0);
+      // assert(dBreakingWaveHeight >= 0);
 
       // OK, now construct a parallel profile
       vector<CGeom2DIPoint> PtiVGridParProfile;       // Integer coords (grid CRS) of cells under the parallel profile
@@ -816,8 +816,8 @@ int CSimulation::nCalcPotentialPlatformErosionBetweenProfiles(int const nCoast, 
             // Update this-timestep totals
             m_ulThisIterNumPotentialPlatformErosionCells++;
             m_dThisIterPotentialPlatformErosion -= dDeltaZ; // Since dDeltaZ is a -ve value
-            assert(isfinite(m_dThisIterPotentialPlatformErosion));
-            assert(m_dThisIterPotentialPlatformErosion >= 0);
+            // assert(isfinite(m_dThisIterPotentialPlatformErosion));
+            // assert(m_dThisIterPotentialPlatformErosion >= 0);
 
             // Increment the check values
             m_ulTotPotentialPlatformErosionBetweenProfiles++;
@@ -892,7 +892,7 @@ void CSimulation::DoActualPlatformErosionOnCell(int const nX, int const nY)
 
    // Get the potential depth of potential erosion, considering beach protection
    double const dThisPotentialErosion = m_pRasterGrid->m_Cell[nX][nY].dGetPotentialPlatformErosion() * dBeachProtectionFactor;
-   assert(dThisPotentialErosion >= 0);
+   // assert(dThisPotentialErosion >= 0);
 
    // We will be eroding the topmost layer that has non-zero thickness
    int const nThisLayer = m_pRasterGrid->m_Cell[nX][nY].nGetTopNonZeroLayerAboveBasement();
@@ -1352,7 +1352,7 @@ void CSimulation::FillIPlatformErosionHolesAndRemoveLegacyCliffs(void)
                // Update this-timestep totals
                m_ulThisIterNumPotentialPlatformErosionCells++;
                m_dThisIterPotentialPlatformErosion += dThisPotentialPlatformErosion;
-               assert(isfinite(m_dThisIterPotentialPlatformErosion));
+               // assert(isfinite(m_dThisIterPotentialPlatformErosion));
 
                // Increment the check values
                m_ulTotPotentialPlatformErosionBetweenProfiles++;

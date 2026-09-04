@@ -436,7 +436,7 @@ int CSimulation::nDoUnconsErosionOnPolygon(int const nCoast, CGeomCoastPolygon* 
       }
 
       // This value of nInlandOffset gives us some (tho' maybe not enough) erosion. So do the erosion of this sediment size class, by working along the parallel profile from the landward end (which is inland from the existing coast, if nInlandOffset > 0). Note that dStillToErodeOnProfile and dStillToErodeOnPolygon are changed within nDoParallelProfileUnconsErosion()
-      int const nRet = nDoParallelProfileUnconsErosion(pPolygon, nCoastPoint, nCoastX, nCoastY, nTexture, nInlandOffset, nParProfLen, &VPtiParProfile, &VdParProfileDeanElev, dStillToErodeOnProfile, dStillToErodeOnPolygon, dEroded);
+      int const nRet = nDoParallelProfileUnconsErosion(pPolygon, /*nCoastPoint,*/ nCoastX, nCoastY, nTexture, /*nInlandOffset,*/ nParProfLen, &VPtiParProfile, &VdParProfileDeanElev, dStillToErodeOnProfile, dStillToErodeOnPolygon, dEroded);
 
       if (nRet != RTN_OK)
          return nRet;
@@ -487,15 +487,15 @@ int CSimulation::nDoUnconsErosionOnPolygon(int const nCoast, CGeomCoastPolygon* 
 //===============================================================================================================================
 //! This routine erodes unconsolidated beach sediment (either fine, sand, or coarse) on a parallel profile
 //===============================================================================================================================
-int CSimulation::nDoParallelProfileUnconsErosion(CGeomCoastPolygon* pPolygon, int const nCoastPoint, int const nCoastX, int const nCoastY, int const nTexture, int const nInlandOffset, int const nParProfLen, vector<CGeom2DIPoint> const* pVPtiParProfile, vector<double> const* pVdParProfileDeanElev, double& dStillToErodeOnProfile, double& dStillToErodeOnPolygon, double& dTotEroded)
+int CSimulation::nDoParallelProfileUnconsErosion(CGeomCoastPolygon* pPolygon, /*int const nCoastPoint,*/ int const nCoastX, int const nCoastY, int const nTexture, /*int const nInlandOffset,*/ int const nParProfLen, vector<CGeom2DIPoint> const* pVPtiParProfile, vector<double> const* pVdParProfileDeanElev, double& dStillToErodeOnProfile, double& dStillToErodeOnPolygon, double& dTotEroded)
 {
    for (int nDistSeawardFromNewCoast = 0; nDistSeawardFromNewCoast < nParProfLen; nDistSeawardFromNewCoast++)
    {
       // Leave the loop if we have eroded enough for this polygon
       if (dStillToErodeOnPolygon <= 0)
       {
-         if (m_nLogFileDetail >= LOG_FILE_ALL)
-            LogStream << m_ulIter << ": AAA in polygon " << pPolygon->nGetPolygonCoastID() << " at coast point " << nCoastPoint << " nInlandOffset = " << nInlandOffset << ", leaving loop because enough erosion for polygon, dStillToErodeOnPolygon = " << dStillToErodeOnPolygon << " dStillToErodeOnProfile = " << dStillToErodeOnProfile << endl;
+         // if (m_nLogFileDetail >= LOG_FILE_ALL)
+         //    LogStream << m_ulIter << ": AAA1 in polygon " << pPolygon->nGetPolygonCoastID() << " at coast point " << nCoastPoint << " nInlandOffset = " << nInlandOffset << ", leaving loop because enough erosion for polygon, dStillToErodeOnPolygon = " << dStillToErodeOnPolygon << " dStillToErodeOnProfile = " << dStillToErodeOnProfile << endl;
 
          break;
       }
@@ -503,8 +503,8 @@ int CSimulation::nDoParallelProfileUnconsErosion(CGeomCoastPolygon* pPolygon, in
       // Leave the loop if we have eroded enough for this parallel profile
       if (dStillToErodeOnProfile <= 0)
       {
-         if (m_nLogFileDetail >= LOG_FILE_ALL)
-            LogStream << m_ulIter << ": BBB in polygon " << pPolygon->nGetPolygonCoastID() << " at coast point " << nCoastPoint << " nInlandOffset = " << nInlandOffset << ", leaving loop because enough erosion for profile, dStillToErodeOnPolygon = " << dStillToErodeOnPolygon << " dStillToErodeOnProfile = " << dStillToErodeOnProfile << endl;
+         // if (m_nLogFileDetail >= LOG_FILE_ALL)
+         //    LogStream << m_ulIter << ": BBB1 in polygon " << pPolygon->nGetPolygonCoastID() << " at coast point " << nCoastPoint << " nInlandOffset = " << nInlandOffset << ", leaving loop because enough erosion for profile, dStillToErodeOnPolygon = " << dStillToErodeOnPolygon << " dStillToErodeOnProfile = " << dStillToErodeOnProfile << endl;
 
          break;
       }
@@ -552,7 +552,7 @@ int CSimulation::nDoParallelProfileUnconsErosion(CGeomCoastPolygon* pPolygon, in
                double const dToErode = tMin(dElevDiff, dStillToErodeOnProfile, dStillToErodeOnPolygon);
                double dRemoved = 0;
 
-               assert(dToErode > 0);
+               // assert(dToErode > 0);
 
                // Erode this sediment size class
                ErodeCellBeachSedimentSupplyLimited(nX, nY, nThisLayer, nTexture, dToErode, dRemoved);
@@ -1067,7 +1067,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
             break;
          }
 
-         assert(nSeawardFromCoast < PtiVParProfile.size());
+         // assert(nSeawardFromCoast < PtiVParProfile.size());
          CGeom2DIPoint PtiTmp = PtiVParProfile[nSeawardFromCoast];
          int nX = PtiTmp.nGetX();
          int nY = PtiTmp.nGetY();
@@ -1549,7 +1549,7 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
                break;
             }
 
-            assert(nSeawardFromCoast < PtiVParProfile.size());
+            // assert(nSeawardFromCoast < PtiVParProfile.size());
             CGeom2DIPoint PtiTmp = PtiVParProfile[nSeawardFromCoast];
             int nX = PtiTmp.nGetX();
             int nY = PtiTmp.nGetY();

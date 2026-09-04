@@ -1,8 +1,8 @@
 /home/dave/coast/CoastalME/src/2d_shape.h:41:25: warning: member variable 'm_VPtPoints' has protected visibility [misc-non-private-member-variables-in-classes]
    41 |    vector<CGeom2DPoint> m_VPtPoints;
       |                         ^
-/home/dave/coast/CoastalME/src/2di_shape.h:35:26: warning: member variable 'm_VPtiPoints' has protected visibility [misc-non-private-member-variables-in-classes]
-   35 |    vector<CGeom2DIPoint> m_VPtiPoints;
+/home/dave/coast/CoastalME/src/2di_shape.h:38:26: warning: member variable 'm_VPtiPoints' has protected visibility [misc-non-private-member-variables-in-classes]
+   38 |    vector<CGeom2DIPoint> m_VPtiPoints;
       |                          ^
 /home/dave/coast/CoastalME/src/assign_landforms.cpp:23:1: warning: included header cstddef is not used directly [misc-include-cleaner]
    23 | #include <cstddef>
@@ -12,10 +12,208 @@
    37 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
    38 | 
-/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:37:1: warning: included header coast.h is not used directly [misc-include-cleaner]
-   37 | #include "coast.h"
-      | ^~~~~~~~~~~~~~~~~~
-   38 | #include "simulation.h"
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:180:33: warning: no header providing "make_pair" is directly included [misc-include-cleaner]
+   21 |          prVCurvature.push_back(make_pair(nStartCoastPoint, dCurvature));
+      |                                 ^
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:184:7: warning: no header providing "std::sort" is directly included [misc-include-cleaner]
+   21 |       sort(prVCurvature.begin(), prVCurvature.end(), bCurvaturePairCompareDescending);
+      |       ^
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:221:10: warning: variable 'dDepthOfBreaking' of type 'double' can be declared 'const' [misc-const-correctness]
+  221 |          double dDepthOfBreaking = m_VCoast[nCoast].dGetDepthOfBreaking(nStartCoastPoint);
+      |          ^
+      |                 const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:300:13: warning: variable 'PtiStart' of type 'CGeom2DIPoint' can be declared 'const' [misc-const-correctness]
+  300 |             CGeom2DIPoint PtiStart = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(nStartCoastPoint);
+      |             ^
+      |                           const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:318:16: warning: variable 'nRtn' of type 'int' can be declared 'const' [misc-const-correctness]
+  318 |                int nRtn = nFindShadowZoneBoundaryFollowWave(nCoast, nStartCoastPoint, nShadowBoundaryEndCoastPoint, bHitEdge, bHitCoast, bHitSea, bStillInland, &PtiStart, dPrevWaveAngle, &ILShadowBoundary);
+      |                ^
+      |                    const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:326:16: warning: variable 'nRtn' of type 'int' can be declared 'const' [misc-const-correctness]
+  326 |                int nRtn = nFindShadowZoneBoundaryLine(nCoast, nStartCoastPoint, nShadowBoundaryEndCoastPoint, bHitEdge, bHitCoast, bHitSea, bStillInland, &PtiStart, dPrevWaveAngle, &ILShadowBoundary);
+      |                ^
+      |                    const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:358:22: warning: Value stored to 'nShadowEndCoastPoint' is never read [clang-analyzer-deadcode.DeadStores]
+  358 |                      nShadowEndCoastPoint = 0;
+      |                      ^                      ~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:358:22: note: Value stored to 'nShadowEndCoastPoint' is never read
+  358 |                      nShadowEndCoastPoint = 0;
+      |                      ^                      ~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:360:22: warning: Value stored to 'nShadowEndCoastPoint' is never read [clang-analyzer-deadcode.DeadStores]
+  360 |                      nShadowEndCoastPoint = nCoastSize-1;
+      |                      ^                      ~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:360:22: note: Value stored to 'nShadowEndCoastPoint' is never read
+  360 |                      nShadowEndCoastPoint = nCoastSize-1;
+      |                      ^                      ~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:407:13: warning: variable 'nShadowLineLen' of type 'int' can be declared 'const' [misc-const-correctness]
+  407 |             int nShadowLineLen = ILShadowBoundary.nGetSize();
+      |             ^
+      |                 const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:447:13: warning: variable 'nEndSZCoastPoint' of type 'int' can be declared 'const' [misc-const-correctness]
+  447 |             int nEndSZCoastPoint = m_VCoast[nCoast].nGetCoastPointGivenCell(&ILShadowBoundary[nShadowLineLen - 1]);
+      |             ^
+      |                 const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:462:19: warning: variable 'PtiTmp' of type 'CGeom2DIPoint' can be declared 'const' [misc-const-correctness]
+  462 |                   CGeom2DIPoint PtiTmp = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(n);
+      |                   ^
+      |                                 const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:480:19: warning: variable 'PtiTmp' of type 'CGeom2DIPoint' can be declared 'const' [misc-const-correctness]
+  480 |                   CGeom2DIPoint PtiTmp = *m_VCoast[nCoast].pPtiGetCellMarkedAsCoastline(n);
+      |                   ^
+      |                                 const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:603:13: warning: variable 'PtiEnd' of type 'CGeom2DIPoint' can be declared 'const' [misc-const-correctness]
+  603 |             CGeom2DIPoint PtiEnd = ILTmp.Back();
+      |             ^
+      |                           const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:618:16: warning: variable 'nEndDDCoastPoint' of type 'int' can be declared 'const' [misc-const-correctness]
+  618 |                int nEndDDCoastPoint = nEndSZCoastPoint + nAlongCoastDistanceDownDriftStartToEnd;
+      |                ^
+      |                    const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:621:16: warning: variable 'nSweepLength' of type 'int' can be declared 'const' [misc-const-correctness]
+  621 |                int nSweepLength = nEndSZCoastPoint - nEndDDCoastPoint;
+      |                ^
+      |                    const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:648:26: warning: Value stored to 'dX' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+  648 |                   double dX = dXStart;
+      |                          ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:648:26: note: Value stored to 'dX' during its initialization is never read
+  648 |                   double dX = dXStart;
+      |                          ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:649:26: warning: Value stored to 'dY' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+  649 |                   double dY = dYStart;
+      |                          ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:649:26: note: Value stored to 'dY' during its initialization is never read
+  649 |                   double dY = dYStart;
+      |                          ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:650:19: warning: variable 'dXEnd' of type 'double' can be declared 'const' [misc-const-correctness]
+  650 |                   double dXEnd = dGridCentroidXToExtCRSX(PtiSweepEnd.nGetX());
+      |                   ^
+      |                          const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:651:19: warning: variable 'dYEnd' of type 'double' can be declared 'const' [misc-const-correctness]
+  651 |                   double dYEnd = dGridCentroidYToExtCRSY(PtiSweepEnd.nGetY());
+      |                   ^
+      |                          const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:667:22: warning: variable 'nX' of type 'int' can be declared 'const' [misc-const-correctness]
+  667 |                      int nX = nRound(dExtCRSXToGridX(dX));
+      |                      ^
+      |                          const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:668:22: warning: variable 'nY' of type 'int' can be declared 'const' [misc-const-correctness]
+  668 |                      int nY = nRound(dExtCRSYToGridY(dY));
+      |                      ^
+      |                          const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:675:25: warning: Value stored to 'dX' is never read [clang-analyzer-deadcode.DeadStores]
+  675 |                         dX -= dXInc;
+      |                         ^     ~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:675:25: note: Value stored to 'dX' is never read
+  675 |                         dX -= dXInc;
+      |                         ^     ~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:676:25: warning: Value stored to 'dY' is never read [clang-analyzer-deadcode.DeadStores]
+  676 |                         dY -= dYInc;
+      |                         ^     ~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:676:25: note: Value stored to 'dY' is never read
+  676 |                         dY -= dYInc;
+      |                         ^     ~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:702:16: warning: variable 'nEndDDCoastPoint' of type 'int' can be declared 'const' [misc-const-correctness]
+  702 |                int nEndDDCoastPoint = nEndSZCoastPoint - nAlongCoastDistanceDownDriftStartToEnd;
+      |                ^
+      |                    const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:705:16: warning: variable 'nSweepLength' of type 'int' can be declared 'const' [misc-const-correctness]
+  705 |                int nSweepLength = nEndSZCoastPoint - nEndDDCoastPoint;
+      |                ^
+      |                    const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:732:26: warning: Value stored to 'dX' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+  732 |                   double dX = dXStart;
+      |                          ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:732:26: note: Value stored to 'dX' during its initialization is never read
+  732 |                   double dX = dXStart;
+      |                          ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:733:26: warning: Value stored to 'dY' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+  733 |                   double dY = dYStart;
+      |                          ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:733:26: note: Value stored to 'dY' during its initialization is never read
+  733 |                   double dY = dYStart;
+      |                          ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:734:19: warning: variable 'dXEnd' of type 'double' can be declared 'const' [misc-const-correctness]
+  734 |                   double dXEnd = dGridCentroidXToExtCRSX(PtiSweepEnd.nGetX());
+      |                   ^
+      |                          const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:735:19: warning: variable 'dYEnd' of type 'double' can be declared 'const' [misc-const-correctness]
+  735 |                   double dYEnd = dGridCentroidYToExtCRSY(PtiSweepEnd.nGetY());
+      |                   ^
+      |                          const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:751:22: warning: variable 'nX' of type 'int' can be declared 'const' [misc-const-correctness]
+  751 |                      int nX = nRound(dExtCRSXToGridX(dX));
+      |                      ^
+      |                          const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:752:22: warning: variable 'nY' of type 'int' can be declared 'const' [misc-const-correctness]
+  752 |                      int nY = nRound(dExtCRSYToGridY(dY));
+      |                      ^
+      |                          const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:759:25: warning: Value stored to 'dX' is never read [clang-analyzer-deadcode.DeadStores]
+  759 |                         dX += dXInc;
+      |                         ^     ~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:759:25: note: Value stored to 'dX' is never read
+  759 |                         dX += dXInc;
+      |                         ^     ~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:760:25: warning: Value stored to 'dY' is never read [clang-analyzer-deadcode.DeadStores]
+  760 |                         dY += dYInc;
+      |                         ^     ~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:760:25: note: Value stored to 'dY' is never read
+  760 |                         dY += dYInc;
+      |                         ^     ~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:868:7: warning: variable 'nY' of type 'int' can be declared 'const' [misc-const-correctness]
+  868 |       int nY = Pti.nGetY();
+      |       ^
+      |           const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:993:7: warning: variable 'nY' of type 'int' can be declared 'const' [misc-const-correctness]
+  993 |       int nY = Pti.nGetY();
+      |       ^
+      |           const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1062:4: warning: variable 'nTotAlongCoastDistanceToDownDriftEndpoint' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1062 |    int nTotAlongCoastDistanceToDownDriftEndpoint = 2 * nAlongCoastDistanceToShadowEndpoint;
+      |    ^
+      |        const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1167:4: warning: variable 'nLineLen' of type 'int' can be declared 'const' [misc-const-correctness]
+ 1167 |    int nLineLen = nRound(dLength / m_dCellSide) + 1;
+      |    ^
+      |        const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1252:4: warning: variable 'dKp' of type 'double' can be declared 'const' [misc-const-correctness]
+ 1252 |    double dKp = 1 - (0.5 * (1.0 - sin((PI * 90.0 * nSweep) / (180.0 * nSweepLength))));
+      |    ^
+      |           const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1380:7: warning: variable 'PtiNew' of type 'CGeom2DIPoint' can be declared 'const' [misc-const-correctness]
+ 1380 |       CGeom2DIPoint PtiNew = PtiFollowWaveAngle(&PtiPrev, dPrevWaveAngle, dCorrection);
+      |       ^
+      |                     const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1511:7: warning: variable 'dDeltaX' of type 'double' can be declared 'const' [misc-const-correctness]
+ 1511 |       double dDeltaX = m_dCellSide * sin(dWaveAngle * (PI/180));
+      |       ^
+      |              const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1512:7: warning: variable 'dDeltaY' of type 'double' can be declared 'const' [misc-const-correctness]
+ 1512 |       double dDeltaY = -m_dCellSide * cos(dWaveAngle * (PI/180));
+      |       ^
+      |              const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1633:14: warning: Value stored to 'dX' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+ 1633 |       double dX = dXStart;
+      |              ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1633:14: note: Value stored to 'dX' during its initialization is never read
+ 1633 |       double dX = dXStart;
+      |              ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1634:14: warning: Value stored to 'dY' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+ 1634 |       double dY = dYStart;
+      |              ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1634:14: note: Value stored to 'dY' during its initialization is never read
+ 1634 |       double dY = dYStart;
+      |              ^~   ~~~~~~~
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1635:7: warning: variable 'dXEnd' of type 'double' can be declared 'const' [misc-const-correctness]
+ 1635 |       double dXEnd = dGridCentroidXToExtCRSX(nXEnd);
+      |       ^
+      |              const 
+/home/dave/coast/CoastalME/src/calc_shadow_zones.cpp:1636:7: warning: variable 'dYEnd' of type 'double' can be declared 'const' [misc-const-correctness]
+ 1636 |       double dYEnd = dGridCentroidYToExtCRSY(nYEnd);
+      |       ^
+      |              const 
 /home/dave/coast/CoastalME/src/check_profile_intersection.cpp:24:1: warning: included header cstdio is not used directly [misc-include-cleaner]
    24 | #include <cstdio>
       | ^~~~~~~~~~~~~~~~~
@@ -24,19 +222,16 @@
    25 | #include <cmath>
       | ^~~~~~~~~~~~~~~~
    26 | 
-/home/dave/coast/CoastalME/src/cme.h:1279:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
- 1279 |    char chFill;
+/home/dave/coast/CoastalME/src/cme.h:1283:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
+ 1283 |    char chFill;
       |         ^
-/home/dave/coast/CoastalME/src/cme.h:1280:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
- 1280 |    int nWidth;
+/home/dave/coast/CoastalME/src/cme.h:1284:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
+ 1284 |    int nWidth;
       |        ^
 /home/dave/coast/CoastalME/src/coast.cpp:459:4: warning: pointee of variable 'pPolygon' of type 'CGeomCoastPolygon *' can be declared 'const' [misc-const-correctness]
   459 |    CGeomCoastPolygon* pPolygon = new CGeomCoastPolygon(m_pSim, nCoastID, nCoastPoint, nProfileUpCoast, nProfileDownCoast, pVIn, nNumPointsUpCoastProfile, nNumPointsDownCoastProfile, pPtiNode, pPtiAntiNode, bStartCoast, bEndCoast);
       |    ^                
       |                      const
-/home/dave/coast/CoastalME/src/coast.cpp:669:11: warning: no header providing "isfinite" is directly included [misc-include-cleaner]
-   23 |    assert(isfinite(dEnergy));
-      |           ^
 /home/dave/coast/CoastalME/src/coast.h:28:10: warning: circular header file dependency detected while including 'coast_landform.h', please check the include path [misc-header-include-cycle]
    28 | #include "coast_landform.h"
       |          ^
@@ -167,22 +362,18 @@
   413 |                CGeom2DIPoint PtiTmp = PtiExtCRSToGridRound(pPtTmp);
       |                ^
       |                              const 
-/home/dave/coast/CoastalME/src/create_profiles.cpp:414:10: warning: variable 'PtThis' of type 'CGeom2DPoint' can be declared 'const' [misc-const-correctness]
-  414 |          CGeom2DPoint PtThis = *m_VCoast[nCoast].pPtGetCoastlinePointExtCRS(nNormalPoint);
+/home/dave/coast/CoastalME/src/create_profiles.cpp:675:10: warning: variable 'nOtherProfile' of type 'int' can be declared 'const' [misc-const-correctness]
+  675 |          int nOtherProfile = m_pRasterGrid->m_Cell[nX][nY].nGetProfileID();
       |          ^
-      |                       const 
-/home/dave/coast/CoastalME/src/create_profiles.cpp:671:34: warning: variable 'nOtherProfile' of type 'int' can be declared 'const' [misc-const-correctness]
-  671 |          // We have hit a profile, is it a different coast?
-      |                                  ^
-      |                                      const 
-/home/dave/coast/CoastalME/src/create_profiles.cpp:672:50: warning: variable 'nOtherCoast' of type 'int' can be declared 'const' [misc-const-correctness]
-  672 |          int nOtherProfile = m_pRasterGrid->m_Cell[nX][nY].nGetProfileID();
-      |                                                  ^   
-      |                                                      const 
-/home/dave/coast/CoastalME/src/create_profiles.cpp:693:37: warning: variable 'nOtherCoast' of type 'int' can be declared 'const' [misc-const-correctness]
-  693 |          // We have hit a coast cell, is it a different coast?
-      |                                     ^
-      |                                         const 
+      |              const 
+/home/dave/coast/CoastalME/src/create_profiles.cpp:676:10: warning: variable 'nOtherCoast' of type 'int' can be declared 'const' [misc-const-correctness]
+  676 |          int nOtherCoast = m_pRasterGrid->m_Cell[nX][nY].nGetProfileCoastID();
+      |          ^
+      |              const 
+/home/dave/coast/CoastalME/src/create_profiles.cpp:697:10: warning: variable 'nOtherCoast' of type 'int' can be declared 'const' [misc-const-correctness]
+  697 |          int nOtherCoast = m_pRasterGrid->m_Cell[nX][nY].nGetCoastline();
+      |          ^
+      |              const 
 /home/dave/coast/CoastalME/src/do_barrier.cpp:20:1: warning: included header cstddef is not used directly [misc-include-cleaner]
    20 | #include <cstddef>
       | ^~~~~~~~~~~~~~~~~~
@@ -334,6 +525,10 @@
    69 |             double dCliffHeightAboveSWL = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus() - m_dThisIterSWL;
       |             ^
       |                    const 
+/home/dave/coast/CoastalME/src/do_cliff_collapse.cpp:224:45: warning: parameter 'nCoast' is unused [misc-unused-parameters]
+  224 | int CSimulation::nDoCliffCollapse(int const nCoast, int const nX, int const nY, double const dNotchElev)
+      |                                             ^~~~~~
+      |                                              /*nCoast*/
 /home/dave/coast/CoastalME/src/do_cliff_collapse.cpp:227:4: warning: variable 'dPreCollapseCellElevIncTalus' of type 'double' can be declared 'const' [misc-const-correctness]
   227 |    double dPreCollapseCellElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetConsSedTopElevIncTalus();
       |    ^
@@ -350,10 +545,22 @@
   457 |    double dPostCollapseCellElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus();
       |    ^
       |           const 
+/home/dave/coast/CoastalME/src/do_cliff_collapse.cpp:457:11: warning: Value stored to 'dPostCollapseCellElevNoTalus' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+  457 |    double dPostCollapseCellElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus();
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_cliff_collapse.cpp:457:11: note: Value stored to 'dPostCollapseCellElevNoTalus' during its initialization is never read
+  457 |    double dPostCollapseCellElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus();
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /home/dave/coast/CoastalME/src/do_cliff_collapse.cpp:458:4: warning: variable 'dPostCollapseCellElevIncTalus' of type 'double' can be declared 'const' [misc-const-correctness]
   458 |    double dPostCollapseCellElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
       |    ^
       |           const 
+/home/dave/coast/CoastalME/src/do_cliff_collapse.cpp:458:11: warning: Value stored to 'dPostCollapseCellElevIncTalus' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
+  458 |    double dPostCollapseCellElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/dave/coast/CoastalME/src/do_cliff_collapse.cpp:458:11: note: Value stored to 'dPostCollapseCellElevIncTalus' during its initialization is never read
+  458 |    double dPostCollapseCellElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /home/dave/coast/CoastalME/src/do_cliff_collapse.cpp:691:13: warning: variable 'nRet' of type 'int' can be declared 'const' [misc-const-correctness]
   691 |             int nRet = nDoCliffCollapse(nCoast, nXTmp, nYTmp, pCellLandform->dGetCliffNotchApexElev());
       |             ^
@@ -454,20 +661,20 @@
   915 |    char **papszMetadata = pDriver->GetMetadata();
       |    ^     
       |           const
-/home/dave/coast/CoastalME/src/gis_utils.cpp:1991:4: warning: variable 'nSize' of type 'size_t' (aka 'unsigned long') can be declared 'const' [misc-const-correctness]
- 1991 |    size_t nSize = pVPtiPoints->size();
+/home/dave/coast/CoastalME/src/gis_utils.cpp:1987:4: warning: variable 'nSize' of type 'size_t' (aka 'unsigned long') can be declared 'const' [misc-const-correctness]
+ 1987 |    size_t nSize = pVPtiPoints->size();
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/gis_utils.cpp:1999:7: warning: variable 'ipNext' of type 'CGeom2DIPoint' can be declared 'const' [misc-const-correctness]
- 1999 |       CGeom2DIPoint ipNext = (i == nSize ? pVPtiPoints->at(0) : pVPtiPoints->at(i));
+/home/dave/coast/CoastalME/src/gis_utils.cpp:1995:7: warning: variable 'ipNext' of type 'CGeom2DIPoint' can be declared 'const' [misc-const-correctness]
+ 1995 |       CGeom2DIPoint ipNext = (i == nSize ? pVPtiPoints->at(0) : pVPtiPoints->at(i));
       |       ^
       |                     const 
-/home/dave/coast/CoastalME/src/gis_utils.cpp:2016:16: warning: variable 'd' of type 'int' can be declared 'const' [misc-const-correctness]
- 2016 |                int d = (ip.nGetX() - pPtiStart->nGetX()) * (ipNext.nGetY() - pPtiStart->nGetY()) - (ipNext.nGetX() - pPtiStart->nGetX()) * (ip.nGetY() - pPtiStart->nGetY());
+/home/dave/coast/CoastalME/src/gis_utils.cpp:2012:16: warning: variable 'd' of type 'int' can be declared 'const' [misc-const-correctness]
+ 2012 |                int d = (ip.nGetX() - pPtiStart->nGetX()) * (ipNext.nGetY() - pPtiStart->nGetY()) - (ipNext.nGetX() - pPtiStart->nGetX()) * (ip.nGetY() - pPtiStart->nGetY());
       |                ^
       |                    const 
-/home/dave/coast/CoastalME/src/gis_utils.cpp:2030:16: warning: variable 'd' of type 'int' can be declared 'const' [misc-const-correctness]
- 2030 |                int d = (ip.nGetX() - pPtiStart->nGetX()) * (ipNext.nGetY() - pPtiStart->nGetY()) - (ipNext.nGetX() - pPtiStart->nGetX()) * (ip.nGetY() - pPtiStart->nGetY());
+/home/dave/coast/CoastalME/src/gis_utils.cpp:2026:16: warning: variable 'd' of type 'int' can be declared 'const' [misc-const-correctness]
+ 2026 |                int d = (ip.nGetX() - pPtiStart->nGetX()) * (ipNext.nGetY() - pPtiStart->nGetY()) - (ipNext.nGetX() - pPtiStart->nGetX()) * (ip.nGetY() - pPtiStart->nGetY());
       |                ^
       |                    const 
 /home/dave/coast/CoastalME/src/gis_vector.cpp:37:12: warning: no header providing "std::pair" is directly included [misc-include-cleaner]
@@ -501,187 +708,190 @@
   409 | bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlotTitle, string strExtra)
       |                                                                                               ^
       |                                                                                        const &
-/home/dave/coast/CoastalME/src/gis_vector.cpp:642:4: warning: no header providing "GDALDriver" is directly included [misc-include-cleaner]
+/home/dave/coast/CoastalME/src/gis_vector.cpp:633:4: warning: no header providing "GDALDriver" is directly included [misc-include-cleaner]
    23 |    GDALDriver* pGDALDriver = GetGDALDriverManager()->GetDriverByName(m_strVectorGISOutFormat.c_str());
       |    ^
-/home/dave/coast/CoastalME/src/gis_vector.cpp:642:30: warning: no header providing "GetGDALDriverManager" is directly included [misc-include-cleaner]
+/home/dave/coast/CoastalME/src/gis_vector.cpp:633:30: warning: no header providing "GetGDALDriverManager" is directly included [misc-include-cleaner]
    23 |    GDALDriver* pGDALDriver = GetGDALDriverManager()->GetDriverByName(m_strVectorGISOutFormat.c_str());
       |                              ^
-/home/dave/coast/CoastalME/src/gis_vector.cpp:660:4: warning: no header providing "OGRSpatialReference" is directly included [misc-include-cleaner]
+/home/dave/coast/CoastalME/src/gis_vector.cpp:649:4: warning: no header providing "OGRSpatialReference" is directly included [misc-include-cleaner]
    24 |    OGRSpatialReference OGRSpatialRef;
       |    ^
-/home/dave/coast/CoastalME/src/gis_vector.cpp:693:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  693 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:681:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  681 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:738:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  738 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:726:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  726 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:783:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  783 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:771:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  771 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:828:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  828 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:816:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  816 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:841:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  841 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:829:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  829 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:842:10: warning: variable 'OGRField3' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  842 |          OGRFieldDefn OGRField3(strFieldValue3.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:830:10: warning: variable 'OGRField3' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  830 |          OGRFieldDefn OGRField3(strFieldValue3.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:843:10: warning: variable 'OGRField4' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  843 |          OGRFieldDefn OGRField4(strFieldValue4.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:831:10: warning: variable 'OGRField4' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  831 |          OGRFieldDefn OGRField4(strFieldValue4.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:913:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  913 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:901:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  901 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:932:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  932 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:920:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  920 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:933:10: warning: variable 'OGRField3' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  933 |          OGRFieldDefn OGRField3(strFieldValue3.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:921:10: warning: variable 'OGRField3' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  921 |          OGRFieldDefn OGRField3(strFieldValue3.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:934:10: warning: variable 'OGRField4' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  934 |          OGRFieldDefn OGRField4(strFieldValue4.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:922:10: warning: variable 'OGRField4' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  922 |          OGRFieldDefn OGRField4(strFieldValue4.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:935:10: warning: variable 'OGRField5' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  935 |          OGRFieldDefn OGRField5(strFieldValue5.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:923:10: warning: variable 'OGRField5' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  923 |          OGRFieldDefn OGRField5(strFieldValue5.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:936:10: warning: variable 'OGRField6' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  936 |          OGRFieldDefn OGRField6(strFieldValue6.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:924:10: warning: variable 'OGRField6' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  924 |          OGRFieldDefn OGRField6(strFieldValue6.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:937:10: warning: variable 'OGRField7' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  937 |          OGRFieldDefn OGRField7(strFieldValue7.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:925:10: warning: variable 'OGRField7' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  925 |          OGRFieldDefn OGRField7(strFieldValue7.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:938:10: warning: variable 'OGRField8' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  938 |          OGRFieldDefn OGRField8(strFieldValue8.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:926:10: warning: variable 'OGRField8' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  926 |          OGRFieldDefn OGRField8(strFieldValue8.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:939:10: warning: variable 'OGRField9' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  939 |          OGRFieldDefn OGRField9(strFieldValue9.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:927:10: warning: variable 'OGRField9' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  927 |          OGRFieldDefn OGRField9(strFieldValue9.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:940:10: warning: variable 'OGRField12' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
-  940 |          OGRFieldDefn OGRField12(strFieldValue10.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:928:10: warning: variable 'OGRField12' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+  928 |          OGRFieldDefn OGRField12(strFieldValue10.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1079:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1079 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1067:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1067 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1226:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1226 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1214:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1214 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1235:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1235 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1223:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1223 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1332:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1332 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1320:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1320 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1339:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1339 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1327:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1327 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1346:10: warning: variable 'OGRField3' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1346 |          OGRFieldDefn OGRField3(strFieldValue3.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1334:10: warning: variable 'OGRField3' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1334 |          OGRFieldDefn OGRField3(strFieldValue3.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1353:10: warning: variable 'OGRField4' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1353 |          OGRFieldDefn OGRField4(strFieldValue4.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1341:10: warning: variable 'OGRField4' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1341 |          OGRFieldDefn OGRField4(strFieldValue4.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1360:10: warning: variable 'OGRField5' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1360 |          OGRFieldDefn OGRField5(strFieldValue5.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1348:10: warning: variable 'OGRField5' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1348 |          OGRFieldDefn OGRField5(strFieldValue5.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1367:10: warning: variable 'OGRField6' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1367 |          OGRFieldDefn OGRField6(strFieldValue6.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1355:10: warning: variable 'OGRField6' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1355 |          OGRFieldDefn OGRField6(strFieldValue6.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1374:10: warning: variable 'OGRField7' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1374 |          OGRFieldDefn OGRField7(strFieldValue7.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1362:10: warning: variable 'OGRField7' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1362 |          OGRFieldDefn OGRField7(strFieldValue7.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1381:10: warning: variable 'OGRField8' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1381 |          OGRFieldDefn OGRField8(strFieldValue8.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1369:10: warning: variable 'OGRField8' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1369 |          OGRFieldDefn OGRField8(strFieldValue8.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1445:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1445 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1433:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1433 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1454:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1454 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1442:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1442 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1541:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1541 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1529:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1529 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1548:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1548 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1536:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1536 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1555:10: warning: variable 'OGRField3' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1555 |          OGRFieldDefn OGRField3(strFieldValue3.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1543:10: warning: variable 'OGRField3' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1543 |          OGRFieldDefn OGRField3(strFieldValue3.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1562:10: warning: variable 'OGRField4' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1562 |          OGRFieldDefn OGRField4(strFieldValue4.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1550:10: warning: variable 'OGRField4' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1550 |          OGRFieldDefn OGRField4(strFieldValue4.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1569:10: warning: variable 'OGRField5' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1569 |          OGRFieldDefn OGRField5(strFieldValue5.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1557:10: warning: variable 'OGRField5' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1557 |          OGRFieldDefn OGRField5(strFieldValue5.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1576:10: warning: variable 'OGRField6' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1576 |          OGRFieldDefn OGRField6(strFieldValue6.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1564:10: warning: variable 'OGRField6' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1564 |          OGRFieldDefn OGRField6(strFieldValue6.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1583:10: warning: variable 'OGRField7' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1583 |          OGRFieldDefn OGRField7(strFieldValue7.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1571:10: warning: variable 'OGRField7' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1571 |          OGRFieldDefn OGRField7(strFieldValue7.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1638:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1638 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1626:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1626 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1687:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1687 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1675:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1675 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTInteger);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1739:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1739 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1727:10: warning: variable 'OGRField1' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1727 |          OGRFieldDefn OGRField1(strFieldValue1.c_str(), OFTReal);
       |          ^
       |                       const 
-/home/dave/coast/CoastalME/src/gis_vector.cpp:1748:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
- 1748 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTReal);
+/home/dave/coast/CoastalME/src/gis_vector.cpp:1736:10: warning: variable 'OGRField2' of type 'OGRFieldDefn' can be declared 'const' [misc-const-correctness]
+ 1736 |          OGRFieldDefn OGRField2(strFieldValue2.c_str(), OFTReal);
       |          ^
       |                       const 
+/home/dave/coast/CoastalME/src/i_line.cpp:37:1: warning: no header providing "CGeom2DIPoint" is directly included [misc-include-cleaner]
+   21 | CGeom2DIPoint* CGeomILine::pPtiGetAt(int const n)
+      | ^
 /home/dave/coast/CoastalME/src/init_grid.cpp:35:1: warning: included header coast.h is not used directly [misc-include-cleaner]
    35 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
    36 | #include "simulation.h"
-/home/dave/coast/CoastalME/src/init_grid.cpp:134:13: warning: no header providing "CRWCellTalus" is directly included [misc-include-cleaner]
+/home/dave/coast/CoastalME/src/init_grid.cpp:130:13: warning: no header providing "CRWCellTalus" is directly included [misc-include-cleaner]
    21 |             CRWCellTalus* pTalus = m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nLayer)->pGetTalus();
       |             ^
-/home/dave/coast/CoastalME/src/init_grid.cpp:135:27: warning: no header providing "NULL" is directly included [misc-include-cleaner]
+/home/dave/coast/CoastalME/src/init_grid.cpp:131:27: warning: no header providing "NULL" is directly included [misc-include-cleaner]
    25 |             if (pTalus != NULL)
       |                           ^
 /home/dave/coast/CoastalME/src/multi_line.cpp:154:9: warning: no header providing "size_t" is directly included [misc-include-cleaner]
@@ -903,17 +1113,17 @@
 /home/dave/coast/CoastalME/src/nanoflann.hpp:2677:52: warning: member variable 'm_data_matrix' has public visibility [misc-non-private-member-variables-in-classes]
  2677 |     const std::reference_wrapper<const MatrixType> m_data_matrix;
       |                                                    ^
-/home/dave/coast/CoastalME/src/read_input.cpp:3941:10: warning: pointee of variable 'pEvent' of type 'CRWSedInputEvent *' can be declared 'const' [misc-const-correctness]
- 3941 |          CRWSedInputEvent *pEvent = new CRWSedInputEvent(nID, ulEventTimeStep, dFineSedVol, dSandSedVol, dCoarseSedVol, dLen, dWidth); //, dThick);
+/home/dave/coast/CoastalME/src/read_input.cpp:3943:10: warning: pointee of variable 'pEvent' of type 'CRWSedInputEvent *' can be declared 'const' [misc-const-correctness]
+ 3943 |          CRWSedInputEvent *pEvent = new CRWSedInputEvent(nID, ulEventTimeStep, dFineSedVol, dSandSedVol, dCoarseSedVol, dLen, dWidth); //, dThick);
       |          ^
       |                            const
-/home/dave/coast/CoastalME/src/read_input.cpp:4541:19: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
- 4540 |                for (auto const &node : seq)
- 4541 |                   vecNums.push_back(node.nGetIntValue());
+/home/dave/coast/CoastalME/src/read_input.cpp:4543:19: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
+ 4542 |                for (auto const &node : seq)
+ 4543 |                   vecNums.push_back(node.nGetIntValue());
       |                   ^
-/home/dave/coast/CoastalME/src/read_input.cpp:4553:19: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
- 4552 |                for (auto const &node : seq)
- 4553 |                   vecTimes.push_back(node.GetULongValue());
+/home/dave/coast/CoastalME/src/read_input.cpp:4555:19: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
+ 4554 |                for (auto const &node : seq)
+ 4555 |                   vecTimes.push_back(node.GetULongValue());
       |                   ^
 /home/dave/coast/CoastalME/src/simulation.cpp:44:12: warning: using decl 'to_string' is unused [misc-unused-using-decls]
    44 | using std::to_string;
@@ -922,10 +1132,10 @@
    44 | using std::to_string;
       | ~~~~~~~~~~~^~~~~~~~~~
    45 | 
-/home/dave/coast/CoastalME/src/simulation.cpp:56:1: warning: included header coast.h is not used directly [misc-include-cleaner]
-   56 | #include "coast.h"
+/home/dave/coast/CoastalME/src/simulation.cpp:60:1: warning: included header coast.h is not used directly [misc-include-cleaner]
+   60 | #include "coast.h"
       | ^~~~~~~~~~~~~~~~~~
-   57 | 
+   61 | 
 /home/dave/coast/CoastalME/src/simulation.h:56:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
    56 | #include "configuration.h"
       |          ^
@@ -935,8 +1145,8 @@
 /home/dave/coast/CoastalME/src/configuration.cpp:26:10: note: 'configuration.h' included from here
    26 | #include "configuration.h"
       |          ^
-/home/dave/coast/CoastalME/src/simulation.h:62:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
-   62 | #include "configuration.h"
+/home/dave/coast/CoastalME/src/simulation.h:63:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
+   63 | #include "configuration.h"
       |          ^
 /home/dave/coast/CoastalME/src/configuration.h:34:10: note: 'simulation.h' included from here
    34 | #include "simulation.h"
@@ -944,8 +1154,8 @@
 /home/dave/coast/CoastalME/src/configuration.cpp:26:10: note: 'configuration.h' included from here
    26 | #include "configuration.h"
       |          ^
-/home/dave/coast/CoastalME/src/simulation.h:1949:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
- 1949 |    ofstream LogStream;
+/home/dave/coast/CoastalME/src/simulation.h:1954:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
+ 1954 |    ofstream LogStream;
       |             ^
 /home/dave/coast/CoastalME/src/smooth_line.cpp:614:7: warning: variable 'dMedian' of type 'double' can be declared 'const' [misc-const-correctness]
   614 |       double dMedian = dRunningMedianInsertAndCalc(&rm, pdVSlope->at(i));
@@ -1125,29 +1335,26 @@
  1972 |    struct tm* ptmRunTime = gmtime(&tRunTime);
       |    ^        
       |              const
-/home/dave/coast/CoastalME/src/write_output.cpp:1887:4: warning: variable 'dTmpTalusLostCoarseTot' of type 'double' can be declared 'const' [misc-const-correctness]
- 1887 |    double dTmpTalusLostCoarseTot = 0;
+/home/dave/coast/CoastalME/src/write_output.cpp:1889:4: warning: variable 'dTmpTalusLostCoarseTot' of type 'double' can be declared 'const' [misc-const-correctness]
+ 1889 |    double dTmpTalusLostCoarseTot = 0;
       |    ^
       |           const 
-/home/dave/coast/CoastalME/src/write_output.cpp:2348:13: warning: variable 'dSuspFine' of type 'double' can be declared 'const' [misc-const-correctness]
- 2348 |             double dSuspFine = m_pRasterGrid->m_Cell[nX][nY].dGetSuspendedSediment();
+/home/dave/coast/CoastalME/src/write_output.cpp:2350:13: warning: variable 'dSuspFine' of type 'double' can be declared 'const' [misc-const-correctness]
+ 2350 |             double dSuspFine = m_pRasterGrid->m_Cell[nX][nY].dGetSuspendedSediment();
       |             ^
       |                    const 
-/home/dave/coast/CoastalME/src/write_output.cpp:2356:13: warning: variable 'dUnconsFine' of type 'double' can be declared 'const' [misc-const-correctness]
- 2356 |             double dUnconsFine = m_pRasterGrid->m_Cell[nX][nY].dGetUnconsFineDepthAllLayers();
+/home/dave/coast/CoastalME/src/write_output.cpp:2358:13: warning: variable 'dUnconsFine' of type 'double' can be declared 'const' [misc-const-correctness]
+ 2358 |             double dUnconsFine = m_pRasterGrid->m_Cell[nX][nY].dGetUnconsFineDepthAllLayers();
       |             ^
       |                    const 
-/home/dave/coast/CoastalME/src/write_output.cpp:2364:13: warning: variable 'dUnconsSand' of type 'double' can be declared 'const' [misc-const-correctness]
- 2364 |             double dUnconsSand = m_pRasterGrid->m_Cell[nX][nY].dGetUnconsSandDepthAllLayers();
+/home/dave/coast/CoastalME/src/write_output.cpp:2366:13: warning: variable 'dUnconsSand' of type 'double' can be declared 'const' [misc-const-correctness]
+ 2366 |             double dUnconsSand = m_pRasterGrid->m_Cell[nX][nY].dGetUnconsSandDepthAllLayers();
       |             ^
       |                    const 
-/home/dave/coast/CoastalME/src/write_output.cpp:2372:13: warning: variable 'dUnconsCoarse' of type 'double' can be declared 'const' [misc-const-correctness]
- 2372 |             double dUnconsCoarse = m_pRasterGrid->m_Cell[nX][nY].dGetUnconsCoarseDepthAllLayers();
+/home/dave/coast/CoastalME/src/write_output.cpp:2374:13: warning: variable 'dUnconsCoarse' of type 'double' can be declared 'const' [misc-const-correctness]
+ 2374 |             double dUnconsCoarse = m_pRasterGrid->m_Cell[nX][nY].dGetUnconsCoarseDepthAllLayers();
       |             ^
       |                    const 
-/home/dave/coast/CoastalME/src/write_output.cpp:2716:11: warning: no header providing "isfinite" is directly included [misc-include-cleaner]
-   23 |    assert(isfinite(m_dThisIterPotentialPlatformErosion));
-      |           ^
 /home/dave/coast/CoastalME/src/yaml_parser.cpp:170:7: warning: 'push_back' is called inside a loop; consider pre-allocating the container capacity before the loop [performance-inefficient-vector-operation]
   168 |    for (auto const& node : m_VYamlChildren)
   169 |    {
@@ -1242,18 +1449,18 @@
 /home/dave/coast/CoastalME/src/2d_shape.h:41:25: warning: member variable 'm_VPtPoints' has protected visibility [misc-non-private-member-variables-in-classes]
    41 |    vector<CGeom2DPoint> m_VPtPoints;
       |                         ^
-/home/dave/coast/CoastalME/src/2di_shape.h:35:26: warning: member variable 'm_VPtiPoints' has protected visibility [misc-non-private-member-variables-in-classes]
-   35 |    vector<CGeom2DIPoint> m_VPtiPoints;
+/home/dave/coast/CoastalME/src/2di_shape.h:38:26: warning: member variable 'm_VPtiPoints' has protected visibility [misc-non-private-member-variables-in-classes]
+   38 |    vector<CGeom2DIPoint> m_VPtiPoints;
       |                          ^
 /home/dave/coast/CoastalME/src/cme.h:221:1: warning: included header csignal is not used directly [misc-include-cleaner]
   221 | #include <csignal>      // Only for programmatic debug breakpoints using gdb i.e. std::raise(SIGINT);
       | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   222 | 
-/home/dave/coast/CoastalME/src/cme.h:1279:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
- 1279 |    char chFill;
+/home/dave/coast/CoastalME/src/cme.h:1283:9: warning: member variable 'chFill' has public visibility [misc-non-private-member-variables-in-classes]
+ 1283 |    char chFill;
       |         ^
-/home/dave/coast/CoastalME/src/cme.h:1280:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
- 1280 |    int nWidth;
+/home/dave/coast/CoastalME/src/cme.h:1284:8: warning: member variable 'nWidth' has public visibility [misc-non-private-member-variables-in-classes]
+ 1284 |    int nWidth;
       |        ^
 /home/dave/coast/CoastalME/src/coast.h:28:10: warning: circular header file dependency detected while including 'coast_landform.h', please check the include path [misc-header-include-cycle]
    28 | #include "coast_landform.h"
@@ -1370,6 +1577,21 @@
    51 |    bool m_bUseSystemTimeForSeed;
       |    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    52 | 
+/home/dave/coast/CoastalME/src/i_line.h:37:4: warning: no header providing "CGeom2DIPoint" is directly included [misc-include-cleaner]
+   25 | #include "2di_shape.h"
+   26 | 
+   27 | class CGeomILine : public CA2DIShape
+   28 | {
+   29 |  private:
+   30 |  protected:
+   31 |    void Display(void) override;
+   32 | 
+   33 |  public:
+   34 |    CGeomILine(void);
+   35 |    ~CGeomILine(void) override;
+   36 | 
+   37 |    CGeom2DIPoint* pPtiGetAt(int const);
+      |    ^
 /home/dave/coast/CoastalME/src/multi_line.h:25:1: warning: included header cstddef is not used directly [misc-include-cleaner]
    25 | #include <cstddef>
       | ^~~~~~~~~~~~~~~~~~
@@ -1549,11 +1771,11 @@
 /home/dave/coast/CoastalME/src/simulation.h:56:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
    56 | #include "configuration.h"
       |          ^
-/home/dave/coast/CoastalME/src/simulation.h:62:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
-   62 | #include "configuration.h"
+/home/dave/coast/CoastalME/src/simulation.h:63:10: warning: circular header file dependency detected while including 'configuration.h', please check the include path [misc-header-include-cycle]
+   63 | #include "configuration.h"
       |          ^
-/home/dave/coast/CoastalME/src/simulation.h:1949:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
- 1949 |    ofstream LogStream;
+/home/dave/coast/CoastalME/src/simulation.h:1954:13: warning: member variable 'LogStream' has public visibility [misc-non-private-member-variables-in-classes]
+ 1954 |    ofstream LogStream;
       |             ^
 /home/dave/coast/CoastalME/src/spatial_interpolation.h:77:11: warning: member variable 'x' has public visibility [misc-non-private-member-variables-in-classes]
    77 |    double x, y;

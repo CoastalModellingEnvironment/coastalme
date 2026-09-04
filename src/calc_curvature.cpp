@@ -126,7 +126,7 @@ void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
          VnMaxConvexDetailedCoastPoint.clear();
          VnMaxConvexDetailedCoastPoint.push_back(mm);
       }
-      else if (m_VCoast[nCoast].dGetDetailedCurvature(mm) == dMaxConvexDetailed)
+      else if (bFPIsEqual(m_VCoast[nCoast].dGetDetailedCurvature(mm), dMaxConvexDetailed, TOLERANCE))
          VnMaxConvexDetailedCoastPoint.push_back(mm);
 
       // Smoothed curvature, maximum convexity
@@ -137,7 +137,7 @@ void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
          VnMaxConvexSmoothedCoastPoint.clear();
          VnMaxConvexSmoothedCoastPoint.push_back(mm);
       }
-      else if (m_VCoast[nCoast].dGetSmoothCurvature(mm) == dMaxConvexSmoothed)
+      else if (bFPIsEqual(m_VCoast[nCoast].dGetSmoothCurvature(mm), dMaxConvexSmoothed, TOLERANCE))
          VnMaxConvexSmoothedCoastPoint.push_back(mm);
 
       // Detailed curvature, maximum concavity
@@ -148,7 +148,7 @@ void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
          VnMaxConcaveDetailedCoastPoint.clear();
          VnMaxConcaveDetailedCoastPoint.push_back(mm);
       }
-      else if (m_VCoast[nCoast].dGetDetailedCurvature(mm) == dMaxConcaveDetailed)
+      else if (bFPIsEqual(m_VCoast[nCoast].dGetDetailedCurvature(mm), dMaxConcaveDetailed, TOLERANCE))
          VnMaxConcaveDetailedCoastPoint.push_back(mm);
 
       // Smoothed curvature, maximum concavity
@@ -159,7 +159,7 @@ void CSimulation::DoCoastCurvature(int const nCoast, int const nHandedness)
          VnMaxConcaveSmoothedCoastPoint.clear();
          VnMaxConcaveSmoothedCoastPoint.push_back(mm);
       }
-      else if (m_VCoast[nCoast].dGetSmoothCurvature(mm) == dMaxConcaveSmoothed)
+      else if (bFPIsEqual(m_VCoast[nCoast].dGetSmoothCurvature(mm), dMaxConcaveSmoothed, TOLERANCE))
          VnMaxConcaveSmoothedCoastPoint.push_back(mm);
    }
 

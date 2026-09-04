@@ -475,6 +475,9 @@ class CSimulation
    //! Are we saving wave uprush coarse files?
    bool m_bUpRushCoarseSave;
 
+   //! For shadow zones, follow wave direction?
+   bool m_bShadowFollowWaveDirection;
+
    //! Options for GDAL when handling raster files
    char** m_papszGDALRasterOptions;
 
@@ -1760,7 +1763,7 @@ private:
    void InterpolateWaveHeightToCoastPoints(int const);
    // void InterpolateWavePropertiesToCells(int const, int const, int const);
    void ModifyBreakingWavePropertiesWithinShadowZoneToCoastline(int const, int const);
-   int nFindShadowZoneBoundaryUpWave(int const, int const, int&, bool&, bool&, bool&, bool&, CGeom2DIPoint const*, double, CGeomILine*);
+   int nFindShadowZoneBoundaryFollowWave(int const, int const, int&, bool&, bool&, bool&, bool&, CGeom2DIPoint const*, double, CGeomILine*);
    int nFindShadowZoneBoundaryLine(int const, int const, int&, bool&, bool&, bool&, bool&, CGeom2DIPoint const*, double, CGeomILine*);
    static double dCalcCurvature(int const, CGeom2DPoint const*, CGeom2DPoint const*, CGeom2DPoint const*);
    void CalcD50AndFillWaveCalcHoles(void);
@@ -1768,17 +1771,19 @@ private:
    static bool bOnOrOffShoreAndUpOrDownCoast(double const, double const, int const, bool&);
    static CGeom2DIPoint PtiFollowWaveAngle(CGeom2DIPoint const*, double const, double&);
    // int nFindAllShadowZones(void);
-   int nCellByCellFillShadowZone(int const, int const, CGeom2DIPoint const*, CGeom2DIPoint const*, CGeom2DIPoint const*);
-   void ModifyWavesInShadowZoneAndDownDriftZone(int const, int const, int const, int const);
-   void ProcessDownDriftCell(int const, int const, int const, double const, int const);
-   void ProcessShadowZoneCell(int const, int const, int const, CGeom2DIPoint const*, int const, int const, int const);
+   int nCellByCellFillShadowZone(int const, int const, CGeom2DIPoint const*, CGeom2DIPoint const*, CGeom2DIPoint const*, vector<CGeom2DIPoint>*);
+   int nFindDownDriftBoundaryLine(int const, int const, CGeom2DIPoint const*, int const, int const, CGeomILine*, vector<CGeom2DIPoint>*, int&);
+   int nCellByCellFillDownDriftZone(int const, int const, CGeom2DIPoint const*, CGeom2DIPoint const*, CGeom2DIPoint const*, vector<CGeom2DIPoint>*);
+   void ModifyWavesOnDownDriftCell(int const, int const, int const, int const);
+   void ModifyWavesOnShadowZoneCell(int const, int const, int const, CGeom2DIPoint const*, CGeom2DIPoint const*);
+   void FillDownDriftZone();
    int nCreateAllPolygons(void);
    void RasterizePolygonJoiningLine(int const, CGeom2DIPoint const*, CGeom2DIPoint const*, int const);
    int nMarkPolygonCells(void);
    int nDoPolygonSharedBoundaries(void);
    void DoAllPotentialBeachErosion(void);
    int nDoAllActualBeachErosionAndDeposition(void);
-   int nDoParallelProfileUnconsErosion(CGeomCoastPolygon *, int const, int const, int const, int const, int const, int const, vector<CGeom2DIPoint> const*, vector<double> const*, double&, double&, double&);
+   int nDoParallelProfileUnconsErosion(CGeomCoastPolygon *, /*int const,*/ int const, int const, int const, /*int const,*/ int const, vector<CGeom2DIPoint> const*, vector<double> const*, double&, double&, double&);
    void ErodeCellBeachSedimentSupplyLimited(int const, int const, int const, int const, double const, double&);
    int nDoUnconsErosionOnPolygon(int const, CGeomCoastPolygon *, int const, double const, double&);
    int nDoUnconsDepositionOnPolygon(int const, CGeomCoastPolygon *, int const, double, double&);

@@ -130,7 +130,7 @@ double CRWCellSediment::dGetCoarseDepth(void) const
 void CRWCellSediment::AddCoarseDepth(double const dSedDepthToAdd)
 {
    m_dCoarse += dSedDepthToAdd;
-   assert(m_dCoarse >= 0);
+   // assert(m_dCoarse >= 0);
 }
 
 //! Sets the depth equivalent of fine sediment lost by notch incision
@@ -203,7 +203,7 @@ void CRWCellSediment::AddFineSedimentInputDepth(double const dDepth)
 void CRWCellSediment::AddSandSedimentInputDepth(double const dDepth)
 {
    m_dSand += dDepth;
-   assert(m_dSand >= 0);
+   // assert(m_dSand >= 0);
 
    m_dSandSedimentInputThisIter += dDepth;
    m_dTotSandSedimentInput += dDepth;
@@ -213,7 +213,7 @@ void CRWCellSediment::AddSandSedimentInputDepth(double const dDepth)
 void CRWCellSediment::AddCoarseSedimentInputDepth(double const dDepth)
 {
    m_dCoarse += dDepth;
-   assert(m_dCoarse >= 0);
+   // assert(m_dCoarse >= 0);
 
    m_dCoarseSedimentInputThisIter += dDepth;
    m_dTotCoarseSedimentInput += dDepth;

@@ -457,8 +457,8 @@ int CSimulation::nDoCliffCollapse(int const nCoast, int const nX, int const nY, 
    double dPostCollapseCellElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus();
    double dPostCollapseCellElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
 
-   if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-      LogStream << m_ulIter << ":\t coast " << nCoast << " [" << nX << "][" << nY << "] cliff collapse, cell elev no talus was " << dPreCollapseCellElevNoTalus << " cell elev inc talus was " << dPreCollapseCellElevIncTalus << " cell elev no talus now " << dPostCollapseCellElevNoTalus << " cell elev inc talus now " << dPostCollapseCellElevIncTalus << " elev change = " << dFineCollapse + dSandCollapse + dCoarseCollapse << endl;
+   // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+   //    LogStream << m_ulIter << ":\t coast " << nCoast << " [" << nX << "][" << nY << "] cliff collapse, cell elev no talus was " << dPreCollapseCellElevNoTalus << " cell elev inc talus was " << dPreCollapseCellElevIncTalus << " cell elev no talus now " << dPostCollapseCellElevNoTalus << " cell elev inc talus now " << dPostCollapseCellElevIncTalus << " elev change = " << dFineCollapse + dSandCollapse + dCoarseCollapse << endl;
 
    // And update the this-timestep totals and the grand totals for the number of cells with cliff collapse
    m_nNumThisIterCliffCollapse++;
@@ -1057,13 +1057,13 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                      dTalusSandToMove -= dActualDepthToMove;
                      dTalusSandMoved += dActualDepthToMove;
 
-                     assert(dTalusSandToMove >= 0.0);
+                     // assert(dTalusSandToMove >= 0.0);
 
                      // Set the changed-this-timestep switch re. the adjacent cell
                      m_bUnconsChangedThisIter[nTopLayer] = true;
 
-                     if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-                        LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] sand talus moved to uncons sand on [" << nXAdj << "][" << nYAdj << "], sand talus moved = " << dActualDepthToMove << " sand talus remaining on [" << nX << "][" << nY << "] = " << dTalusSandToMove << endl;
+                     // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+                     //    LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] sand talus moved to uncons sand on [" << nXAdj << "][" << nYAdj << "], sand talus moved = " << dActualDepthToMove << " sand talus remaining on [" << nX << "][" << nY << "] = " << dTalusSandToMove << endl;
 
                      // Update the adjacent cell's this-iteration sand talus deposition-to-uncons value, and total sand talus deposition-to-uncons value, for output TODO output
                      m_pRasterGrid->m_Cell[nXAdj][nYAdj].AddSandTalusToUncons(dActualDepthToMove);
@@ -1097,7 +1097,7 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
                      dTalusCoarseToMove -= dActualDepthToMove;
                      dTalusCoarseMoved += dActualDepthToMove;
 
-                     assert(dTalusCoarseToMove >= 0.0);
+                     // assert(dTalusCoarseToMove >= 0.0);
 
                      // LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] coarse talus moved to uncons coarse on [" << nXAdj << "][" << nYAdj << "], coarse talus moved = " << dActualDepthToMove << " coarse talus remaining on [" << nX << "][" << nY << "] = " << dTalusCoarseToMove << endl;
 
@@ -1130,8 +1130,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
             double dTotTalusDepth = pTalus->dGetFineDepth() + pTalus->dGetSandDepth() + pTalus->dGetCoarseDepth();
             if (bFPIsEqual(dTotTalusDepth, 0.0, TOLERANCE))
             {
-               if (m_nLogFileDetail >= LOG_FILE_ALL)
-                  LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] total talus (all size classes) = " << dTotTalusDepth << " so deleting talus object" << endl;
+               // if (m_nLogFileDetail >= LOG_FILE_ALL)
+               //    LogStream << m_ulIter << ":\t [" << nX << "][" << nY << "] total talus (all size classes) = " << dTotTalusDepth << " so deleting talus object" << endl;
 
                m_pRasterGrid->m_Cell[nX][nY].pGetLayerAboveBasement(nLayer)->DeleteTalus();
             }

@@ -44,9 +44,6 @@ class CGeomCell
    //! Switch to indicate that this cell is in the active zone
    bool m_bIsInActiveZone;
 
-   //! Switch to show this cell is 'under' a shadow boundary
-   bool m_bShadowBoundary;
-
    //! Switch to show that this cell could be the start of a coastline
    bool m_bPossibleCoastStartCell;
 
@@ -77,7 +74,7 @@ class CGeomCell
    //! If this cell is within a shadow zone, this is the ID number of the shadow zone
    int m_nShadowZoneNumber;
 
-   //! If this cell is within a downdrift zone, this is the ID  number of the downdrift zone
+   //! If this cell is within a downdrift zone, this is the ID number of the downdrift zone
    int m_nDownDriftZoneNumber;
 
    //! Used in erosion calculations, stored here for display purposes
@@ -280,9 +277,6 @@ class CGeomCell
    int nGetProfileCoastID(void) const;
    void SetCoastAndProfileID(int const, int const);
 
-   void SetShadowZoneBoundary(void);
-   bool bIsShadowZoneBoundary(void) const;
-
    void SetBoundingBoxEdge(int const);
    int nGetBoundingBoxEdge(void) const;
    bool bIsBoundingBoxEdge(void) const;
@@ -438,10 +432,13 @@ class CGeomCell
    double dGetInterventionHeight(void) const;
    double dGetInterventionTopElev(void) const;
 
+   bool bIsShadowZone(void) const;
    void SetShadowZoneNumber(int const);
    int nGetShadowZoneNumber(void) const;
-   bool bIsinThisShadowZone(int const) const;
-   bool bIsinAnyShadowZone(void) const;
+   bool bIsInThisShadowZone(int const) const;
+
+   bool bIsDownDriftZone(void) const;
+   bool bIsInThisDownDriftZone(int const) const;
    void SetDownDriftZoneNumber(int const);
    int nGetDownDriftZoneNumber(void) const;
 

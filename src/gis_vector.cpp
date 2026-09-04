@@ -1685,7 +1685,7 @@ bool CSimulation::bWriteVectorGISFile(int const nDataItem, string const* strPlot
 
          for (int i = 0; i < static_cast<int>(m_VCoast.size()); i++)
          {
-            for (int j = 0; j < m_VCoast[i].nGetNumShadowDowndriftBoundaries(); j++)
+            for (int j = 0; j < m_VCoast[i].nGetNumDownDriftBoundaries(); j++)
             {
                // Create a feature object, one per coast
                OGRFeature* pOGRFeature = OGRFeature::CreateFeature(pOGRLayer->GetLayerDefn());

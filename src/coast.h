@@ -272,8 +272,8 @@ class CRWCoast
    void AppendShadowBoundary(CGeomLine const*);
    CGeomLine* pGetShadowBoundary(int const);
 
-   int nGetNumShadowDowndriftBoundaries(void) const;
-   void AppendShadowDowndriftBoundary(CGeomLine const*);
+   int nGetNumDownDriftBoundaries(void) const;
+   void AppendDownDriftBoundary(CGeomLine const*);
    CGeomLine* pGetShadowDowndriftBoundary(int const);
 };
 #endif      // COAST_H

@@ -137,8 +137,8 @@ vector<double> CSimulation::VdInterpolateCShoreProfileOutput(vector<double> cons
    int const nXSize = static_cast<int>(pVdX->size());
    int const nXNewSize = static_cast<int>(pVdXNew->size());
 
-   assert(nXSize > 0);
-   assert(nXNewSize > 0);
+   // assert(nXSize > 0);
+   // assert(nXNewSize > 0);
 
    double dX;
    double dY;

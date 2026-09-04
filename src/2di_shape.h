@@ -25,6 +25,9 @@
 #include <vector>
 using std::vector;
 
+#include <algorithm>
+using std::reverse;
+
 #include "2di_point.h"
 
 class CA2DIShape
@@ -37,7 +40,6 @@ class CA2DIShape
    CA2DIShape(void);
    virtual ~CA2DIShape(void);
 
-   void Clear(void);
 
    virtual void Display() = 0;
 
@@ -54,10 +56,15 @@ class CA2DIShape
    // void InsertAtFront(int const, int const);
    void Append(CGeom2DIPoint const*);
    void Append(int const, int const);
+   void Append(CA2DIShape*);
    void AppendIfNotPrevious(int const, int const);
    void AppendIfNotPrevious(CGeom2DIPoint const*);
 
+   void Reverse(void);
+
    // void SetPoints(const vector<CGeom2DIPoint>*);
    // int nLookUp(CGeom2DIPoint*);
+
+   void Clear(void);
 };
 #endif // C2DISHAPE_H

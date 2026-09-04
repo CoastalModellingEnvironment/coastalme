@@ -744,7 +744,6 @@ int CSimulation::nDoAllPropagateWaves(void)
       {
          double const dBreakingWaveHeight = m_VCoast[nCoast].dGetBreakingWaveHeight(nCoastPoint);
          double const dCoastPointWavePeriod = m_VCoast[nCoast].dGetCoastDeepWaterWavePeriod(nCoastPoint);
-         double dWaveEnergy = 0;
 
          if (bFPIsEqual(dBreakingWaveHeight, DBL_NODATA, TOLERANCE))
          {
@@ -760,7 +759,7 @@ int CSimulation::nDoAllPropagateWaves(void)
             double const dErosiveWaveForce = pow(dBreakingWaveHeight, WALKDEN_HALL_PARAM_1) * pow(dCoastPointWavePeriod, WALKDEN_HALL_PARAM_2);
 
             // Calculate total wave energy at this coast point during this timestep
-            dWaveEnergy = dErosiveWaveForce * m_dTimeStep * 3600;
+            double const dWaveEnergy = dErosiveWaveForce * m_dTimeStep * 3600;
             m_VCoast[nCoast].SetWaveEnergyAtBreaking(nCoastPoint, dWaveEnergy);
          }
 
@@ -979,9 +978,9 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
          return nRet;
       }
 
-      assert(static_cast<int>(VdProfileDistXY.size()) == nProfileSize);
-      assert(static_cast<int>(VdProfileZ.size()) == nProfileSize);
-      assert(static_cast<int>(VdProfileFrictionFactor.size()) == nProfileSize);
+      // assert(static_cast<int>(VdProfileDistXY.size()) == nProfileSize);
+      // assert(static_cast<int>(VdProfileZ.size()) == nProfileSize);
+      // assert(static_cast<int>(VdProfileFrictionFactor.size()) == nProfileSize);
 
       if (VdProfileDistXY.empty())
       {
@@ -1340,7 +1339,8 @@ int CSimulation::nCalcWavePropertiesOnProfile(int const nCoast, int const nCoast
          if ((VdFractionBreakingWaves[nProfilePoint] >= 0.10) && (m_dDepthOfClosure >= m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth()) && (! bBreaking))
          {
             bBreaking = true;
-            assert(VdWaveHeight[nProfilePoint] >= 0);
+            // assert(VdWaveHeight[nProfilePoint] >= 0);
+
             dProfileBreakingWaveHeight = VdWaveHeight[nProfilePoint];
             dProfileBreakingWaveAngle = VdWaveDirection[nProfilePoint];
             dProfileBreakingDepth = m_pRasterGrid->m_Cell[nX][nY].dGetSeaDepth(); // Water depth for the cell 'under' this point in the profile
@@ -1695,10 +1695,10 @@ int CSimulation::nGetThisProfileElevationsForCShore(int const nCoast, CGeomProfi
       if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
       {
          // Down to basement
-         LogStream << WARN << "down to basement during wave calcs at [" << nX << "][" << nY << "] for coast " << pProfile->nGetCoastID() << " profile " << pProfile->nGetProfileID() << endl;
+         LogStream << ERR << "down to basement during wave calcs at [" << nX << "][" << nY << "] for coast " << pProfile->nGetCoastID() << " profile " << pProfile->nGetProfileID() << endl;
 
-         // return RTN_ERR_BASEMENT_DURING_WAVE_CALC;
-         return RTN_OK;
+         return RTN_ERR_BASEMENT_DURING_WAVE_CALC;
+         // return RTN_OK;
       }
 
       // Get the elevation for both consolidated and unconsolidated sediment (including any talus) on this cell
@@ -1863,7 +1863,7 @@ int CSimulation::nReadCShoreOutput(int const nProfile, string const *strCShoreFi
    // Using a simple linear interpolation approach
    vector<double> VdDistXYCopy(pVdProfileDistXYCME->begin(), pVdProfileDistXYCME->end());
 
-   assertVdXYDistCShoreTmp.size() == VdValuesCShore.size());
+   // assertVdXYDistCShoreTmp.size() == VdValuesCShore.size());
    *pVdInterpolatedValues = VdInterpolateCShoreProfileOutput(&VdXYDistCShoreTmp, &VdValuesCShore, &VdDistXYCopy);
 
    return RTN_OK;
@@ -2010,7 +2010,7 @@ void CSimulation::ModifyBreakingWavePropertiesWithinShadowZoneToCoastline(int co
       int const nY = pProfile->pPtiGetCellInProfile(nProfilePoint)->nGetY();
 
       // If there is any cell profile  within the shadow zone and waves are breaking then modify wave breaking properties otherwise continue
-      if (m_pRasterGrid->m_Cell[nX][nY].bIsinAnyShadowZone())
+      if (m_pRasterGrid->m_Cell[nX][nY].bIsShadowZone())
       {
          bProfileIsinShadowZone = true;
 
@@ -2040,7 +2040,7 @@ void CSimulation::ModifyBreakingWavePropertiesWithinShadowZoneToCoastline(int co
          dThisBreakingWaveHeight = dThisBreakingDepth * 0.78; // Likely CShore output wave height is not adequately reproduced due to input profile and wave properties. TODO 007 Finish surge and runup stuff. Does something need to be changed then?
       }
 
-      assert(dThisBreakingWaveHeight >= 0);
+      // assert(dThisBreakingWaveHeight >= 0);
       m_VCoast[nCoast].SetBreakingWaveHeight(nThisCoastPoint, dThisBreakingWaveHeight);
       m_VCoast[nCoast].SetBreakingWaveAngle(nThisCoastPoint, dThisBreakingWaveAngle);
       m_VCoast[nCoast].SetDepthOfBreaking(nThisCoastPoint, dThisBreakingDepth);
@@ -2186,7 +2186,7 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
       for (int n = nThisCoastPoint; n < nNextCoastPoint; n++)
       {
          // Set the breaking wave height, breaking wave angle, and depth of breaking for this coast point TODO 056 This assert sometimes fails: why?
-         assert(dNextBreakingWaveHeight >= 0);
+         // assert(dNextBreakingWaveHeight >= 0);
          m_VCoast[nCoast].SetBreakingWaveHeight(n, dNextBreakingWaveHeight);
          m_VCoast[nCoast].SetBreakingWaveAngle(n, dNextBreakingWaveAngle);
          m_VCoast[nCoast].SetDepthOfBreaking(n, dNextBreakingDepth);
@@ -2203,7 +2203,7 @@ void CSimulation::InterpolateWavePropertiesBetweenProfiles(int const nCoast, int
       for (int n = nThisCoastPoint + 1; n <= nNextCoastPoint; n++)
       {
          // Set the breaking wave height, breaking wave angle, and depth of breaking for this coast point TODO 056 This assert sometimes fails: why?
-         assert(dThisBreakingWaveHeight >= 0);
+         // assert(dThisBreakingWaveHeight >= 0);
          m_VCoast[nCoast].SetBreakingWaveHeight(n, dThisBreakingWaveHeight);
          m_VCoast[nCoast].SetBreakingWaveAngle(n, dThisBreakingWaveAngle);
          m_VCoast[nCoast].SetDepthOfBreaking(n, dThisBreakingDepth);
@@ -2443,9 +2443,9 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
             int nYTmp;
             int nActive = 0;
             int nShadow = 0;
-            int nShadowNum = 0;
+            // int nShadowNum = 0;
             int nDownDrift = 0;
-            int nDownDriftNum = 0;
+            // int nDownDriftNum = 0;
             int nCoast = 0;
             int nRead = 0;
             double dWaveHeight = 0;
@@ -2471,7 +2471,7 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                   if (nTmp != 0)
                   {
                      nShadow++;
-                     nShadowNum = nTmp;
+                     // nShadowNum = nTmp;
                   }
 
                   nTmp = m_pRasterGrid->m_Cell[nXTmp][nYTmp].nGetDownDriftZoneNumber();
@@ -2479,7 +2479,7 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                   if (nTmp > 0)
                   {
                      nDownDrift++;
-                     nDownDriftNum = nTmp;
+                     // nDownDriftNum = nTmp;
                   }
                }
                else
@@ -2506,7 +2506,7 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                   if (nTmp != 0)
                   {
                      nShadow++;
-                     nShadowNum = nTmp;
+                     // nShadowNum = nTmp;
                   }
 
                   nTmp = m_pRasterGrid->m_Cell[nXTmp][nYTmp].nGetDownDriftZoneNumber();
@@ -2514,7 +2514,7 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                   if (nTmp > 0)
                   {
                      nDownDrift++;
-                     nDownDriftNum = nTmp;
+                     // nDownDriftNum = nTmp;
                   }
                }
                else
@@ -2541,7 +2541,7 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                   if (nTmp != 0)
                   {
                      nShadow++;
-                     nShadowNum = nTmp;
+                     // nShadowNum = nTmp;
                   }
 
                   nTmp = m_pRasterGrid->m_Cell[nXTmp][nYTmp].nGetDownDriftZoneNumber();
@@ -2549,7 +2549,7 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                   if (nTmp > 0)
                   {
                      nDownDrift++;
-                     nDownDriftNum = nTmp;
+                     // nDownDriftNum = nTmp;
                   }
                }
                else
@@ -2571,24 +2571,24 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                   if (m_pRasterGrid->m_Cell[nXTmp][nYTmp].bIsInActiveZone())
                      nActive++;
 
-                  int nTmp = m_pRasterGrid->m_Cell[nXTmp][nYTmp].nGetShadowZoneNumber();
+                  // int nTmp = m_pRasterGrid->m_Cell[nXTmp][nYTmp].nGetShadowZoneNumber();
 
-                  if (nTmp != 0)
-                  {
-                     nShadow++;
-                     nShadowNum = nTmp;
-                  }
+                  // if (nTmp != 0)
+                  // {
+                  //    nShadow++;
+                  //    // nShadowNum = nTmp;
+                  // }
 
-                  nTmp = m_pRasterGrid->m_Cell[nXTmp][nYTmp].nGetDownDriftZoneNumber();
+                  // nTmp = m_pRasterGrid->m_Cell[nXTmp][nYTmp].nGetDownDriftZoneNumber();
 
-                  if (nTmp > 0)
-                  {
-                     nDownDrift++;
-                     nDownDriftNum = nTmp;
-                  }
+                  // if (nTmp > 0)
+                  // {
+                  //    nDownDrift++;
+                  //    // nDownDriftNum = nTmp;
+                  // }
                }
-               else
-                  nCoast++;
+               // else
+               //    nCoast++;
             }
 
             if (nRead > 0)
@@ -2622,29 +2622,29 @@ void CSimulation::CalcD50AndFillWaveCalcHoles(void)
                   m_pRasterGrid->m_Cell[nX][nY].SetWaveAngle(dWaveAngle);
                }
 
-               // Is this sea cell is not already marked as in a shadow zone (note could be marked as in a shadow zone but not yet processed: a -ve number)?
-               int const nShadowZoneCode = m_pRasterGrid->m_Cell[nX][nY].nGetShadowZoneNumber();
-
-               if (nShadowZoneCode <= 0)
-               {
-                  // If the cell has four neighbours which are all in a shadow zone, or four neighbours some of which are shadow zone and the remainder downdrift zone, or four neighbours some of which are shadow zone and the remainder coast; then it should also be in the shadow zone: give it the average of its neighbours
-                  if ((nShadow == 4) || (nShadow + nDownDrift == 4) || (nShadow + nCoast == 4))
-                  {
-                     m_pRasterGrid->m_Cell[nX][nY].SetShadowZoneNumber(nShadowNum);
-                     m_pRasterGrid->m_Cell[nX][nY].SetWaveHeight(dWaveHeight);
-                     m_pRasterGrid->m_Cell[nX][nY].SetWaveAngle(dWaveAngle);
-                  }
-               }
-
-               // If this sea cell is not marked as in a downdrift zone but has four neighbours which are in a downdrift zone, then it should also be in the downdrift zone: give it the average of its neighbours
-               int const nDownDriftZoneCode = m_pRasterGrid->m_Cell[nX][nY].nGetDownDriftZoneNumber();
-
-               if ((nDownDriftZoneCode == 0) && (nDownDrift == 4))
-               {
-                  m_pRasterGrid->m_Cell[nX][nY].SetDownDriftZoneNumber(nDownDriftNum);
-                  m_pRasterGrid->m_Cell[nX][nY].SetWaveHeight(dWaveHeight);
-                  m_pRasterGrid->m_Cell[nX][nY].SetWaveAngle(dWaveAngle);
-               }
+               // // Is this sea cell is not already marked as in a shadow zone (note could be marked as in a shadow zone but not yet processed: a -ve number)?
+               // int const nShadowZoneCode = m_pRasterGrid->m_Cell[nX][nY].nGetShadowZoneNumber();
+               //
+               // if (nShadowZoneCode <= 0)
+               // {
+               //    // If the cell has four neighbours which are all in a shadow zone, or four neighbours some of which are shadow zone and the remainder downdrift zone, or four neighbours some of which are shadow zone and the remainder coast; then it should also be in the shadow zone: give it the average of its neighbours
+               //    if ((nShadow == 4) || (nShadow + nDownDrift == 4) || (nShadow + nCoast == 4))
+               //    {
+               //       m_pRasterGrid->m_Cell[nX][nY].SetShadowZoneNumber(nShadowNum);
+               //       m_pRasterGrid->m_Cell[nX][nY].SetWaveHeight(dWaveHeight);
+               //       m_pRasterGrid->m_Cell[nX][nY].SetWaveAngle(dWaveAngle);
+               //    }
+               // }
+               //
+               // // If this sea cell is not marked as in a downdrift zone but has four neighbours which are in a downdrift zone, then it should also be in the downdrift zone: give it the average of its neighbours
+               // int const nDownDriftZoneCode = m_pRasterGrid->m_Cell[nX][nY].nGetDownDriftZoneNumber();
+               //
+               // if ((nDownDriftZoneCode == 0) && (nDownDrift == 4))
+               // {
+               //    m_pRasterGrid->m_Cell[nX][nY].SetDownDriftZoneNumber(nDownDriftNum);
+               //    m_pRasterGrid->m_Cell[nX][nY].SetWaveHeight(dWaveHeight);
+               //    m_pRasterGrid->m_Cell[nX][nY].SetWaveAngle(dWaveAngle);
+               // }
             }
          }
       }

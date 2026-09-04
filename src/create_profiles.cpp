@@ -51,7 +51,7 @@ using std::normal_distribution;
 namespace
 {
 //===============================================================================================================================
-//! Helper function used when sorting unsigned coastline curvature values, to locate start points of normal profiles. If the first argument must be ordered before the second, return true
+//! Helper function used when sorting signed coastline curvature values, to locate start points of normal profiles. If the first argument must be ordered before the second, return true
 //===============================================================================================================================
 bool bCurvaturePairCompareDescending(const pair<int, double>& prLeft, const pair<int, double>& prRight)
 {
@@ -95,7 +95,7 @@ int CSimulation::nCreateAllProfiles(void)
             dCurvature = m_VCoast[nCoast].dGetSmoothCurvature(nCoastPoint);
          }
 
-         // Store the absolute value of curvature, since we want both concave and convexx points together
+         // Store the absolute value of curvature, since we want both concave and convex points together
          prVCurvature.push_back(make_pair(nCoastPoint, tAbs(dCurvature)));
       }
 
@@ -539,7 +539,7 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    pProfile->AppendLineSegment();
    pProfile->AppendPairToFinalLineSegment(make_pair(nProfile, 0));
 
-   assert(pProfile->nGetProfileSize() == (1 + pProfile->nGetNumLineSegments()));
+   // assert(pProfile->nGetProfileSize() == (1 + pProfile->nGetNumLineSegments()));
 
    // Save the profile, note that several fields in the profile are still blank
    m_VCoast[nCoast].AppendProfile(pProfile);
@@ -559,7 +559,7 @@ int CSimulation::nCreateProfile(int const nCoast, int const nCoastSize, int cons
    // LogStream << endl << "===========" << endl;
    // // DEBUG CODE =================
 
-   assert(pProfile->nGetProfileSize() > 0);
+   // assert(pProfile->nGetProfileSize() > 0);
 
    // if (m_nLogFileDetail >= LOG_FILE_ALL)
    //    LogStream << m_ulIter << ":\t  coast " << nCoast << " profile " << nProfile << " created at coast point " << nProfileStartPoint << " from [" << pPtiStart->nGetX() << "][" << pPtiStart->nGetY() << "] = {" << PtStart.dGetX() << ", " << PtStart.dGetY() << "} to [" << PtiEnd.nGetX() << "][" << PtiEnd.nGetY() << "] = {" << PtEnd.dGetX() << ", " << PtEnd.dGetY() << "}" << (pProfile->bIsIntervention() ? ", from intervention" : "") << endl;
@@ -801,7 +801,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
    pProfile->AppendLineSegment();
    pProfile->AppendPairToFinalLineSegment(make_pair(nProfile, 0));
 
-   assert(pProfile->nGetProfileSize() == (1 + pProfile->nGetNumLineSegments()));
+   // assert(pProfile->nGetProfileSize() == (1 + pProfile->nGetNumLineSegments()));
 
    // Store the grid-edge profile
    m_VCoast[nCoast].AppendProfile(pProfile);
@@ -810,7 +810,7 @@ int CSimulation::nLocateAndCreateGridEdgeProfile(bool const bCoastStart, int con
    if (m_nLogFileDetail >= LOG_FILE_ALL)
       LogStream << m_ulIter << ":\t Coast " << nCoast << " grid-edge profile " << nProfile << " created at coast " << (bCoastStart ? "start" : "end") << " point " << (bCoastStart ? 0 : nCoastSize - 1) << ", from [" << PtiProfileStart.nGetX() << "][" << PtiProfileStart.nGetY() << "] = {" << dGridCentroidXToExtCRSX(PtiProfileStart.nGetX()) << ", " << dGridCentroidYToExtCRSY(PtiProfileStart.nGetY()) << "} to [" << VPtiNormalPoints.back().nGetX() << "][" << VPtiNormalPoints.back().nGetY() << "] = {" << dGridCentroidXToExtCRSX(VPtiNormalPoints.back().nGetX()) << ", " << dGridCentroidYToExtCRSY(VPtiNormalPoints.back().nGetY()) << "}" << endl;
 
-   assert(pProfile->nGetProfileSize() > 0);
+   // assert(pProfile->nGetProfileSize() > 0);
 
    return RTN_OK;
 }

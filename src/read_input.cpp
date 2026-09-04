@@ -835,6 +835,7 @@ bool CSimulation::bReadRunDataFile(void)
                   m_bCliffCollapseTimestepSave = true;
                   m_bUpRushSandSave = true;
                   m_bUpRushCoarseSave = true;
+                  m_bShadowFollowWaveDirection = false;
                }
                else if (strRH.find(RASTER_USUAL_OUTPUT_CODE) != string::npos)
                {
@@ -3209,6 +3210,16 @@ bool CSimulation::bReadRunDataFile(void)
                m_bSlumping = true;
 
             break;
+
+         case 89:
+            // For shadow zones, follow wave direction or use straight line? [f = follow, l = line]
+            m_bShadowFollowWaveDirection = false;
+
+            if (strRH.find('f') != string::npos)
+               m_bShadowFollowWaveDirection = true;
+
+            break;
+
          }
 
          // Did an error occur?
@@ -4822,6 +4833,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
       m_bPolygonUnconsSedGainOrLossSave = false;
       m_bUpRushSandSave = false;
       m_bUpRushCoarseSave = false;
+      m_bShadowFollowWaveDirection = false;
 
       // Set flags based on raster file codes (Case 11 implementation)
       for (string const &rasterCode : rasterFiles)
@@ -4932,6 +4944,8 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
             m_bUpRushSandSave = true;
          else if (code == "uprush_coarse")
             m_bUpRushCoarseSave = true;
+         else if (code == "shadow_follow")
+            m_bShadowFollowWaveDirection= false;
       }
    }
 

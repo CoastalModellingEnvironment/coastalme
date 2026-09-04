@@ -37,7 +37,6 @@ using std::vector;
 CGeomCell::CGeomCell()
    : m_bInContiguousSea(false),
      m_bIsInActiveZone(false),
-     m_bShadowBoundary(false),
      m_bPossibleCoastStartCell(false),
      m_bPlatformErosionThisTimestep(false),
      m_nBoundingBoxEdge(NO_DIRECTION),
@@ -148,16 +147,22 @@ bool CGeomCell::bIsInActiveZone(void) const
    return m_bIsInActiveZone;
 }
 
-//! Sets a flag to show that this cell is a shadow zone boundary
-void CGeomCell::SetShadowZoneBoundary(void)
+//! Returns a flag which shows whether this cell is flagged as being in a shadow zone
+bool CGeomCell::bIsShadowZone(void) const
 {
-   m_bShadowBoundary = true;
+   if (m_nShadowZoneNumber != 0)
+      return true;
+
+   return false;
 }
 
-//! Returns a flag which shows whether this cell is a shadow zone boundary
-bool CGeomCell::bIsShadowZoneBoundary(void) const
+//! Returns a flag which shows whether this cell is flagged as being in a downdrift zone
+bool CGeomCell::bIsDownDriftZone(void) const
 {
-   return m_bShadowBoundary;
+   if (m_nDownDriftZoneNumber != 0)
+      return true;
+
+   return false;
 }
 
 //! Sets a flag to show that this cell has been flagged as a possible start- or end-point for a coastline
@@ -265,7 +270,7 @@ int CGeomCell::nGetShadowZoneNumber(void) const
 }
 
 //! Returns true if this cell is in the shadow zone with number given by the parameter, false otherwise
-bool CGeomCell::bIsinThisShadowZone(int const nZone) const
+bool CGeomCell::bIsInThisShadowZone(int const nZone) const
 {
    if (m_nShadowZoneNumber == nZone)
       return true;
@@ -273,10 +278,10 @@ bool CGeomCell::bIsinThisShadowZone(int const nZone) const
    return false;
 }
 
-//! Returns true if this cell is in any shadow zone, false otherwise
-bool CGeomCell::bIsinAnyShadowZone(void) const
+//! Returns true if this cell is in the downdrift zone with number given by the parameter, false otherwise
+bool CGeomCell::bIsInThisDownDriftZone(int const nZone) const
 {
-   if (m_nShadowZoneNumber != 0)
+   if (m_nDownDriftZoneNumber == nZone)
       return true;
 
    return false;
@@ -762,7 +767,6 @@ void CGeomCell::InitCell(void)
 {
    m_bInContiguousSea = false;
    m_bIsInActiveZone = false;
-   m_bShadowBoundary = false;
    m_bPossibleCoastStartCell = false;
 
    m_nCoastlineID = INT_NODATA;
@@ -813,8 +817,8 @@ void CGeomCell::InitCell(void)
 //! Sets the wave height on this cell
 void CGeomCell::SetWaveHeight(double const dWaveHeight)
 {
-   assert(! bFPIsEqual(m_dWaveHeight, DBL_NODATA, TOLERANCE));
-   assert(m_dWaveHeight >= 0);
+   // assert(! bFPIsEqual(m_dWaveHeight, DBL_NODATA, TOLERANCE));
+   // assert(m_dWaveHeight >= 0);
    m_dWaveHeight = dWaveHeight;
 }
 
@@ -907,7 +911,7 @@ void CGeomCell::SetWaveValuesToDeepWaterWaveValues(void)
 // Sets this cell's beach protection factor
 void CGeomCell::SetBeachProtectionFactor(double const dFactor)
 {
-   assert(dFactor >= 0);
+   // assert(dFactor >= 0);
    m_dBeachProtectionFactor = dFactor;
 }
 

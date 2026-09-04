@@ -2183,8 +2183,16 @@ string CSimulation::strGetErrorText(int const nErr)
       strErr = "start point for cell-by-cell fill of wave shadow zone is outside grid";
       break;
 
+   case RTN_ERR_DOWNDRIFT_ZONE_FLOOD_FILL_NOGRID:
+      strErr = "start point for cell-by-cell fill of wave downdrift zone is outside grid";
+      break;
+
    case RTN_ERR_SHADOW_ZONE_FLOOD_START_POINT:
       strErr = "could not find start point for cell-by-cell fill of wave shadow zone";
+      break;
+
+   case RTN_ERR_DOWNDRIFT_ZONE_FLOOD_START_POINT:
+      strErr = "could not find start point for cell-by-cell fill of wave downdrift zone";
       break;
 
    case RTN_ERR_CSHORE_EMPTY_PROFILE:
@@ -2333,6 +2341,14 @@ string CSimulation::strGetErrorText(int const nErr)
 
    case RTN_ERR_GRID_EDGE_PROFILE_TOO_SHORT:
       strErr = "grid-edge profile is too short";
+      break;
+
+   case RTN_ERR_SHADOW_BOUNDARY_NOGOOD:
+      strErr = "Zero-length wave shadow boundary";
+      break;
+
+   case RTN_ERR_DOWNDRIFT_BOUNDARY_NOGOOD:
+      strErr = "Zero-length wave downdrift boundary";
       break;
 
    default:

@@ -192,6 +192,7 @@ CSimulation::CSimulation(void)
    m_bGDALOptimisations = false;
    m_bHighestSWLSoFar = false;
    m_bLowestSWLSoFar = false;
+   m_bShadowFollowWaveDirection = false;
 
    m_bGDALCanCreate = true;
    m_bCSVPerTimestepResults = true; // Default to CSV output format

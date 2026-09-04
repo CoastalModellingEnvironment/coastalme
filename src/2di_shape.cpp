@@ -93,6 +93,12 @@ void CA2DIShape::Append(int const nX, int const nY)
    m_VPtiPoints.push_back(CGeom2DIPoint(nX, nY));
 }
 
+//! Appends another 2D shape to this 2D shape
+void CA2DIShape::Append(CA2DIShape* pIShape)
+{
+   m_VPtiPoints.insert(m_VPtiPoints.end(), pIShape->pPtiVGetPoints()->begin(), pIShape->pPtiVGetPoints()->end());
+}
+
 //! Appends a new integer point to the vector which represents this 2D shape, but only if the point is not the same as the previous point in the vector
 void CA2DIShape::AppendIfNotPrevious(int const nX, int const nY)
 {
@@ -128,3 +134,9 @@ void CA2DIShape::AppendIfNotPrevious(CGeom2DIPoint const* pPtiIn)
 // else
 // return -1;
 // }
+
+//! Reverses the sequence of points in the vector which represents this 2D shape
+void CA2DIShape::Reverse(void)
+{
+   reverse(m_VPtiPoints.begin(), m_VPtiPoints.end());
+}

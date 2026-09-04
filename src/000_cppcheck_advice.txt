@@ -1,67 +1,70 @@
 2d_shape.cpp:109:0: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       if (bFPIsEqual(dPtX, m_VPtPoints[n].dGetX(), TOLERANCE) && bFPIsEqual(dPtY, m_VPtPoints[n].dGetY(), TOLERANCE))
 ^
-calc_waves.cpp:1878:19: style: The member function 'CSimulation::InterpolateCShoreOutput' can be static. [functionStatic]
+calc_shadow_zones.cpp:672:28: style: Variable 'dX' is assigned a value that is never used. [unreadVariable]
+                        dX -= dXInc;
+                           ^
+calc_shadow_zones.cpp:673:28: style: Variable 'dY' is assigned a value that is never used. [unreadVariable]
+                        dY -= dYInc;
+                           ^
+calc_shadow_zones.cpp:753:28: style: Variable 'dX' is assigned a value that is never used. [unreadVariable]
+                        dX += dXInc;
+                           ^
+calc_shadow_zones.cpp:754:28: style: Variable 'dY' is assigned a value that is never used. [unreadVariable]
+                        dY += dYInc;
+                           ^
+calc_waves.cpp:1877:19: style: The member function 'CSimulation::InterpolateCShoreOutput' can be static. [functionStatic]
 void CSimulation::InterpolateCShoreOutput(vector<double> const *pVdProfileDistXYCME, int const nOutSize, int const nProfileSize, vector<double> *pVdXYDistFromCShore, vector<double> *pVdFreeSurfaceStdCShore, vector<double> *pVdWaveSetupSurgeCShore, vector<double> *pVdSinWaveAngleRadiansCShore, vector<double> *pVdFractionBreakingWavesCShore, vector<double> *pVdFreeSurfaceStdCME, vector<double> *pVdWaveSetupSurgeCME, vector<double> *pVdSinWaveAngleRadiansCME, vector<double> *pVdFractionBreakingWavesCME)
                   ^
-simulation.h:1758:24: note: The member function 'CSimulation::InterpolateCShoreOutput' can be static.
+simulation.h:1759:24: note: The member function 'CSimulation::InterpolateCShoreOutput' can be static.
    /*   static */ void InterpolateCShoreOutput(vector<double> const*, int const, int const, vector<double>*, vector<double>*, vector<double>*, vector<double>*, vector<double>*, vector<double>*, vector<double>*, vector<double>*, vector<double>*);
                        ^
-calc_waves.cpp:1878:19: note: The member function 'CSimulation::InterpolateCShoreOutput' can be static.
+calc_waves.cpp:1877:19: note: The member function 'CSimulation::InterpolateCShoreOutput' can be static.
 void CSimulation::InterpolateCShoreOutput(vector<double> const *pVdProfileDistXYCME, int const nOutSize, int const nProfileSize, vector<double> *pVdXYDistFromCShore, vector<double> *pVdFreeSurfaceStdCShore, vector<double> *pVdWaveSetupSurgeCShore, vector<double> *pVdSinWaveAngleRadiansCShore, vector<double> *pVdFractionBreakingWavesCShore, vector<double> *pVdFreeSurfaceStdCME, vector<double> *pVdWaveSetupSurgeCME, vector<double> *pVdSinWaveAngleRadiansCME, vector<double> *pVdFractionBreakingWavesCME)
                   ^
-calc_waves.cpp:975:16: style: Condition 'nRet!=RTN_OK' is always false [knownConditionTrueFalse]
-      if (nRet != RTN_OK)
-               ^
-calc_waves.cpp:974:52: note: Calling function 'nGetThisProfileElevationsForCShore' returns 0
-      int nRet = nGetThisProfileElevationsForCShore(nCoast, pProfile, nProfileSize, &VdProfileDistXY, &VdProfileZ, &VdProfileFrictionFactor);
-                                                   ^
-calc_waves.cpp:974:52: note: Assignment 'nRet=nGetThisProfileElevationsForCShore(nCoast,pProfile,nProfileSize,&VdProfileDistXY,&VdProfileZ,&VdProfileFrictionFactor)', assigned value is 0
-      int nRet = nGetThisProfileElevationsForCShore(nCoast, pProfile, nProfileSize, &VdProfileDistXY, &VdProfileZ, &VdProfileFrictionFactor);
-                                                   ^
-calc_waves.cpp:975:16: note: Condition 'nRet!=RTN_OK' is always false
-      if (nRet != RTN_OK)
-               ^
-calc_waves.cpp:748:17: style: The scope of the variable 'dWaveEnergy' can be reduced. [variableScope]
-         double dWaveEnergy = 0;
-                ^
-calc_waves.cpp:249:26: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+calc_waves.cpp:248:26: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
          nPairStartIndex += VnNumTempProfilesPerPair[i];
                          ^
-calc_waves.cpp:496:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
+calc_waves.cpp:495:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-calc_waves.cpp:2395:28: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+calc_waves.cpp:2394:28: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       nTotPolygonAllCoasts +=  m_VCoast[nCoast].nGetNumPolygons();
                            ^
-calc_waves.cpp:748:29: style: Variable 'dWaveEnergy' is assigned a value that is never used. [unreadVariable]
-         double dWaveEnergy = 0;
+calc_waves.cpp:2543:29: style: Variable 'nShadow' is assigned a value that is never used. [unreadVariable]
+                     nShadow++;
                             ^
-cell.cpp:557:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+calc_waves.cpp:2551:32: style: Variable 'nDownDrift' is assigned a value that is never used. [unreadVariable]
+                     nDownDrift++;
+                               ^
+calc_waves.cpp:2556:25: style: Variable 'nCoast' is assigned a value that is never used. [unreadVariable]
+                  nCoast++;
+                        ^
+cell.cpp:562:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetConsFineDepth();
                 ^
-cell.cpp:568:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:573:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetUnconsFineDepth();
                 ^
-cell.cpp:579:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:584:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetConsSandDepth();
                 ^
-cell.cpp:590:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:595:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetUnconsSandDepth();
                 ^
-cell.cpp:601:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:606:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetConsCoarseDepth();
                 ^
-cell.cpp:612:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:617:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetUnconsCoarseDepth();
                 ^
-cell.cpp:623:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:628:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetAllConsDepth();
                 ^
-cell.cpp:634:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:639:17: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTotDepth += m_VLayerAboveBasement[n].dGetAllUnconsDepth();
                 ^
-cell.cpp:711:16: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
+cell.cpp:716:16: style: Consider using std::accumulate algorithm instead of a raw loop. [useStlAlgorithm]
       dTopElev += m_VLayerAboveBasement[n].dGetTotalThickness();
                ^
 cell_layer.cpp:38:14: warning: Class 'CRWCellLayer' does not have a copy constructor which is recommended since it has dynamic memory/resource management. [noCopyConstructor]
@@ -109,6 +112,18 @@ do_beach_sediment_movement.cpp:150:13: style: Consider using std::any_of algorit
 do_beach_sediment_movement.cpp:166:13: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
             {
             ^
+do_cliff_collapse.cpp:457:40: style: Variable 'dPostCollapseCellElevNoTalus' is assigned a value that is never used. [unreadVariable]
+   double dPostCollapseCellElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus();
+                                       ^
+do_cliff_collapse.cpp:458:41: style: Variable 'dPostCollapseCellElevIncTalus' is assigned a value that is never used. [unreadVariable]
+   double dPostCollapseCellElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
+                                        ^
+do_cliff_collapse.cpp:457:11: style: Variable 'dPostCollapseCellElevNoTalus' is assigned a value that is never used. [unreadVariable]
+   double dPostCollapseCellElevNoTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevOmitTalus();
+          ^
+do_cliff_collapse.cpp:458:11: style: Variable 'dPostCollapseCellElevIncTalus' is assigned a value that is never used. [unreadVariable]
+   double dPostCollapseCellElevIncTalus = m_pRasterGrid->m_Cell[nX][nY].dGetAllSedTopElevIncTalus();
+          ^
 do_shore_platform_erosion.cpp:1222:7: style: Consider using std::find_if algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
@@ -211,7 +226,7 @@ nanoflann.hpp:694:29: note: result is overwritten
 nanoflann.hpp:693:22: style: Local variable 'PI' shadows outer variable [shadowVariable]
         DistanceType PI     = pi_const<DistanceType>();
                      ^
-cme.h:733:14: note: Shadowed declaration
+cme.h:737:14: note: Shadowed declaration
 double const PI = 3.141592653589793238462643;
              ^
 nanoflann.hpp:693:22: note: Shadow variable
@@ -229,7 +244,7 @@ gis_raster.cpp:2214:15: style: Consider using std::accumulate algorithm instead 
 nanoflann.hpp:2551:13: performance: Prefer prefix ++/-- operators for non-primitive types. [postfixOperator]
             pointCount_++;
             ^
-gis_utils.cpp:1149:0: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
+gis_utils.cpp:1150:0: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
          if (! bWriteRasterGISFile(RASTER_PLOT_SLICE, &RASTER_PLOT_SLICE_TITLE, 0, m_VdSliceElev[i]))
 ^
 i_line.cpp:74:0: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
@@ -325,61 +340,61 @@ profile.h:117:9: note: The member function 'CGeomProfile::bIsPointInProfile' can
 profile.cpp:269:20: note: The member function 'CGeomProfile::bIsPointInProfile' can be static.
 bool CGeomProfile::bIsPointInProfile(double const dX, double const dY, int& nPoint)
                    ^
-read_input.cpp:1744:54: style: Redundant condition: m_nProfileSmoothingWindowSize>0. 'A || (!A && B)' is equivalent to 'A || B' [redundantCondition]
+read_input.cpp:1736:54: style: Redundant condition: m_nProfileSmoothingWindowSize>0. 'A || (!A && B)' is equivalent to 'A || B' [redundantCondition]
             if ((m_nProfileSmoothingWindowSize <= 0) || (m_nProfileSmoothingWindowSize > 0 && !(m_nProfileSmoothingWindowSize % 2)))
                                                      ^
-read_input.cpp:4632:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
-            strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
-                         ^
 read_input.cpp:4634:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
-            strNumeric = strNumeric.substr(0, strNumeric.find("day"));
+            strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
                          ^
 read_input.cpp:4636:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
-            strNumeric = strNumeric.substr(0, strNumeric.find("week"));
-                         ^
-read_input.cpp:4638:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
-            strNumeric = strNumeric.substr(0, strNumeric.find("month"));
-                         ^
-read_input.cpp:4640:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
-            strNumeric = strNumeric.substr(0, strNumeric.find("year"));
-                         ^
-read_input.cpp:4661:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
-            strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
-                         ^
-read_input.cpp:4663:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("day"));
                          ^
-read_input.cpp:4665:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4638:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("week"));
                          ^
-read_input.cpp:4667:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4640:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("month"));
                          ^
-read_input.cpp:4669:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+read_input.cpp:4642:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
             strNumeric = strNumeric.substr(0, strNumeric.find("year"));
                          ^
-read_input.cpp:3405:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:4663:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+            strNumeric = strNumeric.substr(0, strNumeric.find("hour"));
+                         ^
+read_input.cpp:4665:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+            strNumeric = strNumeric.substr(0, strNumeric.find("day"));
+                         ^
+read_input.cpp:4667:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+            strNumeric = strNumeric.substr(0, strNumeric.find("week"));
+                         ^
+read_input.cpp:4669:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+            strNumeric = strNumeric.substr(0, strNumeric.find("month"));
+                         ^
+read_input.cpp:4671:26: performance: Ineffective call of function 'substr' because a prefix of the string is assigned to itself. Use resize() or pop_back() instead. [uselessCallsSubstr]
+            strNumeric = strNumeric.substr(0, strNumeric.find("year"));
+                         ^
+read_input.cpp:3407:7: style: Consider using std::any_of algorithm instead of a raw loop. [useStlAlgorithm]
       {
       ^
-read_input.cpp:4541:27: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:4543:27: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
                   vecNums.push_back(node.nGetIntValue());
                           ^
-read_input.cpp:4553:28: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+read_input.cpp:4555:28: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
                   vecTimes.push_back(node.GetULongValue());
                            ^
-read_input.cpp:4767:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
+read_input.cpp:4769:14: style: Variable 'strErr' is assigned a value that is never used. [unreadVariable]
       strErr = "max save digits for GIS output file names must be > 1";
              ^
-simulation.cpp:529:14: warning: Class 'CSimulation' does not have a copy constructor which is recommended since it has dynamic memory/resource management. [noCopyConstructor]
+simulation.cpp:533:14: warning: Class 'CSimulation' does not have a copy constructor which is recommended since it has dynamic memory/resource management. [noCopyConstructor]
       delete m_pRasterGrid;
              ^
-simulation.cpp:529:14: warning: Class 'CSimulation' does not have a operator= which is recommended since it has dynamic memory/resource management. [noOperatorEq]
+simulation.cpp:533:14: warning: Class 'CSimulation' does not have a operator= which is recommended since it has dynamic memory/resource management. [noOperatorEq]
       delete m_pRasterGrid;
              ^
 smooth_line.cpp:636:21: style: The member function 'CSimulation::dRunningMedianInsertAndCalc' can be static. [functionStatic]
 double CSimulation::dRunningMedianInsertAndCalc(RunningMedian* rm, double const dValue) const
                     ^
-simulation.h:1933:11: note: The member function 'CSimulation::dRunningMedianInsertAndCalc' can be static.
+simulation.h:1938:11: note: The member function 'CSimulation::dRunningMedianInsertAndCalc' can be static.
    double dRunningMedianInsertAndCalc(RunningMedian*, double const) const;
           ^
 smooth_line.cpp:636:21: note: The member function 'CSimulation::dRunningMedianInsertAndCalc' can be static.
@@ -457,28 +472,25 @@ yaml_parser.h:95:20: performance: Function 'GetRoot()' should return member 'm_R
 yaml_parser.cpp:170:18: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
       VstrResult.push_back(*node.pStrGetValue());
                  ^
-2di_shape.cpp:54:18: style: The function 'Clear' is never used. [unusedFunction]
-void CA2DIShape::Clear(void)
-                 ^
-cell.cpp:170:17: style: The function 'bIsPossibleCoastStartCell' is never used. [unusedFunction]
+cell.cpp:175:17: style: The function 'bIsPossibleCoastStartCell' is never used. [unusedFunction]
 bool CGeomCell::bIsPossibleCoastStartCell(void) const
                 ^
-cell.cpp:182:17: style: The function 'bActualPlatformErosion' is never used. [unusedFunction]
+cell.cpp:187:17: style: The function 'bActualPlatformErosion' is never used. [unusedFunction]
 bool CGeomCell::bActualPlatformErosion(void) const
                 ^
-cell.cpp:355:17: style: The function 'bElevLessThanSWL' is never used. [unusedFunction]
+cell.cpp:360:17: style: The function 'bElevLessThanSWL' is never used. [unusedFunction]
 bool CGeomCell::bElevLessThanSWL(void) const
                 ^
-cell.cpp:1028:19: style: The function 'dGetTotFineTalusToSuspension' is never used. [unusedFunction]
+cell.cpp:1032:19: style: The function 'dGetTotFineTalusToSuspension' is never used. [unusedFunction]
 double CGeomCell::dGetTotFineTalusToSuspension(void)
                   ^
-cell.cpp:1047:19: style: The function 'dGetTotSandTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1051:19: style: The function 'dGetTotSandTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetTotSandTalusToUncons(void)
                   ^
-cell.cpp:1066:19: style: The function 'dGetTotCoarseTalusToUncons' is never used. [unusedFunction]
+cell.cpp:1070:19: style: The function 'dGetTotCoarseTalusToUncons' is never used. [unusedFunction]
 double CGeomCell::dGetTotCoarseTalusToUncons(void)
                   ^
-cell.cpp:1169:19: style: The function 'dGetTotAvalancheDeposition' is never used. [unusedFunction]
+cell.cpp:1173:19: style: The function 'dGetTotAvalancheDeposition' is never used. [unusedFunction]
 double CGeomCell::dGetTotAvalancheDeposition(void) const
                   ^
 cell_landform.cpp:54:23: style: The function 'SetCoast' is never used. [unusedFunction]
@@ -601,12 +613,15 @@ double CSimulation::dTriangleAreax2(CGeom2DPoint const* pPtA, CGeom2DPoint const
 gis_utils.cpp:454:28: style: The function 'PtiAverage' is never used. [unusedFunction]
 CGeom2DIPoint CSimulation::PtiAverage(CGeom2DIPoint const* pPti1, CGeom2DIPoint const* pPti2)
                            ^
-gis_utils.cpp:1794:18: style: The function 'nGetOppositeDirection' is never used. [unusedFunction]
+gis_utils.cpp:1790:18: style: The function 'nGetOppositeDirection' is never used. [unusedFunction]
 int CSimulation::nGetOppositeDirection(int const nDirection)
                  ^
-gis_utils.cpp:1961:19: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]
+gis_utils.cpp:1957:19: style: The function 'bIsAdjacentEdgeCell' is never used. [unusedFunction]
 bool CSimulation::bIsAdjacentEdgeCell(CGeom2DIPoint const* pPt1, CGeom2DIPoint const* pPt2)
                   ^
+i_line.cpp:37:28: style: The function 'pPtiGetAt' is never used. [unusedFunction]
+CGeom2DIPoint* CGeomILine::pPtiGetAt(int const n)
+                           ^
 nanoflann.hpp:427:41: style: The function 'worst_item' is never used. [unusedFunction]
     ResultItem<IndexType, DistanceType> worst_item() const
                                         ^
@@ -643,10 +658,10 @@ spatial_interpolation.h:123:18: style: The function 'GetKDTree' is never used. [
 spatial_interpolation.h:126:22: style: The function 'GetPointCloud' is never used. [unusedFunction]
    PointCloud const& GetPointCloud() const { return m_cloud; }
                      ^
-utils.cpp:2464:21: style: The function 'pstrChangeToBackslash' is never used. [unusedFunction]
+utils.cpp:2480:21: style: The function 'pstrChangeToBackslash' is never used. [unusedFunction]
 string CSimulation::pstrChangeToBackslash(string const* strIn)
                     ^
-utils.cpp:2474:21: style: The function 'pstrChangeToForwardSlash' is never used. [unusedFunction]
+utils.cpp:2490:21: style: The function 'pstrChangeToForwardSlash' is never used. [unusedFunction]
 string CSimulation::pstrChangeToForwardSlash(string const* strIn)
                     ^
 yaml_parser.cpp:103:16: style: The function 'nVNodeGetSequenceSize' is never used. [unusedFunction]
