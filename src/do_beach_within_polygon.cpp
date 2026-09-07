@@ -947,7 +947,10 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
          // LogStream << "[" << PtiVParProfile[m].nGetX() << "][" << PtiVParProfile[m].nGetY() << "] ";
          // LogStream << endl;
 
-         double const dInc = dParProfDeanLen / (nParProfLen - nSeawardOffset - 2);
+         // Safety check
+         int nTmp = tMax(nParProfLen - nSeawardOffset - 2, 1);
+
+         double const dInc = dParProfDeanLen / nTmp;
 
          // The elevation of the coast point in the Dean profile is the same as the elevation of the current coast point, ignoring any talus (since talus is assumed to be removed quickly) TODO 020 Is this correct? Should it be dParProfStartElev?
          double const dCoastElev = m_pRasterGrid->m_Cell[nCoastX][nCoastY].dGetAllSedTopElevOmitTalus();
@@ -1429,7 +1432,10 @@ int CSimulation::nDoUnconsDepositionOnPolygon(int const nCoast, CGeomCoastPolygo
             nParProfLen = static_cast<int>(PtiVParProfile.size());
             VdParProfileDeanElev.resize(nParProfLen, 0);
 
-            double const dInc = dParProfDeanLen / (nParProfLen - nSeawardOffset - 2);
+            // Safety check
+            int nTmp = tMax(nParProfLen - nSeawardOffset - 2, 1);
+
+            double const dInc = dParProfDeanLen / nTmp;
 
             // The elevation of the coast point in the Dean profile is the same as the elevation of the current coast point TODO 020 Is this correct? Should it be dParProfStartElev?
             double const dCoastElev = m_pRasterGrid->m_Cell[nCoastX][nCoastY].dGetAllSedTopElevOmitTalus();

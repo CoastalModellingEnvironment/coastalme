@@ -642,7 +642,7 @@ int CSimulation::nDoAllShadowZones(void)
                   if (n >= nCoastSize)
                   {
                      // TODO
-                     LogStream << m_ulIter << ":  n = " << n << " coast size = " << nCoastSize << endl;
+                     // LogStream << m_ulIter << ":  n = " << n << " coast size = " << nCoastSize << endl;
                      continue;
                   }
 
@@ -650,7 +650,7 @@ int CSimulation::nDoAllShadowZones(void)
                   if (n < 0)
                   {
                      // TODO
-                     LogStream << m_ulIter << ":  n = " << n << endl;
+                     // LogStream << m_ulIter << ":  n = " << n << endl;
                      continue;
                   }
 
@@ -723,7 +723,7 @@ int CSimulation::nDoAllShadowZones(void)
                   if (n >= nCoastSize)
                   {
                      // TODO
-                     LogStream << m_ulIter << ":  n = " << n << " coast size = " << nCoastSize << endl;
+                     // LogStream << m_ulIter << ":  n = " << n << " coast size = " << nCoastSize << endl;
                      continue;
                   }
 
@@ -731,7 +731,7 @@ int CSimulation::nDoAllShadowZones(void)
                   if (n < 0)
                   {
                      // TODO
-                     LogStream << m_ulIter << ":  n = " << n << endl;
+                     // LogStream << m_ulIter << ":  n = " << n << endl;
                      continue;
                   }
 
@@ -1284,7 +1284,7 @@ void CSimulation::ModifyWavesOnShadowZoneCell(int const nX, int const nY, int co
       m_pRasterGrid->m_Cell[nX][nY].SetWaveAngle(0);
       m_pRasterGrid->m_Cell[nX][nY].SetWaveHeight(0);
 
-      LogStream << m_ulIter << ":  on shadow linking line with coast end [" << pPtiSDStart->nGetX() << "][" << pPtiSDStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiSDStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiSDStart->nGetY()) << "} and shadow boundary end [" << pPtiSDEnd->nGetX() << "][" << pPtiSDEnd->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiSDEnd->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiSDEnd->nGetY()) << "}, this point [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl << "angle subtended = " << dOmega << " degrees, m_pRasterGrid->m_Cell[" << nX << "][" << nY << "].dGetCellDeepWaterWaveHeight() = " << m_pRasterGrid->m_Cell[nX][nY].dGetCellDeepWaterWaveHeight() << " degrees, wave orientation = 0 degrees, wave height = 0 m" << endl;
+      // LogStream << m_ulIter << ":  on shadow linking line with coast end [" << pPtiSDStart->nGetX() << "][" << pPtiSDStart->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiSDStart->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiSDStart->nGetY()) << "} and shadow boundary end [" << pPtiSDEnd->nGetX() << "][" << pPtiSDEnd->nGetY() << "] = {" << dGridCentroidXToExtCRSX(pPtiSDEnd->nGetX()) << ", " << dGridCentroidYToExtCRSY(pPtiSDEnd->nGetY()) << "}, this point [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl << "angle subtended = " << dOmega << " degrees, m_pRasterGrid->m_Cell[" << nX << "][" << nY << "].dGetCellDeepWaterWaveHeight() = " << m_pRasterGrid->m_Cell[nX][nY].dGetCellDeepWaterWaveHeight() << " degrees, wave orientation = 0 degrees, wave height = 0 m" << endl;
    }
    else
    {
@@ -1422,7 +1422,7 @@ int CSimulation::nFindShadowZoneBoundaryFollowWave(int const nCoast, int const n
       // Store the coordinates of every cell which we cross
       pILShadowBoundary->Append(&PtiNew);
 
-      LogStream << m_ulIter << ": at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+      // LogStream << m_ulIter << ": at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
 
       // Having hit sea, have we now hit we hit a coast point? Note that two diagonal(ish) raster lines can cross each other without any intersection, so must also test an adjacent cell for intersection (does not matter which adjacent cell)
       if (bHitSea)
@@ -1525,7 +1525,7 @@ int CSimulation::nFindShadowZoneBoundaryLine(int const nCoast, int const nStartP
       nXEnd = nX;
       nYEnd = nY;
 
-      LogStream << m_ulIter << ":  in shadow zone boundary loop at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
+      // LogStream << m_ulIter << ":  in shadow zone boundary loop at [" << nX << "][" << nY << "] = {" << dGridCentroidXToExtCRSX(nX) << ", " << dGridCentroidYToExtCRSY(nY) << "}" << endl;
 
       // Have we hit the edge of the valid part of the grid?
       if (! bIsWithinValidGrid(nX, nY))
@@ -1664,7 +1664,7 @@ int CSimulation::nFindShadowZoneBoundaryLine(int const nCoast, int const nStartP
             // Store this coordinate
             pILShadowBoundary->Append(nX, nY);
 
-            LogStream << m_ulIter << ":  append to shadow boundary [" << nX << "][" << nY << "] = {" << dX << ", " << dY << "}" << endl;
+            // LogStream << m_ulIter << ":  append to shadow boundary [" << nX << "][" << nY << "] = {" << dX << ", " << dY << "}" << endl;
 
             dX += dXInc;
             dY += dYInc;

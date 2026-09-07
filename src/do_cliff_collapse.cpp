@@ -89,8 +89,8 @@ int CSimulation::nDoAllWaveEnergyToCoastLandforms(void)
          double const dWaveEnergy = m_VCoast[nCoast].dGetWaveEnergyAtBreaking(nCoastPoint) * dInvTalusProtection;
          if (bFPIsEqual(dWaveEnergy, 0.0, TOLERANCE))
          {
-            if (m_nLogFileDetail >= LOG_FILE_ALL)
-               LogStream << m_ulIter << ":\t cell[" << nX << "][" << nY << "] on-shore waves, but energy at breaking is zero" << endl;
+            // if (m_nLogFileDetail >= LOG_FILE_ALL)
+            //    LogStream << m_ulIter << ":\t cell[" << nX << "][" << nY << "] on-shore waves, but energy at breaking is zero" << endl;
 
             continue;
          }
@@ -793,8 +793,8 @@ int CSimulation::nMoveCliffTalusToUnconsolidatedOrSuspension(void)
             if (dWaveElev < dThisTalusBottomElev)
             {
                // No talus moved
-               if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
-                  LogStream << m_ulIter << ":\t no talus moved from [" << nX << "][" << nY << "] since waves do not reach talus base: dWaveElev = " << dWaveElev << " dThisTalusBottomElev = " << dThisTalusBottomElev << endl;
+               // if (m_nLogFileDetail >= LOG_FILE_HIGH_DETAIL)
+               //    LogStream << m_ulIter << ":\t no talus moved from [" << nX << "][" << nY << "] since waves do not reach talus base: dWaveElev = " << dWaveElev << " dThisTalusBottomElev = " << dThisTalusBottomElev << endl;
 
                continue;
             }
