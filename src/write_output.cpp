@@ -678,6 +678,7 @@ void CSimulation::WriteStartRunDetails(void)
       OutStream << "Barrier formation?                                         \t: " << (m_bWaveUprush ? "Y" : "N") << endl;
 
    OutStream << "For shadow zones, follow wave direction or straight line?  \t: " << (m_bShadowFollowWaveDirection ? "follow" : "line") << endl;
+   OutStream << "Continue if hit basemen                                    \t  " << (m_bContinueIfHitBasement ? "follow" : "line") << endl;
 
    OutStream << endl;
 

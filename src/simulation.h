@@ -478,6 +478,9 @@ class CSimulation
    //! For shadow zones, follow wave direction?
    bool m_bShadowFollowWaveDirection;
 
+   //! Continue if hit basement?
+   bool m_bContinueIfHitBasement;
+
    //! Options for GDAL when handling raster files
    char** m_papszGDALRasterOptions;
 

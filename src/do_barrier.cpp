@@ -225,7 +225,11 @@ int CSimulation::nUpRushMoveUnconsLandward(CGeom2DIPoint const* pPtiFrom, CGeom2
    if (nTopLayer == NO_NONZERO_THICKNESS_LAYERS)
    {
       LogStream << "Down to basement" << endl;
-      return RTN_ERR_BASEMENT_DURING_BARRIER_CREATION;
+
+      if (m_bContinueIfHitBasement)
+         return RTN_OK;
+      else
+         return RTN_ERR_BASEMENT_DURING_BARRIER_CREATION;
    }
 
    double dSandThis;

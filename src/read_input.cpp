@@ -836,6 +836,7 @@ bool CSimulation::bReadRunDataFile(void)
                   m_bUpRushSandSave = true;
                   m_bUpRushCoarseSave = true;
                   m_bShadowFollowWaveDirection = false;
+                  m_bContinueIfHitBasement = true;
                }
                else if (strRH.find(RASTER_USUAL_OUTPUT_CODE) != string::npos)
                {
@@ -3220,6 +3221,15 @@ bool CSimulation::bReadRunDataFile(void)
 
             break;
 
+         case 90:
+            // Continue if hit basement?
+            m_bContinueIfHitBasement = true;
+
+            if (strRH.find('n') != string::npos)
+               m_bContinueIfHitBasement = false;
+
+            break;
+
          }
 
          // Did an error occur?
@@ -4834,6 +4844,7 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
       m_bUpRushSandSave = false;
       m_bUpRushCoarseSave = false;
       m_bShadowFollowWaveDirection = false;
+      m_bContinueIfHitBasement = false;
 
       // Set flags based on raster file codes (Case 11 implementation)
       for (string const &rasterCode : rasterFiles)
@@ -4946,6 +4957,8 @@ void CSimulation::ApplyConfiguration(CConfiguration const& config)
             m_bUpRushCoarseSave = true;
          else if (code == "shadow_follow")
             m_bShadowFollowWaveDirection= false;
+         else if (code == "hitbasement_continue")
+            m_bContinueIfHitBasement = false;
       }
    }
 

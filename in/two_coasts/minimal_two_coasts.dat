@@ -159,6 +159,7 @@ Output erosion potential look-up values                                         
 
 Slumping?                                                                                    : n
 For shadow zones, follow wave direction or use straight line?         [f = follow, l = line] : l
+Continue if hit basement?                                                                    : y
 
 ; END OF FILE ----------------------------------------------------------------------------------------------------------
 

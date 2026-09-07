@@ -1697,8 +1697,10 @@ int CSimulation::nGetThisProfileElevationsForCShore(int const nCoast, CGeomProfi
          // Down to basement
          LogStream << ERR << "down to basement during wave calcs at [" << nX << "][" << nY << "] for coast " << pProfile->nGetCoastID() << " profile " << pProfile->nGetProfileID() << endl;
 
-         return RTN_ERR_BASEMENT_DURING_WAVE_CALC;
-         // return RTN_OK;
+         if (m_bContinueIfHitBasement)
+            return RTN_OK;
+         else
+            return RTN_ERR_BASEMENT_DURING_WAVE_CALC;
       }
 
       // Get the elevation for both consolidated and unconsolidated sediment (including any talus) on this cell
