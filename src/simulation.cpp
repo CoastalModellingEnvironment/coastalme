@@ -49,6 +49,7 @@ using std::filesystem::exists;
 using std::filesystem::create_directories;
 
 #include <gdal.h>
+#include <cpl_string.h>
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -457,6 +458,10 @@ CSimulation::CSimulation(void)
 //===============================================================================================================================
 CSimulation::~CSimulation(void)
 {
+   // Free the GDAL creation option lists (CSLDestroy is safe on NULL)
+   CSLDestroy(m_papszGDALRasterOptions);
+   CSLDestroy(m_papszGDALVectorOptions);
+
    // Close output files if open
    if (LogStream && LogStream.is_open())
    {
