@@ -675,13 +675,13 @@ CGeomLine CSimulation::LSmoothCoastRunningMedian(CGeomLine* pLineIn) const
    RunningMedian rmX;
    RunningMedian rmY;
 
-   // Note that m_nProfileSmoothingWindowSize must be odd (have already checked this)
-   rmX.pVdBuffer = new double[m_nProfileSmoothingWindowSize];
-   rmX.nSize = m_nProfileSmoothingWindowSize;
+   // Note that m_nCoastSmoothingWindowSize must be odd (have already checked this)
+   rmX.pVdBuffer = new double[m_nCoastSmoothingWindowSize];
+   rmX.nSize = m_nCoastSmoothingWindowSize;
    rmX.nHead = 0;
    rmX.nCount = 0;
-   rmY.pVdBuffer = new double[m_nProfileSmoothingWindowSize];
-   rmY.nSize = m_nProfileSmoothingWindowSize;
+   rmY.pVdBuffer = new double[m_nCoastSmoothingWindowSize];
+   rmY.nSize = m_nCoastSmoothingWindowSize;
    rmY.nHead = 0;
    rmY.nCount = 0;
 
